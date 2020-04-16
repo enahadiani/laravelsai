@@ -38,7 +38,7 @@ class FSController extends Controller
             $data = json_decode($response_data,true);
             $data = $data["success"]["data"];
         }
-        return response()->json(['data' => $data], 200); 
+        return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
 
     /**

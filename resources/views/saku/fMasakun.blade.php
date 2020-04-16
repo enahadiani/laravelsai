@@ -265,19 +265,19 @@
         });
     }
 
-    // getCurr();
-    // getModul();
+    getCurr();
+    getModul();
 
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
 
     var dataTable = $('#table-data').DataTable({
         'ajax': {
-            'url': "{{ url('saku/masakunAll') }}",
+            'url': "{{ url('saku/masakun') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
@@ -295,7 +295,7 @@
     function getFlag(param){
         $.ajax({
             type: 'GET',
-            url: "{{ url('saku/flag') }}",
+            url: "{{ url('saku/flag_akun') }}",
             dataType: 'json',
             async:false,
             success:function(result){    

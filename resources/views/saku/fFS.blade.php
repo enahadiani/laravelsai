@@ -236,12 +236,12 @@
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
         ajax: {
-            url: "{{ url('saku/fsAll') }}" ,
+            url: "{{ url('saku/fs') }}" ,
             data: {},
             async:false,
             type: 'GET',
             dataSrc : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         columnDefs: [

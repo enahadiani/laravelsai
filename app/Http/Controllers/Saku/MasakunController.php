@@ -38,8 +38,117 @@ class MasakunController extends Controller
             $data = json_decode($response_data,true);
             $data = $data["success"]["data"];
         }
-        return response()->json(['data' => $data], 200); 
+        return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
+
+    public function getCurrency(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'currency',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
+    public function getModul(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'modul',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
+    public function getFlagAkun(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'flag_akun',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
+    public function getNeraca($kode_fs){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'neraca/'.$kode_fs,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
+    public function getFSGar(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'fsgar',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
+    public function getNeracaGar($kode_fs){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'neracagar/'.$kode_fs,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
+
 
     /**
      * Store a newly created resource in storage.
