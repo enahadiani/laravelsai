@@ -480,7 +480,8 @@
             dataType: 'json',
             async:false,
             data: {'kode_akun':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data; 
                 if(result.status){
                     $('#id').val('edit');
                     $('#kode_akun').val(id);
@@ -598,11 +599,7 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var total = $('#total').val();
-        if(total == 0){
-            alert('Total pengajuan tidak boleh 0');
-        }else{
-            // tambah
+      
             $iconLoad.show();
             console.log('parameter:tambah');
             var formData = new FormData(this);
@@ -620,31 +617,31 @@
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    if(result.status){
+                    if(result.data.status){
                         dataTable.ajax.reload();
                         Swal.fire(
                             'Great Job!',
-                            'Your data has been saved.'+result.message,
+                            'Your data has been saved.'+result.data.message,
                             'success'
                         )
                         $('#saku-data').show();
                         $('#saku-form').hide();
-                        $iconLoad.hide();
                         
                     }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
+                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
             });   
-        }     
+           
     });
 
     $('#saku-data').on('click','#btn-delete',function(e){
@@ -665,9 +662,8 @@
                     url: "{{ url('saku/masakun') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'kode_akun':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -679,7 +675,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
