@@ -23,7 +23,7 @@ class FSController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fs(){
+    public function index(){
         $client = new Client();
         $response = $client->request('GET', $this->link.'fs',[
             'headers' => [
@@ -137,7 +137,7 @@ class FSController extends Controller
 
         $client = new Client();
 
-        $response = $client->request('PUT', $this->link.'fs',[
+        $response = $client->request('PUT', $this->link.'fs/'.$id,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
