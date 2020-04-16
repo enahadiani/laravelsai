@@ -479,25 +479,26 @@
             url: "{{ url('saku/masakun') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_akun':id,'kode_lokasi':kode_lokasi},
             success:function(res){
                 var result = res.data; 
                 if(result.status){
                     $('#id').val('edit');
                     $('#kode_akun').val(id);
-                    $('#nama').val(result.daftar[0].nama);
-                    $('#curr')[0].selectize.setValue(result.daftar[0].curr);
-                    $('#modul')[0].selectize.setValue(result.daftar[0].modul);
-                    $('#jenis')[0].selectize.setValue(result.daftar[0].jenis);
-                    $('#block')[0].selectize.setValue(result.daftar[0].block);
-                    $('#gar')[0].selectize.setValue(result.daftar[0].status_gar);
-                    $('#normal')[0].selectize.setValue(result.daftar[0].normal);
+                    $('#nama').val(result.data[0].nama);
+                    $('#curr')[0].selectize.setValue(result.data[0].kode_curr);
+                    $('#modul')[0].selectize.setValue(result.data[0].modul);
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#block')[0].selectize.setValue(result.data[0].block);
+                    $('#gar')[0].selectize.setValue(result.data[0].status_gar);
+                    $('#normal')[0].selectize.setValue(result.data[0].normal);
+                    console.log(result.data[0].kode_curr);
+                    console.log(result.data[0].status_gar);
                     var input="";
                     var no=1;
-                    if(result.daftar2.length > 0){
+                    if(result.detail_relasi.length > 0){
 
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                        for(var x=0;x<result.detail_relasi.length;x++){
+                            var line = result.detail_relasi[x];
                             input += "<tr class='row-flag'>";
                             input += "<td width='5%' class='no-flag'>"+no+"</td>";
                             input += "<td width='60%'><select name='kode_flag[]' class='form-control inp-flag flagke"+no+"' value='' required></select></td>";
@@ -509,10 +510,10 @@
 
                     var input2 = "";
                     var no=1;
-                    if(result.daftar3.length > 0){
+                    if(result.detail_keuangan.length > 0){
 
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line2 = result.daftar3[i];
+                        for(var i=0;i< result.detail_keuangan.length;i++){
+                            var line2 = result.detail_keuangan[i];
                             input2 += "<tr class='row-keu'>";
                             input2 += "<td width='5%' class='no-keu'>"+no+"</td>";
                             input2 += "<td width='40%'><select name='kode_fs[]' class='form-control inp-fs fske"+no+"' value='' required></select></td>";
@@ -525,10 +526,10 @@
 
                     var input3 = "";
                     var no=1;
-                    if(result.daftar4.length > 0){
+                    if(result.detail_anggaran.length > 0){
 
-                        for(var i=0;i< result.daftar4.length;i++){
-                            var line3 = result.daftar4[i];
+                        for(var i=0;i< result.detail_anggaran.length;i++){
+                            var line3 = result.detail_anggaran[i];
                             input3 += "<tr class='row-agg'>";
                             input3 += "<td width='5%' class='no-agg'>"+no+"</td>";
                             input3 += "<td width='40%'><select name='kode_fsgar[]' class='form-control inp-fsgar fsgarke"+no+"' value='' required></select></td>";
@@ -545,10 +546,10 @@
 
                     var input="";
                     var no=1;
-                    if(result.daftar2.length > 0){
+                    if(result.detail_relasi.length > 0){
 
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                        for(var x=0;x<result.detail_relasi.length;x++){
+                            var line = result.detail_relasi[x];
                             
                             getFlag('flagke'+no);
                             $('.flagke'+no)[0].selectize.setValue(line.kode_flag);
@@ -558,10 +559,10 @@
 
                     var input2 = "";
                     var no=1;
-                    if(result.daftar3.length > 0){
+                    if(result.detail_keuangan.length > 0){
 
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line2 = result.daftar3[i];
+                        for(var i=0;i< result.detail_keuangan.length;i++){
+                            var line2 = result.detail_keuangan[i];
                                
                             getFS('fske'+no,'nrcke'+no);
                             $('.fske'+no)[0].selectize.setValue(line2.kode_fs);
@@ -572,10 +573,10 @@
 
                     var input3 = "";
                     var no=1;
-                    if(result.daftar4.length > 0){
+                    if(result.detail_anggaran.length > 0){
 
-                        for(var i=0;i< result.daftar4.length;i++){
-                            var line3 = result.daftar4[i];
+                        for(var i=0;i< result.detail_anggaran.length;i++){
+                            var line3 = result.detail_anggaran[i];
                             getFSGar('fsgarke'+no,'nrcgarke'+no);
                             $('.fsgarke'+no)[0].selectize.setValue(line3.kode_fs);
                             $('.nrcgarke'+no)[0].selectize.setValue(line3.kode_neraca);
