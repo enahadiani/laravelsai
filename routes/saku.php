@@ -44,4 +44,12 @@ Route::get('/neraca/{kode_fs}','Saku\MasakunController@getNeraca');
 Route::get('/fsgar','Saku\MasakunController@getFSGar');
 Route::get('/neracagar/{kode_fs}','Saku\MasakunController@getNeracaGar');
 
+Route::get('/jurnal', 'Saku\JurnalController@index');
+Route::post('/jurnal', 'Saku\JurnalController@store');
+Route::get('/jurnal/{id}', 'Saku\JurnalController@show');
+Route::put('/jurnal/{id}','Saku\JurnalController@update');
+Route::delete('/jurnal/{id}','Saku\JurnalController@destroy');
+Route::get('/pp', 'Saku\JurnalController@getPP');
+Route::get('/akun', 'Saku\JurnalController@getAkun');
+
 
