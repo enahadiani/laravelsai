@@ -32,15 +32,16 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
-                    <div class="card-body pb-0">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Masakun
-                        <button type="button" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        </h4>
-                        <hr>
-                    </div>
-                    <div class="card-body table-responsive pt-0" style='height:450px'>
-                        <form class="form mb-5" id="form-tambah" >
+                    <form class="form mb-5" id="form-tambah" >
+                        <div class="card-body pb-0">
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Masakun
+                            <button type="button" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:450px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -187,8 +188,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -422,9 +423,13 @@
     $('#saku-data').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
+        $('#method').val('post');
         $('#saku-data').hide();
         $('#saku-form').show();
         $('#form-tambah')[0].reset();
+        $('#input-flag tbody').html('');
+        $('#input-keu tbody').html('');
+        $('#input-agg tbody').html('');
     });
 
     $('#form-tambah').on('click', '#add-row-flag', function(){
@@ -473,7 +478,7 @@
 
     $('#saku-data').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-       
+        $iconLoad.show();
         $.ajax({
             type: 'GET',
             url: "{{ url('saku/masakun') }}/"+id,
@@ -483,6 +488,7 @@
                 var result = res.data; 
                 if(result.status){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#kode_akun').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#curr')[0].selectize.setValue(result.data[0].kode_curr);
@@ -587,6 +593,7 @@
                     $('#saku-data').hide();
                     $('#saku-form').show();
                 }
+                $iconLoad.hide();
             }
         });
     });
@@ -600,48 +607,54 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
+        var kode = $('#kode_akun').val();
+        if(parameter == "edit"){
+            var url = "{{ url('saku/masakun') }}/"+kode;
+        }else{
+            var url = "{{ url('saku/masakun') }}";
+        }
       
-            $iconLoad.show();
-            console.log('parameter:tambah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
+        $iconLoad.show();
+        console.log('parameter:tambah');
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('saku/masakun') }}",
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.data.status){
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved.'+result.data.message,
-                            'success'
-                        )
-                        $('#saku-data').show();
-                        $('#saku-form').hide();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been saved.'+result.data.message,
+                        'success'
+                        );
+                    $('#saku-data').show();
+                    $('#saku-form').hide();
                         
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                    }
-                    $iconLoad.hide();
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
                 }
-            });   
+                $iconLoad.hide();
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });   
            
     });
 
