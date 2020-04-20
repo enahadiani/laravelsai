@@ -43,6 +43,9 @@
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
+    
+
+    <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
 
     <!-- Tagify -->
     <link rel="stylesheet" href="{{ asset('asset_elite/tagify/dist/tagify.css') }}">

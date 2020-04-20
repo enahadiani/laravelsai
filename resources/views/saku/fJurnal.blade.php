@@ -1,7 +1,7 @@
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="height:560px !important">
                     <div class="card-body">
                         <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Jurnal 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
@@ -39,7 +39,7 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style="height:560px !important">
                     <form class="form" id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Data Jurnal
@@ -48,7 +48,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:441px'>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
                         <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
@@ -105,8 +105,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-xs-12' style='overflow-y: scroll; height:250px; margin:0px; padding:0px;'>
-                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-jurnal" width="100%">
+                            <div class='col-xs-12' style='overflow-y: scroll; max-height:250px; margin:0px; padding:0px;'>
+                                <table class="table table-striped table-bordered table-condensed gridexample color-table primary-table" id="input-jurnal" width="100%">
                                 <style>
                                     th{
                                         vertical-align:middle !important;
@@ -120,13 +120,14 @@
                                         <th width="25%">Keterangan</th>
                                         <th width="20%">Nilai</th>
                                         <th width="20">Kode PP</th>
-                                        <th  width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                        <th  width="5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 </table>
                             </div>
+                            <button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Data</button>
                         </div>
                     </form>
                 </div>
