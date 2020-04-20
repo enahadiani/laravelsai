@@ -138,9 +138,10 @@ function toNilai(str_num){
     var parts = str_num.split('.');
     number = parts.join('');
     number = number.replace('Rp', '');
-    // number = number.replace(',', '.');
+    number = number.replace(',', '.');
     return +number;
 }
+
 
 function terbilang(int){
     angka = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"];
