@@ -219,6 +219,8 @@
         $('#input-jurnal tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('#form-tambah #add-row').click();
+        $('#form-tambah #add-row').click();
     });
 
     function hitungTotal(){
