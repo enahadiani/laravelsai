@@ -130,7 +130,7 @@ class JurnalController extends Controller
             $kode_akun = $request->kode_akun;
             $keterangan = $request->keterangan;
             $dc = $request->dc;
-            $nilai = $this->joinNum($request->total_debet);
+            $nilai = $request->nilai;
             $kode_pp = $request->kode_pp;
             for($i=0;$i<count($kode_akun);$i++){
                 $detail[] = array(
@@ -150,8 +150,8 @@ class JurnalController extends Controller
                 'tanggal' => $request->tanggal,
                 'jenis' => $request->jenis,
                 'deskripsi' => $request->deskripsi,
-                'total_debet' => $request->total_debet,
-                'total_kredit' => $request->total_kredit,
+                'total_debet' => $this->joinNum($request->total_debet),
+                'total_kredit' => $this->joinNum($request->total_kredit),
                 'nik_periksa' => $request->nik_periksa,
                 'detail' => $detail
               );
@@ -169,7 +169,7 @@ class JurnalController extends Controller
             $response_data = $response->getBody()->getContents();
             
             $data = json_decode($response_data,true);
-            return response()->json(["data" =>$data["success"],"fields"=>$fields], 200);  
+            return response()->json(["data" =>$data["success"]], 200);  
         }
     }
 
@@ -235,7 +235,7 @@ class JurnalController extends Controller
         ]);
         
         $detail = array();
-        if(isset($request->kode_fs)){
+        if(isset($request->kode_akun)){
             $kode_akun = $request->kode_akun;
             $keterangan = $request->keterangan;
             $dc = $request->dc;
@@ -246,27 +246,28 @@ class JurnalController extends Controller
                     'kode_akun' => $kode_akun[$i],
                     'keterangan' => $keterangan[$i],
                     'dc' => $dc[$i],
-                    'nilai' => $nilai[$i],
+                    'nilai' => $this->joinNum($nilai[$i]),
                     'kode_pp' => $kode_pp[$i]
                 );
             }
         }
 
 
-        $fields['akun'][0] =
+        $fields['jurnal'][0] =
               array (
+                'no_bukti' => $request->no_bukti,
                 'no_dokumen' => $request->no_dokumen,
                 'tanggal' => $request->tanggal,
                 'jenis' => $request->jenis,
                 'deskripsi' => $request->deskripsi,
-                'total_debet' => $request->total_debet,
-                'total_kredit' => $request->total_kredit,
+                'total_debet' => $this->joinNum($request->total_debet),
+                'total_kredit' => $this->joinNum($request->total_kredit),
                 'nik_periksa' => $request->nik_periksa,
                 'detail' => $detail
               );
 
         $client = new Client();
-        $response = $client->request('PUT', $this->link.'jurnal/'.$no_bukti,[
+        $response = $client->request('PUT', $this->link.'jurnal',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Content-Type'     => 'application/json'

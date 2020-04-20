@@ -399,6 +399,7 @@
                     $('#no_bukti').attr('readonly', true);
                     $('#tanggal').val(result.jurnal[0].tanggal);
                     $('#deskripsi').val(result.jurnal[0].deskripsi);
+                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
                     $('#no_dokumen').val(result.jurnal[0].no_dokumen);
                     $('#total_debet').val(result.jurnal[0].nilai1);
                     $('#total_kredit').val(result.jurnal[0].nilai1);
