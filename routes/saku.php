@@ -54,3 +54,4 @@ Route::get('/akun', 'Saku\JurnalController@getAkun');
 Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 
 
+
