@@ -351,6 +351,7 @@
             var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
             $(this).val(selisih);
             // $('#inp-nilai').focus();
+            hitungTotal();
         }else{
             alert('Posisi tidak valid, harap pilih posisi akun');
             $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
