@@ -23,6 +23,13 @@ class JurnalController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function joinNum($num){
+        // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+        $num = str_replace(".", "", $num);
+        $num = str_replace(",", ".", $num);
+        return $num;
+    }
+
     public function index(){
         $client = new Client();
         $response = $client->request('GET', $this->link.'jurnal',[
@@ -76,6 +83,24 @@ class JurnalController extends Controller
         }
         return response()->json(['daftar' => $data , 'status'=>true], 200); 
     }
+
+    public function getNIKPeriksa(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'nikperiksa',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"]["data"];
+        }
+        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+    }
     
     /**
      * Store a newly created resource in storage.
@@ -101,25 +126,25 @@ class JurnalController extends Controller
         ]);
         
         $detail = array();
-        if(isset($request->kode_fs)){
+        if(isset($request->kode_akun)){
             $kode_akun = $request->kode_akun;
             $keterangan = $request->keterangan;
             $dc = $request->dc;
-            $nilai = $request->nilai;
+            $nilai = $this->joinNum($request->total_debet);
             $kode_pp = $request->kode_pp;
             for($i=0;$i<count($kode_akun);$i++){
                 $detail[] = array(
                     'kode_akun' => $kode_akun[$i],
                     'keterangan' => $keterangan[$i],
                     'dc' => $dc[$i],
-                    'nilai' => $nilai[$i],
+                    'nilai' => $this->joinNum($nilai[$i]),
                     'kode_pp' => $kode_pp[$i]
                 );
             }
         }
 
 
-        $fields['akun'][0] =
+        $fields['jurnal'][0] =
               array (
                 'no_dokumen' => $request->no_dokumen,
                 'tanggal' => $request->tanggal,
@@ -144,7 +169,7 @@ class JurnalController extends Controller
             $response_data = $response->getBody()->getContents();
             
             $data = json_decode($response_data,true);
-            return response()->json(["data" =>$data["success"]], 200);  
+            return response()->json(["data" =>$data["success"],"fields"=>$fields], 200);  
         }
     }
 

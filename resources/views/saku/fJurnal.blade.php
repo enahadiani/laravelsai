@@ -82,7 +82,7 @@
                                 </div>
                                 <label for="total_debet" class="col-2 col-form-label">Total Debet</label>
                                 <div class="col-3">
-                                    <input class="form-control currency" type="text" placeholder="Total Debet" id="total_debet" name="total_debet" value="0">
+                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total_debet" value="0">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -94,7 +94,15 @@
                                 </div>
                                 <label for="total_kredit" class="col-2 col-form-label">Total Kredit</label>
                                 <div class="col-3">
-                                    <input class="form-control currency" type="text" placeholder="Total Kredit" id="total_kredit" name="total_kredit" value="0">
+                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nik_periksa" class="col-2 col-form-label">NIK Periksa</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="nik_periksa" name="nik_periksa">
+                                    <option value=''>--- Pilih NIK Periksa ---</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class='col-xs-12' style='overflow-y: scroll; height:250px; margin:0px; padding:0px;'>
@@ -126,6 +134,7 @@
         </div>
     </div>         
     <script>
+    var $iconLoad = $('.preloader');
     function getPP(param){
         $.ajax({
             type: 'GET',
@@ -147,6 +156,27 @@
         });
     }
 
+    function getNIKPeriksa(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/saku/nikperiksa') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var select = $('#nik_periksa').selectize();
+                        select = select[0];
+                        var control = select.selectize;
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nik + ' - ' + result.daftar[i].nama, value:result.daftar[i].nik}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function getAkun(param,param2){
         $.ajax({
             type: 'GET',
@@ -160,7 +190,7 @@
                             selectOnTab: true,
                             onChange: function (val){
                                 var id = val;
-                                getDC(id,param2);
+                                // getDC(id,param2);
                             }
                         });
 
@@ -175,6 +205,8 @@
             }
         });
     }
+
+    getNIKPeriksa();
     $('.gridexample').formNavigation();
     $('.selectize').selectize();
 
@@ -352,29 +384,30 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        
+        $iconLoad.show();
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/jurnal') }}/"+id,
             dataType: 'json',
             async:false,
-            success:function(result){
+            success:function(res){
+                var result= res.data;
                 if(result.status){
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(result.daftar[0].tanggal);
-                    $('#deskripsi').val(result.daftar[0].deskripsi);
-                    $('#no_dokumen').val(result.daftar[0].no_dokumen);
-                    $('#total_debet').val(result.daftar[0].nilai1);
-                    $('#total_kredit').val(result.daftar[0].nilai1);
-                    $('#jenis').val(result.daftar[0].jenis);
-                    if(result.daftar2.length > 0){
+                    $('#tanggal').val(result.jurnal[0].tanggal);
+                    $('#deskripsi').val(result.jurnal[0].deskripsi);
+                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
+                    $('#total_debet').val(result.jurnal[0].nilai1);
+                    $('#total_kredit').val(result.jurnal[0].nilai1);
+                    $('#jenis').val(result.jurnal[0].jenis);
+                    if(result.detail.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.daftar2.length;i++){
-                            var line =result.daftar2[i];
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
                             input += "<td width='20%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
@@ -398,8 +431,8 @@
                         });
                         $('.gridexample').formNavigation();
                         var no=1;
-                        for(var i=0;i<result.daftar2.length;i++){
-                            var line =result.daftar2[i];
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
                             getAkun('akunke'+no,'dcke'+no);
                             getPP('ppke'+no);
                             $('.dcke'+no).selectize();
@@ -414,6 +447,7 @@
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
+                $iconLoad.hide();
             }
         });
     });
@@ -471,7 +505,7 @@
                     dataType: 'json',
                     async:false,
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -483,7 +517,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -507,6 +541,7 @@
 
         var param = $('#id').val();
         var id = $('#no_bukti').val();
+        $iconLoad.show();
         if(param == "edit"){
             var url = "{{ url('/saku/jurnal') }}/"+id;
         }else{
@@ -532,7 +567,7 @@
                 processData: false, 
                 success:function(result){
                     // alert('Input data '+result.message);
-                    if(result.status){
+                    if(result.data.status){
                         // location.reload();
                         dataTable.ajax.reload();
                         Swal.fire(
@@ -548,15 +583,18 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
+                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
             });
         }
+        
+        $iconLoad.hide();
         
     });
 

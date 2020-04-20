@@ -51,5 +51,6 @@ Route::put('/jurnal/{id}','Saku\JurnalController@update');
 Route::delete('/jurnal/{id}','Saku\JurnalController@destroy');
 Route::get('/pp', 'Saku\JurnalController@getPP');
 Route::get('/akun', 'Saku\JurnalController@getAkun');
+Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 
 
