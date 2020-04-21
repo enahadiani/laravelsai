@@ -26,11 +26,6 @@
                                 <div class="col-3">
                                     <input class='form-control' type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
                                 </div>
-                                <div class="col-2">
-                                </div>
-                                <div class="col-3" style="display:none">
-                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
-                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="deskripsi" class="col-2 col-form-label">Deskripsi</label>
@@ -98,6 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="error" role="tabpanel">
+                                    <p id='error_space'></p>
                                 </div>
                             </div>
                         </div>
@@ -179,17 +175,7 @@
             "searchable": false,
             "orderable": false,
             "targets": 0
-        },
-        // {'targets': 1,
-        //     createdCell: function (td, cellData, rowData, row, col) {
-        //         if ( cellData === 'POSTING' ) {
-        //             $(td).css('color', 'blue');
-        //         }else{
-        //             $(td).css('color', 'red');
-        //         }
-        //     } 
-        // }
-         ],
+        }],
         "order": [[ 2, 'asc' ]]
     });
     
@@ -198,6 +184,10 @@
             cell.innerHTML = i+1;
         } );
     }).draw();
+
+    function activaTab(tab){
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+    }
 
     $('#form-tambah').on('click', '#loadData', function(){
         var data = t.data();
@@ -226,12 +216,20 @@
                     tablejur.clear().draw();
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         tablejur.rows.add(result.data.data).draw(false);
+                        activaTab("trans");
                     }
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             }
+        });
+    });
+
+    $('#form-tambah').on('click', '#postAll', function(){
+        tablejur.rows().every(function (index, element) {
+            var row = tablejur.cell(index,1);
+            row.data('POSTING').draw();
         });
     });
 
@@ -249,146 +247,93 @@
         // alert('tes');
     });
 
-    function hitungTotal(){
-        
-        var total_d = 0;
-        var total_k = 0;
-
-        $('.row-jurnal').each(function(){
-            var dc = $(this).closest('tr').find('.inp-dc option:selected').val();
-            var nilai = $(this).closest('tr').find('.inp-nilai').val();
-            if(dc == "D"){
-                total_d += +toNilai(nilai);
-            }else{
-                total_k += +toNilai(nilai);
-            }
-        });
-
-        $('#total_debet').val(total_d);
-        $('#total_kredit').val(total_k);
-        
-    }
-
-    $('#form-tambah').on('click', '#add-row', function(){
-        var no=$('#input-jurnal .row-jurnal:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='20%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
-        input += "<td width='10%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td width='20%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
-        input += "<td width='17%'><input type='text' name='nilai[]' class='form-control inp-nilai'  value='' required></td>";
-        input += "<td width='20%'><select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required></select></td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-        input += "</tr>";
-        $('#input-jurnal tbody').append(input);
-        getAkun('akunke'+no,'dcke'+no);
-        getPP('ppke'+no);
-        $('.dcke'+no).selectize();
-        $('.inp-nilai').inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('.gridexample').formNavigation();
-        $('#input-jurnal tbody tr:last').find('.inp-kode')[0].selectize.focus();
-    });
-
-    $('.currency').inputmask("numeric", {
-        radixPoint: ",",
-        groupSeparator: ".",
-        digits: 2,
-        autoGroup: true,
-        rightAlign: true,
-        oncleared: function () { self.Value(''); }
-    });
-
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        // var total_d = $('#total_debet').val();
-        // var total_k = $('#total_kredit').val();
-        // var jumdet = $('#input-jurnal tr').length;
+        var data = tablejur.data();
 
-        // var param = $('#id').val();
-        // var id = $('#no_bukti').val();
-        // $iconLoad.show();
-        // if(param == "edit"){
-        //     var url = "{{ url('/saku/jurnal') }}/"+id;
-        // }else{
-        //     var url = "{{ url('/saku/jurnal') }}";
-        // }
+        var tempData = []; 
+        var i=0;
+        var isAda = false
 
-        // if(total_d != total_k){
-        //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-        // }else if( total_d <= 0 || total_k <= 0){
-        //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-        // }else if(jumdet <= 1){
-        //     alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
-        // }else{
+        $.each( data, function( key, value ) {
+            formData.append('status[]',value.status);
+            formData.append('no_bukti[]',value.no_bukti);
+            formData.append('form[]',value.form);
+            if(value.status == "POSTING"){
+                isAda = true;
+            }
+        });
+        
 
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: url,
-        //         dataType: 'json',
-        //         data: formData,
-        //         async:false,
-        //         contentType: false,
-        //         cache: false,
-        //         processData: false, 
-        //         success:function(result){
-        //             // alert('Input data '+result.message);
-        //             if(result.data.status){
-        //                 // location.reload();
-        //                 dataTable.ajax.reload();
-        //                 Swal.fire(
-        //                     'Great Job!',
-        //                     'Your data has been saved',
-        //                     'success'
-        //                     )
-        //                     $('#saku-datatable').show();
-        //                     $('#saku-form').hide();
+        if(data.length <= 0 || !isAda){
+            alert("Transaksi tidak valid. Tidak ada transaksi dengan status POSTING.");
+            return false;
+        }else{
+
+            $iconLoad.show();
+            
+            var url = "{{ url('/saku/posting') }}";
+        
+            $.ajax({
+                type: 'POST',
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    // alert('Input data '+result.message);
+                    if(result.data.status){
+                        // location.reload();
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Great Job!',
+                            'Your data has been saved',
+                            'success'
+                            )
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
                             
-        //             }else{
-        //                 Swal.fire({
-        //                     icon: 'error',
-        //                     title: 'Oops...',
-        //                     text: 'Something went wrong!',
-        //                     footer: '<a href>'+result.data.message+'</a>'
-        //                 })
-        //             }
-        //             $iconLoad.hide();
-        //         },
-        //         fail: function(xhr, textStatus, errorThrown){
-        //             alert('request failed:'+textStatus);
-        //         }
-        //     });
-        // }
-        
-        // $iconLoad.hide();
-        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: result.data.message
+                        })
+                        $('#error_space').text(result.data.message);
+                        activaTab("error");
+                    }
+                    $iconLoad.hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            $iconLoad.hide();        
+        }
+                
     });
 
-    $('#kode_pp,#nama,#initial,#kode_bidang,#kode_ba,#kode_pc,#kota,#flag_aktif ').keydown(function(e){
+    $('#tanggal,#deskripsi').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_pp','nama','initial','kode_bidang','kode_ba','kode_pc','kota','flag_aktif'];
+        var nxt = ['tanggal','deskripsi'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 8){
-                $('#'+nxt[idx])[0].selectize.focus();
-            }else{
+            // if(idx == 8){
+            //     $('#'+nxt[idx])[0].selectize.focus();
+            // }else{
                 
                 $('#'+nxt[idx]).focus();
-            }
+            // }
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

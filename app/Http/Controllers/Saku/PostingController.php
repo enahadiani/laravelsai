@@ -68,53 +68,37 @@ class PostingController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_dokumen' => 'required',
             'tanggal' => 'required',
-            'jenis' => 'required',
             'deskripsi' => 'required',
-            'total_debet' => 'required',
-            'total_kredit' => 'required',
-            'nik_periksa' => 'required',
-            'kode_akun.*' => 'required',
-            'keterangan.*' => 'required',
-            'dc.*' => 'required',
-            'nilai.*' => 'required',
-            'kode_pp.*' => 'required'
+            'status.*' => 'required',
+            'no_bukti.*' => 'required',
+            'form.*' => 'required'
         ]);
         
         $detail = array();
-        if(isset($request->kode_akun)){
-            $kode_akun = $request->kode_akun;
-            $keterangan = $request->keterangan;
-            $dc = $request->dc;
-            $nilai = $request->nilai;
-            $kode_pp = $request->kode_pp;
-            for($i=0;$i<count($kode_akun);$i++){
+        if(isset($request->no_bukti)){
+            $no_bukti = $request->no_bukti;
+            $status = $request->status;
+            $form = $request->form;
+            for($i=0;$i<count($no_bukti);$i++){
                 $detail[] = array(
-                    'kode_akun' => $kode_akun[$i],
-                    'keterangan' => $keterangan[$i],
-                    'dc' => $dc[$i],
-                    'nilai' => $this->joinNum($nilai[$i]),
-                    'kode_pp' => $kode_pp[$i]
+                    'status' => $status[$i],
+                    'no_bukti' => $no_bukti[$i],
+                    'form' => $form[$i]
                 );
             }
         }
 
 
-        $fields['jurnal'][0] =
+        $fields =
               array (
-                'no_dokumen' => $request->no_dokumen,
                 'tanggal' => $request->tanggal,
-                'jenis' => $request->jenis,
                 'deskripsi' => $request->deskripsi,
-                'total_debet' => $this->joinNum($request->total_debet),
-                'total_kredit' => $this->joinNum($request->total_kredit),
-                'nik_periksa' => $request->nik_periksa,
                 'detail' => $detail
               );
 
         $client = new Client();
-        $response = $client->request('POST', $this->link.'jurnal',[
+        $response = $client->request('POST', $this->link.'posting',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Content-Type'     => 'application/json'
