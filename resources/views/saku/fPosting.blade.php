@@ -1,3 +1,8 @@
+<style>
+.selected{
+    color:blue;
+}
+</style>
 <div class="container-fluid mt-3">
         <div class="row" id="saku-form">
             <div class="col-sm-12">
@@ -129,9 +134,9 @@
         {'targets': 1, data: 'TRUE', 'defaultContent': 'TRUE',
             createdCell: function (td, cellData, rowData, row, col) {
                 if ( cellData === 'TRUE' ) {
-                    $(td).css('color', 'blue');
+                    $(td).addClass('selected');
                 }else{
-                    $(td).css('color', 'red');
+                    $(td).removeClass('selected');
                 }
                 // console.log(cellData);
             } 
@@ -151,10 +156,10 @@
         var cell = t.cell( this );
         if(cell.data() == 'TRUE'){
             var isi = 'FALSE';
-            var color = 'red';
+            $(this).removeClass('selected');
         }else if(cell.data() == 'FALSE'){
             var isi = 'TRUE';
-            var color = 'blue';
+            $(this).addClass('selected');
         }
         cell.data(isi).draw();
         // alert('tes');
@@ -175,15 +180,15 @@
             "orderable": false,
             "targets": 0
         },
-        {'targets': 1,
-            createdCell: function (td, cellData, rowData, row, col) {
-                if ( cellData === 'POSTING' ) {
-                    $(td).css('color', 'blue');
-                }else{
-                    $(td).css('color', 'red');
-                }
-            } 
-        }
+        // {'targets': 1,
+        //     createdCell: function (td, cellData, rowData, row, col) {
+        //         if ( cellData === 'POSTING' ) {
+        //             $(td).css('color', 'blue');
+        //         }else{
+        //             $(td).css('color', 'red');
+        //         }
+        //     } 
+        // }
          ],
         "order": [[ 2, 'asc' ]]
     });
@@ -231,13 +236,14 @@
     });
 
     $('#table-jurnal tbody').on('click', 'td', function () {
+
         var cell = tablejur.cell( this );
         if(cell.data() == 'POSTING'){
+            $(this).removeClass('selected');
             var isi = 'INPROG';
-            var color = 'red';
         }else if(cell.data() == 'INPROG'){
+            $(this).addClass('selected');
             var isi = 'POSTING';
-            var color = 'blue';
         }
         cell.data(isi).draw();
         // alert('tes');
