@@ -55,3 +55,7 @@ Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 
 
 
+Route::get('/modultrans', 'Saku\PostingController@getModul');
+
+
+

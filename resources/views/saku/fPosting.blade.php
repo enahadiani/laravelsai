@@ -44,6 +44,7 @@
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active mt-2" id="modul" role="tabpanel">
+                                    <p style='font-size:9px;font-weight:bold'><i>* Klik status untuk merubah status</i></p>
                                     <div class='col-xs-12' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
                                         <table class="table table-striped table-bordered table-condensed gridexample color-table primary-table" id="table-modul" width="100%">
                                         <style>
@@ -101,79 +102,65 @@
     </div>         
     <script>
     var $iconLoad = $('.preloader');
-    function getPP(param){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/saku/pp') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-                        }
-                    }
-                }
+     
+    var t = $('#table-modul').DataTable({
+        'ajax': {
+            'url': "{{ url('saku/modultrans') }}",
+            'async':false,
+            'type': 'GET',
+            'dataSrc' : function(json) {
+                return json.daftar;   
             }
-        });
-    }
-
-    function getNIKPeriksa(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/saku/nikperiksa') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#nik_periksa').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].nik + ' - ' + result.daftar[i].nama, value:result.daftar[i].nik}]);
-                        }
-                    }
+        },
+        'columns': [
+            { data: 'no' },
+            { data: 'status' },
+            { data: 'modul' },
+            { data: 'keterangan' },
+            { data: 'per1' },
+            { data: 'per2' }
+        ],
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        },
+        {'targets': 1, data: 'TRUE', 'defaultContent': 'TRUE',
+            createdCell: function (td, cellData, rowData, row, col) {
+                if ( cellData === 'TRUE' ) {
+                    $(td).css('color', 'blue');
+                }else{
+                    $(td).css('color', 'red');
                 }
-            }
-        });
-    }
+                // console.log(cellData);
+            } 
+        }
+         ],
+        "order": [[ 2, 'asc' ]]
+    });
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
 
-    function getAkun(param,param2){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/saku/akun') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize({
-                            selectOnTab: true,
-                            onChange: function (val){
-                                var id = val;
-                                // getDC(id,param2);
-                            }
-                        });
 
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
-                        }
+    $('#table-modul tbody').on('click', 'td', function () {
+        var cell = t.cell( this );
+        if(cell.data() == 'TRUE'){
+            var isi = 'FALSE';
+            var color = 'red';
+        }else if(cell.data() == 'FALSE'){
+            var isi = 'TRUE';
+            var color = 'blue';
+        }
+        cell.data(isi).css('color',color).draw();
+        // alert('tes');
+    });
 
-                    }
-                }
-            }
-        });
-    }
+   
 
-    // $('.gridexample').formNavigation();
-    $('#table-modul').DataTable();
     $('#table-jurnal').DataTable();
     // $('.selectize').selectize();
 
@@ -245,259 +232,6 @@
         autoGroup: true,
         rightAlign: true,
         oncleared: function () { self.Value(''); }
-    });
-
-    $('#input-jurnal').on('click', '.hapus-item', function(){
-        $(this).closest('tr').remove();
-        no=1;
-        $('.row-jurnal').each(function(){
-            var nom = $(this).closest('tr').find('.no-jurnal');
-            nom.html(no);
-            no++;
-        });
-        hitungTotal();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-
-    $('#input-jurnal').on('change', '.inp-nilai', function(){
-        hitungTotal();
-    });
-
-    $('#input-jurnal').on('change', '.inp-dc', function(){
-        hitungTotal();
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-kode', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($.trim($(this).closest('tr').find('.inp-kode')[0].selectize.getValue()).length){
-                $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-            }else{
-                alert('Akun yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-dc', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($(this).closest('tr').find('.inp-dc')[0].selectize.getValue() == 'D' || $(this).closest('tr').find('.inp-dc')[0].selectize.getValue() == 'C'){
-                $(this).closest('tr').find('.inp-ket').focus();
-            }else{
-                alert('Posisi yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-ket', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($.trim($('.inp-ket').val()).length){
-                $(this).closest('tr').find('.inp-nilai').focus();
-            }else{
-                alert('Keterangan yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
-    $('#input-jurnal').on('focus', '.inp-ket', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        
-        if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-            $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
-        }else{
-            $(this).val('');
-        }
-    });
-
-    $('#input-jurnal').on('focus', '.inp-nilai', function(e){
-        var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
-        if(dc == 'D' || dc == 'C'){
-            var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
-            $(this).val(selisih);
-            // $('#inp-nilai').focus();
-            hitungTotal();
-        }else{
-            alert('Posisi tidak valid, harap pilih posisi akun');
-            $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-        }
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-nilai', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
-                $(this).closest('tr').find('.inp-pp')[0].selectize.focus();
-                hitungTotal();
-            }else{
-                alert('Nilai yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-pp', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($.trim($(this).closest('tr').find('.inp-pp')[0].selectize.getValue()).length){
-                $('#add-row').click();
-                hitungTotal();
-            }else{
-                alert('PP yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/saku/jurnal') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                if(result.status){
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(result.jurnal[0].tanggal);
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa')[0].selectize.setValue(result.jurnal[0].nik_periksa);
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td width='20%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
-                            input += "<td width='10%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td width='20%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+line.keterangan+"' required></td>";
-                            input += "<td width='17%'><input type='text' name='nilai[]' class='form-control inp-nilai'  value='"+line.nilai+"' required></td>";
-                            input += "<td width='20%'><select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required></select></td>";
-                            input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-                            input += "</tr>";
-                            no++;
-                        }
-                        $('#input-jurnal tbody').html(input);
-
-                        $('.inp-nilai').inputmask("numeric", {
-                            radixPoint: ",",
-                            groupSeparator: ".",
-                            digits: 2,
-                            autoGroup: true,
-                            rightAlign: true,
-                            oncleared: function () { self.Value(''); }
-                        });
-                        $('.gridexample').formNavigation();
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            getAkun('akunke'+no,'dcke'+no);
-                            getPP('ppke'+no);
-                            $('.dcke'+no).selectize();
-                            $('.akunke'+no)[0].selectize.setValue(line.kode_akun);
-                            $('.ppke'+no)[0].selectize.setValue(line.kode_pp);
-                            $('.dcke'+no)[0].selectize.setValue(line.dc);
-                            no++;
-                        }
-                    }
-                    hitungTotal();
-                    $('#row-id').show();
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                }
-                $iconLoad.hide();
-            }
-        });
-    });
-
-
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('saku/jurnal') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                return json.daftar;   
-            }
-        },
-        'columnDefs': [
-            {   'targets': 4, 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            },
-            {'targets': 5, data: null, 'defaultContent': action_html }
-            ],
-        'columns': [
-            { data: 'no_bukti' },
-            { data: 'tanggal' },
-            { data: 'no_dokumen' },
-            { data: 'keterangan' },
-            { data: 'nilai1' }
-        ],
-    });
-
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('/saku/jurnal') }}/"+kode,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else{
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
-                
-            }else{
-                return false;
-            }
-        })
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
