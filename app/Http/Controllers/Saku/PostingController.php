@@ -51,7 +51,8 @@ class PostingController extends Controller
             if(count($data) >0){
                 
                 for($i=0;$i<count($data);$i++){
-                    $data[$i]["no"] = "";
+                    $data[$i]["no"] = ""; 
+                    $data[$i]["status"] = "TRUE";
                 }
             }
         }
@@ -135,14 +136,43 @@ class PostingController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    public function show($id)
+    public function loadJurnal(Request $request)
     {
+        $this->validate($request, [
+            'modul.*' => 'required',
+            'per1.*' => 'required',
+            'per2.*' => 'required'
+        ]);
+        
+        $detail['data_modul'] = array();
+        if(isset($request->modul)){
+            $modul = $request->modul;
+            $per1 = $request->per1;
+            $per2 = $request->per2;
+            $status = $request->status;
+            for($i=0;$i<count($modul);$i++){
+                if($status[$i] == "TRUE"){
+
+                    $detail['data_modul'][] = array(
+                        'modul' => $modul[$i],
+                        'periode_awal' => $per1[$i],
+                        'periode_akhir' => $per2[$i]
+                    );
+                }
+            }
+        }
+
+
+        $fields = $detail;
+
         $client = new Client();
-        $response = $client->request('GET', $this->link.'jurnal/'.$id,[
+        $response = $client->request('POST', $this->link.'loadData',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
-            ]
+                'Content-Type'     => 'application/json'
+            ],
+            'body' => json_encode($fields)
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
@@ -150,6 +180,12 @@ class PostingController extends Controller
             
             $data = json_decode($response_data,true);
             $data = $data["success"];
+            if(count($data["data"]) >0){
+                
+                for($i=0;$i<count($data["data"]);$i++){
+                    $data["data"][$i]["no"] = ""; 
+                }
+            }
         }
         return response()->json(['data' => $data], 200); 
     }

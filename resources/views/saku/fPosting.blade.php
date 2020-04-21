@@ -33,8 +33,8 @@
                                     <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi">
                                 </div>
                                 <div class='col-4 text-right'>
-                                <button type="button" href="#" id="add-row" class="btn btn-primary"></i> Load Data</button>
-                                <button type="button" href="#" id="add-row" class="btn btn-primary"></i> Posting All</button>
+                                <button type="button" href="#" id="loadData" class="btn btn-primary"></i> Load Data</button>
+                                <button type="button" href="#" id="postAll" class="btn btn-primary"></i> Posting All</button>
                                 </div>                                
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -44,8 +44,8 @@
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active mt-2" id="modul" role="tabpanel">
-                                    <p style='font-size:9px;font-weight:bold'><i>* Klik status untuk merubah status</i></p>
-                                    <div class='col-xs-12' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <p style='font-size:9px;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
+                                    <div class='col-xs-12' style='overflow-y: scroll; height:290px; margin:0px; padding:0px;'>
                                         <table class="table table-striped table-bordered table-condensed gridexample color-table primary-table" id="table-modul" width="100%">
                                         <style>
                                             th{
@@ -67,8 +67,9 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="trans" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                <div class="tab-pane  mt-2" id="trans" role="tabpanel">
+                                    <p style='font-size:9px;font-weight:bold;margin-bottom:0'><i>* Klik status untuk merubah status</i></p>
+                                    <div class='col-xs-12' style='overflow-y: scroll; height:290px; margin:0px; padding:0px;'>
                                         <table class="table table-striped table-bordered table-condensed gridexample color-table primary-table" id="table-jurnal" width="100%">
                                         <style>
                                             th{
@@ -155,25 +156,91 @@
             var isi = 'TRUE';
             var color = 'blue';
         }
-        cell.data(isi).css('color',color).draw();
+        cell.data(isi).draw();
         // alert('tes');
     });
 
-   
+    var tablejur = $('#table-jurnal').DataTable({
+        'columns': [
+            { data: 'no' },
+            { data: 'status' },
+            { data: 'no_bukti' },
+            { data: 'no_dokumen' },
+            { data: 'tanggal' },
+            { data: 'keterangan' },
+            { data: 'form' }
+        ],
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        },
+        {'targets': 1,
+            createdCell: function (td, cellData, rowData, row, col) {
+                if ( cellData === 'POSTING' ) {
+                    $(td).css('color', 'blue');
+                }else{
+                    $(td).css('color', 'red');
+                }
+            } 
+        }
+         ],
+        "order": [[ 2, 'asc' ]]
+    });
+    
+    tablejur.on( 'order.dt search.dt', function () {
+        tablejur.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    }).draw();
 
-    $('#table-jurnal').DataTable();
-    // $('.selectize').selectize();
+    $('#form-tambah').on('click', '#loadData', function(){
+        var data = t.data();
+        var formData = new FormData();
+        
+        var tempData = []; 
+        var i=0;
+        $.each( data, function( key, value ) {
+            formData.append('modul[]',value.modul);
+            formData.append('per1[]',value.per1);
+            formData.append('per2[]',value.per2);
+            formData.append('status[]',value.status);
+        });
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('saku/loadJurnal') }}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert(result.data.message);
+                if(result.data.status){
+                    tablejur.clear().draw();
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        tablejur.rows.add(result.data.data).draw(false);
+                    }
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    });
 
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('#method').val('post');
-        $('#form-tambah')[0].reset();
-        $('#id').val('');
-        $('#input-jurnal tbody').html('');
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $('#form-tambah #add-row').click();
-        $('#form-tambah #add-row').click();
+    $('#table-jurnal tbody').on('click', 'td', function () {
+        var cell = tablejur.cell( this );
+        if(cell.data() == 'POSTING'){
+            var isi = 'INPROG';
+            var color = 'red';
+        }else if(cell.data() == 'INPROG'){
+            var isi = 'POSTING';
+            var color = 'blue';
+        }
+        cell.data(isi).draw();
+        // alert('tes');
     });
 
     function hitungTotal(){
@@ -240,66 +307,66 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        var total_d = $('#total_debet').val();
-        var total_k = $('#total_kredit').val();
-        var jumdet = $('#input-jurnal tr').length;
+        // var total_d = $('#total_debet').val();
+        // var total_k = $('#total_kredit').val();
+        // var jumdet = $('#input-jurnal tr').length;
 
-        var param = $('#id').val();
-        var id = $('#no_bukti').val();
-        $iconLoad.show();
-        if(param == "edit"){
-            var url = "{{ url('/saku/jurnal') }}/"+id;
-        }else{
-            var url = "{{ url('/saku/jurnal') }}";
-        }
+        // var param = $('#id').val();
+        // var id = $('#no_bukti').val();
+        // $iconLoad.show();
+        // if(param == "edit"){
+        //     var url = "{{ url('/saku/jurnal') }}/"+id;
+        // }else{
+        //     var url = "{{ url('/saku/jurnal') }}";
+        // }
 
-        if(total_d != total_k){
-            alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-        }else if( total_d <= 0 || total_k <= 0){
-            alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-        }else if(jumdet <= 1){
-            alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
-        }else{
+        // if(total_d != total_k){
+        //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
+        // }else if( total_d <= 0 || total_k <= 0){
+        //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
+        // }else if(jumdet <= 1){
+        //     alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
+        // }else{
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    // alert('Input data '+result.message);
-                    if(result.data.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved',
-                            'success'
-                            )
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: url,
+        //         dataType: 'json',
+        //         data: formData,
+        //         async:false,
+        //         contentType: false,
+        //         cache: false,
+        //         processData: false, 
+        //         success:function(result){
+        //             // alert('Input data '+result.message);
+        //             if(result.data.status){
+        //                 // location.reload();
+        //                 dataTable.ajax.reload();
+        //                 Swal.fire(
+        //                     'Great Job!',
+        //                     'Your data has been saved',
+        //                     'success'
+        //                     )
+        //                     $('#saku-datatable').show();
+        //                     $('#saku-form').hide();
                             
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                    }
-                    $iconLoad.hide();
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-        }
+        //             }else{
+        //                 Swal.fire({
+        //                     icon: 'error',
+        //                     title: 'Oops...',
+        //                     text: 'Something went wrong!',
+        //                     footer: '<a href>'+result.data.message+'</a>'
+        //                 })
+        //             }
+        //             $iconLoad.hide();
+        //         },
+        //         fail: function(xhr, textStatus, errorThrown){
+        //             alert('request failed:'+textStatus);
+        //         }
+        //     });
+        // }
         
-        $iconLoad.hide();
+        // $iconLoad.hide();
         
     });
 
