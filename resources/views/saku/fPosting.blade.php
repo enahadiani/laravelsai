@@ -291,14 +291,12 @@
                     // alert('Input data '+result.message);
                     if(result.data.status){
                         // location.reload();
-                        dataTable.ajax.reload();
+                        // dataTable.ajax.reload();
                         Swal.fire(
                             'Great Job!',
                             'Your data has been saved',
                             'success'
                             )
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
                             
                     }else{
                         Swal.fire({

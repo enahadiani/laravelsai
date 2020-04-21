@@ -16,6 +16,8 @@ class PostingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $link = 'http://api.simkug.com/api/gl/';
+    public $link2 = 'http://localhost:8080/lumenapi/public/api/gl/';
+
 
     /**
      * Show the form for creating a new resource.
