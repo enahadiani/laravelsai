@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/form/{id}', function ($id) {
     return view('saku.'.$id);
-    
 });
 
 Route::get('/', 'Saku\AuthController@index');
@@ -58,6 +57,22 @@ Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 Route::get('/modultrans', 'Saku\PostingController@getModul');
 Route::post('/loadJurnal', 'Saku\PostingController@loadJurnal');
 Route::post('/posting', 'Saku\PostingController@store');
+
+ //filter laporan
+Route::get('gl_filter_lokasi','Saku\FilterController@getGlFilterLokasi');
+Route::get('gl_filter_periode','Saku\FilterController@getGlFilterPeriode');
+Route::get('gl_filter_modul','Saku\FilterController@getGlFilterModul');
+Route::get('gl_filter_bukti','Saku\FilterController@getGlFilterBukti');
+Route::get('gl_filter_akun','Saku\FilterController@getGlFilterAkun');
+Route::get('gl_filter_fs','Saku\FilterController@getGlFilterFs');
+
+ //konten laporan
+Route::post('gl_report_jurnal','Saku\LaporanController@getGlReportJurnal');
+Route::post('gl_report_jurnal_form','Saku\LaporanController@getGlReportJurnalForm');
+Route::post('gl_report_buku_besar','Saku\LaporanController@getGlReportBukuBesar');
+Route::post('gl_report_neraca_lajur','Saku\LaporanController@getGlReportNeracaLajur');
+Route::post('gl_report_neraca','Saku\LaporanController@getGlReportNeraca');
+Route::post('gl_report_laba_rugi','Saku\LaporanController@getGlReportLabaRugi');
 
 
 
