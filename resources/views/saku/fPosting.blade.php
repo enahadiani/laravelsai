@@ -292,12 +292,14 @@
                     if(result.data.status){
                         // location.reload();
                         // dataTable.ajax.reload();
+                        activaTab("trans");
+                        $('#form-tambah #loadData').click();
                         Swal.fire(
                             'Great Job!',
                             'Your data has been saved',
                             'success'
                             )
-                            
+                        $('#error_space').text('');
                     }else{
                         Swal.fire({
                             icon: 'error',
