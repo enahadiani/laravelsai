@@ -48,7 +48,7 @@ class LaporanController extends Controller
             $periode = "Semua Periode";
         }
         
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode], 200); 
+        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju], 200); 
     }
 
     function getGlReportJurnalForm(Request $request){

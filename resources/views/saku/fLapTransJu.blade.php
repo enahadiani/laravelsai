@@ -111,7 +111,7 @@
                     <label for="sumju-selectized">Sum Jurnal</label>
                     <select name="sumju" id="sumju" class="form-control">
                     <option value="">Pilih Sum Jurnal</option>
-                    <option value="Ya">Ya</option>
+                    <option value="Ya" selected>Ya</option>
                     <option value="Tidak">Tidak</option>
                     </select>
                 </div>
