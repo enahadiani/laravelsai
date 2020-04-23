@@ -22,6 +22,12 @@
         console.log(data.length);
         console.log(res.detail_jurnal);
         if(data.length > 0){
+            if(res.back){
+                var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
+                <i class="fa fa-undo"></i> Back</button>`;
+            }else{
+                var back= ``;
+            }
             var html = `<div>
             <style>
                 .info-table thead{
@@ -35,7 +41,7 @@
                     font-weight:bold;
                 }
             </style>
-            `;
+            `+back;
             var lokasi = res.lokasi;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
@@ -85,6 +91,8 @@
                         var x=1;
                         var tot_debet=0;
                         var tot_kredit=0;
+                        var debet =0;
+                        var kredit =0;
                         var det ='';
                         for (var a=0; a<res.detail_jurnal.length;a++)
                         {

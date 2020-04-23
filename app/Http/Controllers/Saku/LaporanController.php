@@ -73,7 +73,12 @@ class LaporanController extends Controller
             $detail = $res["success"]["detail_jurnal"];
             
         }
-        return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi')], 200); 
+        if(isset($request->back)){
+            $back = true;
+        }else{
+            $back = false;
+        }
+        return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
     }
 
     function getGlReportBukuBesar(Request $request){

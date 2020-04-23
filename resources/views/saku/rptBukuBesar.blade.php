@@ -28,6 +28,9 @@
                 .table-bordered td{
                     border: 1px solid #e9ecef !important;
                 }
+                .no-border td{
+                    border:0 !important;
+                }
                 .bold {
                     font-weight:bold;
                 }
@@ -57,7 +60,7 @@
                     <td height='23' colspan='7' class='header_laporan' align='right'>Saldo Awal </td>
                     <td class='header_laporan' align='right'>`+sepNum(line.so_awal)+`</td>
                 </tr>
-                <tr bgcolor='#CCCCCC'>
+                <tr bgcolor='#4286f5' style='color:white'>
                     <td width='80' height='23' class='header_laporan' align='center'>No Bukti</td>
                     <td width='80' height='23' class='header_laporan' align='center'>No Dokumen</td>
                     <td width='60' class='header_laporan' align='center'>Tanggal</td>
@@ -74,7 +77,6 @@
                 for(var x=0;x < res.detail.length; x++)
 			    {       
                     var line2 = res.detail[x];
-                    console.log(line2.kode_akun);
                     if(line.kode_akun == line2.kode_akun){
 
                     saldo=saldo + parseFloat(line2.debet) - parseFloat(line2.kredit);	
@@ -82,14 +84,14 @@
                     kredit=kredit + parseFloat(line2.kredit);	
 				    det +=`<tr>
                         <td valign='top' class='isi_laporan'>
-                        <a style='cursor:pointer;color:blue'>`+line2.no_bukti+`</a>
+                        <a style='cursor:pointer;color:blue' class='jurnal' data-no_bukti='`+line2.no_bukti+`'>`+line2.no_bukti+`</a>
                         </td>
                         <td valign='top' class='isi_laporan'>`+line2.no_dokumen+`</td>
                         <td height='23' valign='top' class='isi_laporan'>`+line2.tgl+`</td>
                         <td valign='top' class='isi_laporan'>`+line2.keterangan+`</td>
                         <td valign='top' class='isi_laporan' >`+line2.kode_pp+`</td>
-                        <td valign='top' class='isi_laporan' align='right'>`+sepNum(debet)+`</td>
-                        <td valign='top' class='isi_laporan' align='right'>`+sepNum(kredit)+`</td>
+                        <td valign='top' class='isi_laporan' align='right'>`+sepNum(parseFloat(line2.debet))+`</td>
+                        <td valign='top' class='isi_laporan' align='right'>`+sepNum(parseFloat(line2.kredit))+`</td>
                         <td valign='top' class='isi_laporan' align='right'>`+sepNum(saldo)+`</td>
                    </tr>`;
                     }

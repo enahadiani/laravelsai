@@ -294,6 +294,30 @@
         // drawLapReg(formData);
     });
 
+    $('#content-lap').on('click', '.jurnal', function(e){
+        e.preventDefault();
+        var no_bukti = $(this).data('no_bukti');
+        var back = true;
+        
+        $formData.delete('no_bukti');
+        $formData.append('no_bukti', no_bukti);
+
+        $formData.delete('back');
+        $formData.append('back', back);
+        xurl ="saku/form/rptBuktiJu";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '#btn-back', function(e){
+        e.preventDefault();
+        $formData.delete('back');
+        xurl = "saku/form/rptBukuBesar";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+
     $('#sai-rpt-print').click(function(){
         $('#canvasPreview').printThis();
     });
