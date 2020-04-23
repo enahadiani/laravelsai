@@ -35,9 +35,6 @@
                     font-weight:bold;
                 }
             </style>
-            <div align="center" style='padding-bottom:20px'>
-                <span ><h4>LAPORAN BUKU BESAR</h4></span>
-            </div>
             `;
             var lokasi = res.lokasi;
             for(var i=0;i<data.length;i++){
