@@ -32,7 +32,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Bukti Jurnal</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Buku Besar</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -88,19 +88,9 @@
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
-                    <label for="modul-selectized">Modul</label>
-                    <select name="modul" id="modul" class="form-control">
-                    <option value="">Pilih Modul</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="no_bukti-selectized">No Bukti</label>
-                    <select name="no_bukti" id="no_bukti" class="form-control">
-                    <option value="">Pilih No Bukti</option>
+                    <label for="kode_akun-selectized">Kode Akun</label>
+                    <select name="kode_akun" id="kode_akun" class="form-control">
+                    <option value="">Pilih Kode Akun</option>
                     </select>
                 </div>
             </div>
@@ -227,22 +217,21 @@
         });
     }
 
-    function getModul(periode=null){
+    function getAkun(){
         $.ajax({
             type: 'GET',
-            url: "saku/gl_filter_modul",
+            url: "saku/gl_filter_akun",
             dataType: 'json',
             async:false,
-            data: {'periode':periode},
             success:function(result){    
                 if(result.status){
-                    var select = $('#modul').selectize();
+                    var select = $('#kode_akun').selectize();
                     select = select[0];
                     var control = select.selectize;
                     control.clearOptions();
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].modul, value:result.daftar[i].modul}]);
+                            control.addOption([{text:result.daftar[i].kode_akun+'-'+result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
                         }
                     }
                 }
@@ -250,53 +239,29 @@
         });
     }
 
-    function getNoBukti(periode=null,modul=null){
-        $.ajax({
-            type: 'GET',
-            url: "saku/gl_filter_bukti",
-            dataType: 'json',
-            async:false,
-            data: {'periode':periode,'modul':modul},
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#no_bukti').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        control.clearOptions();
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_bukti+'-'+result.daftar[i].keterangan, value:result.daftar[i].no_bukti}]);
-                        }
-                    }
-                }
-            }
-        });
-    }
+    // $('#periode2').selectize({
+    //     selectOnTab: true,
+    //     onChange: function (){
+    //         var periode = $('#periode2')[0].selectize.getValue();
+    //         var modul = $('#modul')[0].selectize.getValue();
+    //         var no_bukti = $('#no_bukti')[0].selectize.getValue();
+    //         getModul(periode);
+    //         getNoBukti(periode,no_bukti);
+    //     }
+    // });
 
-    $('#periode2').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var periode = $('#periode2')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti')[0].selectize.getValue();
-            getModul(periode);
-            getNoBukti(periode,no_bukti);
-        }
-    });
-
-    $('#modul').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var periode = $('#periode2')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti')[0].selectize.getValue();
-            getNoBukti(periode,no_bukti);
-        }
-    });
+    // $('#modul').selectize({
+    //     selectOnTab: true,
+    //     onChange: function (){
+    //         var periode = $('#periode2')[0].selectize.getValue();
+    //         var modul = $('#modul')[0].selectize.getValue();
+    //         var no_bukti = $('#no_bukti')[0].selectize.getValue();
+    //         getNoBukti(periode,no_bukti);
+    //     }
+    // });
 
     getPeriode();
-    getModul();
-    getNoBukti();
+    getAkun();
 
     function sepNum(x){
         if (typeof x === 'undefined' || !x) { 
@@ -316,7 +281,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "saku/form/rptBuktiJu";
+        xurl = "saku/form/rptBukuBesar";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -324,7 +289,7 @@
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "saku/form/rptBuktiJu";
+        xurl = "saku/form/rptBukuBesar";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
