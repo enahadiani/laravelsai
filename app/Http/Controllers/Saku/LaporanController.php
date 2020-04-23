@@ -68,10 +68,12 @@ class LaporanController extends Controller
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            $res = json_decode($response_data,true);
+            $result = $res["success"]["data"];
+            $detail = $res["success"]["detail_jurnal"];
+            
         }
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1], 200); 
+        return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi')], 200); 
     }
 
     function getGlReportBukuBesar(Request $request){
