@@ -119,25 +119,56 @@ class LaporanController extends Controller
 
     function getGlReportNeracaLajur(Request $request){
         $client = new Client();
+
+        if(isset($request->jenis)){
+            $jenis = $request->jenis;
+        }else{
+            $jenis = "";
+        }
+
+        if(isset($request->trail)){
+            $trail = $request->trail;
+        }else{
+            $trail = "";
+        }
+
+        if(isset($request->kode_neraca)){
+            $kode_neraca = $request->kode_neraca;
+        }else{
+            $kode_neraca = "";
+        }
+
+        if(isset($request->kode_fs)){
+            $kode_fs = $request->kode_fs;
+        }else{
+            $kode_fs = "";
+        }
+        
+        $query = [
+            'periode' => $request->periode,
+            'kode_akun' => $request->kode_akun,
+            'jenis' => $jenis,
+            'trail' => $trail,
+            'kode_neraca' => $kode_neraca,
+            'kode_fs' => $kode_fs
+        ];
+
         $response = $client->request('GET', $this->link.'gl_report_neraca_lajur',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
-            'query' => [
-                'periode' => $request->periode,
-                'kode_akun' => $request->kode_akun
-            ]
+            'query' => $query
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            $res = json_decode($response_data,true);
+            $data = $res["success"]["data"];
         }
         
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1], 200);    
+        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sql'=>$res["success"]["sql"]], 200);    
     }
 
     function getGlReportNeraca(Request $request){

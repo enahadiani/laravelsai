@@ -88,7 +88,7 @@
 			    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi);
                 if (line.tipe=="Posting" && line.n4 != 0)
                 {
-                    html+=`<a style='cursor:pointer;color:blue' class='nrclajur' data-kode_akun='`+line.kode_neraca+`' >`+line.nama+`</a>`;
+                    html+=`<a style='cursor:pointer;color:blue' class='nrclajur' data-kode_neraca='`+line.kode_neraca+`' >`+line.nama+`</a>`;
                 }
                 else
                 {

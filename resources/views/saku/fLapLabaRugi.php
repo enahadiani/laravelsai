@@ -328,11 +328,17 @@
 
     $('#content-lap').on('click', '.nrclajur', function(e){
         e.preventDefault();
-        var kode_akun = $(this).data('kode_akun');
+        var kode_neraca = $(this).data('kode_neraca');
         var back = true;
         
-        $formData.delete('kode_akun');
-        $formData.append('kode_akun', kode_akun);
+        $formData.delete('kode_neraca');
+        $formData.append('kode_neraca', kode_neraca);
+
+        $formData.delete('kode_fs');
+        $formData.append('kode_fs', "FS1");
+
+        $formData.delete('trail');
+        $formData.append('trail', '1');
 
         $formData.delete('back');
         $formData.append('back', back);
@@ -374,7 +380,7 @@
     $('#content-lap').on('click', '#btn-back', function(e){
         e.preventDefault();
         $formData.delete('back');
-        xurl = "saku/form/rptNrcLajur";
+        xurl = "saku/form/rptLabaRugi";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
