@@ -19,6 +19,12 @@
    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
+            if(res.back){
+                var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
+                <i class="fa fa-undo"></i> Back</button>`;
+            }else{
+                var back= ``;
+            }
             var html = `<div>
             <style>
                 .info-table thead{
@@ -35,7 +41,7 @@
                     font-weight:bold;
                 }
             </style>
-            `;
+            `+back;
             var lokasi = res.lokasi;
             for(var i=0;i<data.length;i++){
                 var line = data[i];

@@ -107,8 +107,13 @@ class LaporanController extends Controller
             $data = $res["success"]["data"];
             $detail = $res["success"]["data_detail"];
         }
+        if(isset($request->back)){
+            $back = true;
+        }else{
+            $back = false;
+        }
         
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'lokasi'=>Session::get('namaLokasi')], 200); 
+        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
        
     }
 
