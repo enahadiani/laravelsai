@@ -32,15 +32,17 @@ class LaporanController extends Controller
             'query' => [
                 'periode' => $request->periode,
                 'modul' => $request->modul,
-                'no_bukti' => $request->no_bukti
+                'no_bukti' => $request->no_bukti,
+                'tgl_awal' => $request->tgl_awal,
+                'tgl_akhir' => $request->tgl_akhir
             ]
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            $res = json_decode($response_data,true);
+            $data = $res["success"]["data"];
         }
         if($request->periode != ""){
             $periode = $request->periode;
@@ -48,7 +50,7 @@ class LaporanController extends Controller
             $periode = "Semua Periode";
         }
         
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju], 200); 
+        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
     }
 
     function getGlReportJurnalForm(Request $request){
@@ -61,7 +63,9 @@ class LaporanController extends Controller
             'query' => [
                 'periode' => $request->periode,
                 'modul' => $request->modul,
-                'no_bukti' => $request->no_bukti
+                'no_bukti' => $request->no_bukti,
+                'tgl_awal' => $request->tgl_awal,
+                'tgl_akhir' => $request->tgl_akhir
             ]
         ]);
 
@@ -90,7 +94,9 @@ class LaporanController extends Controller
             ],
             'query' => [
                 'periode' => $request->periode,
-                'kode_akun' => $request->kode_akun
+                'kode_akun' => $request->kode_akun,
+                'tgl_awal' => $request->tgl_awal,
+                'tgl_akhir' => $request->tgl_akhir
             ]
         ]);
 

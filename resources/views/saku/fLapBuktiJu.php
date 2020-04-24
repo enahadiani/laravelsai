@@ -3,14 +3,14 @@
             width: 0px;
             position: fixed;
             z-index: 1;
-            height: 500px;
+            height: 600px;
             top: 10px !important;
             right: 0;
             background-color:white;
             overflow-x: hidden;
             transition: 0.5s;
             padding: 10px;
-            margin-top: 60px;
+            margin-top: 40px;
             border:1px solid #e9e9e9;
         }
         
@@ -75,6 +75,22 @@
         <h3 style='margin-bottom:20px;position: absolute;'>Filter Laporan</h3>
         <a href='#' id='btn-close'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
         <form id="formFilter2" style='margin-top:50px'>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="tgl_awal">Tanggal Awal</label>
+                    <input class='form-control' name="tgl_awal" type="date" id="tgl_awal">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="tgl_akhir">Tanggal Akhir</label>
+                    <input class='form-control' name="tgl_akhir" type="date" id="tgl_akhir">
+                </div>
+            </div>
+        </div>
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
@@ -206,6 +222,10 @@
             async:false,
             success:function(result){    
                 if(result.status){
+                    
+                    $('#tgl_awal').val(result.tgl_awal);
+                    $('#tgl_akhir').val(result.tgl_akhir);
+
                     var select = $('#periode').selectize();
                     select = select[0];
                     var control = select.selectize;
@@ -222,6 +242,8 @@
                             control2.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
                         }
                     }
+                    control.setValue(result.periode);
+                    control2.setValue(result.periode);
                 }
             }
         });
