@@ -167,8 +167,14 @@ class LaporanController extends Controller
             $res = json_decode($response_data,true);
             $data = $res["success"]["data"];
         }
+
+        if(isset($request->back)){
+            $back = true;
+        }else{
+            $back = false;
+        }
         
-        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sql'=>$res["success"]["sql"]], 200);    
+        return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sql'=>$res["success"]["sql"],'back'=>$back], 200);    
     }
 
     function getGlReportNeraca(Request $request){
