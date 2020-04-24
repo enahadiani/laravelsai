@@ -87,6 +87,7 @@ class LaporanController extends Controller
 
     function getGlReportBukuBesar(Request $request){
         $client = new Client();
+
         $response = $client->request('GET', $this->link.'gl_report_buku_besar',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
@@ -96,7 +97,8 @@ class LaporanController extends Controller
                 'periode' => $request->periode,
                 'kode_akun' => $request->kode_akun,
                 'tgl_awal' => $request->tgl_awal,
-                'tgl_akhir' => $request->tgl_akhir
+                'tgl_akhir' => $request->tgl_akhir,
+                'jenis' => $request->jenis
             ]
         ]);
 

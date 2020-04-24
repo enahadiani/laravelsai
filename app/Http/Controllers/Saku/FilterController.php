@@ -81,11 +81,23 @@ class FilterController extends Controller
 
     function getGlFilterModul(Request $request){
         $client = new Client();
+
+        if(isset($request->periode)){
+            $periode = $request->periode;
+        }else{
+            $periode = "";
+        }
+
+        $query = [
+            'periode' => $request->periode
+        ];
+
         $response = $client->request('GET', $this->link.'gl_filter_modul',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
-            ]
+            ],
+            'query'=> $query
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
@@ -99,11 +111,30 @@ class FilterController extends Controller
 
     function getGlFilterBukti(Request $request){
         $client = new Client();
+
+        if(isset($request->periode)){
+            $periode = $request->periode;
+        }else{
+            $periode = "";
+        }
+
+        if(isset($request->modul)){
+            $modul = $request->modul;
+        }else{
+            $modul = "";
+        }
+
+        $query = [
+            'periode' => $periode,
+            'modul' => $modul
+        ];
+
         $response = $client->request('GET', $this->link.'gl_filter_bukti',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
-            ]
+            ],
+            'query' => $query
         ]);
 
         if ($response->getStatusCode() == 200) { // 200 OK

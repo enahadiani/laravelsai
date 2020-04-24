@@ -111,6 +111,18 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="jenis-selectized">Tampil Mutasi Nol</label>
+                    <select name="jenis" id="jenis" class="form-control">
+                    <option value="">Pilih</option>
+                    <option value="Ya" selected>Ya</option>
+                    <option value="Tidak">Tidak</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
@@ -284,6 +296,7 @@
 
     getPeriode();
     getAkun();
+    $('#jenis').selectize();
 
     function sepNum(x){
         if (typeof x === 'undefined' || !x) { 

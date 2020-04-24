@@ -253,6 +253,8 @@
                     }
                     control.setValue(result.periode);
                     control2.setValue(result.periode);
+                    // getModul(result.periode);
+                    // getNoBukti(result.periode);
                 }
             }
         });
