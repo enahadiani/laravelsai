@@ -142,6 +142,11 @@ class LaporanController extends Controller
 
     function getGlReportNeraca(Request $request){
         $client = new Client();
+        if(!isset($request->kode_fs)){
+            $kode_fs = "FS1";
+        }else{
+            $kode_fs = $request->kode_fs;
+        }
         $response = $client->request('GET', $this->link.'gl_report_neraca',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
@@ -149,7 +154,7 @@ class LaporanController extends Controller
             ],
             'query' => [
                 'periode' => $request->periode,
-                'kode_fs' => $request->kode_fs
+                'kode_fs' => $kode_fs
             ]
         ]);
 
@@ -165,6 +170,11 @@ class LaporanController extends Controller
 
     function getGlReportLabaRugi(Request $request){
         $client = new Client();
+        if(!isset($request->kode_fs)){
+            $kode_fs = "FS1";
+        }else{
+            $kode_fs = $request->kode_fs;
+        }
         $response = $client->request('GET', $this->link.'gl_report_laba_rugi',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
@@ -172,7 +182,7 @@ class LaporanController extends Controller
             ],
             'query' => [
                 'periode' => $request->periode,
-                'kode_fs' => $request->kode_fs
+                'kode_fs' => $kode_fs
             ]
         ]);
 
