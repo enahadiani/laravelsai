@@ -16,6 +16,12 @@ class FilterController extends Controller
      */
     public $link = 'http://api.simkug.com/api/lapsaku/';
 
+    public function __contruct(){
+        if(!Session::get('login')){
+            return redirect('saku/login')->with('alert','Session telah habis !');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

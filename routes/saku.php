@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/form/{id}', function ($id) {
-    return view('saku.'.$id);
+    if(!Session::has('isLoggedIn')){
+        return redirect('saku/login')->with('alert','Session telah habis !');
+    }else{
+        return view('saku.'.$id);
+    }
 });
 
 Route::get('/', 'Saku\AuthController@index');
