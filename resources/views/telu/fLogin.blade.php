@@ -218,6 +218,7 @@
             </div>
             <div class="wrapper2">
             <form id='form-login' method="post" action="{{ url('telu/login') }}" >
+                @csrf
                 <div class="top">
                 <h2><u>Masuk</u>
                 <span style="font-size:20px;padding-left: 10px;color: #75B7FF;">Daftar</span></h2>
