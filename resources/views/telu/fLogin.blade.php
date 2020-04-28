@@ -1,17 +1,3 @@
-<?php
-$regis="http://".$_SERVER['SERVER_NAME']."/web/app/sakuaja/registrasi";
-
-$root=$_SERVER['REQUEST_SCHEME']."://".$_SERVER['SERVER_NAME'];
-$root_ser=$root."/server";
-$folder_css=$root."/vendor/asset_elite/dist/css";
-$folder_js=$root."/vendor/asset_elite/dist/js";
-$folder_assets=$root."/vendor/asset_elite";
-$folder_upload=$root."/vendor/asset_elite/upload";
-$folderroot_js=$root."/assets/js";
-$folderroot_css=$root."/assets/css";
-$root_app="http://".$_SERVER['SERVER_NAME'];
-?>
-
 <html>
     <head>
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -101,7 +87,7 @@ $root_app="http://".$_SERVER['SERVER_NAME'];
             }
 
             #buttonPass {
-                background-image: url('<?=$root?>/vendor/sakube/assets/icons/eye.svg');
+                background-image: url("{{ asset('asset_elite/icons/eye.svg') }}");
                 background-color: Transparent;
                 background-repeat: no-repeat;
                 background-size: 25px 25px;
@@ -243,7 +229,7 @@ $root_app="http://".$_SERVER['SERVER_NAME'];
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12" style='z-index:0;'><input type="password" id="myPass" placeholder="password" name="pass" required>
+                        <div class="col-md-12" style='z-index:0;'><input type="password" id="myPass" placeholder="password" name="password" required>
                         </div>
                         <div class="col-md-2 px-0" style='z-index:1;top: -30px;left: 230px;'>
                         <button type="button" name="button" onclick="showPass()" id="buttonPass"></button>
@@ -272,7 +258,7 @@ $root_app="http://".$_SERVER['SERVER_NAME'];
                 <img class="chat" src="img/chat.png">
             </div> -->
         </section>
-        <script src="{{ asset('asset_elite/node_modules/jquery/jquery-3.4.1.js') }}" ></script>
+        <script src="{{ asset('asset_elite/node_modules/jquery/jquery-3.4.1.min.js') }}" ></script>
         <script src="{{ asset('asset_elite/node_modules/popper/popper.min.js') }}" ></script>
                 <script src="{{ asset('asset_elite/node_modules/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
         <script>

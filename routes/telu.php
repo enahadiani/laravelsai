@@ -13,5 +13,6 @@ Route::get('/form/{id}', function ($id) {
 
 Route::get('/', 'Telu\AuthController@index');
 Route::get('/login', 'Telu\AuthController@login');
+Route::post('/login', 'Telu\AuthController@cek_auth');
 
 ?>
