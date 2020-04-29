@@ -65,6 +65,10 @@ class KaryawanController extends Controller
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
+        $image_path = $request->file('file_gambar')->getPathname();
+        $image_mime = $request->file('file_gambar')->getmimeType();
+        $image_org  = $request->file('file_gambar')->getClientOriginalName();
+
         if($request->hasfile('file_gambar')){
             $fields = [
                 [
@@ -93,7 +97,9 @@ class KaryawanController extends Controller
                 ],
                 [
                     'name'     => 'foto',
-                    'contents' => fopen($request->file('file_gambar')->getPath(),'r'),
+    				'filename' => $image_org,
+    				'Mime-Type'=> $image_mime,
+    				'contents' => fopen( $image_path, 'r' ),
                 ]
                 ];
             
@@ -199,23 +205,80 @@ class KaryawanController extends Controller
             'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
+        $image_path = $request->file('file_gambar')->getPathname();
+        $image_mime = $request->file('file_gambar')->getmimeType();
+        $image_org  = $request->file('file_gambar')->getClientOriginalName();
+
+        if($request->hasfile('file_gambar')){
+            $fields = [
+                [
+                    'name' => 'nik',
+                    'contents' => $request->nik,
+                ],
+                [
+                    'name' => 'nama',
+                    'contents' => $request->nama,
+                ],
+                [
+                    'name' => 'kode_pp',
+                    'contents' => $request->kode_pp,
+                ],
+                [
+                    'name' => 'kode_jab',
+                    'contents' => $request->kode_jab,
+                ],
+                [
+                    'name' => 'no_telp',
+                    'contents' => $request->no_telp,
+                ],
+                [
+                    'name' => 'email',
+                    'contents' => $request->email,
+                ],
+                [
+                    'name'     => 'foto',
+    				'filename' => $image_org,
+    				'Mime-Type'=> $image_mime,
+    				'contents' => fopen( $image_path, 'r' ),
+                ]
+                ];
+            
+        }else{
+            $fields = [
+                [
+                    'name' => 'nik',
+                    'contents' => $request->nik,
+                ],
+                [
+                    'name' => 'nama',
+                    'contents' => $request->nama,
+                ],
+                [
+                    'name' => 'kode_pp',
+                    'contents' => $request->kode_pp,
+                ],
+                [
+                    'name' => 'kode_jab',
+                    'contents' => $request->kode_jab,
+                ],
+                [
+                    'name' => 'no_telp',
+                    'contents' => $request->no_telp,
+                ],
+                [
+                    'name' => 'email',
+                    'contents' => $request->email,
+                ]
+            ];
+        }
+
         $client = new Client();
         $response = $client->request('POST', $this->link.'karyawan/'.$nik,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
-            'form_params' => [
-                'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nuk,
-                'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
-                'kode_jab' => $request->kode_jab,
-                'email' => $request->email,
-                'no_telp' => $request->no_telp,
-                'foto' => $request->foto
-            
-            ]
+            'multipart' => $fields
         ]);
         
         if ($response->getStatusCode() == 200) { // 200 OK

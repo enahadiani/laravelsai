@@ -208,7 +208,7 @@
                     $('#kode_jab')[0].selectize.setValue(result.data[0].kode_jab);
                     $('#email').val(result.data[0].email);
                     $('#no_telp').val(result.data[0].no_telp);
-                    var html = "<img style='width:120px' src='http://api.simkug.com/api/apv/storage/"+result.data[0].file_gambar+"'>";
+                    var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
                     $('.preview').html(html);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
@@ -296,6 +296,7 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
+        var id = $('#nik').val();
         if(parameter == "edit"){
             var url = "{{ url('apv/karyawan') }}/"+id;
             var pesan = "updated";

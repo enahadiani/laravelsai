@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,12 @@ Route::get('/menu', 'Apv\AuthController@getMenu');
 Route::get('/login', 'Apv\AuthController@login');
 Route::post('/login', 'Apv\AuthController@cek_auth');
 Route::get('/logout', 'Apv\AuthController@logout');
+
+Route::get('storage/{filename}', function ($filename)
+{
+    $path = 'http://api.simkug.com/api/apv/storage/'.$fileName;
+    return Response::download($path);   
+});
 
 Route::get('/karyawan', 'Apv\KaryawanController@index');
 Route::post('/karyawan', 'Apv\KaryawanController@store');
