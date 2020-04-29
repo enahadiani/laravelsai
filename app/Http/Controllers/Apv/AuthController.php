@@ -25,6 +25,18 @@ class AuthController extends Controller
         
     }
 
+    public function cek_session()
+    {
+        // return view('login');
+        if(!Session::get('login')){
+            return response()->json(['status'=>false], 200);
+        }
+        else{
+            return response()->json(['status'=>true], 200);
+        }
+        
+    }
+
     public function cek_auth(Request $request){
 
         try {

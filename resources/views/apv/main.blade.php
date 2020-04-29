@@ -305,7 +305,27 @@
                
                 var form ="";
                 function loadForm(url){
-                    $('.body-content').load(url);
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('apv/cek_session') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){    
+                            if(!result.status){
+
+                                Swal.fire({
+                                    title: 'Session telah habis',
+                                    text: 'harap login terlebih dahulu!',
+                                    icon: 'error'
+                                }).then(function() {
+                                    window.location.href = "{{ url('apv/login') }}";
+                                })
+                            }else{
+
+                                $('.body-content').load(url);
+                            }
+                        }
+                    });
                 }
                 $.ajaxSetup({
                     headers: {
