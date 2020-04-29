@@ -136,6 +136,11 @@
     </div>         
     <script>
     var $iconLoad = $('.preloader');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
     function getPP(param){
         $.ajax({
             type: 'GET',
