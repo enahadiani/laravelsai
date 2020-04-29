@@ -56,13 +56,9 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nik' => 'required',
-            'nama' => 'required',
-            'kode_pp' => 'required',
             'kode_jab' => 'required',
-            'email' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'nama' => 'required',
+            'flag_aktif' => 'required'
         ]);
 
         $client = new Client();
@@ -73,14 +69,9 @@ class JabatanController extends Controller
             ],
             'form_params' => [
                 'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nuk,
-                'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
                 'kode_jab' => $request->kode_jab,
-                'email' => $request->email,
-                'no_telp' => $request->no_telp,
-                'foto' => $request->foto
-            
+                'nama' => $request->nama,
+                'flag_aktif' => $request->flag_aktif
             ]
         ]);
         
@@ -98,10 +89,10 @@ class JabatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($kode_jab)
     {
         $client = new Client();
-        $response = $client->request('GET', $this->link.'jabatan/'.$id,[
+        $response = $client->request('GET', $this->link.'jabatan/'.$kode_jab,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -136,33 +127,23 @@ class JabatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nik)
+    public function update(Request $request, $kode_jab)
     {
         $this->validate($request, [
             'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'flag_aktif' => 'required'
         ]);
 
         $client = new Client();
-        $response = $client->request('PUT', $this->link.'jabatan/'.$nik,[
+        $response = $client->request('PUT', $this->link.'jabatan/'.$kode_jab,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
             'form_params' => [
                 'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nuk,
                 'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
-                'kode_jab' => $request->kode_jab,
-                'email' => $request->email,
-                'no_telp' => $request->no_telp,
-                'foto' => $request->foto
-            
+                'flag_aktif' => $request->flag_aktif
             ]
         ]);
         
@@ -180,10 +161,10 @@ class JabatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($kode_jab)
     {
         $client = new Client();
-        $response = $client->request('DELETE', $this->link.'jabatan/'.$id,[
+        $response = $client->request('DELETE', $this->link.'jabatan/'.$kode_jab,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

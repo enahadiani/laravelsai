@@ -50,6 +50,6 @@ Route::delete('/unit/{id}','Apv\UnitController@destroy');
 
 Route::get('/jabatan', 'Apv\JabatanController@index');
 Route::post('/jabatan', 'Apv\JabatanController@store');
-Route::get('/jabatan/{id}', 'Apv\JabatanController@show');
-Route::put('/jabatan/{id}','Apv\JabatanController@update');
-Route::delete('/jabatan/{id}','Apv\JabatanController@destroy');
+Route::get('/jabatan/{kode_jab}', 'Apv\JabatanController@show');
+Route::put('/jabatan/{kode_jab}','Apv\JabatanController@update');
+Route::delete('/jabatan/{kode_jab}','Apv\JabatanController@destroy');

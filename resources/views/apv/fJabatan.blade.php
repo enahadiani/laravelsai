@@ -1,23 +1,12 @@
-<?php
-    session_start();
-    $root_lib=$_SERVER["DOCUMENT_ROOT"];
-    if (substr($root_lib,-1)!="/") {
-        $root_lib=$root_lib."/";
-    }
-    include_once($root_lib.'app/apv/setting.php');
 
-    $kode_lokasi=$_SESSION['lokasi'];
-    $nik=$_SESSION['userLog'];
-?>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-jab">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data Jabatan 
-                        <button type="button" id="btn-jab-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Data Jabatan</h6> -->
                         <hr>
                         <div class="table-responsive ">
                             <style>
@@ -29,7 +18,7 @@
                                 margin-bottom:15px !important;
                             }
                             </style>
-                            <table id="table-jab" class="table table-bordered table-striped" style='width:100%'>
+                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>Kode Jabatan</th>
@@ -47,15 +36,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="form-tambah-jab" style="display:none;">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body">
-                        <form class="form" id="form-tambah">
-                            <h4 class="card-title mb-2">Form Data Jabatan
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-jab-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                    <form class="form" id="form-tambah">
+                        <div class="card-body pb-0">
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Karyawan
+                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:450px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -83,77 +76,82 @@
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>  
-    
-    <script src="<?=$folderroot_js?>/sai.js"></script>
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>         
+
     <script>
-    $('#saku-data-jab').on('click', '#btn-jab-tambah', function(){
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
+        $('#method').val('post');
         $('#kode_jab').attr('readonly', false);
         $('#nama').val('');
         $('#flag_aktif')[0].selectize.setValue('1');
-        $('#saku-data-jab').hide();
-        $('#form-tambah-jab').show();
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
         $('#form-tambah')[0].reset();
     });
 
-    $('#saku-data-jab').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Jabatan.php?fx=getEdit',
+            url: "{{ url('apv/jabatan') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_jab':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#kode_jab').val(id);
                     $('#kode_jab').attr('readonly', true);
-                    $('#nama').val(result.daftar[0].nama);
-                    $('#flag_aktif')[0].selectize.setValue(result.daftar[0].flag_aktif);
+                    $('#nama').val(result.data[0].nama);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#row-id').show();
-                    $('#saku-data-jab').hide();
-                    $('#form-tambah-jab').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
                 }
             }
         });
     });
 
 
-    $('#form-tambah-jab').on('click', '#btn-jab-kembali', function(){
-        $('#saku-data-jab').show();
-        $('#form-tambah-jab').hide();
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
+    $('.selectize').selectize();
+
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-    var dataTable = $('#table-jab').DataTable({
-        'processing': true,
-        'serverSide': true,
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Jabatan.php?fx=getJabatan',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/jabatan') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
             {'targets': 3, data: null, 'defaultContent': action_html }
-            ]
+        ],
+        'columns': [
+            { data: 'kode_jab' },
+            { data: 'nama' },
+            { data: 'flag_aktif' }
+        ]
     });
 
-    $('#saku-data-jab').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -164,17 +162,15 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
+                var kode = $(this).closest('tr').find('td:eq(0)').html();      
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Jabatan.php',
+                    url: "{{ url('apv/jabatan') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'kode_jab':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -186,7 +182,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -198,102 +194,59 @@
         })
     });
 
-    $('#form-tambah-jab').on('submit', '#form-tambah', function(e){
+    $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
+        var kode = $('#kode_jab').val();
         if(parameter==''){
-            // tambah
-            console.log('parameter:tambah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
-
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Jabatan.php?fx=simpan',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved',
-                            'success'
-                        )
-                        $('#saku-data-jab').show();
-                        $('#form-tambah-jab').hide();
-                        
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
-                        })
-                    }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
+            var url = "{{ url('apv/jabatan') }}";
+            var pesan = "saved";
         }else{
-            console.log('parameter:ubah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
             
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Jabatan.php?fx=ubah',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false,  
-                success:function(result){
-                    if(result.status){
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been updated',
-                            'success'
+            var url = "{{ url('apv/jabatan') }}/"+kode;
+            var pesan = "updated";
+        }
+         
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+
+        $.ajax({
+            type: 'POST', 
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status){
+                    // location.reload();
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
                         )
-                        $('#saku-data-jab').show();
-                        $('#form-tambah-jab').hide();
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
                         
                     }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
-                }
-            });
-        }
-        
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+            }
+        });
     });
 
     $('#kode_jab,#nama,#flag_aktif').keydown(function(e){
