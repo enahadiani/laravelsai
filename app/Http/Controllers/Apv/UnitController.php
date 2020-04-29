@@ -56,13 +56,8 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nik' => 'required',
-            'nama' => 'required',
             'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'nama' => 'required'
         ]);
 
         $client = new Client();
@@ -73,13 +68,8 @@ class UnitController extends Controller
             ],
             'form_params' => [
                 'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nuk,
-                'nama' => $request->nama,
                 'kode_pp' => $request->kode_pp,
-                'kode_jab' => $request->kode_jab,
-                'email' => $request->email,
-                'no_telp' => $request->no_telp,
-                'foto' => $request->foto
+                'nama' => $request->nama
             
             ]
         ]);
@@ -98,10 +88,10 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($kode_pp)
     {
         $client = new Client();
-        $response = $client->request('GET', $this->link.'unit/'.$id,[
+        $response = $client->request('GET', $this->link.'unit/'.$kode_pp,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -136,33 +126,21 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nik)
+    public function update(Request $request, $kode_pp)
     {
         $this->validate($request, [
-            'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'nama' => 'required'
         ]);
 
         $client = new Client();
-        $response = $client->request('PUT', $this->link.'unit/'.$nik,[
+        $response = $client->request('PUT', $this->link.'unit/'.$kode_pp,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
             'form_params' => [
                 'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nuk,
-                'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
-                'kode_jab' => $request->kode_jab,
-                'email' => $request->email,
-                'no_telp' => $request->no_telp,
-                'foto' => $request->foto
-            
+                'nama' => $request->nama
             ]
         ]);
         
@@ -180,10 +158,10 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($kode_pp)
     {
         $client = new Client();
-        $response = $client->request('DELETE', $this->link.'unit/'.$id,[
+        $response = $client->request('DELETE', $this->link.'unit/'.$kode_pp,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

@@ -38,15 +38,15 @@ Route::get('storage/{filename}', function ($filename)
 
 Route::get('/karyawan', 'Apv\KaryawanController@index');
 Route::post('/karyawan', 'Apv\KaryawanController@store');
-Route::get('/karyawan/{id}', 'Apv\KaryawanController@show');
-Route::post('/karyawan/{id}','Apv\KaryawanController@update');
-Route::delete('/karyawan/{id}','Apv\KaryawanController@destroy');
+Route::get('/karyawan/{nik}', 'Apv\KaryawanController@show');
+Route::post('/karyawan/{nik}','Apv\KaryawanController@update');
+Route::delete('/karyawan/{nik}','Apv\KaryawanController@destroy');
 
 Route::get('/unit', 'Apv\UnitController@index');
 Route::post('/unit', 'Apv\UnitController@store');
-Route::get('/unit/{id}', 'Apv\UnitController@show');
-Route::put('/unit/{id}','Apv\UnitController@update');
-Route::delete('/unit/{id}','Apv\UnitController@destroy');
+Route::get('/unit/{kode_pp}', 'Apv\UnitController@show');
+Route::put('/unit/{kode_pp}','Apv\UnitController@update');
+Route::delete('/unit/{kode_pp}','Apv\UnitController@destroy');
 
 Route::get('/jabatan', 'Apv\JabatanController@index');
 Route::post('/jabatan', 'Apv\JabatanController@store');

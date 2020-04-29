@@ -1,22 +1,11 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-unit">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Data Unit 
-                        <button type="button" id="btn-unit-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Data Unit</h6> -->
                         <hr>
                         <div class="table-responsive ">
                             <style>
@@ -28,7 +17,7 @@
                                 margin-bottom:15px !important;
                             }
                             </style>
-                            <table id="table-unit" class="table table-bordered table-striped" style='width:100%'>
+                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>Kode PP</th>
@@ -45,15 +34,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="form-tambah-unit" style="display:none;">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body">
-                        <form class="form" id="form-tambah">
+                    <form class="form" id="form-tambah">
+                        <div class="card-body pb-0">
                             <h4 class="card-title mb-2">Form Data Unit
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-unit-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:450px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -71,72 +64,76 @@
                                     <input class="form-control tag1" type="text" placeholder="Nama PP/Unit" id="nama" name="nama">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>           
     <script>
-    $('#saku-data-unit').on('click', '#btn-unit-tambah', function(){
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
+        $('#method').val('post');
         $('#kode_pp').attr('readonly', false);
         $('#nama').val('');
-        $('#saku-data-unit').hide();
-        $('#form-tambah-unit').show();
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
         $('#form-tambah')[0].reset();
     });
 
-    $('#saku-data-unit').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Unit.php?fx=getEdit',
+            url: "{{ url('apv/unit') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_pp':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#kode_pp').val(id);
                     $('#kode_pp').attr('readonly', true);
-                    $('#nama').val(result.daftar[0].nama);
+                    $('#nama').val(result.data[0].nama);
                     $('#row-id').show();
-                    $('#saku-data-unit').hide();
-                    $('#form-tambah-unit').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
                 }
             }
         });
     });
 
 
-    $('#form-tambah-unit').on('click', '#btn-unit-kembali', function(){
-        $('#saku-data-unit').show();
-        $('#form-tambah-unit').hide();
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-    var dataTable = $('#table-unit').DataTable({
-        'processing': true,
-        'serverSide': true,
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Unit.php?fx=getUnit',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/unit') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
             {'targets': 2, data: null, 'defaultContent': action_html }
-            ]
+        ],
+        'columns': [
+            { data: 'kode_pp' },
+            { data: 'nama' }
+        ]
     });
 
-    $('#saku-data-unit').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -147,17 +144,14 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
-                
+                var kode = $(this).closest('tr').find('td:eq(0)').html();
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Unit.php',
+                    url: "{{ url('apv/unit') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'kode_pp':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -169,7 +163,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -181,103 +175,58 @@
         })
     });
 
-    $('#form-tambah-unit').on('submit', '#form-tambah', function(e){
+    $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
+        var kode = $('#kode_pp').val();
         if(parameter==''){
-            // tambah
-            console.log('parameter:tambah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
-
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Unit.php?fx=simpan',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    if(result.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved',
-                            'success'
-                        )
-                        $('#saku-data-unit').show();
-                        $('#form-tambah-unit').hide();
-                        
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
-                        })
-                    }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
+            var url = "{{ url('apv/unit') }}";
+            var pesan = "saved";
         }else{
-            console.log('parameter:ubah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
             
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Unit.php?fx=ubah',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false,  
-                success:function(result){
-                    if(result.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been updated',
-                            'success'
-                        )
-                        $('#saku-data-unit').show();
-                        $('#form-tambah-unit').hide();
-                        
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
-                        })
-                    }
-                }
-            });
+            var url = "{{ url('apv/unit') }}/"+kode;
+            var pesan = "updated";
+        }
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
         }
         
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status){
+                    // location.reload();
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
+                        
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+            }
+        });
+            
     });
 
     $('#kode_pp,#nama').keydown(function(e){
