@@ -53,3 +53,17 @@ Route::post('/jabatan', 'Apv\JabatanController@store');
 Route::get('/jabatan/{kode_jab}', 'Apv\JabatanController@show');
 Route::put('/jabatan/{kode_jab}','Apv\JabatanController@update');
 Route::delete('/jabatan/{kode_jab}','Apv\JabatanController@destroy');
+
+Route::get('/role', 'Apv\RoleController@index');
+Route::post('/role', 'Apv\RoleController@store');
+Route::get('/role/{kode_role}', 'Apv\RoleController@show');
+Route::put('/role/{kode_role}','Apv\RoleController@update');
+Route::delete('/role/{kode_role}','Apv\RoleController@destroy');
+
+Route::get('/hakakses','Apv\HakaksesController@index');
+Route::get('/hakakses/{nik}','Apv\HakaksesController@show');
+Route::post('/hakakses','Apv\HakaksesController@store');
+Route::put('/hakakses/{nik}','Apv\HakaksesController@update');
+Route::delete('/hakakses/{nik}','Apv\HakaksesController@destroy');
+Route::get('/form','Apv\HakaksesController@getForm');
+Route::get('/hakakses_menu','Apv\HakaksesController@getMenu');

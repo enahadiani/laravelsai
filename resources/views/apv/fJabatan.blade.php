@@ -2,7 +2,7 @@
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px;">
                     <div class="card-body">
                         <h4 class="card-title">Data Jabatan 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
@@ -38,7 +38,7 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style="height:560px">
                     <form class="form" id="form-tambah">
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Karyawan
@@ -47,7 +47,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:450px'>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
                             <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
@@ -84,6 +84,11 @@
     </div>  
 
     <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');

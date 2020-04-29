@@ -1,20 +1,10 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-hakakses">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="min-height:560px;">
                         <h4 class="card-title">Data Hakakses 
-                        <button type="button" id="btn-hakakses-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr>
                         <div class="table-responsive ">
@@ -27,7 +17,7 @@
                                 margin-bottom:15px !important;
                             }
                             </style>
-                            <table id="table-hakakses" class="table table-bordered table-striped" style='width:100%'>
+                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>NIK</th>
@@ -47,15 +37,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="form-tambah-hakakses" style="display:none;">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="form" id="form-tambah">
+                <div class="card" style="height:560px;">
+                    <form class="form" id="form-tambah">
+                        <div class="card-body pb-0">
                             <h4 class="card-title mb-2">Form Data Hakakses
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-hakakses-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -126,35 +120,38 @@
                                     <input class="form-control" type="text" placeholder="Kode Menu Lab" id="kode_menu_lab" name="kode_menu_lab">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div> 
-    
-    <script src="<?=$folderroot_js?>/sai.js"></script>
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>            
+               
     <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
     function getForm(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Hakakses.php?fx=getForm',
+            url: "{{ url('apv/form') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
-            success:function(result){    
+            success:function(res){  
+                var result = res.data;  
+                var select = $('#menu_mobile').selectize();
+                select = select[0];
+                var control = select.selectize;
+                var select2 = $('#path_view').selectize();
+                select2 = select2[0];
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#menu_mobile').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        var select2 = $('#path_view').selectize();
-                        select2 = select2[0];
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
                         var control2 = select2.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_form + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_form}]);
-                            control2.addOption([{text:result.daftar[i].kode_form + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_form}]);
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_form + ' - ' + result.data[i].nama_form, value:result.data[i].kode_form}]);
+                            control2.addOption([{text:result.data[i].kode_form + ' - ' + result.data[i].nama_form, value:result.data[i].kode_form}]);
 
                         }
                     }
@@ -166,18 +163,18 @@
     function getMenu(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Hakakses.php?fx=getMenu',
+            url: "{{ url('apv/hakakses_menu') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
-            success:function(result){    
+            success:function(res){
+                var result = res.data;    
+                var select = $('#kode_klp_menu').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_klp_menu').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_klp, value:result.daftar[i].kode_klp}]);
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_klp, value:result.data[i].kode_klp}]);
                         }
                     }
                 }
@@ -187,9 +184,11 @@
 
     getForm();
     getMenu();
-    $('#saku-data-hakakses').on('click', '#btn-hakakses-tambah', function(){
+    $('.selectize').selectize();
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
+        $('#method').val('post');
         $('#nik').attr('readonly', false);
         $('.preview').html('');
         $('#nama').val('');
@@ -200,67 +199,73 @@
         $('#menu_mobile')[0].selectize.setValue('');
         $('#path_view')[0].selectize.setValue('');
         $('#kode_menu_lab').val('');
-        $('#saku-data-hakakses').hide();
-        $('#form-tambah-hakakses').show();
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
         $('#form-tambah')[0].reset();
     });
 
-    $('#saku-data-hakakses').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Hakakses.php?fx=getEdit',
+            url: "{{ url('apv/hakakses') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'nik':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#nik').val(id);
                     $('#nik').attr('readonly', true);
-                    $('#nama').val(result.daftar[0].nama);
-                    $('#password').val(result.daftar[0].pass);
-                    $('#kode_klp_menu')[0].selectize.setValue(result.daftar[0].kode_klp_menu);
-                    $('#status_admin')[0].selectize.setValue(result.daftar[0].status_admin);
-                    $('#klp_akses').val(result.daftar[0].klp_akses);
-                    $('#menu_mobile')[0].selectize.setValue(result.daftar[0].menu_mobile);
-                    $('#path_view')[0].selectize.setValue(result.daftar[0].path_view);
-                    $('#kode_menu_lab').val(result.daftar[0].kode_menu_lab);
+                    $('#nama').val(result.data[0].nama);
+                    $('#password').val(result.data[0].pass);
+                    $('#kode_klp_menu')[0].selectize.setValue(result.data[0].kode_klp_menu);
+                    $('#status_admin')[0].selectize.setValue(result.data[0].status_admin);
+                    $('#klp_akses').val(result.data[0].klp_akses);
+                    $('#menu_mobile')[0].selectize.setValue(result.data[0].menu_mobile);
+                    $('#path_view')[0].selectize.setValue(result.data[0].path_view);
+                    $('#kode_menu_lab').val(result.data[0].kode_menu_lab);
                     $('#row-id').show();
-                    $('#saku-data-hakakses').hide();
-                    $('#form-tambah-hakakses').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
                 }
             }
         });
     });
 
 
-    $('#form-tambah-hakakses').on('click', '#btn-hakakses-kembali', function(){
-        $('#saku-data-hakakses').show();
-        $('#form-tambah-hakakses').hide();
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-    var dataTable = $('#table-hakakses').DataTable({
-        'processing': true,
-        'serverSide': true,
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Hakakses.php?fx=getHakakses',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/hakakses') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
             {'targets': 5, data: null, 'defaultContent': action_html }
-            ]
+        ],
+        'columns': [
+            { data: 'nik' },
+            { data: 'nama' },
+            { data: 'kode_klp_menu' },
+            { data: 'kode_lokasi' },
+            { data: 'status_admin' }
+        ]
     });
 
-    $('#saku-data-hakakses').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click','#btn-delete',function(e){
         
         Swal.fire({
         title: 'Are you sure?',
@@ -272,17 +277,15 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
+                var kode = $(this).closest('tr').find('td:eq(0)').html();      
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Hakakses.php',
+                    url: "{{ url('apv/hakakses') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'nik':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -294,7 +297,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -306,104 +309,56 @@
         })
     });
 
-    $('#form-tambah-hakakses').on('submit', '#form-tambah', function(e){
+    $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
+        var kode = $('#nik').val();
         if(parameter==''){
-            // tambah
-            console.log('parameter:tambah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
-
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Hakakses.php?fx=simpan',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    // alert('Input data '+result.message);
-                    if(result.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved',
-                            'success'
-                        )
-                        $('#saku-data-hakakses').show();
-                        $('#form-tambah-hakakses').hide();
-                        
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
-                        })
-                    }
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
+            var url = "{{ url('apv/hakakses') }}";
+            var pesan = "saved";
         }else{
-            console.log('parameter:ubah');
-            var formData = new FormData(this);
-            for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
             
-            $.ajax({
-                type: 'POST',
-                url: '<?=$root_ser?>/Hakakses.php?fx=ubah',
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false,  
-                success:function(result){
-                    // alert('Update data '+result.message);
-                    if(result.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been updated',
-                            'success'
-                        )
-                        $('#saku-data-hakakses').show();
-                        $('#form-tambah-hakakses').hide();
-                        
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
-                        })
-                    }
-                }
-            });
+            var url = "{{ url('apv/hakakses') }}/"+kode;
+            var pesan = "updated";
         }
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                    )
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
+                        
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
         
     });
 

@@ -1,30 +1,19 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
 <style>
 .form-group{
     margin-bottom:15px !important;
 }
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-role">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px;">
                     <div class="card-body">
                         <h4 class="card-title">Data Role 
-                        <button type="button" id="btn-role-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Role</h6> -->
                         <hr>
                         <div class="table-responsive ">
-                            <table id="table-role" class="table table-bordered table-striped">
+                            <table id="table-data" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Kode Role</th>
@@ -45,15 +34,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="form-tambah-role" style="display:none;">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="form" id="form-tambah">
+                <div class="card" style="height:560px">
+                    <form class="form" id="form-tambah">
+                        <div class="card-body pb-0">
                             <h4 class="card-title">Form Data Role
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-role-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -120,15 +113,20 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>     
     
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>
     <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -157,16 +155,15 @@
     function getPP(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Role.php?fx=getPP',
+            url: "{{ url('apv/unit') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
                 if(result.status){
+                    var select = $('#kode_pp').selectize();
+                    select = select[0];
+                    var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_pp').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
@@ -179,16 +176,15 @@
     function getJabatan(param){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Role.php?fx=getJabatan',
+            url: "{{ url('apv/jabatan') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
                 if(result.status){
+                    var select = $('.'+param).selectize();
+                    select = select[0];
+                    var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_jab + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_jab}]);
                         }
@@ -202,17 +198,15 @@
     $('#modul').selectize();
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-    var dataTable = $('#table-role').DataTable({
-        'processing': true,
-        'serverSide': true,
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Role.php?fx=getRole',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/role') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
@@ -221,22 +215,29 @@
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
+        ],
+        'columns': [
+            { data: 'kode_role' },
+            { data: 'kode_pp' },
+            { data: 'nama' },
+            { data: 'bawah' },
+            { data: 'atas' },
+            { data: 'modul' }
         ]
     });
 
-    $('#saku-data-role').on('click', '#btn-role-tambah', function(){
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
+        $('#method').val('post');
         $('#kode_role').attr('readonly', false);
         $('#input-grid2 tbody').html('');
-        $('#saku-data-role').hide();
-        $('#form-tambah-role').show();
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
         $('#form-tambah')[0].reset();
     });
 
-
-
-    $('#form-tambah-role').on('click', '#add-row', function(){
+    $('#saku-form').on('click', '#add-row', function(){
       
         var no=$('#input-grid2 .row-jab:last').index();
         no=no+2;
@@ -258,29 +259,30 @@
         }
     });
 
-    $('#saku-data-role').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Role.php?fx=getEdit',
+            url: "{{ url('apv/role') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_role':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#kode_role').val(id);
                     $('#kode_role').attr('readonly', true);
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
-                    $('#modul')[0].selectize.setValue(result.daftar[0].modul);
-                    $('#nama').val(result.daftar[0].nama);
-                    $('#bawah').val(toRp(result.daftar[0].bawah));
-                    $('#atas').val(toRp(result.daftar[0].atas));
+                    $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#modul')[0].selectize.setValue(result.data[0].modul);
+                    $('#nama').val(result.data[0].nama);
+                    $('#bawah').val(toRp(result.data[0].bawah));
+                    $('#atas').val(toRp(result.data[0].atas));
                     var input="";
                     var no=1;
-                    for(var x=0;x<result.daftar2.length;x++){
-                        var line = result.daftar2[x];
+                    for(var x=0;x<result.data2.length;x++){
+                        var line = result.data2[x];
                         input += "<tr class='row-jab'>";
                         input += "<td width='5%' class='no-jab'>"+no+"</td>";
                         input += "<td width='60%'><select name='kode_jab[]' class='form-control inp-jab ke"+no+"' value='' required></select></td>";
@@ -290,28 +292,28 @@
                     }
                     $('#input-grid2 tbody').html(input);
                     var no=1;
-                    for(var x=0;x<result.daftar2.length;x++){
-                        var line = result.daftar2[x];
+                    for(var x=0;x<result.data2.length;x++){
+                        var line = result.data2[x];
                         getJabatan('ke'+no);
                         $('.ke'+no)[0].selectize.setValue(line.kode_jab);
                         no++;
                     }
                     
-                    $('#saku-data-role').hide();
-                    $('#form-tambah-role').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
                 }
             }
         });
     });
 
 
-    $('#form-tambah-role').on('click', '#btn-role-kembali', function(){
-        $('#saku-data-role').show();
-        $('#form-tambah-role').hide();
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
 
-    $('#saku-data-role').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -322,17 +324,15 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
+                var kode = $(this).closest('tr').find('td:eq(0)').html();       
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Role.php',
+                    url: "{{ url('apv/role') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'kode_role':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -344,7 +344,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -356,25 +356,27 @@
         })
     });
 
-    $('#form-tambah-role').on('submit', '#form-tambah', function(e){
+    $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
         
-        console.log('parameter:tambah');
+        var kode = $('#kode_role').val();
+        if(parameter==''){
+            var url = "{{ url('apv/role') }}";
+            var pesan = "saved";
+        }else{
+            
+            var url = "{{ url('apv/role') }}/"+kode;
+            var pesan = "updated";
+        }
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         
-        var nik='<?php echo $nik; ?>' ;
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        
-        formData.append('nik_user', nik);
-        formData.append('kode_lokasi', kode_lokasi);
-        
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/Role.php?fx=simpan',
+            url: url,
             dataType: 'json',
             data: formData,
             async:false,
@@ -382,23 +384,23 @@
             cache: false,
             processData: false, 
             success:function(result){
-                if(result.status){
+                if(result.data.status){
                     // location.reload();
                     dataTable.ajax.reload();
                     Swal.fire(
                         'Great Job!',
-                        'Your data has been saved',
+                        'Your data has been '+pesan,
                         'success'
                     )
-                    $('#saku-data-role').show();
-                    $('#form-tambah-role').hide();
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
                         
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
             },
