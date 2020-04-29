@@ -60,26 +60,34 @@ class JabatanController extends Controller
             'nama' => 'required',
             'flag_aktif' => 'required'
         ]);
+        try{
 
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'jabatan',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_lokasi' => Session::get('lokasi'),
-                'kode_jab' => $request->kode_jab,
-                'nama' => $request->nama,
-                'flag_aktif' => $request->flag_aktif
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'jabatan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'kode_jab' => $request->kode_jab,
+                    'nama' => $request->nama,
+                    'flag_aktif' => $request->flag_aktif
+                ]
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
     }
 
@@ -91,21 +99,30 @@ class JabatanController extends Controller
      */
     public function show($kode_jab)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'jabatan/'.$kode_jab,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jabatan/'.$kode_jab,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 
 
@@ -129,30 +146,42 @@ class JabatanController extends Controller
      */
     public function update(Request $request, $kode_jab)
     {
+
         $this->validate($request, [
             'nama' => 'required',
             'flag_aktif' => 'required'
         ]);
 
-        $client = new Client();
-        $response = $client->request('PUT', $this->link.'jabatan/'.$kode_jab,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_lokasi' => Session::get('lokasi'),
-                'nama' => $request->nama,
-                'flag_aktif' => $request->flag_aktif
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'jabatan/'.$kode_jab,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nama' => $request->nama,
+                    'flag_aktif' => $request->flag_aktif
+                ]
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
+
+
     }
 
     /**
@@ -163,21 +192,30 @@ class JabatanController extends Controller
      */
     public function destroy($kode_jab)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'jabatan/'.$kode_jab,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'jabatan/'.$kode_jab,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     
     }
 }

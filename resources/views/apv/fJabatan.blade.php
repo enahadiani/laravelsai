@@ -121,6 +121,14 @@
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                }else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
                 }
             }
         });
@@ -182,6 +190,14 @@
                                 'Your data has been deleted.',
                                 'success'
                             )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('apv/login') }}";
+                            })
                         }else{
                             Swal.fire({
                             icon: 'error',
@@ -239,14 +255,24 @@
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
                         
-                    }else{
+                }
+                else if(!result.data.status && result.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
+                }    
+                else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                             footer: '<a href>'+result.data.message+'</a>'
                         })
-                    }
+                }
             },
             fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);

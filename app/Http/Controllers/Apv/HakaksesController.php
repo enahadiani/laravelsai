@@ -67,32 +67,42 @@ class HakaksesController extends Controller
             'kode_menu_lab'=> 'required'
         ]);
 
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'hakakses',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'kode_klp_menu' => $request->kode_klp_menu,
-                'pass' => $request->pass,
-                'status_admin' => $request->status_admin,
-                'klp_akses' => $request->klp_akses,
-                'path_view'=> $request->path_view,
-                'menu_mobile'=> $request->menu_mobile,
-                'kode_menu_lab'=> $request->kode_menu_lab
-            ]
-        ]);        
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'hakakses',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nik' => $request->nik,
+                    'nama' => $request->nama,
+                    'kode_klp_menu' => $request->kode_klp_menu,
+                    'pass' => $request->pass,
+                    'status_admin' => $request->status_admin,
+                    'klp_akses' => $request->klp_akses,
+                    'path_view'=> $request->path_view,
+                    'menu_mobile'=> $request->menu_mobile,
+                    'kode_menu_lab'=> $request->kode_menu_lab
+                ]
+            ]);        
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
+
     }
 
     /**
@@ -103,21 +113,30 @@ class HakaksesController extends Controller
      */
     public function show($nik)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'hakakses/'.$nik,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'hakakses/'.$nik,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 
 
@@ -153,30 +172,39 @@ class HakaksesController extends Controller
             'kode_menu_lab'=> 'required'
         ]);
 
-        $client = new Client();
-        $response = $client->request('PUT', $this->link.'hakakses/'.$nik,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_lokasi' => Session::get('lokasi'),
-                'nik' => $request->nik,
-                'nama' => $request->nama,
-                'kode_klp_menu' => $request->kode_klp_menu,
-                'pass' => $request->pass,
-                'status_admin' => $request->status_admin,
-                'klp_akses' => $request->klp_akses,
-                'path_view'=> $request->path_view,
-                'menu_mobile'=> $request->menu_mobile,
-                'kode_menu_lab'=> $request->kode_menu_lab
-            ]
-        ]);        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'hakakses/'.$nik,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nik' => $request->nik,
+                    'nama' => $request->nama,
+                    'kode_klp_menu' => $request->kode_klp_menu,
+                    'pass' => $request->pass,
+                    'status_admin' => $request->status_admin,
+                    'klp_akses' => $request->klp_akses,
+                    'path_view'=> $request->path_view,
+                    'menu_mobile'=> $request->menu_mobile,
+                    'kode_menu_lab'=> $request->kode_menu_lab
+                ]
+            ]);        
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
     }
 
@@ -188,59 +216,86 @@ class HakaksesController extends Controller
      */
     public function destroy($nik)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'hakakses/'.$nik,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'hakakses/'.$nik,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     
     }
 
     public function getMenu()
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'menu',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'menu',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 
     public function getForm()
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'form',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'form',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 }

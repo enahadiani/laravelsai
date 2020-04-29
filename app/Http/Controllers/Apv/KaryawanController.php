@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class KaryawanController extends Controller
 {
@@ -30,21 +31,28 @@ class KaryawanController extends Controller
      */
 
     public function index(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'karyawan',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'karyawan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
-        return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
 
     /**
@@ -63,90 +71,98 @@ class KaryawanController extends Controller
             'email' => 'required',
             'no_telp' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
+            ]);
+            
+        try{
+            $image_path = $request->file('file_gambar')->getPathname();
+            $image_mime = $request->file('file_gambar')->getmimeType();
+            $image_org  = $request->file('file_gambar')->getClientOriginalName();
 
-        $image_path = $request->file('file_gambar')->getPathname();
-        $image_mime = $request->file('file_gambar')->getmimeType();
-        $image_org  = $request->file('file_gambar')->getClientOriginalName();
-
-        if($request->hasfile('file_gambar')){
-            $fields = [
-                [
-                    'name' => 'nik',
-                    'contents' => $request->nik,
-                ],
-                [
-                    'name' => 'nama',
-                    'contents' => $request->nama,
-                ],
-                [
-                    'name' => 'kode_pp',
-                    'contents' => $request->kode_pp,
-                ],
-                [
-                    'name' => 'kode_jab',
-                    'contents' => $request->kode_jab,
-                ],
-                [
-                    'name' => 'no_telp',
-                    'contents' => $request->no_telp,
-                ],
-                [
-                    'name' => 'email',
-                    'contents' => $request->email,
-                ],
-                [
-                    'name'     => 'foto',
-    				'filename' => $image_org,
-    				'Mime-Type'=> $image_mime,
-    				'contents' => fopen( $image_path, 'r' ),
-                ]
+            if($request->hasfile('file_gambar')){
+                $fields = [
+                    [
+                        'name' => 'nik',
+                        'contents' => $request->nik,
+                    ],
+                    [
+                        'name' => 'nama',
+                        'contents' => $request->nama,
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'no_telp',
+                        'contents' => $request->no_telp,
+                    ],
+                    [
+                        'name' => 'email',
+                        'contents' => $request->email,
+                    ],
+                    [
+                        'name'     => 'foto',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    ]
+                    ];
+                
+            }else{
+                $fields = [
+                    [
+                        'name' => 'nik',
+                        'contents' => $request->nik,
+                    ],
+                    [
+                        'name' => 'nama',
+                        'contents' => $request->nama,
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'no_telp',
+                        'contents' => $request->no_telp,
+                    ],
+                    [
+                        'name' => 'email',
+                        'contents' => $request->email,
+                    ]
                 ];
-            
-        }else{
-            $fields = [
-                [
-                    'name' => 'nik',
-                    'contents' => $request->nik,
-                ],
-                [
-                    'name' => 'nama',
-                    'contents' => $request->nama,
-                ],
-                [
-                    'name' => 'kode_pp',
-                    'contents' => $request->kode_pp,
-                ],
-                [
-                    'name' => 'kode_jab',
-                    'contents' => $request->kode_jab,
-                ],
-                [
-                    'name' => 'no_telp',
-                    'contents' => $request->no_telp,
-                ],
-                [
-                    'name' => 'email',
-                    'contents' => $request->email,
-                ]
-            ];
-        }
+            }
 
 
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'karyawan',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'multipart' => $fields
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'karyawan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
     }
 
@@ -158,21 +174,29 @@ class KaryawanController extends Controller
      */
     public function show($id)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'karyawan/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'karyawan/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 
 
@@ -205,88 +229,99 @@ class KaryawanController extends Controller
             'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        $image_path = $request->file('file_gambar')->getPathname();
-        $image_mime = $request->file('file_gambar')->getmimeType();
-        $image_org  = $request->file('file_gambar')->getClientOriginalName();
+        try{
 
-        if($request->hasfile('file_gambar')){
-            $fields = [
-                [
-                    'name' => 'nik',
-                    'contents' => $request->nik,
-                ],
-                [
-                    'name' => 'nama',
-                    'contents' => $request->nama,
-                ],
-                [
-                    'name' => 'kode_pp',
-                    'contents' => $request->kode_pp,
-                ],
-                [
-                    'name' => 'kode_jab',
-                    'contents' => $request->kode_jab,
-                ],
-                [
-                    'name' => 'no_telp',
-                    'contents' => $request->no_telp,
-                ],
-                [
-                    'name' => 'email',
-                    'contents' => $request->email,
-                ],
-                [
-                    'name'     => 'foto',
-    				'filename' => $image_org,
-    				'Mime-Type'=> $image_mime,
-    				'contents' => fopen( $image_path, 'r' ),
-                ]
+            $image_path = $request->file('file_gambar')->getPathname();
+            $image_mime = $request->file('file_gambar')->getmimeType();
+            $image_org  = $request->file('file_gambar')->getClientOriginalName();
+
+            if($request->hasfile('file_gambar')){
+                $fields = [
+                    [
+                        'name' => 'nik',
+                        'contents' => $request->nik,
+                    ],
+                    [
+                        'name' => 'nama',
+                        'contents' => $request->nama,
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'no_telp',
+                        'contents' => $request->no_telp,
+                    ],
+                    [
+                        'name' => 'email',
+                        'contents' => $request->email,
+                    ],
+                    [
+                        'name'     => 'foto',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    ]
+                    ];
+                
+            }else{
+                $fields = [
+                    [
+                        'name' => 'nik',
+                        'contents' => $request->nik,
+                    ],
+                    [
+                        'name' => 'nama',
+                        'contents' => $request->nama,
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'no_telp',
+                        'contents' => $request->no_telp,
+                    ],
+                    [
+                        'name' => 'email',
+                        'contents' => $request->email,
+                    ]
                 ];
+            }
+
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'karyawan/'.$nik,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
             
-        }else{
-            $fields = [
-                [
-                    'name' => 'nik',
-                    'contents' => $request->nik,
-                ],
-                [
-                    'name' => 'nama',
-                    'contents' => $request->nama,
-                ],
-                [
-                    'name' => 'kode_pp',
-                    'contents' => $request->kode_pp,
-                ],
-                [
-                    'name' => 'kode_jab',
-                    'contents' => $request->kode_jab,
-                ],
-                [
-                    'name' => 'no_telp',
-                    'contents' => $request->no_telp,
-                ],
-                [
-                    'name' => 'email',
-                    'contents' => $request->email,
-                ]
-            ];
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
 
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'karyawan/'.$nik,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'multipart' => $fields
-        ]);
         
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
-        }
     }
 
     /**
@@ -297,21 +332,29 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'karyawan/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'karyawan/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     
     }
 }

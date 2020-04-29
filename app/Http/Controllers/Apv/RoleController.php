@@ -73,43 +73,53 @@ class RoleController extends Controller
             'detail.*.kode_jab'=> 'required'
         ]);
 
-        $detail = array();
-        if(isset($request->kode_jab)){
-            $kode_jab = $request->kode_jab;
-            for($i=0;$i<count($kode_jab);$i++){
-                $detail[] = array(
-                    'kode_jab' => $kode_jab[$i]
-                );
+        try{
+
+            $detail = array();
+            if(isset($request->kode_jab)){
+                $kode_jab = $request->kode_jab;
+                for($i=0;$i<count($kode_jab);$i++){
+                    $detail[] = array(
+                        'kode_jab' => $kode_jab[$i]
+                    );
+                }
             }
-        }
-
-
-        $fields =
-              array (
-                'kode_role' => $request->kode_role,
-                'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
-                'bawah' => $this->joinNum($request->bawah),
-                'atas' => $this->joinNum($request->atas),
-                'modul' => $request->modul,
-                'detail' => $detail
-              );
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'role',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+    
+    
+            $fields =
+                  array (
+                    'kode_role' => $request->kode_role,
+                    'nama' => $request->nama,
+                    'kode_pp' => $request->kode_pp,
+                    'bawah' => $this->joinNum($request->bawah),
+                    'atas' => $this->joinNum($request->atas),
+                    'modul' => $request->modul,
+                    'detail' => $detail
+                  );
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'role',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
+
     }
 
     /**
@@ -120,21 +130,30 @@ class RoleController extends Controller
      */
     public function show($kode_role)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'role/'.$kode_role,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'role/'.$kode_role,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     }
 
 
@@ -168,43 +187,53 @@ class RoleController extends Controller
             'detail.*.kode_jab'=> 'required'
         ]);
 
-        $detail = array();
-        if(isset($request->kode_jab)){
-            $kode_jab = $request->kode_jab;
-            for($i=0;$i<count($kode_jab);$i++){
-                $detail[] = array(
-                    'kode_jab' => $kode_jab[$i]
-                );
+        try{
+
+            $detail = array();
+            if(isset($request->kode_jab)){
+                $kode_jab = $request->kode_jab;
+                for($i=0;$i<count($kode_jab);$i++){
+                    $detail[] = array(
+                        'kode_jab' => $kode_jab[$i]
+                    );
+                }
             }
-        }
-
-
-        $fields =
-              array (
-                'kode_role' => $request->kode_role,
-                'nama' => $request->nama,
-                'kode_pp' => $request->kode_pp,
-                'bawah' => $this->joinNum($request->bawah),
-                'atas' => $this->joinNum($request->atas),
-                'modul' => $request->modul,
-                'detail' => $detail
-              );
-
-        $client = new Client();
-        $response = $client->request('PUT', $this->link.'role/'.$kode_role,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+    
+    
+            $fields =
+                  array (
+                    'kode_role' => $request->kode_role,
+                    'nama' => $request->nama,
+                    'kode_pp' => $request->kode_pp,
+                    'bawah' => $this->joinNum($request->bawah),
+                    'atas' => $this->joinNum($request->atas),
+                    'modul' => $request->modul,
+                    'detail' => $detail
+                  );
+    
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'role/'.$kode_role,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
+
     }
 
     /**
@@ -215,21 +244,30 @@ class RoleController extends Controller
      */
     public function destroy($kode_role)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'role/'.$kode_role,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'role/'.$kode_role,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
         }
-        return response()->json(['data' => $data], 200); 
     
     }
 }
