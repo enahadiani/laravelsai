@@ -93,7 +93,7 @@ class KaryawanController extends Controller
                 ],
                 [
                     'name'     => 'foto',
-                    'contents' => file_get_contents($request->file('file_gambar')->getPath()),
+                    'contents' => fopen($request->file('file_gambar')->getPath(),'r'),
                 ]
                 ];
             
