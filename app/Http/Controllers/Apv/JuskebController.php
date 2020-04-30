@@ -92,7 +92,7 @@ class JuskebController extends Controller
             'harga.*'=> 'required',
             'qty.*'=> 'required',
             'nilai.*'=> 'required',
-            'nama_file.*'=>'required',
+            'nama_dok.*'=>'required',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -193,7 +193,7 @@ class JuskebController extends Controller
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen( $image_path, 'r' ),
                     );
-                    $nama_file = $request->nama_file[$i];
+                    $nama_file = $request->nama_dok[$i];
                     $fields_nama_file[$i] = array(
                         'name'     => 'nama_file[]',
                         'contents' => $nama_file,
@@ -293,7 +293,7 @@ class JuskebController extends Controller
             'harga.*'=> 'required',
             'qty.*'=> 'required',
             'nilai.*'=> 'required',
-            'nama_file.*'=>'required',
+            'nama_dok.*'=>'required',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -394,7 +394,7 @@ class JuskebController extends Controller
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen( $image_path, 'r' ),
                     );
-                    $nama_file = $request->nama_file[$i];
+                    $nama_file = $request->nama_dok[$i];
                     $fields_nama_file[$i] = array(
                         'name'     => 'nama_file[]',
                         'contents' => $nama_file,
@@ -417,7 +417,7 @@ class JuskebController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"]], 200);  
+                return response()->json(['data' => $data["success"],"cek"=>$fields_nama_file], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -469,6 +469,33 @@ class JuskebController extends Controller
         try{
             $client = new Client();
             $response = $client->request('GET', $this->link.'juskeb_history/'.$no_bukti,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getPreview($no_bukti)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'juskeb_preview/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

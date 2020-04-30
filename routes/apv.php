@@ -69,3 +69,4 @@ Route::post('juskeb','Apv\JuskebController@store');
 Route::post('juskeb/{no_bukti}','Apv\JuskebController@update');
 Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
 Route::get('juskeb_history/{no_bukti}','Apv\JuskebController@getHistory');
+Route::get('juskeb_preview/{no_bukti}','Apv\JuskebController@getPreview');

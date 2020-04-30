@@ -266,7 +266,7 @@
     function printAju(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juskeb') }}/"+id,
+            url: "{{ url('apv/juskeb_preview') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){ 
@@ -617,6 +617,14 @@
                     });
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                } else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
                 }
             }
         });
@@ -673,6 +681,14 @@
                         $('#saku-datatable').hide();
                         $('#saku-form').hide();
                     }
+                } else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
                 }
             }
         });
@@ -710,7 +726,17 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
-                        }else{
+                        }
+                        else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('apv/login') }}";
+                            })
+                        }
+                        else{
                             Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -769,7 +795,17 @@
                             )
                         printAju(result.data.no_aju);
                         
-                    }else{
+                    }
+                    else if(!result.data.status && result.data.message == "Unauthorized"){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('apv/login') }}";
+                        })
+                    }
+                    else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
