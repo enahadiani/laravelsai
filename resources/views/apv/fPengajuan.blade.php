@@ -1,18 +1,8 @@
-<?php
-    session_start();
-    $root_lib=$_SERVER["DOCUMENT_ROOT"];
-    if (substr($root_lib,-1)!="/") {
-        $root_lib=$root_lib."/";
-    }
-    include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
-<link href="<?=$folder_css?>/custom.css" rel="stylesheet">
+
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px">
                     <div class="card-body">
                     <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Pengajuan 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
@@ -51,7 +41,8 @@
                             <button type="button" class="btn btn-secondary ml-2" id="btn-aju-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:460px'>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -65,7 +56,7 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="<?=date('Y-m-d')?>" required>
+                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -85,7 +76,7 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Waktu</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="<?=date('Y-m-d')?>" required>
+                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -100,14 +91,6 @@
                                     <input class="form-control" type="text" placeholder="Dasar" id="dasar" name="dasar" required>
                                 </div>
                             </div>
-                            <!-- <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">NIK Buat</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="nik_buat" name="nik_buat" required>
-                                    <option value=''>--- Pilih NIK Buat ---</option>
-                                    </select>
-                                </div>
-                            </div> -->
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Total Barang</label>
                                 <div class="col-3">
@@ -197,7 +180,6 @@
         </div>
     </div>     
     
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>
     <script>
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
@@ -284,23 +266,23 @@
     function printAju(id){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pengajuan.php?fx=getPrint',
+            url: "{{ url('apv/juskeb') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>','no_bukti':id},
-            success:function(result){    
+            success:function(res){ 
+                var result = res.data;
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
                         var det='';
                         var no=1;var total=0;
-                        for(var i=0;i<result.daftar2.length;i++){
-                            total+=+result.daftar2[i].nilai;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            total+=+result.data_detail[i].nilai;
                             det +=`<tr>
                                 <td>`+no+`</td>
-                                <td>`+result.daftar2[i].barang+`</td>
-                                <td class='text-right'>`+toRp(result.daftar2[i].harga)+`</td>
-                                <td class='text-right'>`+toRp(result.daftar2[i].jumlah)+`</td>
-                                <td class='text-right'>`+toRp(result.daftar2[i].nilai)+`</td>
+                                <td>`+result.data_detail[i].barang+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].harga)+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].jumlah)+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].nilai)+`</td>
                             </tr>`;
                             no++;
                         }
@@ -310,12 +292,12 @@
                             </tr>`;
 
                         var no=1;var det2='';
-                        for(var i=0;i<result.daftar3.length;i++){
+                        for(var i=0;i<result.data_dokumen.length;i++){
                             det2 +=`<tr>
                                 <td>Dibuat Oleh</td>
-                                <td>`+result.daftar3[i].nama_kar+`/`+result.daftar3[i].nik+`</td>
-                                <td>`+result.daftar3[i].nama_jab+`</td>
-                                <td>`+result.daftar3[i].tanggal+`</td>
+                                <td>`+result.data_dokumen[i].nama_kar+`/`+result.data_dokumen[i].nik+`</td>
+                                <td>`+result.data_dokumen[i].nama_jab+`</td>
+                                <td>`+result.data_dokumen[i].tanggal+`</td>
                                 <td>&nbsp;</td>
                             </tr>`;
                             no++;
@@ -323,11 +305,11 @@
                         var html=`<div class="row">
                                 <div class="col-12" style='border-bottom:3px solid black;text-align:center'>
                                     <h3>JUSTIFIKASI PENGADAAN</h3>
-                                    <h3 id='print-kegiatan'>`+result.daftar[0].kegiatan+`</h3>
+                                    <h3 id='print-kegiatan'>`+result.data[0].kegiatan+`</h3>
                                 </div>
                                 <div class="col-12 my-2" style='text-align:center'>
-                                    <h6>Tanggal : <span id='print-tgl'>`+result.daftar[0].tanggal.substr(8,2)+' '+getNamaBulan(result.daftar[0].tanggal.substr(5,2))+' '+result.daftar[0].tanggal.substr(0,4)+`</span></h6>
-                                    <h6>Nomor : <span id='print-no_dokumen'>`+result.daftar[0].no_dokumen+`</span></h6>
+                                    <h6>Tanggal : <span id='print-tgl'>`+result.data[0].tanggal.substr(8,2)+' '+getNamaBulan(result.data[0].tanggal.substr(5,2))+' '+result.data[0].tanggal.substr(0,4)+`</span></h6>
+                                    <h6>Nomor : <span id='print-no_dokumen'>`+result.data[0].no_dokumen+`</span></h6>
                                 </div>
                                 <div class="col-12">
                                     <table class="table table-condensed table-bordered" width="100%" id='table-m'>
@@ -335,17 +317,17 @@
                                             <tr>
                                                 <td width="5%">1</td>
                                                 <td width="25">UNIT KERJA</td>
-                                                <td width="70%" id='print-unit'>`+result.daftar[0].nama_pp+`</td>
+                                                <td width="70%" id='print-unit'>`+result.data[0].nama_pp+`</td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>NAMA KEGIATAN</td>
-                                                <td id='print-kegiatan2'>`+result.daftar[0].kegiatan+`</td>
+                                                <td id='print-kegiatan2'>`+result.data[0].kegiatan+`</td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>SAAT PENGGUNAAN</td>
-                                                <td id='print-waktu'>`+result.daftar[0].waktu.substr(8,2)+' '+getNamaBulan(result.daftar[0].waktu.substr(5,2))+' '+result.daftar[0].waktu.substr(0,4)+`</td>
+                                                <td id='print-waktu'>`+result.data[0].waktu.substr(8,2)+' '+getNamaBulan(result.data[0].waktu.substr(5,2))+' '+result.data[0].waktu.substr(0,4)+`</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -370,7 +352,7 @@
                                 </div>
                                 <div class="col-12">
                                     <h6 style='font-weight:bold'># <u>ESTIMASI BIAYA</u></h6>
-                                    <p>Estimasi Biaya yang dibutuhkan untuk pengadaan tersebut adalah sebesar <span id='estimasi-biaya' style='text-transform: capitalize;'>`+'Rp. '+toRp(result.daftar[0].nilai)+' ( '+terbilang(result.daftar[0].nilai)+' Rupiah)'+`</span> </p>
+                                    <p>Estimasi Biaya yang dibutuhkan untuk pengadaan tersebut adalah sebesar <span id='estimasi-biaya' style='text-transform: capitalize;'>`+'Rp. '+toRp(result.data[0].nilai)+' ( '+terbilang(result.data[0].nilai)+' Rupiah)'+`</span> </p>
                                 </div>
                                 <div class="col-12">
                                     <h6 style='font-weight:bold'># <u>PENUTUP</u></h6>
@@ -404,10 +386,9 @@
     function getPP(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pengajuan.php?fx=getPP',
+            url: "{{ url('apv/unit') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
@@ -427,17 +408,15 @@
 
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
     var dataTable = $('#table-data').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Pengajuan.php?fx=getPengajuan',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/juskeb') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
@@ -446,6 +425,16 @@
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
+        ],
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'no_dokumen' },
+            { data: 'kode_pp' },
+            { data: 'waktu' },
+            { data: 'kegiatan' },
+            { data: 'posisi' },
+            { data: 'nilai' },
+            { data: 'action' }
         ]
     });
 
@@ -539,10 +528,6 @@
     });
 
     $('#saku-form').on('click', '#add-row-dok', function(){
-        // $('.modal-title').html('Tambah Dokumen');
-        // $('#modal-id-dok').val(0);
-        // $('#modal-dok-nama').val('');
-        // $('#modal-dok').modal('show');
         var no=$('#input-dok .row-dok:last').index();
         no=no+2;
         var input="";
@@ -556,10 +541,6 @@
         input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
         input += "</tr>";
         $('#input-dok tbody').append(input);
-        // $('#form-tambah').on('change','.inp-file',function(e){
-        //     e.preventDefault();
-        //     $(this).closest('tr').find('.inp-nama').val('-');
-        // });
     });
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
@@ -567,28 +548,28 @@
        
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pengajuan.php?fx=getEdit',
+            url: "{{ url('apv/juskeb') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'no_bukti':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     $('#id').val('edit');
                     $('#no_bukti').val(id);
                     // $('#kode_barang').attr('readonly', true);
-                    $('#tanggal').val(result.daftar[0].tanggal);
-                    $('#no_dokumen').val(result.daftar[0].no_dokumen);
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
-                    $('#waktu').val(result.daftar[0].waktu);
-                    $('#kegiatan').val(result.daftar[0].kegiatan);
-                    $('#dasar').val(result.daftar[0].dasar);
-                    $('#total').val(toRp(result.daftar[0].nilai));
+                    $('#tanggal').val(result.data[0].tanggal);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#waktu').val(result.data[0].waktu);
+                    $('#kegiatan').val(result.data[0].kegiatan);
+                    $('#dasar').val(result.data[0].dasar);
+                    $('#total').val(toRp(result.data[0].nilai));
                     var input="";
                     var no=1;
-                    if(result.daftar2.length > 0){
+                    if(result.data_detail.length > 0){
 
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                        for(var x=0;x<result.data_detail.length;x++){
+                            var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
                             input += "<td width='5%' class='no-barang'>"+no+"</td>";
                             input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
@@ -603,10 +584,10 @@
 
                     var input2 = "";
                     var no=1;
-                    if(result.daftar3.length > 0){
+                    if(result.data_dokumen.length > 0){
 
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line2 = result.daftar3[i];
+                        for(var i=0;i< result.data_dokumen.length;i++){
+                            var line2 = result.data_dokumen[i];
                             input2 += "<tr class='row-dok'>";
                             input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                             input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required></td>";
@@ -614,7 +595,7 @@
                             input2 += "<td width='30%'>"+
                             "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
                             "</td>";
-                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='<?=$root_upload?>/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
                             input2 += "</tr>";
                             no++;
                         }
@@ -664,24 +645,23 @@
         var id = $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pengajuan.php?fx=getHistory',
+            url: "{{ url('apv/juskeb_history') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>','no_bukti':id},
             success:function(result){    
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
                         var html='';
-                        for(var i=0;i<result.daftar.length;i++){
+                        for(var i=0;i<result.data.length;i++){
                             html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid #03a9f3;border-radius: 50%;background: #03a9f3;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
                                 </div>
                                 <div class="sl-right">
-                                    <div><a href="javascript:void(0)" class="link">`+result.daftar[i].nama+`</a> <span class="sl-date">`+result.daftar[i].tanggal+`</span>
+                                    <div><a href="javascript:void(0)" class="link">`+result.data[i].nama+`</a> <span class="sl-date">`+result.data[i].tanggal+`</span>
                                     <div class="row mt-3 mb-2">
                                         <div class="col-md-6">No Bukti : </div>
-                                        <div class="col-md-6">`+result.daftar[i].no_bukti+`</div>
+                                        <div class="col-md-6">`+result.data[i].no_bukti+`</div>
                                         <div class="col-md-6">Catatan : </div>
-                                        <div class="col-md-6">`+result.daftar[i].keterangan+`</div>
+                                        <div class="col-md-6">`+result.data[i].keterangan+`</div>
                                     </div>
                             </div>
                             </div>
@@ -715,17 +695,15 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
+                var kode = $(this).closest('tr').find('td:eq(0)').html();       
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Pengajuan.php',
+                    url: "{{ url('apv/juskeb') }}/"+kode,
                     dataType: 'json',
                     async:false,
-                    data: {'no_bukti':kode,'kode_lokasi':kode_lokasi},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -737,7 +715,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -753,26 +731,28 @@
     e.preventDefault();
         var parameter = $('#id').val();
         var total = $('#total').val();
+        var kode = $('#no_bukti').val();
         if(total == 0){
             alert('Total pengajuan tidak boleh 0');
         }else{
             // tambah
             $iconLoad.show();
-            console.log('parameter:tambah');
+            if(parameter==''){
+            var url = "{{ url('apv/juskeb') }}";
+            var pesan = "saved";
+            }else{
+                
+                var url = "{{ url('apv/juskeb') }}/"+kode;
+                var pesan = "updated";
+            }
             var formData = new FormData(this);
             for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
 
-            var nik='<?php echo $nik; ?>' ;
-            var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-
-            formData.append('nik_user', nik);
-            formData.append('kode_lokasi', kode_lokasi);
-
             $.ajax({
                 type: 'POST',
-                url: '<?=$root_ser?>/Pengajuan.php?fx=simpan',
+                url: url,
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -780,29 +760,29 @@
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    if(result.status){
+                    if(result.data.status){
                         dataTable.ajax.reload();
                         Swal.fire(
                             'Great Job!',
-                            'Your data has been saved.'+result.message,
+                            'Your data has been '+pesan+' '+result.data.message,
                             'success'
                             )
-                        printAju(result.no_aju);
+                        printAju(result.data.no_aju);
                         
                     }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
-                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
             });   
+            $iconLoad.hide();
         }     
     });
     
@@ -875,12 +855,12 @@
                 <meta name="description" content="">
                 <meta name="author" content="">
                 <title>SAKU | Sistem Akuntansi Keuangan Digital</title>
-                <link href="<?php echo $folder_css?>/style.min.css" rel="stylesheet">
+                <link href="{{ asset('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
                 <!-- Dashboard 1 Page CSS -->
-                <link href="<?php echo $folder_css?>/pages/dashboard1.css" rel="stylesheet">
-                <link rel="stylesheet" type="text/css" href="<?php echo $folder_assets?>/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css">
+                <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
+                <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
                 <!-- SAI CSS -->
-                <link href="<?php echo $folder_css?>/sai.css" rel="stylesheet">
+                <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
                 
             </head>
             <!--

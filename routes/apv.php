@@ -31,12 +31,6 @@ Route::get('/login', 'Apv\AuthController@login');
 Route::post('/login', 'Apv\AuthController@cek_auth');
 Route::get('/logout', 'Apv\AuthController@logout');
 
-Route::get('storage/{filename}', function ($filename)
-{
-    $path = 'http://api.simkug.com/api/apv/storage/'.$fileName;
-    return Response::download($path);   
-});
-
 Route::get('/karyawan', 'Apv\KaryawanController@index');
 Route::post('/karyawan', 'Apv\KaryawanController@store');
 Route::get('/karyawan/{nik}', 'Apv\KaryawanController@show');
@@ -68,3 +62,10 @@ Route::put('/hakakses/{nik}','Apv\HakaksesController@update');
 Route::delete('/hakakses/{nik}','Apv\HakaksesController@destroy');
 Route::get('/form','Apv\HakaksesController@getForm');
 Route::get('/hakakses_menu','Apv\HakaksesController@getMenu');
+
+Route::get('juskeb','Apv\JuskebController@index');
+Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
+Route::post('juskeb','Apv\JuskebController@store');
+Route::post('juskeb/{no_bukti}','Apv\JuskebController@update');
+Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
+Route::get('juskeb_history/{no_bukti}','Apv\JuskebController@getHistory');
