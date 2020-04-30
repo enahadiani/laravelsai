@@ -413,8 +413,10 @@ Selamat Bekerja
     // var $request2 = $request.split("/");
     var form = "{{Session::get('dash')}}";
     var menu = "{{Session::get('kodeMenu')}}";
+    var login = "{{Session::get('isLoggedIn')}}";
     console.log(form);
     console.log(menu);
+    console.log(login);
 
     // FUNCTION LOAD FORM
     function loadForm(url){
