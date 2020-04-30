@@ -21,7 +21,7 @@
         public function getRKAVSReal($periode)
         {
             $client = new Client();
-            $response = $client->request('GET',$this->link.'rkaVSReal/'.$periode,[
+            $response = $client->request('GET',$this->link.'/rkaVSReal/'.$periode,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
