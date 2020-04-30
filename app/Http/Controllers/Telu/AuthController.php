@@ -56,6 +56,7 @@
                         $res = $data2['user'];
                         if(count($res) > 0){
                             Session::put('isLoggedIn',true);
+                            Session::put('dash','dashTelu');
                             Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                             Session::put('userLog',$res[0]["nik"]);
                             Session::put('namaUser',$res[0]["nama"]);
