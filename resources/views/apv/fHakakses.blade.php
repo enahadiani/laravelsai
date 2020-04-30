@@ -56,19 +56,15 @@
                                 </div>
                             </div>
                             <div class="form-group row mt-3">
-                                <label for="nama" class="col-3 col-form-label">NIK</label>
+                                <label for="nik" class="col-3 col-form-label">NIK</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" required>
+                                    <select class='form-control' id="nik" name="nik">
+                                    <option value=''>--- Pilih NIK ---</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Nama</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Klp Menu</label>
+                                <label for="kode_klp_menu" class="col-3 col-form-label">Kode Klp Menu</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_klp_menu" name="kode_klp_menu">
                                     <option value=''>--- Pilih Kode Klp Menu ---</option>
@@ -76,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Status Admin</label>
+                                <label for="status_admin" class="col-3 col-form-label">Status Admin</label>
                                 <div class="col-3">
                                     <select class='form-control selectize' id="status_admin" name="status_admin">
                                     <option value=''>--- Pilih Status Admin ---</option>
@@ -87,19 +83,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Password</label>
+                                <label for="password" class="col-3 col-form-label">Password</label>
                                 <div class="col-9">
                                     <input class="form-control" type="password" placeholder="Password" id="password" name="pass">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Klp Akses</label>
+                                <label for="klp_akses" class="col-3 col-form-label">Klp Akses</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Klp Akses" id="klp_akses" name="klp_akses">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Menu Mobile</label>
+                                <label for="menu_mobile" class="col-3 col-form-label">Menu Mobile</label>
                                 <div class="col-3">
                                     <select class='form-control' id="menu_mobile" name="menu_mobile">
                                     <option value=''>--- Pilih Form ---</option>
@@ -107,7 +103,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Path View</label>
+                                <label for="path_view" class="col-3 col-form-label">Path View</label>
                                 <div class="col-3">
                                 <select class='form-control' id="path_view" name="path_view">
                                     <option value=''>--- Pilih Form ---</option>
@@ -115,7 +111,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Menu Lab</label>
+                                <label for="kode_menu_lab" class="col-3 col-form-label">Kode Menu Lab</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Kode Menu Lab" id="kode_menu_lab" name="kode_menu_lab">
                                 </div>
@@ -133,6 +129,28 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function getNIK(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/karyawan') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#nik').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nik + ' - ' + result.daftar[i].nama, value:result.daftar[i].nik}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function getForm(){
         $.ajax({
             type: 'GET',
@@ -146,9 +164,9 @@
                 var control = select.selectize;
                 var select2 = $('#path_view').selectize();
                 select2 = select2[0];
+                var control2 = select2.selectize;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
-                        var control2 = select2.selectize;
                         for(i=0;i<result.data.length;i++){
                             control.addOption([{text:result.data[i].kode_form + ' - ' + result.data[i].nama_form, value:result.data[i].kode_form}]);
                             control2.addOption([{text:result.data[i].kode_form + ' - ' + result.data[i].nama_form, value:result.data[i].kode_form}]);
@@ -182,6 +200,7 @@
         });
     }
 
+    getNIK();
     getForm();
     getMenu();
     $('.selectize').selectize();
@@ -189,9 +208,9 @@
         $('#row-id').hide();
         $('#id').val('');
         $('#method').val('post');
-        $('#nik').attr('readonly', false);
+        // $('#nik').attr('readonly', false);
         $('.preview').html('');
-        $('#nama').val('');
+        // $('#nama').val('');
         $('#kode_klp_menu')[0].selectize.setValue('');
         $('#status_admin')[0].selectize.setValue('');
         $('#klp_akses').val('');
@@ -217,9 +236,9 @@
                 if(result.status){
                     $('#id').val('edit');
                     $('#method').val('put');
-                    $('#nik').val(id);
-                    $('#nik').attr('readonly', true);
-                    $('#nama').val(result.data[0].nama);
+                    $('#nik')[0].selectize.setValue(id);
+                    // $('#nik').attr('readonly', true);
+                    // $('#nama').val(result.data[0].nama);
                     $('#password').val(result.data[0].pass);
                     $('#kode_klp_menu')[0].selectize.setValue(result.data[0].kode_klp_menu);
                     $('#status_admin')[0].selectize.setValue(result.data[0].status_admin);
@@ -329,7 +348,7 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var kode = $('#nik').val();
+        var kode = $('#nik')[0].selectize.getValue();
         if(parameter==''){
             var url = "{{ url('apv/hakakses') }}";
             var pesan = "saved";
@@ -342,6 +361,10 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
+
+        var tmp = $("#nik option:selected").text().split(' - ');
+        var nama = tmp[1];
+        formData.append('nama',nama);
 
         $.ajax({
             type: 'POST',

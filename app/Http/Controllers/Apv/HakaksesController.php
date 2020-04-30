@@ -62,8 +62,6 @@ class HakaksesController extends Controller
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'path_view'=> 'required',
-            'menu_mobile'=> 'required',
             'kode_menu_lab'=> 'required'
         ]);
 
@@ -167,8 +165,6 @@ class HakaksesController extends Controller
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'path_view'=> 'required',
-            'menu_mobile'=> 'required',
             'kode_menu_lab'=> 'required'
         ]);
 
