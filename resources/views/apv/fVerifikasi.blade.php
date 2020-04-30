@@ -1,13 +1,3 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
 <style>
 .form-group{
     margin-bottom:15px !important;
@@ -16,7 +6,7 @@
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px">
                     <div class="card-body">    
                         <h4 class="card-title">Data Verifikasi 
                         </h4>
@@ -54,11 +44,11 @@
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:460px'>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
                             <div class="form-group row mt-2">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="<?=date('Y-m-d')?>" required>
+                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -175,7 +165,6 @@
         </div>
     </div>     
     
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>
     <script>
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
@@ -217,16 +206,15 @@
     function getStatus(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Verifikasi.php?fx=getStatus',
+            url: "{{ url('apv/verifikasi_status') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
+                var select = $('#status').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#status').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].status + ' - ' + result.daftar[i].nama, value:result.daftar[i].status}]);
                         }
@@ -240,16 +228,15 @@
     function getPP(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Verifikasi.php?fx=getPP',
+            url: "{{ url('apv/unit') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
+                var select = $('#kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_pp').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
@@ -266,25 +253,34 @@
     var $iconLoad = $('.preloader');
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
     var dataTable = $('#table-aju').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Verifikasi.php?fx=getPengajuan',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/verifikasi') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
-            {'targets': 7, data: null, 'defaultContent': action_html },
+            {   
+                'targets': 7, data: null, 'defaultContent': action_html 
+            },
             {   'targets': 6, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
+        ],
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'no_dokumen' },
+            { data: 'kode_pp' },
+            { data: 'waktu' },
+            { data: 'kegiatan' },
+            { data: 'dasar' },
+            { data: 'nilai' }
         ]
     });
 
@@ -293,35 +289,35 @@
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Verifikasi.php?fx=getData',
+            url: "{{ url('apv/verifikasi') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'no_aju':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     // $('#no_bukti').val(result.no_app);
-                    $('#no_aju').val(result.daftar[0].no_bukti);
-                    $('#no_dokumen').val(result.daftar[0].no_dokumen);
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
+                    $('#no_aju').val(result.data[0].no_bukti);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_pp')[0].selectize.disable();
-                    $('#waktu').val(result.daftar[0].waktu);
-                    $('#kegiatan').val(result.daftar[0].kegiatan);
-                    $('#dasar').val(result.daftar[0].dasar);
-                    $('#total').val(toRp(result.daftar[0].nilai));
+                    $('#waktu').val(result.data[0].waktu);
+                    $('#kegiatan').val(result.data[0].kegiatan);
+                    $('#dasar').val(result.data[0].dasar);
+                    $('#total').val(toRp(result.data[0].nilai));
                     $('#input-grid2 tbody').html('');
                     $('#input-dok tbody').html('');
                     var input="";
                     var no=1;
-                    if(result.daftar2.length > 0){
+                    if(result.data_detail.length > 0){
 
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                        for(var x=0;x<result.data_detail.length;x++){
+                            var line = result.data_detail[x];
 
                             input += "<tr class='row-barang'>";
                             input += "<td width='5%' class='no-barang'>"+no+"</td>";
                             input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
                             input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                            input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+line.jumlah+"' required></td>";
+                            input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                             input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
                             input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
                             input += "</tr>";
@@ -331,10 +327,10 @@
 
                     var input2 = "";
                     var no=1;
-                    if(result.daftar3.length > 0){
+                    if(result.data_dokumen.length > 0){
 
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line2 = result.daftar3[i];
+                        for(var i=0;i< result.data_dokumen.length;i++){
+                            var line2 = result.data_dokumen[i];
                             input2 += "<tr class='row-dok'>";
                             input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                             input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required></td>";
@@ -342,7 +338,7 @@
                             input2 += "<td width='30%'>"+
                             "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
                             "</td>";
-                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='<?=$root_upload?>/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
                             input2 += "</tr>";
                             no++;
                         }
@@ -364,6 +360,14 @@
                     });
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                } else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
                 }
             }
         });
@@ -381,15 +385,10 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         
-        var nik='<?php echo $nik; ?>' ;
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        
-        formData.append('nik_user', nik);
-        formData.append('kode_lokasi', kode_lokasi);
         $iconLoad.show();
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/Verifikasi.php?fx=simpan',
+            url: "{{ url('apv/verifikasi') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -398,22 +397,31 @@
             processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
-                if(result.status){
+                if(result.data.status){
                     dataTable.ajax.reload();
-                    // dataTable2.ajax.reload();
                     Swal.fire(
                         'Saved!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                     )
                     $('#saku-form').hide();
                     $('#saku-datatable').show();
-                }else{
+                }
+                else if(!result.data.status && result.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
+                }
+                else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
                 $iconLoad.hide();
