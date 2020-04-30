@@ -14,5 +14,11 @@ Route::get('/form/{id}', function ($id) {
 Route::get('/', 'Telu\AuthController@index');
 Route::get('/login', 'Telu\AuthController@login');
 Route::post('/login', 'Telu\AuthController@cek_auth');
+Route::get('/logout', 'Telu\AuthController@logout');
+Route::get('/menu', 'Telu\AuthController@getMenu');
+
+//Dashboard
+Route::get('/getRKAVSReal/{periode}','Telu\DashboardController@getRKAVSReal');
+
 
 ?>
