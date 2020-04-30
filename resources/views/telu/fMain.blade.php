@@ -84,8 +84,8 @@ Selamat Bekerja
                         <b>
                         @php
                             $tahun=substr(Session::get('periode'),0,4);
-                            $bulan=substr(Session::get('periode'),4);
-                            if ($bulan){
+                            $bulan=substr(Session::get('periode'),5,2);
+                            if ($bulan =="01"){
                                 $bulan= "Januari ";
                             }elseif ($bulan=="02") {
                                 $bulan= "Februari ";
@@ -118,9 +118,9 @@ Selamat Bekerja
                     </div>
                     <div class="row"  style="font-size: 12px;">
                     @if(Session::has('namaLokasi'))
-                        Lokasi -
-                    @else
                         Lokasi {{Session::get('namaLokasi')}}
+                    @else
+                        Lokasi -
                     @endif
                     </div>
                 </div>
@@ -412,7 +412,9 @@ Selamat Bekerja
     // var $request = "<?=$_SERVER['REQUEST_URI']?>";
     // var $request2 = $request.split("/");
     var form = "{{Session::get('dash')}}";
+    var menu = "{{Session::get('kodeMenu')}}";
     console.log(form);
+    console.log(menu);
 
     // FUNCTION LOAD FORM
     function loadForm(url){
@@ -449,11 +451,11 @@ Selamat Bekerja
     // Menu Handler
     $(".btn-group-toggle input:radio").on('change', function() {
         let val = $(this).val();
-    var kodeMenu = '{{Session::get('kodeMenu')}}';
+    var kodeMenu = "{{Session::get('kodeMenu')}}";
         if (val == 'transaksi') {
             var jenis= 'T';
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: "{{url('/telu/menu')}}",
                 dataType: 'json',
                 async:false,
@@ -468,7 +470,7 @@ Selamat Bekerja
         }else{
             var jenis= 'L';
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: "{{url('/telu/menu')}}",
                 dataType: 'json',
                 async:false,
@@ -484,7 +486,8 @@ Selamat Bekerja
     });
 
     $('#link-dashboard').on('click',function(){
-        loadForm("{{url('/')}}");
+        var url = "{{ url('/telu/form')}}"+"/"+form;
+        loadForm(url);
     });
 
     $('#sidebarCollapse').on('click',function(){
@@ -505,7 +508,7 @@ Selamat Bekerja
         var kodeMenu="Session::get('kodeMenu')";
         var jenis= 'T';
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: "{{url('/telu/menu')}}",
             dataType: 'json',
             async:false,
@@ -555,7 +558,7 @@ Selamat Bekerja
 
         if(form !="" || form != "-"){
             var url = $(this).data('href');
-            var url = "{{ url('/saku/form')}}"+"/"+form;
+            var url = "{{ url('/telu/form')}}"+"/"+form;
             loadForm(url)
         }
     });

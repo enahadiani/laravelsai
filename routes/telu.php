@@ -17,5 +17,8 @@ Route::post('/login', 'Telu\AuthController@cek_auth');
 Route::get('/logout', 'Telu\AuthController@logout');
 Route::get('/menu', 'Telu\AuthController@getMenu');
 
+//Dashboard
+Route::get('/getRKAVSReal/{periode}','Telu\DashboardController@getRKAVSReal');
+
 
 ?>
