@@ -43,6 +43,7 @@
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
                         </div>
                         <div class="card-body table-responsive pt-0" style='height:471px'>
                             <div class="form-group row mt-2">

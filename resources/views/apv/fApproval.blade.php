@@ -1,22 +1,8 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
-<style>
-.form-group{
-    margin-bottom:15px !important;
-}
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-app">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px">
                     <div class="card-body"> 
                         <div class='row'>   
                             <div class="col-md-6">
@@ -36,7 +22,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="sai-tab-new" style="position: relative;">
                                         <div class="table-responsive ">
-                                            <table id="table-aju" class="table table-bordered table-striped" style='width:100%'>
+                                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                                 <thead>
                                                     <tr>
                                                         <th>No Bukti</th>
@@ -80,19 +66,23 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="form-tambah-app" style="display:none;">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="form" id="form-tambah">
+                <div class="card" style="height:560px">
+                    <form class="form" id="form-tambah">
+                        <div class="card-body pb-0">
                             <h4 class="card-title" style='margin-bottom: 15px;'>Form Approval
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-app-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr>
+                        </div>
+                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row mt-2">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="<?=date('Y-m-d')?>" required>
+                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -204,14 +194,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>     
     
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>
     <script>
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
@@ -241,16 +230,15 @@
     function getStatus(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Approval.php?fx=getStatus',
+            url: "{{ url('apv/juskeb_app_status') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
+                var select = $('#status').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#status').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].status + ' - ' + result.daftar[i].nama, value:result.daftar[i].status}]);
                         }
@@ -264,16 +252,15 @@
     function getPP(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pengajuan.php?fx=getPP',
+            url:  "{{ url('apv/unit') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
+                var select = $('#kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_pp').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
@@ -290,17 +277,16 @@
     var $iconLoad = $('.preloader');
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-    var dataTable = $('#table-aju').DataTable({
-        'processing': true,
-        'serverSide': true,
+
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Approval.php?fx=getPengajuan',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url':  "{{ url('apv/juskeb_aju') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
         },
         'columnDefs': [
@@ -309,55 +295,70 @@
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
+        ],
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'no_dokumen' },
+            { data: 'kode_pp' },
+            { data: 'waktu' },
+            { data: 'kegiatan' },
+            { data: 'dasar' },
+            { data: 'nilai' }
         ]
     });
 
     var dataTable2 = $('#table-app').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Approval.php?fx=getApproval',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/juskeb_app') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
-        }
+        },
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'no_urut' },
+            { data: 'id' },
+            { data: 'keterangan' },
+            { data: 'tanggal' }
+        ]
     });
 
-    $('#saku-data-app').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Approval.php?fx=getData',
+            url: "{{ url('apv/juskeb_app') }}/"+id,
             dataType: 'json',
             async:false,
-            data: {'no_aju':id,'kode_lokasi':kode_lokasi},
-            success:function(result){
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     // $('#no_bukti').val(result.no_app);
-                    $('#no_aju').val(result.daftar[0].no_bukti);
-                    $('#nu').val(result.daftar[0].no_urut);
-                    $('#no_dokumen').val(result.daftar[0].no_dokumen);
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
+                    $('#no_aju').val(result.data[0].no_bukti);
+                    $('#nu').val(result.data[0].no_urut);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_pp')[0].selectize.disable();
-                    $('#waktu').val(result.daftar[0].waktu);
-                    $('#kegiatan').val(result.daftar[0].kegiatan);
-                    $('#dasar').val(result.daftar[0].dasar);
-                    $('#total').val(toRp(result.daftar[0].nilai));
+                    $('#waktu').val(result.data[0].waktu);
+                    $('#kegiatan').val(result.data[0].kegiatan);
+                    $('#dasar').val(result.data[0].dasar);
+                    $('#total').val(toRp(result.data[0].nilai));
                     var input="";
                     var no=1;
-                    if(result.daftar2.length > 0){
+                    if(result.data_detail.length > 0){
 
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                        for(var x=0;x<result.data_detail.length;x++){
+                            var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
                             input += "<td width='5%' class='no-barang'>"+no+"</td>";
                             input += "<td width='50%'>"+line.barang+"</td>";
                             input += "<td width='15%' style='text-align:right'>"+toRp(line.harga)+"</td>";
-                            input += "<td width='10%' style='text-align:right'>"+line.jumlah+"</td>";
+                            input += "<td width='10%' style='text-align:right'>"+toRp(line.jumlah)+"</td>";
                             input += "<td width='20%' style='text-align:right'>"+toRp(line.nilai)+"</td>";
                             input += "</tr>";
                             no++;
@@ -366,15 +367,15 @@
 
                     var input2 = "";
                     var no=1;
-                    if(result.daftar3.length > 0){
+                    if(result.data_dokumen.length > 0){
 
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line2 = result.daftar3[i];
+                        for(var i=0;i< result.data_dokumen.length;i++){
+                            var line2 = result.data_dokumen[i];
                             input2 += "<tr class='row-dok'>";
                             input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                             input2 += "<td width='60%'>"+line2.nama+"</td>";
                             input2 += "<td width='50%'>"+line2.file_dok+"</td>";
-                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm down-dok' style='font-size:8px' href='<?=$root_upload?>/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></td>";
+                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></td>";
                             input2 += "</tr>";
                             no++;
                         }
@@ -390,34 +391,29 @@
                         rightAlign: true,
                         oncleared: function () { self.Value(''); }
                     });
-                    $('#saku-data-app').hide();
-                    $('#form-tambah-app').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
                 }
             }
         });
     });
 
-    $('#form-tambah-app').on('click', '#btn-app-kembali', function(){
-        $('#saku-data-app').show();
-        $('#form-tambah-app').hide();
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
-    $('#form-tambah-app').on('submit', '#form-tambah', function(e){
+    $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        
-        var nik='<?php echo $nik; ?>' ;
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        
-        formData.append('nik_user', nik);
-        formData.append('kode_lokasi', kode_lokasi);
+
         $iconLoad.show();
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/Approval.php?fx=simpan',
+            url: "{{ url('apv/juskeb_app') }}/",
             dataType: 'json',
             data: formData,
             async:false,
@@ -425,24 +421,23 @@
             cache: false,
             processData: false, 
             success:function(result){
-                // alert('Input data '+result.message);
-                if(result.status){
+                if(result.data.status){
                     dataTable.ajax.reload();
                     dataTable2.ajax.reload();
                     Swal.fire(
                         'Saved!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                     )
                     $iconLoad.hide();
-                    $('#form-tambah-app').hide();
-                    $('#saku-data-app').show();
+                    $('#saku-form').hide();
+                    $('#saku-datatable').show();
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
             },

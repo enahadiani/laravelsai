@@ -75,3 +75,11 @@ Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');
 Route::post('verifikasi','Apv\VerifikasiController@store');
 Route::get('verifikasi_status','Apv\VerifikasiController@getStatus');
+
+Route::get('juskeb_app','Apv\JuskebApprovalController@index');
+Route::get('juskeb_aju','Apv\JuskebApprovalController@getPengajuan');
+Route::get('juskeb_app/{no_bukti}','Apv\JuskebApprovalController@show');
+Route::post('juskeb_app','Apv\JuskebApprovalController@store');
+Route::get('juskeb_app_status','Apv\JuskebApprovalController@getStatus');
+
+
