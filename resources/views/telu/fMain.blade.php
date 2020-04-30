@@ -239,7 +239,7 @@ Selamat Bekerja
                     </div>
                 </div>
                 <div class="container" style="padding: 5px 25px 5px 25px;position:fixed;bottom:0;background:black;">
-                    <a href={{url('telu/logout')}}>
+                    <a href='{{url('telu/logout')}}'>
                         <div class="row">
                             Keluar
                         </div>
