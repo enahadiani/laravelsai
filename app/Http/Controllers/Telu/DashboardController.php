@@ -18,7 +18,26 @@
             }
         }
 
-        public function getRKAVSReal($periode)
+        public function getPencapaianYoY($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/pencapaianYoY/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+         public function getRkaVsReal($periode)
         {
             $client = new Client();
             $response = $client->request('GET',$this->link.'/rkaVSReal/'.$periode,[
@@ -37,7 +56,43 @@
             return response()->json(['data' => $data], 200);
         }
 
+        public function getGrowthRka($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/growthRKA/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getGrowthReal($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/growthReal/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
     }
-
-
 ?>

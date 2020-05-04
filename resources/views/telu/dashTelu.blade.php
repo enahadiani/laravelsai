@@ -195,17 +195,253 @@ function singkatNilai(num){
     }
 }
 
-function getModul(periode=null) {
+function getPencapaianYoY(periode=null) {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getRKAVSReal') }}/"+periode,
-        dataType: 'JSON',
+        url:"{{ url('/telu/getPencapaianYoY') }}/"+periode,
+        dataType: "JSON",
         success: function(result){
-            console.log(result)
+            var html='';
+            var nama = ['Pendapatan','Beban','SHU','OR'];
+            for(var i=0;i<result.data.data.length;i++){
+            var line = result.data.data[i];
+            if(line.kode_neraca == 'OR'){
+                html+=`<tr>
+                <td style='font-weight:bold'>`+nama[i]+`%</td>
+                <td class='text-right'>`+sepNum(line.n1)+`%</td>
+                <td class='text-right'>`+sepNum(line.n2)+`%</td>
+                <td class='text-right'>`+sepNum(line.n3)+`%</td>
+                <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
+                </tr>`;    
+            }else{
+                html+=`<tr>
+                <td style='font-weight:bold'>`+nama[i]+`</td>
+                <td class='text-right'>`+toMilyar(line.n1)+`</td>
+                <td class='text-right'>`+toMilyar(line.n2)+`</td>
+                <td class='text-right'>`+toMilyar(line.n3)+`</td>
+                <td class='text-right' style='color: #4CD964;font-weight:bold'>`+sepNum(line.capai)+`%</td>
+                </tr>`;
+                            }
+            }
+            $('#pencapaian tbody').html(html);
         }
     });
 }
 
-getModul("{{$periode}}")
+function getGrowthReal(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu/getGrowthReal') }}/"+periode,
+        dataType:"JSON",
+        success:function(result){
+            console.log(result)
+            Highcharts.chart('growthReal', {
+                chart: {
+                        type: 'spline'
+                    },
+                        title: {
+                            text: null
+                    },
+                        credits:{
+                            enabled:false
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return singkatNilai(this.value);
+                                    }
+                                },
+                        },
+                        xAxis: {
+                                // accessibility: {
+                                //     rangeDescription: 'Range: 14 to 20'
+                                // }
+                                categories:result.data.ctg
+                        },
+                        plotOptions: {
+                                // series: {
+                                //     label: {
+                                //         connectorAllowed: false
+                                //     },
+                                //     marker:{
+                                //             enabled:false
+                                //     }
+                                //     // pointStart: 14
+                                // },
+                                spline: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+toMilyar(this.y)+'</b>';
+                                        }
+                                    },
+                                    enableMouseTracking: false
+                                }
+                        },
 
+                            series: result.data.series,
+
+                            // responsive: {
+                            //     rules: [{
+                            //         condition: {
+                            //             maxWidth: 500
+                            //         }
+                            //     }]
+                            // }
+
+            });
+
+        }
+    })
+}
+
+function getGrowthRKA(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu/getGrowthRka') }}/"+periode,
+        dataType:"JSON",
+        success:function(result){
+
+            Highcharts.chart('growthRKA', { 
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    // footerFormat: '</table>',
+                    // shared: true,
+                    // useHTML: true
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                        }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                        },
+                    labels: {
+                        formatter: function () {
+                        return singkatNilai(this.value);
+                            }
+                        },
+                },
+                xAxis: {
+                    // accessibility: {
+                    //     rangeDescription: 'Range: 14 to 20'
+                    // }
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                            series: {
+                                    dataLabels: {
+                                    enabled: true,
+                                    formatter: function () {
+                                return '<b>'+toMilyar(this.y)+'</b>';
+                            }
+                        }
+                    }
+                 },
+
+                series: result.data.series
+
+                            // responsive: {
+                            //     rules: [{
+                            //         condition: {
+                            //             maxWidth: 500
+                            //         }
+                            //     }]
+                            // }
+
+        });
+
+        }
+    })
+}
+
+function getRkaVsReal(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu/getRkaVsReal') }}/"+periode,
+        dataType: "JSON",
+        success: function(result){
+            Highcharts.chart('rkaVSreal', {
+                 chart: {
+                            type: 'column',
+                            renderTo: 'rkaVSreal'
+                        },
+                            title: {
+                            text: null
+                        },
+                            credits:{
+                            enabled:false
+                        },
+                            legend:{
+                            enabled:false
+                         },
+                            xAxis: {
+                                // categories: [
+                                //     'Pendapatan',
+                                //     'Beban',
+                                //     'SHU'
+                                // ],
+                                categories: result.data.ctg,
+                                crosshair: true
+                            },
+                            yAxis: {
+                                title: {
+                                    text: ''
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return singkatNilai(this.value);
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                                // footerFormat: '</table>',
+                                // shared: true,
+                                // useHTML: true
+                                formatter: function () {
+                                    return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                                }
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            // series: [{
+                            //     name: 'RKA',
+                            //     color:'#ad1d3e',
+                            //     data: [49.9, 71.5, 106.4]
+
+                            // }, {
+                            //     name: 'Realisasi',
+                            //     color:'#4c4c4c',
+                            //     data: [83.6, 78.8, 98.5]
+
+                            // }]
+                            series : result.data.series
+        });
+
+        }
+    });
+}
+
+getPencapaianYoY("{{$periode}}");
+getRkaVsReal("{{$periode}}");
+getGrowthRKA("{{$periode}}");
+getGrowthReal("{{$periode}}");
 </script>
