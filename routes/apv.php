@@ -93,4 +93,10 @@ Route::delete('juspo/{no_bukti}','Apv\JuspoController@destroy');
 Route::get('juspo_history/{no_bukti}','Apv\JuspoController@getHistory');
 Route::get('juspo_preview/{no_bukti}','Apv\JuspoController@getPreview');
 
+Route::get('juspo_app','Apv\JuspoApprovalController@index');
+Route::get('juspo_app_aju','Apv\JuspoApprovalController@getPengajuan');
+Route::get('juspo_app/{no_bukti}','Apv\JuspoApprovalController@show');
+Route::post('juspo_app','Apv\JuspoApprovalController@store');
+Route::get('juspo_app_status','Apv\JuspoApprovalController@getStatus');
+
 
