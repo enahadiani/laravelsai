@@ -82,4 +82,15 @@ Route::get('juskeb_app/{no_bukti}','Apv\JuskebApprovalController@show');
 Route::post('juskeb_app','Apv\JuskebApprovalController@store');
 Route::get('juskeb_app_status','Apv\JuskebApprovalController@getStatus');
 
+//Justifikasi Pengadaan
+Route::get('juspo','Apv\JuspoController@index');
+Route::get('juspo_aju','Apv\JuspoController@getPengajuan');
+Route::get('juspo/{no_bukti}','Apv\JuspoController@show');
+Route::get('juspo_aju/{no_bukti}','Apv\JuspoController@getDetailJuskeb');
+Route::post('juspo','Apv\JuspoController@store');
+Route::post('juspo/{no_bukti}','Apv\JuspoController@update');
+Route::delete('juspo/{no_bukti}','Apv\JuspoController@destroy');
+Route::get('juspo_history/{no_bukti}','Apv\JuspoController@getHistory');
+Route::get('juspo_preview/{no_bukti}','Apv\JuspoController@getPreview');
+
 

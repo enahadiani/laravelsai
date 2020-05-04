@@ -38,7 +38,7 @@
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Pengajuan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-aju-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
@@ -160,7 +160,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-aju-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <div class="profiletimeline mt-5">
                         </div>
                     </div>
@@ -171,7 +171,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-aju-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
                         </div>
@@ -632,19 +632,19 @@
     });
 
 
-    $('#saku-form').on('click', '#btn-aju-kembali', function(){
+    $('#saku-form').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-history').hide();
     });
 
-    $('#slide-history').on('click', '#btn-aju-kembali', function(){
+    $('#slide-history').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-history').hide();
     });
 
-    $('#slide-print').on('click', '#btn-aju-kembali', function(){
+    $('#slide-print').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-print').hide();
