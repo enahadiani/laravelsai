@@ -94,5 +94,62 @@
             return response()->json(['data' => $data], 200);
         }
 
+        public function getKomposisiPendapatan($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/komposisiPdpt/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getOprNonOpr($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/totalPdpt/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getPresentaseRkaRealisasi($periode)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/rkaVSRealPdpt/'.$periode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
     }
 ?>

@@ -234,7 +234,6 @@ function getGrowthReal(periode=null){
         url:"{{ url('/telu/getGrowthReal') }}/"+periode,
         dataType:"JSON",
         success:function(result){
-            console.log(result)
             Highcharts.chart('growthReal', {
                 chart: {
                         type: 'spline'
