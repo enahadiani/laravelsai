@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('asset_elite/swal/sweetalert2.min.css') }}">
     <!-- Bootstrap CSS CDN -->
     <link href="{{ asset('asset_elite/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
- -->
+    
     <!-- Datatables Button CSS -->
     <link rel="stylesheet" href="{{ asset('asset_elite/datatables/datatables/buttons/css/buttons.dataTables.min.css') }}">
     <!-- Our Custom CSS -->
@@ -414,9 +414,6 @@ Selamat Bekerja
     var form = "{{Session::get('dash')}}";
     var menu = "{{Session::get('kodeMenu')}}";
     var login = "{{Session::get('isLoggedIn')}}";
-    console.log(form);
-    console.log(menu);
-    console.log(login);
 
     // FUNCTION LOAD FORM
     function loadForm(url){

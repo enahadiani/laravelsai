@@ -18,7 +18,10 @@ Route::get('/logout', 'Telu\AuthController@logout');
 Route::get('/menu', 'Telu\AuthController@getMenu');
 
 //Dashboard
-Route::get('/getRKAVSReal/{periode}','Telu\DashboardController@getRKAVSReal');
+Route::get('/getPencapaianYoY/{periode}','Telu\DashboardController@getPencapaianYoY');
+Route::get('/getRkaVsReal/{periode}','Telu\DashboardController@getRkaVsReal');
+Route::get('/getGrowthRka/{periode}','Telu\DashboardController@getGrowthRka');
+Route::get('/getGrowthReal/{periode}','Telu\DashboardController@getGrowthReal');
 
 
 ?>
