@@ -413,7 +413,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'POST',
-            url: "{{ url('apv/juskeb_app') }}/",
+            url: "{{ url('apv/juskeb_app') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -429,7 +429,6 @@
                         'Your data has been saved.'+result.data.message,
                         'success'
                     )
-                    $iconLoad.hide();
                     $('#saku-form').hide();
                     $('#saku-datatable').show();
                 }else{
@@ -445,6 +444,7 @@
                 alert('request failed:'+textStatus);
             }
         });     
+        $iconLoad.hide();
     });
     
 

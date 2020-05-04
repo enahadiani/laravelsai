@@ -1,23 +1,12 @@
-<?php
-     session_start();
-     $root_lib=$_SERVER["DOCUMENT_ROOT"];
-     if (substr($root_lib,-1)!="/") {
-         $root_lib=$root_lib."/";
-     }
-     include_once($root_lib.'app/apv/setting.php');
-     
-   $kode_lokasi=$_SESSION['lokasi'];
-   $nik=$_SESSION['userLog'];
-?>
 <style>
 .form-group{
     margin-bottom:15px !important;
 }
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data-app">
+        <div class="row" id="saku-data">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="min-height:560px">
                     <div class="card-body">
                         <style>
                         th,td{
@@ -27,10 +16,9 @@
                         </style>
                         <h4 class="card-title">Data Approval 
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Approval</h6> -->
                         <hr>
                         <div class="table-responsive ">
-                            <table id="table-app" class="table table-bordered table-striped" style='width:100%'>
+                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                             <thead>
                                 <tr>
                                 <th>No Aju</th>
@@ -76,22 +64,26 @@
         return +number;
     }
 
-    
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
     
-    var dataTable2 = $('#table-app').DataTable({
-        'processing': true,
-        'serverSide': true,
+    var dataTable2 = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
         'ajax': {
-            'url': '<?=$root_ser?>/Approval.php?fx=getApproval',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('apv/juskeb_app') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                return json.daftar;   
             }
-        }
+        },
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'no_urut' },
+            { data: 'id' },
+            { data: 'keterangan' },
+            { data: 'tanggal' }
+        ]
     });
 
     </script>
