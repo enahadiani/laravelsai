@@ -303,7 +303,7 @@
             </section>
             <script>
                
-                var form ="";
+                var form ="{{ Session::get('dash') }}";
                 function loadForm(url){
                     $.ajax({
                         type: 'GET',
@@ -354,9 +354,9 @@
                 loadMenu();
 
                 
-                // if(form !="" || form != "-"){
-                //     loadForm("")
-                // }
+                if(form !="" || form != "-"){
+                    loadForm("{{ url('/apv/form')}}"+"/"+form)
+                }
 
                 
                 $('.sidebar-nav').on('click','.a_link',function(e){

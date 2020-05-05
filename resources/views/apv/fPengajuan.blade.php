@@ -657,7 +657,8 @@
             url: "{{ url('apv/juskeb_history') }}/"+id,
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(res){
+                var result = res.data;    
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         var html='';
@@ -682,7 +683,7 @@
                         $('#saku-datatable').hide();
                         $('#saku-form').hide();
                     }
-                } else if(!result.status && result.message == "Unauthorized"){
+                } else if(!res.status && res == "Unauthorized"){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -690,6 +691,24 @@
                     }).then(function() {
                         window.location.href = "{{ url('apv/login') }}";
                     })
+                } else{
+                    var html = `
+                    <div class="sl-item"> 
+                        <div class="sl-left" style="margin-left: -65px;"> 
+                            <div style="padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-envelope"></i> 
+                            </div> 
+                        </div>
+                        <div class="sl-right">
+                            Belum ada proses approval.
+                            <br>
+                            <br>
+                        <div>
+                    </div>
+                    <hr>`;
+                    $('.profiletimeline').html(html);
+                    $('#slide-history').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').hide();
                 }
             }
         });

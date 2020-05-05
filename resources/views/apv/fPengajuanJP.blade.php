@@ -8,56 +8,72 @@
             <div class="col-12">
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
-                        <h4 class="card-title" style="position:absolute">Data Pengajuan </h4>
+                        <!-- <h4 class="card-title" style="position:absolute">Data Pengajuan </h4>
                         <ul class="nav nav-tabs float-right" role="tablist">
                             <li class="nav-item"><a href="#sai-tab-finish" class='nav-link' data-toggle='tab' aria-selected="false"><i class="fa fa-check-circle"></i> Finish</a></li>
                             <li class="nav-item"><a href="#sai-tab-new" class='nav-link active' data-toggle='tab' role="tab" aria-selected="true"><i class="fa fa-inbox"></i> New</a></li>  
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="sai-tab-new">
-                                <div class="table-responsive ">
-                                    <table id="table-data" class="table table-bordered table-striped" width='100%'>
-                                        <thead>
-                                            <tr>
-                                                <th>No Juskeb</th>
-                                                <th>No Dokumen</th>
-                                                <th>PP</th>
-                                                <th>Waktu</th>
-                                                <th>Kegiatan</th>
-                                                <th>Nilai</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                        </ul> -->
+                        <div class='row'>   
+                            <div class="col-md-6">
+                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Pengajuan
+                                </h4>
+                                <hr>
                             </div>
-                            <div class="tab-pane" id="sai-tab-finish" >
-                                <div class="table-responsive ">
-                                    <table id="table-app" class="table table-bordered table-striped" width='100%'>
-                                        <thead>
-                                            <tr>
-                                                <th>No Bukti</th>
-                                                <th>No Juskeb</th>
-                                                <th>No Dokumen</th>
-                                                <th>PP</th>
-                                                <th>Waktu</th>
-                                                <th>Kegiatan</th>
-                                                <th>Posisi</th>
-                                                <th>Nilai</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                            <div class='col-md-6'>
+                                <ul class="nav nav-tabs customtab float-right" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="sai-tab-new">
+                                        <div class="table-responsive ">
+                                            <table id="table-data" class="table table-bordered table-striped" width='100%'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>No Juskeb</th>
+                                                        <th>No Dokumen</th>
+                                                        <th>PP</th>
+                                                        <th>Waktu</th>
+                                                        <th>Kegiatan</th>
+                                                        <th>Nilai</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="sai-tab-finish" >
+                                        <div class="table-responsive ">
+                                            <table id="table-app" class="table table-bordered table-striped" width='100%'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>No Bukti</th>
+                                                        <th>No Juskeb</th>
+                                                        <th>No Dokumen</th>
+                                                        <th>PP</th>
+                                                        <th>Waktu</th>
+                                                        <th>Kegiatan</th>
+                                                        <th>Posisi</th>
+                                                        <th>Nilai</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -702,6 +718,33 @@
                         $('#saku-data').hide();
                         $('#saku-form').hide();
                     }
+                }else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/login') }}";
+                    })
+                }else{
+                    var html = `
+                    <div class="sl-item"> 
+                        <div class="sl-left" style="margin-left: -65px;"> 
+                            <div style="padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-envelope"></i> 
+                            </div> 
+                        </div>
+                        <div class="sl-right">
+                            Belum ada proses approval.
+                            <br>
+                            <br>
+                        <div>
+                    </div>
+                    <hr>`;
+                    $('.profiletimeline').html(html);
+                    $('#slide-history').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').hide();
+                
                 }
             }
         });

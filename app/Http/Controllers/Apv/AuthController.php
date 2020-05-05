@@ -78,6 +78,13 @@ class AuthController extends Controller
                             Session::put('namaPP',$res[0]["nama_pp"]);
                             Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
                             Session::put('foto',$res[0]["foto"]);
+                            $tmp = explode("_",$res[0]["path_view"]);
+                            if(isset($tmp[2])){
+                                $dash = $tmp[2];
+                            }else{
+                                $dash = "-";
+                            }
+                            Session::put('dash',$dash);
                             Session::put('logo',$res[0]["logo"]);
                             Session::put('no_telp',$res[0]["no_telp"]);
                             Session::put('email',$res[0]["email"]);

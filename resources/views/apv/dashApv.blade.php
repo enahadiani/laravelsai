@@ -1,30 +1,14 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
+@php
 
-$kode_lokasi=$_SESSION['lokasi'];
-$periode=$_SESSION['periode'];
-$kode_pp=$_SESSION['kodePP'];
-$nik=$_SESSION['userLog'];
-$resource = $_GET["resource"];
-$fullId = $_GET["fullId"];
+$poly1 = asset("image/Polygon1.png");
+$poly2 = asset("image/Polygon12.png");
+$group12 = asset("image/Group12.png");
+$group13 = asset("image/Group13.png");
+@endphp
 
-$path = "http://".$_SERVER["SERVER_NAME"]."/";	
-$poly1 = $path."image/Polygon1.png";
-$poly2 = $path."image/Polygon12.png";
-$group12 = $path."image/Group12.png";
-$group13 = $path."image/Group13.png";
-?>
-
-<link href="<?=$folder_assets?>/node_modules/footable/css/footable.bootstrap.min.css" rel="stylesheet">
+<link href="{{ asset('asset_elite/node_modules/footable/css/footable.bootstrap.min.css') }}" rel="stylesheet">
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
-
 body {
     /* font-family: 'Roboto', sans-serif !important; */
 }
@@ -266,129 +250,6 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                 </div>
             </div>
         </div>
-        
-        <!-- <div class='col-md-12'>
-            <div class="card-group">
-                    <div class="card" id="card-aju">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-doc"></i></h3>
-                                            <p class="text-muted">Pengajuan</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-primary" id="pengajuan">23</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress" id="prog_aju">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="card-approval">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-note"></i></h3>
-                                            <p class="text-muted">Approval</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-purple" id="approval">169</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress" id="prog_app">
-                                        <div class="progress-bar bg-purple" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="card-approved">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-check"></i></h3>
-                                            <p class="text-muted">Approved</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-success" id="approved">157</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress" id="prog_appd">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card" id="card-return">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h3><i class="icon-reload"></i></h3>
-                                            <p class="text-muted">Return</p>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <h2 class="counter text-danger" id="return">431</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="progress" id="prog_rtn">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 85%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div> -->
-        <!-- <div class='col-md-12' style='display:none'>
-            <div class='card'>
-                <div class='card-body'>
-                    <button class='btn btn-secondary float-right mb-2'> Back
-                    </button>
-                    <style>
-                        td,th{
-                            padding:8px !important;
-                            vertical-align:middle !important;
-                        }
-                    </style>
-                    <table class='table table-bordered table-striped'>
-                        <thead>
-                            <tr>
-                            <th>No Bukti</th>
-                            <th>No Dokumen</th>
-                            <th>PP</th>
-                            <th>Waktu</th>
-                            <th>Kegiatan</th>
-                            <th>Posisi</th>
-                            <th>Nilai</th>
-                            <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 
@@ -397,26 +258,25 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
   var OneSignal = window.OneSignal || [];
   OneSignal.push(function() {
     OneSignal.init({
-      appId: "17d5726f-3bc0-4e97-8567-8ad802ccb9ff",
+      appId: "97185eaf-498e-48fd-a15a-be344d530385",
     });
     OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
         if (isEnabled){
             OneSignal.getUserId().then(function(userId) {
                 console.log(userId);
                 idUser = userId;
-                $.ajax({
-                    type: 'POST',
-                    url: '<?=$root_ser?>/Notif.php?fx=register',
-                    dataType: 'json',
-                    async:false,
-                    data: {nik:'<?=$nik?>', kode_lokasi:'<?=$kode_lokasi?>', token:userId},
-                    success:function(result){
-                        console.log(result.message);
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
+                // $.ajax({
+                //     type: 'POST',
+                //     url: '',
+                //     dataType: 'json',
+                //     async:false,
+                //     success:function(result){
+                //         console.log(result.message);
+                //     },
+                //     fail: function(xhr, textStatus, errorThrown){
+                //         alert('request failed:'+textStatus);
+                //     }
+                // });
             });
         }
         else{
@@ -426,8 +286,8 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
   });
 </script>
 
-<script src="<?=$folder_assets?>/node_modules/moment/moment.js"></script>
-<script src="<?=$folder_assets?>/node_modules/footable/js/footable.min.js"></script>
+<script src="{{ asset('asset_elite/node_modules/moment/moment.js') }}"></script>
+<script src="{{ asset('asset_elite/node_modules/footable/js/footable.min.js') }}"></script>
 <script>
 
 function sepNum(x){
@@ -458,22 +318,23 @@ function loadService(index,method,url,param=null){
         url: url,
         dataType: 'json',
         async:false,
-        data: {'periode':'<?=$periode?>','param':param},
-        success:function(result){    
+        data: {'param':param},
+        success:function(res){ 
+            var result = res.data;   
             if(result.status){
                 switch(index){
                     case 'box' :
-                        $('#juskeb').text(sepNumPas(result.juskeb));
-                        $('#ver').text(sepNumPas(result.ver));
-                        $('#appjuskeb').text(sepNumPas(result.appjuskeb));
-                        $('#juspeng').text(sepNumPas(result.juspeng));
-                        $('#appjuspeng').text(sepNumPas(result.appjuspeng));
+                        $('#juskeb').text(sepNumPas(result.data.juskeb));
+                        $('#ver').text(sepNumPas(result.data.ver));
+                        $('#appjuskeb').text(sepNumPas(result.data.appjuskeb));
+                        $('#juspeng').text(sepNumPas(result.data.juspeng));
+                        $('#appjuspeng').text(sepNumPas(result.data.appjuspeng));
 
                     break;
                     case 'tablePosisi' :
                         var html='';
-                        for(var i=0;i<result.daftar.length;i++){
-                            var line = result.daftar[i];
+                        for(var i=0;i<result.data.length;i++){
+                            var line = result.data[i];
                             html+=`<tr>
                                 <td>`+line.no_bukti+`</td>
                                 <td>`+line.no_dokumen+`</td>
@@ -516,15 +377,14 @@ function loadService(index,method,url,param=null){
     });
 }
 function initDash(){
-    loadService('box','GET','<?=$root_ser?>/dashApv.php?fx=getDataBox','<?=$kode_lokasi?>|'); 
-    loadService('tablePosisi','GET','<?=$root_ser?>/dashApv.php?fx=getPosisi','<?=$kode_lokasi?>|'); 
+    loadService('box','GET',"{{ url('apv/dash_databox') }}"); 
+    loadService('tablePosisi','GET',"{{ url('apv/dash_posisi') }}"); 
      
 }
 initDash();
 
 $('.col-md-2dot4').click(function(){
     var kode = $(this).closest('div').find('p').text();
-    // alert(kode);
-    loadService('tablePosisi','GET','<?=$root_ser?>/dashApv.php?fx=getPosisi','<?=$kode_lokasi?>|'+kode); 
+    loadService('tablePosisi','GET',"{{ url('apv/dash_posisi') }}",kode); 
 })
 </script>

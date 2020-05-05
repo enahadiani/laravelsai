@@ -75,6 +75,7 @@ Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');
 Route::post('verifikasi','Apv\VerifikasiController@store');
 Route::get('verifikasi_status','Apv\VerifikasiController@getStatus');
+Route::get('verifikasi_history','Apv\VerifikasiController@getHistory');
 
 Route::get('juskeb_app','Apv\JuskebApprovalController@index');
 Route::get('juskeb_aju','Apv\JuskebApprovalController@getPengajuan');
@@ -98,5 +99,8 @@ Route::get('juspo_app_aju','Apv\JuspoApprovalController@getPengajuan');
 Route::get('juspo_app/{no_bukti}','Apv\JuspoApprovalController@show');
 Route::post('juspo_app','Apv\JuspoApprovalController@store');
 Route::get('juspo_app_status','Apv\JuspoApprovalController@getStatus');
+
+Route::get('dash_databox','Apv\DashboardController@getDataBox');
+Route::get('dash_posisi','Apv\DashboardController@getPosisi');
 
 
