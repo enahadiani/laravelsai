@@ -438,13 +438,16 @@ Selamat Bekerja
     $('.nav2').on('click','.a_link',function(e){
         e.preventDefault();
         var url = $(this).data('href');
-        var url = "{{ url('/saku/form')}}"+"/"+form;
-        if(form == "" || form == "-"){
+        var tmp = url.split("/");
+        $('.nav2-link').removeClass('active');
+        $(this).addClass('active');
+        
+       if(tmp[2] == "" || tmp[2] == "-"){
             // alert('Form dilock!');
-        return false;
+            // return false;
         }else{
-            loadForm(url);
-         }
+            loadForm("{{ url('/telu/form') }}"+"/"+tmp[2]);
+        }
     });
 
     // Menu Handler

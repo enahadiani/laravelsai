@@ -22,6 +22,9 @@ Route::get('/getPencapaianYoY/{periode}','Telu\DashboardController@getPencapaian
 Route::get('/getRkaVsReal/{periode}','Telu\DashboardController@getRkaVsReal');
 Route::get('/getGrowthRka/{periode}','Telu\DashboardController@getGrowthRka');
 Route::get('/getGrowthReal/{periode}','Telu\DashboardController@getGrowthReal');
+Route::get('/getKomposisiPendapatan/{periode}','Telu\DashboardController@getKomposisiPendapatan');
+Route::get('/getOprNonOpr/{periode}','Telu\DashboardController@getOprNonOpr');
+Route::get('/getPresentaseRkaRealisasi/{periode}','Telu\DashboardController@getPresentaseRkaRealisasi');
 
 
 ?>
