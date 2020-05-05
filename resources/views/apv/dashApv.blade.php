@@ -255,35 +255,35 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
-  var OneSignal = window.OneSignal || [];
-  OneSignal.push(function() {
-    OneSignal.init({
-      appId: "97185eaf-498e-48fd-a15a-be344d530385",
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+        appId: "5f0781d5-8856-4f3e-a2c7-0f95695def7e",
+        });
+        OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+            if (isEnabled){
+                OneSignal.getUserId().then(function(userId) {
+                    console.log(userId);
+                    idUser = userId;
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: '',
+                    //     dataType: 'json',
+                    //     async:false,
+                    //     success:function(result){
+                    //         console.log(result.message);
+                    //     },
+                    //     fail: function(xhr, textStatus, errorThrown){
+                    //         alert('request failed:'+textStatus);
+                    //     }
+                    // });
+                });
+            }
+            else{
+                console.log('Push notifications are not enabled');    
+            }  
+        });
     });
-    OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-        if (isEnabled){
-            OneSignal.getUserId().then(function(userId) {
-                console.log(userId);
-                idUser = userId;
-                // $.ajax({
-                //     type: 'POST',
-                //     url: '',
-                //     dataType: 'json',
-                //     async:false,
-                //     success:function(result){
-                //         console.log(result.message);
-                //     },
-                //     fail: function(xhr, textStatus, errorThrown){
-                //         alert('request failed:'+textStatus);
-                //     }
-                // });
-            });
-        }
-        else{
-            console.log('Push notifications are not enabled');    
-        }  
-    });
-  });
 </script>
 
 <script src="{{ asset('asset_elite/node_modules/moment/moment.js') }}"></script>
