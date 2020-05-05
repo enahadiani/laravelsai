@@ -371,6 +371,7 @@ function getRkaVsReal(periode=null){
         url:"{{ url('/telu/getRkaVsReal') }}/"+periode,
         dataType: "JSON",
         success: function(result){
+
             Highcharts.chart('rkaVSreal', {
                  chart: {
                             type: 'column',
