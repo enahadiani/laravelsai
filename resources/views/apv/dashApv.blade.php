@@ -275,6 +275,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         type: 'POST',
                         url: "{{ url('apv/notif_register') }}",
                         dataType: 'json',
+                        data: {'token':idUser},
                         async:false,
                         success:function(result){
                             console.log(result.message);
