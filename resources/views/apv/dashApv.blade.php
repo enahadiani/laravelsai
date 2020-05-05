@@ -255,28 +255,34 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
     var OneSignal = window.OneSignal || [];
     OneSignal.push(function() {
         OneSignal.init({
-        appId: "5f0781d5-8856-4f3e-a2c7-0f95695def7e",
+            appId: "5f0781d5-8856-4f3e-a2c7-0f95695def7e",
         });
         OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
             if (isEnabled){
                 OneSignal.getUserId().then(function(userId) {
                     console.log(userId);
                     idUser = userId;
-                    // $.ajax({
-                    //     type: 'POST',
-                    //     url: '',
-                    //     dataType: 'json',
-                    //     async:false,
-                    //     success:function(result){
-                    //         console.log(result.message);
-                    //     },
-                    //     fail: function(xhr, textStatus, errorThrown){
-                    //         alert('request failed:'+textStatus);
-                    //     }
-                    // });
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('apv/notif_register') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){
+                            console.log(result.message);
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
                 });
             }
             else{
