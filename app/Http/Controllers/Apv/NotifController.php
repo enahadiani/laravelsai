@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class NotifController extends Controller
 {
@@ -49,15 +50,18 @@ class NotifController extends Controller
 
         try {
 
-            $title = 'Test SAI';
-            $content = 'Notif send from laravelsai';
-            $token_player = array('6681074c-a789-46f5-a278-e1052d592ed1');
+            $title = "Test SAI";
+            $content = "Notif send from laravelsai";
+            $token_player = array("6681074c-a789-46f5-a278-e1052d592ed1");
             $title = $title;
             
             $fields = array(
-                'app_id' => '5f0781d5-8856-4f3e-a2c7-0f95695def7e', //appid laravelsai
+                'app_id' => "5f0781d5-8856-4f3e-a2c7-0f95695def7e", //appid laravelsai
                 'include_player_ids' => $token_player,
-                'url' => 'https://onesignal.com',
+                'url' => "https://onesignal.com",
+                'data' => array(
+                    "foo" => "bar"
+                ),
                 'contents' => array(
                     'en' => $content
                 ),
@@ -66,29 +70,28 @@ class NotifController extends Controller
                 )
             );
             
-            $fields = json_encode($fields);
-
+            $url = "https://onesignal.com/api/v1/notifications";
             $client = new Client();
-            $response = $client->request('POST', 'https://onesignal.com/api/v1/notifications',[
-                'body' => $fields,
+            $response = $client->request('POST', $url, [
+                'body' => json_encode($fields),
                 'headers' => [
-                    'Content-Type: application/json',
-                    'Authorization' => 'Basic ZmY5ODczYTMtNTgwZS00YmQ4LWFmNTMtMzQxZDY4ODc3MWFh'
+                    'Content-Type'     => 'application/json; charset=utf-8',
+                    'Authorization' => 'Basic ZmY5ODczYTMtNTgwZS00YmQ4LWFmNTMtMzQxZDY4ODc3MWFh',
                 ]
             ]);
 
-            
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
             }
-            return response()->json(['result' => $data, 'status'=>true], 200); 
+            // $data = "";
+            return response()->json(['result' => $data, 'status'=>true, 'fields'=>$fields], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false, 'fields'=> $fields], 200);
+            return response()->json(['message' => $res, 'status'=>false, 'fields'=> $fields], 200);
         }
 
     }
