@@ -51,33 +51,30 @@ class NotifController extends Controller
 
             $title = 'Test SAI';
             $content = 'Notif send from laravelsai';
-            $token_player = 'd26e7eda-e2d3-4cc5-bc4f-f0688e5f0658';
+            $token_player = array('6681074c-a789-46f5-a278-e1052d592ed1');
             $title = $title;
-            $content      = array(
-                "en" => $content
-            );
             
             $fields = array(
-                'app_id' => "5f0781d5-8856-4f3e-a2c7-0f95695def7e", //appid laravelsai
+                'app_id' => '5f0781d5-8856-4f3e-a2c7-0f95695def7e', //appid laravelsai
                 'include_player_ids' => $token_player,
-                'data' => array(
-                    "foo" => "bar"
+                'url' => 'https://onesignal.com',
+                'contents' => array(
+                    'en' => $content
                 ),
-                'contents' => $content,
                 'headings' => array(
                     'en' => $title
-                    )
+                )
             );
             
             $fields = json_encode($fields);
 
             $client = new Client();
             $response = $client->request('POST', 'https://onesignal.com/api/v1/notifications',[
+                'body' => $fields,
                 'headers' => [
-                    'Content-Type: application/json; charset=utf-8',
+                    'Content-Type: application/json',
                     'Authorization' => 'Basic ZmY5ODczYTMtNTgwZS00YmQ4LWFmNTMtMzQxZDY4ODc3MWFh'
-                ],
-                'body' => $fields
+                ]
             ]);
 
             
