@@ -219,6 +219,20 @@ class VerifikasiController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if($data['success']['verifikasi'] == "Approve"){
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda";
+                    $title = "Justifikasi kebutuhan [LaravelSAI]";
+                    
+                }else{
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda telah di return";
+                    $title = "Return Verifikasi [LaravelSAI]";
+                }
+                $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                if($notif["status"]){
+                    $data["success"]["message"] .= " Notif success";
+                }else{
+                    $data["success"]["message"] .= " Notif failed";
+                }
                 return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {
