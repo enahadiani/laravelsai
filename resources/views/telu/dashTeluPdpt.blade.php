@@ -201,6 +201,15 @@ function getPresentaseRkaRealisasi(periode=null){
                                     },
                                     cursor: 'pointer',
                                     //point
+                                    point: {
+                                        events: {
+                                            click: function() {  
+                                                $kd= this.options.key;
+                                                var url = "{{ url('/telu/form/dashTeluPdptDet') }}";
+                                                loadForm(url)
+                                            }
+                                        }
+                                    }
                                 }
                             },
                             legend: {

@@ -151,5 +151,84 @@
             return response()->json(['data' => $data], 200);
         }
 
+        public function getPendapatanFak($periode,$kodeNeraca)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/pdptFakultas/'.$periode.'/'.$kodeNeraca,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getDetailPendapatan($periode,$kodeNeraca)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/detailPdpt/'.$periode.'/'.$kodeNeraca,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getPendapatanJurusan($periode,$kodeNeraca,$kodeBidang)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/pdptJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
+            [
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getDataPendJurusan($periode,$kodeNeraca,$kodeBidang,$tahun)
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/detailPdptJurusan/'.$periode.'/'.$kodeNeraca.
+            '/'.$kodeBidang.'/'.$tahun,
+            [
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
     }
 ?>
