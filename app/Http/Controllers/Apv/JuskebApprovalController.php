@@ -190,17 +190,22 @@ class JuskebApprovalController extends Controller
                     $title2 = "Return Pengajuan Justifikasi Kebutuhan [LaravelSAI]";
                     $content2 = "Pengajuan Justifikasi Kebutuhan ".$data['success']['no_aju']." Anda telah di return oleh ".$data['success']['nik_app'];
                 }
-                $notif = $this->sendNotif($title,$content,$data['success']['token_players_app']);
-                $notif2 = $this->sendNotif($title2,$content2,$data['success']['token_players_buat']);
-                if($notif["status"]){
-                    $data["success"]["message"] .= " Notif success";
-                }else{
-                    $data["success"]["message"] .= " Notif failed";
+                if(isset($data['success']['token_players_app'])){
+
+                    $notif = $this->sendNotif($title,$content,$data['success']['token_players_app']);
+                    if($notif["status"]){
+                        $data["success"]["message"] .= " Notif success";
+                    }else{
+                        $data["success"]["message"] .= " Notif failed";
+                    }
                 }
-                if($notif2["status"]){
-                    $data["success"]["message"] .= " Notif2 success";
-                }else{
-                    $data["success"]["message"] .= " Notif2 failed";
+                if(isset($data['success']['token_players_buat'])){
+                    $notif2 = $this->sendNotif($title2,$content2,$data['success']['token_players_buat']);
+                    if($notif2["status"]){
+                        $data["success"]["message"] .= " Notif2 success";
+                    }else{
+                        $data["success"]["message"] .= " Notif2 failed";
+                    }
                 }
                 return response()->json(['data' => $data['success']], 200);  
             }
