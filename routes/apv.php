@@ -103,5 +103,6 @@ Route::get('juspo_app_status','Apv\JuspoApprovalController@getStatus');
 Route::get('dash_databox','Apv\DashboardController@getDataBox');
 Route::get('dash_posisi','Apv\DashboardController@getPosisi');
 Route::post('notif_register','Apv\NotifController@register');
+Route::get('notif_send','Apv\NotifController@sendNotif');
 
 
