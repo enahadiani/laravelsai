@@ -272,7 +272,7 @@ class JuskebController extends Controller
                 if($data['success']['status']){
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." And berhasil dikirim, menunggu verifikasi";
                     $titlle = "Justifikasi kebutuhan [LaravelSAI]";
-                    $notif = sendNotif($title,$content,$data['success']['token_players']);
+                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
                     if($notif["status"]){
                         $data["success"]["message"] .= " Notif success";
                     }else{
@@ -483,6 +483,16 @@ class JuskebController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if($data['success']['status']){
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." And berhasil dikirim, menunggu verifikasi";
+                    $titlle = "Justifikasi kebutuhan [LaravelSAI]";
+                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    if($notif["status"]){
+                        $data["success"]["message"] .= " Notif success";
+                    }else{
+                        $data["success"]["message"] .= " Notif failed";
+                    }
+                }
                 return response()->json(['data' => $data["success"],"cek"=>$fields_nama_file], 200);  
             }
         } catch (BadResponseException $ex) {
