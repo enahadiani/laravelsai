@@ -221,7 +221,7 @@ class VerifikasiController extends Controller
                 $data = json_decode($response_data,true);
                 if($data['success']['verifikasi'] == "Approve"){
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda";
-                    $title = "Justifikasi kebutuhan [LaravelSAI]";
+                    $title = "Verifikasi Justifikasi kebutuhan [LaravelSAI]";
                     
                 }else{
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda telah di return";
