@@ -400,7 +400,7 @@ Selamat Bekerja
             <nav class="nav2">
                 <a class="nav2-link active a_link" href='#' data-href="app/telu/dashTelu"><img src="{{ asset('asset_elite/icons/home-run1.svg') }}" style='margin-bottom:5px;width:15px'> Home</a>
                 <a class="nav2-link a_link" href='#' data-href="app/telu/dashTeluPdpt"><img src="{{ asset('asset_elite/icons/coins1.svg') }}" style='margin-bottom:5px;width:20px'> Pendapatan</a>
-                <a class="nav2-link a_link" href="#"><img src="{{ asset('asset_elite/icons/coins1.svg') }}" style='margin-bottom:5px;width:20px'> Beban</a>
+                <a class="nav2-link a_link" href="#" data-href="app/telu/dashTeluBeban"><img src="{{ asset('asset_elite/icons/coins1.svg') }}" style='margin-bottom:5px;width:20px'> Beban</a>
             </nav>
             <section id="content-body">
             

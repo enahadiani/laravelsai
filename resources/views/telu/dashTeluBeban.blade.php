@@ -55,7 +55,7 @@ $nik     = Session::get('userLog');
     <div class="row" >
         <div class="col-6">
             <div class="card">
-                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Pendapatan</h5>
+                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Beban</h5>
                 <div class="card-body pt-0">
                     <div id='komposisi' style='height:350px'>
                     </div>
@@ -160,7 +160,7 @@ function singkatNilai(num){
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPresentaseRkaRealisasiPendapatan') }}/"+periode,
+        url:"{{ url('/telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('rkaVSreal', {
@@ -205,7 +205,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                         events: {
                                             click: function() {  
                                                 $kd= this.options.key;
-                                                var url = "{{ url('/telu/form/dashTeluPdptDet') }}";
+                                                var url = "{{ url('/telu/form/dashTeluBebanDet') }}";
                                                 loadForm(url)
                                             }
                                         }
@@ -231,7 +231,7 @@ function getPresentaseRkaRealisasi(periode=null){
 function getOprNonOpr(periode=null){
     $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getOprNonOprPendapatan') }}/"+periode,
+    url:"{{ url('/telu/getOprNonOprBeban') }}/"+periode,
     dataType:"JSON",
     success:function(result){
         $('#opr').text(sepNum(result.data.opr)+'%');
@@ -240,10 +240,10 @@ function getOprNonOpr(periode=null){
     })
 }
 
-function getKomposisiPendapatan(periode=null){
+function getKomposisiBeban(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getKomposisiPendapatan') }}/"+periode,
+    url:"{{ url('/telu/getKomposisiBeban') }}/"+periode,
     dataType:"JSON",
     success: function(result){
             Highcharts.chart('komposisi', {
@@ -292,7 +292,7 @@ $.ajax({
 
 }
 
-getKomposisiPendapatan("{{$periode}}");
+getKomposisiBeban("{{$periode}}");
 getOprNonOpr("{{$periode}}");
 getPresentaseRkaRealisasi("{{$periode}}");
 </script>
