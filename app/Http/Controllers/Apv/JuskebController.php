@@ -469,6 +469,10 @@ class JuskebController extends Controller
                     $send_data = array_merge($send_data,$fields_nama_file);
                 }
             }
+
+            $success['send_data'] = $send_data;
+            $success['hasfile'] = $request->hasfile('file_dok')[0];
+            $success['count'] = count($request->file_dok);
                 
             $client = new Client();
             $response = $client->request('POST', $this->link.'juskeb/'.$no_bukti,[
