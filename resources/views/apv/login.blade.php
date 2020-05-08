@@ -198,7 +198,7 @@
             <div class="wrapper row">
                 <div class="top col-md-8">
                     <h4 style="text-align:left" class="greetings">Hi, Selamat Pagi</h4>
-                    <img src="{{ asset('asset_elite/images/telkom_medika.jpeg') }}" width="120px" style="padding-top:30px">
+                    <img src="{{ asset('asset_elite/images/telkom_medika.jpeg') }}" width="220px" style="padding-top:30px">
                     <h3> Sistem Logistik</h3>
                 </div>
                 <div class="midLeft row py-2" hidden>
