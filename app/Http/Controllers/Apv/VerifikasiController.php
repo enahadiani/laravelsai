@@ -93,7 +93,7 @@ class VerifikasiController extends Controller
         try {
             $client = new Client();
             $kode_pp = Session::get('kodePP');
-            $response = $client->request('GET', $this->link.'verifikasi',[
+            $response = $client->request('GET', $this->link.'verifikasi?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -122,7 +122,7 @@ class VerifikasiController extends Controller
         try {
             $client = new Client();
             $kode_pp = Session::get('kodePP');
-            $response = $client->request('GET', $this->link.'verifikasi_history',[
+            $response = $client->request('GET', $this->link.'verifikasi_history?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -138,7 +138,7 @@ class VerifikasiController extends Controller
                 $res = json_decode($response_data,true);
                 $data = $res["success"]["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true,'result'=>$res], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true,'result'=>$res,'kode_pp'=>$kode_pp], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
