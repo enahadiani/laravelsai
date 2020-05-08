@@ -231,7 +231,9 @@ class JuskebController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
-            if(isset($request->file_dok)){
+            
+            $cek = $request->file_dok;
+            if(!empty($cek)){
 
                 if(count($request->file_dok) > 0){
     
@@ -445,7 +447,8 @@ class JuskebController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
-            if(isset($request->file_dok)){
+            $cek = $request->file_dok;
+            if(!empty($cek)){
 
                 if(count($request->file_dok) > 0){
 
@@ -469,10 +472,6 @@ class JuskebController extends Controller
                     $send_data = array_merge($send_data,$fields_nama_file);
                 }
             }
-
-            $success['name_dok'] = $fields_nama_file;
-            $success['hasfile'] = $request->hasfile('file_dok')[0];
-            $success['count'] = count($request->file_dok);
                 
             $client = new Client();
             $response = $client->request('POST', $this->link.'juskeb/'.$no_bukti,[
@@ -497,7 +496,7 @@ class JuskebController extends Controller
                         $data["success"]["message"] .= " Notif failed";
                     }
                 }
-                return response()->json(['data' => $data["success"],"cek"=>$success], 200);  
+                return response()->json(['data' => $data["success"],"cek"=>empty($cek)], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
