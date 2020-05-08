@@ -470,7 +470,7 @@ class JuskebController extends Controller
                 }
             }
 
-            $success['send_data'] = $send_data;
+            $success['name_dok'] = $fields_nama_file;
             $success['hasfile'] = $request->hasfile('file_dok')[0];
             $success['count'] = count($request->file_dok);
                 
