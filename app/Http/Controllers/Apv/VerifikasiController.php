@@ -150,6 +150,7 @@ class VerifikasiController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'no_aju' => 'required',
+            'kode_pp2' => 'required',
             'status' => 'required',
             'keterangan' => 'required',
             'total' => 'required',
@@ -165,6 +166,10 @@ class VerifikasiController extends Controller
                 [
                     'name' => 'no_aju',
                     'contents' => $request->no_aju,
+                ],
+                [
+                    'name' => 'kode_pp',
+                    'contents' => $request->kode_pp2,
                 ],
                 [
                     'name' => 'status',

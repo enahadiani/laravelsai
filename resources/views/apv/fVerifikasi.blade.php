@@ -80,6 +80,7 @@
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" readonly>
                                     </select>
+                                    <input class="form-control" type="hidden" id="kode_pp2" name="kode_pp2" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -301,6 +302,7 @@
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_pp')[0].selectize.disable();
+                    $('#kode_pp2').val(result.data[0].kode_pp);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
