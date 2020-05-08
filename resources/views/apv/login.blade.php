@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{ asset('asset_elite/node_modules/bootstrap/dist/css/bootstrap.min.css') }}" >
         <link rel="icon" type="image/png" href="img/saku.png" sizes="32x32">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Hind&display=swap" rel="stylesheet">
-        <title>SAKU | Login</title>
+        <title>SILO | Login</title>
         <style>
             /* @media (min-width: 1281px) { */
             .bgLogin {
@@ -198,8 +198,8 @@
             <div class="wrapper row">
                 <div class="top col-md-8">
                     <h4 style="text-align:left" class="greetings">Hi, Selamat Pagi</h4>
-                    <img src="{{ asset('asset_elite/images/saku.png') }}" width="120px" style="padding-top:30px">
-                    <h3>Sistem Informasi Keuangan</h3>
+                    <img src="{{ asset('asset_elite/images/telkom_medika.jpeg') }}" width="120px" style="padding-top:30px">
+                    <h3> Sistem Logistik</h3>
                 </div>
                 <div class="midLeft row py-2" hidden>
                     <div class="left">
