@@ -485,7 +485,7 @@ class JuskebController extends Controller
                 $data = json_decode($response_data,true);
                 if($data['success']['status']){
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." And berhasil dikirim, menunggu verifikasi";
-                    $titlle = "Justifikasi kebutuhan [LaravelSAI]";
+                    $title = "Justifikasi kebutuhan [LaravelSAI]";
                     $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
                     if($notif["status"]){
                         $data["success"]["message"] .= " Notif success";
