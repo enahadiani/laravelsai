@@ -24,7 +24,7 @@
                                         <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Kode PP</th>
-                                        <th>Kode Jab</th>
+                                        <th>Kode Role</th>
                                         <th>Email</th>
                                         <th>No Telp</th>
                                         <th>Action</th>
@@ -78,10 +78,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="nama" class="col-3 col-form-label">Jabatan</label>
+                                    <label for="nama" class="col-3 col-form-label">Kode Role</label>
                                     <div class="col-3">
                                         <select class='form-control' id="kode_jab" name="kode_jab">
-                                        <option value=''>--- Pilih Jabatan ---</option>
+                                        <option value=''>--- Pilih Role ---</option>
                                         </select>
                                     </div>
                                 </div>
@@ -144,10 +144,10 @@
         });
     }
 
-    function getJab(){
+    function getRole(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/jabatan') }}",
+            url: "{{ url('apv/role') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -157,7 +157,7 @@
                     var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_jab + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_jab}]);
+                            control.addOption([{text:result.daftar[i].kode_role + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_role}]);
                         }
                     }
                 }
@@ -166,7 +166,7 @@
     }
 
     getPP();
-    getJab();
+    getRole();
 
     
     $('.custom-file-input').on('change',function(){

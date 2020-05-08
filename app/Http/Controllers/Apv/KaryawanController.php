@@ -74,11 +74,11 @@ class KaryawanController extends Controller
             ]);
             
         try{
-            $image_path = $request->file('file_gambar')->getPathname();
-            $image_mime = $request->file('file_gambar')->getmimeType();
-            $image_org  = $request->file('file_gambar')->getClientOriginalName();
-
+            
             if($request->hasfile('file_gambar')){
+                $image_path = $request->file('file_gambar')->getPathname();
+                $image_mime = $request->file('file_gambar')->getmimeType();
+                $image_org  = $request->file('file_gambar')->getClientOriginalName();
                 $fields = [
                     [
                         'name' => 'nik',
@@ -231,11 +231,10 @@ class KaryawanController extends Controller
 
         try{
 
-            $image_path = $request->file('file_gambar')->getPathname();
-            $image_mime = $request->file('file_gambar')->getmimeType();
-            $image_org  = $request->file('file_gambar')->getClientOriginalName();
-
             if($request->hasfile('file_gambar')){
+                $image_path = $request->file('file_gambar')->getPathname();
+                $image_mime = $request->file('file_gambar')->getmimeType();
+                $image_org  = $request->file('file_gambar')->getClientOriginalName();
                 $fields = [
                     [
                         'name' => 'nik',
