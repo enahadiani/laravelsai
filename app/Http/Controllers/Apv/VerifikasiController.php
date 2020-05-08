@@ -92,7 +92,8 @@ class VerifikasiController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'verifikasi',[
+            $kode_pp = Session::get('kodePP');
+            $response = $client->request('GET', $this->link.'verifikasi?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -117,7 +118,8 @@ class VerifikasiController extends Controller
     public function getHistory(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'verifikasi_history',[
+            $kode_pp = Session::get('kodePP');
+            $response = $client->request('GET', $this->link.'verifikasi_history?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
