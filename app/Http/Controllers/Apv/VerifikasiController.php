@@ -233,7 +233,8 @@ class VerifikasiController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
-            if($request->hasfile('file_dok')[0]){
+            $cek = $request->file_dok;
+            if(!empty($cek)){
 
                 if(count($request->file_dok) > 0){
 
