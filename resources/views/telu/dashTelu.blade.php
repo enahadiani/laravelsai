@@ -200,6 +200,13 @@ function getPencapaianYoY(periode=null) {
         type:"GET",
         url:"{{ url('/telu/getPencapaianYoY') }}/"+periode,
         dataType: "JSON",
+        statusCode:{
+            500: function(response){
+                alert('Expired token, please re-login')
+                "{{url('telu/logout')}}"
+                window.location="{{url('/telu/login')}}";
+            }
+        },
         success: function(result){
             var html='';
             var nama = ['Pendapatan','Beban','SHU','OR'];
@@ -303,7 +310,6 @@ function getGrowthRKA(periode=null){
         url:"{{ url('/telu/getGrowthRka') }}/"+periode,
         dataType:"JSON",
         success:function(result){
-
             Highcharts.chart('growthRKA', { 
                 title: {
                     text: null

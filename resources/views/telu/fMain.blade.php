@@ -566,12 +566,12 @@ Selamat Bekerja
     });
     </script>
     
-    {{-- @if(!Session::get('isLogedIn'))
+    @if(!Session::has('isLoggedIn'))
        <script>
             alert('Harap login terlebih dahulu !'); 
-            window.location="{{url('/')}}";
+            window.location="{{url('/telu/login')}}";
         </script>
-    @endif --}}
+    @endif
     
 </body>
 

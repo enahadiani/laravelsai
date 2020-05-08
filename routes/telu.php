@@ -41,7 +41,7 @@ Route::get('/getPresentaseRkaRealisasiBeban/{periode}','Telu\DashboardController
 Route::get('/getBebanFak/{periode}/{kodeNeraca}','Telu\DashboardController@getBebanFak');
 Route::get('/getDetailBeban/{periode}/{kodeNeraca}','Telu\DashboardController@getDetailBeban');
 //Detail Pendapatan 2
-Route::get('/getBebanBeban/{periode}/{kodeNeraca}/{kodeBidang}','Telu\DashboardController@getBebanJurusan');
+Route::get('/getBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}','Telu\DashboardController@getBebanJurusan');
 Route::get('/getDataBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}/{tahun}','Telu\DashboardController@getDataBebanJurusan');
 
 ?>

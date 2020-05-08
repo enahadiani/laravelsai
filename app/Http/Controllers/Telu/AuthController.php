@@ -55,7 +55,7 @@
                         $data2 = json_decode($response_data2,true);
                         $res = $data2['user'];
                         if(count($res) > 0){
-                            Session::put('isLoggedIn',true);
+                            Session::put('isLoggedIn',TRUE);
                             Session::put('dash','dashTelu');
                             Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                             Session::put('userLog',$res[0]["nik"]);

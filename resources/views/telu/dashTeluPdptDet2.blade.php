@@ -155,8 +155,14 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
         type:"GET",
         url:"{{ url('/telu/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                alert('Expired token, please re-login')
+                "{{url('telu/logout')}}"
+                window.location="{{url('/telu/login')}}";
+            }
+        },
         success:function(result){
-            console.log(result);
                 var html='';
                 for(var i=0;i<result.daftar.length;i++){
                     var line = result.daftar[i];

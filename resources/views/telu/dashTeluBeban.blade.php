@@ -162,6 +162,13 @@ function getPresentaseRkaRealisasi(periode=null){
         type:"GET",
         url:"{{ url('/telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                alert('Expired token, please re-login')
+                "{{url('telu/logout')}}"
+                window.location="{{url('/telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('rkaVSreal', {
                             chart: {

@@ -164,6 +164,14 @@ function getDetailBeban(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/telu/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
+        dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                alert('Expired token, please re-login')
+                "{{url('telu/logout')}}"
+                window.location="{{url('/telu/login')}}";
+            }
+        },
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
