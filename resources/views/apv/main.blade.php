@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="_token" content="{{ csrf_token() }}" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('asset_elite/images/telkom_medika.jpeg') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('asset_elite/images/saku.png') }}">
     <title>SILO | Sistem Logistik</title>
     <!-- This page CSS -->
     <!-- Font Awesome CSS -->
@@ -192,7 +192,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">
                         <b>
-                            <img src="{{ asset('asset_elite/images/telkom_medika.jpeg') }}" alt="homepage" class="light-logo" width="30px">
+                            <img src="{{ asset('asset_elite/images/saku.png') }}" alt="homepage" class="light-logo" width="30px">
                         </b>
                         <span style="display: none;color:black;font-size:25px"> 
                         SILO</span> 

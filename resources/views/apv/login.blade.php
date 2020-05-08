@@ -7,7 +7,7 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('asset_elite/node_modules/bootstrap/dist/css/bootstrap.min.css') }}" >
-        <link rel="icon" type="image/png" href="{{ asset('asset_elite/images/telkom_medika.png') }}" sizes="32x32">
+        <link rel="icon" type="image/png" href="{{ asset('asset_elite/images/saku.png') }}" sizes="32x32">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Hind&display=swap" rel="stylesheet">
         <title>SILO | Login</title>
         <style>
