@@ -24,7 +24,7 @@
                                         <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Kode PP</th>
-                                        <th>Kode Role</th>
+                                        <th>Kode Jab</th>
                                         <th>Email</th>
                                         <th>No Telp</th>
                                         <th>Action</th>
