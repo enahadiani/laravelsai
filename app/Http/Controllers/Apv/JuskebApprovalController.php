@@ -207,7 +207,7 @@ class JuskebApprovalController extends Controller
                         $data["success"]["message"] .= " Notif2 failed";
                     }
                 }
-                return response()->json(['data' => $data['success']], 200);  
+                return response()->json(['data' => $data['success'], "res"=>$data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

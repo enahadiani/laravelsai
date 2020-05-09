@@ -775,8 +775,9 @@
                     dataType: 'json',
                     async:false,
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
+                            dataTable2.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
@@ -787,7 +788,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
