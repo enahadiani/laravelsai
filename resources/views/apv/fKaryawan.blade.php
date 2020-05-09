@@ -78,10 +78,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="nama" class="col-3 col-form-label">Kode Role</label>
+                                    <label for="nama" class="col-3 col-form-label">Kode Jabatan</label>
                                     <div class="col-3">
                                         <select class='form-control' id="kode_jab" name="kode_jab">
-                                        <option value=''>--- Pilih Role ---</option>
+                                        <option value=''>--- Pilih Jabatan ---</option>
                                         </select>
                                     </div>
                                 </div>
