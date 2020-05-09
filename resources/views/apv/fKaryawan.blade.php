@@ -144,10 +144,10 @@
         });
     }
 
-    function getRole(){
+    function getJab(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/role') }}",
+            url: "{{ url('apv/jabatan') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -157,7 +157,7 @@
                     var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_role + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_role}]);
+                            control.addOption([{text:result.daftar[i].kode_jab + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_jab}]);
                         }
                     }
                 }
@@ -166,7 +166,7 @@
     }
 
     getPP();
-    getRole();
+    getJab();
 
     
     $('.custom-file-input').on('change',function(){
