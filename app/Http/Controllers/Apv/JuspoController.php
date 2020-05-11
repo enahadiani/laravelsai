@@ -389,6 +389,8 @@ class JuspoController extends Controller
     {
         $this->validate($request, [
             'tanggal' => 'required',
+            'tgl_juskeb' => 'required',
+            'no_juskeb' => 'required',
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
             'waktu' => 'required',
@@ -406,6 +408,14 @@ class JuspoController extends Controller
                 [
                     'name' => 'tanggal',
                     'contents' => $request->tanggal,
+                ],
+                [
+                    'name' => 'tgl_aju',
+                    'contents' => $request->tgl_juskeb,
+                ],
+                [
+                    'name' => 'no_aju',
+                    'contents' => $request->no_juskeb,
                 ],
                 [
                     'name' => 'no_dokumen',
@@ -502,7 +512,7 @@ class JuspoController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
