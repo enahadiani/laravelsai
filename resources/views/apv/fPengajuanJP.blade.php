@@ -684,7 +684,7 @@
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
-                        $('#no_juskeb').val(id);
+                        $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
                         $('#waktu').val(result.data[0].waktu);
