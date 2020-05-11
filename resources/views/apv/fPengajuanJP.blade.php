@@ -608,6 +608,80 @@
                 var result= res.data;    
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
+                        $('#id').val('');
+                        $('#no_bukti').val('');
+                        $('#no_dokumen').val(result.data[0].no_dokumen);
+                        $('#tgl_juskeb').val(result.data[0].tanggal);
+                        $('#no_juskeb').val(id);
+                        $('#method').val('post');
+                        $('#kode_pp').val(result.data[0].kode_pp);
+                        $('#waktu').val(result.data[0].waktu);
+                        $('#kegiatan').val(result.data[0].kegiatan);
+                        $('#dasar').val(result.data[0].dasar);
+                        $('#total').val(toRp(result.data[0].nilai)); 
+                        var input="";
+                        var no=1;
+                        if(result.data_detail.length > 0){
+                            for(var x=0;x<result.data_detail.length;x++){
+                                var line = result.data_detail[x];
+                                input += "<tr class='row-barang'>";
+                                input += "<td width='5%' class='no-barang'>"+no+"</td>";
+                                input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
+                                input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
+                                input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
+                                input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                        }
+
+                        var input2 = "";
+                        var no=1;
+                        if(result.data_dokumen.length > 0){
+                            for(var i=0;i< result.data_dokumen.length;i++){
+                                var line2 = result.data_dokumen[i];
+                                input2 += "<tr class='row-dok'>";
+                                input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
+                                input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
+                                input2 += "<td width='30%'>"+
+                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
+                                line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
+                                input2 += "</tr>";
+                                no++;
+                            }
+                        }
+
+                        $('#input-grid2 tbody').html(input);
+                        $('#input-dok tbody').html(input2);
+                        $('.currency').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
+                        $('#saku-data').hide();
+                        $('#saku-form').show();
+                    }
+                }
+            }
+        });
+    });
+
+    $('#saku-data').on('click', '#btn-edit2', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/juspo') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        $('#id').val('edit');
+                        $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
@@ -810,7 +884,7 @@
             var url = "{{ url('apv/juspo') }}/"+id;
         }else{
             
-            var pesan = 'updated';
+            var pesan = 'saved';
             var url = "{{ url('apv/juspo') }}";
         }
 
@@ -840,7 +914,7 @@
                         dataTable2.ajax.reload();
                         Swal.fire(
                             'Great Job!',
-                            'Your data has been saved.'+result.data.message,
+                            'Your data has been '+pesan+'. '+result.data.message,
                             'success'
                             )
                         printAju(result.data.no_aju);

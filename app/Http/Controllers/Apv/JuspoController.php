@@ -106,10 +106,10 @@ class JuspoController extends Controller
 
                     for($i=0;$i<count($data);$i++){
                         if($data[$i]['progress'] == "A" ){
-                            $data[$i]["action"] = "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $data[$i]["action"] = "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a><a href='#' title='Edit' class='badge badge-info' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a>";
                         }
                         else if($data[$i]['progress'] == "3" || $data[$i]['progress'] == "R"){
-                            $data[$i]["action"] = "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $data[$i]["action"] = "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a><a href='#' title='Edit' class='badge badge-info' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a>";
                         }
                         else{
                             $data[$i]["action"] = "<a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
