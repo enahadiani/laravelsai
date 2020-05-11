@@ -683,7 +683,7 @@
                         $('#id').val('edit');
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
-                        $('#tgl_juskeb').val(result.data[0].tanggal);
+                        $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
