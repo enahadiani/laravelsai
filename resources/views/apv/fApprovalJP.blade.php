@@ -9,22 +9,22 @@
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
                         <div class='row'>   
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Approval Pengadaan
                                 </h4>
                                 <hr>
                             </div>
-                            <div class='col-md-6'>
+                            <!-- <div class='col-md-6'>
                                 <ul class="nav nav-tabs customtab float-right" role="tablist">
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class='row'>   
                             <div class='col-md-12'>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="sai-tab-new" style="position: relative;">
+                                <!-- <div class="tab-content">
+                                    <div class="tab-pane active" id="sai-tab-new" style="position: relative;"> -->
                                         <div class="table-responsive ">
                                             <table id="table-aju" class="table table-bordered table-striped" style='width:100%'>
                                                 <thead>
@@ -45,7 +45,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
+                                    <!-- </div>
                                     <div class="tab-pane" id="sai-tab-finish" style="position: relative;">
                                         <div class="table-responsive">
                                             <table id="table-app" class="table table-bordered table-striped" style='width:100%'>
@@ -64,7 +64,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -312,25 +312,25 @@
         ]
     });
 
-    var dataTable2 = $('#table-app').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('apv/juspo_app') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                return json.daftar;   
-            }
-        },
-        'columns': [
-            { data: 'no_bukti' },
-            { data: 'no_urut' },
-            { data: 'id' },
-            { data: 'keterangan' },
-            { data: 'tanggal' }
-        ]
-    });
+    // var dataTable2 = $('#table-app').DataTable({
+    //     // 'processing': true,
+    //     // 'serverSide': true,
+    //     'ajax': {
+    //         'url': "{{ url('apv/juspo_app') }}",
+    //         'async':false,
+    //         'type': 'GET',
+    //         'dataSrc' : function(json) {
+    //             return json.daftar;   
+    //         }
+    //     },
+    //     'columns': [
+    //         { data: 'no_bukti' },
+    //         { data: 'no_urut' },
+    //         { data: 'id' },
+    //         { data: 'keterangan' },
+    //         { data: 'tanggal' }
+    //     ]
+    // });
 
     $('#saku-data').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
@@ -428,7 +428,7 @@
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();
-                    dataTable2.ajax.reload();
+                    // dataTable2.ajax.reload();
                     Swal.fire(
                         'Saved!',
                         'Your data has been saved.'+result.data.message,
