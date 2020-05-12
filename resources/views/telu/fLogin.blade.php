@@ -259,7 +259,7 @@
                 <img class="chat" src="img/chat.png">
             </div> -->
         </section>
-        <script src="{{ asset('asset_elite/node_modules/jquery/jquery-3.4.1.min.js') }}" ></script>
+        <script src="{{ asset('asset_elite/node_modules/jquery/jquery-3.2.1.min.js') }}" ></script>
         <script src="{{ asset('asset_elite/node_modules/popper/popper.min.js') }}" ></script>
                 <script src="{{ asset('asset_elite/node_modules/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
         <script>
