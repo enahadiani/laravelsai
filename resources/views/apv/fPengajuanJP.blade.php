@@ -14,22 +14,22 @@
                             <li class="nav-item"><a href="#sai-tab-new" class='nav-link active' data-toggle='tab' role="tab" aria-selected="true"><i class="fa fa-inbox"></i> New</a></li>  
                         </ul> -->
                         <div class='row'>   
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Pengajuan
                                 </h4>
                                 <hr>
                             </div>
-                            <div class='col-md-6'>
+                            <!-- <div class='col-md-6'>
                                 <ul class="nav nav-tabs customtab float-right" role="tablist">
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class='row'>
                             <div class='col-md-12'>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="sai-tab-new">
+                                <!-- <div class="tab-content">
+                                    <div class="tab-pane active" id="sai-tab-new"> -->
                                         <div class="table-responsive ">
                                             <table id="table-data" class="table table-bordered table-striped" width='100%'>
                                                 <thead>
@@ -48,9 +48,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane" id="sai-tab-finish" >
-                                        <div class="table-responsive ">
+                                    <!-- </div>
+                                    <div class="tab-pane" id="sai-tab-finish" > -->
+                                        <!-- <div class="table-responsive ">
                                             <table id="table-app" class="table table-bordered table-striped" width='100%'>
                                                 <thead>
                                                     <tr>
@@ -71,7 +71,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -467,33 +467,33 @@
         ]
     });
 
-    var dataTable2 = $('#table-app').DataTable({
-        'ajax': {
-            'url': "{{ url('apv/juspo') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                return json.daftar;   
-            }
-        },
-        'columnDefs': [
-            {   'targets': 7, 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            }
-        ],
-        'columns': [
-            { data: 'no_bukti' },
-            { data: 'no_juskeb' },
-            { data: 'no_dokumen' },
-            { data: 'kode_pp' },
-            { data: 'waktu' },
-            { data: 'kegiatan' },
-            { data: 'posisi' },
-            { data: 'nilai' },
-            { data: 'action'}
-        ]
-    });
+    // var dataTable2 = $('#table-app').DataTable({
+    //     'ajax': {
+    //         'url': "{{ url('apv/juspo') }}",
+    //         'async':false,
+    //         'type': 'GET',
+    //         'dataSrc' : function(json) {
+    //             return json.daftar;   
+    //         }
+    //     },
+    //     'columnDefs': [
+    //         {   'targets': 7, 
+    //             'className': 'text-right',
+    //             'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+    //         }
+    //     ],
+    //     'columns': [
+    //         { data: 'no_bukti' },
+    //         { data: 'no_juskeb' },
+    //         { data: 'no_dokumen' },
+    //         { data: 'kode_pp' },
+    //         { data: 'waktu' },
+    //         { data: 'kegiatan' },
+    //         { data: 'posisi' },
+    //         { data: 'nilai' },
+    //         { data: 'action'}
+    //     ]
+    // });
 
     $('#saku-data').on('click', '#btn-aju-tambah', function(){
         $('#row-id').hide();
@@ -851,7 +851,7 @@
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
-                            dataTable2.ajax.reload();
+                            // dataTable2.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
@@ -911,7 +911,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
-                        dataTable2.ajax.reload();
+                        // dataTable2.ajax.reload();
                         Swal.fire(
                             'Great Job!',
                             'Your data has been '+pesan+'. '+result.data.message,
