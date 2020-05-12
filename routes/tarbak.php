@@ -11,8 +11,6 @@ Route::get('/form/{id}', function ($id) {
 });
 
 Route::get('/', 'Tarbak\AuthController@index');
-Route::get('/login', function() {
-    return 'Hail';
-});
+Route::get('/login', 'Tarbak\AuthController@login');
 
 ?>

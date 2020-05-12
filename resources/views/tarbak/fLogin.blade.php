@@ -13,7 +13,7 @@
     <title>SAKU - Sign In</title>
     
     <!-- page css -->
-    <link href="{{ url('asset_elite/pages/login-register-lock.css') }}" rel="stylesheet">
+    <link href="{{ url('asset_elite/dist/css/pages/login-register-lock.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ url('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
     
@@ -43,7 +43,7 @@
         <div class="login-register" style="background-image:url({{ url('asset_elite/images/background/login-register.jpg') }});">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" method="post" id="loginform" action="<?=$root_ser?>/tarbak/cLogin.php?fx=login">
+                    <form class="form-horizontal form-material" method="post" id="loginform" action="">
                         <h3 class="box-title m-b-20 text-center">Sign In</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
