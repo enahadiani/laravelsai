@@ -501,8 +501,8 @@ Selamat Bekerja
         $('.loading-text').show();
         $(document).ready(function(){
             sessionStorage.isVisited = 'true'
-            $('.loading').delay(3000).fadeOut(3000);
-            $('.loading-text').delay(3000).fadeOut(3000);
+            $('.loading').delay(0).fadeOut(0);
+            $('.loading-text').delay(0).fadeOut(0);
         });
     }
 

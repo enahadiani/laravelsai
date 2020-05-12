@@ -49,6 +49,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSakuRoutes();
 
         $this->mapTeluRoutes();
+
+        $this->mapTarbakRoutes();
         
         $this->mapApvRoutes();
 
@@ -99,6 +101,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/telu.php'));
+    }
+
+    protected function mapTarbakRoutes()
+    {
+        Route::prefix('tarbak')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/tarbak.php'));
     }
 
     protected function mapApvRoutes()
