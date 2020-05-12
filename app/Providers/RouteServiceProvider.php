@@ -52,6 +52,7 @@ class RouteServiceProvider extends ServiceProvider
         
         $this->mapApvRoutes();
 
+        $this->mapSekolahRoutes();
         //
     }
 
@@ -106,5 +107,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/apv.php'));
+    }
+
+    protected function mapSekolahRoutes()
+    {
+        Route::prefix('sekolah')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah.php'));
     }
 }
