@@ -226,7 +226,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                                 <tr>
                                     <th width="10%">#No Bukti</th>
                                     <th width="20%">No Dokumen</th>
-                                    <th width="5%">PP</th>
+                                    <th width="5%">Regional</th>
                                     <th width="10%">Waktu</th>
                                     <th width="25%">Kegiatan</th>
                                     <th width="10%">Nilai</th>

@@ -205,7 +205,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                             <h6 style='font-weight:bold !important' id='tanggal'></h6>
                         </div>
                         <div class="row" style='border-bottom: 1px solid #f0eded;padding: 5px 10px;'>
-                            <h6 style='margin-bottom:0'>Kode PP</h6>
+                            <h6 style='margin-bottom:0'>Kode Regional</h6>
                             <h6 style='font-weight:bold !important' id='kode_pp'></h6>
                         </div>
                         <div class="row" style='border-bottom: 1px solid #f0eded;padding: 5px 10px;'>

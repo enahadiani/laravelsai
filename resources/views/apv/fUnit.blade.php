@@ -20,7 +20,7 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode PP</th>
+                                        <th>Kode Regional</th>
                                         <th>Nama</th>
                                         <th>Action</th>
                                     </tr>
@@ -53,15 +53,15 @@
                                 </div>
                             </div>
                             <div class="form-group row mt-3">
-                                <label for="nama" class="col-3 col-form-label">Kode PP</label>
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
-                                    <input class="form-control tag1" type="text" placeholder="Kode PP/Unit" id="kode_pp" name="kode_pp" required>
+                                    <input class="form-control tag1" type="text" placeholder="Kode Regional/Unit" id="kode_pp" name="kode_pp" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
                                 <div class="col-9">
-                                    <input class="form-control tag1" type="text" placeholder="Nama PP/Unit" id="nama" name="nama">
+                                    <input class="form-control tag1" type="text" placeholder="Nama Regional/Unit" id="nama" name="nama">
                                 </div>
                             </div>
                         </div>

@@ -211,7 +211,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">PP</label>
+                            <label class="col-md-12">Regional</label>
                             <div class="col-md-12">
                             <input type="text" placeholder=""  id="kode_pp" class="form-control form-control-line">
                             </div>

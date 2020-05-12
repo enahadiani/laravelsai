@@ -27,7 +27,7 @@
                                                     <tr>
                                                         <th>No Bukti</th>
                                                         <th>No Dokumen</th>
-                                                        <th>PP</th>
+                                                        <th>Regional</th>
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
                                                         <th>Dasar</th>
@@ -113,7 +113,7 @@
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" readonly>
                                 </div>
-                                <label for="nama" class="col-3 col-form-label">Kode PP</label>
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" readonly>
                                     </select>

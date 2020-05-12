@@ -14,7 +14,7 @@
                                     <tr>
                                         <th>No Bukti</th>
                                         <th>No Dokumen</th>
-                                        <th>PP</th>
+                                        <th>Regional</th>
                                         <th>Waktu</th>
                                         <th>Kegiatan</th>
                                         <th>Posisi</th>
@@ -67,10 +67,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode PP</label>
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" required>
-                                    <option value=''>--- Pilih PP ---</option>
+                                    <option value=''>--- Pilih Regional ---</option>
                                     </select>
                                 </div>
                             </div>
@@ -385,20 +385,23 @@
     }
 
     function getPP(){
+        var kode_pp = "{{ Session::get('kodePP')}}";
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/unit') }}",
+            url: "{{ url('apv/unit') }}/"+kode_pp,
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(res){
+                var result = res.data;    
+                var select = $('#kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_pp').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_pp + ' - ' + result.data[i].nama, value:result.data[i].kode_pp}]);
                         }
+                        control.setValue("{{ Session::get('kodePP') }}");
                     }
                 }
             }

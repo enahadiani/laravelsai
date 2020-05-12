@@ -23,7 +23,7 @@
                                     <tr>
                                         <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Kode PP</th>
+                                        <th>Kode Regional</th>
                                         <th>Kode Jab</th>
                                         <th>Email</th>
                                         <th>No Telp</th>
@@ -70,10 +70,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="nama" class="col-3 col-form-label">PP</label>
+                                    <label for="nama" class="col-3 col-form-label">Regional</label>
                                     <div class="col-3">
                                         <select class='form-control' id="kode_pp" name="kode_pp">
-                                        <option value=''>--- Pilih PP ---</option>
+                                        <option value=''>--- Pilih Regional ---</option>
                                         </select>
                                     </div>
                                 </div>

@@ -17,7 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th>Kode Role</th>
-                                        <th>PP</th>
+                                        <th>Regional</th>
                                         <th>Nama Role</th>
                                         <th>Batas Bawah</th>
                                         <th>Batas Atas</th>
@@ -59,10 +59,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode PP</label>
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" required>
-                                    <option value=''>--- Pilih PP ---</option>
+                                    <option value=''>--- Pilih Regional ---</option>
                                     </select>
                                 </div>
                             </div>

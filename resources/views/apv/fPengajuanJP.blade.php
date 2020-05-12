@@ -36,7 +36,7 @@
                                                     <tr>
                                                         <th>No Juskeb</th>
                                                         <th>No Dokumen</th>
-                                                        <th>PP</th>
+                                                        <th>Regional</th>
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
                                                         <th>Nilai</th>
@@ -57,7 +57,7 @@
                                                         <th>No Bukti</th>
                                                         <th>No Juskeb</th>
                                                         <th>No Dokumen</th>
-                                                        <th>PP</th>
+                                                        <th>Regional</th>
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
                                                         <th>Posisi</th>
@@ -127,9 +127,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode PP</label>
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode PP" id="kode_pp" name="kode_pp" required readonly>
+                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
