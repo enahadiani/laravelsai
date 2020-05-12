@@ -72,7 +72,7 @@
     
     var dataTable2 = $('#table-data').DataTable({
         'ajax': {
-            'url': "{{ url('apv/juspo') }}",
+            'url': "apv/juspo",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
