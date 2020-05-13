@@ -43,8 +43,9 @@
         <div class="login-register" style="background-image:url({{ url('asset_elite/images/background/login-register.jpg') }});">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" method="post" id="loginform" action="">
+                    <form class="form-horizontal form-material" method="post" id="loginform" action="{{ url('tarbak/login') }}">
                         <h3 class="box-title m-b-20 text-center">Sign In</h3>
+                        @csrf
                         <div class="form-group ">
                             <div class="col-xs-12">
                                 <input class="form-control" type="text" id="login-user" placeholder="Username" name="nik" required></div>

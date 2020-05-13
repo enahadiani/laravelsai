@@ -12,5 +12,9 @@ Route::get('/form/{id}', function ($id) {
 
 Route::get('/', 'Tarbak\AuthController@index');
 Route::get('/login', 'Tarbak\AuthController@login');
+Route::post('/login', 'Tarbak\AuthController@cek_auth');
+Route::get('/logout', 'Tarbak\AuthController@logout');
+Route::get('/menu', 'Tarbak\AuthController@getMenu');
+
 
 ?>
