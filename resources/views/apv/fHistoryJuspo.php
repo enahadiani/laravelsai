@@ -446,6 +446,7 @@
                         $('#id').val('edit');
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
+                        $('#tanggal').val(result.data[0].tgl_input);
                         $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
@@ -714,8 +715,8 @@
                     async:false,
                     success:function(result){
                         if(result.data.status){
-                            dataTable.ajax.reload();
-                            // dataTable2.ajax.reload();
+                            // dataTable.ajax.reload();
+                            dataTable2.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
@@ -774,8 +775,8 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-                        dataTable.ajax.reload();
-                        // dataTable2.ajax.reload();
+                        // dataTable.ajax.reload();
+                        dataTable2.ajax.reload();
                         Swal.fire(
                             'Great Job!',
                             'Your data has been '+pesan+'. '+result.data.message,
