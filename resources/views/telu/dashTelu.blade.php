@@ -67,9 +67,9 @@ $thnLalu = substr($tahunLalu,2,2)
                         <thead>
                             <tr>
                                 <th>&nbsp;</th>
-                                <th class='text-right'>Realisasi '<span class='thnLalu'></span></th>
-                                <th class='text-right'>RKA '<span class='thnIni'></span></th>
-                                <th class='text-right'>Realisasi '<span class='thnIni'></span></th>
+                                <th class='text-right'>Realisasi '<span class='thnLalu'>{{$tahunLalu}}</span></th>
+                                <th class='text-right'>RKA '<span class='thnIni'>{{$tahun}}</span></th>
+                                <th class='text-right'>Realisasi '<span class='thnIni'>{{$tahun}}</span></th>
                                 <th class='text-right'>Pencapaian</th>
                             </tr>
                         </thead>

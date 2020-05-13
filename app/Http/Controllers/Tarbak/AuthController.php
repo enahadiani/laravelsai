@@ -1,5 +1,6 @@
-<?php
-    namespace App\Http\Controllers\Telu;
+<?php 
+
+    namespace App\Http\Controllers\Tarbak;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
@@ -7,23 +8,23 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
 
-    class AuthController extends Controller 
-    {
-        public $link = 'http://api.simkug.com/api/ypt';
+    class AuthController extends Controller {
 
+        public $link = 'http://api.simkug.com/api/sekolah';
+        
         public function index()
         {
             if(!Session::get('login')){
-                return redirect('telu/login')->with('alert','Kamu harus login dulu');
+                return redirect('tarbak/login')->with('alert','Kamu harus login dulu');
             }
             else{
-                return view('telu.fMain');
+                return view('tarbak.fMain');
             }            
         }
 
         public function login()
         {
-            return view('telu.fLogin');
+            return view('tarbak.fLogin');
         }
 
         public function cek_auth(Request $request)
@@ -56,7 +57,7 @@
                         $res = $data2['user'];
                         if(count($res) > 0){
                             Session::put('isLoggedIn',TRUE);
-                            Session::put('dash','dashTelu');
+                            // Session::put('dash','dashTelu');
                             Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                             Session::put('userLog',$res[0]["nik"]);
                             Session::put('namaUser',$res[0]["nama"]);
@@ -77,19 +78,21 @@
                         }
                     }
                     
-                    return redirect('telu/');
+                    return redirect('tarbak/');
+                    // var_dump('Sukses');
                 }else{
-                    return redirect('telu/login')->with('alert','Password atau NIK, Salah !');
+                    return redirect('tarbak/login')->with('alert','Password atau NIK, Salah !');
                 }
             
                 }else if($response->getStatusCode() == 401){
-                    return redirect('telu/login')->with('alert','Password atau NIK, Salah !');
+                    return redirect('tarbak/login')->with('alert','Password atau NIK, Salah !');
                 }
 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                return redirect('telu/login')->with('alert',$res["message"]);
+                // var_dump($res);
+                return redirect('tarbak/login')->with('alert',$res["message"]);
             }
         
         }
@@ -97,7 +100,7 @@
         public function logout()
         {
             Session::flush();
-            return redirect('telu/login')->with('alert','Kamu sudah logout');
+            return redirect('tarbak/login')->with('alert','Kamu sudah logout');
         }
 
         public function getMenu(){
@@ -230,5 +233,6 @@
          }
 
     }
+
 
 ?>
