@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" type="password"  id="pass" placeholder="Password" name="pass" required> </div>
+                                <input class="form-control" type="password"  id="pass" placeholder="Password" name="password" required> </div>
                         </div>
                         <!-- <div class="form-group row">
                             <div class="col-md-12">
@@ -103,6 +103,12 @@
             </div>
         </div>
     </section>
+
+    @if (Session::has('alert'))
+        <script>
+            alert("{{Session::get('alert')}}")
+        </script>
+    @endif
     
     <!-- ============================================================== -->
     <!-- End Wrapper -->

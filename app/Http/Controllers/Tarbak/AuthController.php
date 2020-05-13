@@ -79,6 +79,7 @@
                     }
                     
                     return redirect('tarbak/');
+                    // var_dump('Sukses');
                 }else{
                     return redirect('tarbak/login')->with('alert','Password atau NIK, Salah !');
                 }
@@ -90,6 +91,7 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
+                // var_dump($res);
                 return redirect('tarbak/login')->with('alert',$res["message"]);
             }
         
