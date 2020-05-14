@@ -325,19 +325,13 @@
                                 $(result[0].hasil).appendTo('#sidebarnav').slideDown();
                             }
                         },
-                        fail: function(xhr, textStatus, errorThrown){
+                        error: function(xhr, textStatus, errorThrown){
                             alert('request failed:'+textStatus);
                         }
                     });
                 }
 
                 loadMenu();
-
-                
-                // if(form !="" || form != "-"){
-                //     loadForm("")
-                // }
-
                 
                 $('.sidebar-nav').on('click','.a_link',function(e){
                     e.preventDefault();
@@ -350,6 +344,11 @@
                         loadForm(url);
 
                     }
+                });
+
+                $(document).ready(function(){
+                    var urlAwal = "{{ url('/tarbak/form/dashSekolah')}}";
+                    loadForm(urlAwal)
                 });
             </script>
         </div>

@@ -227,21 +227,15 @@
             var url = "{{ url('apv/jabatan') }}/"+kode;
             var pesan = "updated";
         }
-         
-        var formData = new FormData(this);
+
+        var formData = new FormData();
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-
         $.ajax({
             type: 'POST', 
             url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
+            data: $(this).ser,
             success:function(result){
                 // alert('Input data '+result.message);
                 if(result.data.status){
