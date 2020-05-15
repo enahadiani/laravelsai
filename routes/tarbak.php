@@ -28,7 +28,7 @@ Route::delete('/deleteAngkatan/{kode_akt1}/{kode_akt2}/{kode_pp}', 'Tarbak\Angka
 Route::get('/getTahunAjaran', 'Tarbak\TahunAjaranController@index');
 Route::get('/getTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@getTahunAjaran');
 Route::post('/postTahunAjaran', 'Tarbak\TahunAjaranController@save');
-Route::post('/postTahunAjaran/{kode_ta}', 'Tarbak\TahunAjaranController@update');
-Route::delete('/deleteTahunAjaran/{kode_ta}/{kode_pp}', 'Tarbak\TahunAjaranController@delete');
+Route::put('/postTahunAjaran/{kode_ta1}/{kode_ta2}', 'Tarbak\TahunAjaranController@update');
+Route::delete('/deleteTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@delete');
 
 ?>

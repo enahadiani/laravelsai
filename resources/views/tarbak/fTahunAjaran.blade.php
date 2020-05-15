@@ -47,6 +47,7 @@
                                 <div class="form-group row" id="row-id">
                                     <div class="col-9">
                                         <input class="form-control" type="hidden" id="id_edit" name="id">
+                                        <input type="hidden" id="method" name="_method" value="post">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -62,9 +63,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
+                                    <label for="tgl_awali" class="col-3 col-form-label">Tanggal Mulai</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="date" id="tgl_mulai" name="tgl_mulai">
+                                        <input class="form-control" type="date" id="tgl_awal" name="tgl_awal">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -122,6 +123,12 @@
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
     
     function openFilter() {
         var element = $('#mySidepanel');
@@ -223,6 +230,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
+        $('#method').val('post');
         $('#id_edit').val('');
         $('#kode_ta').attr('readonly', false);
         $('#saku-datatable').hide();
@@ -240,7 +248,7 @@
     });
 
 
-    $('#kode_ta,#nama,#tgl_mulai,#tgl_akhir,#flag_aktif,#kode_pp').keydown(function(e){
+    $('#kode_ta,#nama,#tgl_awal,#tgl_akhir,#flag_aktif,#kode_pp').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['kode_ta','nama','tgl_mulai','tgl_akhir','flag_aktif','kode_pp'];
         if (code == 13 || code == 40) {
@@ -340,9 +348,10 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#kode_ta').val(id);
+                    $('#method').val('put');
                     $('#kode_ta').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    $('#tgl_mulai').val(result.data[0].tgl_mulai);
+                    $('#tgl_awal').val(result.data[0].tgl_mulai);
                     $('#tgl_akhir').val(result.data[0].tgl_akhir);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
@@ -360,6 +369,58 @@
                 }
             }
         });
+    });
+
+        $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();      
+                var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
+                var kode_pp = temp[0]; 
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('tarbak/deleteTahunAjaran') }}/"+kode +"/"+ kode_pp,
+                    dataType: 'json',
+                    async:false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('apv/login') }}";
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
     });
 
     </script>

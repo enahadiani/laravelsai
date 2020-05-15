@@ -42,7 +42,7 @@
             $this->validate($request, [
             'kode_ta' => 'required',
             'nama' => 'required',
-            'tgl_mulai' => 'required',
+            'tgl_awal' => 'required',
             'tgl_akhir' => 'required',
             'flag_aktif' => 'required',
             'kode_pp' => 'required'
@@ -58,7 +58,7 @@
                     'form_params' => [
                         'kode_ta' => $request->kode_ta,
                         'nama' => $request->nama,
-                        'tgl_mulai' => $request->tgl_mulai,
+                        'tgl_awal' => $request->tgl_awal,
                         'tgl_akhir' => $request->tgl_akhir,
                         'flag_aktif' => $request->flag_aktif,
                         'kode_pp' => $request->kode_pp,
@@ -112,24 +112,27 @@
 
         }
 
-        public function update(Request $request, $kode_akt) {
+        public function update(Request $request, $kode_ta1,$kode_ta2) {
             $this->validate($request, [
             'nama' => 'required',
-            'kode_tingkat' => 'required',
+            'tgl_awal' => 'required',
+            'tgl_akhir' => 'required',
             'flag_aktif' => 'required',
-            'kode_pp' => 'required',
+            'kode_pp' => 'required'
             ]);
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'angkatan?kode_akt='.$kode_akt,[
+                $kode_ta = $kode_ta1."/".$kode_ta2;
+                $response = $client->request('PUT', $this->link.'tahun_ajaran?kode_ta='.$kode_ta,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
                         'nama' => $request->nama,
-                        'kode_tingkat' => $request->kode_tingkat,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir,
                         'flag_aktif' => $request->flag_aktif,
                         'kode_pp' => $request->kode_pp,
                     ]
@@ -150,11 +153,11 @@
             }
         }
 
-        public function delete($kode_akt1,$kode_akt2,$kode_pp) {
+        public function delete($kode_ta1,$kode_ta2,$kode_pp) {
             try{
             $client = new Client();
-            $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('DELETE', $this->link.'angkatan?kode_akt='.$kode_akt.'&kode_pp='.$kode_pp,
+            $kode_ta = $kode_ta1."/".$kode_ta2;
+            $response = $client->request('DELETE', $this->link.'tahun_ajaran?kode_ta='.$kode_ta.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
