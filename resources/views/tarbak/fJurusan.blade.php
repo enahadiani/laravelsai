@@ -4,20 +4,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Angkatan 
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Jurusan 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Data Customer</h6> -->
                         <hr>
                         <div class="table-responsive ">
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Angkatan</th>
-                                        <th>Kode PP</th>
+                                        <th>Kode Jurusan</th>
                                         <th>Nama</th>
-                                        <th>Ref Tingkat</th>
-                                        <th>Status Aktif</th>
+                                        <th>Kode PP</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -34,14 +31,14 @@
             <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
                     <div class="card-body pb-0">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Angkatan
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Jurusan
                         <button type="button" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         </h4>
                         <hr>
                     </div>
                     <div class="card-body table-responsive pt-0" style='height:460px'>
-                            <form  class="form" id="form-tambah" style='margin-bottom:100px'>
+                            <form class="form" id="form-tambah" style='margin-bottom:100px'>
                                 <div class="form-group row" id="row-id">
                                     <div class="col-9">
                                         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -49,33 +46,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kode_akt" class="col-3 col-form-label">Kode</label>
+                                    <label for="kode_jur" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Angkatan" id="kode_akt" name="kode_akt" required >
+                                        <input class="form-control" type="text" placeholder="Kode Jurusan" id="kode_jur" name="kode_jur" required >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Nama Angkatan" id="nama" name="nama">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="kode_tingkat" class="col-3 col-form-label">Ref Tingkat</label>
-                                    <div class="col-3">
-                                        <select class='form-control' id="kode_tingkat" name="kode_tingkat">
-                                        <option value='' disabled>--- Pilih Tingkat ---</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="flag_aktif" class="col-3 col-form-label">Status Aktif</label>
-                                    <div class="col-3">
-                                        <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled>--- Pilih Status Aktif ---</option>
-                                        <option value='1'>Aktif</option>
-                                        <option value='0'>Non Aktif</option>
-                                        </select>
+                                        <input class="form-control" type="text" placeholder="Nama Jurusan" id="nama" name="nama">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -112,17 +91,17 @@
             </div>
             </form>
         </div>
-    </div>     
+    </div> 
     
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>      
+    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>                
     <script>
-    
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    });
+    });    
 
     function openFilter() {
         var element = $('#mySidepanel');
@@ -166,39 +145,14 @@
 
     getPP();
 
-    function getTingkat(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/tarbak/getTingkatan') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_tingkat').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_tingkat + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_tingkat}]);
-
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    getTingkat();
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = "{{ Session::get('lokasi') }}";
-    var kode_pp = "{{ Session::get('kodePP') }}";
+    var kode_lokasi = "Session::get('lokasi')";
+    var kode_pp = "Session::get('kode_pp')";
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
         // 'serverSide': true,
-        "ordering": true,
-        "order": [[0, "desc"]],
         'ajax': {
-            'url': "{{ url('/tarbak/getAngkatan') }}",
+            'url': "{{ url('/tarbak/getJurusan') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -206,15 +160,13 @@
             }
         },
         columns: [
-              { data: 'kode_akt' },
-              { data: 'pp' },
-              { data: 'nama' },
-              { data: 'kode_tingkat' },
-              { data: 'flag_aktif' },
-              { data: 'action' }
+            { data: 'kode_jur' },
+            { data: 'nama' },
+            { data: 'pp' },
+            { data: 'action' }
         ],
         'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html }
+            {'targets': 3, data: null, 'defaultContent': action_html }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -228,44 +180,28 @@
         ]
     });
 
-    function filterColumn (pp) {
-        $('#table-data').DataTable().column(1).search(
-            pp,
-            false,
-            true
-        ).draw();
-    }
-
-    
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         var kode_pp= $('#kode_pp2')[0].selectize.getValue();
-        // dataTable.search(kode_pp).draw();
-        filterColumn(kode_pp);
+        dataTable.search(kode_pp).draw();
     });
-
-    
+ 
     $('.sidepanel').on('click', '#btnClose', function(e){
         e.preventDefault();
         openFilter();
     });
-   
+
+
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
-        $('#method').val('post');
         $('#form-tambah')[0].reset();
-        $('#kode_tingkat')[0].selectize.setValue('');
+        $('#method').val('post');
         $('#kode_pp')[0].selectize.setValue('');
         $('#id_edit').val('');
-        $('#kode_akt').attr('readonly', false);
+        $('#kode_jur').attr('readonly', false);
+        $('.preview').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-    });
-
-
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
     });
 
     
@@ -273,14 +209,21 @@
         $('#form-tambah').submit();
     });
 
-    $('#kode_akt,#nama,#kode_tingkat,#flag_aktif,#kode_pp').keydown(function(e){
+    
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+    });
+
+
+    $('#kode_jur,#nama,#kode_pp').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_akt','nama','kode_tingkat','flag_aktif','kode_pp'];
+        var nxt = ['kode_jur','nama','kode_pp'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 4 || idx == 5){
+            if(idx == 3){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
                 
@@ -297,17 +240,14 @@
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
-    e.preventDefault();
+        e.preventDefault();
         var parameter = $('#id_edit').val();
-        var id = $('#kode_akt').val();
-        var slice = id.split('/');
-        var kode_akt1 = slice[0];
-        var kode_akt2 = slice[1];
+        var id = $('#kode_jur').val();
         if(parameter == "edit"){
-            var url = "{{ url('/tarbak/postAngkatan') }}/"+kode_akt1+"/"+kode_akt2;
+            var url = "{{ url('/tarbak/postJurusan') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('/tarbak/postAngkatan') }}";
+            var url = "{{ url('/tarbak/postJurusan') }}";
             var pesan = "saved";
         }
 
@@ -363,24 +303,22 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
+        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
         var kode_pp = temp[0]; 
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('tarbak/getAngkatan') }}/" + id + "/" + kode_pp,
+            url: "{{ url('tarbak/getJurusan') }}/" + id + "/" + kode_pp,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result = res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#kode_akt').val(id);
+                    $('#kode_jur').val(id);
                     $('#method').val('put');
-                    $('#kode_akt').attr('readonly', true);
+                    $('#kode_jur').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_tingkat')[0].selectize.setValue(result.data[0].kode_tingkat);
-                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
@@ -391,7 +329,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('tarbak/login') }}";
+                        window.location.href = "{{ url('apv/login') }}";
                     })
                 }
             }
@@ -410,11 +348,11 @@
         }).then((result) => {
             if (result.value) {
                 var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
+                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
                 var kode_pp = temp[0]; 
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('tarbak/deleteAngkatan') }}/"+kode +"/"+ kode_pp,
+                    url: "{{ url('tarbak/deleteJurusan') }}/"+kode +"/"+ kode_pp,
                     dataType: 'json',
                     async:false,
                     success:function(result){

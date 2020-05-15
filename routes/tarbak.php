@@ -31,4 +31,10 @@ Route::post('/postTahunAjaran', 'Tarbak\TahunAjaranController@save');
 Route::put('/postTahunAjaran/{kode_ta1}/{kode_ta2}', 'Tarbak\TahunAjaranController@update');
 Route::delete('/deleteTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@delete');
 
+Route::get('/getJurusan', 'Tarbak\JurusanController@index');
+Route::get('/getJurusan/{kode_jur}/{kode_pp}', 'Tarbak\JurusanController@getJurusan');
+Route::post('/postJurusan', 'Tarbak\JurusanController@save');
+Route::put('/postJurusan/{kode_jur}', 'Tarbak\JurusanController@update');
+Route::delete('/deleteJurusan/{kode_jur}/{kode_pp}', 'Tarbak\JurusanController@delete');
+
 ?>
