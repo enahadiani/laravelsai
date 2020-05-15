@@ -1,11 +1,12 @@
-    <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
+  <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Angkatan 
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Tahun Ajaran 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <!-- <button type='button' id='btn-lanjut' class='btn btn-secondary ml-2' style="float:right;"><i class='fa fa-filter'></i> Filter</button> -->
                         </h4>
                         <!-- <h6 class="card-subtitle">Tabel Data Customer</h6> -->
                         <hr>
@@ -13,11 +14,12 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Angkatan</th>
+                                        <th>Kode TA</th>
                                         <th>Kode PP</th>
                                         <th>Nama</th>
-                                        <th>Ref Tingkat</th>
-                                        <th>Status Aktif</th>
+                                        <th>Tgl Mulai</th>
+                                        <th>Tgl Selesai</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -34,38 +36,41 @@
             <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
                     <div class="card-body pb-0">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Angkatan
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Tahun Ajaran
                         <button type="button" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         </h4>
                         <hr>
                     </div>
                     <div class="card-body table-responsive pt-0" style='height:460px'>
-                            <form  class="form" id="form-tambah" style='margin-bottom:100px'>
+                            <form class="form" id="form-tambah" style='margin-bottom:100px'>
                                 <div class="form-group row" id="row-id">
                                     <div class="col-9">
-                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                        <input type="hidden" id="method" name="_method" value="post">
+                                        <input class="form-control" type="hidden" id="id_edit" name="id">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kode_akt" class="col-3 col-form-label">Kode</label>
+                                    <label for="kode_ta" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Angkatan" id="kode_akt" name="kode_akt" required >
+                                        <input class="form-control" type="text" placeholder="Kode Tahun Ajaran" id="kode_ta" name="kode_ta" required >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Nama Angkatan" id="nama" name="nama">
+                                        <input class="form-control" type="text" placeholder="Nama Tahun Ajaran" id="nama" name="nama">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="kode_tingkat" class="col-3 col-form-label">Ref Tingkat</label>
-                                    <div class="col-3">
-                                        <select class='form-control' id="kode_tingkat" name="kode_tingkat">
-                                        <option value='' disabled>--- Pilih Tingkat ---</option>
-                                        </select>
+                                    <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="date" id="tgl_mulai" name="tgl_mulai">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="tgl_akhir" class="col-3 col-form-label">Tanggal Akhir</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="date" id="tgl_akhir" name="tgl_akhir">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -112,18 +117,12 @@
             </div>
             </form>
         </div>
-    </div>     
+    </div>           
     
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>      
+    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script>
     
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-
     function openFilter() {
         var element = $('#mySidepanel');
         
@@ -138,7 +137,62 @@
         }
     }
 
-    function getPP(){
+
+    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+    var kode_lokasi = "{{ Session::get('lokasi') }}";
+    var kode_pp = "{{ Session::get('kodePP') }}";
+    var dataTable = $('#table-data').DataTable({
+        // 'processing': true,
+        // 'serverSide': true,
+        "ordering": true,
+        "order": [[0, "desc"]],
+        'ajax': {
+            'url': "{{ url('/tarbak/getTahunAjaran') }}",
+            'async':false,
+            'type': 'GET',
+            'dataSrc' : function(json) {
+                return json.data;   
+            }
+        },
+        columns: [
+              { data: 'kode_ta' },
+              { data: 'pp' },
+              { data: 'nama' },
+              { data: 'tgl_mulai' },
+              { data: 'tgl_akhir' },
+              { data: 'sts' },
+              { data: 'action' }
+        ],
+        'columnDefs': [
+            {'targets': 6, data: null, 'defaultContent': action_html }
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                text: '<i class="fa fa-filter"></i> Filter',
+                action: function ( e, dt, node, config ) {
+                    openFilter();
+                },
+                className: 'btn btn-default ml-2' 
+            }
+        ]
+    });
+   
+    // $('div.toolbar').html(" <button type='button' id='btn-lanjut' class='btn btn-secondary ml-2'><i class='fa fa-filter'></i> Filter</button>");
+    // dataTable.dom().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+
+    $('.sidepanel').on('submit', '#formFilter2', function(e){
+        e.preventDefault();
+        var kode_pp= $('#kode_pp2')[0].selectize.getValue();
+        dataTable.search(kode_pp).draw();
+    });
+ 
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
+    });
+
+   function getPP(){
         $.ajax({
             type: 'GET',
             url: "{{ url('/tarbak/getPP') }}",
@@ -166,100 +220,17 @@
 
     getPP();
 
-    function getTingkat(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/tarbak/getTingkatan') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_tingkat').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_tingkat + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_tingkat}]);
-
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    getTingkat();
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = "{{ Session::get('lokasi') }}";
-    var kode_pp = "{{ Session::get('kodePP') }}";
-    var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        "ordering": true,
-        "order": [[0, "desc"]],
-        'ajax': {
-            'url': "{{ url('/tarbak/getAngkatan') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                return json.data;   
-            }
-        },
-        columns: [
-              { data: 'kode_akt' },
-              { data: 'pp' },
-              { data: 'nama' },
-              { data: 'kode_tingkat' },
-              { data: 'flag_aktif' },
-              { data: 'action' }
-        ],
-        'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html }
-        ],
-        dom: 'lBfrtip',
-        buttons: [
-            {
-                text: '<i class="fa fa-filter"></i> Filter',
-                action: function ( e, dt, node, config ) {
-                    openFilter();
-                },
-                className: 'btn btn-default ml-2' 
-            }
-        ]
-    });
-
-    function filterColumn (pp) {
-        $('#table-data').DataTable().column(1).search(
-            pp,
-            false,
-            true
-        ).draw();
-    }
-
-    
-    $('.sidepanel').on('submit', '#formFilter2', function(e){
-        e.preventDefault();
-        var kode_pp= $('#kode_pp2')[0].selectize.getValue();
-        // dataTable.search(kode_pp).draw();
-        filterColumn(kode_pp);
-    });
-
-    
-    $('.sidepanel').on('click', '#btnClose', function(e){
-        e.preventDefault();
-        openFilter();
-    });
-   
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
-        $('#method').val('post');
         $('#form-tambah')[0].reset();
-        $('#kode_tingkat')[0].selectize.setValue('');
-        $('#kode_pp')[0].selectize.setValue('');
         $('#id_edit').val('');
-        $('#kode_akt').attr('readonly', false);
+        $('#kode_ta').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
+    });
+
+    $('#btn-save').click(function(){
+        $('#form-tambah').submit();
     });
 
 
@@ -268,19 +239,15 @@
         $('#saku-form').hide();
     });
 
-    
-    $('#btn-save').click(function(){
-        $('#form-tambah').submit();
-    });
 
-    $('#kode_akt,#nama,#kode_tingkat,#flag_aktif,#kode_pp').keydown(function(e){
+    $('#kode_ta,#nama,#tgl_mulai,#tgl_akhir,#flag_aktif,#kode_pp').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_akt','nama','kode_tingkat','flag_aktif','kode_pp'];
+        var nxt = ['kode_ta','nama','tgl_mulai','tgl_akhir','flag_aktif','kode_pp'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 4 || idx == 5){
+            if(idx == 5 || idx == 6){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
                 
@@ -299,15 +266,12 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id_edit').val();
-        var id = $('#kode_akt').val();
-        var slice = id.split('/');
-        var kode_akt1 = slice[0];
-        var kode_akt2 = slice[1];
+        var id = $('#kode_ta').val();
         if(parameter == "edit"){
-            var url = "{{ url('/tarbak/postAngkatan') }}/"+kode_akt1+"/"+kode_akt2;
+            var url = "{{ url('/tarbak/postTahunAjaran') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('/tarbak/postAngkatan') }}";
+            var url = "{{ url('/tarbak/postTahunAjaran') }}";
             var pesan = "saved";
         }
 
@@ -361,25 +325,25 @@
         });
     });
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
+        $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
         var kode_pp = temp[0]; 
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('tarbak/getAngkatan') }}/" + id + "/" + kode_pp,
+            url: "{{ url('tarbak/getTahunAjaran') }}/" + id + "/" + kode_pp,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result = res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#kode_akt').val(id);
-                    $('#method').val('put');
-                    $('#kode_akt').attr('readonly', true);
+                    $('#kode_ta').val(id);
+                    $('#kode_ta').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_tingkat')[0].selectize.setValue(result.data[0].kode_tingkat);
+                    $('#tgl_mulai').val(result.data[0].tgl_mulai);
+                    $('#tgl_akhir').val(result.data[0].tgl_akhir);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#row-id').show();
@@ -396,58 +360,6 @@
                 }
             }
         });
-    });
-
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
-                var kode_pp = temp[0]; 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('tarbak/deleteAngkatan') }}/"+kode +"/"+ kode_pp,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('apv/login') }}";
-                            })
-                        }else{
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
-                
-            }else{
-                return false;
-            }
-        })
     });
 
     </script>

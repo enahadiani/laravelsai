@@ -20,9 +20,15 @@ Route::get('/getPP', 'Tarbak\PPController@getPP');
 Route::get('/getTingkatan', 'Tarbak\TingkatanController@getTingkatan');
 
 Route::get('/getAngkatan', 'Tarbak\AngkatanController@index');
-Route::get('/getAngkatan/{kode_akt}/{kode_pp}', 'Tarbak\AngkatanController@getAngkatan');
+Route::get('/getAngkatan/{kode_akt1}/{kode_akt2}/{kode_pp}', 'Tarbak\AngkatanController@getAngkatan');
 Route::post('/postAngkatan', 'Tarbak\AngkatanController@save');
-Route::post('/postAngkatan/{kode_akt}', 'Tarbak\AngkatanController@update');
-Route::delete('/deleteAngkatan/{kode_akt}/{kode_pp}', 'Tarbak\AngkatanController@delete');
+Route::put('/postAngkatan/{kode_akt1}/{kode_akt2}', 'Tarbak\AngkatanController@update');
+Route::delete('/deleteAngkatan/{kode_akt1}/{kode_akt2}/{kode_pp}', 'Tarbak\AngkatanController@delete');
+
+Route::get('/getTahunAjaran', 'Tarbak\TahunAjaranController@index');
+Route::get('/getTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@getTahunAjaran');
+Route::post('/postTahunAjaran', 'Tarbak\TahunAjaranController@save');
+Route::post('/postTahunAjaran/{kode_ta}', 'Tarbak\TahunAjaranController@update');
+Route::delete('/deleteTahunAjaran/{kode_ta}/{kode_pp}', 'Tarbak\TahunAjaranController@delete');
 
 ?>

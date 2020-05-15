@@ -8,7 +8,7 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
 
-    class AngkatanController extends Controller {
+    class TahunAjaranController extends Controller {
 
         public $link = 'http://api.simkug.com/api/sekolah/';
 
@@ -21,7 +21,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'angkatan_all',[
+            $response = $client->request('GET', $this->link.'tahun_ajaran_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -40,24 +40,26 @@
         public function save(Request $request) {
 
             $this->validate($request, [
-            'kode_akt' => 'required',
+            'kode_ta' => 'required',
             'nama' => 'required',
-            'kode_tingkat' => 'required',
+            'tgl_mulai' => 'required',
+            'tgl_akhir' => 'required',
             'flag_aktif' => 'required',
-            'kode_pp' => 'required',
+            'kode_pp' => 'required'
             ]);
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'angkatan',[
+                $response = $client->request('POST', $this->link.'tahun_ajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_akt' => $request->kode_akt,
+                        'kode_ta' => $request->kode_ta,
                         'nama' => $request->nama,
-                        'kode_tingkat' => $request->kode_tingkat,
+                        'tgl_mulai' => $request->tgl_mulai,
+                        'tgl_akhir' => $request->tgl_akhir,
                         'flag_aktif' => $request->flag_aktif,
                         'kode_pp' => $request->kode_pp,
                     ]
@@ -81,11 +83,11 @@
 
         }
 
-        public function getAngkatan($kode_akt1,$kode_akt2,$kode_pp) {
-            try{
+        public function getTahunAjaran($kode_ta1,$kode_ta2,$kode_pp) {
+        try{
             $client = new Client();
-            $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('GET', $this->link.'angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
+            $kode_ta = $kode_ta1."/".$kode_ta2;
+            $response = $client->request('GET', $this->link.'tahun_ajaran?kode_ta='.$kode_ta."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -110,7 +112,7 @@
 
         }
 
-        public function update(Request $request, $kode_akt1,$kode_akt2) {
+        public function update(Request $request, $kode_akt) {
             $this->validate($request, [
             'nama' => 'required',
             'kode_tingkat' => 'required',
@@ -120,8 +122,7 @@
 
             try {
                 $client = new Client();
-                $kode_akt = $kode_akt1."/".$kode_akt2;
-                $response = $client->request('PUT', $this->link.'angkatan?kode_akt='.$kode_akt,[
+                $response = $client->request('POST', $this->link.'angkatan?kode_akt='.$kode_akt,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
