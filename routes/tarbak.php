@@ -37,4 +37,10 @@ Route::post('/postJurusan', 'Tarbak\JurusanController@save');
 Route::put('/postJurusan/{kode_jur}', 'Tarbak\JurusanController@update');
 Route::delete('/deleteJurusan/{kode_jur}/{kode_pp}', 'Tarbak\JurusanController@delete');
 
+Route::get('/getKelas', 'Tarbak\KelasController@index');
+Route::get('/getKelas/{kode_jur}/{kode_pp}', 'Tarbak\KelasController@getKelas');
+Route::post('/postKelas', 'Tarbak\KelasController@save');
+Route::put('/postKelas/{kode_jur}', 'Tarbak\KelasController@update');
+Route::delete('/deleteKelas/{kode_jur}/{kode_pp}', 'Tarbak\KelasController@delete');
+
 ?>
