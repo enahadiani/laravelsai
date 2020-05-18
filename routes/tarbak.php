@@ -49,4 +49,10 @@ Route::post('/postStatusSiswa', 'Tarbak\StatusSiswaController@save');
 Route::put('/postStatusSiswa/{kode_ss}', 'Tarbak\StatusSiswaController@update');
 Route::delete('/deleteStatusSiswa/{kode_ss}/{kode_pp}', 'Tarbak\StatusSiswaController@delete');
 
+Route::get('/getSlot', 'Tarbak\SlotController@index');
+Route::get('/getSlot/{kode_slot}/{kode_pp}', 'Tarbak\SlotController@getSlot');
+Route::post('/postSlot', 'Tarbak\SlotController@save');
+Route::put('/postSlot/{kode_slot}', 'Tarbak\SlotController@update');
+Route::delete('/deleteSlot/{kode_slot}/{kode_pp}', 'Tarbak\SlotController@delete');
+
 ?>
