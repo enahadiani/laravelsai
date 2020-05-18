@@ -1,10 +1,10 @@
-    <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Jurusan 
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Status Siswa 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr>
@@ -12,9 +12,10 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Jurusan</th>
+                                        <th>Kode</th>
                                         <th>Nama</th>
-                                        <th>Kode PP</th>
+                                        <th>Flag Proses</th>
+                                        <th>PP</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -31,41 +32,51 @@
             <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
                     <div class="card-body pb-0">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Jurusan
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Status Siswa
                         <button type="button" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         </h4>
                         <hr>
                     </div>
                     <div class="card-body table-responsive pt-0" style='height:460px'>
-                            <form class="form" id="form-tambah" style='margin-bottom:100px'>
-                                <div class="form-group row" id="row-id">
-                                    <div class="col-9">
-                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                        <input type="hidden" id="method" name="_method" value="post">
-                                    </div>
+                        <form class="form" id="form-tambah" style='margin-bottom:100px'>
+                            <div class="form-group row" id="row-id">
+                                <div class="col-9">
+                                    <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                    <input type="hidden" id="method" name="_method" value="post">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="kode_jur" class="col-3 col-form-label">Kode</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Jurusan" id="kode_jur" name="kode_jur" required >
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_ss" class="col-3 col-form-label">Kode</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Status" id="kode_ss" name="kode_ss" required >
                                 </div>
-                                <div class="form-group row">
-                                    <label for="nama" class="col-3 col-form-label">Nama</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Nama Jurusan" id="nama" name="nama">
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Nama</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="Nama Status" id="nama" name="nama">
                                 </div>
-                                <div class="form-group row">
-                                    <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                                    <div class="col-3">
-                                        <select class='form-control' id="kode_pp" name="kode_pp">
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="kode_pp" name="kode_pp" required>
                                         <option value='' disabled>--- Pilih PP ---</option>
-                                        </select>
-                                    </div>
+                                    </select>
                                 </div>
-                            </form>
+                            </div> 
+                            <div class="form-group row">
+                                <label for="flag_aktif" class="col-3 col-form-label">Flag Proses</label>
+                                <div class="col-3">
+                                    <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                    <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                    <option value='1'>Aktif</option>
+                                    <option value='0'>Non Aktif</option>
+                                    </select>
+                                </div>
+                            </div>                    
+                        </form>
                     </div>
                 </div>
             </div>
@@ -94,15 +105,8 @@
     </div> 
     
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>                
+    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>                        
     <script>
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });    
-
     function openFilter() {
         var element = $('#mySidepanel');
         
@@ -116,11 +120,11 @@
             element.addClass('close');
         }
     }
-
+    
     function getPP(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/tarbak/getPP') }}",
+            url: "{{url('/tarbak/getPP')}}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -145,14 +149,15 @@
 
     getPP();
 
+    
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var kode_lokasi = "Session::get('lokasi')";
-    var kode_pp = "Session::get('kode_pp')";
+    var kode_lokasi = "{{Session::get('lokasi')}}";
+    var kode_pp = "{{Session::get('kode_pp')}}";
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('/tarbak/getJurusan') }}",
+            'url': "{{url('/tarbak/getStatusSiswa')}}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -160,13 +165,14 @@
             }
         },
         columns: [
-            { data: 'kode_jur' },
+            { data: 'kode_ss' },
             { data: 'nama' },
+            { data: 'flag_aktif' },
             { data: 'pp' },
             { data: 'action' }
         ],
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html }
+            {'targets': 4, data: null, 'defaultContent': action_html }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -178,8 +184,10 @@
                 className: 'btn btn-default ml-2' 
             }
         ]
+        
     });
-
+   
+    
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         var kode_pp= $('#kode_pp2')[0].selectize.getValue();
@@ -191,17 +199,20 @@
         openFilter();
     });
 
-
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
-        $('#method').val('post');
-        $('#kode_pp')[0].selectize.setValue('');
         $('#id_edit').val('');
-        $('#kode_jur').attr('readonly', false);
+        $('#kode_ss').attr('readonly', false);
         $('.preview').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+    });
+
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
     
@@ -209,21 +220,14 @@
         $('#form-tambah').submit();
     });
 
-    
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
-
-    $('#kode_jur,#nama,#kode_pp').keydown(function(e){
+    $('#kode_ss,#nama,#kode_pp,#flag_aktif').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_jur','nama','kode_pp'];
+        var nxt = ['kode_ss','nama','kode_pp','flag_aktif'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 3){
+            if(idx == 3 || idx == 4){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
                 
@@ -239,15 +243,15 @@
         }
     });
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
+     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
-        var id = $('#kode_jur').val();
+        var id = $('#kode_ss').val();
         if(parameter == "edit"){
-            var url = "{{ url('/tarbak/postJurusan') }}/"+id;
+            var url = "{{ url('/tarbak/postStatusSiswa') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('/tarbak/postJurusan') }}";
+            var url = "{{ url('/tarbak/postStatusSiswa') }}";
             var pesan = "saved";
         }
 
@@ -303,23 +307,24 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+        var temp = $(this).closest('tr').find('td').eq(3).html().split('-');
         var kode_pp = temp[0]; 
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('tarbak/getJurusan') }}/" + id + "/" + kode_pp,
+            url: "{{ url('tarbak/getStatusSiswa') }}/" + id + "/" + kode_pp,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result = res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#kode_jur').val(id);
+                    $('#kode_ss').val(id);
                     $('#method').val('put');
-                    $('#kode_jur').attr('readonly', true);
+                    $('#kode_ss').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -348,11 +353,11 @@
         }).then((result) => {
             if (result.value) {
                 var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+                var temp = $(this).closest('tr').find('td').eq(3).html().split('-');
                 var kode_pp = temp[0]; 
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('tarbak/deleteJurusan') }}/"+kode +"/"+ kode_pp,
+                    url: "{{ url('tarbak/deleteStatusSiswa') }}/"+kode +"/"+ kode_pp,
                     dataType: 'json',
                     async:false,
                     success:function(result){

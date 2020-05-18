@@ -477,7 +477,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('apv/login') }}";
+                        window.location.href = "{{ url('tarbak/login') }}";
                     })
                 }
             }

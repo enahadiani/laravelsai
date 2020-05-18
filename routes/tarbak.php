@@ -43,4 +43,10 @@ Route::post('/postKelas', 'Tarbak\KelasController@save');
 Route::put('/postKelas/{kode_jur}', 'Tarbak\KelasController@update');
 Route::delete('/deleteKelas/{kode_jur}/{kode_pp}', 'Tarbak\KelasController@delete');
 
+Route::get('/getStatusSiswa', 'Tarbak\StatusSiswaController@index');
+Route::get('/getStatusSiswa/{kode_ss}/{kode_pp}', 'Tarbak\StatusSiswaController@getStatusSiswa');
+Route::post('/postStatusSiswa', 'Tarbak\StatusSiswaController@save');
+Route::put('/postStatusSiswa/{kode_ss}', 'Tarbak\StatusSiswaController@update');
+Route::delete('/deleteStatusSiswa/{kode_ss}/{kode_pp}', 'Tarbak\StatusSiswaController@delete');
+
 ?>
