@@ -55,4 +55,10 @@ Route::post('/postSlot', 'Tarbak\SlotController@save');
 Route::put('/postSlot/{kode_slot}', 'Tarbak\SlotController@update');
 Route::delete('/deleteSlot/{kode_slot}/{kode_pp}', 'Tarbak\SlotController@delete');
 
+Route::get('/getJenisPenilaian', 'Tarbak\JenisPenilaianController@index');
+Route::get('/getJenisPenilaian/{kode_jenis}/{kode_pp}', 'Tarbak\JenisPenilaianController@getJenisPenilaian');
+Route::post('/postJenisPenilaian', 'Tarbak\JenisPenilaianController@save');
+Route::put('/postJenisPenilaian/{kode_jenis}', 'Tarbak\JenisPenilaianController@update');
+Route::delete('/deleteJenisPenilaian/{kode_jenis}/{kode_pp}', 'Tarbak\JenisPenilaianController@delete');
+
 ?>
