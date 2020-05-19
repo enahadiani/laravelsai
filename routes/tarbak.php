@@ -67,4 +67,10 @@ Route::post('/postStatusGuru', 'Tarbak\StatusGuruController@save');
 Route::put('/postStatusGuru/{kode_status}', 'Tarbak\StatusGuruController@update');
 Route::delete('/deleteStatusGuru/{kode_status}/{kode_pp}', 'Tarbak\StatusGuruController@delete');
 
+Route::get('/getMatpel', 'Tarbak\MataPelajaranController@index');
+Route::get('/getMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranController@getMataPelajaran');
+Route::post('/postMatpel', 'Tarbak\MataPelajaranController@save');
+Route::put('/postMatpel/{kode_matpel}', 'Tarbak\MataPelajaranController@update');
+Route::delete('/deleteMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranController@delete');
+
 ?>
