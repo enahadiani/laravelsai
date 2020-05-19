@@ -61,4 +61,10 @@ Route::post('/postJenisPenilaian', 'Tarbak\JenisPenilaianController@save');
 Route::put('/postJenisPenilaian/{kode_jenis}', 'Tarbak\JenisPenilaianController@update');
 Route::delete('/deleteJenisPenilaian/{kode_jenis}/{kode_pp}', 'Tarbak\JenisPenilaianController@delete');
 
+Route::get('/getStatusGuru', 'Tarbak\StatusGuruController@index');
+Route::get('/getStatusGuru/{kode_status}/{kode_pp}', 'Tarbak\StatusGuruController@getStatusGuru');
+Route::post('/postStatusGuru', 'Tarbak\StatusGuruController@save');
+Route::put('/postStatusGuru/{kode_status}', 'Tarbak\StatusGuruController@update');
+Route::delete('/deleteStatusGuru/{kode_status}/{kode_pp}', 'Tarbak\StatusGuruController@delete');
+
 ?>
