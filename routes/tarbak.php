@@ -18,6 +18,7 @@ Route::get('/menu', 'Tarbak\AuthController@getMenu');
 
 Route::get('/getPP', 'Tarbak\PPController@getPP');
 Route::get('/getTingkatan', 'Tarbak\TingkatanController@getTingkatan');
+Route::get('/getNIKGuru/{kode_pp}', 'Tarbak\GuruController@getNIKGuru');
 
 Route::get('/getAngkatan', 'Tarbak\AngkatanController@index');
 Route::get('/getAngkatan/{kode_akt1}/{kode_akt2}/{kode_pp}', 'Tarbak\AngkatanController@getAngkatan');
@@ -76,6 +77,12 @@ Route::delete('/deleteMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranCont
 Route::get('/getKkm', 'Tarbak\KkmController@index');
 Route::get('/getKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@getKkm');
 Route::post('/postKkm', 'Tarbak\KkmController@save');
+Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
+Route::delete('/deleteKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@delete');
+
+Route::get('/getGuruMatpel', 'Tarbak\GuruMatpelController@index');
+Route::get('/getKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@getKkm');
+Route::post('/postGuruMatpel', 'Tarbak\GuruMatpelController@save');
 Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
 Route::delete('/deleteKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@delete');
 
