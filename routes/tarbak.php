@@ -81,9 +81,9 @@ Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
 Route::delete('/deleteKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@delete');
 
 Route::get('/getGuruMatpel', 'Tarbak\GuruMatpelController@index');
-Route::get('/getKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@getKkm');
+Route::get('/getGuruMatpel/{nik}/{kode_pp}', 'Tarbak\GuruMatpelController@getGuruMatpel');
 Route::post('/postGuruMatpel', 'Tarbak\GuruMatpelController@save');
-Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
-Route::delete('/deleteKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@delete');
+Route::put('/postGuruMatpel/{nik}', 'Tarbak\GuruMatpelController@update');
+Route::delete('/deleteGuruMatpel/{nik}/{kode_pp}', 'Tarbak\GuruMatpelController@delete');
 
 ?>

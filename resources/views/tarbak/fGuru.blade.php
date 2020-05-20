@@ -343,22 +343,22 @@
 
         $.ajax({
             type: 'GET',
-            url: '',
+            url: "{{url('/tarbak/getGuruMatpel')}}/"+id+"/"+kode_pp,
             dataType: 'json',
             async:false,
             success:function(result){
-                if(result.status){
+                if(result.data.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
+                    $('#kode_pp')[0].selectize.setValue(result.data.data[0].kode_pp);
                     $('#nik_guru')[0].selectize.setValue(id);
-                    $('#flag_aktif')[0].selectize.setValue(result.daftar[0].flag_aktif);
+                    $('#flag_aktif')[0].selectize.setValue(result.data.data[0].flag_aktif);
 
-                    if(result.daftar2.length > 0){
+                    if(result.data.data_detail.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.daftar2.length;i++){
-                            var line =result.daftar2[i];
+                        for(var i=0;i<result.data.data_detail.length;i++){
+                            var line =result.data.data_detail[i];
                                 input += "<tr class='row-guru'>";
                                 input += "<td width='5%' class='no-guru'>"+no+"</td>";
                                 input += "<td width='50%'><select name='kode_matpel[]' class='form-control inp-matpel mpke"+no+"' value='' required></select></td>";
@@ -369,11 +369,11 @@
                         }
                         $('#input-grid tbody').html(input);
                         var no=1;
-                        for(var i=0;i<result.daftar2.length;i++){
-                            var line =result.daftar2[i];
-                            getMatpel(result.daftar[0].kode_pp,'mpke'+no);
+                        for(var i=0;i<result.data.data_detail.length;i++){
+                            var line =result.data.data_detail[i];
+                            getMatpel(result.data.data_detail[0].kode_pp,'mpke'+no);
                             $('.mpke'+no)[0].selectize.setValue(line.kode_matpel);
-                            getStatus(result.daftar[0].kode_pp,'stske'+no);
+                            getStatus(result.data.data_detail[0].kode_pp,'stske'+no);
                             $('.stske'+no)[0].selectize.setValue(line.kode_status);
                             no++;
                         }
@@ -451,6 +451,7 @@
 
         $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
+        var id = $('#nik_guru').val();
         var parameter = $('#id_edit').val();
         if(parameter == "edit"){
             var url = "{{ url('/tarbak/postGuruMatpel') }}/"+id;
@@ -508,5 +509,57 @@
                 alert('request failed:'+textStatus);
             }
         });
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();      
+                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+                var kode_pp = temp[0]; 
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('tarbak/deleteGuruMatpel') }}/"+kode +"/"+ kode_pp,
+                    dataType: 'json',
+                    async:false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('tarbak/login') }}";
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
     });
     </script>

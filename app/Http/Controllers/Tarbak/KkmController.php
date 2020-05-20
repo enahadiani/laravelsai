@@ -239,4 +239,47 @@
 
     }
 
+        // public function saveKKM(Request $request) {
+        //     $this->validate($request,[
+        //         'kode_ta' => 'required',
+        //         'kode_tingkat' => 'required',
+        //         'kode_jur' => 'required',
+        //         'kode_pp' => 'required',
+        //         'flag_aktif' => 'required',
+        //         'kode_matpel' => 'required|array',
+        //         'kkm' => 'required|array'
+        //     ]);
+        //     try {
+        //         $fields = array(
+        //             'kode_ta' => $request->kode_ta,
+        //             'kode_tingkat' => $request->kode_tingkat,
+        //             'kode_jur' => $request->kode_jur,
+        //             'kode_pp' => $request->kode_pp,
+        //             'flag_aktif' => $request->flag_aktif,
+        //             'kode_matpel' => $request->kode_matpel,
+        //             'kkm' => $request->kkm
+        //         );
+        //         $client = new Client();
+        //         $response = $client->request('POST',$this->link.'kkm',[
+        //             'headers' => [
+        //                 'Authorization' => 'Bearer '.Session::get('token'),
+        //                 'Accept'     => 'application/json',
+        //             ],
+        //             'body' => json_encode($fields)
+        //         ]);
+        //         if ($response->getStatusCode() == 200) { // 200 OK
+        //             $response_data = $response->getBody()->getContents();
+                    
+        //             $data = json_decode($response_data,true);
+        //             return response()->json(['data' => $data["success"]], 200);  
+        //         }
+        //     } catch (BadResponseException $ex) {
+        //         $response = $ex->getResponse();
+        //         $res = json_decode($response->getBody(),true);
+        //         $data['message'] = $res;
+        //         $data['status'] = false;
+        //         return response()->json(['data' => $data], 500);
+        //     }
+        // }
+
 ?>

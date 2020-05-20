@@ -80,10 +80,10 @@
 
         }
 
-        public function getKkm($kode_kkm,$kode_pp) {
+        public function getGuruMatpel($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'kkm?kode_kkm='.$kode_kkm."&kode_pp=".$kode_pp,
+                $response = $client->request('GET', $this->link.'guru_matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -107,10 +107,10 @@
             }
         }
 
-        public function delete($kode_kkm,$kode_pp) {
+        public function delete($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE', $this->link.'kkm?kode_kkm='.$kode_kkm.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE', $this->link.'guru_matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -134,32 +134,27 @@
             }
         }
 
-        public function update(Request $request, $kode_kkm)
+        public function update(Request $request, $nik)
         {
-            $this->validate($request, [
-                'kode_ta' => 'required',
-                'kode_tingkat' => 'required',
-                'kode_jur' => 'required',
+        $this->validate($request, [
                 'kode_pp' => 'required',
+                'nik_guru' => 'required',
                 'flag_aktif' => 'required',
                 'kode_matpel' => 'required|array',
-                'kkm'=>'required|array'
+                'kode_status'=>'required|array'
             ]);
 
             try{
                 $fields = array (
-                    'kode_kkm' => $kode_kkm,
-                    'kode_ta' => $request->kode_ta,
-                    'kode_tingkat' => $request->kode_tingkat,
-                    'kode_jur' => $request->kode_jur,
                     'kode_pp' => $request->kode_pp,
+                    'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
-                    'kkm'=>$request->kkm
-                );
+                    'kode_status' => $request->kode_status
+                  );
         
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'kkm',[
+                $response = $client->request('PUT', $this->link.'guru_matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
