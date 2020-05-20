@@ -76,7 +76,7 @@ Route::delete('/deleteMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranCont
 Route::get('/getKkm', 'Tarbak\KkmController@index');
 Route::get('/getKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@getKkm');
 Route::post('/postKkm', 'Tarbak\KkmController@save');
-Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
+Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@updateKKM');
 Route::delete('/deleteMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranController@delete');
 
 ?>
