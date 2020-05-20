@@ -215,7 +215,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
-        $('#id').val('');
+        $('#id_edit').val('');
         $('#kode_matpel').attr('readonly', false);
         $('.preview').html('');
         $('#saku-datatable').hide();
