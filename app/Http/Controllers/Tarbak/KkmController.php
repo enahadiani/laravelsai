@@ -44,9 +44,21 @@
                 'kode_jur' => 'required',
                 'kode_pp' => 'required',
                 'flag_aktif' => 'required',
+                'kode_matpel' => 'required|array',
+                'kkm'=>'required|array'
             ]);
 
             try{
+                // $fields = array(
+                //     'kode_ta'=>$request->kode_ta,
+                //     'kode_tingkat'=>$request->kode_ta,
+                //     'kode_jur'=>$request->kode_jur,
+                //     'kode_pp'=>$request->kode_pp,
+                //     'kode_lokasi'=>Session::get('lokasi'),
+                //     'flag_aktif'=>$request->flag_aktif,
+                //     'kode_matpel'=>$request->kode_matpel,
+                //     'kkm'=>$request->kkm
+                // );
                 $fields = [
                     [
                         'name' => 'kode_ta',
@@ -97,7 +109,7 @@
                     }
                     $send_data = array_merge($send_data,$fields_kkm);
                 }
-                    
+                // var_dump(json_encode($send_data));
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'kkm',[
                     'headers' => [
