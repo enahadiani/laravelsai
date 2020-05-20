@@ -46,20 +46,20 @@
                 'kode_status'=>'required|array'
             ]);
 
-            try{
-                $fields = array(
+            try{                
+                $fields = array (
                     'kode_pp' => $request->kode_pp,
                     'nik_guru' => $request->nik_guru,
-                    'flag_aktif '=> $request->flag_aktif,
+                    'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
                     'kode_status' => $request->kode_status
-                );
-                // var_dump(json_encode($fields));
+                  );
+    
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'guru_matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json'
                     ],
                     'body' => json_encode($fields)
                 ]);
@@ -73,6 +73,7 @@
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 $data['message'] = $res;
+                $data['fields'] = $fields;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 200);
             }
