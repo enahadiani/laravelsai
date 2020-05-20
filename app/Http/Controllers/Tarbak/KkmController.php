@@ -216,10 +216,10 @@
             }
         }
 
-        public function delete($kode_matpel,$kode_pp) {
+        public function delete($kode_kkm,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'mata_pelajaran?kode_matpel='.$kode_matpel.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE', $this->link.'kkm?kode_kkm='.$kode_kkm.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -581,4 +581,56 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();      
+                var temp = $(this).closest('tr').find('td').eq(4).html().split('-');
+                var kode_pp = temp[0]; 
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('tarbak/deleteKkm') }}/"+kode +"/"+ kode_pp,
+                    dataType: 'json',
+                    async:false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('tarbak/login') }}";
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
+    });
     </script>
