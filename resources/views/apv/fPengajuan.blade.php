@@ -111,7 +111,7 @@
                                                 vertical-align:middle !important;
                                             }
                                         </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-grid2" style='width:100%'>
+                                        <table class="table table-striped table-bordered table-condensed table-sm" id="input-grid2" style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>

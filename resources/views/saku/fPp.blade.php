@@ -227,7 +227,7 @@
     });   
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
-    e.preventDefault();
+        e.preventDefault();
         
         var formData = new FormData(this);
         for(var pair of formData.entries()) {

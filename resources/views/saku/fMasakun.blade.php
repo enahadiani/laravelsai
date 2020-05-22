@@ -9,7 +9,7 @@
                         <!-- <h6 class="card-subtitle">Tabel Pengajuan</h6> -->
                         <hr>
                         <div class="table-responsive ">
-                            <table id="table-data" class="table table-bordered table-striped" width="100%">
+                            <table id="table-data" class="table table-bordered table-striped " width="100%">
                                 <thead>
                                     <tr>
                                         <th width="10%">Kode</th>
