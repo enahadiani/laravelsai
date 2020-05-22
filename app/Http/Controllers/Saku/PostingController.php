@@ -15,7 +15,7 @@ class PostingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'http://api.simkug.com/api/gl/';
+    public $link = 'https://api.simkug.com/api/gl/';
     public $link2 = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){

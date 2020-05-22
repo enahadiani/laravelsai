@@ -15,7 +15,7 @@ class FSController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'http://api.simkug.com/api/gl/';
+    public $link = 'https://api.simkug.com/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){

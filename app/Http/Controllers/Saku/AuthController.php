@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController extends Controller
 {
-    public $link = 'http://api.simkug.com/api/gl';
+    public $link = 'https://api.simkug.com/api/gl';
 
     public function index()
     {

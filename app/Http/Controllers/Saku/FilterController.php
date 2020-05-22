@@ -14,7 +14,7 @@ class FilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'http://api.simkug.com/api/lapsaku/';
+    public $link = 'https://api.simkug.com/api/lapsaku/';
 
     public function __contruct(){
         if(!Session::get('login')){
