@@ -16,7 +16,7 @@ class JuspoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'http://api.simkug.com/api/apv/';
+    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){

@@ -9,7 +9,7 @@
 
     class AuthController extends Controller 
     {
-        public $link = 'http://api.simkug.com/api/ypt';
+        public $link = 'https://api.simkug.com/api/ypt';
 
         public function index()
         {

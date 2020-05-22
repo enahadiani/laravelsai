@@ -9,7 +9,7 @@
 
     class GuruController extends Controller {
 
-        public $link = 'http://api.simkug.com/api/sekolah/';
+        public $link = 'https://api.simkug.com/api/sekolah/';
 
         public function __contruct() {
             if(!Session::get('login')){

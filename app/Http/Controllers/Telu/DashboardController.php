@@ -10,7 +10,7 @@
 
     class DashboardController extends Controller
     {
-        public $link = 'http://api.simkug.com/api/ypt';
+        public $link = 'https://api.simkug.com/api/ypt';
 
         public function __contruct() {
             if(!Session::get('login')) {
