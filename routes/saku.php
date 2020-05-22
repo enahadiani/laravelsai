@@ -35,6 +35,12 @@ Route::get('/fs/{id}', 'Saku\FSController@show');
 Route::put('/fs/{id}','Saku\FSController@update');
 Route::delete('/fs/{id}','Saku\FSController@destroy');
 
+Route::get('/pp', 'Saku\PpController@index');
+Route::post('/pp', 'Saku\PpController@store');
+Route::get('/pp/{id}', 'Saku\PpController@show');
+Route::put('/pp/{id}','Saku\PpController@update');
+Route::delete('/pp/{id}','Saku\PpController@destroy');
+
 
 Route::get('/masakun', 'Saku\MasakunController@index');
 Route::post('/masakun', 'Saku\MasakunController@store');
@@ -53,7 +59,7 @@ Route::post('/jurnal', 'Saku\JurnalController@store');
 Route::get('/jurnal/{id}', 'Saku\JurnalController@show');
 Route::put('/jurnal/{id}','Saku\JurnalController@update');
 Route::delete('/jurnal/{id}','Saku\JurnalController@destroy');
-Route::get('/pp', 'Saku\JurnalController@getPP');
+Route::get('/pp-list', 'Saku\JurnalController@getPP');
 Route::get('/akun', 'Saku\JurnalController@getAkun');
 Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 
