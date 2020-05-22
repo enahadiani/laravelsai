@@ -146,7 +146,7 @@ class PpController extends Controller
                 'kode_pp' => $request->kode_pp,
                 'kode_lokasi' => Session::get('lokasi'),
                 'nama' => $request->nama,
-                'flag_aktif' => $request->flag_status,
+                'flag_aktif' => $request->flag_aktif,
             ]
         ]);
         
