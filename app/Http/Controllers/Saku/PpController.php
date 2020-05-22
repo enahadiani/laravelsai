@@ -62,13 +62,13 @@ class PpController extends Controller
         ]);
 
         $client = new Client();
-        $response = $client->request('POST', $this->link.'fs',[
+        $response = $client->request('POST', $this->link.'pp',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
             'form_params' => [
-                'kode_pp' => $request->kode_fs,
+                'kode_pp' => $request->kode_pp,
                 'kode_lokasi' => Session::get('lokasi'),
                 'nama' => $request->nama,
                 'flag_aktif' => $request->flag_aktif,
