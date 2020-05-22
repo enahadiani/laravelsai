@@ -1,7 +1,7 @@
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
-                <div class="card" style="height:560px !important">
+                <div class="card" style="min-height:560px !important">
                     <div class="card-body">
                         <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Jurnal 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
@@ -115,19 +115,19 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
-                                        <th width="20%">Akun</th>
+                                        <th width="15%">Akun</th>
                                         <th width="5%">DC</th>
                                         <th width="25%">Keterangan</th>
                                         <th width="20%">Nilai</th>
                                         <th width="20">Kode PP</th>
-                                        <th  width="5%"></th>
+                                        <th width="10%"><button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 </table>
                             </div>
-                            <button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Data</button>
+                            <!-- <button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Data</button> -->
                         </div>
                     </form>
                 </div>
@@ -141,7 +141,7 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    function getPP(param){
+    function getPP(param,pp=null){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/pp') }}",
@@ -155,6 +155,9 @@
                         var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                        }
+                        if(pp != null){
+                            control.setValue(pp);
                         }
                     }
                 }
@@ -183,7 +186,7 @@
         });
     }
 
-    function getAkun(param,param2){
+    function getAkun(param,param2,akun=null){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/akun') }}",
@@ -205,6 +208,9 @@
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
                         }
+                        if(akun != null){
+                            control.setValue(akun);
+                        }
 
                     }
                 }
@@ -224,8 +230,8 @@
         $('#input-jurnal tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        $('#form-tambah #add-row').click();
-        $('#form-tambah #add-row').click();
+        // $('#form-tambah #add-row').click();
+        // $('#form-tambah #add-row').click();
     });
 
     function hitungTotal(){
@@ -234,7 +240,7 @@
         var total_k = 0;
 
         $('.row-jurnal').each(function(){
-            var dc = $(this).closest('tr').find('.inp-dc option:selected').val();
+            var dc = $(this).closest('tr').find('.inp-dc').val();
             var nilai = $(this).closest('tr').find('.inp-nilai').val();
             if(dc == "D"){
                 total_d += +toNilai(nilai);
@@ -254,18 +260,67 @@
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='20%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
+        input += "<td width='15%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
         input += "<td width='10%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td width='20%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
-        input += "<td width='17%'><input type='text' name='nilai[]' class='form-control inp-nilai'  value='' required></td>";
+        input += "<td width='17%'><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
         input += "<td width='20%'><select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required></select></td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "<td width='10%'><a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
         getAkun('akunke'+no,'dcke'+no);
         getPP('ppke'+no);
         $('.dcke'+no).selectize();
-        $('.inp-nilai').inputmask("numeric", {
+        $('.nilke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+        // $('.edit-item').hide();
+        $('.gridexample').formNavigation();
+        $('#input-jurnal tbody tr:last').find('.inp-kode')[0].selectize.focus();
+    });
+
+    $("#input-jurnal").on("click", ".save-item", function(){
+        
+        var kode_akun = $(this).parents("tr").find(".inp-kode")[0].selectize.getValue();
+        var dc = $(this).parents("tr").find(".inp-dc")[0].selectize.getValue();
+        var keterangan = $(this).parents("tr").find(".inp-ket").val();
+        var nilai = $(this).parents("tr").find(".inp-nilai").val();
+        var kode_pp = $(this).parents("tr").find(".inp-pp")[0].selectize.getValue();
+        
+        $(this).parents("tr").find("td:eq(1)").html(kode_akun+"<input type='hidden' class='inp-kode' name='kode_akun[]' value='"+kode_akun+"' required>");
+        $(this).parents("tr").find("td:eq(2)").html(dc+"<input type='hidden' class='inp-dc' name='dc[]' value='"+dc+"' required>");
+        $(this).parents("tr").find("td:eq(3)").html(keterangan+"<input type='hidden' class='inp-ket' name='keterangan[]' value='"+keterangan+"' required>");
+        $(this).parents("tr").find("td:eq(4)").html(nilai+"<input type='hidden' class='inp-nilai' name='nilai[]' value='"+nilai+"' required>");
+        $(this).parents("tr").find("td:eq(5)").html(kode_pp+"<input type='hidden' class='inp-pp' name='kode_pp[]' value='"+kode_pp+"' required>");
+        $(this).parents("tr").find("td:eq(6)").html("<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px'><i class='fa fa-pencil-alt fa-1'></i></a>");
+        hitungTotal();
+    });
+
+    $("#input-jurnal").on("click", ".edit-item", function(){
+        
+        var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+        var dc = $(this).parents("tr").find(".inp-dc").val();
+        var keterangan = $(this).parents("tr").find(".inp-ket").val();
+        var nilai = $(this).parents("tr").find(".inp-nilai").val();
+        var kode_pp = $(this).parents("tr").find(".inp-pp").val();
+        
+        var no = $(this).parents("tr").find("no-jurnal").text();
+        $(this).parents("tr").find("td:eq(1)").html("<select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required></select>");
+        $(this).parents("tr").find("td:eq(2)").html("<select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select>");
+        $(this).parents("tr").find("td:eq(3)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required>");
+        $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required>");
+        $(this).parents("tr").find("td:eq(5)").html("<select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required></select>");
+        
+        $(this).parents("tr").find("td:eq(6)").html("<a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>");
+        getAkun('akunke'+no,'dcke'+no,kode_akun);
+        getPP('ppke'+no,kode_pp);
+        $('.dcke'+no).selectize();
+        $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
             digits: 2,
@@ -274,7 +329,8 @@
             oncleared: function () { self.Value(''); }
         });
         $('.gridexample').formNavigation();
-        $('#input-jurnal tbody tr:last').find('.inp-kode')[0].selectize.focus();
+        
+        
     });
 
     $('.currency').inputmask("numeric", {
@@ -299,11 +355,11 @@
     });
 
     $('#input-jurnal').on('change', '.inp-nilai', function(){
-        hitungTotal();
+        // hitungTotal();
     });
 
     $('#input-jurnal').on('change', '.inp-dc', function(){
-        hitungTotal();
+        // hitungTotal();
     });
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
@@ -358,7 +414,7 @@
             var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
             $(this).val(selisih);
             // $('#inp-nilai').focus();
-            hitungTotal();
+            // hitungTotal();
         }else{
             alert('Posisi tidak valid, harap pilih posisi akun');
             $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
@@ -370,7 +426,7 @@
             e.preventDefault();
             if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
                 $(this).closest('tr').find('.inp-pp')[0].selectize.focus();
-                hitungTotal();
+                // hitungTotal();
             }else{
                 alert('Nilai yang dimasukkan tidak valid');
                 return false;
@@ -383,7 +439,7 @@
             e.preventDefault();
             if($.trim($(this).closest('tr').find('.inp-pp')[0].selectize.getValue()).length){
                 $('#add-row').click();
-                hitungTotal();
+                // hitungTotal();
             }else{
                 alert('PP yang dimasukkan tidak valid');
                 return false;
