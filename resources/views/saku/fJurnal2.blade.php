@@ -122,6 +122,11 @@
                                     .check-item{
                                         cursor:pointer;
                                     }
+                                    .selected{
+                                        cursor:pointer;
+                                        background:#4286f5 !important;
+                                        color:white;
+                                    }
                                 </style>
                                 <thead>
                                     <tr>
@@ -153,7 +158,7 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Daftar Akun</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -288,6 +293,119 @@
         
     }
 
+    function showFilter(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        
+        switch(par){
+            case 'kode_akun[]': 
+                header = ['Kode Akun', 'Nama'];
+                var toUrl = "{{ url('saku/akun') }}";
+                var columns = [
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
+                ];
+                var judul = "Daftar Akun";
+            break;
+            case 'kode_pp[]': 
+                header = ['Kode PP', 'Nama'];
+                var toUrl = "{{ url('saku/pp') }}";
+                var columns = [
+                    { data: 'kode_pp' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar PP";
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": {'param':par},
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            $("."+$target).val(kode);
+            $("."+$target2).val(nama);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                $("."+$target).val(kode);
+                $("."+$target2).val(nama);
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
     $('#form-tambah').on('click', '#add-row', function(){
         var no=$('#input-jurnal .row-jurnal:last').index();
         no=no+2;
@@ -409,22 +527,10 @@
         
         switch(par){
             case 'kode_akun[]': 
-                header = ['Kode Akun', 'Nama'];
-                var toUrl = "{{ url('saku/akun') }}";
-                var columns = [
-                    { data: 'kode_akun' },
-                    { data: 'nama' }
-                ];
                 var par2 = "nama_akun[]";
 
             break;
             case 'kode_pp[]': 
-                header = ['Kode PP', 'Nama'];
-                var toUrl = "{{ url('saku/pp') }}";
-                var columns = [
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ];
                 var par2 = "nama_pp[]";
             break;
         }
@@ -432,54 +538,14 @@
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
         console.log(tmp);
         var tmp2 = tmp.split(" ");
-        $target = tmp2[2];
+        target1 = tmp2[2];
 
         tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
         console.log(tmp);
         tmp2 = tmp.split(" ");
-        $target2 = tmp2[2];
+        target2 = tmp2[2];
 
-        var header_html = '';
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th>"+header[i]+"</th>";
-        }
-        header_html +=  "<th></th>";
-
-        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-
-        var searchTable = $("#table-search").DataTable({
-            // fixedHeader: true,
-            // "scrollY": "300px",
-            // "processing": true,
-            // "serverSide": true,
-            "ajax": {
-                "url": toUrl,
-                "data": {'param':par},
-                "type": "GET",
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            "columnDefs": [{
-                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-            }],
-            'columns': columns
-            // "iDisplayLength": 25,
-        });
-
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            $("."+$target).val(kode);
-            $("."+$target2).val(nama);
-            $('#modal-search').modal('hide');
-        });
+        showFilter(par,target1,target2);
     });
 
     $('#input-jurnal').on('change', '.inp-nilai', function(){
@@ -493,12 +559,23 @@
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
         if (e.which == 13) {
             e.preventDefault();
-            if($.trim($(this).closest('tr').find('.inp-kode')[0].selectize.getValue()).length){
+            if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
                 $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
             }else{
                 alert('Akun yang dimasukkan tidak valid');
                 return false;
             }
+        }else if(e.which == 40){
+            var tmp = $(this).attr('class');
+            console.log(tmp);
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+
+            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
+            console.log(tmp);
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
+            showFilter("kode_akun[]",target1,target2);
         }
     });
 
@@ -572,6 +649,17 @@
                 alert('PP yang dimasukkan tidak valid');
                 return false;
             }
+        }else if(e.which == 40){
+            var tmp = $(this).attr('class');
+            console.log(tmp);
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+
+            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
+            console.log(tmp);
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
+            showFilter("kode_pp[]",target1,target2);
         }
     });
 
@@ -814,4 +902,5 @@
             }
         }
     });
+
     </script>
