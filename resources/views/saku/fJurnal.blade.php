@@ -105,7 +105,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-xs-12' style='overflow-y: scroll; max-height:250px; margin:0px; padding:0px;'>
+                            <div class='col-xs-12' style='min-height:350px; margin:0px; padding:0px;'>
                                 <table class="table table-striped table-bordered table-condensed gridexample color-table primary-table" id="input-jurnal" width="100%">
                                 <style>
                                     th{
