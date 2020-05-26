@@ -108,9 +108,9 @@
                                     th{
                                         vertical-align:middle !important;
                                     }
-                                    #input-jurnal td{
+                                    /* #input-jurnal td{
                                         padding:0 !important;
-                                    }
+                                    } */
                                     #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
                                         border:0 !important;
                                         border-radius:0 !important;
@@ -293,15 +293,15 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-jurnal'>";
-        input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='10%'><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        input += "<td width='15%'><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='' readonly></td>";
-        input += "<td width='5%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td width='15%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
-        input += "<td width='15%' class='text-right'><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
-        input += "<td width='10%'><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        input += "<td width='10%'><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='' readonly></td>";
-        input += "<td width='7%' class='text-center'><a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
+        input += "<td width='3%' class='no-jurnal text-center px-0 py-0'>"+no+"</td>";
+        input += "<td width='10%' class='px-0 py-0'><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td width='15%' class='px-0 py-0'><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='' readonly></td>";
+        input += "<td width='5%' class='px-0 py-0'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td width='15%' class='px-0 py-0'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
+        input += "<td width='15%' class='text-right px-0 py-0'><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
+        input += "<td width='10%' class='px-0 py-0'><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td width='10%' class='px-0 py-0'><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='' readonly></td>";
+        input += "<td width='7%' class='text-center px-0 py-0'><a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
         // getAkun('akunke'+no,'dcke'+no);
@@ -339,6 +339,10 @@
         $(this).parents("tr").find("td:eq(6)").html(kode_pp+"<input type='hidden' class='form-control inp-pp ppke"+no+"' name='kode_pp[]' value='"+kode_pp+"' required>");
         $(this).parents("tr").find("td:eq(7)").html(nama_pp+"<input type='hidden' class='form-control inp-nama_pp nmppke"+no+"' name='nama_pp[]' value='"+nama_pp+"' required>");
         $(this).parents("tr").find("td:eq(8)").html("<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px'><i class='fa fa-pencil-alt fa-1'></i></a>");
+        
+        $("#input-jurnal td").removeClass("px-0");
+        $("#input-jurnal td").removeClass("py-0");
+
         hitungTotal();
     });
 
@@ -371,6 +375,8 @@
             oncleared: function () { self.Value(''); }
         });
         $('.gridexample').formNavigation();
+        $("#input-jurnal td").addClass("px-0");
+        $("#input-jurnal td").addClass("py-0");
     });
 
     $('.currency').inputmask("numeric", {
