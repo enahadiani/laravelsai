@@ -303,7 +303,7 @@
         
         switch(par){
             case 'kode_akun[]': 
-                header = ['Kode Akun', 'Nama'];
+                header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('saku/akun') }}";
                 var columns = [
                     { data: 'kode_akun' },
