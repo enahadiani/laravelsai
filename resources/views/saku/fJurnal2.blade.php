@@ -96,10 +96,9 @@
                             </div>
                             <div class="form-group row">
                                 <label for="nik_periksa" class="col-2 col-form-label">NIK Periksa</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="nik_periksa" name="nik_periksa">
-                                    <option value=''>--- Pilih NIK Periksa ---</option>
-                                    </select>
+                                <div class="col-5">
+                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
+                                    <label id="label_nik" class="col-7"></label>
                                 </div>
                             </div>
                             <div class='col-xs-12' style='min-height:350px; margin:0px; padding:0px;'>
@@ -180,84 +179,65 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    function getPP(param,pp=null){
+    function getPP(id,target2){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/saku/pp') }}",
+            url: "{{ url('/saku/pp') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-                        }
-                        if(pp != null){
-                            control.setValue(pp);
-                        }
+                        $('.'+target2).val(result.daftar[0].nama);
                     }
+                }else{
+                    alert('Kode PP tidak valid');
+                    return false;
                 }
             }
         });
     }
 
-    function getNIKPeriksa(){
+    function getNIKPeriksa(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/saku/nikperiksa') }}",
+            url: "{{ url('/saku/nikperiksa') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#nik_periksa').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].nik + ' - ' + result.daftar[i].nama, value:result.daftar[i].nik}]);
-                        }
+                         $('#nik_periksa').val(result.daftar[0].nik);
+                         $('#label_nik').text(result.daftar[0].nama);
                     }
+                }else{
+                    alert('NIK tidak valid');
+                    return false;
                 }
             }
         });
     }
 
-    function getAkun(param,param2,akun=null){
+    function getAkun(id,target2){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/saku/akun') }}",
+            url: "{{ url('/saku/akun') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('.'+param).selectize({
-                            selectOnTab: true,
-                            onChange: function (val){
-                                var id = val;
-                                // getDC(id,param2);
-                            }
-                        });
-
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
-                        }
-                        if(akun != null){
-                            control.setValue(akun);
-                        }
-
+                        $('.'+target2).val(result.daftar[0].nama);
                     }
+                }else{
+                    alert('Kode akun tidak valid');
+                    return false;
                 }
             }
         });
     }
 
-    getNIKPeriksa();
+    // getNIKPeriksa();
     $('.gridexample').formNavigation();
     $('.selectize').selectize();
 
@@ -320,6 +300,16 @@
                 ];
                 
                 var judul = "Daftar PP";
+            break;
+            case 'nik_periksa': 
+                header = ['NIK', 'Nama'];
+            var toUrl = "{{ url('saku/nikperiksa') }}";
+                var columns = [
+                    { data: 'nik' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Karyawan";
             break;
         }
 
@@ -401,6 +391,110 @@
                 var nama = $('tr.selected').find('td:nth-child(2)').text();
                 $("."+$target).val(kode);
                 $("."+$target2).val(nama);
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
+    function showFilter2(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        
+        switch(par){
+            case 'nik_periksa': 
+                header = ['NIK', 'Nama'];
+            var toUrl = "{{ url('saku/nikperiksa') }}";
+                var columns = [
+                    { data: 'nik' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Karyawan";
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": {'param':par},
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            $("#"+$target).val(kode);
+            $("#"+$target2).text(nama);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                $("#"+$target).val(kode);
+                $("#"+$target2).text(nama);
                 $('#modal-search').modal('hide');
             }
         })
@@ -548,6 +642,22 @@
         showFilter(par,target1,target2);
     });
 
+    $('#form-tambah').on('click', '.search-item', function(){
+
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter2(par,target1,target2);
+    });
+
+    
+    $('#form-tambah').on('change', '#nik_periksa', function(){
+        var par = $(this).val();
+        getNIKPeriksa(par);
+    });
+
+
     $('#input-jurnal').on('change', '.inp-nilai', function(){
         // hitungTotal();
     });
@@ -557,24 +667,25 @@
     });
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
+        var tmp = $(this).attr('class');
+        console.log(tmp);
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        
+        tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
+        console.log(tmp);
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
         if (e.which == 13) {
             e.preventDefault();
             if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
+                getAkun(kode,target2);
                 $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
             }else{
                 alert('Akun yang dimasukkan tidak valid');
                 return false;
             }
         }else if(e.which == 40){
-            var tmp = $(this).attr('class');
-            console.log(tmp);
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-
-            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-            console.log(tmp);
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
             showFilter("kode_akun[]",target1,target2);
         }
     });
@@ -680,7 +791,7 @@
                     $('#no_bukti').attr('readonly', true);
                     $('#tanggal').val(result.jurnal[0].tanggal);
                     $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa')[0].selectize.setValue(result.jurnal[0].nik_periksa);
+                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
                     $('#no_dokumen').val(result.jurnal[0].no_dokumen);
                     $('#total_debet').val(result.jurnal[0].nilai1);
                     $('#total_kredit').val(result.jurnal[0].nilai1);
@@ -692,37 +803,22 @@
                             var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td width='20%'><select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required></select></td>";
-                            input += "<td width='10%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td width='20%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+line.keterangan+"' required></td>";
-                            input += "<td width='17%'><input type='text' name='nilai[]' class='form-control inp-nilai'  value='"+line.nilai+"' required></td>";
-                            input += "<td width='20%'><select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required></select></td>";
-                            input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+                            input += "<td width='10%'>"+line.kode_akun+"<input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+line.kode_akun+"' required></td>";
+                            input += "<td width='15%'>"+line.nama_akun+"<input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"' value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td width='5%'>"+line.dc+"<input type='hidden' class='inp-dc dcke"+no+"' name='dc[]' value='"+line.dc+"' required></td>";
+                            input += "<td width='15%'>"+line.keterangan+"<input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+line.keterangan+"' required></td>";
+                            input += "<td width='15%' class='text-right'>"+toRp2(line.nilai)+"<input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+line.nilai+"' required></td>";
+                            input += "<td width='10%'>"+line.kode_pp+"<input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+line.kode_pp+"' required></td>";
+                            input += "<td width='10%'>"+line.nama_pp+"<input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"' value='"+line.nama_pp+"' required></td>";
+                            input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px'><i class='fa fa-pencil-alt fa-1'></i></a></td>";
                             input += "</tr>";
+        
                             no++;
                         }
                         $('#input-jurnal tbody').html(input);
 
-                        $('.inp-nilai').inputmask("numeric", {
-                            radixPoint: ",",
-                            groupSeparator: ".",
-                            digits: 2,
-                            autoGroup: true,
-                            rightAlign: true,
-                            oncleared: function () { self.Value(''); }
-                        });
                         $('.gridexample').formNavigation();
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            getAkun('akunke'+no,'dcke'+no);
-                            getPP('ppke'+no);
-                            $('.dcke'+no).selectize();
-                            $('.akunke'+no)[0].selectize.setValue(line.kode_akun);
-                            $('.ppke'+no)[0].selectize.setValue(line.kode_pp);
-                            $('.dcke'+no)[0].selectize.setValue(line.dc);
-                            no++;
-                        }
+                        
                     }
                     hitungTotal();
                     $('#row-id').show();
