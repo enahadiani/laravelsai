@@ -314,4 +314,27 @@ class JurnalController extends Controller
         return response()->json(['data' => $data], 200); 
     
     }
+
+    // public function getFilterJurnal()
+    // {
+    //     $id = $request->param;
+    //     $client = new Client();
+    //     $response = $client->request('GET', $this->link.'filter_jurnal?param='.$id,[
+    //         'headers' => [
+    //             'Authorization' => 'Bearer '.Session::get('token'),
+    //             'Accept'     => 'application/json',
+    //         ],
+    //         'query' => [
+    //             'param' => $id
+    //         ]
+    //     ]);
+
+    //     if ($response->getStatusCode() == 200) { // 200 OK
+    //         $response_data = $response->getBody()->getContents();
+            
+    //         $data = json_decode($response_data,true);
+    //         $data = $data["success"];
+    //     }
+    //     return response()->json(['data' => $data], 200); 
+    // }
 }
