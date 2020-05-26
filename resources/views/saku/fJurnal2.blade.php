@@ -97,7 +97,7 @@
                             <div class="form-group row">
                                 <label for="nik_periksa" class="col-2 col-form-label">NIK Periksa</label>
                                 <div class="col-5">
-                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
+                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
                                     <label id="label_nik" class="col-7"></label>
                                 </div>
                             </div>
@@ -186,9 +186,9 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('.'+target2).val(result.daftar[0].nama);
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        $('.'+target2).val(result.data.data[0].nama);
                     }
                 }else{
                     alert('Kode PP tidak valid');
@@ -221,7 +221,7 @@
     function getAkun(id,target2){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/saku/akun') }}/"+id,
+            url: "{{ url('/saku/masakun') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -642,7 +642,7 @@
         showFilter(par,target1,target2);
     });
 
-    $('#form-tambah').on('click', '.search-item', function(){
+    $('#form-tambah').on('click', '.search-item2', function(){
 
         var par = $(this).closest('div').find('input').attr('name');
         var par2 = $(this).closest('div').find('label').attr('id');
@@ -679,6 +679,7 @@
         if (e.which == 13) {
             e.preventDefault();
             if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
+                var kode = $(this).val();
                 getAkun(kode,target2);
                 $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
             }else{
@@ -686,6 +687,7 @@
                 return false;
             }
         }else if(e.which == 40){
+            e.preventDefault();
             showFilter("kode_akun[]",target1,target2);
         }
     });
@@ -751,9 +753,20 @@
     });
 
     $('#input-jurnal').on('keydown', '.inp-pp', function(e){
+        var tmp = $(this).attr('class');
+        console.log(tmp);
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        
+        tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
+        console.log(tmp);
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
         if (e.which == 13) {
             e.preventDefault();
-            if($.trim($(this).closest('tr').find('.inp-pp')[0].selectize.getValue()).length){
+            if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
+                var kode = $(this).val();
+                getPP(kode,target2);
                 $('#add-row').click();
                 // hitungTotal();
             }else{
@@ -761,15 +774,6 @@
                 return false;
             }
         }else if(e.which == 40){
-            var tmp = $(this).attr('class');
-            console.log(tmp);
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-
-            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-            console.log(tmp);
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
             showFilter("kode_pp[]",target1,target2);
         }
     });
