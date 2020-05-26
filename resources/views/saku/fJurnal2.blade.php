@@ -136,7 +136,7 @@
                                         <th width="7%" class="text-center"><a type="button" href="#" id="add-row" class="badge badge-info"><i class="fa fa-plus-circle" style="font-size:12px"></i></a></th>
                                     </tr>
                                 </thead>
-                                <tbody style='font-size:12px !important'>
+                                <tbody>
                                 </tbody>
                                 </table>
                             </div>
@@ -298,7 +298,7 @@
         input += "<td width='15%'><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='' readonly></td>";
         input += "<td width='5%'><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td width='15%'><input type='text' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
-        input += "<td width='15%'><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
+        input += "<td width='15%' class='text-right'><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
         input += "<td width='10%'><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
         input += "<td width='10%'><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='' readonly></td>";
         input += "<td width='7%' class='text-center'><a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
@@ -322,39 +322,45 @@
 
     $("#input-jurnal").on("click", ".save-item", function(){
         
-        var kode_akun = $(this).parents("tr").find(".inp-kode")[0].selectize.getValue();
+        var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+        var nama_akun = $(this).parents("tr").find(".inp-nama").val();
         var dc = $(this).parents("tr").find(".inp-dc")[0].selectize.getValue();
         var keterangan = $(this).parents("tr").find(".inp-ket").val();
         var nilai = $(this).parents("tr").find(".inp-nilai").val();
-        var kode_pp = $(this).parents("tr").find(".inp-pp")[0].selectize.getValue();
-        
-        $(this).parents("tr").find("td:eq(1)").html(kode_akun+"<input type='hidden' class='inp-kode' name='kode_akun[]' value='"+kode_akun+"' required>");
-        $(this).parents("tr").find("td:eq(2)").html(dc+"<input type='hidden' class='inp-dc' name='dc[]' value='"+dc+"' required>");
-        $(this).parents("tr").find("td:eq(3)").html(keterangan+"<input type='hidden' class='inp-ket' name='keterangan[]' value='"+keterangan+"' required>");
-        $(this).parents("tr").find("td:eq(4)").html(nilai+"<input type='hidden' class='inp-nilai' name='nilai[]' value='"+nilai+"' required>");
-        $(this).parents("tr").find("td:eq(5)").html(kode_pp+"<input type='hidden' class='inp-pp' name='kode_pp[]' value='"+kode_pp+"' required>");
-        $(this).parents("tr").find("td:eq(6)").html("<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px'><i class='fa fa-pencil-alt fa-1'></i></a>");
+        var kode_pp = $(this).parents("tr").find(".inp-pp").val();
+        var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
+        var no = $(this).parents("tr").find("no-jurnal").text();
+                
+        $(this).parents("tr").find("td:eq(1)").html(kode_akun+"<input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required>");
+        $(this).parents("tr").find("td:eq(2)").html(nama_akun+"<input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly>");
+        $(this).parents("tr").find("td:eq(3)").html(dc+"<input type='hidden' class='inp-dc' name='dc[]' value='"+dc+"' required>");
+        $(this).parents("tr").find("td:eq(4)").html(keterangan+"<input type='hidden' class='inp-ket' name='keterangan[]' value='"+keterangan+"' required>");
+        $(this).parents("tr").find("td:eq(5)").html(nilai+"<input type='hidden' class='inp-nilai' name='nilai[]' value='"+nilai+"' required>");
+        $(this).parents("tr").find("td:eq(6)").html(kode_pp+"<input type='hidden' class='form-control inp-pp ppke"+no+"' name='kode_pp[]' value='"+kode_pp+"' required>");
+        $(this).parents("tr").find("td:eq(7)").html(nama_pp+"<input type='hidden' class='form-control inp-nama_pp nmppke"+no+"' name='nama_pp[]' value='"+nama_pp+"' required>");
+        $(this).parents("tr").find("td:eq(8)").html("<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px'><i class='fa fa-pencil-alt fa-1'></i></a>");
         hitungTotal();
     });
 
     $("#input-jurnal").on("click", ".edit-item", function(){
         
         var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+        var nama_akun = $(this).parents("tr").find(".inp-nama").val();
         var dc = $(this).parents("tr").find(".inp-dc").val();
         var keterangan = $(this).parents("tr").find(".inp-ket").val();
         var nilai = $(this).parents("tr").find(".inp-nilai").val();
         var kode_pp = $(this).parents("tr").find(".inp-pp").val();
+        var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
         
         var no = $(this).parents("tr").find("no-jurnal").text();
-        $(this).parents("tr").find("td:eq(1)").html("<select name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required></select>");
-        $(this).parents("tr").find("td:eq(2)").html("<select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select>");
-        $(this).parents("tr").find("td:eq(3)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required>");
-        $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required>");
-        $(this).parents("tr").find("td:eq(5)").html("<select name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required></select>");
-        
-        $(this).parents("tr").find("td:eq(6)").html("<a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>");
-        getAkun('akunke'+no,'dcke'+no,kode_akun);
-        getPP('ppke'+no,kode_pp);
+        $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>");
+        $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly>");
+        $(this).parents("tr").find("td:eq(3)").html("<select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select>");
+        $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required>");
+        $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required>");
+        $(this).parents("tr").find("td:eq(6)").html("<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>");
+        $(this).parents("tr").find("td:eq(7)").html("<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly>");        
+        $(this).parents("tr").find("td:eq(8)").html("<a class='btn btn-success btn-sm save-item' style='font-size:8px'><i class='fa fa-check fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>");
         $('.dcke'+no).selectize();
         $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
@@ -365,8 +371,6 @@
             oncleared: function () { self.Value(''); }
         });
         $('.gridexample').formNavigation();
-        
-        
     });
 
     $('.currency').inputmask("numeric", {
