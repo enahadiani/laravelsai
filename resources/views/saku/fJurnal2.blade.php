@@ -190,7 +190,8 @@
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         $('.'+target2).val(result.data.data[0].nama);
                     }
-                }else{
+                }
+                else{
                     alert('Kode PP tidak valid');
                     return false;
                 }
@@ -209,10 +210,10 @@
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#nik_periksa').val(result.daftar[0].nik);
                          $('#label_nik').text(result.daftar[0].nama);
+                    }else{
+                        alert('NIK tidak valid');
+                        return false;
                     }
-                }else{
-                    alert('NIK tidak valid');
-                    return false;
                 }
             }
         });
@@ -229,7 +230,8 @@
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         $('.'+target2).val(result.data.data[0].nama);
                     }
-                }else{
+                }
+                else{
                     alert('Kode akun tidak valid');
                     return false;
                 }
@@ -813,7 +815,6 @@
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
             var kode = $(this).val();
             getPP(kode,target2);
-            $('#add-row').click();
             // hitungTotal();
         }else{
             alert('PP yang dimasukkan tidak valid');
