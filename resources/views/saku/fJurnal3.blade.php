@@ -722,7 +722,7 @@
             }
     
             if(idx == 5){
-                 $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(nilai)+"' required></td>");
+                 $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
                  $('.nilke'+no).inputmask("numeric", {
                     radixPoint: ",",
                     groupSeparator: ".",
@@ -733,7 +733,7 @@
                 });
             }else{
                 
-                 $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+toRp2(nilai)+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(nilai)+"' required></td>");
+                 $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
             }
     
             if(idx == 6){
