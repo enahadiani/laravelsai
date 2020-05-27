@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class PpController extends Controller
 {
@@ -30,21 +31,28 @@ class PpController extends Controller
      */
 
     public function index(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'pp',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'pp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true, 'message'=>'success'], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data, 'status'=>true], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 
     /**
@@ -60,27 +68,37 @@ class PpController extends Controller
             'nama' => 'required',
             'flag_aktif' => 'required',
         ]);
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'pp',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_pp' => $request->kode_pp,
-                'kode_lokasi' => Session::get('lokasi'),
-                'nama' => $request->nama,
-                'flag_aktif' => $request->flag_aktif,
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'pp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_pp' => $request->kode_pp,
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nama' => $request->nama,
+                    'flag_aktif' => $request->flag_aktif,
+                ]
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
-        }
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        
+        } 
+
     }
 
     /**
@@ -91,21 +109,31 @@ class PpController extends Controller
      */
     public function show($id)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'pp/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'pp/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        
+        } 
     }
 
 
@@ -135,28 +163,39 @@ class PpController extends Controller
             'flag_aktif' => 'required',
         ]);
 
-        $client = new Client();
+        try{
 
-        $response = $client->request('PUT', $this->link.'pp/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_pp' => $request->kode_pp,
-                'kode_lokasi' => Session::get('lokasi'),
-                'nama' => $request->nama,
-                'flag_aktif' => $request->flag_aktif,
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            $client = new Client();
+    
+            $response = $client->request('PUT', $this->link.'pp/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_pp' => $request->kode_pp,
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nama' => $request->nama,
+                    'flag_aktif' => $request->flag_aktif,
+                ]
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200); 
-            // return redirect('/siswa')->with('status','Data berhasil disimpan');  
-        }
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200); 
+                // return redirect('/siswa')->with('status','Data berhasil disimpan');  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        
+        } 
+
     }
 
     /**
@@ -167,21 +206,31 @@ class PpController extends Controller
      */
     public function destroy($id)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'pp/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'pp/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        
+        } 
     
     }
 }

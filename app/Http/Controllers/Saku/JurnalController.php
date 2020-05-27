@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class JurnalController extends Controller
 {
@@ -37,75 +38,101 @@ class JurnalController extends Controller
     }
 
     public function index(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'jurnal',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try { 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jurnal',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["jurnal"];
-        }
-        return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["jurnal"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true, 'message' => 'success'], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 
     public function getPP(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'pp',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try { 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'pp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data , 'status'=>true, 'message' =>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 
     public function getAkun(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'akun',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'akun',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 
     public function getNIKPeriksa(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'nikperiksa',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'nikperiksa',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
     
     /**
@@ -130,53 +157,62 @@ class JurnalController extends Controller
             'nilai.*' => 'required',
             'kode_pp.*' => 'required'
         ]);
-        
-        $detail = array();
-        if(isset($request->kode_akun)){
-            $kode_akun = $request->kode_akun;
-            $keterangan = $request->keterangan;
-            $dc = $request->dc;
-            $nilai = $request->nilai;
-            $kode_pp = $request->kode_pp;
-            for($i=0;$i<count($kode_akun);$i++){
-                $detail[] = array(
-                    'kode_akun' => $kode_akun[$i],
-                    'keterangan' => $keterangan[$i],
-                    'dc' => $dc[$i],
-                    'nilai' => $this->joinNum($nilai[$i]),
-                    'kode_pp' => $kode_pp[$i]
-                );
+        try{
+
+            $detail = array();
+            if(isset($request->kode_akun)){
+                $kode_akun = $request->kode_akun;
+                $keterangan = $request->keterangan;
+                $dc = $request->dc;
+                $nilai = $request->nilai;
+                $kode_pp = $request->kode_pp;
+                for($i=0;$i<count($kode_akun);$i++){
+                    $detail[] = array(
+                        'kode_akun' => $kode_akun[$i],
+                        'keterangan' => $keterangan[$i],
+                        'dc' => $dc[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'kode_pp' => $kode_pp[$i]
+                    );
+                }
             }
-        }
-
-
-        $fields['jurnal'][0] =
-              array (
-                'no_dokumen' => $request->no_dokumen,
-                'tanggal' => $request->tanggal,
-                'jenis' => $request->jenis,
-                'deskripsi' => $request->deskripsi,
-                'total_debet' => $this->joinNum($request->total_debet),
-                'total_kredit' => $this->joinNum($request->total_kredit),
-                'nik_periksa' => $request->nik_periksa,
-                'detail' => $detail
-              );
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'jurnal',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+    
+    
+            $fields['jurnal'][0] =
+                  array (
+                    'no_dokumen' => $request->no_dokumen,
+                    'tanggal' => $request->tanggal,
+                    'jenis' => $request->jenis,
+                    'deskripsi' => $request->deskripsi,
+                    'total_debet' => $this->joinNum($request->total_debet),
+                    'total_kredit' => $this->joinNum($request->total_kredit),
+                    'nik_periksa' => $request->nik_periksa,
+                    'detail' => $detail
+                  );
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'jurnal',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(["data" =>$data["success"]], 200);  
-        }
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 
     // /**
@@ -187,21 +223,30 @@ class JurnalController extends Controller
     //  */
     public function show($id)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'jurnal/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jurnal/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
     }
 
 
@@ -239,54 +284,64 @@ class JurnalController extends Controller
             'nilai.*' => 'required',
             'kode_pp.*' => 'required'
         ]);
-        
-        $detail = array();
-        if(isset($request->kode_akun)){
-            $kode_akun = $request->kode_akun;
-            $keterangan = $request->keterangan;
-            $dc = $request->dc;
-            $nilai = $request->nilai;
-            $kode_pp = $request->kode_pp;
-            for($i=0;$i<count($kode_akun);$i++){
-                $detail[] = array(
-                    'kode_akun' => $kode_akun[$i],
-                    'keterangan' => $keterangan[$i],
-                    'dc' => $dc[$i],
-                    'nilai' => $this->joinNum($nilai[$i]),
-                    'kode_pp' => $kode_pp[$i]
-                );
-            }
-        }
 
-
-        $fields['jurnal'][0] =
-              array (
-                'no_bukti' => $request->no_bukti,
-                'no_dokumen' => $request->no_dokumen,
-                'tanggal' => $request->tanggal,
-                'jenis' => $request->jenis,
-                'deskripsi' => $request->deskripsi,
-                'total_debet' => $this->joinNum($request->total_debet),
-                'total_kredit' => $this->joinNum($request->total_kredit),
-                'nik_periksa' => $request->nik_periksa,
-                'detail' => $detail
-              );
-
-        $client = new Client();
-        $response = $client->request('PUT', $this->link.'jurnal',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
             
-            $data = json_decode($response_data,true);
-            return response()->json(["data" =>$data["success"]], 200);  
-        }
+            $detail = array();
+            if(isset($request->kode_akun)){
+                $kode_akun = $request->kode_akun;
+                $keterangan = $request->keterangan;
+                $dc = $request->dc;
+                $nilai = $request->nilai;
+                $kode_pp = $request->kode_pp;
+                for($i=0;$i<count($kode_akun);$i++){
+                    $detail[] = array(
+                        'kode_akun' => $kode_akun[$i],
+                        'keterangan' => $keterangan[$i],
+                        'dc' => $dc[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'kode_pp' => $kode_pp[$i]
+                    );
+                }
+            }
+    
+    
+            $fields['jurnal'][0] =
+                  array (
+                    'no_bukti' => $request->no_bukti,
+                    'no_dokumen' => $request->no_dokumen,
+                    'tanggal' => $request->tanggal,
+                    'jenis' => $request->jenis,
+                    'deskripsi' => $request->deskripsi,
+                    'total_debet' => $this->joinNum($request->total_debet),
+                    'total_kredit' => $this->joinNum($request->total_kredit),
+                    'nik_periksa' => $request->nik_periksa,
+                    'detail' => $detail
+                  );
+    
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'jurnal',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 
     // /**
@@ -297,40 +352,56 @@ class JurnalController extends Controller
     //  */
     public function destroy($id)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'jurnal/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'jurnal/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
     
     }
 
     
     public function getNIKPeriksaByNIK($nik){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'nikperiksa/'.$nik,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'nikperiksa/'.$nik,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data , 'status'=>true,'message'=>'success'], 200); 
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 }

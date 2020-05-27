@@ -197,7 +197,18 @@
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.daftar;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    return [];
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
+                }
             }
         },
         'columnDefs': [
@@ -230,6 +241,15 @@
                         // $('#add-row').click();
                     }
                 }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
+                }
                 else{
                     $('.'+target1).val('');
                     $('.'+target1).focus();
@@ -257,6 +277,15 @@
                         $('#nik_periksa').focus();
                     }
                 }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
+                }
             }
         });
     }
@@ -275,6 +304,15 @@
                         // $('.'+target3)[0].selectize.focus();
                         $('.td'+target3).text('D');
                     }
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
                 }
                 else{
                     $('.'+target1).val('');
@@ -497,7 +535,17 @@
                                 'Your data has been deleted.',
                                 'success'
                             )
-                        }else{
+                        }
+                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('saku/login') }}";
+                            })
+                        }
+                        else{
                             Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -563,7 +611,17 @@
                             $('#saku-datatable').show();
                             $('#saku-form').hide();
                             
-                    }else{
+                    }
+                    else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('saku/login') }}";
+                        })
+                    }
+                    else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -1186,6 +1244,15 @@
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
                 }
                 $iconLoad.hide();
             }
