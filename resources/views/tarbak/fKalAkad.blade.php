@@ -199,15 +199,15 @@
         openFilter();
     });
    
-    $('#kode_pp').selectize({
-        selectOnTab:true,
-        onChange: function (val){
-            var id = val;
-            if (id != "" && id != null && id != undefined){
-                getNIKGuru(id);
-            }
-        }
-    });
+    // $('#kode_pp').selectize({
+    //     selectOnTab:true,
+    //     onChange: function (val){
+    //         var id = val;
+    //         if (id != "" && id != null && id != undefined){
+    //             getNIKGuru(id);
+    //         }
+    //     }
+    // });
 
    function getPP(){
         $.ajax({
@@ -303,24 +303,15 @@
                         var no=1;
                         for(var i=0;i<result.data.data_detail.length;i++){
                             var line =result.data.data_detail[i];
-                                input += "<tr class='row-guru'>";
-                                input += "<td width='5%' class='no-guru'>"+no+"</td>";
-                                input += "<td width='50%'><select name='kode_matpel[]' class='form-control inp-matpel mpke"+no+"' value='' required></select></td>";
-                                input += "<td width='30%'><select name='kode_status[]' class='form-control inp-status stske"+no+"' value='' required></select></td>";
+                                input += "<tr class='row-kal'>";
+                                input += "<td width='5%' class='no-kal'>"+no+"</td>";
+                                input += "<td width='50%'><input type='date' name='tanggal[]' class='form-control inp-date' value='"+line.tanggal+"' required></td>";
+                                input += "<td width='30%'><input type='text' name='agenda[]' class='form-control inp-agenda' value='"+line.agenda+"' required></td>";
                                 input += "<td width='5%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
                                 input += "</tr>";
                             no++;
                         }
                         $('#input-grid tbody').html(input);
-                        var no=1;
-                        for(var i=0;i<result.data.data_detail.length;i++){
-                            var line =result.data.data_detail[i];
-                            getMatpel(result.data.data_detail[0].kode_pp,'mpke'+no);
-                            $('.mpke'+no)[0].selectize.setValue(line.kode_matpel);
-                            getStatus(result.data.data_detail[0].kode_pp,'stske'+no);
-                            $('.stske'+no)[0].selectize.setValue(line.kode_status);
-                            no++;
-                        }
                     }
                    
                     $('#row-id').show();
@@ -391,10 +382,12 @@
 
         $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
-        var id = $('#nik_guru').val();
+        var id = $('#kode_sem').val();
+        var pp = $('#kode_pp').val();
+        var ta = $('#kode_ta').val();
         var parameter = $('#id_edit').val();
         if(parameter == "edit"){
-            var url = "{{ url('/tarbak/postKalAkad') }}/"+id;
+            var url = "{{ url('/tarbak/postKalAkad') }}/"+id+"/"+ta+"/"+pp;
             var pesan = "updated";
         }else{
             var url = "{{ url('/tarbak/postKalAkad') }}";
@@ -462,12 +455,14 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
-                var kode_pp = temp[0]; 
+            var id= $(this).closest('tr').find('td').eq(0).html();
+            var ta= $(this).closest('tr').find('td').eq(1).html();
+            var pp= $(this).closest('tr').find('td').eq(2).html();
+            var tmp = pp.split("-");
+            var kode_pp = tmp[0];     
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('tarbak/deleteGuruMatpel') }}/"+kode +"/"+ kode_pp,
+                    url: "{{ url('tarbak/deleteKalAkad') }}/"+id+"/"+ta+"/"+kode_pp,
                     dataType: 'json',
                     async:false,
                     success:function(result){

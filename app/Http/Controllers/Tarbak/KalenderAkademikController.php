@@ -80,10 +80,12 @@
 
         }
 
-        public function getGuruMatpel($nik,$kode_pp) {
+        public function getKalAkad($kode_sem,$kode_ta1,$kode_ta2,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'guru_matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
+                $kode_ta = $kode_ta1."/".$kode_ta2;
+                $response = $client->request('GET', $this->link.'kalender_akad?kode_sem='.$kode_sem
+                ."&kode_ta=".$kode_ta."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -107,10 +109,12 @@
             }
         }
 
-        public function delete($nik,$kode_pp) {
+        public function delete($kode_sem,$kode_ta1,$kode_ta2,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE', $this->link.'guru_matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
+                $kode_ta = $kode_ta1."/".$kode_ta2;
+                $response = $client->request('DELETE', $this->link.'kalender_akad?kode_sem='.$kode_sem.
+                '&kode_ta='.$kode_ta."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -128,7 +132,7 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 200);
             }
@@ -138,23 +142,23 @@
         {
         $this->validate($request, [
                 'kode_pp' => 'required',
-                'nik_guru' => 'required',
-                'flag_aktif' => 'required',
-                'kode_matpel' => 'required|array',
-                'kode_status'=>'required|array'
+                'kode_ta' => 'required',
+                'kode_sem' => 'required',
+                'tanggal' => 'required|array',
+                'agenda'=>'required|array'
             ]);
 
             try{
                 $fields = array (
                     'kode_pp' => $request->kode_pp,
-                    'nik_guru' => $request->nik_guru,
-                    'flag_aktif' => $request->flag_aktif,
-                    'kode_matpel' => $request->kode_matpel,
-                    'kode_status' => $request->kode_status
+                    'kode_ta' => $request->kode_ta,
+                    'kode_sem' => $request->kode_sem,
+                    'tanggal' => $request->tanggal,
+                    'agenda' => $request->agenda
                   );
         
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'guru_matpel',[
+                $response = $client->request('PUT', $this->link.'kalender_akad',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
