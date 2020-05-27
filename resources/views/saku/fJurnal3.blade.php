@@ -97,7 +97,7 @@
                             <div class="form-group row">
                                 <label for="nik_periksa" class="col-2 col-form-label">NIK Periksa</label>
                                 <div class="col-5">
-                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
+                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label id="label_nik"></label>
                                 </div>
                             </div>
@@ -124,6 +124,10 @@
                                     .selected{
                                         cursor:pointer;
                                         background:#4286f5 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td:hover{
+                                        background:#f4d180 !important;
                                         color:white;
                                     }
                                 </style>
