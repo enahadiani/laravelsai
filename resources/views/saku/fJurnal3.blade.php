@@ -605,12 +605,12 @@
 
     $('#input-jurnal').on('keydown','.inp-kode',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['inp-kode','inp-nama','inp-dc','inp-ket','inp-nilai','inp-pp','inp-nama_pp'];
+        var nxt = ['.inp-kode','.inp-nama','.inp-dc','.inp-ket','.inp-nilai','.inp-pp','.inp-nama_pp'];
         if (code == 13 || code == 40 || code == 9) {
             e.preventDefault();
-            var idx = nxt.indexOf(e.target.class);
-            idx++;
-            console.log(idx);
+            var idx = $(this).index()+1;
+            // $(this).closest('tr').find(nxt[idx]).type('text');
+            // console.log(cek);
             // if(idx == 8){
             //     $('#'+nxt[idx])[0].selectize.focus();
             // }else{
@@ -683,7 +683,7 @@
             var kode_pp = $(this).parents("tr").find(".inp-pp").val();
             var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
             var no = $(this).parents("tr").find(".no-jurnal").text();
-    
+            console.log(dc);
             if(idx == 1){
                  $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
             }else{
@@ -695,7 +695,7 @@
                  $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
             }else{
                 
-                 $(this).parents("tr").find("td:eq(2)").html("<span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
+                 $(this).parents("tr").find("td:eq(2)").html("<span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' hidden name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
             }
     
             if(idx == 3){
@@ -705,6 +705,7 @@
                         $('.tddcke'+no).text(value);
                     }
                  });
+                 $('.dcke'+no)[0].selectize.setValue(dc);
                  var dcx = $('.tddcke'+no).text();
                  if(dcx == ""){
                     $('.tddcke'+no).text('D');  

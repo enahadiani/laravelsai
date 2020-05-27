@@ -22,6 +22,8 @@ Route::get('/form/{id}', function ($id) {
     }
 });
 
+
+Route::get('/cek_session', 'Saku\AuthController@cek_session');
 Route::get('/', 'Saku\AuthController@index');
 Route::get('/dash', 'Saku\AuthController@index');
 Route::get('/menu', 'Saku\AuthController@getMenu');

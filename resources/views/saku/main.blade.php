@@ -303,9 +303,30 @@
             </section>
             <script>
                
-                var form ="";
+                var form ="{{ Session::get('dash') }}";
                 function loadForm(url){
-                    $('.body-content').load(url);
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('saku/cek_session') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){
+                            if(!result.status){
+                                Swal.fire({
+                                    title: 'Session telah habis',
+                                    text: 'Harap Login terlebih dahulu !',
+                                    icon: 'error'
+                                }).then(function(){
+                                    window.location.href = "{{ url('saku/login') }}";
+                                });
+                            }else{
+                                $('.body-content').load(url)
+                            }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
                 }
                 $.ajaxSetup({
                     headers: {
@@ -334,9 +355,9 @@
                 loadMenu();
 
                 
-                // if(form !="" || form != "-"){
-                //     loadForm("")
-                // }
+                if(form !="" || form != "-"){
+                    loadForm("{{ url('saku/form') }}/"+form);
+                }
 
                 
                 $('.sidebar-nav').on('click','.a_link',function(e){
