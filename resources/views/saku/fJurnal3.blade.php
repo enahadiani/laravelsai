@@ -13,6 +13,9 @@
                                 padding:8px !important;
                                 vertical-align:middle !important;
                             }
+                            .hidden{
+                                display:none;
+                            }
                             </style>
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
@@ -603,13 +606,74 @@
         }
     });
 
-    $('#input-jurnal').on('keydown','.inp-kode',function(e){
+    $('#input-jurnal').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['.inp-kode','.inp-nama','.inp-dc','.inp-ket','.inp-nilai','.inp-pp','.inp-nama_pp'];
+        var nxt2 = ['.td-kode','.td-nama','.td-dc','.td-ket','.td-nilai','.td-pp','.td-nama_pp'];
         if (code == 13 || code == 40 || code == 9) {
             e.preventDefault();
-            var idx = $(this).index()+1;
-            // $(this).closest('tr').find(nxt[idx]).type('text');
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).index()+1;
+            var isi = $(this).val();
+            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+            $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+            switch (idx) {
+                case 0:
+                    $(this).closest('tr').find('.search-akun').hide();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    
+                    break;
+                case 1:
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    
+                    break;
+                case 2:
+                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
+                    $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
+                    $(this).parents("tr").find(nxt2[idx]).text(isi);
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
+                case 6:
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $('#add-row').click();
+                    break;
+
+                default:
+                    break;
+            }
+                
+            
             // console.log(cek);
             // if(idx == 8){
             //     $('#'+nxt[idx])[0].selectize.focus();
@@ -646,25 +710,30 @@
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='10%'><span class='td-kode tdakunke"+no+"'></span><input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='' required=''></td>";
-        input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'></span><input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='' readonly></td>";
+        input += "<td width='10%'><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
         input += "<td width='5%'><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td width='20%'><span class='td-ket tdketke"+no+"'></span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='' required></td>";
-        input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='' required></td>";
-        input += "<td width='7%'><span class='td-pp tdppke"+no+"'></span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='' required=''></td>";
-        input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'></span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='' readonly></td>";
+        input += "<td width='20%'><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
+        input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
+        input += "<td width='7%'><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
         input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
-        // $('.dcke'+no).selectize();
-        // $('.nilke'+no).inputmask("numeric", {
-        //     radixPoint: ",",
-        //     groupSeparator: ".",
-        //     digits: 2,
-        //     autoGroup: true,
-        //     rightAlign: true,
-        //     oncleared: function () { self.Value(''); }
-        // });
+        $('.dcke'+no).selectize({
+            onChange: function(value) {
+                $('.tddcke'+no).text(value);
+            }
+        });
+        $('.selectize-control.dcke'+no).addClass('hidden');
+        $('.nilke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
     });
 
     $('#input-jurnal').on('click', 'td', function(){
@@ -683,73 +752,122 @@
             var kode_pp = $(this).parents("tr").find(".inp-pp").val();
             var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
             var no = $(this).parents("tr").find(".no-jurnal").text();
-            console.log(dc);
+            $(this).parents("tr").find(".inp-kode").val(kode_akun);
+            $(this).parents("tr").find(".td-kode").text(kode_akun);
             if(idx == 1){
-                 $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
+                $(this).parents("tr").find(".inp-kode").show();
+                $(this).parents("tr").find(".td-kode").hide();
+                $(this).parents("tr").find(".search-akun").show();
+                //  $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
             }else{
-                 $(this).parents("tr").find("td:eq(1)").html("<span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required=''></td>");
+                $(this).parents("tr").find(".inp-kode").hide();
+                $(this).parents("tr").find(".td-kode").show();
+                $(this).parents("tr").find(".search-akun").hide();
+                //  $(this).parents("tr").find("td:eq(1)").html("<span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required=''></td>");
                 
             }
     
+            $(this).parents("tr").find(".inp-nama").val(nama_akun);
+            $(this).parents("tr").find(".td-nama").text(nama_akun);
             if(idx == 2){
-                 $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
+                //  $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
+                $(this).parents("tr").find(".inp-nama").show();
+                $(this).parents("tr").find(".td-nama").hide();
             }else{
                 
-                 $(this).parents("tr").find("td:eq(2)").html("<span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' hidden name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
+                $(this).parents("tr").find(".inp-nama").hide();
+                $(this).parents("tr").find(".td-nama").show();
+                //  $(this).parents("tr").find("td:eq(2)").html("<span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' hidden name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
             }
     
+            
+            $(this).parents("tr").find(".inp-dc")[0].selectize.setValue(dc);
+            $(this).parents("tr").find(".td-dc").text(dc);
             if(idx == 3){
-                 $(this).parents("tr").find("td:eq(3)").html("<span hidden class='td-dc tddcke"+no+"'>"+dc+"</span><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
-                 $('.dcke'+no).selectize({
-                    onChange: function(value) {
-                        $('.tddcke'+no).text(value);
-                    }
-                 });
+                //  $(this).parents("tr").find("td:eq(3)").html("<span hidden class='td-dc tddcke"+no+"'>"+dc+"</span><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
+                //  $('.dcke'+no).selectize({
+                //     onChange: function(value) {
+                //         $('.tddcke'+no).text(value);
+                //     }
+                //  });
                  $('.dcke'+no)[0].selectize.setValue(dc);
                  var dcx = $('.tddcke'+no).text();
                  if(dcx == ""){
                     $('.tddcke'+no).text('D');  
                  }
+                
+                $(this).parents("tr").find(".selectize-control").show();
+                $(this).parents("tr").find(".td-dc").hide();
                  
             }else{
                 
-                $(this).parents("tr").find("td:eq(3)").html("<span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
+                $(this).parents("tr").find(".selectize-control").hide();
+                $(this).parents("tr").find(".td-dc").show();
+                
+                // $(this).parents("tr").find("td:eq(3)").html("<span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
             }
     
+            $(this).parents("tr").find(".inp-ket").val(keterangan);
+            $(this).parents("tr").find(".td-ket").text(keterangan);
             if(idx == 4){
-                 $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
+                $(this).parents("tr").find(".inp-ket").show();
+                $(this).parents("tr").find(".td-ket").hide();
+                //  $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
             }else{
-                 $(this).parents("tr").find("td:eq(4)").html("<span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
+                $(this).parents("tr").find(".inp-ket").hide();
+                $(this).parents("tr").find(".td-ket").show();
+                //  $(this).parents("tr").find("td:eq(4)").html("<span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
             }
     
+            $(this).parents("tr").find(".inp-nilai").val(nilai);
+            $(this).parents("tr").find(".td-nilai").text(nilai);
             if(idx == 5){
-                 $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
-                 $('.nilke'+no).inputmask("numeric", {
-                    radixPoint: ",",
-                    groupSeparator: ".",
-                    digits: 2,
-                    autoGroup: true,
-                    rightAlign: true,
-                    oncleared: function () { self.Value(''); }
-                });
+                $(this).parents("tr").find(".inp-nilai").show();
+                $(this).parents("tr").find(".td-nilai").hide();
+                //  $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
+                //  $('.nilke'+no).inputmask("numeric", {
+                //     radixPoint: ",",
+                //     groupSeparator: ".",
+                //     digits: 2,
+                //     autoGroup: true,
+                //     rightAlign: true,
+                //     oncleared: function () { self.Value(''); }
+                // });
             }else{
-                
-                 $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
+                $(this).parents("tr").find(".inp-nilai").hide();
+                $(this).parents("tr").find(".td-nilai").show();
+                //  $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
             }
     
+            $(this).parents("tr").find(".inp-pp").val(kode_pp);
+            $(this).parents("tr").find(".td-pp").text(kode_pp);
             if(idx == 6){
-                
-                 $(this).parents("tr").find("td:eq(6)").html("<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
+                $(this).parents("tr").find(".inp-pp").show();
+                $(this).parents("tr").find(".td-pp").hide();
+                $(this).parents("tr").find(".search-pp").show();
+                //  $(this).parents("tr").find("td:eq(6)").html("<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
             }else{
                 
-                 $(this).parents("tr").find("td:eq(6)").html("<span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required=''></td>");
+                $(this).parents("tr").find(".inp-pp").hide();
+                $(this).parents("tr").find(".td-pp").show();
+                $(this).parents("tr").find(".search-pp").hide();
+                
+                //  $(this).parents("tr").find("td:eq(6)").html("<span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required=''></td>");
             }
     
+            
+            $(this).parents("tr").find(".inp-nama_pp").val(nama_pp);
+            $(this).parents("tr").find(".td-nama_pp").text(nama_pp);
             if(idx == 7){
-                 $(this).parents("tr").find("td:eq(7)").html("<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
+                
+                $(this).parents("tr").find(".inp-nama_pp").show();
+                $(this).parents("tr").find(".td-nama_pp").hide();
+                //  $(this).parents("tr").find("td:eq(7)").html("<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
             }else{
                 
-                 $(this).parents("tr").find("td:eq(7)").html("<span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
+                $(this).parents("tr").find(".inp-nama_pp").hide();
+                $(this).parents("tr").find(".td-nama_pp").show();
+                //  $(this).parents("tr").find("td:eq(7)").html("<span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
             }
             hitungTotal();
         }
@@ -869,17 +987,14 @@
     $('#input-jurnal').on('change', '.inp-kode', function(e){
         e.preventDefault();
         var tmp = $(this).attr('class');
-        console.log(tmp);
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
         
         tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-        console.log(tmp);
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
 
         tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
-        console.log(tmp);
         tmp2 = tmp.split(" ");
         target3 = tmp2[2];
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
@@ -957,12 +1072,10 @@
         if (e.which == 13) {
             e.preventDefault();
             var tmp = $(this).attr('class');
-            console.log(tmp);
             var tmp2 = tmp.split(" ");
             target1 = tmp2[2];
             
             tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-            console.log(tmp);
             tmp2 = tmp.split(" ");
             target2 = tmp2[2];
             if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
@@ -976,12 +1089,10 @@
         }else if(e.which == 40){
             e.preventDefault();
             var tmp = $(this).attr('class');
-            console.log(tmp);
             var tmp2 = tmp.split(" ");
             target1 = tmp2[2];
             
             tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-            console.log(tmp);
             tmp2 = tmp.split(" ");
             target2 = tmp2[2];
             showFilter("kode_pp[]",target1,target2);
@@ -991,12 +1102,10 @@
     $('#input-jurnal').on('change', '.inp-pp', function(e){
         e.preventDefault();
         var tmp = $(this).attr('class');
-        console.log(tmp);
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
         
         tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-        console.log(tmp);
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
@@ -1038,21 +1147,39 @@
                             var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td width='10%'><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+line.kode_akun+"' required=''></td>";
-                            input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td width='10%'><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td width='5%'><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+line.keterangan+"' required></td>";
-                            input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+line.kode_pp+"' required=''></td>";
-                            input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+line.nama_pp+"' readonly></td>";
+                            input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
+                            input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
+                            input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
                             input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
                             input += "</tr>";
         
                             no++;
                         }
                         $('#input-jurnal tbody').html(input);
-
-                        $('.gridexample').formNavigation();
+                        no= 1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            $('.dcke'+no).selectize({
+                                onChange: function(value) {
+                                    $('.tddcke'+no).text(value);
+                                }
+                            });
+                            $('.dcke'+no)[0].selectize.setValue(line.dc);
+                            $('.selectize-control.dcke'+no).addClass('hidden');
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
                         
                     }
                     hitungTotal();
