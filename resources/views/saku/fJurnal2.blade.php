@@ -179,7 +179,7 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    function getPP(id,target1){
+    function getPP(id,target1,target2){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/pp') }}/"+id,
@@ -188,7 +188,7 @@
             success:function(result){    
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        $('.'+target1).val(result.data.data[0].nama);
+                        $('.'+target2).val(result.data.data[0].nama);
                         $('#add-row').click();
                     }
                 }
@@ -222,7 +222,7 @@
         });
     }
 
-    function getAkun(id,target2,target3){
+    function getAkun(id,target1,target2,target3){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/masakun') }}/"+id,
@@ -236,8 +236,8 @@
                     }
                 }
                 else{
-                    $('.'+target2).val('');
-                    $('.'+target2).focus();
+                    $('.'+target1).val('');
+                    $('.'+target1).focus();
                     alert('Kode akun tidak valid');
                 }
             }
@@ -674,31 +674,39 @@
     });
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
-        var tmp = $(this).attr('class');
-        console.log(tmp);
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-        
-        tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-        console.log(tmp);
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-
-        tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
-        console.log(tmp);
-        tmp2 = tmp.split(" ");
-        target3 = tmp2[2];
         if (e.which == 13) {
+            var tmp = $(this).attr('class');
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+            
+            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
+
+            tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
+            tmp2 = tmp.split(" ");
+            target3 = tmp2[2];
             e.preventDefault();
             if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
                 var kode = $(this).val();
-                getAkun(kode,target2,target3);
+                getAkun(kode,target1,target2,target3);
                 // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
             }else{
                 alert('Akun yang dimasukkan tidak valid');
                 return false;
             }
         }else if(e.which == 40){
+            var tmp = $(this).attr('class');
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+            
+            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
+
+            tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
+            tmp2 = tmp.split(" ");
+            target3 = tmp2[2];
             e.preventDefault();
             showFilter("kode_akun[]",target1,target2);
         }
@@ -722,7 +730,7 @@
         target3 = tmp2[2];
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getAkun(kode,target2,target3);
+            getAkun(kode,target1,target2,target3);
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             alert('Akun yang dimasukkan tidak valid');
@@ -791,26 +799,37 @@
     });
 
     $('#input-jurnal').on('keydown', '.inp-pp', function(e){
-        var tmp = $(this).attr('class');
-        console.log(tmp);
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
         
-        tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-        console.log(tmp);
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
         if (e.which == 13) {
             e.preventDefault();
+            var tmp = $(this).attr('class');
+            console.log(tmp);
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+            
+            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
+            console.log(tmp);
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
             if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
                 var kode = $(this).val();
-                getPP(kode,target2);
+                getPP(kode,target1,target2);
                 // hitungTotal();
             }else{
                 alert('PP yang dimasukkan tidak valid');
                 return false;
             }
         }else if(e.which == 40){
+            e.preventDefault();
+            var tmp = $(this).attr('class');
+            console.log(tmp);
+            var tmp2 = tmp.split(" ");
+            target1 = tmp2[2];
+            
+            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
+            console.log(tmp);
+            tmp2 = tmp.split(" ");
+            target2 = tmp2[2];
             showFilter("kode_pp[]",target1,target2);
         }
     });
@@ -828,7 +847,7 @@
         target2 = tmp2[2];
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
             var kode = $(this).val();
-            getPP(kode,target2);
+            getPP(kode,target1,target2);
             // hitungTotal();
         }else{
             alert('PP yang dimasukkan tidak valid');
