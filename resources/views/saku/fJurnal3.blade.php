@@ -17,12 +17,12 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Bukti</th>
-                                        <th>Tanggal</th>
-                                        <th>No Dokumen</th>
-                                        <th>Deskripsi</th>
-                                        <th>Nilai</th>
-                                        <th>Action</th>
+                                        <th style="width:10%">No Bukti</th>
+                                        <th style="width:10%">Tanggal</th>
+                                        <th style="width:10%">No Dokumen</th>
+                                        <th style="width:40%">Deskripsi</th>
+                                        <th style="width:15%">Nilai</th>
+                                        <th style="width:15%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -603,6 +603,30 @@
         }
     });
 
+    $('#input-jurnal').on('keydown','.inp-kode',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['inp-kode','inp-nama','inp-dc','inp-ket','inp-nilai','inp-pp','inp-nama_pp'];
+        if (code == 13 || code == 40 || code == 9) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.class);
+            idx++;
+            console.log(idx);
+            // if(idx == 8){
+            //     $('#'+nxt[idx])[0].selectize.focus();
+            // }else{
+                
+            //     $('#'+nxt[idx]).focus();
+            // }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            // if(idx != -1){ 
+            //     $('#'+nxt[idx]).focus();
+            // }
+        }
+    });
+
     $('.selectize').selectize();
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
@@ -698,7 +722,7 @@
             }
     
             if(idx == 5){
-                 $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
+                 $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(nilai)+"' required></td>");
                  $('.nilke'+no).inputmask("numeric", {
                     radixPoint: ",",
                     groupSeparator: ".",
@@ -709,7 +733,7 @@
                 });
             }else{
                 
-                 $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
+                 $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+toRp2(nilai)+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(nilai)+"' required></td>");
             }
     
             if(idx == 6){
@@ -1017,7 +1041,7 @@
                             input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='hidden' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td width='5%'><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+line.keterangan+"' required></td>";
-                            input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+line.nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+line.nilai+"' required></td>";
+                            input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+line.kode_pp+"' required=''></td>";
                             input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+line.nama_pp+"' readonly></td>";
                             input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
