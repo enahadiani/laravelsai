@@ -174,6 +174,7 @@
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
+    var $target3 = "";
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -218,6 +219,7 @@
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         $('.'+target2).val(result.data.data[0].nama);
+                        $('.td'+target2).text(result.data.data[0].nama);
                         // $('#add-row').click();
                     }
                 }
@@ -262,6 +264,7 @@
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         $('.'+target2).val(result.data.data[0].nama);
+                        $('.td'+target2).text(result.data.data[0].nama);
                         // $('.'+target3)[0].selectize.focus();
                         $('.td'+target3).text('D');
                     }
@@ -315,6 +318,7 @@
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
+                $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
             break;
             case 'kode_pp[]': 
@@ -329,6 +333,7 @@
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
+                $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
             break;
             case 'nik_periksa': 
@@ -344,6 +349,7 @@
                 var jTarget2 = "text";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
+                $target3 = "";
             break;
         }
 
@@ -399,6 +405,11 @@
             }else{
                 $($target2).text(nama);
             }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            console.log($target3);
             $('#modal-search').modal('hide');
         });
 
@@ -442,6 +453,10 @@
                     $($target2).val(nama);
                 }else{
                     $($target2).text(nama);
+                }
+                
+                if($target3 != ""){
+                    $($target3).text(nama);
                 }
                 $('#modal-search').modal('hide');
             }
