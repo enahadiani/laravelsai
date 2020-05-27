@@ -86,4 +86,10 @@ Route::post('/postGuruMatpel', 'Tarbak\GuruMatpelController@save');
 Route::put('/postGuruMatpel/{nik}', 'Tarbak\GuruMatpelController@update');
 Route::delete('/deleteGuruMatpel/{nik}/{kode_pp}', 'Tarbak\GuruMatpelController@delete');
 
+Route::get('/getKalAkad', 'Tarbak\KalenderAkademikController@index');
+Route::get('/getKalAkad/{kode_sem}/{kode_ta}/{kode_pp}', 'Tarbak\KalenderAkademikController@getKalAkad');
+Route::post('/postKalAkad', 'Tarbak\KalenderAkademikController@save');
+Route::put('/postGuruMatpel/{nik}', 'Tarbak\GuruMatpelController@update');
+Route::delete('/deleteGuruMatpel/{nik}/{kode_pp}', 'Tarbak\GuruMatpelController@delete');
+
 ?>
