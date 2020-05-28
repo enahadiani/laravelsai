@@ -758,14 +758,12 @@
 
     $('#form-tambah').on('click', '#add-row', function(){
         
+        $('#modal-form-jur')[0].reset();
         $('#modal-jur-id').val('0');
         $('#header_modal').text('Input Detail Jurnal');
-        $('#modal-jur-kode').val('');
         $('#label_akun').text('');
         $('#modal-jur-dc')[0].selectize.setValue('');
-        $('#modal-jur-ket').val('');
         $('#modal-jur-nil').val(0);
-        $('#modal-jur-pp').val('');
         $('#label_pp').text('');
         $('#modal-jur').modal('show');
     });
