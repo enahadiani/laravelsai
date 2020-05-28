@@ -207,7 +207,7 @@
                             <div class="form-group row">
                                 <label for="modal-dc" class="col-2 col-form-label">DC</label>
                                 <div class="col-2">
-                                    <select class='form-control selectize' id="modal-jur-dc" >
+                                    <select class='form-control selectize' id="modal-jur-dc" required='' >
                                         <option value="D">D</option>
                                         <option value="C">C</option>
                                     </select>
@@ -216,13 +216,13 @@
                             <div class="form-group row">
                                 <label for="modal-jur-ket" class="col-2 col-form-label">Keterangan</label>
                                 <div class="col-10">
-                                    <input type="text" class='form-control' id="modal-jur-ket">
+                                    <input type="text" class='form-control' id="modal-jur-ket" required='' >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="modal-jur-nil" class="col-2 col-form-label">Nilai</label>
                                 <div class="col-5">
-                                    <input type="text" class='form-control currency' id="modal-jur-nil">
+                                    <input type="text" class='form-control currency' id="modal-jur-nil" required='' >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -918,10 +918,10 @@
 
     $('#modal-form-jur').on('keypress', '#modal-jur-kode', function(e){
         if (e.which == 42) {
-            var this_index = $('#input-jurnal tr.selected-row').index();
+            var this_index = $('#input-jurnal .row-jurnal:last').index();
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
-                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
+            if($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-kode').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-kode').val());
             }else{
                 $(this).val('');
             }
@@ -929,11 +929,11 @@
     });
 
     $('#modal-form-jur').on('keypress', '#modal-jur-dc', function(e){
-        var this_index = $('#input-jurnal tr.selected-row').index();
+        var this_index = $('#input-jurnal .row-jurnal:last').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc').val() != undefined){
-                $(this)[0].selectize.setValue($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc').val());
+            if($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-dc').val() != undefined){
+                $(this)[0].selectize.setValue($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-dc').val());
             }else{
                 $(this)[0].selectize.setValue('');
             }
@@ -953,11 +953,11 @@
     });
 
     $('#modal-form-jur').on('keypress', '#modal-jur-ket', function(e){
-        var this_index = $('#input-jurnal tr.selected-row').index();
+        var this_index = $('#input-jurnal .row-jurnal:last').index();
         if (e.which == 42) {
             e.preventDefault();
-            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
+            if($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-ket').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-ket').val());
             }else{
                 $(this).val('');
             }
@@ -1032,11 +1032,13 @@
     });
 
     $('#modal-form-jur').on('keypress', '#modal-jur-pp', function(e){
-        var this_index = $("#input-jurnal tr.selected-row").index();
         if (e.which == 42) {
+            var this_index = $("#input-jurnal .row-jurnal:last").index();
+            console.log(this_index);
             e.preventDefault();
-            if($("#modal-form-jur tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
-                $(this).val($("#modal-form-jur tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
+            console.log($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-pp').val());
+            if($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-pp').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index)+")").find('.inp-pp').val());
             }else{
                 $(this).val('');
             }
@@ -1053,38 +1055,42 @@
         var id = $('#modal-jur-id').val();
         var kode_pp = $('#modal-jur-pp').val();
 
-        console.log(id);
-        if(id == 1){
-            var no =$('.selected-row').closest('tr').find('.no-jurnal').html();
+        if(toNilai(nilai) <= 0){
+            alert("Nilai tidak boleh sama dengan nol atau kurang");
+            return false;
         }else{
-            var no=$('#input-jurnal .row-jurnal:last').index();
-            no=no+2;
-        }
-        
-        console.log(no);
 
-        var nama = $('#label_akun').text();
-        var nama_pp = $('#label_pp').text();        
-        var input = "";
-        input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='8%'>"+kode+"<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode+"' required=''></td>";
-        input += "<td width='18%'>"+nama+"<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama+"' readonly></td>";
-        input += "<td width='5%'>"+dc+"<input type='text' hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required></td>";
-        input += "<td width='20%'>"+ket+"<input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+ket+"' required></td>";
-        input += "<td width='10%' class='text-right'>"+nilai+"<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-        input += "<td width='7%'>"+kode_pp+"<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required='' ></td>";
-        input += "<td width='13%'>"+nama_pp+"<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-        input += "<td width='6%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px' data-id='1'><i class='fa fa-pencil-alt fa-1'></i></a></td>";
-        
-        if(id=='1'){
-            $('.selected-row').closest('tr').html('');
-            $('.selected-row').closest('tr').append(input);
-        }else{
-            $('#input-jurnal').append("<tr class='row-jurnal'>"+input+"</tr>");
+            if(id == 1){
+                var no =$('.selected-row').closest('tr').find('.no-jurnal').html();
+            }else{
+                var no=$('#input-jurnal .row-jurnal:last').index();
+                no=no+2;
+            }
+
+            var nama = $('#label_akun').text();
+            var nama_pp = $('#label_pp').text();        
+            var input = "";
+            input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
+            input += "<td width='8%'>"+kode+"<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode+"' required=''></td>";
+            input += "<td width='18%'>"+nama+"<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama+"' readonly></td>";
+            input += "<td width='5%'>"+dc+"<input type='text' hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required></td>";
+            input += "<td width='20%'>"+ket+"<input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+ket+"' required></td>";
+            input += "<td width='10%' class='text-right'>"+nilai+"<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+            input += "<td width='7%'>"+kode_pp+"<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required='' ></td>";
+            input += "<td width='13%'>"+nama_pp+"<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
+            input += "<td width='6%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-warning btn-sm edit-item' style='font-size:8px' data-id='1'><i class='fa fa-pencil-alt fa-1'></i></a></td>";
+            
+            if(id=='1'){
+                $('.selected-row').closest('tr').html('');
+                $('.selected-row').closest('tr').append(input);
+            }else{
+                $('#input-jurnal').append("<tr class='row-jurnal'>"+input+"</tr>");
+            }
+            
+            hitungTotal();
+            $('#modal-jur').modal('hide');
         }
-        
-        hitungTotal();
-        $('#modal-jur').modal('hide');
+
     });
 
 
