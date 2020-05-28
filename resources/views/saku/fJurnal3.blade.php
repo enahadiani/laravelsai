@@ -828,9 +828,41 @@
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
             return false;
         }else{
-            var input = $('#input-jurnal tbody').find('.selected-row').html();
-            $("#input-jurnal tbody tr").removeClass("selected-row");
-            $("#input-jurnal tbody").append("<tr class='row-jurnal selected-row'>"+input+"</tr>");
+            var kode_akun = $('#input-jurnal tbody tr.selected-row').find(".inp-kode").val();
+            var nama_akun = $('#input-jurnal tbody tr.selected-row').find(".inp-nama").val();
+            var dc = $('#input-jurnal tbody tr.selected-row').find(".td-dc").text();
+            var keterangan = $('#input-jurnal tbody tr.selected-row').find(".inp-ket").val();
+            var nilai = $('#input-jurnal tbody tr.selected-row').find(".inp-nilai").val();
+            var kode_pp = $('#input-jurnal tbody tr.selected-row').find(".inp-pp").val();
+            var nama_pp = $('#input-jurnal tbody tr.selected-row').find(".inp-nama_pp").val();
+            var no=$('#input-jurnal .row-jurnal:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-jurnal'>";
+            input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
+            input += "<td width='10%'><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+            input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+            input += "<td width='5%'><span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+            input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
+            input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+            input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+            input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
+            input += "</tr>";
+            $('#input-jurnal tbody').append(input);
+            $('.dcke'+no).selectize({
+                onChange: function(value) {
+                    $('.tddcke'+no).text(value);
+                }
+            });
+            $('.selectize-control.dcke'+no).addClass('hidden');
+            $('.nilke'+no).inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { self.Value(''); }
+            });
             hitungTotal();
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
