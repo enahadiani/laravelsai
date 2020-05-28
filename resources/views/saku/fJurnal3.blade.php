@@ -6,7 +6,7 @@
                         <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Jurnal 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <hr>
+                        <hr style="margin-bottom:0">
                         <div class="table-responsive ">
                             <style>
                             th,td{
@@ -863,6 +863,7 @@
             input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
             input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
             input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
+            input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-jurnal tbody').append(input);
             $('.dcke'+no).selectize({
