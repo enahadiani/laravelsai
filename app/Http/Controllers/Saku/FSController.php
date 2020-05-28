@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class FSController extends Controller
 {
@@ -30,21 +31,28 @@ class FSController extends Controller
      */
 
     public function index(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'fs',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-        }
-        return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'fs',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true,'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
 
     /**
@@ -55,36 +63,46 @@ class FSController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'kode_fs' => 'required',
             'nama' => 'required',
             'tgl_awal' => 'required',
             'tgl_akhir' => 'required',
             'flag_status' => 'required',
-        ]);
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'fs',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_fs' => $request->kode_fs,
-                'kode_lokasi' => Session::get('lokasi'),
-                'nama' => $request->nama,
-                'tgl_awal' => $request->tgl_awal,
-                'tgl_akhir' => $request->tgl_akhir,
-                'flag_status' => $request->flag_status,
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200);  
-        }
+        try{
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'fs',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_fs' => $request->kode_fs,
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nama' => $request->nama,
+                    'tgl_awal' => $request->tgl_awal,
+                    'tgl_akhir' => $request->tgl_akhir,
+                    'flag_status' => $request->flag_status,
+                ]
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
     }
 
     /**
@@ -95,21 +113,31 @@ class FSController extends Controller
      */
     public function show($id)
     {
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'fs/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'fs/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
     }
 
 
@@ -141,30 +169,40 @@ class FSController extends Controller
             'flag_status' => 'required',
         ]);
 
-        $client = new Client();
-
-        $response = $client->request('PUT', $this->link.'fs/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ],
-            'form_params' => [
-                'kode_fs' => $request->kode_fs,
-                'kode_lokasi' => Session::get('lokasi'),
-                'nama' => $request->nama,
-                'tgl_awal' => $request->tgl_awal,
-                'tgl_akhir' => $request->tgl_akhir,
-                'flag_status' => $request->flag_status,
-            ]
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+        try{
             
-            $data = json_decode($response_data,true);
-            return response()->json(['data' => $data["success"]], 200); 
-            // return redirect('/siswa')->with('status','Data berhasil disimpan');  
-        }
+            $client = new Client();
+    
+            $response = $client->request('PUT', $this->link.'fs/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_fs' => $request->kode_fs,
+                    'kode_lokasi' => Session::get('lokasi'),
+                    'nama' => $request->nama,
+                    'tgl_awal' => $request->tgl_awal,
+                    'tgl_akhir' => $request->tgl_akhir,
+                    'flag_status' => $request->flag_status,
+                ]
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data["success"]], 200);  
+            }
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+
     }
 
     /**
@@ -175,21 +213,31 @@ class FSController extends Controller
      */
     public function destroy($id)
     {
-        $client = new Client();
-        $response = $client->request('DELETE', $this->link.'fs/'.$id,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try{
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'fs/'.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
             
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-        }
-        return response()->json(['data' => $data], 200); 
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
     
     }
 }

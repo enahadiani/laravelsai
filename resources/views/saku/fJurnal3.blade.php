@@ -104,6 +104,11 @@
                                     <label id="label_nik"></label>
                                 </div>
                             </div>
+                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" ><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
+                                <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
+                                <a class='badge badge-secondary' type="button" href="#" id="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                            </div>
                             <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                 <table class="table table-striped table-bordered table-condensed gridexample" id="input-jurnal" width="100%">
                                 <style>
@@ -137,22 +142,21 @@
                                 <thead style="background:#ff9500;color:white">
                                     <tr>
                                         <th width="3%">No</th>
-                                        <th width="10%">Kode Akun</th>
-                                        <th width="15%">Nama Akun</th>
+                                        <th width="7%">Kode Akun</th>
+                                        <th width="18%">Nama Akun</th>
                                         <th width="5%">DC</th>
                                         <th width="20%">Keterangan</th>
                                         <th width="10%">Nilai</th>
                                         <th width="7">Kode PP</th>
                                         <th width="13">Nama PP</th>
+                                        <th width="7%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 </table>
                             </div>
-                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" ><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;<a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp;<a class='badge badge-secondary' type="button" href="#" id="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
-                            </div>
+                          
                             <!-- <button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Data</button> -->
                         </div>
                     </form>
@@ -770,13 +774,14 @@
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td width='10%'><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
+        input += "<td width='7%'><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td width='18%'><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
         input += "<td width='5%'><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td width='20%'><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
         input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
         input += "<td width='7%'><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
         input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
+        input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
         $('.dcke'+no).selectize({
@@ -840,8 +845,8 @@
             var input = "";
             input += "<tr class='row-jurnal'>";
             input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-            input += "<td width='10%'><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-            input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+            input += "<td width='7%'><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+            input += "<td width='18%'><span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
             input += "<td width='5%'><span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
             input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
             input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
@@ -1168,28 +1173,28 @@
         }
     });
 
-    $('#input-jurnal').on('focus', '.inp-ket', function(e){
-        var this_index = $(this).closest('tbody tr').index();
+    // $('#input-jurnal').on('focus', '.inp-ket', function(e){
+    //     var this_index = $(this).closest('tbody tr').index();
         
-        if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-            $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
-        }else{
-            $(this).val('');
-        }
-    });
+    //     if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
+    //         $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
+    //     }else{
+    //         $(this).val('');
+    //     }
+    // });
 
-    $('#input-jurnal').on('focus', '.inp-nilai', function(e){
-        var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
-        if(dc == 'D' || dc == 'C'){
-            var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
-            $(this).val(selisih);
-            // $('#inp-nilai').focus();
-            // hitungTotal();
-        }else{
-            alert('Posisi tidak valid, harap pilih posisi akun');
-            $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-        }
-    });
+    // $('#input-jurnal').on('focus', '.inp-nilai', function(e){
+    //     var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
+    //     if(dc == 'D' || dc == 'C'){
+    //         var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
+    //         $(this).val(selisih);
+    //         // $('#inp-nilai').focus();
+    //         // hitungTotal();
+    //     }else{
+    //         alert('Posisi tidak valid, harap pilih posisi akun');
+    //         $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+    //     }
+    // });
 
     $('#input-jurnal').on('keydown', '.inp-nilai', function(e){
         if (e.which == 13) {
@@ -1284,13 +1289,14 @@
                             var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td width='3%' class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td width='10%'><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-                            input += "<td width='15%'><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td width='7%'><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td width='18%'><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td width='5%'><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td width='20%'><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
                             input += "<td width='10%' class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td width='7%'><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
                             input += "<td width='13%'><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
+                            input += "<td width='7%' class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
                             no++;
