@@ -1,9 +1,9 @@
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3" style="font-size:13px">
         <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card" style="min-height:560px !important">
                     <div class="card-body">
-                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Jurnal 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Jurnal 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr>
@@ -16,14 +16,25 @@
                             .hidden{
                                 display:none;
                             }
+                            .form-group{
+                                margin-bottom:5px !important;
+                            }
+                            .form-control{
+                                font-size:13px !important;
+                                padding: .275rem .6rem !important;
+                            }
+                            .selectize-control, .selectize-dropdown{
+                                padding: 0 !important;
+                            }
+
                             </style>
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th style="width:10%">No Bukti</th>
                                         <th style="width:10%">Tanggal</th>
-                                        <th style="width:10%">No Dokumen</th>
-                                        <th style="width:40%">Deskripsi</th>
+                                        <th style="width:15%">No Dokumen</th>
+                                        <th style="width:35%">Deskripsi</th>
                                         <th style="width:15%">Nilai</th>
                                         <th style="width:15%">Action</th>
                                     </tr>
@@ -42,7 +53,7 @@
                 <div class="card" style="min-height:560px !important">
                     <form class="form" id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Data Jurnal
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Jurnal
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -100,8 +111,8 @@
                             <div class="form-group row">
                                 <label for="nik_periksa" class="col-2 col-form-label">NIK Periksa</label>
                                 <div class="col-5">
-                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <label id="label_nik"></label>
+                                    <input type='text' name='nik_periksa' id='nik_periksa' class='form-control col-5' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 10px;margin-left:5px'><i class='fa fa-search' style='font-size: 18px;'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label id="label_nik" style="margin-left:5px"></label>
                                 </div>
                             </div>
                             <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
