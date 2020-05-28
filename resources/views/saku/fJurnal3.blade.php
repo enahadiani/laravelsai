@@ -1149,6 +1149,18 @@
         }
     });
 
+    $('#input-jurnal').on('keypress', '.inp-kode', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
     $('#input-jurnal').on('keydown', '.inp-dc', function(e){
         if (e.which == 13) {
             e.preventDefault();
@@ -1157,6 +1169,18 @@
             }else{
                 alert('Posisi yang dimasukkan tidak valid');
                 return false;
+            }
+        }
+    });
+
+    $('#input-jurnal').on('keypress', '.inp-dc', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue() != undefined){
+                $(this)[0].selectize.setValue($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
+            }else{
+                $(this)[0].selectize.setValue('');
             }
         }
     });
@@ -1173,6 +1197,18 @@
         }
     });
 
+    $('#input-jurnal').on('keypress', '.inp-ket', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
     // $('#input-jurnal').on('focus', '.inp-ket', function(e){
     //     var this_index = $(this).closest('tbody tr').index();
         
@@ -1182,6 +1218,22 @@
     //         $(this).val('');
     //     }
     // });
+
+    $('#input-jurnal').on('keypress', '.inp-nilai', function(e){
+        if (e.which == 42) {
+            e.preventDefault();
+            var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
+            if(dc == 'D' || dc == 'C'){
+                var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
+                $(this).val(selisih);
+                // $('#inp-nilai').focus();
+                // hitungTotal();
+            }else{
+                alert('Posisi tidak valid, harap pilih posisi akun');
+                $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+            }
+        }
+    });
 
     // $('#input-jurnal').on('focus', '.inp-nilai', function(e){
     //     var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
@@ -1259,6 +1311,19 @@
             return false;
         }
     });
+
+    $('#input-jurnal').on('keypress', '.inp-pp', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
+                $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
