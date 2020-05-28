@@ -674,7 +674,7 @@
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
             var idx_next = idx+1;
-            var kunci = $(this).index()+1;
+            var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
             $("#input-jurnal td").removeClass("px-0 py-0 aktif");
             $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
