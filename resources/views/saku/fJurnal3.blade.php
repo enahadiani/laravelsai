@@ -160,14 +160,14 @@
                                 <thead style="background:#ff9500;color:white">
                                     <tr>
                                         <th style="width:3%">No</th>
-                                        <th style="width:7%">Kode Akun</th>
+                                        <th style="width:9%">Kode Akun</th>
                                         <th style="max-width:18%">Nama Akun</th>
                                         <th style="width:5%">DC</th>
                                         <th style="max-width:20%">Keterangan</th>
                                         <th style="width:10%">Nilai</th>
                                         <th style="width:7">Kode PP</th>
                                         <th style="width:13">Nama PP</th>
-                                        <th style="width:7%"></th>
+                                        <th style="width:5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
