@@ -742,6 +742,7 @@
                     $(this).closest('tr').find(nxt2[idx]).show();
 
                     $(this).parents("tr").find(".selectize-control").show();
+                    $(this).closest('tr').find(nxt[idx_next])[0].selectize.focus();
                     $(this).closest('tr').find(nxt2[idx_next]).hide();
                     
                     break;
