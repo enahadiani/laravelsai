@@ -227,7 +227,6 @@
                 if(json.status){
                     return json.daftar;   
                 }else{
-                    return [];
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -235,6 +234,7 @@
                     }).then(function() {
                         window.location.href = "{{ url('saku/login') }}";
                     })
+                    return [];
                 }
             }
         },

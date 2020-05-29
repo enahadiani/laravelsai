@@ -533,7 +533,18 @@
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.daftar;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
+                    return [];
+                }   
             }
         },
         'columnDefs': [
