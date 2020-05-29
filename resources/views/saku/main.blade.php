@@ -147,6 +147,7 @@
 
     
     <script src="{{ asset('asset_elite/jquery.formnavigation.js') }}"></script>  
+    <script src="{{ asset('asset_elite/datatables/dataTables.buttons.min.js') }}"></script>  
 
     <!-- Tiny Editor -->
     <script src="{{ asset('asset_elite/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>

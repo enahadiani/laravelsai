@@ -65,6 +65,7 @@ Route::get('/pp-list', 'Saku\JurnalController@getPP');
 Route::get('/akun', 'Saku\JurnalController@getAkun');
 Route::get('/nikperiksa', 'Saku\JurnalController@getNIKPeriksa');
 Route::get('/nikperiksa/{nik}', 'Saku\JurnalController@getNIKPeriksaByNIK');
+Route::get('/jurnal-periode', 'Saku\JurnalController@getPeriodeJurnal');
 // Route::get('/filter_list_jurnal','Saku\JurnalController@getFilterJurnal');
 
 Route::get('/modultrans', 'Saku\PostingController@getModul');

@@ -1,3 +1,4 @@
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
 <div class="container-fluid mt-3" style="font-size:13px">
         <div class="row" id="saku-datatable">
             <div class="col-12">
@@ -181,6 +182,28 @@
                 </div>
             </div>
         </div>
+
+        <div id='mySidepanel' class='sidepanel close'>
+            <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
+            <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
+            <form id="formFilter2" style='margin-top:50px'>
+            <div class="row" style="margin-left: -5px;">
+                <div class="col-sm-12">
+                    <div class="form-group" style='margin-bottom:0'>
+                        <label for="periode">Periode</label>
+                        <select name="periode" id="periode2" class="form-control">
+                        <option value="">Pilih Periode</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
+                </div>
+            </div>
+            </form>
+        </div>
     </div> 
 
     <!-- MODAL SEARCH AKUN-->
@@ -200,6 +223,7 @@
         </div>
     </div>
     <!-- END MODAL -->
+        
 
     <script>
     var $iconLoad = $('.preloader');
@@ -211,6 +235,43 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function openFilter() {
+        var element = $('#mySidepanel');
+        
+        var x = $('#mySidepanel').attr('class');
+        var y = x.split(' ');
+        if(y[1] == 'close'){
+            element.removeClass('close');
+            element.addClass('open');
+        }else{
+            element.removeClass('open');
+            element.addClass('close');
+        }
+    }
+
+    function getPeriode(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('saku/jurnal-periode') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        var select2 = $('#periode2').selectize();
+                        select2 = select2[0];
+                        var control2 = select2.selectize;
+                        for(i=0;i<result.data.data.length;i++){
+                            control2.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    getPeriode();
 
     
     $('[data-toggle="tooltip"]').tooltip(); 
@@ -252,6 +313,38 @@
             { data: 'keterangan' },
             { data: 'nilai1' }
         ],
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                text: '<i class="fa fa-filter"></i> Filter',
+                action: function ( e, dt, node, config ) {
+                    openFilter();
+                },
+                className: 'btn btn-default ml-2' 
+            }
+        ]
+    });
+
+    $('.sidepanel').on('submit', '#formFilter2', function(e){
+        e.preventDefault();
+        var periode= $('#periode2')[0].selectize.getValue();
+        var tahun = periode.substr(0,4);
+        var bulan = periode.substr(5,2);
+        if(bulan.length > 1){
+            bulan = bulan;
+        }else{
+            bulan = "0"+bulan;
+        }
+        var per = tahun+'-'+bulan;
+        // var val = $.fn.dataTable.util.escapeRegex(
+        //     per
+        // );
+        dataTable.search( per ? per : '', true, false).draw();
+    });
+ 
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
     });
 
     function getPP(id,target1,target2,jenis){
