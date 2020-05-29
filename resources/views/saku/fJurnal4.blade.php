@@ -116,9 +116,9 @@
                                 </div>
                             </div>
                             <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" ><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
+                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
                                 <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
-                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
                             </div>
                             <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                 <table class="table table-striped table-bordered table-condensed gridexample" id="input-jurnal" width="100%">
@@ -268,6 +268,8 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
@@ -545,6 +547,28 @@
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            $('#modal-search').modal('hide');
         });
 
         $(document).keydown(function(e) {

@@ -116,9 +116,9 @@
                                 </div>
                             </div>
                             <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" ><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
+                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
                                 <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
-                                <a class='badge badge-secondary' type="button" href="#" id="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
                             </div>
                             <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                 <table class="table table-striped table-bordered table-condensed gridexample" id="input-jurnal" width="100%">
@@ -204,6 +204,9 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    
+    $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
@@ -472,6 +475,28 @@
                 $($target3).text(nama);
             }
             console.log($target3);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
             $('#modal-search').modal('hide');
         });
 
@@ -911,6 +936,7 @@
                     $(this).parents("tr").find(".inp-kode").show();
                     $(this).parents("tr").find(".td-kode").hide();
                     $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
                     //  $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
                 }else{
                     $(this).parents("tr").find(".inp-kode").hide();
@@ -926,6 +952,7 @@
                     //  $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
                 }else{
                     
                     $(this).parents("tr").find(".inp-nama").hide();
@@ -951,6 +978,7 @@
                     
                     $(this).parents("tr").find(".selectize-control").show();
                     $(this).parents("tr").find(".td-dc").hide();
+                    $(this).parents("tr").find(".inp-dc")[0].selectize.focus();
                     
                 }else{
                     
@@ -965,6 +993,7 @@
                 if(idx == 4){
                     $(this).parents("tr").find(".inp-ket").show();
                     $(this).parents("tr").find(".td-ket").hide();
+                    $(this).parents("tr").find(".inp-ket").focus();
                     //  $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
                 }else{
                     $(this).parents("tr").find(".inp-ket").hide();
@@ -977,6 +1006,7 @@
                 if(idx == 5){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
+                    $(this).parents("tr").find(".inp-nilai").focus();
                     //  $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
                     //  $('.nilke'+no).inputmask("numeric", {
                     //     radixPoint: ",",
@@ -998,6 +1028,7 @@
                     $(this).parents("tr").find(".inp-pp").show();
                     $(this).parents("tr").find(".td-pp").hide();
                     $(this).parents("tr").find(".search-pp").show();
+                    $(this).parents("tr").find(".inp-pp").focus();
                     //  $(this).parents("tr").find("td:eq(6)").html("<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
                 }else{
                     
@@ -1015,6 +1046,7 @@
                     
                     $(this).parents("tr").find(".inp-nama_pp").show();
                     $(this).parents("tr").find(".td-nama_pp").hide();
+                    $(this).parents("tr").find(".inp-nama_pp").focus();
                     //  $(this).parents("tr").find("td:eq(7)").html("<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
                 }else{
                     
