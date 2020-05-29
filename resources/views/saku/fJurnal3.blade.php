@@ -758,6 +758,14 @@
                     
                     break;
                 case 3:
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
                 case 4:
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
@@ -766,6 +774,8 @@
                     $(this).closest('tr').find(nxt[idx_next]).show();
                     $(this).closest('tr').find(nxt[idx_next]).focus();
                     $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find('.search-pp').show();
+                    hitungTotal();
                     break;
                 case 5:
                     $(this).closest('tr').find('.search-pp').hide();
@@ -837,8 +847,10 @@
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
         $('.dcke'+no).selectize({
+            selectOnTab:true,
             onChange: function(value) {
                 $('.tddcke'+no).text(value);
+                hitungTotal();
             }
         });
         $('.selectize-control.dcke'+no).addClass('hidden');
@@ -915,8 +927,10 @@
             input += "</tr>";
             $('#input-jurnal tbody').append(input);
             $('.dcke'+no).selectize({
+                selectOnTab:true,
                 onChange: function(value) {
                     $('.tddcke'+no).text(value);
+                    hitungTotal();
                 }
             });
             $('.selectize-control.dcke'+no).addClass('hidden');
@@ -1319,12 +1333,23 @@
         if (e.which == 13) {
             e.preventDefault();
             if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
-                $(this).closest('tr').find('.inp-pp')[0].selectize.focus();
-                // hitungTotal();
+                hitungTotal();
+                $(this).closest('tr').find('.inp-pp').val();
             }else{
                 alert('Nilai yang dimasukkan tidak valid');
                 return false;
             }
+        }
+    });
+
+    $('#input-jurnal').on('change', '.inp-nilai', function(){
+        console.log('change-nilai');
+        if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
+            hitungTotal();
+            $(this).closest('tr').find('.inp-pp').val();
+        }else{
+            alert('Nilai yang dimasukkan tidak valid');
+            return false;
         }
     });
 
@@ -1438,8 +1463,10 @@
                         for(var i=0;i<result.detail.length;i++){
                             var line =result.detail[i];
                             $('.dcke'+no).selectize({
+                                selectOnTab:true,
                                 onChange: function(value) {
                                     $('.tddcke'+no).text(value);
+                                    hitungTotal();
                                 }
                             });
                             $('.dcke'+no)[0].selectize.setValue(line.dc);
