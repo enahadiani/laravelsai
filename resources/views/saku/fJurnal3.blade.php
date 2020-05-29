@@ -68,10 +68,10 @@
                             </div>
                             <div class="form-group row">
                                 <label for="tanggal" class="col-2 col-form-label">Tanggal</label>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <input class='form-control' type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                 </div>
                                 <label for="jenis" class="col-2 col-form-label">Jenis</label>
                                 <div class="col-3">

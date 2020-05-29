@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
 
 class PostingController extends Controller
 {
@@ -43,28 +44,34 @@ class PostingController extends Controller
     }
 
     public function getModul(){
-        $client = new Client();
-        $response = $client->request('GET', $this->link.'modul2',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        try { 
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'modul2',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
-            if(count($data) >0){
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                 
-                for($i=0;$i<count($data);$i++){
-                    $data[$i]["no"] = ""; 
-                    $data[$i]["status"] = "TRUE";
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+                if(count($data) >0){
+                    
+                    for($i=0;$i<count($data);$i++){
+                        $data[$i]["no"] = ""; 
+                        $data[$i]["status"] = "TRUE";
+                    }
                 }
             }
-        }
-        return response()->json(['daftar' => $data , 'status'=>true], 200); 
+            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
     }
     
     /**
@@ -82,44 +89,52 @@ class PostingController extends Controller
             'no_bukti.*' => 'required',
             'form.*' => 'required'
         ]);
-        
-        $detail = array();
-        if(isset($request->no_bukti)){
-            $no_bukti = $request->no_bukti;
-            $status = $request->status;
-            $form = $request->form;
-            for($i=0;$i<count($no_bukti);$i++){
-                $detail[] = array(
-                    'status' => $status[$i],
-                    'no_bukti' => $no_bukti[$i],
-                    'form' => $form[$i]
-                );
+
+        try{
+            $detail = array();
+            if(isset($request->no_bukti)){
+                $no_bukti = $request->no_bukti;
+                $status = $request->status;
+                $form = $request->form;
+                for($i=0;$i<count($no_bukti);$i++){
+                    $detail[] = array(
+                        'status' => $status[$i],
+                        'no_bukti' => $no_bukti[$i],
+                        'form' => $form[$i]
+                    );
+                }
             }
-        }
-
-
-        $fields =
-              array (
-                'tanggal' => $request->tanggal,
-                'deskripsi' => $request->deskripsi,
-                'detail' => $detail
-              );
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'posting',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-        
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
+    
+            $fields =
+                  array (
+                    'tanggal' => $request->tanggal,
+                    'deskripsi' => $request->deskripsi,
+                    'detail' => $detail
+                  );
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'posting',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
             
-            $data = json_decode($response_data,true);
-            return response()->json(["data" =>$data["success"]], 200);  
-        }
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data["success"]], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 
     // /**
@@ -135,51 +150,61 @@ class PostingController extends Controller
             'per1.*' => 'required',
             'per2.*' => 'required'
         ]);
-        
-        $detail['data_modul'] = array();
-        if(isset($request->modul)){
-            $modul = $request->modul;
-            $per1 = $request->per1;
-            $per2 = $request->per2;
-            $status = $request->status;
-            for($i=0;$i<count($modul);$i++){
-                if($status[$i] == "TRUE"){
 
-                    $detail['data_modul'][] = array(
-                        'modul' => $modul[$i],
-                        'periode_awal' => $per1[$i],
-                        'periode_akhir' => $per2[$i]
-                    );
+        try{
+
+            $detail['data_modul'] = array();
+            if(isset($request->modul)){
+                $modul = $request->modul;
+                $per1 = $request->per1;
+                $per2 = $request->per2;
+                $status = $request->status;
+                for($i=0;$i<count($modul);$i++){
+                    if($status[$i] == "TRUE"){
+    
+                        $detail['data_modul'][] = array(
+                            'modul' => $modul[$i],
+                            'periode_awal' => $per1[$i],
+                            'periode_akhir' => $per2[$i]
+                        );
+                    }
                 }
             }
-        }
-
-
-        $fields = $detail;
-
-        $client = new Client();
-        $response = $client->request('POST', $this->link.'loadData',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-                'Content-Type'     => 'application/json'
-            ],
-            'body' => json_encode($fields)
-        ]);
-
-        if ($response->getStatusCode() == 200) { // 200 OK
-            $response_data = $response->getBody()->getContents();
-            
-            $data = json_decode($response_data,true);
-            $data = $data["success"];
-            if(count($data["data"]) >0){
+    
+    
+            $fields = $detail;
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'loadData',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                 
-                for($i=0;$i<count($data["data"]);$i++){
-                    $data["data"][$i]["no"] = ""; 
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+                if(count($data["data"]) >0){
+                    
+                    for($i=0;$i<count($data["data"]);$i++){
+                        $data["data"][$i]["no"] = ""; 
+                    }
                 }
             }
-        }
-        return response()->json(['data' => $data], 200); 
+            return response()->json(['data' => $data], 200); 
+        }catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 
 }
