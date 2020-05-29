@@ -759,7 +759,16 @@
                     break;
                 case 3:
                 case 4:
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
                 case 5:
+                    $(this).closest('tr').find('.search-pp').hide();
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
