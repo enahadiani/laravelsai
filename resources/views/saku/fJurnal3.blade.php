@@ -87,7 +87,7 @@
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-2 col-form-label">No Dokumen</label>
                                 <div class="col-4">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen">
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
                                 </div>
                                 <div class="col-1">
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="form-group row">
                                 <label for="deskripsi" class="col-2 col-form-label">Deskripsi</label>
                                 <div class="col-4">
-                                    <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi">
+                                    <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi" required>
                                 </div>
                                 <div class="col-1">
                                 </div>
