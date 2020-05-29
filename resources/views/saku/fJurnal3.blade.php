@@ -254,7 +254,7 @@
         ],
     });
 
-    function getPP(id,target1,target2){
+    function getPP(id,target1,target2,jenis){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/pp') }}/"+id,
@@ -263,9 +263,25 @@
             success:function(result){    
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        $('.'+target2).val(result.data.data[0].nama);
-                        $('.td'+target2).text(result.data.data[0].nama);
-                        // $('#add-row').click();
+                        if(jenis == 'change'){
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                        }else{
+                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-pp').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -278,8 +294,17 @@
                     })
                 }
                 else{
-                    $('.'+target1).val('');
-                    $('.'+target1).focus();
+                    if(jenis == 'change'){
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }
                     alert('Kode PP tidak valid');
                 }
             }
@@ -317,7 +342,7 @@
         });
     }
 
-    function getAkun(id,target1,target2,target3){
+    function getAkun(id,target1,target2,target3,jenis){
         $.ajax({
             type: 'GET',
             url: "{{ url('/saku/masakun') }}/"+id,
@@ -326,10 +351,29 @@
             success:function(result){    
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        $('.'+target2).val(result.data.data[0].nama);
-                        $('.td'+target2).text(result.data.data[0].nama);
-                        // $('.'+target3)[0].selectize.focus();
-                        $('.td'+target3).text('D');
+                        if(jenis == 'change'){
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            // $('.'+target3)[0].selectize.focus();
+                            $('.td'+target3).text('D');
+                        }else{
+
+                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-akun').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).text('D');
+                        }
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -342,8 +386,18 @@
                     })
                 }
                 else{
-                    $('.'+target1).val('');
-                    $('.'+target1).focus();
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }
                     alert('Kode akun tidak valid');
                 }
             }
@@ -723,21 +777,18 @@
             var idx_next = idx+1;
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
-            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-            $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
             switch (idx) {
                 case 0:
-                    $(this).closest('tr').find('.search-akun').hide();
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    
+                    var noidx = $(this).parents("tr").find(".no-jurnal").text();
+                    var kode = $(this).val();
+                    var target1 = "akunke"+noidx;
+                    var target2 = "nmakunke"+noidx;
+                    var target3 = "dcke"+noidx;
+                    getAkun(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
+                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
 
@@ -748,47 +799,66 @@
                     break;
                 case 2:
                     var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
-                    $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
-                    $(this).parents("tr").find(nxt2[idx]).text(isi);
-                    $(this).parents("tr").find(".selectize-control").hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
+                    if(isi == 'D' || isi == 'C'){
+                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
+                        $(this).parents("tr").find(nxt2[idx]).text(isi);
+                        $(this).parents("tr").find(".selectize-control").hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
 
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    }else{
+                        alert('Posisi yang dimasukkan tidak valid');
+                        return false;
+                    }
                     break;
                 case 3:
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    if($.trim($(this).val()).length){
+                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                    }else{
+                        alert('Keterangan yang dimasukkan tidak valid');
+                        return false;
+                    }
                     break;
                 case 4:
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find('.search-pp').show();
-                    hitungTotal();
+                    if(isi != "" && isi != 0){
+                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find('.search-pp').show();
+                        hitungTotal();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
                     break;
                 case 5:
-                    $(this).closest('tr').find('.search-pp').hide();
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    var noidx = $(this).parents("tr").find(".no-jurnal").text();
+                    var kode = $(this).val();
+                    var target1 = "ppke"+noidx;
+                    var target2 = "nmppke"+noidx;
+                    getPP(kode,target1,target2,'tab');
                     break;
                 case 6:
+                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
@@ -799,22 +869,10 @@
                 default:
                     break;
             }
-                
-            
-            // console.log(cek);
-            // if(idx == 8){
-            //     $('#'+nxt[idx])[0].selectize.focus();
-            // }else{
-                
-            //     $('#'+nxt[idx]).focus();
-            // }
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx--;
-            // if(idx != -1){ 
-            //     $('#'+nxt[idx]).focus();
-            // }
         }
     });
 
@@ -975,19 +1033,16 @@
                     $(this).parents("tr").find(".td-kode").hide();
                     $(this).parents("tr").find(".search-akun").show();
                     $(this).parents("tr").find(".inp-kode").focus();
-                    //  $(this).parents("tr").find("td:eq(1)").html("<input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
                 }else{
                     $(this).parents("tr").find(".inp-kode").hide();
                     $(this).parents("tr").find(".td-kode").show();
                     $(this).parents("tr").find(".search-akun").hide();
-                    //  $(this).parents("tr").find("td:eq(1)").html("<span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='hidden' name='kode_akun[]' class='form-control inp-kode akunke"+no+"' value='"+kode_akun+"' required=''></td>");
                     
                 }
         
                 $(this).parents("tr").find(".inp-nama").val(nama_akun);
                 $(this).parents("tr").find(".td-nama").text(nama_akun);
                 if(idx == 2){
-                    //  $(this).parents("tr").find("td:eq(2)").html("<input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
                     $(this).parents("tr").find(".inp-nama").focus();
@@ -995,19 +1050,12 @@
                     
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
-                    //  $(this).parents("tr").find("td:eq(2)").html("<span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' hidden name='nama_akun[]' class='form-control inp-nama nmakunke"+no+"'  value='"+nama_akun+"' readonly></td>");
                 }
         
                 
                 $(this).parents("tr").find(".inp-dc")[0].selectize.setValue(dc);
                 $(this).parents("tr").find(".td-dc").text(dc);
                 if(idx == 3){
-                    //  $(this).parents("tr").find("td:eq(3)").html("<span hidden class='td-dc tddcke"+no+"'>"+dc+"</span><select name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
-                    //  $('.dcke'+no).selectize({
-                    //     onChange: function(value) {
-                    //         $('.tddcke'+no).text(value);
-                    //     }
-                    //  });
                     $('.dcke'+no)[0].selectize.setValue(dc);
                     var dcx = $('.tddcke'+no).text();
                     if(dcx == ""){
@@ -1022,8 +1070,6 @@
                     
                     $(this).parents("tr").find(".selectize-control").hide();
                     $(this).parents("tr").find(".td-dc").show();
-                    
-                    // $(this).parents("tr").find("td:eq(3)").html("<span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>");
                 }
         
                 $(this).parents("tr").find(".inp-ket").val(keterangan);
@@ -1032,11 +1078,9 @@
                     $(this).parents("tr").find(".inp-ket").show();
                     $(this).parents("tr").find(".td-ket").hide();
                     $(this).parents("tr").find(".inp-ket").focus();
-                    //  $(this).parents("tr").find("td:eq(4)").html("<input type='text' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
                 }else{
                     $(this).parents("tr").find(".inp-ket").hide();
                     $(this).parents("tr").find(".td-ket").show();
-                    //  $(this).parents("tr").find("td:eq(4)").html("<span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='hidden' name='keterangan[]' class='form-control inp-ket'  value='"+keterangan+"' required></td>");
                 }
         
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
@@ -1045,19 +1089,9 @@
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
                     $(this).parents("tr").find(".inp-nilai").focus();
-                    //  $(this).parents("tr").find("td:eq(5)").html("<input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
-                    //  $('.nilke'+no).inputmask("numeric", {
-                    //     radixPoint: ",",
-                    //     groupSeparator: ".",
-                    //     digits: 2,
-                    //     autoGroup: true,
-                    //     rightAlign: true,
-                    //     oncleared: function () { self.Value(''); }
-                    // });
                 }else{
                     $(this).parents("tr").find(".inp-nilai").hide();
                     $(this).parents("tr").find(".td-nilai").show();
-                    //  $(this).parents("tr").find("td:eq(5)").html("<span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='hidden' name='nilai[]' class='form-control inp-nilai nilke"+no+"'  value='"+nilai+"' required></td>");
                 }
         
                 $(this).parents("tr").find(".inp-pp").val(kode_pp);
@@ -1067,14 +1101,11 @@
                     $(this).parents("tr").find(".td-pp").hide();
                     $(this).parents("tr").find(".search-pp").show();
                     $(this).parents("tr").find(".inp-pp").focus();
-                    //  $(this).parents("tr").find("td:eq(6)").html("<input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>");
                 }else{
                     
                     $(this).parents("tr").find(".inp-pp").hide();
                     $(this).parents("tr").find(".td-pp").show();
                     $(this).parents("tr").find(".search-pp").hide();
-                    
-                    //  $(this).parents("tr").find("td:eq(6)").html("<span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='hidden' name='kode_pp[]' class='form-control inp-pp ppke"+no+"' value='"+kode_pp+"' required=''></td>");
                 }
         
                 
@@ -1085,12 +1116,10 @@
                     $(this).parents("tr").find(".inp-nama_pp").show();
                     $(this).parents("tr").find(".td-nama_pp").hide();
                     $(this).parents("tr").find(".inp-nama_pp").focus();
-                    //  $(this).parents("tr").find("td:eq(7)").html("<input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
                 }else{
                     
                     $(this).parents("tr").find(".inp-nama_pp").hide();
                     $(this).parents("tr").find(".td-nama_pp").show();
-                    //  $(this).parents("tr").find("td:eq(7)").html("<span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='hidden' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+"'  value='"+nama_pp+"' readonly></td>");
                 }
                 hitungTotal();
             }
@@ -1169,40 +1198,20 @@
         getNIKPeriksa(par);
     });
 
+    $('#form-tambah').on('keydown', '#nik_periksa', function(e){
+        e.preventDefault();
+        if(e.which == 13 || e.which == 9){
+            var par = $(this).val();
+            getNIKPeriksa(par);
+        }
+    });
+
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
-        if (e.which == 13) {
-            var tmp = $(this).attr('class');
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-            
-            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
-
-            tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target3 = tmp2[2];
-            e.preventDefault();
-            if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
-                var kode = $(this).val();
-                getAkun(kode,target1,target2,target3);
-                // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-            }else{
-                alert('Akun yang dimasukkan tidak valid');
-                return false;
-            }
-        }else if(e.which == 40){
-            var tmp = $(this).attr('class');
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-            
-            tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
-
-            tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target3 = tmp2[2];
+        if(e.which == 40){
+            var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+            target1 = "akunke"+noidx;
+            target2 = "nmakunke"+noidx;
+            target3 = "dcke"+noidx;
             e.preventDefault();
             showFilter("kode_akun[]",target1,target2);
         }
@@ -1210,20 +1219,13 @@
 
     $('#input-jurnal').on('change', '.inp-kode', function(e){
         e.preventDefault();
-        var tmp = $(this).attr('class');
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-        
-        tmp = $(this).closest('tr').find('input[name="nama_akun[]"]').attr('class');
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-
-        tmp = $(this).closest('tr').find('select[name="dc[]"]').attr('class');
-        tmp2 = tmp.split(" ");
-        target3 = tmp2[2];
+        var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+        target1 = "akunke"+noidx;
+        target2 = "nmakunke"+noidx;
+        target3 = "dcke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getAkun(kode,target1,target2,target3);
+            getAkun(kode,target1,target2,target3,'change');
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             alert('Akun yang dimasukkan tidak valid');
@@ -1243,18 +1245,6 @@
         }
     });
 
-    $('#input-jurnal').on('keydown', '.inp-dc', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($(this).closest('tr').find('.inp-dc')[0].selectize.getValue() == 'D' || $(this).closest('tr').find('.inp-dc')[0].selectize.getValue() == 'C'){
-                $(this).closest('tr').find('.inp-ket').focus();
-            }else{
-                alert('Posisi yang dimasukkan tidak valid');
-                return false;
-            }
-        }
-    });
-
     $('#input-jurnal').on('keypress', '.inp-dc', function(e){
         var this_index = $(this).closest('tbody tr').index();
         if (e.which == 42) {
@@ -1263,18 +1253,6 @@
                 $(this)[0].selectize.setValue($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-dc')[0].selectize.getValue());
             }else{
                 $(this)[0].selectize.setValue('');
-            }
-        }
-    });
-
-    $('#input-jurnal').on('keydown', '.inp-ket', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($.trim($('.inp-ket').val()).length){
-                $(this).closest('tr').find('.inp-nilai').focus();
-            }else{
-                alert('Keterangan yang dimasukkan tidak valid');
-                return false;
             }
         }
     });
@@ -1291,16 +1269,6 @@
         }
     });
 
-    // $('#input-jurnal').on('focus', '.inp-ket', function(e){
-    //     var this_index = $(this).closest('tbody tr').index();
-        
-    //     if($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val() != undefined){
-    //         $(this).val($("#input-jurnal tbody tr:eq("+(this_index - 1)+")").find('.inp-ket').val());
-    //     }else{
-    //         $(this).val('');
-    //     }
-    // });
-
     $('#input-jurnal').on('keypress', '.inp-nilai', function(e){
         if (e.which == 42) {
             e.preventDefault();
@@ -1308,37 +1276,9 @@
             if(dc == 'D' || dc == 'C'){
                 var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
                 $(this).val(selisih);
-                // $('#inp-nilai').focus();
-                // hitungTotal();
             }else{
                 alert('Posisi tidak valid, harap pilih posisi akun');
                 $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-            }
-        }
-    });
-
-    // $('#input-jurnal').on('focus', '.inp-nilai', function(e){
-    //     var dc = $(this).closest('tr').find('.inp-dc')[0].selectize.getValue();
-    //     if(dc == 'D' || dc == 'C'){
-    //         var selisih = Math.abs(toNilai($('#total_debet').val()) - toNilai($('#total_kredit').val()));
-    //         $(this).val(selisih);
-    //         // $('#inp-nilai').focus();
-    //         // hitungTotal();
-    //     }else{
-    //         alert('Posisi tidak valid, harap pilih posisi akun');
-    //         $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
-    //     }
-    // });
-
-    $('#input-jurnal').on('keydown', '.inp-nilai', function(e){
-        if (e.which == 13) {
-            e.preventDefault();
-            if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
-                hitungTotal();
-                $(this).closest('tr').find('.inp-pp').val();
-            }else{
-                alert('Nilai yang dimasukkan tidak valid');
-                return false;
             }
         }
     });
@@ -1355,49 +1295,23 @@
     });
 
     $('#input-jurnal').on('keydown', '.inp-pp', function(e){
-        
-        if (e.which == 13) {
+        if(e.which == 40){
             e.preventDefault();
-            var tmp = $(this).attr('class');
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-            
-            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
-            if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
-                var kode = $(this).val();
-                getPP(kode,target1,target2);
-                // hitungTotal();
-            }else{
-                alert('PP yang dimasukkan tidak valid');
-                return false;
-            }
-        }else if(e.which == 40){
-            e.preventDefault();
-            var tmp = $(this).attr('class');
-            var tmp2 = tmp.split(" ");
-            target1 = tmp2[2];
-            
-            tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-            tmp2 = tmp.split(" ");
-            target2 = tmp2[2];
+            var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+            target1 = "ppke"+noidx;
+            target2 = "nmppke"+noidx;
             showFilter("kode_pp[]",target1,target2);
         }
     });
 
     $('#input-jurnal').on('change', '.inp-pp', function(e){
         e.preventDefault();
-        var tmp = $(this).attr('class');
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-        
-        tmp = $(this).closest('tr').find('input[name="nama_pp[]"]').attr('class');
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
+        var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+        target1 = "ppke"+noidx;
+        target2 = "nmppke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
             var kode = $(this).val();
-            getPP(kode,target1,target2);
+            getPP(kode,target1,target2,'change');
             // hitungTotal();
         }else{
             alert('PP yang dimasukkan tidak valid');
