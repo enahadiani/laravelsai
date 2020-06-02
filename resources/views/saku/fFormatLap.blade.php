@@ -15,6 +15,9 @@
 td,th{
     padding:8px !important;
 }
+.form-group{
+    margin-bottom: 5px !important;
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row" id="saku-data">
