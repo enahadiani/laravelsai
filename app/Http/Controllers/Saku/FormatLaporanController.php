@@ -464,18 +464,20 @@ class FormatLaporanController extends Controller
                 'kode_fs' => $request->kode_fs,
                 'modul' => $request->modul,
                 'kode_neraca' => $request->kode_neraca,
-                'nama' => $request->nama,
-                'level_spasi' => $request->level_spasi,
-                'level_lap' => $request->level_lap,
-                'sum_header' => $request->sum_header,
-                'jenis_akun' => $request->jenis_akun,
-                'tipe' => $request->tipe
+                'nama' =>$request->nama,
+                'level_spasi' =>$request->level_spasi,
+                'level_lap' =>$request->level_lap,
+                'sum_header' =>$request->sum_header,
+                'jenis_akun' =>$request->jenis_akun,
+                'kode_induk' =>$request->kode_induk,
+                'tipe' =>$request->tipe
             ];
+
             $client = new Client();
             $response = $client->request('POST', $this->link.'format-laporan-move',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
+                    'Content-Type'     => 'application/json'
                 ],
                 'body' => json_encode($fields)
             ]);
@@ -490,7 +492,7 @@ class FormatLaporanController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             
-            $result['message'] = $res["message"];
+            $result['message'] = $res;
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 
