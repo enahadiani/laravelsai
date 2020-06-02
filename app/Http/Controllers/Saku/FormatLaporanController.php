@@ -460,23 +460,24 @@ class FormatLaporanController extends Controller
         ]);
             
         try{
+            $fields = [
+                'kode_fs' => $request->kode_fs,
+                'modul' => $request->modul,
+                'kode_neraca' => $request->kode_neraca,
+                'nama' => $request->nama,
+                'level_spasi' => $request->level_spasi,
+                'level_lap' => $request->level_lap,
+                'sum_header' => $request->sum_header,
+                'jenis_akun' => $request->jenis_akun,
+                'tipe' => $request->tipe
+            ];
             $client = new Client();
             $response = $client->request('POST', $this->link.'format-laporan-move',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'body' => [
-                    'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul,
-                    'kode_neraca' => $request->kode_neraca,
-                    'nama' => $request->nama,
-                    'level_spasi' => $request->level_spasi,
-                    'level_lap' => $request->level_lap,
-                    'sum_header' => $request->sum_header,
-                    'jenis_akun' => $request->jenis_akun,
-                    'tipe' => $request->tipe
-                ]
+                'body' => json_encode($fields)
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
