@@ -492,7 +492,7 @@ class FormatLaporanController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             
-            $result['message'] = $res;
+            $result['message'] = $res['message'];
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 
