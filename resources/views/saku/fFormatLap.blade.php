@@ -375,7 +375,7 @@ td,th{
 
             var this_index = $(this).index();
             var this_class = $("#sai-treegrid tbody tr:eq("+this_index+")").attr('class');
-            var node_class = this_class.match(/^treegrid-[0-9]+/gm);
+            var node_class = this_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
 
             var this_node = $("."+node_class).treegrid('getId');
             var this_parent = $("."+node_class).treegrid('getParent');
@@ -411,7 +411,7 @@ td,th{
             // $('#kode-set').val(this_kode.concat(+this_child_amount + 1));
             $('#lv-set').val(this_lv);
             $('#nu-set').val(nu);
-            console.log(this_kode);
+            console.log(node_class);
             $('#induk-set').val(this_kode);
             $('#rowindex-set').val(rowindex);
         });
@@ -461,7 +461,7 @@ td,th{
                 var this_depth = $(".treegrid-"+this_index).treegrid('getDepth');
 
                 var this_class = $("#sai-treegrid tbody tr:eq("+this_index+")").attr('class');
-                var this_node_class = this_class.match(/^treegrid-[0-9]+/gm);
+                var this_node_class = this_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 
                 var this_node = $("."+this_node_class).treegrid('getId');
                 var this_parent = $("."+this_node_class).treegrid('getParent').index();
@@ -471,7 +471,7 @@ td,th{
                 while (i > 0){
                     var index_prev = index_prev - 1;
                     var class_prev = $("#sai-treegrid tbody tr:eq("+index_prev+")").attr('class');
-                    var node_class_prev = class_prev.match(/^treegrid-[0-9]+/gm);
+                    var node_class_prev = class_prev.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                     var lvl_prev = $("."+node_class_prev).find('.set_lvl').val();
                     if(lvl_prev == this_lvl){
                         break;
@@ -482,11 +482,11 @@ td,th{
                 var prev_index = index_prev;
                 var prev_id = $(".treegrid-"+prev_index).treegrid('getId');
                 var prev_class = $("#sai-treegrid tbody tr:eq("+prev_index+")").attr('class');
-                var prev_node_class = prev_class.match(/^treegrid-[0-9]+/gm);
+                var prev_node_class = prev_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 var prev_node = $("."+prev_node_class).treegrid('getId');
                 var prev_parent = $("."+prev_node_class).treegrid('getParent').index();
                 var prt_class = $("#sai-treegrid tbody tr:eq("+prev_parent+")").attr('class');
-                var prt_node_class = prt_class.match(/^treegrid-[0-9]+/gm);
+                var prt_node_class = prt_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 var prev_lvl = $("."+prev_node_class).find('.set_lvl').val();
                 var prt_lvl = $("."+prt_node_class).find('.set_lvl').val();
                 
@@ -521,7 +521,7 @@ td,th{
                 var this_depth = $(".treegrid-"+this_index).treegrid('getDepth');
 
                 var this_class = $("#sai-treegrid tbody tr:eq("+this_index+")").attr('class');
-                var this_node_class = this_class.match(/^treegrid-[0-9]+/gm);
+                var this_node_class = this_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 
                 var this_node = $("."+this_node_class).treegrid('getId');
                 var this_parent = $("."+this_node_class).treegrid('getParent').index();
@@ -534,7 +534,7 @@ td,th{
                 while (i < 8){
                     var index_next = index_next + 1;
                     var class_next = $("#sai-treegrid tbody tr:eq("+index_next+")").attr('class');
-                    var node_class_next = class_next.match(/^treegrid-[0-9]+/gm);
+                    var node_class_next = class_next.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                     var lvl_next = $("."+node_class_next).find('.set_lvl').val();
                     if(lvl_next == this_lvl){
                         break;
@@ -545,11 +545,11 @@ td,th{
                 next_index = index_next;
                 var next_id = $(".treegrid-"+next_index).treegrid('getId');
                 var next_class = $("#sai-treegrid tbody tr:eq("+next_index+")").attr('class');
-                var next_node_class = next_class.match(/^treegrid-[0-9]+/gm);
+                var next_node_class = next_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 var next_node = $("."+next_node_class).treegrid('getId');
                 var next_parent = $("."+next_node_class).treegrid('getParent').index();
                 var prt_class = $("#sai-treegrid tbody tr:eq("+next_parent+")").attr('class');
-                var prt_node_class = prt_class.match(/^treegrid-[0-9]+/gm);
+                var prt_node_class = prt_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
                 var next_lvl = $("."+next_node_class).find('.set_lvl').val();
                 var prt_lvl = $("."+prt_node_class).find('.set_lvl').val();
 
@@ -678,7 +678,7 @@ td,th{
                 // alert(sel_index);
                 
                 var sel_class = $("#sai-treegrid tbody tr:eq("+sel_index+")").attr('class');
-                var node_class = sel_class.match(/^treegrid-[0-9]+/gm);
+                var node_class = sel_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
 
                 var this_node = $("."+node_class).treegrid('getId');
                 var this_parent = $("."+node_class).treegrid('getParent');
