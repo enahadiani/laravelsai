@@ -239,8 +239,9 @@ td,th{
             dataType: 'json',
             data: {'kode_fs':kode_fs,'modul':modul},
             success:function(result){    
+                $('#detLap').html('');
+                console.dir(result.data);
                 if(result.data.status){
-                    $('#detLap').html('');
                     if(typeof result.html !== 'undefined'){
                         var html = `<table class='treegrid table' id='sai-treegrid'>
                             <thead><th>Kode Neraca</th><th>Nama Neraca</th><th>Level Lap</th><th>Tipe</th></thead>
@@ -257,6 +258,14 @@ td,th{
                             }
                         });
                     }
+                } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
                 }
             }
         });
@@ -278,6 +287,14 @@ td,th{
                             control.addOption([{text:result.data.data[i].kode_fs+' - '+result.data.data[i].nama, value:result.data.data[i].kode_fs}]);  
                         }
                     }
+                } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
                 }
             }
         });
@@ -300,6 +317,14 @@ td,th{
                             control.addOption([{text:result.data.data[i].kode_tipe+' - '+result.data.data[i].nama_tipe, value:result.data.data[i].kode_tipe}]);  
                         }
                     }
+                } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('saku/login') }}";
+                    })
                 }
             }
         });
@@ -622,11 +647,19 @@ td,th{
                         url: "{{ url('saku/format-laporan') }}",
                         dataType: 'json',
                         data: {'kode_fs':kode_fs,'modul':modul,'kode_neraca':selected_id},
-                        success:function(res){
-                            alert(res.message);
-                            if(res.status){
+                        success:function(result){
+                            alert(result.data.message);
+                            if(result.data.status){
                                 init(kode_fs,modul);
                                 
+                            } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                                Swal.fire({
+                                    title: 'Session telah habis',
+                                    text: 'harap login terlebih dahulu!',
+                                    icon: 'error'
+                                }).then(function() {
+                                    window.location.href = "{{ url('saku/login') }}";
+                                })
                             }
                         }
                     });
@@ -664,7 +697,7 @@ td,th{
                 var this_child_branch = $("."+node_class).treegrid('getBranch').length;
                 // var this_induk = $("."+node_class).treegrid('getParent').find('.set_kode').text();
             
-                
+                console.log(this_kode);
                 getJenisAkun();
                 
                 $('#id-edit-set').val('1');
@@ -708,14 +741,22 @@ td,th{
                 contentType: false,
                 cache: false,
                 processData: false, 
-                success:function(res){
-                    alert(res.message);
-                    if(res){
+                success:function(result){
+                    alert(result.data.message);
+                    if(result.data.status){
                         
                         init(kode_fs,modul);
                         $('#sai-treegrid-modal').modal('hide');
                         // $('#sai-treegrid tr').removeClass('ui-selected');
                         $('#validation-box').text('');
+                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('saku/login') }}";
+                        })
                     }
                 }
             });
@@ -745,9 +786,17 @@ td,th{
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert('Perubahan '+result.message);
-                    if(result.status){
+                    alert('Perubahan '+result.data.message);
+                    if(result.data.status){
                         init(kode_klp);
+                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('saku/login') }}";
+                        })
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
@@ -787,6 +836,14 @@ td,th{
                         if(typeof result.data.detail !== 'undefined' && result.data.detail.length>0){
                             table_sudah.rows.add(result.data.detail).draw(false);
                         }
+                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('saku/login') }}";
+                        })
                     }
                 }
             });
@@ -897,8 +954,20 @@ td,th{
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert(result.message);
-                    $('#modal-relasi').modal('hide');
+                    alert(result.data.message);
+                    if(result.data.status){
+
+                        $('#modal-relasi').modal('hide');
+                    }
+                    else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('saku/login') }}";
+                        })
+                    }
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
