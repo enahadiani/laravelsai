@@ -88,5 +88,16 @@ Route::post('gl_report_neraca_lajur','Saku\LaporanController@getGlReportNeracaLa
 Route::post('gl_report_neraca','Saku\LaporanController@getGlReportNeraca');
 Route::post('gl_report_laba_rugi','Saku\LaporanController@getGlReportLabaRugi');
 
+//Format Laporan
+Route::get('format-laporan','Saku\FormatLaporanController@show');
+Route::post('format-laporan','Saku\FormatLaporanController@store');
+Route::put('format-laporan','Saku\FormatLaporanController@update');
+Route::delete('format-laporan','Saku\FormatLaporanController@destroy');
+Route::get('format-laporan-versi','Saku\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe','Saku\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun','Saku\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi','Saku\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move','Saku\FormatLaporanController@simpanMove');
+
 
 
