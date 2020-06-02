@@ -250,21 +250,23 @@ class FormatLaporanController extends Controller
     {
         $request->validate([
             'kode_fs' => 'required',
-            'modul' => 'required'
+            'modul' => 'required',
+            'kode_neraca' => 'required'
         ]);
 
         try{
 
             $client = new Client();
             
-            $response = $client->request('DELETE', $this->link.'format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul,[
+            $response = $client->request('DELETE', $this->link.'format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul.'&kode_neraca='.$request->kode_neraca,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
                     'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul
+                    'modul' => $request->modul,
+                    'kode_neraca' => $request->kode_neraca
                 ]
             ]);
     
@@ -279,7 +281,7 @@ class FormatLaporanController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             
-            $result['message'] = $res["message"];
+            $result['message'] = $res['message'];
             $result['status']=false;
             return response()->json(["data" => $result], 200);
         } 
