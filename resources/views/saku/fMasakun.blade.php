@@ -430,7 +430,7 @@
     }
 
     function getNeraca(id,target1,target2,jenis){
-        var param = $par1;
+        var param = $('.'+target1).closest('tr').find('.td-kode-fs').text();
         $.ajax({
             type: 'GET',
             url: "{{ url('saku/neraca') }}/"+id+"/"+param,
