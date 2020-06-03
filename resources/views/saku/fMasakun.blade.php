@@ -376,12 +376,12 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         if(jenis == 'change'){
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $par1 = result.data.data[0].kode_flag;
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $par1 = result.daftar[0].kode_flag;
                         }else{
                             $par1 = "";
                             $("#input-keu td").removeClass("px-0 py-0 aktif");
@@ -393,15 +393,15 @@
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
                         }
                     }
                 }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                else if(!result.status && result.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -437,12 +437,12 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         if(jenis == 'change'){
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $par1 = result.data.data[0].kode_neraca;
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $par1 = result.daftar[0].kode_neraca;
                         }else{
                             $par1 = "";
                             $("#input-keu td").removeClass("px-0 py-0 aktif");
@@ -454,15 +454,15 @@
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
                         }
                     }
                 }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                else if(!result.status && result.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -784,10 +784,10 @@
         }
     });
 
-    $('#input-flag').on('keydown','.inp-kode, .inp-nama',function(e){
+    $('#input-keu').on('keydown','.inp-kode-fs, .inp-nama-fs, .inp-kode-neraca, .inp-nama-neraca',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama'];
-        var nxt2 = ['.td-kode','.td-nama'];
+        var nxt = ['.inp-kode-fs','.inp-nama-fs','.inp-kode-neraca','.inp-nama-neraca'];
+        var nxt2 = ['.td-kode-fs','.td-nama-fs','.td-kode-neraca','.td-nama-neraca'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -800,7 +800,7 @@
                     var kode = $(this).val();
                     var target1 = "fske"+noidx;
                     var target2 = "nmfske"+noidx;
-                    getFlag(kode,target1,target2,'tab');                    
+                    getFS(kode,target1,target2,'tab');                    
                     break;
                 case 1:
                     $("#input-keu td").removeClass("px-0 py-0 aktif");
