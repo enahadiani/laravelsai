@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/midtrans', 'DonationController@index')->name('midtrans');
+Route::post('/finish', function(){
+    return redirect()->route('midtrans');
+})->name('donation.finish');
+ 
+Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
+Route::post('/notification/handler', 'DonationController@notificationHandler')->name('notification.handler');
+ 
