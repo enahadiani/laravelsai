@@ -53,6 +53,8 @@ Route::get('/curr', 'Saku\MasakunController@getCurrency');
 Route::get('/modul', 'Saku\MasakunController@getModul');
 Route::get('/flag_akun','Saku\MasakunController@getFlagAkun');
 Route::get('/neraca/{kode_fs}','Saku\MasakunController@getNeraca');
+Route::get('/flag_akun/{kode_flag}','Saku\MasakunController@getFlagAkunPerKode');
+Route::get('/neraca/{kode_fs}/{kode_neraca}','Saku\MasakunController@getNeracaPerKode');
 Route::get('/fsgar','Saku\MasakunController@getFSGar');
 Route::get('/neracagar/{kode_fs}','Saku\MasakunController@getNeracaGar');
 
