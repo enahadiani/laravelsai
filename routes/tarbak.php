@@ -63,12 +63,14 @@ Route::put('/postJenisPenilaian/{kode_jenis}', 'Tarbak\JenisPenilaianController@
 Route::delete('/deleteJenisPenilaian/{kode_jenis}/{kode_pp}', 'Tarbak\JenisPenilaianController@delete');
 
 Route::get('/getStatusGuru', 'Tarbak\StatusGuruController@index');
+Route::get('/getDaftarStatusGuru', 'Tarbak\StatusGuruController@getDataStatusGuru');
 Route::get('/getStatusGuru/{kode_status}/{kode_pp}', 'Tarbak\StatusGuruController@getStatusGuru');
 Route::post('/postStatusGuru', 'Tarbak\StatusGuruController@save');
 Route::put('/postStatusGuru/{kode_status}', 'Tarbak\StatusGuruController@update');
 Route::delete('/deleteStatusGuru/{kode_status}/{kode_pp}', 'Tarbak\StatusGuruController@delete');
 
 Route::get('/getMatpel', 'Tarbak\MataPelajaranController@index');
+Route::get('/getDataMatpel', 'Tarbak\MataPelajaranController@getDataMatpel');
 Route::get('/getMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranController@getMataPelajaran');
 Route::post('/postMatpel', 'Tarbak\MataPelajaranController@save');
 Route::put('/postMatpel/{kode_matpel}', 'Tarbak\MataPelajaranController@update');
@@ -91,5 +93,12 @@ Route::get('/getKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\Kal
 Route::post('/postKalAkad', 'Tarbak\KalenderAkademikController@save');
 Route::put('/postKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@update');
 Route::delete('/deleteKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@delete');
+
+Route::get('/getJadwalHarian', 'Tarbak\JadwalHarianController@index');
+Route::get('/getJadwal/{kode_pp}/{kode_ta1}/{kode_ta2}/{kode_kelas}/{nik}/{kode_matpel}', 'Tarbak\JadwalHarianController@getJadwal');
+Route::get('/getKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@getKalAkad');
+Route::post('/postJadwalHarian', 'Tarbak\JadwalHarianController@save');
+Route::put('/postKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@update');
+Route::delete('/deleteJadwalHarian/{kode_pp}/{kode_ta1}/{kode_ta2}/{kode_kelas}/{nik}/{kode_matpel}', 'Tarbak\JadwalHarianController@delete');
 
 ?>
