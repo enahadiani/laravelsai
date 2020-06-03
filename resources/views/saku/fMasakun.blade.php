@@ -376,12 +376,12 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         if(jenis == 'change'){
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
-                            $par1 = result.daftar[0].kode_flag;
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $par1 = result.data.data[0].kode_flag;
                         }else{
                             $par1 = "";
                             $("#input-keu td").removeClass("px-0 py-0 aktif");
@@ -393,15 +393,15 @@
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
                         }
                     }
                 }
-                else if(!result.status && result.message == 'Unauthorized'){
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -433,16 +433,16 @@
         var param = $('.'+target1).closest('tr').find('.td-kode-fs').text();
         $.ajax({
             type: 'GET',
-            url: "{{ url('saku/neraca') }}/"+id+"/"+param,
+            url: "{{ url('saku/neraca') }}/"+param+"/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         if(jenis == 'change'){
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
-                            $par1 = result.daftar[0].kode_neraca;
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $par1 = result.data.data[0].kode_neraca;
                         }else{
                             $par1 = "";
                             $("#input-keu td").removeClass("px-0 py-0 aktif");
@@ -454,15 +454,15 @@
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
                         }
                     }
                 }
-                else if(!result.status && result.message == 'Unauthorized'){
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',

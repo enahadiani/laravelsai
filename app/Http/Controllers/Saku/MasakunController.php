@@ -145,13 +145,15 @@ class MasakunController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $data = $data["success"];
             }
-            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+            return response()->json(['data'=> $data], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            $data["message"] = $res["message"];
+            $data["status"] = false;
+            return response()->json(['data'=> $data], 200);
         } 
     }
 
@@ -194,14 +196,16 @@ class MasakunController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $data = $data["success"];
             }
-            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+            return response()->json(['data' => $data], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            $data["message"] = $res["message"];
+            $data["status"] = false;
+            return response()->json(['data'=> $data], 200);
         } 
     }
 
