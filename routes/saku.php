@@ -102,4 +102,7 @@ Route::post('format-laporan-relasi','Saku\FormatLaporanController@simpanRelasi')
 Route::post('format-laporan-move','Saku\FormatLaporanController@simpanMove');
 
 
+Route::get('pay','Midtrans\PaymentController@getPayment');
+
+
 
