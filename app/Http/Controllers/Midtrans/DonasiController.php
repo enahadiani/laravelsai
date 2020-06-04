@@ -237,12 +237,7 @@ class DonasiController extends Controller
         }
 
         $client = new Client();
-        $response = $client->request('PUT', $this->link.'donasi/'.$orderId.'/'.$sts_bayar,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+        $response = $client->request('PUT', $this->link.'donasi/'.$orderId.'/'.$sts_bayar,[]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
