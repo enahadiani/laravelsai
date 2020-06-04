@@ -211,6 +211,12 @@
         $('.saku-datatable').show();
     });
 
+    $('#table-list').on('click','.complete-pay',function(e){
+        e.preventDefault();
+        var snap_token = $(this).data('snap');
+        snap.pay(snap_token);
+    });
+
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-list').DataTable({
         ajax: {

@@ -62,7 +62,7 @@ class DonasiController extends Controller
                 for($i=0;$i<count($data);$i++){
                    if ($data[$i]['status'] == 'pending' || $data[$i]['status'] == 'process'){
 
-                       $data[$i]['action'] = `<button class="btn btn-success btn-sm" onclick="snap.pay('{{ `.$data[$i]['snap_token'].` }}')">Complete Payment</button>`;
+                       $data[$i]['action'] = '<button class="btn btn-success btn-sm complete-pay" data-snap ="'.$data[$i]['snap_token'].'" >Complete Payment</button>';
                    }else{
                        $data[$i]['action'] = '';
                    }
