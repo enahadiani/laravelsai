@@ -259,7 +259,7 @@
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
-                                <a href="{{url('tarbak/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="{{url('tarbak/logout')}}" id="logout" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                                 <!-- text-->
                             </div>
                         </li>
@@ -302,7 +302,6 @@
                 </div>
             </section>
             <script>
-               
                 var form ="";
                 function loadForm(url){
                     $('.body-content').load(url);
@@ -346,10 +345,14 @@
                     }
                 });
 
-                $(document).ready(function(){
+            $(document).ready(function(){
+                setTimeout(function(){
+                    alert('Session token telah habis, silahkan login kembali');
+                    window.location.href = "{{url('tarbak/logout')}}";
+                }, 1000 * 60 * 60);
                     var urlAwal = "{{ url('/tarbak/form/dashSekolah')}}";
                     loadForm(urlAwal)
-                });
+            });
             </script>
         </div>
     </div>    
