@@ -126,11 +126,13 @@ class DonationController extends Controller
                 // $donation->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
                 $message = "Transaction order_id: " . $orderId ." is challenged by FDS";
                 $donation->setPending();
+                return response()->json(["message"=>$message]);
               } else {
                 // TODO set payment status in merchant's database to 'Success'
                 // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
                 $message = "Transaction order_id: " . $orderId ." successfully captured using " . $type;
                 $donation->setSuccess();
+                return response()->json(["message"=>$message]);
               }
  
             }
@@ -141,6 +143,7 @@ class DonationController extends Controller
             // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
             $message = "Transaction order_id: " . $orderId ." successfully transfered using " . $type;
             $donation->setSuccess();
+            return response()->json(["message"=>$message]);
  
           } elseif($transaction == 'pending'){
  
@@ -148,6 +151,7 @@ class DonationController extends Controller
             // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " using " . $type);
             $message = "Waiting customer to finish transaction order_id: " . $orderId . " using " . $type;
             $donation->setPending();
+            return response()->json(["message"=>$message]);
  
           } elseif ($transaction == 'deny') {
  
@@ -155,6 +159,7 @@ class DonationController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.";
             $donation->setFailed();
+            return response()->json(["message"=>$message]);
  
           } elseif ($transaction == 'expire') {
  
@@ -162,6 +167,7 @@ class DonationController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.";
             $donation->setExpired();
+            return response()->json(["message"=>$message]);
  
           } elseif ($transaction == 'cancel') {
  
@@ -169,12 +175,13 @@ class DonationController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.";
             $donation->setFailed();
+            return response()->json(["message"=>$message]);
  
           }
  
         });
  
-        return response()->json(["message"=>$message]);
+        
     }
 }
  
