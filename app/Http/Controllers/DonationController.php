@@ -113,6 +113,7 @@ class DonationController extends Controller
           $orderId = $notif->order_id;
           $fraud = $notif->fraud_status;
           $donation = Donation::findOrFail($orderId);
+          $message = "";
  
           if ($transaction == 'capture') {
  
