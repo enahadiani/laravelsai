@@ -173,7 +173,7 @@ class DonationController extends Controller
  
         });
  
-        return;
+        return response()->json(["message"=>$message]);
     }
 }
  
