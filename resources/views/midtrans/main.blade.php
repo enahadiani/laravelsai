@@ -40,7 +40,7 @@
                     <a class="nav-link" href="#" id="list">Donation List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('midtrans/logout') }}" id="list">Logout</a>
+                    <a class="nav-link" href="{{ url('midtrans/logout') }}" >Logout</a>
                 </li>
             </ul>
         </div>
