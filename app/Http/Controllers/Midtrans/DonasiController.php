@@ -232,7 +232,7 @@ class DonasiController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.";
             // $donation->setFailed();
-            $sts_bayar = 'failed';
+            $sts_bayar = 'cancel';
             
         }
 
