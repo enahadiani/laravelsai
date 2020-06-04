@@ -202,20 +202,22 @@
                 // Optional
                 onSuccess: function (result) {
                     console.log(result);
-                    dataTable.reload();
+                    alert(result.status_message);
+                    dataTable.ajax.reload();
                     $('#donation')[0].reset();
 
                 },
                 // Optional
                 onPending: function (result) {
                     console.log(result);
-                    dataTable.reload();
+                    alert(result.status_message);
+                    dataTable.ajax.reload();
                     $('#donation')[0].reset();
                 },
                 // Optional
                 onError: function (result) {
+                    alert(result.status_message);
                     console.log(result);
-                    dataTable.reload();
                 }
             });
         });
