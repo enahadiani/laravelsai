@@ -246,7 +246,7 @@ class DonasiController extends Controller
             $data = $data["success"];
         }
         
-        return response()->json(["message" => $message,"data"=>$data], 200);
+        return response()->json(["message" => $message,"data"=>$data, "sts_bayar" => $sts_bayar], 200);
     }
 
  
