@@ -208,7 +208,7 @@ class DonasiController extends Controller
             // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " using " . $type);
             $message = "Waiting customer to finish transaction order_id: " . $orderId . " using " . $type;
             // $donation->setPending();
-            $sts_bayar = 'success';
+            $sts_bayar = 'pending';
             
         } elseif ($transaction == 'deny') {
             
@@ -216,7 +216,7 @@ class DonasiController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.";
             // $donation->setFailed();
-            $sts_bayar = 'success';
+            $sts_bayar = 'failed';
             
         } elseif ($transaction == 'expire') {
             
@@ -224,7 +224,7 @@ class DonasiController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.";
             // $donation->setExpired();
-            $sts_bayar = 'success';
+            $sts_bayar = 'expired';
             
         } elseif ($transaction == 'cancel') {
             
@@ -232,7 +232,7 @@ class DonasiController extends Controller
             // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
             $message = "Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.";
             // $donation->setFailed();
-            $sts_bayar = 'success';
+            $sts_bayar = 'failed';
             
         }
 
