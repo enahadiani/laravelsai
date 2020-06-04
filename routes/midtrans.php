@@ -30,15 +30,15 @@ Route::get('/logout', 'Midtrans\AuthController@logout');
 
 Route::get('/', 'Midtrans\AuthController@index')->name('midtrans');
 Route::get('/finish', function(){
-    return redirect()->route('midtrans');
+    return response()->json(["message" => 'finish'], 200);
 })->name('donation.finish');
 
 Route::get('/unfinish', function(){
-    return redirect()->route('midtrans');
+    return response()->json(["message" => 'unfinish'], 200);
 })->name('donation.unfinish');
 
 Route::get('/error', function(){
-    return redirect()->route('midtrans');
+    return response()->json(["message" => 'error'], 200);
 })->name('donation.error');
  
 Route::post('/donation/store', 'Midtrans\DonasiController@store')->name('donation.store');

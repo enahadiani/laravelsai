@@ -201,17 +201,20 @@
             snap.pay(data.snap_token, {
                 // Optional
                 onSuccess: function (result) {
+                    console.log(result);
                     dataTable.reload();
                     $('#donation')[0].reset();
 
                 },
                 // Optional
                 onPending: function (result) {
+                    console.log(result);
                     dataTable.reload();
                     $('#donation')[0].reset();
                 },
                 // Optional
                 onError: function (result) {
+                    console.log(result);
                     dataTable.reload();
                 }
             });
