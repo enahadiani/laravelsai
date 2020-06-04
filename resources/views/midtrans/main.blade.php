@@ -164,6 +164,27 @@
     <script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
     <script>
 
+    var dataTable = $('#table-list').DataTable({
+        ajax: {
+            _token: '{{ csrf_token() }}',
+            url: "{{ url('midtrans/donation') }}" ,
+            data: {},
+            async:false,
+            type: 'GET',
+            dataSrc : function(json) {
+                return json.daftar;   
+            }
+        },
+        columns: [
+            { data: 'no_bukti' },
+            { data: 'nama' },
+            { data: 'nilai' },
+            { data: 'type_donasi' },
+            { data: 'status' },
+            { data: 'action' }
+        ],
+    });
+
     function submitForm() {
         // Kirim request ajax
         $.post("{{ route('donation.store') }}",
@@ -180,15 +201,18 @@
             snap.pay(data.snap_token, {
                 // Optional
                 onSuccess: function (result) {
-                    location.reload();
+                    dataTable.reload();
+                    $('#donation')[0].reset();
+
                 },
                 // Optional
                 onPending: function (result) {
-                    location.reload();
+                    dataTable.reload();
+                    $('#donation')[0].reset();
                 },
                 // Optional
                 onError: function (result) {
-                    location.reload();
+                    dataTable.reload();
                 }
             });
         });
@@ -215,28 +239,6 @@
         e.preventDefault();
         var snap_token = $(this).data('snap');
         snap.pay(snap_token);
-    });
-
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var dataTable = $('#table-list').DataTable({
-        ajax: {
-            _token: '{{ csrf_token() }}',
-            url: "{{ url('midtrans/donation') }}" ,
-            data: {},
-            async:false,
-            type: 'GET',
-            dataSrc : function(json) {
-                return json.daftar;   
-            }
-        },
-        columns: [
-            { data: 'no_bukti' },
-            { data: 'nama' },
-            { data: 'nilai' },
-            { data: 'type_donasi' },
-            { data: 'status' },
-            { data: 'action' }
-        ],
     });
     </script>
 </body>
