@@ -23,5 +23,5 @@ Route::post('/midtrans/finish', function(){
 })->name('donation.finish');
  
 Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
-Route::post('/nidtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
+Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
  
