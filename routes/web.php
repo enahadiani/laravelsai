@@ -21,6 +21,14 @@ Route::get('/midtrans', 'DonationController@index')->name('midtrans');
 Route::post('/midtrans/finish', function(){
     return redirect()->route('midtrans');
 })->name('donation.finish');
+
+Route::post('/midtrans/unfinish', function(){
+    return redirect()->route('midtrans');
+})->name('donation.unfinish');
+
+Route::post('/midtrans/error', function(){
+    return redirect()->route('midtrans');
+})->name('donation.error');
  
 Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
 Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
