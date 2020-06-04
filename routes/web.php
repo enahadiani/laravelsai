@@ -18,18 +18,19 @@ Route::get('/', function () {
 });
 
 Route::get('/midtrans', 'DonationController@index')->name('midtrans');
-Route::post('/midtrans/finish', function(){
+Route::get('/midtrans/finish', function(){
     return redirect()->route('midtrans');
 })->name('donation.finish');
 
-Route::post('/midtrans/unfinish', function(){
+Route::get('/midtrans/unfinish', function(){
     return redirect()->route('midtrans');
 })->name('donation.unfinish');
 
-Route::post('/midtrans/error', function(){
+Route::get('/midtrans/error', function(){
     return redirect()->route('midtrans');
 })->name('donation.error');
  
+
 Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
 Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
  
