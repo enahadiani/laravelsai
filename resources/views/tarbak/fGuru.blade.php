@@ -28,6 +28,11 @@
                                 padding: 0 !important;
                             }
 
+                            i:hover{
+                                cursor: pointer;
+                                color: blue;
+                            }
+
                             </style>
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
@@ -67,27 +72,23 @@
                             </div>
                             <div class="form-group row">
                                 <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                                <div class="input-group col-4">
+                                <div class="input-group col-3">
                                     <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
-                                    <a href='#' class='search-item2'>
-                                        <i class='fa fa-search' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                    </a>
-                                    <div class="col-5">
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                    <div class="col-6">
                                         <label id="label_kode_pp" style="margin-top: 10px;"></label>
                                     </div>
-                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nik_guru" class="col-3 col-form-label">NIK Guru</label>
-                                <div class="input-group col-4">
+                                <div class="input-group col-3">
                                     <input type='text' name="nik_guru" id="nik_guru" class="form-control" required>
-                                    <a href='#' class='search-item2'>
-                                        <i class='fa fa-search' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                    </a>
-                                    <div class="col-5">
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                    <div class="col-6">
                                         <label id="label_nik_guru" style="margin-top: 10px;"></label>
                                     </div>
-                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="flag_aktif" class="col-3 col-form-label">Status</label>
@@ -170,8 +171,8 @@
             <div class="row" style="margin-left: -5px;">
                 <div class="col-sm-12">
                     <div class="form-group" style='margin-bottom:0'>
-                        <label for="periode">Periode</label>
-                        <select name="periode" id="kode_pp2" class="form-control">
+                        <label for="kode_pp">Kode PP</label>
+                        <select name="kode_pp" id="kode_pp2" class="form-control">
                         <option value="">Pilih PP</option>
                         </select>
                     </div>
@@ -403,7 +404,6 @@
         $('#form-tambah')[0].reset();
         $('#label_kode_pp').text('');
         $('#label_nik_guru').text('');
-        $('#id').val('');
         $('#input-matpel tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -419,7 +419,7 @@
     $('#form-tambah').on('click', '.search-item2', function(){
 
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').find('label').attr('id');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
@@ -669,7 +669,6 @@
             nom.html(no);
             no++;
         });
-        hitungTotal();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 

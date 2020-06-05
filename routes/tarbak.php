@@ -27,12 +27,14 @@ Route::put('/postAngkatan/{kode_akt1}/{kode_akt2}', 'Tarbak\AngkatanController@u
 Route::delete('/deleteAngkatan/{kode_akt1}/{kode_akt2}/{kode_pp}', 'Tarbak\AngkatanController@delete');
 
 Route::get('/getTahunAjaran', 'Tarbak\TahunAjaranController@index');
+Route::get('/getDataTahunAjaran', 'Tarbak\TahunAjaranController@getDataTahunAjaran');
 Route::get('/getTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@getTahunAjaran');
 Route::post('/postTahunAjaran', 'Tarbak\TahunAjaranController@save');
 Route::put('/postTahunAjaran/{kode_ta1}/{kode_ta2}', 'Tarbak\TahunAjaranController@update');
 Route::delete('/deleteTahunAjaran/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\TahunAjaranController@delete');
 
 Route::get('/getJurusan', 'Tarbak\JurusanController@index');
+Route::get('/getDataJurusan', 'Tarbak\JurusanController@getDataJurusan');
 Route::get('/getJurusan/{kode_jur}/{kode_pp}', 'Tarbak\JurusanController@getJurusan');
 Route::post('/postJurusan', 'Tarbak\JurusanController@save');
 Route::put('/postJurusan/{kode_jur}', 'Tarbak\JurusanController@update');
@@ -77,6 +79,7 @@ Route::put('/postMatpel/{kode_matpel}', 'Tarbak\MataPelajaranController@update')
 Route::delete('/deleteMatpel/{kode_matpel}/{kode_pp}', 'Tarbak\MataPelajaranController@delete');
 
 Route::get('/getKkm', 'Tarbak\KkmController@index');
+Route::get('/getDataKkm', 'Tarbak\KkmController@getDataKkm');
 Route::get('/getKkm/{kode_kkm}/{kode_pp}', 'Tarbak\KkmController@getKkm');
 Route::post('/postKkm', 'Tarbak\KkmController@save');
 Route::put('/postKkm/{kode_kkm}', 'Tarbak\KkmController@update');
