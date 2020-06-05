@@ -50,7 +50,7 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card" style="min-height:560px !important">
-                    <form class="form" id="form-tambah" style=''>
+                    <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Guru Mata Pelajaran
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
@@ -67,16 +67,26 @@
                             </div>
                             <div class="form-group row">
                                 <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                                <div class="col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 10px;margin-left: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
-                                    <label id="label_kode_pp"></label>
+                                <div class="input-group col-4">
+                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
+                                    <a href='#' class='search-item2'>
+                                        <i class='fa fa-search' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                    </a>
+                                    <div class="col-5">
+                                        <label id="label_kode_pp" style="margin-top: 10px;"></label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nik_guru" class="col-3 col-form-label">NIK Guru</label>
-                                <div class="col-3">
-                                    <input type='text' name='nik_guru' id='nik_guru' class='form-control' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2' style='position: absolute;z-index: 2;margin-top: 10px;margin-left: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>
-                                    <label id="label_nik_guru"></label>
+                                <div class="input-group col-4">
+                                    <input type='text' name="nik_guru" id="nik_guru" class="form-control" required>
+                                    <a href='#' class='search-item2'>
+                                        <i class='fa fa-search' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                    </a>
+                                    <div class="col-5">
+                                        <label id="label_nik_guru" style="margin-top: 10px;"></label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -468,6 +478,9 @@
                 $target3 = "";
             break;
             case 'nik_guru': 
+            if(pp === ''){
+                alert('PP harus dipilih dahulu');
+            }else {
             header = ['NIK', 'Nama'];
             var toUrl = "{{ url('tarbak/getNIKGuru') }}/"+pp;
                 var columns = [
@@ -481,6 +494,7 @@
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
+            }
             break;
         }
 
@@ -526,7 +540,7 @@
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
-                $($target).val(kode);
+                $($target).attr('value',kode);
             }else{
                 $($target).text(kode);
             }
