@@ -292,7 +292,7 @@
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_pp === id){
-                                $('#label_kode_pp').text(result.daftar[0].nama);
+                                $('#label_kode_pp').text(result.daftar[i].nama);
                                 break;
                               }
                             }
@@ -337,8 +337,8 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                       for(var i = 0;i<=result.daftar.length;i++){  
-                        if(result.daftar[0].nik === nik){
-                            $('#label_nik_guru').text(result.daftar[0].nama);
+                        if(result.daftar[i].nik === nik){
+                            $('#label_nik_guru').text(result.daftar[i].nama);
                             break;
                          }
                      }

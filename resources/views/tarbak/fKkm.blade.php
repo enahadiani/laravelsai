@@ -313,7 +313,7 @@
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_pp === id){
-                                $('#label_kode_pp').text(result.daftar[0].nama);
+                                $('#label_kode_pp').text(result.daftar[i].nama);
                                 break;
                               }
                             }
@@ -358,8 +358,8 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                       for(var i = 0;i<=result.daftar.length;i++){  
-                        if(result.daftar[0].kode_ta === ta){
-                            $('#label_kode_ta').text(result.daftar[0].nama);
+                        if(result.daftar[i].kode_ta === ta){
+                            $('#label_kode_ta').text(result.daftar[i].nama);
                             break;
                          }
                      }
@@ -397,15 +397,15 @@
     function getLabelTingkatan(kode){
         $.ajax({
             type: 'GET',
-            url: "{{url('/tarbak/getDataTahunAjaran')}}",
+            url: "{{url('/tarbak/getTingkatan')}}",
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                       for(var i = 0;i<=result.daftar.length;i++){  
-                        if(result.daftar[0].kode_tingkat === kode){
-                            $('#label_kode_tingkat').text(result.daftar[0].nama);
+                        if(result.daftar[i].kode_tingkat === kode){
+                            $('#label_kode_tingkat').text(result.daftar[i].nama);
                             break;
                          }
                      }
@@ -450,8 +450,8 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                       for(var i = 0;i<=result.daftar.length;i++){  
-                        if(result.daftar[0].kode_jur === kode){
-                            $('#label_kode_jur').text(result.daftar[0].nama);
+                        if(result.daftar[i].kode_jur === kode){
+                            $('#label_kode_jur').text(result.daftar[i].nama);
                             break;
                          }
                      }
@@ -517,10 +517,6 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#kode_pp').val('');
-        $('#kode_ta').val('');
-        $('#kode_tingkat').val('');
-        $('#kode_jur').val('');
         $('#label_kode_pp').text('');
         $('#label_kode_ta').text('');
         $('#label_kode_tingkat').text('');
