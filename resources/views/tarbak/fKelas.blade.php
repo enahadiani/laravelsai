@@ -762,9 +762,7 @@
         var jurTemp = $(this).closest('tr').find('td').eq(3).html().split('|');
         var temp = $(this).closest('tr').find('td').eq(4).html().split('-');
         var kode_pp = temp[0];
-        var jur = jurTemp[0].trim(); 
-        console.log(jurTemp)
-        console.log(jur)
+        var jur = jurTemp[0].trim();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
