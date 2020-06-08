@@ -257,7 +257,7 @@
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_pp === id){
-                                $('#label_kode_pp').text(result.daftar[0].nama);
+                                $('#label_kode_pp').text(result.daftar[i].nama);
                                 break;
                               }
                             }
