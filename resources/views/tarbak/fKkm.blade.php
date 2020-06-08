@@ -573,7 +573,7 @@
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar Tingkatan";
+                var judul = "Daftar Jurusan";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
