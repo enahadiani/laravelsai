@@ -69,12 +69,13 @@
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                     <input type="hidden" id="method" name="_method" value="post">
+                                    <input class="form-control" type="text" id="kode_kkm" name="kode_kkm" readonly hidden>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
+                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
@@ -84,7 +85,7 @@
                             <div class="form-group row">
                                 <label for="kode_ta" class="col-3 col-form-label">Tahun Ajaran</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_ta" id="kode_ta" class="form-control" required>
+                                    <input type='text' name="kode_ta" id="kode_ta" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                     <div class="col-6">
@@ -94,7 +95,7 @@
                             <div class="form-group row">
                                 <label for="kode_tingkat" class="col-3 col-form-label">Tingkat</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_tingkat" id="kode_tingkat" class="form-control" required>
+                                    <input type='text' name="kode_tingkat" id="kode_tingkat" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                     <div class="col-6">
@@ -104,7 +105,7 @@
                             <div class="form-group row">
                                 <label for="kode_jur" class="col-3 col-form-label">Jurusan</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_jur" id="kode_jur" class="form-control" required>
+                                    <input type='text' name="kode_jur" id="kode_jur" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2'' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                  </div>
                                     <div class="col-6">
@@ -363,9 +364,101 @@
                          }
                      }
                     }else{
-                        alert('NIK tidak valid');
-                        $('#nik_guru').val('');
-                        $('#nik_guru').focus();
+                        alert('Tahun ajaran tidak valid');
+                        $('#kode_ta').val('');
+                        $('#kode_ta').focus();
+                    }
+                }
+            }
+        });
+    }
+
+    function getTingkatan(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/tarbak/getTingkatan')}}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_tingkat').val(result.daftar[0].kode_ta);
+                         $('#label_kode_tingkat').text(result.daftar[0].nama);
+                    }else{
+                        alert('Tahun ajaran tidak valid');
+                        $('#kode_tingkat').val('');
+                        $('#kode_tingkat').focus();
+                    }
+                }
+            }
+        });
+    }
+
+    function getLabelTingkatan(kode){
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/tarbak/getDataTahunAjaran')}}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                      for(var i = 0;i<=result.daftar.length;i++){  
+                        if(result.daftar[0].kode_tingkat === kode){
+                            $('#label_kode_tingkat').text(result.daftar[0].nama);
+                            break;
+                         }
+                     }
+                    }else{
+                        alert('Tingkatan tidak valid');
+                        $('#kode_tingkat').val('');
+                        $('#kode_tingkat').focus();
+                    }
+                }
+            }
+        });
+    }
+
+    function getJurusan(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/tarbak/getDataJurusan')}}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_jur').val(result.daftar[0].kode_jur);
+                         $('#label_kode_jur').text(result.daftar[0].nama);
+                    }else{
+                        alert('Tahun ajaran tidak valid');
+                        $('#kode_jur').val('');
+                        $('#kode_jur').focus();
+                    }
+                }
+            }
+        });
+    }
+
+    function getLabelJurusan(kode){
+        $.ajax({
+            type: 'GET',
+            url: "{{url('/tarbak/getDataJurusan')}}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                      for(var i = 0;i<=result.daftar.length;i++){  
+                        if(result.daftar[0].kode_jur === kode){
+                            $('#label_kode_jur').text(result.daftar[0].nama);
+                            break;
+                         }
+                     }
+                    }else{
+                        alert('Jurusan tidak valid');
+                        $('#kode_jur').val('');
+                        $('#kode_jur').focus();
                     }
                 }
             }
@@ -422,8 +515,12 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#method').val('post');
         $('#form-tambah')[0].reset();
+        $('#method').val('post');
+        $('#kode_pp').val('');
+        $('#kode_ta').val('');
+        $('#kode_tingkat').val('');
+        $('#kode_jur').val('');
         $('#label_kode_pp').text('');
         $('#label_kode_ta').text('');
         $('#label_kode_tingkat').text('');
@@ -458,20 +555,6 @@
         $target2 = target2;
         
         switch(par){
-            case 'kode_status[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('tarbak/getDaftarStatusGuru') }}";
-                var columns = [
-                    { data: 'kode_status' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Matpel";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-            break;
             case 'kode_matpel[]': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('tarbak/getDataMatpel') }}";
@@ -685,13 +768,23 @@
         getDataPP(par);
     });
 
-    $('#form-tambah').on('change', '#nik_guru', function(){
+    $('#form-tambah').on('change', '#kode_ta', function(){
         var par = $(this).val();
-        getNikGuru(par);
+        getTahunAjaran(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_tingkat', function(){
+        var par = $(this).val();
+        getTingkatan(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_jur', function(){
+        var par = $(this).val();
+        getJurusan(par);
     });
 
     $('#form-tambah').on('click', '#add-row', function(){
-        var no=$('#input-kkm .row-matpel:last').index();
+        var no=$('#input-kkm .row-kkm:last').index();
         no=no+2;
         var input = "";
         input += "<tr class='row-kkm'>";
@@ -808,9 +901,6 @@
                 var par2 = "nama_matpel[]";
 
             break;
-            case 'kode_status[]': 
-                var par2 = "nama_status[]";
-            break;
         }
 
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
@@ -900,65 +990,6 @@
         });
     }
 
-    function getStatusGuru(id,target1,target2,jenis){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/tarbak/getStatusGuru') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        if(jenis == 'change'){
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                        }else{
-
-                            $("#input-kkm td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
-
-                            $('.'+target1).closest('tr').find('.search-matpel').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
-                            $('.'+target1).hide();
-                            $('.td'+target1).show();
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                        }
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
-                    })
-                }
-                else{
-                    if(jenis == 'change'){
-
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }else{
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }
-                    alert('Kode akun tidak valid');
-                }
-            }
-        });
-    }
-
     $('.nav-control').on('click', '#copy-row', function(){
         if($(".selected-row").length != 1){
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
@@ -966,8 +997,7 @@
         }else{
             var kode_matpel = $('#input-kkm tbody tr.selected-row').find(".inp-matpel").val();
             var nama_matpel = $('#input-kkm tbody tr.selected-row').find(".inp-nmatpel").val();
-            var kode_status = $('#input-kkm tbody tr.selected-row').find(".inp-status").val();
-            var nama_status = $('#input-kkm tbody tr.selected-row').find(".inp-nstatus").val();
+            var kkm = $('#input-kkm tbody tr.selected-row').find(".inp-kkm").val();
             var no=$('#input-kkm .row-matpel:last').index();
             no=no+2;
             var input = "";
@@ -975,8 +1005,7 @@
             input += "<td class='no-matpel text-center'>"+no+"</td>";
             input += "<td ><span class='td-matpel tdmatpelke"+no+"'>"+kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+kode_matpel+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nmatpel tdnmmatpelke"+no+"'>"+nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmmatpelke"+no+" hidden'  value='"+nama_matpel+"' readonly></td>";
-            input += "<td><span class='td-status tdstatuske"+no+"'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nstatus tdnmstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nmstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
+            input += "<td><span class='td-kkm tdkkmke"+no+"'>"+kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+kkm+"' required></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-kkm tbody').append(input);
@@ -986,13 +1015,13 @@
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
-        var id = $('#nik_guru').val();
         var parameter = $('#id_edit').val();
+        var id = $('#kode_kkm').val();
         if(parameter == "edit"){
-            var url = "{{ url('/tarbak/postGuruMatpel') }}/"+id;
+            var url = "{{ url('/tarbak/postKkm') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('/tarbak/postGuruMatpel') }}";
+            var url = "{{ url('/tarbak/postKkm') }}";
             var pesan = "saved";
         }
 
@@ -1058,11 +1087,11 @@
         }).then((result) => {
             if (result.value) {
                 var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+                var temp = $(this).closest('tr').find('td').eq(4).html().split('-');
                 var kode_pp = temp[0]; 
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('tarbak/deleteGuruMatpel') }}/"+kode +"/"+ kode_pp,
+                    url: "{{ url('tarbak/deleteKkm') }}/"+kode +"/"+ kode_pp,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -1100,13 +1129,16 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tmp= $(this).closest('tr').find('td').eq(2).html();
+        var ta = $(this).closest('tr').find('td').eq(1).html();
+        var tingkat = $(this).closest('tr').find('td').eq(2).html();
+        var jur = $(this).closest('tr').find('td').eq(3).html();
+        var tmp= $(this).closest('tr').find('td').eq(4).html();
         var tmp = tmp.split("-");
         var kode_pp = tmp[0];
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{url('/tarbak/getGuruMatpel')}}/"+id+"/"+kode_pp,
+            url: "{{url('/tarbak/getKkm')}}/"+id+"/"+kode_pp,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1115,22 +1147,27 @@
                     console.log(result);
                     $('#id_edit').val('edit');
                     $('#method').val('put');
+                    $('#kode_kkm').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#nik_guru').val(result.data[0].nik_guru);
+                    $('#kode_ta').val(result.data[0].kode_ta);
+                    $('#kode_tingkat').val(result.data[0].kode_tingkat);
+                    $('#kode_jur').val(result.data[0].kode_jur);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     getLabelDataPP(kode_pp);
-                    getLabelNIKGuru(kode_pp,id);
+                    getLabelTahunAjaran(ta);
+                    getLabelTingkatan(tingkat);
+                    getLabelJurusan(jur);
                     if(res.data.data_detail.length > 0){
                         var input = '';
                         var no=1;
                         for(var i=0;i<result.data_detail.length;i++){
                             var line =result.data_detail[i];
+                            var kkm = line.kkm.slice(0,-2);
                             input += "<tr class='row-matpel'>";
                             input += "<td class='no-matpel text-center'>"+no+"</td>";
                             input += "<td ><span class='td-matpel tdmatpelke"+no+"'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nmatpel tdnmmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
-                            input += "<td ><span class='td-status tdstatuske"+no+"'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nstatus tdnmstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nmstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
+                            input += "<td><span class='td-kkm tdkkmke"+no+"'>"+kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+kkm+"' required></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
