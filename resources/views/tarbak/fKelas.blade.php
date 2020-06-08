@@ -374,7 +374,6 @@
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                console.log(json.data);
                 if(json.status){
                     return json.data;   
                 }else{
@@ -763,7 +762,9 @@
         var jurTemp = $(this).closest('tr').find('td').eq(3).html().split('|');
         var temp = $(this).closest('tr').find('td').eq(4).html().split('-');
         var kode_pp = temp[0];
-        var jur = temp[0]; 
+        var jur = jurTemp[0].trim(); 
+        console.log(jurTemp)
+        console.log(jur)
         $iconLoad.show();
         $.ajax({
             type: 'GET',
