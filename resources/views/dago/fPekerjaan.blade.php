@@ -71,13 +71,13 @@
                             </div>
                                 <div class="form-group row ">
 								    <label for="kode" class="col-3 col-form-label">Kode</label>
-                                    <div class="col-9">
+                                    <div class="col-3">
                                         <input class="form-control" type="text" placeholder="Kode Jenis Pekerjaan" id="id_pekerjaan" name="id_pekerjaan">
                                     </div>
                                 </div>
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
-                                <div class="col-9">
+                                <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
                                 </div>
                             </div>
