@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pekerjaan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Jenis Harga Promo Paket 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -55,7 +55,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pekerjaan
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Harga Promo Paket
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -72,7 +72,7 @@
                                 <div class="form-group row ">
 								    <label for="kode" class="col-3 col-form-label">Kode</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Kode Jenis Pekerjaan" id="id_pekerjaan" name="id_pekerjaan">
+                                        <input class="form-control" type="text" placeholder="Kode Jenis Harga" id="kode_harga" name="kode_harga">
                                     </div>
                                 </div>
                             <div class="form-group row">
@@ -111,11 +111,10 @@
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('dago-master/pekerjaan') }}",
+            'url': "{{ url('dago-master/jenis-harga') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                console.log(json);
                 if(json.status){
                     return json.daftar;   
                 }else{
@@ -134,7 +133,7 @@
             {'targets': 2, data: null, 'defaultContent': action_html }
             ],
         'columns': [
-            { data: 'id_pekerjaan' },
+            { data: 'kode_harga' },
             { data: 'nama' },
         ],
         dom: 'lBfrtip',
@@ -154,8 +153,8 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#id_pekerjaan').attr('readonly', false);
-        $('#id_pekerjaan').val('');
+        $('#kode_harga').attr('readonly', false);
+        $('#kode_harga').val('');
         $('#nama').val('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -172,10 +171,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('dago-master/pekerjaan') }}/"+id;
+            var url = "{{ url('dago-master/jenis-harga') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('dago-master/pekerjaan') }}";
+            var url = "{{ url('dago-master/jenis-harga') }}";
             var pesan = "saved";
         }
 
@@ -243,7 +242,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-master/pekerjaan') }}/"+id,
+                    url: "{{ url('dago-master/jenis-harga') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -284,7 +283,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/pekerjaan') }}/" + id,
+            url: "{{ url('dago-master/jenis-harga') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -293,8 +292,8 @@
                     console.log(result);
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#id_pekerjaan').attr('readonly', true);
-                    $('#id_pekerjaan').val(id);
+                    $('#kode_harga').attr('readonly', true);
+                    $('#kode_harga').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#row-id').show();
