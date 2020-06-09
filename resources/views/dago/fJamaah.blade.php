@@ -1,22 +1,34 @@
 
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data Jamaah 
+                        <h4 class="card-title" style="font-size:16px">Data Jamaah 
                         <button type="button" id="btn-jamaah-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <hr>
+                        <hr style="margin-bottom:0px;margin-top:25px">
                         <div class="table-responsive ">
                             <style>
                             th,td{
                                 padding:8px !important;
                                 vertical-align:middle !important;
                             }
-                            .form-group{
-                                margin-bottom:15px !important;
+                            .hidden{
+                                display:none;
                             }
+                            .form-group{
+                                margin-bottom:5px !important;
+                            }
+                            .form-control{
+                                font-size:13px !important;
+                                padding: .275rem .6rem !important;
+                            }
+                            .selectize-control, .selectize-dropdown{
+                                padding: 0 !important;
+                            }
+
                             </style>
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
@@ -47,6 +59,7 @@
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-jamaah-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
+                            <hr style="margin-bottom:0px;margin-top:25px">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -229,8 +242,8 @@
                                 <label class="col-3 col-form-label">Foto</label>
                                 <div class="input-group col-9">
                                     <div class="custom-file">
-                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar">
-                                        <label class="custom-file-label" for="file_gambar">Choose file</label>
+                                        <input type="file" name="foto" class="custom-file-input" id="foto">
+                                        <label class="custom-file-label" for="foto">Choose file</label>
                                     </div>
                                 </div>
                             </div>
@@ -296,42 +309,50 @@
             async:false,
             data: {'no_peserta':id},
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     $('#id').val('edit');
-                    $('#no_peserta').val(result.daftar[0].no_peserta);
-                    $('#id_peserta').val(result.daftar[0].id_peserta);
-                    $('#nama').val(result.daftar[0].nama);
-                    $('#tempat').val(result.daftar[0].tempat); 
-                    $('#tgl_lahir').val(result.daftar[0].tgl_lahir);
-                    $('#jk')[0].selectize.setValue(result.daftar[0].jk);
-                    $('#status')[0].selectize.setValue(result.daftar[0].status); 
-                    $('#ibu').val(result.daftar[0].ibu);
-                    $('#ayah').val(result.daftar[0].ayah);
-                    $('#alamat').val(result.daftar[0].alamat);
-                    $('#kode_pos').val(result.daftar[0].kode_pos); 
-                    $('#telp').val(result.daftar[0].telp);
-                    $('#hp').val(result.daftar[0].hp);
-                    $('#email').val(result.daftar[0].email);
-                    $('#pekerjaan')[0].selectize.setValue(result.daftar[0].pekerjaan);
-                    $('#bank').val(result.daftar[0].bank);
-                    $('#norek').val(result.daftar[0].norek);
-                    $('#cabang').val(result.daftar[0].cabang);
-                    $('#namarek').val(result.daftar[0].namarek);
-                    $('#nopass').val(result.daftar[0].nopass);
-                    $('#issued').val(result.daftar[0].issued);
-                    $('#ex_pass').val(result.daftar[0].ex_pass);
-                    $('#kantor_mig').val(result.daftar[0].kantor_mig);
-                    $('#ec_telp').val(result.daftar[0].ec_telp);
-                    $('#ec_hp').val(result.daftar[0].ec_hp);
-                    $('#sp')[0].selectize.setValue(result.daftar[0].sp); 
-                    $('#th_haji').val(result.daftar[0].th_haji);
-                    $('#th_umroh').val(result.daftar[0].th_umroh);
-                    $('#pendidikan').val(result.daftar[0].pendidikan);
-                    var html = "<img style='width:120px' src='https://api.simkug.com/api/dago-auth/storage/"+result.daftar[0].foto+"'>";
+                    $('#no_peserta').val(result.data.data[0].no_peserta);
+                    $('#id_peserta').val(result.data.data[0].id_peserta);
+                    $('#nama').val(result.data.data[0].nama);
+                    $('#tempat').val(result.data.data[0].tempat); 
+                    $('#tgl_lahir').val(result.data.data[0].tgl_lahir);
+                    $('#jk')[0].selectize.setValue(result.data.data[0].jk);
+                    $('#status')[0].selectize.setValue(result.data.data[0].status); 
+                    $('#ibu').val(result.data.data[0].ibu);
+                    $('#ayah').val(result.data.data[0].ayah);
+                    $('#alamat').val(result.data.data[0].alamat);
+                    $('#kode_pos').val(result.data.data[0].kode_pos); 
+                    $('#telp').val(result.data.data[0].telp);
+                    $('#hp').val(result.data.data[0].hp);
+                    $('#email').val(result.data.data[0].email);
+                    $('#pekerjaan')[0].selectize.setValue(result.data.data[0].pekerjaan);
+                    $('#bank').val(result.data.data[0].bank);
+                    $('#norek').val(result.data.data[0].norek);
+                    $('#cabang').val(result.data.data[0].cabang);
+                    $('#namarek').val(result.data.data[0].namarek);
+                    $('#nopass').val(result.data.data[0].nopass);
+                    $('#issued').val(result.data.data[0].issued);
+                    $('#ex_pass').val(result.data.data[0].ex_pass);
+                    $('#kantor_mig').val(result.data.data[0].kantor_mig);
+                    $('#ec_telp').val(result.data.data[0].ec_telp);
+                    $('#ec_hp').val(result.data.data[0].ec_hp);
+                    $('#sp')[0].selectize.setValue(result.data.data[0].sp); 
+                    $('#th_haji').val(result.data.data[0].th_haji);
+                    $('#th_umroh').val(result.data.data[0].th_umroh);
+                    $('#pendidikan').val(result.data.data[0].pendidikan);
+                    var html = "<img style='width:120px' src='"+result.data.data[0].foto+"'>";
                     $('.preview').html(html);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#form-tambah-jamaah').show();
+                } else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
                 }
             }
         });
@@ -347,55 +368,64 @@
             async:false,
             data: {'id_peserta':id},
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     if(id == ""){
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
-                    }else if (result.daftar.length == 0) {
+                    }else if (result.data.daftar.length == 0) {
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
                         $('#id_peserta').val(id);
-                    }else if (result.daftar[0].id_peserta=='') {
+                    }else if (result.data.daftar[0].id_peserta=='') {
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
                         $('#id_peserta').val(id);
                     }else{
                         $('#id').val('edit');
-                        $('#no_peserta').val(result.daftar[0].no_peserta);
-                        $('#id_peserta').val(result.daftar[0].id_peserta);
-                        $('#nama').val(result.daftar[0].nama);
-                        $('#tempat').val(result.daftar[0].tempat); 
-                        $('#tgl_lahir').val(result.daftar[0].tgl_lahir);
-                        $('#jk')[0].selectize.setValue(result.daftar[0].jk);
-                        $('#status')[0].selectize.setValue(result.daftar[0].status); 
-                        $('#ibu').val(result.daftar[0].ibu);
-                        $('#ayah').val(result.daftar[0].ayah);
-                        $('#alamat').val(result.daftar[0].alamat);
-                        $('#kode_pos').val(result.daftar[0].kode_pos); 
-                        $('#telp').val(result.daftar[0].telp);
-                        $('#hp').val(result.daftar[0].hp);
-                        $('#email').val(result.daftar[0].email);
-                        $('#pekerjaan')[0].selectize.setValue(result.daftar[0].pekerjaan);
-                        $('#bank').val(result.daftar[0].bank);
-                        $('#norek').val(result.daftar[0].norek);
-                        $('#cabang').val(result.daftar[0].cabang);
-                        $('#namarek').val(result.daftar[0].namarek);
-                        $('#nopass').val(result.daftar[0].nopass);
-                        $('#issued').val(result.daftar[0].issued);
-                        $('#ex_pass').val(result.daftar[0].ex_pass);
-                        $('#kantor_mig').val(result.daftar[0].kantor_mig);
-                        $('#ec_telp').val(result.daftar[0].ec_telp);
-                        $('#ec_hp').val(result.daftar[0].ec_hp);
-                        $('#sp')[0].selectize.setValue(result.daftar[0].sp); 
-                        $('#th_haji').val(result.daftar[0].th_haji);
-                        $('#th_umroh').val(result.daftar[0].th_umroh);
-                        $('#pendidikan').val(result.daftar[0].pendidikan);
-                        var html = "<img style='width:120px' src='https://api.simkug.com/api/dago-auth/storage/"+result.daftar[0].foto+"'>";
+                        $('#no_peserta').val(result.data.daftar[0].no_peserta);
+                        $('#id_peserta').val(result.data.daftar[0].id_peserta);
+                        $('#nama').val(result.data.daftar[0].nama);
+                        $('#tempat').val(result.data.daftar[0].tempat); 
+                        $('#tgl_lahir').val(result.data.daftar[0].tgl_lahir);
+                        $('#jk')[0].selectize.setValue(result.data.daftar[0].jk);
+                        $('#status')[0].selectize.setValue(result.data.daftar[0].status); 
+                        $('#ibu').val(result.data.daftar[0].ibu);
+                        $('#ayah').val(result.data.daftar[0].ayah);
+                        $('#alamat').val(result.data.daftar[0].alamat);
+                        $('#kode_pos').val(result.data.daftar[0].kode_pos); 
+                        $('#telp').val(result.data.daftar[0].telp);
+                        $('#hp').val(result.data.daftar[0].hp);
+                        $('#email').val(result.data.daftar[0].email);
+                        $('#pekerjaan')[0].selectize.setValue(result.data.daftar[0].pekerjaan);
+                        $('#bank').val(result.data.daftar[0].bank);
+                        $('#norek').val(result.data.daftar[0].norek);
+                        $('#cabang').val(result.data.daftar[0].cabang);
+                        $('#namarek').val(result.data.daftar[0].namarek);
+                        $('#nopass').val(result.data.daftar[0].nopass);
+                        $('#issued').val(result.data.daftar[0].issued);
+                        $('#ex_pass').val(result.data.daftar[0].ex_pass);
+                        $('#kantor_mig').val(result.data.daftar[0].kantor_mig);
+                        $('#ec_telp').val(result.data.daftar[0].ec_telp);
+                        $('#ec_hp').val(result.data.daftar[0].ec_hp);
+                        $('#sp')[0].selectize.setValue(result.data.daftar[0].sp); 
+                        $('#th_haji').val(result.data.daftar[0].th_haji);
+                        $('#th_umroh').val(result.data.daftar[0].th_umroh);
+                        $('#pendidikan').val(result.data.daftar[0].pendidikan);
+                        var html = "<img style='width:120px' src='https://api.simkug.com/api/dago-auth/storage/"+result.data.daftar[0].foto+"'>";
                         $('.preview').html(html);
                         $('#row-id').show();
                         $('#saku-datatable').hide();
                         $('#form-tambah-jamaah').show();
                     }
+                }
+                else if(result.data.status == "SUCCESS" && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
                 }
             }
         });
@@ -464,19 +494,29 @@
                     async:false,
                     data: {'no_peserta':kode},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status == "SUCCESS"){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
                                 'Your data has been deleted.',
                                 'success'
                             )
-                        }else{
+                        }
+                        else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('dago-auth/login') }}";
+                            })
+                        }
+                        else{
                             Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -516,7 +556,7 @@
             processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     // location.reload();
                     dataTable.ajax.reload();
                     Swal.fire(
@@ -527,12 +567,22 @@
                         $('#saku-datatable').show();
                         $('#form-tambah-jamaah').hide();
                         
-                }else{
+                }
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }
+                else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
             },
@@ -543,9 +593,9 @@
         
     });
 
-    $('#id_peserta,#nama,#tempat,#tgl_lahir,#jk,#status,#pendidikan,#ibu,#alamat,#kode_pos,#telp,#hp,#email,#pekerjaan,#bank,#norek,#cabang,#namarek,#nopass,#issued,#ex_pass,#kantor_mig,#ec_telp,#ec_hp,#sp,#th_haji,#th_umroh,#file_gambar').keydown(function(e){
+    $('#id_peserta,#nama,#tempat,#tgl_lahir,#jk,#status,#pendidikan,#ibu,#alamat,#kode_pos,#telp,#hp,#email,#pekerjaan,#bank,#norek,#cabang,#namarek,#nopass,#issued,#ex_pass,#kantor_mig,#ec_telp,#ec_hp,#sp,#th_haji,#th_umroh,#foto').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['id_peserta','nama','tempat','tgl_lahir','jk','status','ibu','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','file_gambar'];
+        var nxt = ['id_peserta','nama','tempat','tgl_lahir','jk','status','ibu','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
