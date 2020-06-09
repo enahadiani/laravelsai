@@ -302,7 +302,6 @@
         $('#form-tambah')[0].reset();
         $('#kode_ss').attr('readonly', false);
         $('#method').val('post');
-        $('#kode_akt').val('');
         $('#label_kode_pp').text('');
         $('#flag_aktif')[0].selectize.setValue('');
         $('#saku-datatable').hide();
