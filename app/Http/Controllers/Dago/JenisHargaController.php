@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class PekerjaanController extends Controller
+class JenisHargaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +33,7 @@ class PekerjaanController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pekerjaan',[
+            $response = $client->request('GET', $this->link.'jenis-harga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -57,19 +57,19 @@ class PekerjaanController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'id_pekerjaan' => 'required',
+            'kode_harga' => 'required',
             'nama' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'pekerjaan',[
+                $response = $client->request('POST', $this->link.'jenis-harga',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'id_pekerjaan' => $request->id_pekerjaan,
+                        'kode_harga' => $request->kode_harga,
                         'nama' => $request->nama,
                     ]
                 ]);
@@ -92,7 +92,7 @@ class PekerjaanController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pekerjaan?id_pekerjaan='.$id,
+            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -117,19 +117,19 @@ class PekerjaanController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'id_pekerjaan' => 'required',
+            'kode_harga' => 'required',
             'nama' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'pekerjaan?id_pekerjaan='.$id,[
+                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'id_pekerjaan' => $request->id_pekerjaan,
+                        'kode_harga' => $request->kode_harga,
                         'nama' => $request->nama,
                     ]
                 ]);
@@ -152,7 +152,7 @@ class PekerjaanController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'pekerjaan?id_pekerjaan='.$id,
+            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
