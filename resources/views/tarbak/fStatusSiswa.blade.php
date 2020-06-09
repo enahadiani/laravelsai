@@ -620,6 +620,7 @@
                     $('#kode_ss').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
                     $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     getLabelDataPP(kode_pp);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
