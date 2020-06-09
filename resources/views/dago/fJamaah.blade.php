@@ -276,6 +276,16 @@
                         }
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
     }
@@ -354,6 +364,16 @@
                         window.location.href = "{{ url('dago-auth/login') }}";
                     })
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
     });
@@ -425,6 +445,16 @@
                         icon: 'error'
                     }).then(function() {
                         window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
                     })
                 }
             }
@@ -519,6 +549,16 @@
                             footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {       
+                        if(jqXHR.status==422){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+jqXHR.responseText+'</a>'
+                            })
+                        }
                     }
                 });
                 
@@ -588,6 +628,16 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
         
