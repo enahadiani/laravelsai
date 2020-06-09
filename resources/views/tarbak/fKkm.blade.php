@@ -544,7 +544,6 @@
 
         function showFilter(param,target1,target2){
         var par = param;
-        var pp  = $('#kode_pp').val();
         var modul = '';
         var header = [];
         $target = target1;

@@ -41,6 +41,7 @@ Route::put('/postJurusan/{kode_jur}', 'Tarbak\JurusanController@update');
 Route::delete('/deleteJurusan/{kode_jur}/{kode_pp}', 'Tarbak\JurusanController@delete');
 
 Route::get('/getKelas', 'Tarbak\KelasController@index');
+Route::get('/getDataKelas', 'Tarbak\KelasController@getDataKelas');
 Route::get('/getKelas/{kode_jur}/{kode_pp}', 'Tarbak\KelasController@getKelas');
 Route::post('/postKelas', 'Tarbak\KelasController@save');
 Route::put('/postKelas/{kode_jur}', 'Tarbak\KelasController@update');
@@ -98,7 +99,7 @@ Route::put('/postKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\Ka
 Route::delete('/deleteKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@delete');
 
 Route::get('/getJadwalHarian', 'Tarbak\JadwalHarianController@index');
-Route::get('/getJadwal/{kode_pp}/{kode_ta1}/{kode_ta2}/{kode_kelas}/{nik}/{kode_matpel}', 'Tarbak\JadwalHarianController@getJadwal');
+Route::get('/getJadwalHarian/{kode_pp}/{kode_ta1}/{kode_ta2}/{kode_kelas}/{nik}/{kode_matpel}', 'Tarbak\JadwalHarianController@getJadwal');
 Route::get('/getKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@getKalAkad');
 Route::post('/postJadwalHarian', 'Tarbak\JadwalHarianController@save');
 Route::put('/postKalAkad/{kode_sem}/{kode_ta1}/{kode_ta2}/{kode_pp}', 'Tarbak\KalenderAkademikController@update');
