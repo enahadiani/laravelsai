@@ -57,6 +57,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSekolahRoutes();
         
         $this->mapMidtransRoutes();
+        
+        $this->mapDagoRoutes();
         //
     }
 
@@ -135,5 +137,34 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/midtrans.php'));
+    }
+
+    protected function mapDagoRoutes()
+    {
+        Route::prefix('dago-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dago/auth.php'));
+
+        Route::prefix('dago-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dago/dash.php'));
+    
+        Route::prefix('dago-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dago/master.php'));
+    
+        Route::prefix('dago-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dago/trans.php'));
+    
+        Route::prefix('dago-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dago/report.php'));
+   
     }
 }
