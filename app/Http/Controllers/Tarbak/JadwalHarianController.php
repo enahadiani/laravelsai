@@ -155,65 +155,65 @@
             }
         }
 
-        public function update(Request $request, $nik)
-        {
-            $this->validate($request, [
-                'kode_pp' => 'required',
-                'kode_ta' => 'required',
-                'kode_matpel' => 'required',
-                'nik_guru' => 'required',
-                'kode_kelas' => 'required',
-                'kode_slot' => 'required|array',
-                'senin'=>'required|array',
-                'selasa' => 'required|array',
-                'rabu'=>'required|array',
-                'kamis' => 'required|array',
-                'jumat'=>'required|array',
-                'sabtu' => 'required|array',
-                'minggu'=>'required|array'
-            ]);
+        // public function update(Request $request, $nik)
+        // {
+        //     $this->validate($request, [
+        //         'kode_pp' => 'required',
+        //         'kode_ta' => 'required',
+        //         'kode_matpel' => 'required',
+        //         'nik_guru' => 'required',
+        //         'kode_kelas' => 'required',
+        //         'kode_slot' => 'required|array',
+        //         'senin'=>'required|array',
+        //         'selasa' => 'required|array',
+        //         'rabu'=>'required|array',
+        //         'kamis' => 'required|array',
+        //         'jumat'=>'required|array',
+        //         'sabtu' => 'required|array',
+        //         'minggu'=>'required|array'
+        //     ]);
 
-            try{                
-                $fields = array (
-                    'kode_pp' => $request->kode_pp,
-                    'kode_ta' => $request->kode_ta,
-                    'kode_matpel' => $request->kode_matpel,
-                    'nik_guru' => $request->nik_guru,
-                    'kode_kelas' => $request->kode_kelas,
-                    'kode_slot'=>$request->kode_slot,
-                    'senin'=>$request->senin,
-                    'selasa'=>$request->selasa,
-                    'rabu'=>$request->rabu,
-                    'kamis'=>$request->kamis,
-                    'jumat'=>$request->jumat,
-                    'sabtu'=>$request->sabtu,
-                    'minggu'=>$request->minggu,
-                  );
+        //     try{                
+        //         $fields = array (
+        //             'kode_pp' => $request->kode_pp,
+        //             'kode_ta' => $request->kode_ta,
+        //             'kode_matpel' => $request->kode_matpel,
+        //             'nik_guru' => $request->nik_guru,
+        //             'kode_kelas' => $request->kode_kelas,
+        //             'kode_slot'=>$request->kode_slot,
+        //             'senin'=>$request->senin,
+        //             'selasa'=>$request->selasa,
+        //             'rabu'=>$request->rabu,
+        //             'kamis'=>$request->kamis,
+        //             'jumat'=>$request->jumat,
+        //             'sabtu'=>$request->sabtu,
+        //             'minggu'=>$request->minggu,
+        //           );
     
-                $client = new Client();
-                $response = $client->request('PUT', $this->link.'jadwal_harian',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json'
-                    ],
-                    'body' => json_encode($fields)
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+        //         $client = new Client();
+        //         $response = $client->request('PUT', $this->link.'jadwal_harian',[
+        //             'headers' => [
+        //                 'Authorization' => 'Bearer '.Session::get('token'),
+        //                 'Content-Type'     => 'application/json'
+        //             ],
+        //             'body' => json_encode($fields)
+        //         ]);
+        //         if ($response->getStatusCode() == 200) { // 200 OK
+        //             $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data["success"]], 200);  
-                }
-            } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['fields'] = $fields;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 200);
-            }
+        //             $data = json_decode($response_data,true);
+        //             return response()->json(['data' => $data["success"]], 200);  
+        //         }
+        //     } catch (BadResponseException $ex) {
+        //         $response = $ex->getResponse();
+        //         $res = json_decode($response->getBody(),true);
+        //         $data['message'] = $res['message'];
+        //         $data['fields'] = $fields;
+        //         $data['status'] = false;
+        //         return response()->json(['data' => $data], 200);
+        //     }
 
-        }
+        // }
 
     }
 
