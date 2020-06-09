@@ -16,6 +16,7 @@ class LaporanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $link = 'https://api.simkug.com/api/lapsaku/';
+    // public $link = 'http://localhost:8080/lumenapi/public/api/lapsaku/';
 
     public function __contruct(){
         if(!Session::get('login')){

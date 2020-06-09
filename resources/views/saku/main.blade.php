@@ -303,8 +303,6 @@
                 </div>
             </section>
             <script>
-               
-                var form ="{{ Session::get('dash') }}";
                 function loadForm(url){
                     $.ajax({
                         type: 'GET',
@@ -355,12 +353,6 @@
 
                 loadMenu();
 
-                
-                if(form !="" || form != "-"){
-                    loadForm("{{ url('saku/form') }}/"+form);
-                }
-
-                
                 $('.sidebar-nav').on('click','.a_link',function(e){
                     e.preventDefault();
                     var form = $(this).data('href');
@@ -371,6 +363,18 @@
                     }else{
                         loadForm(url);
 
+                    }
+                });
+
+                $(document).ready(function(){
+                    setTimeout(function(){
+                        alert('Session token telah habis, silahkan login kembali');
+                        window.location.href = "{{url('saku/logout')}}";
+                    }, 1000 * 60 * 60);
+
+                    var form ="{{ Session::get('dash') }}";
+                    if(form !="" || form != "-"){
+                        loadForm("{{ url('saku/form') }}/"+form);
                     }
                 });
             </script>

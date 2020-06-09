@@ -11,6 +11,7 @@ use GuzzleHttp\Exception\BadResponseException;
 class AuthController extends Controller
 {
     public $link = 'https://api.simkug.com/api/gl';
+    // public $link = 'http://localhost:8080/lumenapi/public/api/gl';
 
     public function index()
     {

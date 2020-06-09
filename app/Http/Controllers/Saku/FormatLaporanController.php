@@ -17,6 +17,7 @@ class FormatLaporanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $link = 'https://api.simkug.com/api/gl/';
+    // public $link = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){
