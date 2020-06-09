@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Session;
 Route::get('jamaah', 'Dago\JamaahController@index');
 Route::post('jamaah', 'Dago\JamaahController@store');
 Route::get('jamaah-detail', 'Dago\JamaahController@show');
+Route::get('jamaah-detail-id', 'Dago\JamaahController@showById');
 Route::post('jamaah-ubah','Dago\JamaahController@update');
 Route::delete('jamaah','Dago\JamaahController@destroy');
+
+Route::get('registrasi', 'Dago\RegistrasiController@index');
 
 
 

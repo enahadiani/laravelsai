@@ -192,6 +192,40 @@ class JamaahController extends Controller
         }
     }
 
+    public function showById(Request $request)
+    {
+        $this->validate($request, [
+            'id_peserta' => 'required'
+        ]);
+
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jamaah-detail-id?id_peserta='.$request->id_peserta,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'id_peserta' => $request->id_peserta
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = "FAILED";
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form class="form" id="form-tambah">
-                            <h4 class="card-title mb-2">Form Data Jamaah
+                            <h4 class="card-title mb-2" style="font-size:16px">Form Data Jamaah
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-jamaah-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -383,7 +383,7 @@
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/jamaah-detail') }}",
+            url: "{{ url('dago-trans/jamaah-detail-id') }}",
             dataType: 'json',
             async:false,
             data: {'id_peserta':id},
