@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('pekerjaan', 'Dago\PekerjaanController@index');
-
-
-
+Route::get('pekerjaan/{id}', 'Dago\PekerjaanController@getData');
+Route::post('pekerjaan', 'Dago\PekerjaanController@store');
+Route::put('pekerjaan/{id}', 'Dago\PekerjaanController@update');
+Route::delete('pekerjaan/{id}', 'Dago\PekerjaanController@delete');

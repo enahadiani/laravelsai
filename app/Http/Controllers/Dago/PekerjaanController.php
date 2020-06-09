@@ -55,5 +55,125 @@ class PekerjaanController extends Controller
         }
     }
 
+    public function store(Request $request) {
+        $this->validate($request, [
+            'id_pekerjaan' => 'required',
+            'nama' => 'required',
+        ]);
+
+        try {
+                $client = new Client();
+                $response = $client->request('POST', $this->link.'pekerjaan',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'id_pekerjaan' => $request->id_pekerjaan,
+                        'nama' => $request->nama,
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
+    public function getData($id) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'pekerjaan?id_pekerjaan='.$id,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function update(Request $request, $id) {
+        $this->validate($request, [
+            'id_pekerjaan' => 'required',
+            'nama' => 'required',
+        ]);
+
+        try {
+                $client = new Client();
+                $response = $client->request('PUT', $this->link.'pekerjaan?id_pekerjaan='.$id,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'id_pekerjaan' => $request->id_pekerjaan,
+                        'nama' => $request->nama,
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
+    public function delete($id) {
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'pekerjaan?id_pekerjaan='.$id,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
+    }
    
 }
