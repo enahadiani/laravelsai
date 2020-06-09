@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('jamaah', 'Dago\JamaahController@index');
 Route::post('jamaah', 'Dago\JamaahController@store');
 Route::get('jamaah-detail', 'Dago\JamaahController@show');
-Route::put('jamaah-ubah','Dago\JamaahController@update');
+Route::post('jamaah-ubah','Dago\JamaahController@update');
 Route::delete('jamaah','Dago\JamaahController@destroy');
 
 

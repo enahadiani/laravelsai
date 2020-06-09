@@ -68,7 +68,7 @@ class JamaahController extends Controller
             'nama' => 'required',
             'tempat' => 'required',
             'tgl_lahir' => 'required|date_format:Y-m-d',
-            'jk' => 'required|in:P,L',
+            'jk' => 'required|in:Perempuan,Laki-laki',
             'status' => 'required|in:-,Menikah,Belum Menikah',
             'ibu' => 'required',
             'ayah' => 'required',
@@ -96,106 +96,58 @@ class JamaahController extends Controller
         ]);
             
         try{
-            
-            // if($request->hasfile('foto')){
-            //     $image_path = $request->file('foto')->getPathname();
-            //     $image_mime = $request->file('foto')->getmimeType();
-            //     $image_org  = $request->file('foto')->getClientOriginalName();
-            //     $fields = [
-            //         [
-            //             'name' => 'nik',
-            //             'contents' => $request->nik,
-            //         ],
-            //         [
-            //             'name' => 'nama',
-            //             'contents' => $request->nama,
-            //         ],
-            //         [
-            //             'name' => 'kode_pp',
-            //             'contents' => $request->kode_pp,
-            //         ],
-            //         [
-            //             'name' => 'kode_jab',
-            //             'contents' => $request->kode_jab,
-            //         ],
-            //         [
-            //             'name' => 'no_telp',
-            //             'contents' => $request->no_telp,
-            //         ],
-            //         [
-            //             'name' => 'email',
-            //             'contents' => $request->email,
-            //         ],
-            //         [
-            //             'name'     => 'foto',
-            //             'filename' => $image_org,
-            //             'Mime-Type'=> $image_mime,
-            //             'contents' => fopen( $image_path, 'r' ),
-            //         ]
-            //     ];
-                
-            // }else{
-            //     $fields = [
-            //         [
-            //             'name' => 'nik',
-            //             'contents' => $request->nik,
-            //         ],
-            //         [
-            //             'name' => 'nama',
-            //             'contents' => $request->nama,
-            //         ],
-            //         [
-            //             'name' => 'kode_pp',
-            //             'contents' => $request->kode_pp,
-            //         ],
-            //         [
-            //             'name' => 'kode_jab',
-            //             'contents' => $request->kode_jab,
-            //         ],
-            //         [
-            //             'name' => 'no_telp',
-            //             'contents' => $request->no_telp,
-            //         ],
-            //         [
-            //             'name' => 'email',
-            //             'contents' => $request->email,
-            //         ]
-            //     ];
-            // }
+            if($request->hasfile('foto'))
+            {
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto');
+            }else{
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh');
+            }
 
-            // $client = new Client();
-            // $response = $client->request('POST', $this->link.'jamaah',[
-            //     'headers' => [
-            //         'Authorization' => 'Bearer '.Session::get('token'),
-            //         'Accept'     => 'application/json',
-            //     ],
-            //     'multipart' => $fields
-            // ]);
-            
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
-                
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data["success"]], 200);  
-            // }
             $req = $request->all();
-            return response()->json(['data' => $req], 200);
             $fields = array();
-            // if(count($req) > 0){
-
-            //     for($i=0;$i<count($req);$i++){
-            //         $fields_data[$i] = array(
-            //             'name'     => '',
-            //             'contents' => $req,
-            //         );
-            //     }
-            //     $send_data = array_merge($fields,$fields_data);
-            // }
+            $data = array();
+            for($i=0;$i<count($name);$i++){
+                if($name[$i] == "foto"){
+                    $image_path = $request->file('foto')->getPathname();
+                    $image_mime = $request->file('foto')->getmimeType();
+                    $image_org  = $request->file('foto')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                }else{
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]],
+                    );    
+                }
+                $data[$i] = $name[$i];
+            }
+           
+            $fields = array_merge($fields,$fields_data);
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'jamaah',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
-            $data['status'] = false;
+            $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
     }
@@ -206,7 +158,7 @@ class JamaahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
         $this->validate($request, [
             'no_peserta' => 'required'
@@ -214,7 +166,7 @@ class JamaahController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah-detail?no_jamaah='.$request->no_peserta,[
+            $response = $client->request('GET', $this->link.'jamaah-detail?no_peserta='.$request->no_peserta,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -228,14 +180,14 @@ class JamaahController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
-            $data['status'] = false;
+            $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
     }
@@ -259,87 +211,77 @@ class JamaahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nik)
+    public function update(Request $request)
     {
         $this->validate($request, [
+            'no_peserta' => 'required',
+            'id_peserta' => 'required',
             'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'tempat' => 'required',
+            'tgl_lahir' => 'required|date_format:Y-m-d',
+            'jk' => 'required|in:Perempuan,Laki-laki',
+            'status' => 'required|in:-,Menikah,Belum Menikah',
+            'ibu' => 'required',
+            'ayah' => 'required',
+            'alamat' => 'required',
+            'kode_pos' => 'required',
+            'telp' => 'required',
+            'hp' => 'required',
+            'email' => 'required|email',
+            'pekerjaan' => 'required',
+            'bank' => 'required',
+            'norek' => 'required',
+            'cabang' => 'required',
+            'namarek' => 'required',
+            'nopass' => 'required',
+            'issued' => 'required|date_format:Y-m-d',
+            'ex_pass' => 'required|date_format:Y-m-d',
+            'kantor_mig' => 'required',
+            'ec_telp' => 'required',
+            'ec_hp' => 'required',
+            'sp' => 'required',
+            'th_haji' => 'required',
+            'th_umroh' => 'required',
+            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048',
+            'pendidikan' => 'required'
         ]);
 
         try{
 
-            if($request->hasfile('file_gambar')){
-                $image_path = $request->file('file_gambar')->getPathname();
-                $image_mime = $request->file('file_gambar')->getmimeType();
-                $image_org  = $request->file('file_gambar')->getClientOriginalName();
-                $fields = [
-                    [
-                        'name' => 'nik',
-                        'contents' => $request->nik,
-                    ],
-                    [
-                        'name' => 'nama',
-                        'contents' => $request->nama,
-                    ],
-                    [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
-                    ],
-                    [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
-                    ],
-                    [
-                        'name' => 'no_telp',
-                        'contents' => $request->no_telp,
-                    ],
-                    [
-                        'name' => 'email',
-                        'contents' => $request->email,
-                    ],
-                    [
-                        'name'     => 'foto',
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen( $image_path, 'r' ),
-                    ]
-                    ];
-                
+            if($request->hasfile('foto'))
+            {
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto');
             }else{
-                $fields = [
-                    [
-                        'name' => 'nik',
-                        'contents' => $request->nik,
-                    ],
-                    [
-                        'name' => 'nama',
-                        'contents' => $request->nama,
-                    ],
-                    [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
-                    ],
-                    [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
-                    ],
-                    [
-                        'name' => 'no_telp',
-                        'contents' => $request->no_telp,
-                    ],
-                    [
-                        'name' => 'email',
-                        'contents' => $request->email,
-                    ]
-                ];
+                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh');
             }
 
+            $req = $request->all();
+            $fields = array();
+            $data = array();
+            for($i=0;$i<count($name);$i++){
+                if($name[$i] == "foto"){
+                    $image_path = $request->file('foto')->getPathname();
+                    $image_mime = $request->file('foto')->getmimeType();
+                    $image_org  = $request->file('foto')->getClientOriginalName();
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen($image_path, 'r' ),
+                    );
+                }else{
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $req[$name[$i]],
+                    );    
+                }
+                $data[$i] = $name[$i];
+            }
+           
+            $fields = array_merge($fields,$fields_data);
+            
             $client = new Client();
-            $response = $client->request('POST', $this->link.'karyawan/'.$nik,[
+            $response = $client->request('POST', $this->link.'jamaah-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -351,13 +293,13 @@ class JamaahController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"]], 200);  
+                return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
+            $data['message'] = $res;
+            $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
 
@@ -379,13 +321,13 @@ class JamaahController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jamaah?no_jamaah='.$request->no_peserta,[
+            $response = $client->request('DELETE', $this->link.'jamaah?no_peserta='.$request->no_peserta,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_jamaah' => $request->no_peserta
+                    'no_peserta' => $request->no_peserta
                 ]
             ]);
 
@@ -400,7 +342,7 @@ class JamaahController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
-            $data['status'] = false;
+            $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
     
