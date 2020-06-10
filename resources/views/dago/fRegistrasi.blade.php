@@ -65,7 +65,7 @@
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
                                 </div>
                             </div>
-                            <div class="form-group row mt-5">
+                            <div class="form-group row mt-2">
                                 <label for="tgl_input" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" id="tgl_input" name="tgl_input" required value="{{ date('Y-m-d')}}">
@@ -386,7 +386,7 @@
                             <div class="form-group row">
                                 <label for="upload_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="upload_tgl_terima" name="upload_tgl_terima" required value='<?=date('Y-m-d')?>'>
+                                    <input class="form-control" type="date" id="upload_tgl_terima" name="upload_tgl_terima" required value="{{ date('Y-m-d') }}">
                                 </div>
                             </div>
                             
@@ -477,7 +477,7 @@
                             <div class="form-group row">
                                 <label for="group_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="group_tgl_terima" name="group_tgl_terima" required value='<?=date('Y-m-d')?>'>
+                                    <input class="form-control" type="date" id="group_tgl_terima" name="group_tgl_terima" required value="{{ date('Y-m-d') }}">
                                 </div>
                             </div>
                             
@@ -562,7 +562,1243 @@
             { data: 'nama_paket' },
             { data: 'tgl_berangkat' },
             { data: 'action'}
-        ]
+        ],
+        "columnDefs": [ {
+            "targets": 6,
+            "data": null,
+            "render": function ( data, type, row, meta ) {
+                if(row.flag_group == "1"){
+                    if("{{ Session::get('userLog') }}" == "U"){
+                        return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;<a href='#' title='Grouping Anggota' class='badge badge-primary' id='btn-group'><i class='fas fa-user-plus' style='color: white;'></i></a>";
+                    }else{
+                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;<a href='#' title='Grouping Anggota' class='badge badge-primary' id='btn-group'><i class='fas fa-user-plus' style='color: white;'></i></a>";
+                    }
+                }else{
+                    if("{{ Session::get('userLog') }}" == "U"){
+                        return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                    }else{
+                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                    }
+                }
+            }
+        }]
     });
+
+    var jadwal = $('#jadwal').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            setQuota();
+        }
+    });
+    $('#paket').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            var id = $('#paket')[0].selectize.getValue();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('dago-trans/jadwal-detail') }}",
+                dataType: 'json',
+                async:false,
+                data: {'no_paket':id},
+                success:function(result){    
+                    var select = jadwal[0];
+                    var control = select.selectize;
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined'){
+                            for(i=0;i<result.daftar.length;i++){
+                                control.addOption([{text:result.daftar[i].no_jadwal + ' - ' + result.daftar[i].tgl_berangkat, value:result.daftar[i].no_jadwal}]);
+                            }
+                            
+                        }
+                    }
+                    setHarga();
+                    setQuota();
+                }
+            });
+        }
+    });
+
+    function getPaket(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-master/paket') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#paket').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_paket + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_paket}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#agen').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            var id = $('#agen')[0].selectize.getValue();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('dago-trans/no-marketing') }}",
+                dataType: 'json',
+                async:false,
+                data: {'no_agen':id},
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.marketing !== 'undefined'){
+                               
+                            $('#marketing')[0].selectize.setValue(result.marketing);
+                            
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    function getAgen(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-master/agen') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#agen').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_agen + ' - ' + result.daftar[i].nama_agen, value:result.daftar[i].no_agen}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getPeserta(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/jamaah') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#no_peserta').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_peserta + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_peserta}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getMarketing(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-master/marketing') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#marketing').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_marketing + ' - ' + result.daftar[i].nama_marketing, value:result.daftar[i].no_marketing}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getPP(){
+        $.ajax({
+            type: 'GET',
+            url:"{{ url('dago-trans/pp') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                        }
+                        if(result.kodePP != undefined || result.kodePP != ""){
+                            control.setValue(result.kodePP);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#flag_group').selectize();
+    $('#jenis_promo').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            setHarga();
+            setQuota()
+        }
+    });
+
+
+    $('#jenis_paket').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            setHarga();
+            setQuota()
+        }
+    });
+
+    function getJenisPromo(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-master/jenis_harga') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#jenis_promo').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].kode_harga + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_harga}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#type_room').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            setHargaRoom();
+        }
+    });
+
+    function getRoom(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-master/type_room') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#type_room').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_type + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_type}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function setHarga(){
+        var no_paket = $('#paket')[0].selectize.getValue();
+        var jpaket = $('#jenis_promo')[0].selectize.getValue();
+        var jenis = $('#jenis_paket')[0].selectize.getValue();
+        $.ajax({
+            type: 'GET',
+            url:"{{ url('dago-trans/harga') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_paket':no_paket,'jpaket':jpaket,'jenis':jenis},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.harga !== 'undefined'){
+                        $('#harga_paket').val(result.harga);
+                    }
+                }
+            }
+        });
+    }
+
+    function setHargaRoom(){
+        var type_room = $('#type_room')[0].selectize.getValue();
+        var kode_curr = $('#kode_curr').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/harga_room') }}",
+            dataType: 'json',
+            async:false,
+            data: {'type_room':type_room,'kode_curr':kode_curr},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.harga_room !== 'undefined'){
+                        $('#harga_room').val(result.harga_room);
+                    }
+                }
+            }
+        });
+    }
+
+    function setQuota(){
+        var no_paket = $('#paket')[0].selectize.getValue();
+        var jpaket = $('#jenis_promo')[0].selectize.getValue();
+        var jenis = $('#jenis_paket')[0].selectize.getValue();
+        var jadwal = $('#jadwal')[0].selectize.getValue();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/quota') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_paket':no_paket,'jpaket':jpaket,'jenis':jenis,'jadwal':jadwal},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.tgl_berangkat !== 'undefined'){
+                        $('#tgl_berangkat').val(result.tgl_berangkat);
+                    }
+                    if(typeof result.kode_curr !== 'undefined'){
+                        $('#kode_curr').val(result.kode_curr);
+                    }
+                    if(typeof result.lama_hari !== 'undefined'){
+                        $('#lama_hari').val(result.lama_hari);
+                    }
+                    if(typeof result.quota !== 'undefined'){
+                        $('#quota').val(result.quota);
+                    }
+                }
+            }
+        });
+    }
+
+    function getBTambah(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/biaya_tambahan') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(result.daftar.length > 0){
+                        var html ='';
+                        var no=1;
+                        for(var i=0;i<result.daftar.length;i++){
+                            var line =result.daftar[i];
+                            html+=`<tr class='row-btambah'>
+                            <td width='5%' class='no-btambah'>`+no+`</td>
+                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp(line.nilai)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.nilai+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='0' required></td>
+                            <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='0' required></td>
+                            </tr>`;
+                            no++;
+                        }
+                        $('#table-btambah tbody').html(html);
+                        $('.currency').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function getBDok(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/biaya_dokumen') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(result.daftar.length > 0){
+                        var html ='';
+                        var no=1;
+                        for(var i=0;i<result.daftar.length;i++){
+                            var line =result.daftar[i];
+                            html+=`<tr class='row-bdok'>
+                            <td width='5%' class='no-bdok'>`+no+`</td>
+                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp(line.nilai)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.nilai+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='0' required></td>
+                            <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='0' required></td>
+                            </tr>`;
+                            no++;
+                        }
+                        $('#table-bdok tbody').html(html);
+                        $('.currency2').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    function getDokumen(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/masterdokumen') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(result.daftar.length > 0){
+                        var html ='';
+                        var no=1;
+                        for(var i=0;i<result.daftar.length;i++){
+                            var line =result.daftar[i];
+                            html+=`<tr class='row-dok'>
+                            <td width='5%' class='no-dok'>`+no+`</td>
+                            <td width='10%'>`+line.no_dokumen+`<input type='hidden' name='dok_no_dokumen[]' class='form-control inp-dok_no_dokumen' value='`+line.no_dokumen+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.deskripsi+`<input type='hidden' name='dok_deskripsi[]' class='form-control inp-dok_deskripsi'  value='`+line.deskripsi+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+line.jenis+`<input type='hidden' name='dok_jenis[]' class='form-control inp-dok_jenis'  value='`+line.jenis+`' required readonly></td>
+                            </tr>`;
+                            no++;
+                        }
+                        $('#table-dok tbody').html(html);
+                    }
+                }
+            }
+        });
+    }
+
+    $('#sumber').selectize();
+    $('#ukuran_pakaian').selectize();
+    $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
+        $('#row-id').hide();
+        $('#form-tambah')[0].reset();
+        $('#id').val('0');
+        $('#dFile').hide();
+        $('#saku-data-reg').hide();
+        $('#form-tambah-reg').show();
+    });
+
+    $('#saku-data-reg').on('click','#btn-print',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        printReg(id);
+    });
+
+    $('#form-tambah-reg').on('click', '#btn-reg-kembali', function(){
+        $('#saku-data-reg').show();
+        $('#form-tambah-reg').hide();
+        $('#slide-history').hide();
+    });
+
+    $('#form-tambah-reg').on('change', '#tgl_input', function(){
+        var tgl = $('#tgl_input').val();
+        var per = tgl.substr(0,4)+''+tgl.substr(5,2);
+        $('#periode').val(per);
+    });
+
+    $('#form-tambah-reg').on('submit', '#form-tambah', function(e){
+    e.preventDefault();
+        var parameter = $('#id').val();
+        var total = $('#total').val();
+        if(total == 0){
+            alert('Total pengajuan tidak boleh 0');
+        }else{
+            // tambah
+            $iconLoad.show();
+            console.log('parameter:tambah');
+            var formData = new FormData(this);
+            for(var pair of formData.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                }
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('dago-trans/registrasi') }}",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.status){
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Great Job!',
+                            'Your data has been saved.'+result.message,
+                            'success'
+                            )
+                        printReg(result.no_reg);
+                        $iconLoad.hide();
+                        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.message+'</a>'
+                        })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });   
+        }     
+    });
+
+    $('#slide-print').on('click', '#btn-reg-kembali', function(){
+        $('#saku-data-reg').show();
+        $('#form-tambah-reg').hide();
+        $('#slide-print').hide();
+    });
+
+    $('#saku-data-reg').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+       
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/registrasi') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_reg':id},
+            success:function(result){
+                if(result.status){
+                    $('#id').val('edit');
+                    $('#no_reg').val(id);
+                    $('#tgl_input').val(result.daftar[0].tgl_input);
+                    $('#paket')[0].selectize.setValue(result.daftar[0].no_paket);
+                    $('#jadwal')[0].selectize.setValue(result.daftar[0].no_jadwal);
+                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
+                    $('#jenis_paket')[0].selectize.setValue(result.daftar[0].jenis);
+                    $('#jenis_promo')[0].selectize.setValue(result.daftar[0].kode_harga);
+                    $('#quota').val(result.daftar[0].no_quota);
+                    $('#lama_hari').val(result.daftar[0].lama_hari);
+                    $('#kode_curr').val(result.daftar[0].kode_curr);
+                    $('#harga_paket').val(result.daftar[0].harga);
+                    $('#type_room')[0].selectize.setValue(result.daftar[0].no_type);
+                    $('#harga_room').val(result.daftar[0].harga_room);
+                    $('#tgl_berangkat').val(result.daftar[0].tgl_berangkat);
+                    $('#no_peserta')[0].selectize.setValue(result.daftar[0].no_peserta);
+                    // $('#no_peserta_ref')[0].selectize.setValue(result.daftar[0].no_peserta_ref);
+                    $('#referal').val(result.daftar[0].referal);
+                    $('#brkt_dgn').val(result.daftar[0].brkt_dgn);
+                    $('#hubungan').val(result.daftar[0].hubungan);
+                    $('#ket_diskon').val(result.daftar[0].ket_diskon);
+
+                    $('#flag_group')[0].selectize.setValue(result.daftar[0].flag_group);
+                    $('#ukuran_pakaian')[0].selectize.setValue(result.daftar[0].uk_pakaian);
+                    $('#agen')[0].selectize.setValue(result.daftar[0].no_agen);
+                    $('#marketing')[0].selectize.setValue(result.daftar[0].no_marketing);
+                    $('#sumber')[0].selectize.setValue(result.daftar[0].info);
+                    $('#diskon').val(result.daftar[0].diskon);
+                    // $('#tot_tambah').val(toRp(result.daftar[0].total_tambah));
+                    // $('#tot_dokumen').val(toRp(result.daftar[0].total_dokumen));
+
+                    var input="";
+                    var no=1;
+                    var tot=0;
+                    if(result.daftar2.length>0){
+                        for(var x=0;x<result.daftar2.length;x++){
+                            var line = result.daftar2[x];
+                            input+=`<tr class='row-btambah'>
+                            <td width='5%' class='no-btambah'>`+no+`</td>
+                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.tarif+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='`+line.jml+`' required></td>
+                            <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='`+line.nilai+`' required></td>
+                            </tr>`;
+                            no++;
+                            tot+=parseFloat(line.nilai);
+                        }
+                    }
+                    $('#tot_tambah').val(tot);
+                    var no=1;
+                    var input2='';
+                    var tot2=0;
+                    if(result.daftar3.length>0){
+                        for(var i=0;i< result.daftar3.length;i++){
+                            var line = result.daftar3[i];
+                            input2+=`<tr class='row-bdok'>
+                            <td width='5%' class='no-bdok'>`+no+`</td>
+                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.tarif+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
+                            <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
+                            </tr>`;
+                            no++;
+                            
+                            tot2+=parseFloat(line.nilai);
+                        }
+                    }
+                    
+                    $('#tot_dokumen').val(tot2);
+                    var no=1;
+                    var input3='';
+                    if(result.daftar4.length>0){
+                        for(var i=0;i< result.daftar4.length;i++){
+                            var line = result.daftar4[i];
+                            input3+=`<tr class='row-dok'>
+                            <td width='5%' class='no-dok'>`+no+`</td>
+                            <td width='10%'>`+line.no_dok+`<input type='hidden' name='dok_no_dokumen[]' class='form-control inp-dok_no_dokumen' value='`+line.no_dok+`' readonly></td>
+                            <td width='35%' style='text-align:right'>`+line.ket+`<input type='hidden' name='dok_deskripsi[]' class='form-control inp-dok_deskripsi'  value='`+line.ket+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+line.jenis+`<input type='hidden' name='dok_jenis[]' class='form-control inp-dok_jenis'  value='`+line.jenis+`' required readonly></td>
+                            </tr>`;
+                            no++;
+                        }
+                    }
+
+                    $('#table-btambah tbody').html(input);
+                    $('#table-bdok tbody').html(input2);
+                    $('#table-dok tbody').html(input3);
+                    $('.currency').inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        oncleared: function () { self.Value(''); }
+                    });
+                    $('.currency2').inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        oncleared: function () { self.Value(''); }
+                    });
+                    // hitungTambah();
+                    // hitungDok();
+                    $('#saku-data-reg').hide();
+                    $('#form-tambah-reg').show();
+                }
+            }
+        });
+    });
+
+    $('#saku-data-reg').on('click','#btn-print',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        printReg(id);
+    });
+
+    
+    $('#saku-data-reg').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();     
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('dago-trans/registrasi') }}",
+                    dataType: 'json',
+                    async:false,
+                    data: {'no_reg':kode},
+                    success:function(result){
+                        if(result.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
+    });
+
+    $('#table-btambah').on('keydown', '.inp-btambah_jumlah', function(e){
+        if (e.which == 13 || e.which == 9) {
+            // hitungTambah();
+            var nil = $(this).closest('tr').find('.inp-btambah_nilai').val();
+            var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
+            var sub = toNilai(nil)*toNilai(jum);
+            $(this).closest('tr').find('.inp-btambah_total').val(sub);
+            hitungTambah2();
+
+        }
+    });
+
+    $('#table-btambah').on('change', '.inp-btambah_jumlah', function(e){
+        e.preventDefault();
+        // hitungTambah();
+            var nil = $(this).closest('tr').find('.inp-btambah_nilai').val();
+            var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
+            var sub = toNilai(nil)*toNilai(jum);
+            $(this).closest('tr').find('.inp-btambah_total').val(sub);
+            hitungTambah2();
+    });
+
+    $('#table-btambah').on('keydown', '.inp-btambah_total', function(e){
+        if (e.which == 13 || e.which == 9) {
+            hitungTambah2();
+        }
+    });
+
+    $('#table-btambah').on('change', '.inp-btambah_total', function(e){
+        e.preventDefault();
+        hitungTambah2();
+    });
+
+    $('#table-bdok').on('keydown', '.inp-bdok_jumlah', function(e){
+        if (e.which == 13 || e.which == 9) {
+            // hitungDok();
+            var nil = $(this).closest('tr').find('.inp-bdok_nilai').val();
+            var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
+            var sub = toNilai(nil)*toNilai(jum);
+            $(this).closest('tr').find('.inp-bdok_total').val(sub);
+            hitungDok2();
+        }
+    });
+
+    $('#table-bdok').on('change', '.inp-bdok_jumlah', function(e){
+        e.preventDefault();
+        // hitungDok();
+        // console.log($(this).val());
+        var nil = $(this).closest('tr').find('.inp-bdok_nilai').val();
+        var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
+        var sub = toNilai(nil)*toNilai(jum);
+        $(this).closest('tr').find('.inp-bdok_total').val(sub);
+        hitungDok2();
+    });
+   
+
+    $('#table-bdok').on('keydown', '.inp-bdok_total', function(e){
+        if (e.which == 13 || e.which == 9) {
+            hitungDok2();
+        }
+    });
+
+    $('#table-bdok').on('change', '.inp-bdok_total', function(e){
+        e.preventDefault();
+        hitungDok2();
+    });
+   
+
+    $('#no_ktp,#nama_wali,#alamat,#no_telp,#nis,#nama_siswa,#tgl_bayar').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['no_ktp','nama_wali','alamat','no_telp','nis','nama_siswa','tgl_bayar'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+           
+            $('#'+nxt[idx]).focus();
+            
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
+    });
+
+    $('#slide-print').on('click','#btn-reg-print',function(e){
+        e.preventDefault();
+        $('#print-area').printThis();
+    });
+
+
+    function printReg(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/registrasi-preview') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_reg':id},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var line =result.daftar[0];
+                        var html=`<div align='center'>
+                        <table width='100%' class='table table-bordered table-striped' cellspacing='1' cellpadding='2'>
+                        <style>
+                            th,td{
+                                padding:5px !important;
+                            }
+                        </style>
+                        <tr>
+                        <td colspan='2' align='center' style='font-weight:bold;'>FORMULIR PENDAFTARAN UMROH </td>
+                        </tr>
+                        <tr>
+                        <td colspan='2'>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td colspan='2' style='font-weight:bold;'>DATA PRIBADI </td>
+                        </tr>
+                        <tr>
+                        <td width='30%' style='font-weight:bold;'>NO REGISTRASI </td>
+                        <td width='70%'>:&nbsp;`+line.no_reg+`</td>
+                        </tr>
+                        <tr>
+                        <td width='30%' style='font-weight:bold;'>NO PESERTA </td>
+                        <td width='70%'>:&nbsp;`+line.no_peserta+`</td>
+                        </tr>
+                        <tr>
+                        <td width='30%' style='font-weight:bold;'>NAMA LENGKAP </td>
+                        <td width='70%'>:&nbsp;`+line.peserta+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>NO ID CARD </td>
+                        <td>:&nbsp;`+line.id_peserta+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>STATUS</td>
+                        <td>:&nbsp;`+line.status+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>JENIS KELAMIN </td>
+                        <td>:&nbsp;`+line.jk+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>TEMPAT &amp; TGL LAHIR </td>
+                        <td>:&nbsp;`+line.tempat+` `+line.tgl_lahir+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>BERANGKAT DENGAN </td>
+                        <td>:&nbsp;`+line.brkt_dgn+`<br> Hubungan : `+line.hubungan+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>PERNAH UMROH / HAJI </td>
+                        <td>:&nbsp;`+line.th_umroh+`/`+line.th_haji+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>PEKERJAAN</td>
+                        <td>:&nbsp;`+line.nama_pekerjaan+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>NO PASSPORT </td>
+                        <td>:&nbsp;`+line.nopass+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>KANTOR IMIGRASI </td>
+                        <td>:&nbsp;`+line.kantor_mig+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold'>HP</td>
+                        <td>:&nbsp;`+line.hp+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>TELEPON</td>
+                        <td>:&nbsp;`+line.telp+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>EMAIL</td>
+                        <td>:&nbsp;`+line.email+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>ALAMAT</td>
+                        <td>:&nbsp;`+line.alamat+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>NO EMERGENCY </td>
+                        <td>:&nbsp;`+line.ec_telp+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>MARKETING</td>
+                        <td>:&nbsp;`+line.nama_marketing+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>AGEN</td>
+                        <td>:&nbsp;`+line.nama_agen+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>REFERAL</td>
+                        <td>&nbsp;`+line.referal+`</td>
+                        </tr>
+                        <tr>
+                        <td colspan='2'>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td colspan='2' style='font-weight:bold;'>DATA KELANGKAPAN PERJALANAN </td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>PAKET</td>
+                        <td>:&nbsp;`+line.namapaket+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>PROGRAM UMROH / HAJI </td>
+                        <td>:&nbsp;`+line.jenis_paket+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>TYPE ROOM </td>
+                        <td>:&nbsp;`+line.type+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>BIAYA PAKET </td>
+                        <td>:&nbsp;`+toRp(line.harga)+`</td>
+                        </tr>
+                        <tr>
+                            <td style='font-weight:bold;'>BIAYA ROOM </td>
+                            <td>:&nbsp;`+sepNum(line.harga_room)+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>DISKON</td>
+                        <td>:&nbsp;`+toRp(line.diskon)+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>TGL KEBERANGKATAN </td>
+                        <td>:&nbsp;`+line.tgl_berangkat+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>UKURAN PAKAIAN </td>
+                        <td>:&nbsp;`+line.uk_pakaian+`</td>
+                        </tr>
+                        <tr>
+                        <td style='font-weight:bold;'>SUMBER INFORMASI </td>
+                        <td>:&nbsp;`+line.info+`</td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td align='center'>Calon Jamaah</td>
+                        <td align='center'>MO</td>
+                        </tr>
+                        <tr>
+                        <td height='60'>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                        <td style='text-align:center'>(..............................................)</td>
+                        <td style='text-align:center'>(..............................................)</td>
+                        </tr>
+                        </table>
+                        </div>
+                        
+                        <br><DIV style='page-break-after:always'></DIV>`;
+                        $('#print-area').html(html);
+                        $('#slide-print').show();
+                        $('#saku-data-reg').hide();
+                        $('#form-tambah-reg').hide();
+                    }
+                }
+            }
+        });
+    }
+
+    // UPLOAD DOKUMEN
+    $('#form-upload-reg').on('click', '#btn-upload-kembali', function(){
+        $('#saku-data-reg').show();
+        $('#form-tambah-reg').hide();
+        $('#form-upload-reg').hide();
+    });
+    
+    $('#saku-data-reg').on('click','#btn-upload',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/upload-dok') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_reg':id},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var line = result.daftar[0];
+                        $('#upload_no_reg').val(line.no_reg);
+                        $('#upload_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
+                        $('#upload_paket').val(line.nama_paket);
+                        $('#upload_jadwal').val(line.tgl_berangkat);
+                        $('#upload_alamat').val(line.alamat);
+                        if(typeof result.daftar2 !== 'undefined' && result.daftar2.length>0){
+                            var html='';
+                            var no=1;
+                            for(var i=0;i<result.daftar2.length;i++){
+                                var line2 = result.daftar2[i];
+                                
+                                html+= `<tr class='row-upload-dok'>"
+                                <td width='5%'  class='no-dok'>`+no+`</td>
+                                <td width='10%' >`+line2.no_dokumen+`<input type='hidden' name='upload_no_dokumen[]' class='form-control upload_no_dokumen' value='`+line2.no_dokumen+`' required></td>
+                                <td width='20%'  class='upload_deskripsi'>`+line2.deskripsi+`</td>
+                                <td width='20%'  class='upload_path'>`+line2.fileaddres+`</td>
+                                <td width='20%' ><input type='text' name='upload_nik[]' class='form-control upload_nik' value='`+line2.nik+`' required></td>`;
+                                if(line2.fileaddres == "-" || line2.fileaddres == ""){
+
+                                    html+=`
+                                    <td width='20%'>
+                                    <input type='file' name='file_dok[]'>
+                                    </td>`;
+
+                                }else{
+                                    
+                                    html+=`
+                                    <td width='20%'>
+                                    <input type='file' name='file_dok[]'>
+                                    </td>`;
+                                }
+                                html+=`
+                                <td width='5%'>`;
+                                if(line2.fileaddres != "-"){
+
+                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+line2.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>`;
+                                   
+                                }else{
+                                    var link =``;
+                                }
+                                html+=link+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                            $('#input-dok tbody').html(html);
+                        }
+                        $('#form-upload-reg').show();
+                        $('#saku-data-reg').hide();
+                        $('#form-tambah-reg').hide();
+                    }
+
+                    
+                }
+            }
+        });
+    });
+
+    $('#form-upload-reg').on('submit', '#form-tambah', function(e){
+    e.preventDefault();
+        var parameter = $('#id').val();
+        $iconLoad.show();
+        console.log('parameter:tambah');
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dago-trans/upload-dok') }}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been saved.'+result.message,
+                        'success'
+                        )
+                        $iconLoad.hide();
+                        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.message+'</a>'
+                        })
+                    }
+                    $('#form-upload-reg').hide();
+                    $('#saku-data-reg').show();
+                    $('#form-tambah-reg').hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });      
+    });
+
+    // GROUPING ANGGOTA
+
+    function getAnggota(param){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/jamaah') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var select = $('.'+param).selectize();
+                        select = select[0];
+                        var control = select.selectize;
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_peserta + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_peserta}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    $('#form-group-reg').on('click', '#btn-group-kembali', function(){
+        $('#saku-data-reg').show();
+        $('#form-tambah-reg').hide();
+        $('#form-upload-reg').hide();
+        $('#form-group-reg').hide();
+    });
+
+    $('#input-anggota').on('click', '.hapus-item', function(){
+        $(this).closest('tr').hide();
+        no=1;
+        $('.row-anggota').each(function(){
+            var nom = $(this).closest('tr').find('.no-anggota');
+            nom.html(no);
+            no++;
+        });
+        $(this).closest('tr').find('.group_sts_reg').val('D');
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#form-group-reg').on('click', '#add-row-anggota', function(){
+      
+      var no=$('#input-anggota .row-anggota:last').index();
+      no=no+2;
+      var input = "";
+      input += "<tr class='row-anggota'>";
+      input += "<td width='5%' class='no-anggota'>"+no+"</td>";
+      input += "<td width='60%'><select name='group_no_anggota[]' class='form-control group-anggota ke"+no+"' value='' required></select><input type='hidden' class='form-control group_sts_reg' name='group_sts_reg[]' value='0'><input type='hidden' name='no_reg_ref[]' class='group_no_reg_ref' value=''></td>";
+      input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+      input += "</tr>";
+      $('#input-anggota tbody').append(input);
+      getAnggota('ke'+no);
+      $('#input-anggota tbody tr:last').find('.group-anggota')[0].selectize.focus();
+  });
+    
+    $('#saku-data-reg').on('click','#btn-group',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/registrasi-group') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_reg':id},
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var line = result.daftar[0];
+                        $('#group_no_reg').val(line.no_reg);
+                        $('#group_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
+                        $('#group_paket').val(line.nama_paket);
+                        $('#group_jadwal').val(line.tgl_berangkat);
+                        $('#group_alamat').val(line.alamat);
+                        $('#input-anggota tbody').html('');
+                        if(typeof result.daftar2 !== 'undefined' && result.daftar2.length>0){
+                            var no=1;
+                            var input='';
+                            for(var i=0;i<result.daftar2.length;i++){
+                                var line2 = result.daftar2[i];
+                                input += "<tr class='row-anggota'>";
+                                input += "<td width='5%' class='no-anggota'>"+no+"</td>";
+                                input += "<td width='60%'><select name='group_no_anggota[]' class='form-control group-anggota ke"+no+"' value='' required></select><input type='hidden' name='group_sts_reg[]' class='group_sts_reg' value='1'><input type='hidden' name='no_reg_ref[]' class='group_no_reg_ref' value='"+line2.no_reg_ref+"'></td>";
+                                input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                            $('#input-anggota tbody').html(input);
+                            var no=1;
+                            for(var x=0;x<result.daftar2.length;x++){
+                                var line = result.daftar2[x];
+                                getAnggota('ke'+no);
+                                $('.ke'+no)[0].selectize.setValue(line.no_peserta);
+                                no++;
+                            }
+                        }
+                        
+                        $('#form-group-reg').show();
+                        $('#form-upload-reg').hide();
+                        $('#saku-data-reg').hide();
+                        $('#form-tambah-reg').hide();
+                    }
+
+                    
+                }
+            }
+        });
+    });
+
+    $('#form-group-reg').on('submit', '#form-tambah', function(e){
+    e.preventDefault();
+        var parameter = $('#id').val();
+        $iconLoad.show();
+        console.log('parameter:tambah');
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dago-trans/registrasi-group') }}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been saved.'+result.message,
+                        'success'
+                        )
+                        $iconLoad.hide();
+                        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.message+'</a>'
+                        })
+                    }
+                    $('#form-group-reg').hide();
+                    $('#form-upload-reg').hide();
+                    $('#saku-data-reg').show();
+                    $('#form-tambah-reg').hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });      
+    });
+
     </script>
     
