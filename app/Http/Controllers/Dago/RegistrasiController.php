@@ -18,6 +18,13 @@ class RegistrasiController extends Controller
      */
     public $link = 'https://api.simkug.com/api/dago-trans/';
 
+    public function joinNum($num){
+        // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+        $num = str_replace(".", "", $num);
+        $num = str_replace(",", ".", $num);
+        return $num;
+    }
+
     public function __contruct(){
         if(!Session::get('login')){
             return redirect('dago-auth/login')->with('alert','Session telah habis !');
@@ -64,77 +71,121 @@ class RegistrasiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_peserta' => 'required',
-            'nama' => 'required',
-            'tempat' => 'required',
-            'tgl_lahir' => 'required|date_format:Y-m-d',
-            'jk' => 'required|in:Perempuan,Laki-laki',
-            'status' => 'required|in:-,Menikah,Belum Menikah',
-            'ibu' => 'required',
-            'ayah' => 'required',
-            'alamat' => 'required',
-            'kode_pos' => 'required',
-            'telp' => 'required',
-            'hp' => 'required',
-            'email' => 'required|email',
-            'pekerjaan' => 'required',
-            'bank' => 'required',
-            'norek' => 'required',
-            'cabang' => 'required',
-            'namarek' => 'required',
-            'nopass' => 'required',
-            'issued' => 'required|date_format:Y-m-d',
-            'ex_pass' => 'required|date_format:Y-m-d',
-            'kantor_mig' => 'required',
-            'ec_telp' => 'required',
-            'ec_hp' => 'required',
-            'sp' => 'required',
-            'th_haji' => 'required',
-            'th_umroh' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048',
-            'pendidikan' => 'required'
+            'periode2' => 'required',
+            'paket' => 'required',
+            'jadwal' => 'required|integer',
+            'no_peserta' => 'required',
+            'agen' => 'required',
+            'type_room' => 'required',
+            'harga_room' => 'required',
+            'sumber' => 'required',
+            'quota' => 'required',
+            'harga_paket' => 'required',
+            'ukuran_pakaian' => 'required|in:S,XS,L,2L,3L,4L,5L,6L,7L,8L,9L,10L',
+            'marketing' => 'required',
+            'jenis_promo' => 'required',
+            'jenis_paket' => 'required',
+            'kode_pp2' => 'required',
+            'diskon' => 'required',
+            'flag_group' => 'required',
+            'brkt_dgn' => 'required',
+            'hubungan' => 'required',
+            'referal' => 'required',
+            'ket_diskon' => 'required',
+            'dok_no_dokumen' => 'required|array',
+            'dok_deskripsi' => 'required|array',
+            'dok_jenis' => 'required|array',
+            'btambah_kode_biaya' => 'required|array',
+            'btambah_nilai' => 'required|array',
+            'btambah_jumlah' => 'required|array',
+            'btambah_total' => 'required|array',
+            'bdok_kode_biaya' => 'required|array',
+            'bdok_nilai' => 'required|array',
+            'bdok_jumlah' => 'required|array',
+            'bdok_total' => 'required|array'
         ]);
             
         try{
-            if($request->hasfile('foto'))
-            {
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto');
-            }else{
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh');
+            $dokumen = array();
+            if(isset($request->dok_no_dokumen)){
+                $no_dokumen = $request->dok_no_dokumen;
+                $deskripsi = $request->dok_deskripsi;
+                $jenis = $request->dok_jenis;
+                for($i=0;$i<count($no_dokumen);$i++){
+                    $dokumen[] = array(
+                        'no_dokumen' => $no_dokumen[$i],
+                        'deskripsi' => $deskripsi[$i],
+                        'jenis' => $jenis[$i]
+                    );
+                }
             }
 
-            $req = $request->all();
-            $fields = array();
-            $data = array();
-            for($i=0;$i<count($name);$i++){
-                if($name[$i] == "foto"){
-                    $image_path = $request->file('foto')->getPathname();
-                    $image_mime = $request->file('foto')->getmimeType();
-                    $image_org  = $request->file('foto')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
+            $biaya_tambahan = array();
+            if(isset($request->btambah_kode_biaya)){
+                $kode_biaya = $request->btambah_kode_biaya;
+                $nilai = $request->btambah_nilai;
+                $jumlah = $request->btambah_jumlah;
+                $total = $request->btambah_total;
+                for($i=0;$i<count($kode_biaya);$i++){
+                    $biaya_tambahan[] = array(
+                        'kode_biaya' => $kode_biaya[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i])
                     );
-                }else{
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );    
                 }
-                $data[$i] = $name[$i];
             }
-           
-            $fields = array_merge($fields,$fields_data);
-            
+
+            $biaya_dokumen = array();
+            if(isset($request->bdok_kode_biaya)){
+                $kode_biaya = $request->bdok_kode_biaya;
+                $nilai = $request->bdok_nilai;
+                $jumlah = $request->bdok_jumlah;
+                $total = $request->bdok_total;
+                for($i=0;$i<count($kode_biaya);$i++){
+                    $biaya_dokumen[] = array(
+                        'kode_biaya' => $kode_biaya[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i])
+                    );
+                }
+            }
+
+            $fields = array (
+                'periode' => $request->periode2,
+                'paket' => $request->paket,
+                'jadwal' => $request->jadwal,
+                'no_peserta' => $request->no_peserta,
+                'agen' => $request->agen,
+                'type_room' => $request->type_room,
+                'harga_room' => $this->joinNum($request->harga_room),
+                'sumber' => $request->sumber,
+                'quota' => $this->joinNum($request->quota),
+                'harga_paket' => $this->joinNum($request->harga_paket),
+                'ukuran_pakaian' => $request->ukuran_pakaian,
+                'marketing' => $request->marketing,
+                'jenis_promo' => $request->jenis_promo,
+                'jenis_paket' => $request->jenis_paket,
+                'kode_pp' => $request->kode_pp2,
+                'diskon' => $this->joinNum($request->diskon),
+                'flag_group' => $request->flag_group,
+                'berangkat_dengan' => $request->brkt_dgn,
+                'hubungan' => $request->hubungan,
+                'referal' => $request->referal,
+                'ket_diskon' => $request->ket_diskon,
+                'dokumen'=>$dokumen,
+                'biaya_tambahan'=>$biaya_tambahan,
+                'biaya_dokumen'=>$biaya_dokumen
+            );
+    
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jamaah',[
+            $response = $client->request('POST', $this->link.'registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
+                    'Content-Type'     => 'application/json'
                 ],
-                'multipart' => $fields
+                'body' => json_encode($fields)
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -143,6 +194,8 @@ class RegistrasiController extends Controller
                 $data = json_decode($response_data,true);
                 return response()->json(['data' => $data], 200);  
             }
+            
+            // return response()->json(['data' => $fields], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -161,18 +214,18 @@ class RegistrasiController extends Controller
     public function show(Request $request)
     {
         $this->validate($request, [
-            'no_peserta' => 'required'
+            'no_reg' => 'required'
         ]);
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah-detail?no_peserta='.$request->no_peserta,[
+            $response = $client->request('GET', $this->link.'registrasi-detail?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_peserta' => $request->no_peserta
+                    'no_reg' => $request->no_reg
                 ]
             ]);
 
@@ -191,41 +244,6 @@ class RegistrasiController extends Controller
             return response()->json(['data' => $data], 200);
         }
     }
-
-    public function showById(Request $request)
-    {
-        $this->validate($request, [
-            'id_peserta' => 'required'
-        ]);
-
-        try{
-            $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah-detail-id?id_peserta='.$request->id_peserta,[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'id_peserta' => $request->id_peserta
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data;
-            }
-            return response()->json(['data' => $data], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = "FAILED";
-            return response()->json(['data' => $data], 200);
-        }
-    }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -248,79 +266,125 @@ class RegistrasiController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
+            'periode2' => 'required',
+            'no_reg' => 'required',
+            'paket' => 'required',
+            'jadwal' => 'required|integer',
             'no_peserta' => 'required',
-            'id_peserta' => 'required',
-            'nama' => 'required',
-            'tempat' => 'required',
-            'tgl_lahir' => 'required|date_format:Y-m-d',
-            'jk' => 'required|in:Perempuan,Laki-laki',
-            'status' => 'required|in:-,Menikah,Belum Menikah',
-            'ibu' => 'required',
-            'ayah' => 'required',
-            'alamat' => 'required',
-            'kode_pos' => 'required',
-            'telp' => 'required',
-            'hp' => 'required',
-            'email' => 'required|email',
-            'pekerjaan' => 'required',
-            'bank' => 'required',
-            'norek' => 'required',
-            'cabang' => 'required',
-            'namarek' => 'required',
-            'nopass' => 'required',
-            'issued' => 'required|date_format:Y-m-d',
-            'ex_pass' => 'required|date_format:Y-m-d',
-            'kantor_mig' => 'required',
-            'ec_telp' => 'required',
-            'ec_hp' => 'required',
-            'sp' => 'required',
-            'th_haji' => 'required',
-            'th_umroh' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048',
-            'pendidikan' => 'required'
+            'agen' => 'required',
+            'type_room' => 'required',
+            'harga_room' => 'required',
+            'sumber' => 'required',
+            'quota' => 'required',
+            'harga_paket' => 'required',
+            'ukuran_pakaian' => 'required|in:S,XS,L,2L,3L,4L,5L,6L,7L,8L,9L,10L',
+            'marketing' => 'required',
+            'jenis_promo' => 'required',
+            'jenis_paket' => 'required',
+            'kode_pp2' => 'required',
+            'diskon' => 'required',
+            'flag_group' => 'required',
+            'brkt_dgn' => 'required',
+            'hubungan' => 'required',
+            'referal' => 'required',
+            'ket_diskon' => 'required',
+            'dok_no_dokumen' => 'required|array',
+            'dok_deskripsi' => 'required|array',
+            'dok_jenis' => 'required|array',
+            'btambah_kode_biaya' => 'required|array',
+            'btambah_nilai' => 'required|array',
+            'btambah_jumlah' => 'required|array',
+            'btambah_total' => 'required|array',
+            'bdok_kode_biaya' => 'required|array',
+            'bdok_nilai' => 'required|array',
+            'bdok_jumlah' => 'required|array',
+            'bdok_total' => 'required|array'
         ]);
 
         try{
 
-            if($request->hasfile('foto'))
-            {
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh','foto');
-            }else{
-                $name = array('id','no_peserta','id_peserta','nama','tempat','tgl_lahir','jk','status','pendidikan','ibu','ayah','alamat','kode_pos','telp','hp','email','pekerjaan','bank','norek','cabang','namarek','nopass','issued','ex_pass','kantor_mig','ec_telp','ec_hp','sp','th_haji','th_umroh');
+            $dokumen = array();
+            if(isset($request->dok_no_dokumen)){
+                $no_dokumen = $request->dok_no_dokumen;
+                $deskripsi = $request->dok_deskripsi;
+                $jenis = $request->dok_jenis;
+                for($i=0;$i<count($no_dokumen);$i++){
+                    $dokumen[] = array(
+                        'no_dokumen' => $no_dokumen[$i],
+                        'deskripsi' => $deskripsi[$i],
+                        'jenis' => $jenis[$i]
+                    );
+                }
             }
 
-            $req = $request->all();
-            $fields = array();
-            $data = array();
-            for($i=0;$i<count($name);$i++){
-                if($name[$i] == "foto"){
-                    $image_path = $request->file('foto')->getPathname();
-                    $image_mime = $request->file('foto')->getmimeType();
-                    $image_org  = $request->file('foto')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
+            $biaya_tambahan = array();
+            if(isset($request->btambah_kode_biaya)){
+                $kode_biaya = $request->btambah_kode_biaya;
+                $nilai = $request->btambah_nilai;
+                $jumlah = $request->btambah_jumlah;
+                $total = $request->btambah_total;
+                for($i=0;$i<count($kode_biaya);$i++){
+                    $biaya_tambahan[] = array(
+                        'kode_biaya' => $kode_biaya[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i])
                     );
-                }else{
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );    
                 }
-                $data[$i] = $name[$i];
             }
-           
-            $fields = array_merge($fields,$fields_data);
-            
+
+            $biaya_dokumen = array();
+            if(isset($request->bdok_kode_biaya)){
+                $kode_biaya = $request->bdok_kode_biaya;
+                $nilai = $request->bdok_nilai;
+                $jumlah = $request->bdok_jumlah;
+                $total = $request->bdok_total;
+                for($i=0;$i<count($kode_biaya);$i++){
+                    $biaya_dokumen[] = array(
+                        'kode_biaya' => $kode_biaya[$i],
+                        'nilai' => $this->joinNum($nilai[$i]),
+                        'jumlah' => $this->joinNum($jumlah[$i]),
+                        'total' => $this->joinNum($total[$i])
+                    );
+                }
+            }
+
+            $fields = array (
+                'periode' => $request->periode2,
+                'no_reg' => $request->no_reg,
+                'paket' => $request->paket,
+                'jadwal' => $request->jadwal,
+                'no_peserta' => $request->no_peserta,
+                'agen' => $request->agen,
+                'type_room' => $request->type_room,
+                'harga_room' => $this->joinNum($request->harga_room),
+                'sumber' => $request->sumber,
+                'quota' => $this->joinNum($request->quota),
+                'harga_paket' => $this->joinNum($request->harga_paket),
+                'ukuran_pakaian' => $request->ukuran_pakaian,
+                'marketing' => $request->marketing,
+                'jenis_promo' => $request->jenis_promo,
+                'jenis_paket' => $request->jenis_paket,
+                'kode_pp' => $request->kode_pp2,
+                'diskon' => $this->joinNum($request->diskon),
+                'flag_group' => $request->flag_group,
+                'berangkat_dengan' => $request->brkt_dgn,
+                'hubungan' => $request->hubungan,
+                'referal' => $request->referal,
+                'ket_diskon' => $request->ket_diskon,
+                'dokumen'=>$dokumen,
+                'biaya_tambahan'=>$biaya_tambahan,
+                'biaya_dokumen'=>$biaya_dokumen
+            );
+
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jamaah-ubah',[
+            $response = $client->request('PUT', $this->link.'registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                    'Content-Type'     => 'application/json'
                 ],
-                'multipart' => $fields
+                'body' => json_encode($fields)
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -329,6 +393,8 @@ class RegistrasiController extends Controller
                 $data = json_decode($response_data,true);
                 return response()->json(['data' => $data], 200);  
             }
+            
+            // return response()->json(['data' => $fields], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -350,18 +416,18 @@ class RegistrasiController extends Controller
     {
 
         $this->validate($request, [
-            'no_peserta' => 'required'
+            'no_reg' => 'required'
         ]);
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jamaah?no_peserta='.$request->no_peserta,[
+            $response = $client->request('DELETE', $this->link.'registrasi?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_peserta' => $request->no_peserta
+                    'no_reg' => $request->no_reg
                 ]
             ]);
 

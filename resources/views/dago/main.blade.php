@@ -260,7 +260,7 @@
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
-                                <a href="{{url('saku/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="{{url('dago-auth/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                                 <!-- text-->
                             </div>
                         </li>

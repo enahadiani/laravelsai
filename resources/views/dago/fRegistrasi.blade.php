@@ -42,7 +42,7 @@
                             }
 
                             </style>
-                            <table id="table-reg" class="table table-bordered table-striped">
+                            <table id="table-reg" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No Registrasi</th>
@@ -73,6 +73,7 @@
                             <button type="button" class="btn btn-secondary ml-2" id="btn-reg-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr style="margin-bottom:0px;margin-top:25px">
+                            <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
@@ -713,7 +714,7 @@
                 data: {'no_agen':id},
                 success:function(result){  
                     
-                    $('#marketing')[0].selectize.clearOptions();  
+                    $('#marketing')[0].selectize.setValue('');  
                     if(result.data.status == "SUCCESS"){
                         if(typeof result.data.marketing !== 'undefined'){
                                
@@ -775,18 +776,6 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                // var select = $('#no_peserta').selectize();
-                // select = select[0];
-                // var control = select.selectize;
-                // control.clearOptions(); 
-                // if(result.status){
-                //     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                //         for(i=0;i<result.daftar.length;i++){
-                //             control.addOption([{text:result.daftar[i].no_peserta + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_peserta}]);
-                //         }
-                //     }
-                // }
-
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.data.data !== 'undefined' && result.data.data.length>0){
                          $('#no_peserta').val(result.data.data[0].no_peserta);
@@ -1218,7 +1207,7 @@
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp(line.nilai)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.nilai+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.nilai)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+toRp2(line.nilai)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='0' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='0' required></td>
                             </tr>`;
@@ -1266,7 +1255,7 @@
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp(line.nilai)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.nilai+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.nilai)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.nilai)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='0' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='0' required></td>
                             </tr>`;
@@ -1334,6 +1323,44 @@
             }
         });
     }
+
+    function hitungTotal(){
+        $('#total').val(0);
+        total= 0;
+        $('.row-tgh').each(function(){
+            var sub = toNilai($(this).closest('tr').find('.inp-nil').val());
+            var this_val = sub;
+            total += +this_val;
+            
+            $('#total').val(sepNum(total));
+        });
+    }
+
+    function hitungTambah2(){
+        $('#tot_tambah').val(0);
+        // var diskon= $('#diskon').val();
+        total= 0;
+        $('.row-btambah').each(function(){
+            var tmp = $(this).closest('tr').find('.inp-btambah_total').val();
+            var sub = toNilai(tmp);
+            total += +sub;
+            
+        });
+        var tot=total;
+        $('#tot_tambah').val(sepNum(tot));
+    }
+
+    function hitungDok2(){
+        $('#tot_dokumen').val(0);
+        total= 0;
+        $('.row-bdok').each(function(){
+            var tmp = $(this).closest('tr').find('.inp-bdok_total').val();
+            var sub = toNilai(tmp)
+            total += +sub;
+            
+            $('#tot_dokumen').val(sepNum(total));
+        });
+    }
     // getPeserta();
     getPP();
     getPaket();
@@ -1350,6 +1377,7 @@
         getBDok();
         getDokumen();
         $('#id').val('0');
+        $('#method').val('post');
         $('#dFile').hide();
         $('#saku-data-reg').hide();
         $('#form-tambah-reg').show();
@@ -1375,10 +1403,22 @@
     $('#form-tambah-reg').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var total = $('#total').val();
+        if(parameter == '0'){
+            var url = "{{ url('dago-trans/registrasi') }}";
+            var pesan = "saved";
+        }else{            
+            var url = "{{ url('dago-trans/registrasi') }}";
+            var pesan = "updated";
+        }
+        var total = parseInt($('#total').val());
+        var quota = parseInt($('#quota').val());
         if(total == 0){
             alert('Total pengajuan tidak boleh 0');
-        }else{
+        }
+        else if(quota == 0){
+            alert('Quota tidak boleh 0');
+        }
+        else{
             // tambah
             $iconLoad.show();
             console.log('parameter:tambah');
@@ -1388,7 +1428,7 @@
                 }
             $.ajax({
                 type: 'POST',
-                url: "{{ url('dago-trans/registrasi') }}",
+                url: url,
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -1396,29 +1436,41 @@
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    if(result.status){
+                    if(result.data.status == "SUCCESS"){
                         dataTable.ajax.reload();
                         Swal.fire(
                             'Great Job!',
-                            'Your data has been saved.'+result.message,
+                            'Your data has been '+pesan+'.'+result.data.message,
                             'success'
                             )
-                        printReg(result.no_reg);
-                        $iconLoad.hide();
-                        
+                        printReg(result.data.no_reg);                        
                     }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
+                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
+                    $iconLoad.hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {   
+                    if(jqXHR.status == 422){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }
+                    $iconLoad.hide();
                 }
             });   
+            // $iconLoad.hide();
         }     
     });
 
@@ -1457,54 +1509,55 @@
        
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/registrasi') }}",
+            url: "{{ url('dago-trans/registrasi-detail') }}",
             dataType: 'json',
             async:false,
             data: {'no_reg':id},
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     $('#id').val('edit');
+                    $('#method').val('put');
                     $('#no_reg').val(id);
-                    $('#tgl_input').val(result.daftar[0].tgl_input);
-                    $('#paket')[0].selectize.setValue(result.daftar[0].no_paket);
-                    $('#jadwal')[0].selectize.setValue(result.daftar[0].no_jadwal);
-                    $('#kode_pp')[0].selectize.setValue(result.daftar[0].kode_pp);
-                    $('#jenis_paket')[0].selectize.setValue(result.daftar[0].jenis);
-                    $('#jenis_promo')[0].selectize.setValue(result.daftar[0].kode_harga);
-                    $('#quota').val(result.daftar[0].no_quota);
-                    $('#lama_hari').val(result.daftar[0].lama_hari);
-                    $('#kode_curr').val(result.daftar[0].kode_curr);
-                    $('#harga_paket').val(result.daftar[0].harga);
-                    $('#type_room')[0].selectize.setValue(result.daftar[0].no_type);
-                    $('#harga_room').val(result.daftar[0].harga_room);
-                    $('#tgl_berangkat').val(result.daftar[0].tgl_berangkat);
-                    $('#no_peserta')[0].selectize.setValue(result.daftar[0].no_peserta);
-                    // $('#no_peserta_ref')[0].selectize.setValue(result.daftar[0].no_peserta_ref);
-                    $('#referal').val(result.daftar[0].referal);
-                    $('#brkt_dgn').val(result.daftar[0].brkt_dgn);
-                    $('#hubungan').val(result.daftar[0].hubungan);
-                    $('#ket_diskon').val(result.daftar[0].ket_diskon);
+                    $('#tgl_input').val(result.data.data[0].tgl_input);
+                    $('#paket')[0].selectize.setValue(result.data.data[0].no_paket);
+                    $('#jadwal')[0].selectize.setValue(result.data.data[0].no_jadwal);
+                    $('#kode_pp')[0].selectize.setValue(result.data.data[0].kode_pp);
+                    $('#jenis_paket')[0].selectize.setValue(result.data.data[0].jenis);
+                    $('#jenis_promo')[0].selectize.setValue(result.data.data[0].kode_harga);
+                    $('#quota').val(result.data.data[0].no_quota);
+                    $('#lama_hari').val(result.data.data[0].lama_hari);
+                    $('#kode_curr').val(result.data.data[0].kode_curr);
+                    $('#harga_paket').val(result.data.data[0].harga);
+                    $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
+                    $('#harga_room').val(result.data.data[0].harga_room);
+                    $('#tgl_berangkat').val(result.data.data[0].tgl_berangkat);
+                    $('#no_peserta').val(result.data.data[0].no_peserta);
+                    // $('#no_peserta_ref')[0].selectize.setValue(result.data.data[0].no_peserta_ref);
+                    $('#referal').val(result.data.data[0].referal);
+                    $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
+                    $('#hubungan').val(result.data.data[0].hubungan);
+                    $('#ket_diskon').val(result.data.data[0].ket_diskon);
 
-                    $('#flag_group')[0].selectize.setValue(result.daftar[0].flag_group);
-                    $('#ukuran_pakaian')[0].selectize.setValue(result.daftar[0].uk_pakaian);
-                    $('#agen')[0].selectize.setValue(result.daftar[0].no_agen);
-                    $('#marketing')[0].selectize.setValue(result.daftar[0].no_marketing);
-                    $('#sumber')[0].selectize.setValue(result.daftar[0].info);
-                    $('#diskon').val(result.daftar[0].diskon);
-                    // $('#tot_tambah').val(toRp(result.daftar[0].total_tambah));
-                    // $('#tot_dokumen').val(toRp(result.daftar[0].total_dokumen));
+                    $('#flag_group')[0].selectize.setValue(result.data.data[0].flag_group);
+                    $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].uk_pakaian);
+                    $('#agen')[0].selectize.setValue(result.data.data[0].no_agen);
+                    $('#marketing')[0].selectize.setValue(result.data.data[0].no_marketing);
+                    $('#sumber')[0].selectize.setValue(result.data.data[0].info);
+                    $('#diskon').val(result.data.data[0].diskon);
+                    // $('#tot_tambah').val(toRp2(result.data.data[0].total_tambah));
+                    // $('#tot_dokumen').val(toRp2(result.data.data[0].total_dokumen));
 
                     var input="";
                     var no=1;
                     var tot=0;
-                    if(result.daftar2.length>0){
-                        for(var x=0;x<result.daftar2.length;x++){
-                            var line = result.daftar2[x];
+                    if(result.data.biaya_tambahan.length>0){
+                        for(var x=0;x<result.data.biaya_tambahan.length;x++){
+                            var line = result.data.biaya_tambahan[x];
                             input+=`<tr class='row-btambah'>
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.tarif+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.tarif+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='`+line.jml+`' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='`+line.nilai+`' required></td>
                             </tr>`;
@@ -1516,14 +1569,14 @@
                     var no=1;
                     var input2='';
                     var tot2=0;
-                    if(result.daftar3.length>0){
-                        for(var i=0;i< result.daftar3.length;i++){
-                            var line = result.daftar3[i];
+                    if(result.data.biaya_dokumen.length>0){
+                        for(var i=0;i< result.data.biaya_dokumen.length;i++){
+                            var line = result.data.biaya_dokumen[i];
                             input2+=`<tr class='row-bdok'>
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.tarif+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.tarif+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
                             </tr>`;
@@ -1536,9 +1589,9 @@
                     $('#tot_dokumen').val(tot2);
                     var no=1;
                     var input3='';
-                    if(result.daftar4.length>0){
-                        for(var i=0;i< result.daftar4.length;i++){
-                            var line = result.daftar4[i];
+                    if(result.data.dokumen.length>0){
+                        for(var i=0;i< result.data.dokumen.length;i++){
+                            var line = result.data.dokumen[i];
                             input3+=`<tr class='row-dok'>
                             <td width='5%' class='no-dok'>`+no+`</td>
                             <td width='10%'>`+line.no_dok+`<input type='hidden' name='dok_no_dokumen[]' class='form-control inp-dok_no_dokumen' value='`+line.no_dok+`' readonly></td>
@@ -1568,8 +1621,8 @@
                         rightAlign: true,
                         oncleared: function () { self.Value(''); }
                     });
-                    // hitungTambah();
-                    // hitungDok();
+                    hitungTambah2();
+                    hitungDok2();
                     $('#saku-data-reg').hide();
                     $('#form-tambah-reg').show();
                 }
@@ -1848,7 +1901,7 @@
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>BIAYA PAKET </td>
-                        <td>:&nbsp;`+toRp(line.harga)+`</td>
+                        <td>:&nbsp;`+toRp2(line.harga)+`</td>
                         </tr>
                         <tr>
                             <td style='font-weight:bold;'>BIAYA ROOM </td>
@@ -1856,7 +1909,7 @@
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>DISKON</td>
-                        <td>:&nbsp;`+toRp(line.diskon)+`</td>
+                        <td>:&nbsp;`+toRp2(line.diskon)+`</td>
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>TGL KEBERANGKATAN </td>
