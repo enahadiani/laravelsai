@@ -57,20 +57,43 @@ class AgenController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_harga' => 'required',
-            'nama' => 'required',
+            'no_agen' => 'required',
+            'nama_agen' => 'required',
+            'alamat' => 'required',
+            'flag_aktif' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'no_hp' => 'required',
+            'email' => 'required',
+            'bank' => 'required',
+            'cabang' => 'required',
+            'norek' => 'required',
+            'namarek' => 'required',
+            'kode_marketing' => 'required',
         ]);
 
-        try {
+        try {   
+                $tgl_lahir = str_replace('/','-',$request->tgl_lahir);
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', $this->link.'agen',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
+                        'no_agen' => $request->no_agen,
+                        'nama_agen' => $request->nama_agen,
+                        'alamat' => $request->alamat,
+                        'flag_aktif' => $request->flag_aktif,
+                        'tempat_lahir' => $request->tempat_lahir,
+                        'tgl_lahir' => $tgl_lahir,
+                        'no_hp' => $request->no_hp,
+                        'email' => $request->email,
+                        'bank' => $request->bank,
+                        'cabang' => $request->cabang,
+                        'norek' => $request->norek,
+                        'namarek' => $request->namarek,
+                        'kode_marketing' => $request->kode_marketing,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -92,7 +115,7 @@ class AgenController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', $this->link.'agen?no_agen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -117,20 +140,43 @@ class AgenController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_harga' => 'required',
-            'nama' => 'required',
+            'no_agen' => 'required',
+            'nama_agen' => 'required',
+            'alamat' => 'required',
+            'flag_aktif' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'no_hp' => 'required',
+            'email' => 'required',
+            'bank' => 'required',
+            'cabang' => 'required',
+            'norek' => 'required',
+            'namarek' => 'required',
+            'kode_marketing' => 'required',
         ]);
 
         try {
+                $tgl_lahir = str_replace('/','-',$request->tgl_lahir);
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
+                $response = $client->request('PUT', $this->link.'agen?no_agen='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
+                        'no_agen' => $request->no_agen,
+                        'nama_agen' => $request->nama_agen,
+                        'alamat' => $request->alamat,
+                        'flag_aktif' => $request->flag_aktif,
+                        'tempat_lahir' => $request->tempat_lahir,
+                        'tgl_lahir' => $tgl_lahir,
+                        'no_hp' => $request->no_hp,
+                        'email' => $request->email,
+                        'bank' => $request->bank,
+                        'cabang' => $request->cabang,
+                        'norek' => $request->norek,
+                        'namarek' => $request->namarek,
+                        'kode_marketing' => $request->kode_marketing,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -152,7 +198,7 @@ class AgenController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('DELETE', $this->link.'agen?no_agen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

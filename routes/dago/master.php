@@ -54,10 +54,10 @@ Route::delete('marketing/{id}', 'Dago\MarketingController@delete');
 
 //Agen //
 Route::get('agen', 'Dago\AgenController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('agen/{id}', 'Dago\AgenController@getData');
+Route::post('agen', 'Dago\AgenController@store');
+Route::put('agen/{id}', 'Dago\AgenController@update');
+Route::delete('agen/{id}', 'Dago\AgenController@delete');
 
 //Produk //
 Route::get('produk', 'Dago\ProdukController@index');
