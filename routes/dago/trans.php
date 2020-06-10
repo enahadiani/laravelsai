@@ -22,7 +22,7 @@ Route::delete('jamaah','Dago\JamaahController@destroy');
 
 Route::get('registrasi', 'Dago\RegistrasiController@index');
 Route::post('registrasi','Dago\RegistrasiController@store');
-Route::get('registrasi-detail','Dago\RegistrasiController@edit');
+Route::get('registrasi-detail','Dago\RegistrasiController@show');
 Route::put('registrasi','Dago\RegistrasiController@update');
 Route::delete('registrasi','Dago\RegistrasiController@destroy');
 Route::get('jadwal-detail','Dago\RegistrasiController@getJadwal');
