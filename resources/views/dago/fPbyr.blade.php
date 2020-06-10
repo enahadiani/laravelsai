@@ -19,18 +19,38 @@
                                         <div class="tab-pane active" id="sai-tab-new" style="position: relative;"> -->
                                             <div class='sai-container-overflow-x'>
                                             <style>
-                                                th,td{
-                                                    padding:8px !important;
-                                                    vertical-align:middle !important;
-                                                }
-                                                .form-group{
-                                                    margin-bottom:15px !important;
-                                                }
-                                                
-                                                .dataTables_wrapper{
-                                                    padding:5px
-                                                }
-                                                </style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                            .hidden{
+                                                display:none;
+                                            }
+                                            .form-group{
+                                                margin-bottom:5px !important;
+                                            }
+                                            .form-control{
+                                                font-size:13px !important;
+                                                padding: .275rem .6rem !important;
+                                            }
+                                            .selectize-control, .selectize-dropdown{
+                                                padding: 0 !important;
+                                            }
+                                            
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+
+                                            </style>
                                                 <table class='table table-bordered table-striped DataTable' style='width: 100%;' id='table-new'>
                                                 <thead>
                                                     <tr>
