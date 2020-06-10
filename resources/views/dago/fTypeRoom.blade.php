@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pekerjaan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Harga dan Tipe Room 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,9 +36,11 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Pekerjaan</th>
-                                        <th>Nama</th>
-                                        <th>Action</th>
+                                        <th>No Type</th>
+                                        <th>Nama Type Room</th>
+                                        <th>Currency</th>
+                                        <th>Harga</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +57,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pekerjaan
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Harga Promo Paket
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -72,13 +74,29 @@
                                 <div class="form-group row ">
 								    <label for="kode" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Jenis Pekerjaan" id="id_pekerjaan" name="id_pekerjaan">
+                                        <input class="form-control" type="text" placeholder="Kode Jenis Harga" id="no_type" name="no_type">
                                     </div>
                                 </div>
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_curr" class="col-3 col-form-label">Currency</label>
+                                <div class="col-3">
+                                    <select class='form-control selectize' id="kode_curr" name="kode_curr">
+                                        <option value='' disabled>--- Pilih Currency ---</option>
+                                        <option value='IDR'>IDR</option>
+                                        <option value='USD'>USD</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="harga" class="col-3 col-form-label">Harga</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Harga" id="harga" name="harga">
                                 </div>
                             </div>
                         </div>
@@ -98,6 +116,15 @@
         var $target = "";
         var $target2 = "";
 
+        $('#harga').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 0,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -111,7 +138,7 @@
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('dago-master/pekerjaan') }}",
+            'url': "{{ url('dago-master/type-room') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -130,11 +157,18 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html }
+            {'targets': 4, data: null, 'defaultContent': action_html },
+            {
+                'targets': [3], 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            },
             ],
         'columns': [
-            { data: 'id_pekerjaan' },
+            { data: 'no_type' },
             { data: 'nama' },
+            { data: 'kode_curr' },
+            { data: 'harga' },
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -153,9 +187,11 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#id_pekerjaan').attr('readonly', false);
-        $('#id_pekerjaan').val('');
+        $('#no_type').attr('readonly', false);
+        $('#no_type').val('');
         $('#nama').val('');
+        $('#harga').val('');
+        $('#kode_curr')[0].selectize.setValue('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -171,10 +207,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('dago-master/pekerjaan') }}/"+id;
+            var url = "{{ url('dago-master/type-room') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('dago-master/pekerjaan') }}";
+            var url = "{{ url('dago-master/type-room') }}";
             var pesan = "saved";
         }
 
@@ -205,7 +241,7 @@
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
                  
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                }else if(!result.data.status && result.data.message === "Unauthorized"){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -242,7 +278,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-master/pekerjaan') }}/"+id,
+                    url: "{{ url('dago-master/type-room') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -283,7 +319,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/pekerjaan') }}/" + id,
+            url: "{{ url('dago-master/type-room') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -291,10 +327,12 @@
                 if(result.status === 'SUCCESS'){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#id_pekerjaan').attr('readonly', true);
-                    $('#id_pekerjaan').val(id);
+                    $('#no_type').attr('readonly', true);
+                    $('#no_type').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
+                    $('#harga').val(result.data[0].harga);
+                    $('#kode_curr')[0].selectize.setValue(result.data[0].kode_curr);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

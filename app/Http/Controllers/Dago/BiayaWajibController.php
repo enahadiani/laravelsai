@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class BiayaController extends Controller
+class BiayaWajibController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,20 +57,27 @@ class BiayaController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_harga' => 'required',
+            'kode_biaya' => 'required',
             'nama' => 'required',
+            'nilai' => 'required',
+            'akun_pdpt' => 'required',
+            'jenis' => 'required',
         ]);
 
         try {
+                $nilai = str_replace('.','',$request->nilai);
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', $this->link.'biaya',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
+                        'kode_biaya' => $request->kode_biaya,
                         'nama' => $request->nama,
+                        'nilai' => $nilai,
+                        'akun_pdpt' => $request->akun_pdpt,
+                        'jenis' => $request->jenis,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -83,7 +90,7 @@ class BiayaController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
@@ -92,7 +99,7 @@ class BiayaController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', $this->link.'biaya?kode_biaya='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -116,21 +123,28 @@ class BiayaController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $this->validate($request, [
-            'kode_harga' => 'required',
+       $this->validate($request, [
+            'kode_biaya' => 'required',
             'nama' => 'required',
+            'nilai' => 'required',
+            'akun_pdpt' => 'required',
+            'jenis' => 'required',
         ]);
 
-        try {
+        try {   
+                $nilai = str_replace('.','',$request->nilai);
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
+                $response = $client->request('PUT', $this->link.'biaya?kode_biaya='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
+                        'kode_biaya' => $request->kode_biaya,
                         'nama' => $request->nama,
+                        'nilai' => $nilai,
+                        'akun_pdpt' => $request->akun_pdpt,
+                        'jenis' => $request->jenis,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -152,7 +166,7 @@ class BiayaController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('DELETE', $this->link.'biaya?kode_biaya='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

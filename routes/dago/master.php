@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+//Helper Controller//
+Route::get('akun-pdpt', 'Dago\HelperController@getAkunPdpt');
+
 //Jenis Pekerjaan //
 Route::get('pekerjaan', 'Dago\PekerjaanController@index');
 Route::get('pekerjaan/{id}', 'Dago\PekerjaanController@getData');
@@ -36,18 +39,18 @@ Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
 Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Biaya //
-Route::get('biaya', 'Dago\BiayaController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('biaya', 'Dago\BiayaWajibController@index');
+Route::get('biaya/{id}', 'Dago\BiayaWajibController@getData');
+Route::post('biaya', 'Dago\BiayaWajibController@store');
+Route::put('biaya/{id}', 'Dago\BiayaWajibController@update');
+Route::delete('biaya/{id}', 'Dago\BiayaWajibController@delete');
 
 //Marketing //
 Route::get('marketing', 'Dago\MarketingController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('marketing/{id}', 'Dago\MarketingController@getData');
+Route::post('marketing', 'Dago\MarketingController@store');
+Route::put('marketing/{id}', 'Dago\MarketingController@update');
+Route::delete('marketing/{id}', 'Dago\MarketingController@delete');
 
 //Agen //
 Route::get('agen', 'Dago\AgenController@index');
@@ -72,13 +75,6 @@ Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Paket //
 Route::get('paket', 'Dago\PaketController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
-
-//Biaya //
-Route::get('biaya', 'Dago\BiayaController@index');
 Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
 Route::post('type-room', 'Dago\TypeRoomController@store');
 Route::put('type-room/{id}', 'Dago\TypeRoomController@update');

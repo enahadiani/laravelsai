@@ -57,20 +57,25 @@ class TypeRoomController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_harga' => 'required',
+            'no_type' => 'required',
             'nama' => 'required',
+            'kode_curr' => 'required',
+            'harga' => 'required',
         ]);
 
         try {
+                $harga = str_replace('.','',$request->harga);
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', $this->link.'type-room',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
+                        'no_type' => $request->no_type,
                         'nama' => $request->nama,
+                        'kode_curr' => $request->kode_curr,
+                        'harga' => $harga,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -92,7 +97,7 @@ class TypeRoomController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', $this->link.'type-room?no_type='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -117,20 +122,25 @@ class TypeRoomController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_harga' => 'required',
+            'no_type' => 'required',
             'nama' => 'required',
+            'kode_curr' => 'required',
+            'harga' => 'required',
         ]);
 
         try {
+                $harga = str_replace('.','',$request->harga);
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
+                $response = $client->request('PUT', $this->link.'type-room?no_type='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
+                        'no_type' => $request->no_type,
                         'nama' => $request->nama,
+                        'kode_curr' => $request->kode_curr,
+                        'harga' => $harga,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -152,7 +162,7 @@ class TypeRoomController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('DELETE', $this->link.'type-room?no_type='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

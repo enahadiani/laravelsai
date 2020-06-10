@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Harga dan Tipe Room 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Marketing 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,10 +36,8 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Type</th>
-                                        <th>Nama Type Room</th>
-                                        <th>Curr</th>
-                                        <th>Harga</th>
+                                        <th>No Marketing</th>
+                                        <th>Nama</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -73,14 +71,24 @@
                             </div>
                                 <div class="form-group row ">
 								    <label for="kode" class="col-3 col-form-label">Kode</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Kode Jenis Harga" id="kode_harga" name="kode_harga">
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Kode Marketing" id="no_marketing" name="no_marketing">
                                     </div>
                                 </div>
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Nama Marketing" id="nama_marketing" name="nama_marketing">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="flag_aktif" class="col-3 col-form-label">Flag Aktif</label>
+                                <div class="col-3">
+                                    <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                        <option value='' disabled>--- Pilih Flag ---</option>
+                                        <option value="1">AKTIF</option>
+                                        <option value="0">NON-AKTIF</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +121,7 @@
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('dago-master/jenis-harga') }}",
+            'url': "{{ url('dago-master/marketing') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -132,11 +140,11 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html }
+            {'targets': 2, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_harga' },
-            { data: 'nama' },
+            { data: 'no_marketing' },
+            { data: 'nama_marketing' },
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -155,9 +163,10 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#kode_harga').attr('readonly', false);
-        $('#kode_harga').val('');
-        $('#nama').val('');
+        $('#no_marketing').attr('readonly', false);
+        $('#no_marketing').val('');
+        $('#nama_marketing').val('');
+        $('#flag_aktif')[0].selectize.setValue('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -173,10 +182,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('dago-master/jenis-harga') }}/"+id;
+            var url = "{{ url('dago-master/marketing') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('dago-master/jenis-harga') }}";
+            var url = "{{ url('dago-master/marketing') }}";
             var pesan = "saved";
         }
 
@@ -196,7 +205,7 @@
             processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
-                if(result.data.status == 'SUCCESS'){
+                if(result.data.status === 'SUCCESS'){
                     // location.reload();
                     dataTable.ajax.reload();
                     Swal.fire(
@@ -207,7 +216,7 @@
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
                  
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                }else if(!result.data.status && result.data.message === "Unauthorized"){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -244,11 +253,11 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-master/jenis-harga') }}/"+id,
+                    url: "{{ url('dago-master/marketing') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
-                        if(result.data.status == 'SUCCESS'){
+                        if(result.data.status === 'SUCCESS'){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -285,19 +294,19 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/jenis-harga') }}/" + id,
+            url: "{{ url('dago-master/marketing') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
-                if(result.status){
-                    console.log(result);
+                if(result.status === 'SUCCESS'){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_harga').attr('readonly', true);
-                    $('#kode_harga').val(id);
+                    $('#no_marketing').attr('readonly', true);
+                    $('#no_marketing').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
+                    $('#nama_marketing').val(result.data[0].nama_marketing);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
