@@ -27,6 +27,19 @@
                             .selectize-control, .selectize-dropdown{
                                 padding: 0 !important;
                             }
+                            
+                            .modal-header .close {
+                                padding: 1rem;
+                                margin: -1rem 0 -1rem auto;
+                            }
+                            .check-item{
+                                cursor:pointer;
+                            }
+                            .selected{
+                                cursor:pointer;
+                                background:#4286f5 !important;
+                                color:white;
+                            }
 
                             </style>
                             <table id="table-reg" class="table table-bordered table-striped">
@@ -80,14 +93,6 @@
                                 <div class="col-3">
                                     <input class="form-control" readonly type="text" placeholder="No Register" id="no_reg" name="no_reg" >
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="no_peserta" name="no_peserta" required>
-                                    <option value=''>--- Pilih No Jamaah ---</option>
-                                    </select>
-                                </div>
                                 <label for="flag_group" class="col-3 col-form-label">Status Group</label>
                                 <div class="col-3">
                                     <select class='form-control' id="flag_group" name="flag_group" >
@@ -95,6 +100,14 @@
                                     <option value='1'>Ya</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
+                                <div class="col-9">
+                                    <input type='text' name='no_peserta' id='no_peserta' class='form-control col-3' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2 col-1' style='position: absolute;z-index: 2;margin-top: 10px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label id="label_peserta" class='search-item2 col-8' style="margin-left:5px"></label>
+                                </div>
+                                
                             </div>
                             <div class="form-group row mt-3">
                                 <label for="paket" class="col-3 col-form-label">Paket</label>
@@ -527,7 +540,25 @@
                 </div>
             </div>
         </div>
-    </div>     
+    </div>    
+    
+    <!-- MODAL SEARCH AKUN-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL --> 
     <script>
     var $iconLoad = $('.preloader');
     var dataTable = $('#table-reg').DataTable({
@@ -603,17 +634,37 @@
                 success:function(result){    
                     var select = jadwal[0];
                     var control = select.selectize;
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined'){
-                            for(i=0;i<result.daftar.length;i++){
-                                control.addOption([{text:result.daftar[i].no_jadwal + ' - ' + result.daftar[i].tgl_berangkat, value:result.daftar[i].no_jadwal}]);
+                    control.clearOptions();
+                    if(result.data.status){
+                        if(typeof result.data.data !== 'undefined'){
+                            for(i=0;i<result.data.data.length;i++){
+                                control.addOption([{text:result.data.data[i].no_jadwal + ' - ' + result.data.data[i].tgl_berangkat, value:result.data.data[i].no_jadwal}]);
                             }
                             
                         }
                     }
+                    else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('dago-auth/login') }}";
+                        })
+                    }
                     setHarga();
                     setQuota();
                 }
+                // error: function(jqXHR, textStatus, errorThrown) {       
+                //     if(jqXHR.status==422){
+                //         Swal.fire({
+                //             icon: 'error',
+                //             title: 'Oops...',
+                //             text: 'Something went wrong!',
+                //             footer: '<a href>'+jqXHR.responseText+'</a>'
+                //         })
+                //     }
+                // }
             });
         }
     });
@@ -628,12 +679,23 @@
                 var select = $('#paket').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions();
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].no_paket + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_paket}]);
                         }
                     }
+                }
+            },      
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
             }
         });
@@ -649,15 +711,27 @@
                 dataType: 'json',
                 async:false,
                 data: {'no_agen':id},
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.marketing !== 'undefined'){
+                success:function(result){  
+                    
+                    $('#marketing')[0].selectize.clearOptions();  
+                    if(result.data.status == "SUCCESS"){
+                        if(typeof result.data.marketing !== 'undefined'){
                                
-                            $('#marketing')[0].selectize.setValue(result.marketing);
+                            $('#marketing')[0].selectize.setValue(result.data.marketing);
                             
                         }
                     }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
+            }
             });
         }
     });
@@ -672,12 +746,23 @@
                 var select = $('#agen').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions(); 
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].no_agen + ' - ' + result.daftar[i].nama_agen, value:result.daftar[i].no_agen}]);
                         }
                     }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
             }
         });
@@ -690,15 +775,47 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                var select = $('#no_peserta').selectize();
-                select = select[0];
-                var control = select.selectize;
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_peserta + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_peserta}]);
-                        }
+                // var select = $('#no_peserta').selectize();
+                // select = select[0];
+                // var control = select.selectize;
+                // control.clearOptions(); 
+                // if(result.status){
+                //     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                //         for(i=0;i<result.daftar.length;i++){
+                //             control.addOption([{text:result.daftar[i].no_peserta + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_peserta}]);
+                //         }
+                //     }
+                // }
+
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data.data !== 'undefined' && result.data.data.length>0){
+                         $('#no_peserta').val(result.data.data[0].no_peserta);
+                         $('#label_peserta').text(result.data.data[0].nama);
+                    }else{
+                        alert('NIK tidak valid');
+                        $('#no_peserta').val('');
+                        $('#label_peserta').text('');
+                        $('#no_peserta').focus();
                     }
+                }
+                else if(result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
             }
         });
@@ -714,12 +831,23 @@
                 var select = $('#marketing').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions(); 
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].no_marketing + ' - ' + result.daftar[i].nama_marketing, value:result.daftar[i].no_marketing}]);
                         }
                     }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
             }
         });
@@ -735,18 +863,187 @@
                 var select = $('#kode_pp').selectize();
                 select = select[0];
                 var control = select.selectize;
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                control.clearOptions(); 
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        for(i=0;i<result.data.data.length;i++){
+                            control.addOption([{text:result.data.data[i].kode_pp + ' - ' + result.data.data[i].nama, value:result.data.data[i].kode_pp}]);
                         }
-                        if(result.kodePP != undefined || result.kodePP != ""){
-                            control.setValue(result.kodePP);
+                        if(result.data.kodePP != undefined || result.data.kodePP != ""){
+                            control.setValue(result.data.kodePP);
                         }
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
+    }
+
+    function showFilter(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        
+        switch(par){
+            case 'no_peserta': 
+                header = ['No Peserta', 'Nama'];
+            var toUrl = "{{ url('dago-trans/jamaah') }}";
+                var columns = [
+                    { data: 'no_peserta' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Peserta Jamaah";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": {'param':par},
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            console.log($target3);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+                
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
     }
 
     $('#flag_group').selectize();
@@ -770,13 +1067,14 @@
     function getJenisPromo(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/jenis_harga') }}",
+            url: "{{ url('dago-master/jenis-harga') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
                 var select = $('#jenis_promo').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions(); 
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
@@ -798,13 +1096,14 @@
     function getRoom(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/type_room') }}",
+            url: "{{ url('dago-master/type-room') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
                 var select = $('#type_room').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions(); 
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
@@ -825,11 +1124,12 @@
             url:"{{ url('dago-trans/harga') }}",
             dataType: 'json',
             async:false,
-            data: {'no_paket':no_paket,'jpaket':jpaket,'jenis':jenis},
+            data: {'no_paket':no_paket,'jenis_paket':jpaket,'jenis':jenis},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.harga !== 'undefined'){
-                        $('#harga_paket').val(result.harga);
+                $('#harga_paket').val(0);
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.harga !== 'undefined'){
+                        $('#harga_paket').val(result.data.harga);
                     }
                 }
             }
@@ -841,14 +1141,15 @@
         var kode_curr = $('#kode_curr').val();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/harga_room') }}",
+            url: "{{ url('dago-trans/harga-room') }}",
             dataType: 'json',
             async:false,
             data: {'type_room':type_room,'kode_curr':kode_curr},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.harga_room !== 'undefined'){
-                        $('#harga_room').val(result.harga_room);
+                $('#harga_room').val(0);
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.harga_room !== 'undefined'){
+                        $('#harga_room').val(result.data.harga_room);
                     }
                 }
             }
@@ -865,39 +1166,54 @@
             url: "{{ url('dago-trans/quota') }}",
             dataType: 'json',
             async:false,
-            data: {'no_paket':no_paket,'jpaket':jpaket,'jenis':jenis,'jadwal':jadwal},
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.tgl_berangkat !== 'undefined'){
-                        $('#tgl_berangkat').val(result.tgl_berangkat);
+            data: {'no_paket':no_paket,'jenis_paket':jpaket,'jenis':jenis,'jadwal':jadwal},
+            success:function(result){ 
+                
+                $('#tgl_berangkat').val('');  
+                $('#kode_curr').val('');
+                $('#lama_hari').val(0);
+                $('#quota').val(0); 
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.tgl_berangkat !== 'undefined'){
+                        $('#tgl_berangkat').val(result.data.tgl_berangkat);
                     }
-                    if(typeof result.kode_curr !== 'undefined'){
-                        $('#kode_curr').val(result.kode_curr);
+                    if(typeof result.data.kode_curr !== 'undefined'){
+                        $('#kode_curr').val(result.data.kode_curr);
                     }
-                    if(typeof result.lama_hari !== 'undefined'){
-                        $('#lama_hari').val(result.lama_hari);
+                    if(typeof result.data.lama_hari !== 'undefined'){
+                        $('#lama_hari').val(result.data.lama_hari);
                     }
-                    if(typeof result.quota !== 'undefined'){
-                        $('#quota').val(result.quota);
+                    if(typeof result.data.quota !== 'undefined'){
+                        $('#quota').val(result.data.quota);
                     }
                 }
             }
+            // error: function(jqXHR, textStatus, errorThrown) {       
+            //     if(jqXHR.status==422){
+            //         Swal.fire({
+            //             icon: 'error',
+            //             title: 'Oops...',
+            //             text: 'Something went wrong!',
+            //             footer: '<a href>'+jqXHR.responseText+'</a>'
+            //         })
+            //     }
+            // }
         });
     }
 
     function getBTambah(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/biaya_tambahan') }}",
+            url: "{{ url('dago-trans/biaya-tambahan') }}",
             dataType: 'json',
             async:false,
-            success:function(result){    
-                if(result.status){
-                    if(result.daftar.length > 0){
-                        var html ='';
+            success:function(result){ 
+                var html ='';
+                if(result.data.status == "SUCCESS"){
+                    if(result.data.data.length > 0){
                         var no=1;
-                        for(var i=0;i<result.daftar.length;i++){
-                            var line =result.daftar[i];
+                        for(var i=0;i<result.data.data.length;i++){
+                            var line =result.data.data[i];
                             html+=`<tr class='row-btambah'>
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
@@ -919,6 +1235,16 @@
                         });
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
     }
@@ -926,16 +1252,16 @@
     function getBDok(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/biaya_dokumen') }}",
+            url: "{{ url('dago-trans/biaya-dokumen') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.status){
-                    if(result.daftar.length > 0){
-                        var html ='';
+                var html ='';
+                if(result.data.status == "SUCCESS"){
+                    if(result.data.data.length > 0){
                         var no=1;
-                        for(var i=0;i<result.daftar.length;i++){
-                            var line =result.daftar[i];
+                        for(var i=0;i<result.data.data.length;i++){
+                            var line =result.data.data[i];
                             html+=`<tr class='row-bdok'>
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
@@ -957,6 +1283,16 @@
                         });
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
     }
@@ -964,13 +1300,13 @@
     function getDokumen(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/masterdokumen') }}",
+            url: "{{ url('dago-master/master-dokumen') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
+                var html ='';
                 if(result.status){
                     if(result.daftar.length > 0){
-                        var html ='';
                         var no=1;
                         for(var i=0;i<result.daftar.length;i++){
                             var line =result.daftar[i];
@@ -985,15 +1321,34 @@
                         $('#table-dok tbody').html(html);
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
             }
         });
     }
-
+    // getPeserta();
+    getPP();
+    getPaket();
+    getAgen();
+    getMarketing();
+    getJenisPromo();
+    getRoom();
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
+        getBTambah();
+        getBDok();
+        getDokumen();
         $('#id').val('0');
         $('#dFile').hide();
         $('#saku-data-reg').hide();
@@ -1065,6 +1420,30 @@
                 }
             });   
         }     
+    });
+
+    
+    $('#form-tambah').on('click', '.search-item2', function(){
+
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
+
+    $('#form-tambah').on('change', '#no_peserta', function(){
+        var par = $(this).val();
+        getPeserta(par);
+    });
+
+    $('#form-tambah').on('keydown', '#no_peserta', function(e){
+    e.preventDefault();
+        if(e.which == 13 || e.which == 9){
+            var par = $(this).val();
+            getPeserta(par);
+        }
     });
 
     $('#slide-print').on('click', '#btn-reg-kembali', function(){
