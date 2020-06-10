@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+//Helper Controller//
+Route::get('akun-pdpt', 'Dago\HelperController@getAkunPdpt');
+
 //Jenis Pekerjaan //
 Route::get('pekerjaan', 'Dago\PekerjaanController@index');
 Route::get('pekerjaan/{id}', 'Dago\PekerjaanController@getData');
@@ -72,13 +75,6 @@ Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Paket //
 Route::get('paket', 'Dago\PaketController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
-
-//Biaya //
-Route::get('biaya', 'Dago\BiayaController@index');
 Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
 Route::post('type-room', 'Dago\TypeRoomController@store');
 Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
