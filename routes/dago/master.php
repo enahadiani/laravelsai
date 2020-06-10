@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Session;
 
 //Helper Controller//
 Route::get('akun-pdpt', 'Dago\HelperController@getAkunPdpt');
+Route::get('akun-piutang', 'Dago\HelperController@getAkunPiutang');
+Route::get('akun-pdd', 'Dago\HelperController@getAkunPDD');
 
 //Jenis Pekerjaan //
 Route::get('pekerjaan', 'Dago\PekerjaanController@index');
@@ -61,10 +63,10 @@ Route::delete('agen/{id}', 'Dago\AgenController@delete');
 
 //Produk //
 Route::get('produk', 'Dago\ProdukController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('produk/{id}', 'Dago\ProdukController@getData');
+Route::post('produk', 'Dago\ProdukController@store');
+Route::put('produk/{id}', 'Dago\ProdukController@update');
+Route::delete('produk/{id}', 'Dago\ProdukController@delete');
 
 //Master Dokumen //
 Route::get('master-dokumen', 'Dago\MasterDokumenController@index');
