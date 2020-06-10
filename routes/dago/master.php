@@ -36,11 +36,11 @@ Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
 Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Biaya //
-Route::get('biaya', 'Dago\BiayaController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('biaya', 'Dago\BiayaWajibController@index');
+Route::get('biaya/{id}', 'Dago\BiayaWajibController@getData');
+Route::post('biaya', 'Dago\BiayaWajibController@store');
+Route::put('biaya/{id}', 'Dago\BiayaWajibController@update');
+Route::delete('biaya/{id}', 'Dago\BiayaWajibController@delete');
 
 //Marketing //
 Route::get('marketing', 'Dago\MarketingController@index');

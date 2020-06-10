@@ -194,7 +194,7 @@
             processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
-                if(result.data.status == 'SUCCESS'){
+                if(result.data.status === 'SUCCESS'){
                     // location.reload();
                     dataTable.ajax.reload();
                     Swal.fire(
@@ -246,7 +246,7 @@
                     dataType: 'json',
                     async:false,
                     success:function(result){
-                        if(result.data.status == 'SUCCESS'){
+                        if(result.data.status === 'SUCCESS'){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -288,8 +288,7 @@
             async:false,
             success:function(res){
                 var result= res.data;
-                if(result.status){
-                    console.log(result);
+                if(result.status === 'SUCCESS'){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#kode_harga').attr('readonly', true);
