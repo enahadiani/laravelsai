@@ -36,7 +36,7 @@ Route::get('no-marketing','Dago\RegistrasiController@getNoMarketing');
 Route::get('registrasi-preview','Dago\RegistrasiController@getPreview');
 
 //Registrasi Group
-Route::get('registrasi-group','Dago\RegistrasiGroupController@getGroup');
+Route::get('registrasi-group','Dago\RegistrasiGroupController@index');
 Route::post('registrasi-group','Dago\RegistrasiGroupController@store');
 
 //Pembayaran
