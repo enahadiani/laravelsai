@@ -21,6 +21,40 @@ Route::post('jamaah-ubah','Dago\JamaahController@update');
 Route::delete('jamaah','Dago\JamaahController@destroy');
 
 Route::get('registrasi', 'Dago\RegistrasiController@index');
+Route::post('registrasi','Dago\RegistrasiController@store');
+Route::get('registrasi-detail','Dago\RegistrasiController@edit');
+Route::put('registrasi','Dago\RegistrasiController@update');
+Route::delete('registrasi','Dago\RegistrasiController@destroy');
+Route::get('jadwal-detail','Dago\RegistrasiController@getJadwal');
+Route::get('biaya-tambahan','Dago\RegistrasiController@getBiayaTambahan');
+Route::get('biaya-dokumen','Dago\RegistrasiController@getBiayaDokumen');
+Route::get('pp','Dago\RegistrasiController@getPP');
+Route::get('harga','Dago\RegistrasiController@getHarga');
+Route::get('quota','Dago\RegistrasiController@getQuota');
+Route::get('harga-room','Dago\RegistrasiController@getHargaRoom');
+Route::get('no-marketing','Dago\RegistrasiController@getNoMarketing');
+Route::get('registrasi-preview','Dago\RegistrasiController@getPreview');
+
+//Registrasi Group
+Route::get('registrasi-group','Dago\RegistrasiGroupController@getGroup');
+Route::post('registrasi-group','Dago\RegistrasiGroupController@store');
+
+//Pembayaran
+Route::get('pembayaran','Dago\PembayaranController@getRegistrasi');
+Route::get('pembayaran-history','Dago\PembayaranController@index');
+Route::post('pembayaran','Dago\PembayaranController@store');
+Route::get('pembayaran-detail','Dago\PembayaranController@show');
+Route::get('pembayaran-edit','Dago\PembayaranController@edit');
+Route::put('pembayaran','Dago\PembayaranController@update');
+Route::delete('pembayaran','Dago\PembayaranController@destroy');
+Route::get('pembayaran-rekbank','Dago\PembayaranController@getRekBank');
+Route::get('pembayaran-preview','Dago\PembayaranController@getPreview');
+
+//UploadDok
+Route::get('upload-dok','Dago\UploadDokController@index');
+Route::get('upload-dok-detail','Dago\UploadDokController@show');
+Route::post('upload-dok','Dago\UploadDokController@store');
+
 
 
 
