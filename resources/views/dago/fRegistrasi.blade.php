@@ -460,7 +460,7 @@
                                     <input class="form-control" type="hidden" placeholder="No Bukti" id="group_no_bukti" name="group_no_bukti" >
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mt-3">
                                 <label for="group_no_reg" class="col-3 col-form-label">No Registrasi</label>
                                 <div class="col-6">
                                     <input class="form-control" type="text" readonly id="group_no_reg" name="group_no_reg">
@@ -1659,7 +1659,7 @@
                     async:false,
                     data: {'no_reg':kode},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -1671,7 +1671,7 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
@@ -2145,20 +2145,20 @@
             async:false,
             data: {'no_reg':id},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var line = result.daftar[0];
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        var line = result.data.data[0];
                         $('#group_no_reg').val(line.no_reg);
                         $('#group_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
                         $('#group_paket').val(line.nama_paket);
                         $('#group_jadwal').val(line.tgl_berangkat);
                         $('#group_alamat').val(line.alamat);
                         $('#input-anggota tbody').html('');
-                        if(typeof result.daftar2 !== 'undefined' && result.daftar2.length>0){
+                        if(typeof result.data.data_detail !== 'undefined' && result.data.data_detail.length>0){
                             var no=1;
                             var input='';
-                            for(var i=0;i<result.daftar2.length;i++){
-                                var line2 = result.daftar2[i];
+                            for(var i=0;i<result.data.data_detail.length;i++){
+                                var line2 = result.data.data_detail[i];
                                 input += "<tr class='row-anggota'>";
                                 input += "<td width='5%' class='no-anggota'>"+no+"</td>";
                                 input += "<td width='60%'><select name='group_no_anggota[]' class='form-control group-anggota ke"+no+"' value='' required></select><input type='hidden' name='group_sts_reg[]' class='group_sts_reg' value='1'><input type='hidden' name='no_reg_ref[]' class='group_no_reg_ref' value='"+line2.no_reg_ref+"'></td>";
@@ -2168,8 +2168,8 @@
                             }
                             $('#input-anggota tbody').html(input);
                             var no=1;
-                            for(var x=0;x<result.daftar2.length;x++){
-                                var line = result.daftar2[x];
+                            for(var x=0;x<result.data.data_detail.length;x++){
+                                var line = result.data.data_detail[x];
                                 getAnggota('ke'+no);
                                 $('.ke'+no)[0].selectize.setValue(line.no_peserta);
                                 no++;
@@ -2208,30 +2208,42 @@
             cache: false,
             processData: false, 
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     dataTable.ajax.reload();
                     Swal.fire(
                         'Great Job!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                         )
-                        $iconLoad.hide();
                         
                     }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
                     $('#form-group-reg').hide();
                     $('#form-upload-reg').hide();
                     $('#saku-data-reg').show();
                     $('#form-tambah-reg').hide();
+                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
+                    $iconLoad.hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {   
+                    if(jqXHR.status == 422){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }
+                    $iconLoad.hide();
                 }
             });      
     });
