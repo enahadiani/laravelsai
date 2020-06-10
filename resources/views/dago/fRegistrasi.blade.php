@@ -1371,6 +1371,7 @@
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
+        $iconLoad.show();
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
         getBTambah();
@@ -1381,6 +1382,7 @@
         $('#dFile').hide();
         $('#saku-data-reg').hide();
         $('#form-tambah-reg').show();
+        $iconLoad.hide();
     });
 
     $('#saku-data-reg').on('click','#btn-print',function(e){
@@ -1506,7 +1508,7 @@
 
     $('#saku-data-reg').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-       
+        $iconLoad.show();
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-trans/registrasi-detail') }}",
@@ -1557,7 +1559,7 @@
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+line.tarif+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+toRp2(line.tarif)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='`+line.jml+`' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='`+line.nilai+`' required></td>
                             </tr>`;
@@ -1576,7 +1578,7 @@
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+line.tarif+`' readonly required></td>
+                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.tarif)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
                             <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
                             </tr>`;
@@ -1628,6 +1630,7 @@
                 }
             }
         });
+        $iconLoad.hide();
     });
 
     $('#saku-data-reg').on('click','#btn-print',function(e){
