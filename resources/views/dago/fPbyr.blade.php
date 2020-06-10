@@ -1,21 +1,4 @@
-<?php
-  
-  session_start();
-  $root_lib=$_SERVER["DOCUMENT_ROOT"];
-  if (substr($root_lib,-1)!="/") {
-      $root_lib=$root_lib."/";
-  }
-  include_once($root_lib.'app/dago/setting.php');
-  $kode_lokasi=$_SESSION['lokasi'];
-  $nik=$_SESSION['userLog'];
-  $kode_pp=$_SESSION['kodePP'];
-  $periode=$_SESSION['periode'];
-?>
-<style>
-#input-grid_wrapper{
-  padding:0;
-}
-</style>
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
 <div class="container-fluid mt-3">
     <div id='saiweb_container'>
         <div id='web_datatable'>
@@ -25,15 +8,11 @@
                         <div class='card-body'>
                             <div class='row'>
                                 <div class="col-md-6">
-                                    <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Pembayaran Individu
-                                    </h4>
-                                <hr>
+                                <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Pembayaran Individu
+                                </h4>
+                                <hr style="margin-bottom:0px;margin-top:25px">
                                 </div>
                                 <div class='col-md-6'>
-                                    <!-- <ul class="nav nav-tabs customtab float-right" role="tablist">
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
-                                    </ul> -->
                                 </div>
                                 <div class='col-md-12'>
                                 <!--     <div class="tab-content">
@@ -100,7 +79,7 @@
             </div>
         </div>
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
+            <div class="col-sm-12">
                 <div class="card">
                     <form class="form" id="form-tambah" >
                         <div class="card-body pb-0">
@@ -110,7 +89,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:450px' >
+                        <div class="card-body pt-0" style='min-height:450px' >
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id">
@@ -123,7 +102,7 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value='<?=date('Y-m-d')?>' required>
+                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -288,68 +267,76 @@
         </div>
     </div>
 </div>
-
-<script src="<?=$folderroot_js?>/printThis/printThis.js"></script>
-<script src="<?=$folderroot_js?>/sai.js"></script>
-<script src="<?=$folderroot_js?>/inputmask.js"></script>
 <script>
     
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
     var action_html2 = "<a href='#' title='Edit' class='badge badge-info web_datatable_edit' ><i class='fas fa-pencil-alt'></i>&nbsp; Edit</a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
     var dataTable = $('#table-new').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         "ordering": true,
         "order": [[0, "desc"]],
         'ajax': {
-            'url': '<?=$root_ser?>/Pbyr.php?fx=getNew',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('dago-trans/pembayaran') }}",
             'async':false,
-            'type': 'POST',
+            'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                    return [];
+                }
             }
-        }
+        },
+        'columns': [
+            { data: 'no_reg' },
+            { data: 'no_peserta' },
+            { data: 'nama' },
+            { data: 'tgl_input' },
+            { data: 'nama_paket' },
+            { data: 'tgl_berangkat' },
+            { data: 'action' },
+            { data: 'status' }
+        ],
+        "columnDefs": [ {
+            "targets": 6,
+            "data": null,
+            "render": function ( data, type, row, meta ) {
+                return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
+            }
+        },{
+            "targets": 7,
+            "data": null,
+            "render": function ( data, type, row, meta ) {
+                if(row.status == "-"){
+                    return "";
+                }else{
+                    return "<a href='#' title='Sudah Lunas' class='badge badge-success' ><i class='fas fa-check'></i> Lunas</a>";
+                }
+            }
+        }]
     });
-
-    // var dataTable2 = $('#table-finish').DataTable({
-    //     'processing': true,
-    //     'serverSide': true,
-    //     "ordering": true,
-    //     "order": [[1, "desc"]],
-    //     'ajax': {
-    //         'url': '<?=$root_ser?>/Pbyr.php?fx=getFinish',
-    //         'data': {'kode_lokasi':kode_lokasi},
-    //         'async':false,
-    //         'type': 'POST',
-    //         'dataSrc' : function(json) {
-    //             return json.data;   
-    //         }
-    //     },
-    //     'columnDefs': [
-    //         {'targets': [5,6,7],
-    //             'className': 'text-right',
-    //             'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
-    //         },
-    //         {'targets': 8, data: null, 'defaultContent': action_html2,'className':'text-center' }
-    //     ]
-    // });
 
     function getRekBank(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pbyr.php?fx=getRekBank',
+            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
+                var select = $('#kode_akun').selectize();
+                select = select[0];
+                var control = select.selectize;
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_akun').selectize();
-                        select = select[0];
-                        var control = select.selectize;
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
                         }
@@ -412,9 +399,9 @@
         $('#input-biaya tbody').html('');
         $.ajax({
           type: 'GET',
-          url: '<?=$root_ser?>/Pbyr.php?fx=getBayar',
+          url: "{{ url('dago-trans/pembayaran-detail') }}",
           dataType: 'json',
-          data: {'kode':kode,'kode_lokasi':kode_lokasi},
+          data: {'no_kwitansi':kode},
           success:function(res){
               if(res.status){  
                 if(res.daftar.length > 0 ){
@@ -538,9 +525,9 @@
             $('#input-biaya tbody').html('');
             $.ajax({
               type: 'GET',
-              url: '<?=$root_ser?>/Pbyr.php?fx=getEdit',
+              url: "{{ url('dago-trans/pembayaran-edit') }}",
               dataType: 'json',
-              data: {'kode':kode,'kode_lokasi':kode_lokasi,'no_bukti':no_bukti},
+              data: {'no_kwitansi':kode,'no_bukti':no_bukti},
               success:function(res){
                   if(res.status){  
                     if(res.daftar.length > 0 ){
@@ -685,16 +672,7 @@
             return false;						
         }	
 
-        var formData = new FormData(this);
-        
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        formData.append('kode_lokasi', kode_lokasi);
-        var kode_pp='<?php echo $kode_pp; ?>' ;
-        formData.append('kode_pp', kode_pp);
-        
-        var nik='<?php echo $nik; ?>' ;
-        formData.append('nik_user', nik);
-        
+        var formData = new FormData(this);        
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -702,7 +680,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/Pbyr.php?fx=simpan',
+            url: "{{ url('dago-trans/pembayaran') }}",
             dataType: 'json',
             data: formData,
             contentType: false,
@@ -742,16 +720,16 @@
     function printPbyr(id){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pbyr.php?fx=getPrint',
+            url: "{{ url('dago-trans/pembayaran-preview') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>','no_kwitansi':id},
+            data: {'no_kwitansi':id},
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         var line =result.daftar[0];
                         
-                        var foto = "<?=$folderroot_img?>/dago.png";
+                        var foto = "dago.png";
                         var html=`
                         <style>
                             td,th{
