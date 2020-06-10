@@ -27,3 +27,66 @@ Route::get('jenis-harga/{id}', 'Dago\JenisHargaController@getData');
 Route::post('jenis-harga', 'Dago\JenisHargaController@store');
 Route::put('jenis-harga/{id}', 'Dago\JenisHargaController@update');
 Route::delete('jenis-harga/{id}', 'Dago\JenisHargaController@delete');
+
+//Type Room //
+Route::get('type-room', 'Dago\TypeRoomController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Biaya //
+Route::get('biaya', 'Dago\BiayaController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Marketing //
+Route::get('marketing', 'Dago\MarketingController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Agen //
+Route::get('agen', 'Dago\AgenController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Produk //
+Route::get('produk', 'Dago\ProdukController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Master Dokumen //
+Route::get('master-dokumen', 'Dago\MasterDokumenController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Paket //
+Route::get('paket', 'Dago\PaketController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Biaya //
+Route::get('biaya', 'Dago\BiayaController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+
+//Jadwal //
+Route::get('jadwal', 'Dago\JadwalController@index');
+Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
+Route::post('type-room', 'Dago\TypeRoomController@store');
+Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
+Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
