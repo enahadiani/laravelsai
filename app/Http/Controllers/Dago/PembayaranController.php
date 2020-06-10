@@ -219,7 +219,7 @@ class PembayaranController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi-detail?no_reg='.$request->no_reg,[
+            $response = $client->request('GET', $this->link.'pembayaran-detail?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

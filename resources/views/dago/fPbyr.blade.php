@@ -401,11 +401,11 @@
           type: 'GET',
           url: "{{ url('dago-trans/pembayaran-detail') }}",
           dataType: 'json',
-          data: {'no_kwitansi':kode},
+          data: {'no_reg':kode},
           success:function(res){
-              if(res.status){  
-                if(res.daftar.length > 0 ){
-                    var line = res.daftar[0];
+              if(res.data.status == "SUCCESS"){  
+                if(res.data.data_jamaah.length > 0 ){
+                    var line = res.data.data_jamaah[0];
                     $('#id_edit').val('');
                     $('#no_bukti').val('');
                     $('#no_reg').val(line.no_reg);
@@ -423,8 +423,8 @@
                         var akunTambah = line.akun_piutang;
                     }
 
-                    if (res.daftar2.length){
-                        var line2 = res.daftar2[0];							
+                    if (res.data.detail_bayar.length){
+                        var line2 = res.data.detail_bayar[0];							
                         if (line2 != undefined){										
                             var bayarTambah = parseFloat(line2.tambahan);
                             var bayarPaket = parseFloat(line2.paket);
@@ -433,10 +433,10 @@
                     }
                     var html='';
                     $('#input-biaya tbody').html('');
-                    if (res.daftar3.length){
+                    if (res.data.detail_biaya.length){
                         var no=1;
-                        for(var i=0;i< res.daftar3.length;i++){
-                            var line3 = res.daftar3[i];	
+                        for(var i=0;i< res.data.detail_biaya.length;i++){
+                            var line3 = res.data.detail_biaya[i];	
                             // var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);						
                             html+=`<tr class='row-biaya'>
                                 <td class='no-biaya'>`+no+`</td>
@@ -486,25 +486,25 @@
                     $('#saldo_biaya').val(saldot);
                     $('#saldo_dok').val(saldom);   
 
-                    var html='';
-                    $('#table-his tbody').html('');
-                    if (res.daftar4.length){
-                        var no=1;
-                        for(var i=0;i< res.daftar4.length;i++){
-                            var line4 = res.daftar4[i];						
-                            html+=`<tr class='row-his'>
-                                <td class='no-his'>`+no+`</td>
-                                <td>`+line4.no_kwitansi+`</td>
-                                <td>`+line4.tgl_bayar+`</td>
-                                <td>`+sepNum(line4.nilai_p)+`</td>
-                                <td>`+sepNum(line4.nilai_t)+`</td>
-                                <td>`+sepNum(line4.nilai_m)+`</td>
-                                <td>`+sepNum(line4.total_idr)+`</td>
-                            </tr>`;
-                            no++;
-                        }
-                        $('#table-his tbody').html(html);
-                    }
+                    // var html='';
+                    // $('#table-his tbody').html('');
+                    // if (res.data.detail_.length){
+                    //     var no=1;
+                    //     for(var i=0;i< res.data.detail_.length;i++){
+                    //         var line4 = res.data.detail_[i];						
+                    //         html+=`<tr class='row-his'>
+                    //             <td class='no-his'>`+no+`</td>
+                    //             <td>`+line4.no_kwitansi+`</td>
+                    //             <td>`+line4.tgl_bayar+`</td>
+                    //             <td>`+sepNum(line4.nilai_p)+`</td>
+                    //             <td>`+sepNum(line4.nilai_t)+`</td>
+                    //             <td>`+sepNum(line4.nilai_m)+`</td>
+                    //             <td>`+sepNum(line4.total_idr)+`</td>
+                    //         </tr>`;
+                    //         no++;
+                    //     }
+                    //     $('#table-his tbody').html(html);
+                    // }
                     $('#web_datatable').hide();
                     $('#saku-form').show();
                 } 
