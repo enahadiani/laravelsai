@@ -576,7 +576,7 @@
                     $('#nilai').val(result.data[0].nilai);
                     $('#akun_pdpt').val(result.data[0].akun_pdpt);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
-                    getLabelAkunPdpt(id);
+                    getLabelAkunPdpt(result.data[0].akun_pdpt);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

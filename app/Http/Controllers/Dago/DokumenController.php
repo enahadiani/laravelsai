@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class ProdukController extends Controller
+class DokumenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +33,7 @@ class ProdukController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'produk',[
+            $response = $client->request('GET', $this->link.'masterdokumen',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -57,26 +57,22 @@ class ProdukController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_produk' => 'required',
-            'nama' => 'required',
-            'kode_akun' => 'required',
-            'akun_piutang' => 'required',
-            'akun_pdpt' => 'required',
+            'no_dokumen' => 'required',
+            'deskripsi' => 'required',
+            'jenis' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'produk',[
+                $response = $client->request('POST', $this->link.'masterdokumen',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_produk' => $request->kode_produk,
-                        'nama' => $request->nama,
-                        'kode_akun' => $request->kode_akun,
-                        'akun_piutang' => $request->akun_piutang,
-                        'akun_pdpt' => $request->akun_pdpt,
+                        'no_dokumen' => $request->no_dokumen,
+                        'deskripsi' => $request->deskripsi,
+                        'jenis' => $request->jenis,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -98,7 +94,7 @@ class ProdukController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'produk?kode_produk='.$id,
+            $response = $client->request('GET', $this->link.'masterdokumen?no_dokumen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -123,26 +119,22 @@ class ProdukController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_produk' => 'required',
-            'nama' => 'required',
-            'kode_akun' => 'required',
-            'akun_piutang' => 'required',
-            'akun_pdpt' => 'required',
+            'no_dokumen' => 'required',
+            'deskripsi' => 'required',
+            'jenis' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'produk?kode_produk='.$id,[
+                $response = $client->request('PUT', $this->link.'masterdokumen?no_dokumen='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_produk' => $request->kode_produk,
-                        'nama' => $request->nama,
-                        'kode_akun' => $request->kode_akun,
-                        'akun_piutang' => $request->akun_piutang,
-                        'akun_pdpt' => $request->akun_pdpt,
+                        'no_dokumen' => $request->no_dokumen,
+                        'deskripsi' => $request->deskripsi,
+                        'jenis' => $request->jenis,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -164,7 +156,7 @@ class ProdukController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'produk?kode_produk='.$id,
+            $response = $client->request('DELETE', $this->link.'masterdokumen?no_dokumen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

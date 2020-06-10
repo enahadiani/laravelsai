@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Session;
 
 //Helper Controller//
 Route::get('akun-pdpt', 'Dago\HelperController@getAkunPdpt');
+Route::get('akun-piutang', 'Dago\HelperController@getAkunPiutang');
+Route::get('akun-pdd', 'Dago\HelperController@getAkunPDD');
 
 //Jenis Pekerjaan //
 Route::get('pekerjaan', 'Dago\PekerjaanController@index');
@@ -23,6 +25,13 @@ Route::get('pekerjaan/{id}', 'Dago\PekerjaanController@getData');
 Route::post('pekerjaan', 'Dago\PekerjaanController@store');
 Route::put('pekerjaan/{id}', 'Dago\PekerjaanController@update');
 Route::delete('pekerjaan/{id}', 'Dago\PekerjaanController@delete');
+
+//Jenis Dokumen //
+Route::get('master-dokumen', 'Dago\DokumenController@index');
+Route::get('master-dokumen/{id}', 'Dago\DokumenController@getData');
+Route::post('master-dokumen', 'Dago\DokumenController@store');
+Route::put('master-dokumen/{id}', 'Dago\DokumenController@update');
+Route::delete('master-dokumen/{id}', 'Dago\DokumenController@delete');
 
 //Jenis Harga //
 Route::get('jenis-harga', 'Dago\JenisHargaController@index');
@@ -61,10 +70,10 @@ Route::delete('agen/{id}', 'Dago\AgenController@delete');
 
 //Produk //
 Route::get('produk', 'Dago\ProdukController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('produk/{id}', 'Dago\ProdukController@getData');
+Route::post('produk', 'Dago\ProdukController@store');
+Route::put('produk/{id}', 'Dago\ProdukController@update');
+Route::delete('produk/{id}', 'Dago\ProdukController@delete');
 
 //Master Dokumen //
 Route::get('master-dokumen', 'Dago\MasterDokumenController@index');
