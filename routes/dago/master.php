@@ -26,6 +26,13 @@ Route::post('pekerjaan', 'Dago\PekerjaanController@store');
 Route::put('pekerjaan/{id}', 'Dago\PekerjaanController@update');
 Route::delete('pekerjaan/{id}', 'Dago\PekerjaanController@delete');
 
+//Jenis Dokumen //
+Route::get('master-dokumen', 'Dago\DokumenController@index');
+Route::get('master-dokumen/{id}', 'Dago\DokumenController@getData');
+Route::post('master-dokumen', 'Dago\DokumenController@store');
+Route::put('master-dokumen/{id}', 'Dago\DokumenController@update');
+Route::delete('master-dokumen/{id}', 'Dago\DokumenController@delete');
+
 //Jenis Harga //
 Route::get('jenis-harga', 'Dago\JenisHargaController@index');
 Route::get('jenis-harga/{id}', 'Dago\JenisHargaController@getData');

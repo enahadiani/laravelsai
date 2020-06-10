@@ -129,7 +129,7 @@
                             <div class="form-group row">
                                 <label for="alamat" class="col-3 col-form-label">Alamat</label>
                                 <div class="col-9">
-                                    <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="5"></textarea>
+                                     <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
                                 </div>
                             </div>
                             <div class="form-group row">
