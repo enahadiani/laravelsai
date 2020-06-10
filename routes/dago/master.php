@@ -47,10 +47,10 @@ Route::delete('biaya/{id}', 'Dago\BiayaWajibController@delete');
 
 //Marketing //
 Route::get('marketing', 'Dago\MarketingController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('marketing/{id}', 'Dago\MarketingController@getData');
+Route::post('marketing', 'Dago\MarketingController@store');
+Route::put('marketing/{id}', 'Dago\MarketingController@update');
+Route::delete('marketing/{id}', 'Dago\MarketingController@delete');
 
 //Agen //
 Route::get('agen', 'Dago\AgenController@index');

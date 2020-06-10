@@ -57,20 +57,22 @@ class MarketingController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_harga' => 'required',
-            'nama' => 'required',
+            'no_marketing' => 'required',
+            'nama_marketing' => 'required',
+            'flag_aktif' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', $this->link.'marketing',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
+                        'no_marketing' => $request->no_marketing,
+                        'nama_marketing' => $request->nama_marketing,
+                        'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -92,7 +94,7 @@ class MarketingController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', $this->link.'marketing?no_marketing='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -117,20 +119,22 @@ class MarketingController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_harga' => 'required',
-            'nama' => 'required',
+            'no_marketing' => 'required',
+            'nama_marketing' => 'required',
+            'flag_aktif' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
+                $response = $client->request('PUT', $this->link.'marketing?no_marketing='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
+                        'no_marketing' => $request->no_marketing,
+                        'nama_marketing' => $request->nama_marketing,
+                        'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -152,7 +156,7 @@ class MarketingController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('DELETE', $this->link.'marketing?no_marketing='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
