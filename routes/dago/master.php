@@ -84,10 +84,10 @@ Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Paket //
 Route::get('paket', 'Dago\PaketController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('paket/{id}', 'Dago\PaketController@getData');
+Route::post('paket', 'Dago\PaketController@store');
+Route::put('paket/{id}', 'Dago\PaketController@update');
+Route::delete('paket/{id}', 'Dago\PaketController@delete');
 
 //Jadwal //
 Route::get('jadwal', 'Dago\JadwalController@index');
