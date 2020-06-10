@@ -708,17 +708,17 @@ class RegistrasiController extends Controller
     public function getPreview(Request $request)
     {
         $this->validate($request, [
-            'no_bukti' => 'required'
+            'no_reg' => 'required'
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi-preview?no_bukti='.$request->no_bukti,[
+            $response = $client->request('GET', $this->link.'registrasi-preview?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'no_bukti' => $request->no_bukti
+                    'no_reg' => $request->no_reg
                 ]
             ]);
 

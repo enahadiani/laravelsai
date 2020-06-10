@@ -1781,10 +1781,11 @@
             dataType: 'json',
             async:false,
             data: {'no_reg':id},
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var line =result.daftar[0];
+            success:function(result){  
+                console.log(result);  
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        var line =result.data.data[0];
                         var html=`<div align='center'>
                         <table width='100%' class='table table-bordered table-striped' cellspacing='1' cellpadding='2'>
                         <style>
