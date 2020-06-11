@@ -717,7 +717,7 @@
     function getPaket(paket){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/paket') }}/"+paket,
+            url: "{{ url('dago-trans/paket') }}/"+paket,
             dataType: 'json',
             async:false,
             success:function(result){    

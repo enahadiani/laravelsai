@@ -34,6 +34,7 @@ Route::get('quota','Dago\RegistrasiController@getQuota');
 Route::get('harga-room','Dago\RegistrasiController@getHargaRoom');
 Route::get('no-marketing','Dago\RegistrasiController@getNoMarketing');
 Route::get('registrasi-preview','Dago\RegistrasiController@getPreview');
+Route::get('paket/{no_paket}','Dago\RegistrasiController@getPaket');
 
 //Registrasi Group
 Route::get('registrasi-group','Dago\RegistrasiGroupController@index');

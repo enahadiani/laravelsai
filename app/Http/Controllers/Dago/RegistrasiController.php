@@ -17,6 +17,7 @@ class RegistrasiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $link = 'https://api.simkug.com/api/dago-trans/';
+    public $link2 = 'https://api.simkug.com/api/dago-master/';
 
     public function joinNum($num){
         // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
@@ -477,6 +478,35 @@ class RegistrasiController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getPaket($no_paket)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link2.'paket?no_paket='.$no_paket,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_paket' => $no_paket
+                ]
+            ]);
+                    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+                    
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
 
