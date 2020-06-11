@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Biaya Wajib dan Opsional/Tambahan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Agen 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -33,17 +33,13 @@
                             }
 
                             </style>
-                            <table id="table-data" class="table table-bordered table-striped display nowrap" style='width:100%'>
+                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>Kode Agen</th>
                                         <th>Nama Agen</th>
-                                        <th>Tgl Lahir</th>
-                                        <th>Alamat</th>
                                         <th>No HP</th>
                                         <th>Email</th>
-                                        <th>Bank</th>
-                                        <th>No Rekening</th>
                                         <th>Kode Marketing</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -62,7 +58,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Harga Promo Paket
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Agen
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -267,17 +263,13 @@
             }
         },
         'columnDefs': [
-            {'targets': 9, data: null, 'defaultContent': action_html },
+            {'targets': 5, data: null, 'defaultContent': action_html },
             ],
         'columns': [
             { data: 'no_agen' },
             { data: 'nama_agen' },
-            { data: 'tgl_lahir' },
-            { data: 'alamat' },
             { data: 'no_hp' },
             { data: 'email' },
-            { data: 'bank' },
-            { data: 'norek' },
             { data: 'kode_marketing' },
         ],
         dom: 'lBfrtip',
