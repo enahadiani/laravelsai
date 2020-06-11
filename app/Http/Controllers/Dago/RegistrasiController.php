@@ -456,16 +456,29 @@ class RegistrasiController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket,[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'no_paket' => $request->no_paket
+            if(isset($request->no_jadwal)){
+               
+                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket,='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_paket,' => $request->no_paket,
+                        'no_jadwal' => $request->no_jadwal
                     ]
-            ]);
-                    
+                ]);
+            }else{
+                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_paket' => $request->no_paket
+                        ]
+                ]);
+            } 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
@@ -564,15 +577,28 @@ class RegistrasiController extends Controller
         }
     }
 
-    public function getPP(){
+    public function getPP(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
+            if(isset($request->kode_pp)){
+               
+                $response = $client->request('GET', $this->link.'pp?kode_pp='.$request->kode_pp,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' =>[
+                        'kode_pp' => $request->kode_pp
+                    ]
+                ]);
+            }else{
+                $response = $client->request('GET', $this->link.'pp',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+            }
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

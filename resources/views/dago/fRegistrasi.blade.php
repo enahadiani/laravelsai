@@ -660,60 +660,6 @@
         }]
     });
 
-    // var jadwal = $('#jadwal').selectize({
-    //     selectOnTab: true,
-    //     onChange: function (){
-    //         setQuota();
-    //     }
-    // });
-    // $('#paket').selectize({
-    //     selectOnTab: true,
-    //     onChange: function (){
-    //         var id = $('#paket')[0].selectize.getValue();
-    //         $.ajax({
-    //             type: 'GET',
-    //             url: "{{ url('dago-trans/jadwal-detail') }}",
-    //             dataType: 'json',
-    //             async:false,
-    //             data: {'no_paket':id},
-    //             success:function(result){    
-    //                 var select = jadwal[0];
-    //                 var control = select.selectize;
-    //                 control.clearOptions();
-    //                 if(result.data.status){
-    //                     if(typeof result.data.data !== 'undefined'){
-    //                         for(i=0;i<result.data.data.length;i++){
-    //                             control.addOption([{text:result.data.data[i].no_jadwal + ' - ' + result.data.data[i].tgl_berangkat, value:result.data.data[i].no_jadwal}]);
-    //                         }
-                            
-    //                     }
-    //                 }
-    //                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-    //                     Swal.fire({
-    //                         title: 'Session telah habis',
-    //                         text: 'harap login terlebih dahulu!',
-    //                         icon: 'error'
-    //                     }).then(function() {
-    //                         window.location.href = "{{ url('dago-auth/login') }}";
-    //                     })
-    //                 }
-    //                 setHarga();
-    //                 setQuota();
-    //             }
-    //             // error: function(jqXHR, textStatus, errorThrown) {       
-    //             //     if(jqXHR.status==422){
-    //             //         Swal.fire({
-    //             //             icon: 'error',
-    //             //             title: 'Oops...',
-    //             //             text: 'Something went wrong!',
-    //             //             footer: '<a href>'+jqXHR.responseText+'</a>'
-    //             //         })
-    //             //     }
-    //             // }
-    //         });
-    //     }
-    // });
-
     function getPaket(paket){
         $.ajax({
             type: 'GET',
@@ -785,7 +731,7 @@
                         $('#marketing').val('');
                     }
                 }
-                else if(result.status && result.message == 'Unauthorized'){
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -845,7 +791,7 @@
                         $('#no_peserta').focus();
                     }
                 }
-                else if(result.data.status && result.data.message == 'Unauthorized'){
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -891,7 +837,7 @@
                         $('#marketing').focus();
                     }
                 }
-                else if(result.data.status && result.data.message == 'Unauthorized'){
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -919,26 +865,38 @@
         });
     }
 
-    function getPP(){
+    function getPP(kode_pp){
         $.ajax({
             type: 'GET',
             url:"{{ url('dago-trans/pp') }}",
             dataType: 'json',
+            data:{'kode_pp':kode_pp},
             async:false,
             success:function(result){    
-                var select = $('#kode_pp').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions(); 
-                if(result.data.status == "SUCCESS"){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        for(i=0;i<result.data.data.length;i++){
-                            control.addOption([{text:result.data.data[i].kode_pp + ' - ' + result.data.data[i].nama, value:result.data.data[i].kode_pp}]);
-                        }
-                        if(result.data.kodePP != undefined || result.data.kodePP != ""){
-                            control.setValue(result.data.kodePP);
-                        }
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_pp').val(result.daftar[0].kode_pp);
+                         $('#label_kode_pp').text(result.daftar[0].nama);
+                    }else{
+                        alert('Kode PP tidak valid');
+                        $('#kode_pp').val('');
+                        $('#label_kode_pp').text('');
+                        $('#kode_pp').focus();
                     }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    alert('Kode PP tidak valid');
+                    $('#kode_pp').val('');
+                    $('#label_kode_pp').text('');
+                    $('#kode_pp').focus();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -1537,6 +1495,7 @@
     getBTambah();
     getBDok();
     getDokumen();
+    $('#kode_pp').val("{{ Session::get('kodePP') }}");
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
@@ -1656,14 +1615,6 @@
         getPeserta(par);
     });
 
-    // $('#form-tambah').on('keydown', '#no_peserta', function(e){
-    // e.preventDefault();
-    //     if(e.which == 13 || e.which == 9){
-    //         var par = $(this).val();
-    //         getPeserta(par);
-    //     }
-    // });
-
     $('#form-tambah').on('change', '#paket', function(){
         var par = $(this).val();
         $('#jadwal').val('');
@@ -1671,13 +1622,10 @@
         getPaket(par);
     });
 
-    // $('#form-tambah').on('keydown', '#paket', function(e){
-    // e.preventDefault();
-    //     if(e.which == 13 || e.which == 9){
-    //         var par = $(this).val();
-    //         getPaket(par);
-    //     }
-    // });
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);
+    });
 
     $('#table-btambah').on('click', 'td', function(){
         var idx = $(this).index();
