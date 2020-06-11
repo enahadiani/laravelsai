@@ -54,14 +54,14 @@
                                                 <table class='table table-bordered table-striped DataTable' style='width: 100%;' id='table-new'>
                                                 <thead>
                                                     <tr>
-                                                    <td>No Registrasi</td>
-                                                    <td>No Peserta</td>
-                                                    <td>Nama Peserta</td>
-                                                    <td>Tanggal</td>
-                                                    <td>Paket</td>
-                                                    <td>Jadwal</td>
-                                                    <td>Action</td>
-                                                    <td>Status</td>
+                                                        <th>No Registrasi</th>
+                                                        <th>No Peserta</th>
+                                                        <th>Nama Peserta</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Paket</th>
+                                                        <th>Jadwal</th>
+                                                        <th>Action</th>
+                                                        <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -253,8 +253,8 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="10%">No Bukti</th>
-                                                <th width="15%">Tgl Bayar</th>
+                                                <th width="15%">No Bukti</th>
+                                                <th width="10%">Tgl Bayar</th>
                                                 <th width="15%">Nilai Paket + Room</th>
                                                 <th width="15%">Nilai Tambahan</th>
                                                 <th width="15%">Nilai Dokumen</th>
@@ -345,6 +345,7 @@
         }]
     });
 
+
     function getRekBank(){
         $.ajax({
             type: 'GET',
@@ -355,10 +356,10 @@
                 var select = $('#kode_akun').selectize();
                 select = select[0];
                 var control = select.selectize;
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        for(i=0;i<result.data.data.length;i++){
+                            control.addOption([{text:result.data.data[i].kode_akun + ' - ' + result.data.data[i].nama, value:result.data.data[i].kode_akun}]);
                         }
                     }
                 }
@@ -367,6 +368,7 @@
     }
 
     getRekBank();
+    $('.selectize').selectize();
 
     function hitungTotal(){
         
@@ -395,6 +397,15 @@
         
     }
 
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+
     $('#saiweb_container').on('click', '#btn-kembali', function(){
         
         $('#saku-form').hide();
@@ -417,6 +428,7 @@
         var kode = $(this).closest('tr').find('td:eq(0)').text();
         $('#form-tambah')[0].reset();
         $('#input-biaya tbody').html('');
+        $iconLoad.show();
         $.ajax({
           type: 'GET',
           url: "{{ url('dago-trans/pembayaran-detail') }}",
@@ -462,10 +474,10 @@
                                 <td class='no-biaya'>`+no+`</td>
                                 <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                 <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                <td class='text-right'>`+sepNumX(line3.nilai)+`</td>
-                                <td class='text-right'>`+sepNumX(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                <td class='text-right'>`+sepNumX(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+line3.byr+`'></td>
-                                <td class='text-right'>`+sepNumX(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+line3.saldo+`'></td>`;
+                                <td class='text-right'>`+toRp2(line3.nilai)+`</td>
+                                <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                <td class='text-right'>`+toRp2(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+toRp2(line3.byr)+`'></td>
+                                <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
 
                                 html+=`
                                 <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='0' ></td>`;
@@ -500,38 +512,51 @@
                     }
 
                     var saldo = hargapaket - bayarPaket - diskon;
-                    var saldot = parseFloat(res.totTambah) - bayarTambah;						 
-                    var saldom = parseFloat(res.totDok) - bayarDok;	
-                    $('#saldo_paket').val(saldo);
-                    $('#saldo_biaya').val(saldot);
-                    $('#saldo_dok').val(saldom);   
+                    var saldot = parseFloat(res.data.totTambah) - bayarTambah;						 
+                    var saldom = parseFloat(res.data.totDok) - bayarDok;	
+                    $('#saldo_paket').val(toRp2(saldo));
+                    $('#saldo_biaya').val(toRp2(saldot));
+                    $('#saldo_dok').val(toRp2(saldom));   
 
-                    // var html='';
-                    // $('#table-his tbody').html('');
-                    // if (res.data.detail_.length){
-                    //     var no=1;
-                    //     for(var i=0;i< res.data.detail_.length;i++){
-                    //         var line4 = res.data.detail_[i];						
-                    //         html+=`<tr class='row-his'>
-                    //             <td class='no-his'>`+no+`</td>
-                    //             <td>`+line4.no_kwitansi+`</td>
-                    //             <td>`+line4.tgl_bayar+`</td>
-                    //             <td>`+sepNum(line4.nilai_p)+`</td>
-                    //             <td>`+sepNum(line4.nilai_t)+`</td>
-                    //             <td>`+sepNum(line4.nilai_m)+`</td>
-                    //             <td>`+sepNum(line4.total_idr)+`</td>
-                    //         </tr>`;
-                    //         no++;
-                    //     }
-                    //     $('#table-his tbody').html(html);
-                    // }
+                    var html='';
+                    $('#table-his tbody').html('');
+                    if (res.data.histori_bayar.length){
+                        var no=1;
+                        for(var i=0;i< res.data.histori_bayar.length;i++){
+                            var line4 = res.data.histori_bayar[i];						
+                            html+=`<tr class='row-his'>
+                                <td class='no-his'>`+no+`</td>
+                                <td>`+line4.no_kwitansi+`</td>
+                                <td>`+line4.tgl_bayar+`</td>
+                                <td>`+toRp2(line4.nilai_p)+`</td>
+                                <td>`+toRp2(line4.nilai_t)+`</td>
+                                <td>`+toRp2(line4.nilai_m)+`</td>
+                                <td>`+toRp2(line4.total_idr)+`</td>
+                            </tr>`;
+                            no++;
+                        }
+                        $('#table-his tbody').html(html);
+                    }
                     $('#web_datatable').hide();
                     $('#saku-form').show();
                 } 
               }
+              $iconLoad.hide();
           },
           fail: function(xhr, textStatus, errorThrown){
               alert('request failed:');
+              $iconLoad.hide();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status==422){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href>'+jqXHR.responseText+'</a>'
+                })
+            }
+            $iconLoad.hide();
           }
       });
 
@@ -547,11 +572,11 @@
               type: 'GET',
               url: "{{ url('dago-trans/pembayaran-edit') }}",
               dataType: 'json',
-              data: {'no_kwitansi':kode,'no_bukti':no_bukti},
+              data: {'no_reg':kode,'no_bukti':no_bukti},
               success:function(res){
-                  if(res.status){  
-                    if(res.daftar.length > 0 ){
-                        var line = res.daftar[0];
+                  if(res.data.status){  
+                    if(res.data.data_jamaah.length > 0 ){
+                        var line = res.data.data_jamaah[0];
                         $('#id_edit').val('edit');
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
@@ -569,8 +594,8 @@
                             var akunTambah = line.akun_piutang;
                         }
     
-                        if (res.daftar2.length){
-                            var line2 = res.daftar2[0];							
+                        if (res.data.detail_bayar.length){
+                            var line2 = res.data.detail_bayar[0];							
                             if (line2 != undefined){										
                                 var bayarTambah = parseFloat(line2.tambahan);
                                 var bayarPaket = parseFloat(line2.paket);
@@ -586,20 +611,20 @@
                             }
                         }
                         var html='';
-                        if (res.daftar3.length){
+                        if (res.data.detail_biaya.length){
                             var no=1;
-                            for(var i=0;i< res.daftar3.length;i++){
-                                var line3 = res.daftar3[i];		
+                            for(var i=0;i< res.data.detail_biaya.length;i++){
+                                var line3 = res.data.detail_biaya[i];		
                                 
                                 var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);							
                                 html+=`<tr class='row-biaya'>
                                     <td class='no-biaya'>`+no+`</td>
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                     <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                    <td class='text-right'>`+sepNumX(line3.nilai)+`</td>
-                                    <td class='text-right'>`+sepNumX(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                    <td class='text-right'>`+sepNumX(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
-                                    <td class='text-right'>`+sepNumX(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+line3.saldo+`'></td>`;
+                                    <td class='text-right'>`+toRp2(line3.nilai)+`</td>
+                                    <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                    <td class='text-right'>`+toRp2(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+toRp2(trbyr)+`'></td>
+                                    <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
                                         html+=`
                                     <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
@@ -609,10 +634,10 @@
                                         }else{
                                             line3.byr_e = line3.byr_e;
                                         }
-                                        console.log(line3.byr_e);
+                                        // console.log(line3.byr_e);
                                         
                                     html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+sepNumX(line3.byr_e)+`'></td>`;
+                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
                                     }
                                     html+=`
                                 </tr>`;
@@ -707,25 +732,36 @@
             cache: false,
             processData: false, 
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     dataTable.ajax.reload();
                     // dataTable2.ajax.reload();
                     Swal.fire(
                         'Great Job!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                     )
-                    printPbyr(result.no_kwitansi);
-                    $iconLoad.hide();
+                    printPbyr(result.data.no_kwitansi);
                     
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
+                $iconLoad.hide();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
     });
@@ -745,9 +781,9 @@
             async:false,
             data: {'no_kwitansi':id},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var line =result.daftar[0];
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        var line =result.data.data[0];
                         
                         var foto = "dago.png";
                         var html=`
@@ -878,6 +914,17 @@
                         $('#saku-form').hide();
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
     }

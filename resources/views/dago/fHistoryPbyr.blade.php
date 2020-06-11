@@ -1,21 +1,4 @@
-<?php
-  
-  session_start();
-  $root_lib=$_SERVER["DOCUMENT_ROOT"];
-  if (substr($root_lib,-1)!="/") {
-      $root_lib=$root_lib."/";
-  }
-  include_once($root_lib.'app/dago/setting.php');
-  $kode_lokasi=$_SESSION['lokasi'];
-  $nik=$_SESSION['userLog'];
-  $kode_pp=$_SESSION['kodePP'];
-  $periode=$_SESSION['periode'];
-?>
-<style>
-#input-grid_wrapper{
-  padding:0;
-}
-</style>
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
 <div class="container-fluid mt-3">
     <div id='saiweb_container'>
         <div id='web_datatable'>
@@ -25,44 +8,59 @@
                         <div class='card-body'>
                             <div class='row'>
                                 <div class="col-md-6">
-                                    <h4 class="card-title mb-4"><i class='fas fa-cube'></i> History Pembayaran
+                                    <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> History Pembayaran
                                     </h4>
-                                <hr>
+                                <hr style="margin-bottom:0px;margin-top:25px">
                                 </div>
                                 <div class='col-md-6'>
-                                    <!-- <ul class="nav nav-tabs customtab float-right" role="tablist">
-                                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
-                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
-                                    </ul> -->
                                 </div>
                                 <div class='col-md-12'>
-                                    
                                     <style>
                                     th,td{
                                         padding:8px !important;
                                         vertical-align:middle !important;
                                     }
+                                    .hidden{
+                                        display:none;
+                                    }
                                     .form-group{
-                                        margin-bottom:15px !important;
+                                        margin-bottom:5px !important;
+                                    }
+                                    .form-control{
+                                        font-size:13px !important;
+                                        padding: .275rem .6rem !important;
+                                    }
+                                    .selectize-control, .selectize-dropdown{
+                                        padding: 0 !important;
                                     }
                                     
-                                    .dataTables_wrapper{
-                                        padding:5px
+                                    .modal-header .close {
+                                        padding: 1rem;
+                                        margin: -1rem 0 -1rem auto;
                                     }
+                                    .check-item{
+                                        cursor:pointer;
+                                    }
+                                    .selected{
+                                        cursor:pointer;
+                                        background:#4286f5 !important;
+                                        color:white;
+                                    }
+                                    
                                     </style>
                                     <div class='sai-container-overflow-x'>
                                         <table class='table table-bordered table-striped DataTable' style='width: 100%;' id='table-finish'>
                                             <thead>
                                                 <tr>
-                                                    <td>No Bukti</td>
-                                                    <td>Tanggal</td>
-                                                    <td>No Registrasi</td>
-                                                    <td>Paket</td>
-                                                    <td>Jadwal</td>
-                                                    <td>Nilai Paket</td>
-                                                    <td>Nilai Tambahan</td>
-                                                    <td>Total</td>
-                                                    <td>Action</td>
+                                                    <th>No Bukti</th>
+                                                    <th>Tanggal</th>
+                                                    <th>No Registrasi</th>
+                                                    <th>Paket</th>
+                                                    <th>Jadwal</th>
+                                                    <th>Nilai Paket</th>
+                                                    <th>Nilai Tambahan</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -90,6 +88,7 @@
                         <div class="card-body table-responsive pt-0" style='height:450px' >
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
+                                <input class="form-control" type="hidden" id="method" name="_method" value="put">
                                 <input class="form-control" type="hidden" id="id_edit" name="id">
                                 </div>
                                 <div class="col-3">
@@ -100,7 +99,7 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value='<?=date('Y-m-d')?>' required>
+                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -231,8 +230,8 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="10%">No Bukti</th>
-                                                <th width="15%">Tgl Bayar</th>
+                                                <th width="15%">No Bukti</th>
+                                                <th width="10%">Tgl Bayar</th>
                                                 <th width="15%">Nilai Paket + Room</th>
                                                 <th width="15%">Nilai Tambahan</th>
                                                 <th width="15%">Nilai Dokumen</th>
@@ -265,34 +264,59 @@
         </div>
     </div>
 </div>
-
-<script src="<?=$folderroot_js?>/printThis/printThis.js"></script>
-<script src="<?=$folderroot_js?>/sai.js"></script>
-<script src="<?=$folderroot_js?>/inputmask.js"></script>
 <script>
     
     var $iconLoad = $('.preloader');
-    // var action_html2 = "<a href='#' title='Edit' class='badge badge-info web_datatable_edit' ><i class='fas fa-pencil-alt'></i>&nbsp; Edit</a>";
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
-
     var dataTable2 = $('#table-finish').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         "ordering": true,
         "order": [[1, "desc"]],
         'ajax': {
-            'url': '<?=$root_ser?>/Pbyr.php?fx=getFinish',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('dago-trans/pembayaran-history') }}",
             'async':false,
-            'type': 'POST',
+            'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                    return [];
+                }  
             }
         },
+        'columns': [
+            { data: 'no_kwitansi' },
+            { data: 'tgl_bayar' },
+            { data: 'no_reg' },
+            { data: 'paket' },
+            { data: 'jadwal' },
+            { data: 'nilai_p' },
+            { data: 'nilai_t' },
+            { data: 'total_idr' },
+            { data: 'action' }
+        ],
         'columnDefs': [
             {'targets': [5,6,7],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            },
+            {
+                "targets": 8,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if("{{ Session::get('userStatus') }}" == "U"){
+                        return "";
+                    }else{
+                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                    }
+                }
             }
         ]
     });
@@ -300,18 +324,17 @@
     function getRekBank(){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pbyr.php?fx=getRekBank',
+            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>'},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var select = $('#kode_akun').selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_akun + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_akun}]);
+                var select = $('#kode_akun').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        for(i=0;i<result.data.data.length;i++){
+                            control.addOption([{text:result.data.data[i].kode_akun + ' - ' + result.data.data[i].nama, value:result.data.data[i].kode_akun}]);
                         }
                     }
                 }
@@ -320,6 +343,15 @@
     }
 
     getRekBank();
+    $('.selectize').selectize();
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
 
     function hitungTotal(){
         
@@ -365,21 +397,20 @@
         $('#slide-print').hide();
     });
 
-    $('#saiweb_container').on('click', '.web_datatable_edit', function(){
-                          // getset value
-            var kode = $(this).closest('tr').find('td:eq(2)').text();
-            var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
-            $('#form-tambah')[0].reset();
-            $('#input-biaya tbody').html('');
-            $.ajax({
+    $('#saiweb_container').on('click', '#btn-edit', function(){
+        var kode = $(this).closest('tr').find('td:eq(2)').text();
+        var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
+        $('#form-tambah')[0].reset();
+        $('#input-biaya tbody').html('');
+        $.ajax({
               type: 'GET',
-              url: '<?=$root_ser?>/Pbyr.php?fx=getEdit',
+              url: "{{ url('dago-trans/pembayaran-edit') }}",
               dataType: 'json',
-              data: {'kode':kode,'kode_lokasi':kode_lokasi,'no_bukti':no_bukti},
+              data: {'no_reg':kode,'no_kwitansi':no_bukti},
               success:function(res){
-                  if(res.status){  
-                    if(res.daftar.length > 0 ){
-                        var line = res.daftar[0];
+                  if(res.data.status){  
+                    if(res.data.data_jamaah.length > 0 ){
+                        var line = res.data.data_jamaah[0];
                         $('#id_edit').val('edit');
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
@@ -397,8 +428,8 @@
                             var akunTambah = line.akun_piutang;
                         }
     
-                        if (res.daftar2.length){
-                            var line2 = res.daftar2[0];							
+                        if (res.data.detail_bayar.length){
+                            var line2 = res.data.detail_bayar[0];							
                             if (line2 != undefined){										
                                 var bayarTambah = parseFloat(line2.tambahan);
                                 var bayarPaket = parseFloat(line2.paket);
@@ -406,28 +437,28 @@
                             }
                         }
 
-                        if (res.daftar4.length){
-                            var line4 = res.daftar4[0];							
+                        if (res.data.data_bayar.length){
+                            var line4 = res.data.data_bayar[0];							
                             if (line4 != undefined){										
                                 $('#deskripsi').val(line4.keterangan);						
                                 $('#kode_akun')[0].selectize.setValue(line4.kode_akun);					
                             }
                         }
                         var html='';
-                        if (res.daftar3.length){
+                        if (res.data.detail_biaya.length){
                             var no=1;
-                            for(var i=0;i< res.daftar3.length;i++){
-                                var line3 = res.daftar3[i];		
+                            for(var i=0;i< res.data.detail_biaya.length;i++){
+                                var line3 = res.data.detail_biaya[i];		
                                 
                                 var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);							
                                 html+=`<tr class='row-biaya'>
                                     <td class='no-biaya'>`+no+`</td>
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                     <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                    <td class='text-right'>`+sepNumX(line3.nilai)+`</td>
-                                    <td class='text-right'>`+sepNumX(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                    <td class='text-right'>`+sepNumX(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
-                                    <td class='text-right'>`+sepNumX(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+line3.saldo+`'></td>`;
+                                    <td class='text-right'>`+toRp2(line3.nilai)+`</td>
+                                    <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                    <td class='text-right'>`+toRp2(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
+                                    <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
                                         html+=`
                                     <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
@@ -437,10 +468,9 @@
                                         }else{
                                             line3.byr_e = line3.byr_e;
                                         }
-                                        console.log(line3.byr_e);
                                         
                                     html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+sepNumX(line3.byr_e)+`'></td>`;
+                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
                                     }
                                     html+=`
                                 </tr>`;
@@ -471,12 +501,28 @@
     
                         }
     
+                        var html='';
+                        $('#table-his tbody').html('');
+                        if (res.data.histori_bayar.length){
+                            var no=1;
+                            for(var i=0;i< res.data.histori_bayar.length;i++){
+                                var line4 = res.data.histori_bayar[i];						
+                                html+=`<tr class='row-his'>
+                                    <td class='no-his'>`+no+`</td>
+                                    <td>`+line4.no_kwitansi+`</td>
+                                    <td>`+line4.tgl_bayar+`</td>
+                                    <td>`+toRp2(line4.nilai_p)+`</td>
+                                    <td>`+toRp2(line4.nilai_t)+`</td>
+                                    <td>`+toRp2(line4.nilai_m)+`</td>
+                                    <td>`+toRp2(line4.total_idr)+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                            $('#table-his tbody').html(html);
+                        }
                         var saldo = hargapaket - bayarPaket;
-                        var saldot = parseFloat(res.totTambah) - bayarTambah - diskon;						 
-                        var saldom = parseFloat(res.totDok) - bayarDok;		
-                        
-                        
-    
+                        var saldot = parseFloat(res.data.totTambah) - bayarTambah - diskon;						 
+                        var saldom = parseFloat(res.data.totDok) - bayarDok;		
                         $('#saldo_paket').val(saldo);
                         $('#saldo_biaya').val(saldot);
                         $('#saldo_dok').val(saldom);         
@@ -522,14 +568,6 @@
 
         var formData = new FormData(this);
         
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        formData.append('kode_lokasi', kode_lokasi);
-        var kode_pp='<?php echo $kode_pp; ?>' ;
-        formData.append('kode_pp', kode_pp);
-        
-        var nik='<?php echo $nik; ?>' ;
-        formData.append('nik_user', nik);
-        
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -537,32 +575,42 @@
         
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/Pbyr.php?fx=simpan',
+            url: "{{ url('dago-trans/pembayaran') }}",
             dataType: 'json',
             data: formData,
             contentType: false,
             cache: false,
             processData: false, 
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     dataTable2.ajax.reload();
-                    // dataTable2.ajax.reload();
                     Swal.fire(
                         'Great Job!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                     )
-                    printPbyr(result.no_kwitansi);
-                    $iconLoad.hide();
+                    printPbyr(result.data.no_kwitansi);
                     
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
+                $iconLoad.hide();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
     });
@@ -578,17 +626,16 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                var kode_lokasi = '<?php echo $kode_lokasi; ?>';        
+                var kode = $(this).closest('tr').find('td:eq(0)').html();     
                 
                 $.ajax({
                     type: 'DELETE',
-                    url: '<?=$root_ser?>/Pbyr.php',
+                    url: "{{ url('dago-trans/pembayaran') }}",
                     dataType: 'json',
                     async:false,
-                    data: {'no_kwitansi':kode,'kode_lokasi':kode_lokasi,'kode_pp':'<?=$kode_pp?>'},
+                    data: {'no_kwitansi':kode},
                     success:function(result){
-                        if(result.status){
+                        if(result.data.status == "SUCCESS"){
                             dataTable2.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -600,7 +647,17 @@
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
-                            footer: '<a href>'+result.message+'</a>'
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {       
+                        if(jqXHR.status==422){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+jqXHR.responseText+'</a>'
                             })
                         }
                     }
@@ -622,16 +679,16 @@
     function printPbyr(id){
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/Pbyr.php?fx=getPrint',
+            url: "{{ url('dago-trans/pembayaran-preview') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>','no_kwitansi':id},
+            data: {'no_kwitansi':id},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var line =result.daftar[0];
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        var line =result.data.data[0];
                         
-                        var foto = "<?=$folderroot_img?>/dago.png";
+                        var foto = "dago.png";
                         var html=`
                         <style>
                             td,th{
@@ -760,6 +817,17 @@
                         $('#saku-form').hide();
                     }
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
     }
