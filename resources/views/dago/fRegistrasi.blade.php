@@ -49,6 +49,29 @@
                                 color: #4286f5;
                             }
 
+                            th{
+                                vertical-align:middle !important;
+                            }
+
+                            #table-btambah .selectize-input, #table-btambah .form-control, #table-btambah .custom-file-label, #table-bdok .selectize-input, #table-bdok .form-control, #table-bdok .custom-file-label
+                            {
+                                border:0 !important;
+                                border-radius:0 !important;
+                            }
+                            #table-btambah td:hover,  #table-bdok td:hover
+                            {
+                                background:#f4d180 !important;
+                                color:white;
+                            }
+                            #table-btambah td, #table-bdok td
+                            {
+                                overflow:hidden !important;
+                            }
+
+                            #table-btambah thead, #table-bdok thead
+                            {
+                                background:#ff9500;color:white;
+                            }
                             </style>
                             <table id="table-reg" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
@@ -694,23 +717,22 @@
     function getPaket(paket){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/paket') }}",
-            data:{'no_paket':paket},
+            url: "{{ url('dago-master/paket') }}/"+paket,
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.status == "SUCCESS"){
-                    if(typeof result.daftar !== 'undefined' && res.daftar.length>0){
-                         $('#paket').val(res.daftar[0].no_paket);
-                         $('#label_paket').text(res.daftar[0].nama);
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#paket').val(result.daftar[0].no_paket);
+                         $('#label_paket').text(result.daftar[0].nama);
                     }else{
-                        alert('NIK tidak valid');
+                        alert('Paket tidak valid');
                         $('#paket').val('');
                         $('#label_paket').text('');
                         $('#paket').focus();
                     }
                 }
-                else if(result.status && result.message == 'Unauthorized'){
+                else if(!result.status && result.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -718,6 +740,11 @@
                     }).then(function() {
                         window.location.href = "{{ url('dago-auth/login') }}";
                     })
+                }else{
+                    alert('Paket tidak valid');
+                    $('#paket').val('');
+                    $('#label_paket').text('');
+                    $('#paket').focus();
                 }
             },      
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -734,53 +761,57 @@
     }
 
     $('#form-tambah').on('change','#agen',function(){
-        console.log($(this).val());
         var id = $(this).val();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('dago-trans/no-marketing') }}",
-            dataType: 'json',
-            async:false,
-            data: {'no_agen':id},
-            success:function(result){  
-                $('#marketing').val('');  
-                if(result.data.status == "SUCCESS"){
-                    if(typeof result.data.marketing !== 'undefined'){
-                        $('#marketing').val(result.data.marketing);
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+jqXHR.responseText+'</a>'
-                    })
-                }
-            }
-        });
+        getAgen(id);
     });
 
-    function getAgen(){
+    function getAgen(no_agen){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/agen') }}",
+            url: "{{ url('dago-master/agen') }}/"+no_agen,
             dataType: 'json',
             async:false,
-            success:function(result){    
-                var select = $('#agen').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions(); 
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_agen + ' - ' + result.daftar[i].nama_agen, value:result.daftar[i].no_agen}]);
-                        }
+            success:function(result){  
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                         $('#agen').val(result.data.data[0].no_agen);
+                         $('#label_agen').text(result.data.data[0].nama);
+                         $('#marketing').val(result.data.data[0].kode_marketing);
+                    }else{
+                        alert('No Agen tidak valid');
+                        $('#agen').val('');
+                        $('#label_agen').text('');
+                        $('#agen').focus();
+                        $('#marketing').val('');
                     }
                 }
+                else if(result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }  
+                else{
+                    alert('No Agen tidak valid');
+                    $('#agen').val('');
+                    $('#label_agen').text('');
+                    $('#agen').focus();
+                    $('#marketing').val('');
+                }
+                // var select = $('#agen').selectize();
+                // select = select[0];
+                // var control = select.selectize;
+                // control.clearOptions(); 
+                // if(result.status){
+                //     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                //         for(i=0;i<result.daftar.length;i++){
+                //             control.addOption([{text:result.daftar[i].no_agen + ' - ' + result.daftar[i].nama_agen, value:result.daftar[i].no_agen}]);
+                //         }
+                //     }
+                // }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status==422){
@@ -842,23 +873,37 @@
         });
     }
 
-    function getMarketing(){
+    function getMarketing(no_marketing){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/marketing') }}",
+            url: "{{ url('dago-master/marketing') }}/"+no_marketing,
             dataType: 'json',
             async:false,
             success:function(result){    
-                var select = $('#marketing').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions(); 
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_marketing + ' - ' + result.daftar[i].nama_marketing, value:result.daftar[i].no_marketing}]);
-                        }
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                         $('#marketing').val(result.data.data[0].no_marketing);
+                         $('#label_marketing').text(result.data.data[0].nama);
+                    }else{
+                        alert('No Marketing tidak valid');
+                        $('#marketing').val('');
+                        $('#label_marketing').text('');
+                        $('#marketing').focus();
                     }
+                }
+                else if(result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    alert('No Marketing tidak valid');
+                    $('#marketing').val('');
+                    $('#label_marketing').text('');
+                    $('#marketing').focus();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -1061,12 +1106,14 @@
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
+                $($target).trigger("change");
             }else{
                 $($target).text(kode);
             }
 
             if(jTarget2 == "val"){
                 $($target2).val(nama);
+                $($target2).trigger("change");
             }else{
                 $($target2).text(nama);
             }
@@ -1084,12 +1131,14 @@
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
+                $($target).trigger("change");
             }else{
                 $($target).text(kode);
             }
 
             if(jTarget2 == "val"){
                 $($target2).val(nama);
+                $($target2).trigger("change");
             }else{
                 $($target2).text(nama);
             }
@@ -1132,12 +1181,14 @@
                 var nama = $('tr.selected').find('td:nth-child(2)').text();
                 if(jTarget1 == "val"){
                     $($target).val(kode);
+                    $($target).trigger("change");
                 }else{
                     $($target).text(kode);
                 }
 
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
+                    $($target2).trigger("change");
                 }else{
                     $($target2).text(nama);
                 }
@@ -1320,11 +1371,11 @@
                             var line =result.data.data[i];
                             html+=`<tr class='row-btambah'>
                             <td width='5%' class='no-btambah'>`+no+`</td>
-                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.nilai)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+toRp2(line.nilai)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='0' required></td>
-                            <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='0' required></td>
+                            <td width='10%'><span class='td-btambah_kode_biaya tdbtambah_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya btambah_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'><span class='td-btambah_nama tdbtambah_namake`+no+`'>`+line.nama+`</span><input type='text' name='btambah_nama[]' class='form-control inp-btambah_nama btambah_namake`+no+` hidden' value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>0</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='0' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>0</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='0' required></td>
                             </tr>`;
                             no++;
                         }
@@ -1368,11 +1419,11 @@
                             var line =result.data.data[i];
                             html+=`<tr class='row-bdok'>
                             <td width='5%' class='no-bdok'>`+no+`</td>
-                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.nilai)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.nilai)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='0' required></td>
-                            <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='0' required></td>
+                            <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>0</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>0</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='0' required></td>
                             </tr>`;
                             no++;
                         }
@@ -1615,6 +1666,8 @@
 
     $('#form-tambah').on('change', '#paket', function(){
         var par = $(this).val();
+        $('#jadwal').val('');
+        $('#label_jadwal').text('');
         getPaket(par);
     });
 
@@ -1625,6 +1678,102 @@
     //         getPaket(par);
     //     }
     // });
+
+    $('#table-btambah').on('click', 'td', function(){
+        var idx = $(this).index();
+        var nilai = $(this).parents("tr").find(".inp-btambah_nilai").val();
+        var jumlah = $(this).parents("tr").find(".inp-btambah_jumlah").val();
+        var total = $(this).parents("tr").find(".inp-btambah_total").val();
+        var no = $(this).parents("tr").find(".no-btambah").text();
+        $(this).parents("tr").find(".inp-btambah_jumlah").val(jumlah);
+        $(this).parents("tr").find(".td-btambah_jumlah").text(jumlah);
+        $(this).parents("tr").find(".inp-btambah_total").val(total);
+        $(this).parents("tr").find(".td-btambah_total").text(total);
+        if(idx == 0 || idx == 1 || idx == 2 || idx == 3){
+            $(this).parents("tr").find(".inp-btambah_jumlah").hide();
+            $(this).parents("tr").find(".td-btambah_jumlah").show();
+            $(this).parents("tr").find(".inp-btambah_total").hide();
+            $(this).parents("tr").find(".td-btambah_total").show();
+            $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+            // return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-btambah_jumlah").show();
+                    $(this).parents("tr").find(".td-btambah_jumlah").hide();
+                    $(this).parents("tr").find(".inp-btambah_jumlah").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-btambah_jumlah").hide();
+                    $(this).parents("tr").find(".td-btambah_jumlah").show();
+                }
+
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-btambah_total").show();
+                    $(this).parents("tr").find(".td-btambah_total").hide();
+                    $(this).parents("tr").find(".inp-btambah_total").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-btambah_total").hide();
+                    $(this).parents("tr").find(".td-btambah_total").show();
+                }
+
+        
+                hitungTambah2();
+            }
+        }
+    });
+
+    $('#table-bdok').on('click', 'td', function(){
+        var idx = $(this).index();
+        var nilai = $(this).parents("tr").find(".inp-bdok_nilai").val();
+        var jumlah = $(this).parents("tr").find(".inp-bdok_jumlah").val();
+        var total = $(this).parents("tr").find(".inp-bdok_total").val();
+        var no = $(this).parents("tr").find(".no-bdok").text();
+        $(this).parents("tr").find(".inp-bdok_jumlah").val(jumlah);
+        $(this).parents("tr").find(".td-bdok_jumlah").text(jumlah);
+        $(this).parents("tr").find(".inp-bdok_total").val(total);
+        $(this).parents("tr").find(".td-bdok_total").text(total);
+        if(idx == 0 || idx == 1 || idx == 2 || idx == 3){
+            $(this).parents("tr").find(".inp-bdok_jumlah").hide();
+            $(this).parents("tr").find(".td-bdok_jumlah").show();
+            $(this).parents("tr").find(".inp-bdok_total").hide();
+            $(this).parents("tr").find(".td-bdok_total").show();
+            $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+            // return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-bdok_jumlah").show();
+                    $(this).parents("tr").find(".td-bdok_jumlah").hide();
+                    $(this).parents("tr").find(".inp-bdok_jumlah").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-bdok_jumlah").hide();
+                    $(this).parents("tr").find(".td-bdok_jumlah").show();
+                }
+
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-bdok_total").show();
+                    $(this).parents("tr").find(".td-bdok_total").hide();
+                    $(this).parents("tr").find(".inp-bdok_total").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-bdok_total").hide();
+                    $(this).parents("tr").find(".td-bdok_total").show();
+                }
+
+        
+                hitungDok2();
+            }
+        }
+    });
 
     $('#slide-print').on('click', '#btn-reg-kembali', function(){
         $('#saku-data-reg').show();
@@ -1683,11 +1832,11 @@
                             var line = result.data.biaya_tambahan[x];
                             input+=`<tr class='row-btambah'>
                             <td width='5%' class='no-btambah'>`+no+`</td>
-                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='btambah_nama[]' class='form-control inp-btambah_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='btambah_nilai[]' class='form-control inp-btambah_nilai currency'  value='`+toRp2(line.tarif)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah currency'  value='`+line.jml+`' required></td>
-                            <td width='20%' style='text-align:right'><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency'  value='`+line.nilai+`' required></td>
+                            <td width='10%'><span class='td-btambah_kode_biaya tdbtambah_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya btambah_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'><span class='td-btambah_nama tdbtambah_namake`+no+`'>`+line.nama+`</span><input type='text' name='btambah_nama[]' class='form-control inp-btambah_nama btambah_namake`+no+` hidden' value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+toRp2(line.tarif)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+toRp2(line.tarif)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>`+toRp2(line.jml)+`</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='`+toRp2(line.jml)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='`+toRp2(line.nilai)+`' required></td>
                             </tr>`;
                             no++;
                             tot+=parseFloat(line.nilai);
@@ -1700,13 +1849,21 @@
                     if(result.data.biaya_dokumen.length>0){
                         for(var i=0;i< result.data.biaya_dokumen.length;i++){
                             var line = result.data.biaya_dokumen[i];
+                            // input2+=`<tr class='row-bdok'>
+                            // <td width='5%' class='no-bdok'>`+no+`</td>
+                            // <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
+                            // <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
+                            // <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.tarif)+`' readonly required></td>
+                            // <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
+                            // <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
+                            // </tr>`;
                             input2+=`<tr class='row-bdok'>
                             <td width='5%' class='no-bdok'>`+no+`</td>
-                            <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
-                            <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.tarif)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
-                            <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
+                            <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
+                            <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>0</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+toRp2(line.jml)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>0</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+toRp2(line.jml)+`' required></td>
                             </tr>`;
                             no++;
                             
@@ -1877,9 +2034,9 @@
     });
    
 
-    $('#no_peserta,#paket,#jadwal,#kode_pp,#jenis_paket,#jenis_promo,#harga_paket,#type_room,#harga_room,#referal,#brkt_dgn,#hubungan,#uk_pakaian,#keterangan_diskon,#agen,#no_marketing,#diskon,#sumber').keydown(function(e){
+    $('#no_peserta,#paket,#jadwal,#kode_pp,#jenis_paket,#jenis_promo,#harga_paket,#type_room,#harga_room,#referal,#brkt_dgn,#hubungan,#uk_pakaian,#keterangan_diskon,#agen,#marketing,#diskon,#sumber').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['no_peserta','paket','jadwal','kode_pp','jenis_paket','jenis_promo','harga_paket','type_room','harga_room','referal','brkt_dgn','hubungan','uk_pakaian','keterangan_diskon','agen','no_marketing','diskon','sumber'];
+        var nxt = ['no_peserta','paket','jadwal','kode_pp','jenis_paket','jenis_promo','harga_paket','type_room','harga_room','referal','brkt_dgn','hubungan','uk_pakaian','keterangan_diskon','agen','marketing','diskon','sumber'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
