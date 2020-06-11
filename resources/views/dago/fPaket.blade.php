@@ -408,7 +408,7 @@
                         input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>0</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='0' /></td>";
                         input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
                         input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>0</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-curr tdcurrke"+no+"'>IDR</span><select name='curr[]' class='form-control inp-curr currke"+no+"' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
+                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
                         input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                         input += "</tr>";
 
@@ -423,7 +423,7 @@
                                 $('.tdcurrke'+no).text(value);
                             }
                         });
-                        $('.selectize-control.currke'+no).addClass('hidden');
+                        $('.selectize-control .currke'+no).addClass('hidden');
                         $('.hargake'+no).inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
