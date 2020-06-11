@@ -40,6 +40,14 @@
                                 background:#4286f5 !important;
                                 color:white;
                             }
+                            i.search-item2:hover{
+                                cursor: pointer;
+                                color: #4286f5;
+                            }
+
+                            i.search-item2{
+                                color: #4286f5;
+                            }
 
                             </style>
                             <table id="table-reg" class="table table-bordered table-striped" style="width:100%">
@@ -104,34 +112,42 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
-                                <div class="col-9">
-                                    <input type='text' name='no_peserta' id='no_peserta' class='form-control col-3' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item2 col-1' style='position: absolute;z-index: 2;margin-top: 10px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <label id="label_peserta" class='search-item2 col-8' style="margin-left:5px"></label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
-                                
-                            </div>
-                            <div class="form-group row mt-3">
-                                <label for="paket" class="col-3 col-form-label">Paket</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="paket" name="paket" required>
-                                    <option value=''>--- Pilih Paket ---</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row mt-3">
-                                <label for="jadwal" class="col-3 col-form-label">Jadwal</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="jadwal" name="jadwal" required>
-                                    <option value=''>--- Pilih Jadwal ---</option>
-                                    </select>
+                                <div class="col-6">
+                                    <label id="label_no_peserta" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">PP/Cabang</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="kode_pp" name="kode_pp2" required>
-                                    <option value=''>--- Pilih Kode PP ---</option>
-                                    </select>
+                                <label for="paket" class="col-3 col-form-label">Paket</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="paket" id="paket" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_paket" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jadwal" class="col-3 col-form-label">Jadwal</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="jadwal" id="jadwal" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_jadwal" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_pp" class="col-3 col-form-label">PP</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -235,24 +251,29 @@
                             </div>
                             <div class="form-group row">
                                 <label for="agen" class="col-3 col-form-label">Agen</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="agen" name="agen" required>
-                                    <option value=''>--- Pilih Agen ---</option>
-                                    </select>
+                                <div class="input-group col-3">
+                                    <input type='text' name="agen" id="agen" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
-                                <label for="diskon" class="col-3 col-form-label">Diskon Biaya</label>
-                                <div class="col-3">
-                                    <input class="form-control currency" type="text"  id="diskon" name="diskon" required value="0">
+                                <div class="col-6">
+                                    <label id="label_agen" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="marketing" class="col-3 col-form-label">Marketing</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="marketing" name="marketing" required>
-                                    <option value=''>--- Pilih Marketing ---</option>
-                                    </select>
+                                <div class="input-group col-3">
+                                    <input type='text' name="marketing" id="marketing" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
-                                
+                                <div class="col-6">
+                                    <label id="label_marketing" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="diskon" class="col-3 col-form-label">Diskon Biaya</label>
+                                <div class="col-3">
+                                    <input class="form-control currency" type="text"  id="diskon" name="diskon" required value="0">
+                                </div>
                                 <label for="tot_tambah" class="col-3 col-form-label">Total Tambahan</label>
                                 <div class="col-3">
                                     <input class="form-control text-right" type="text"  id="tot_tambah" name="tot_tambah" required readonly value="0">
@@ -616,77 +637,87 @@
         }]
     });
 
-    var jadwal = $('#jadwal').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            setQuota();
-        }
-    });
-    $('#paket').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var id = $('#paket')[0].selectize.getValue();
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('dago-trans/jadwal-detail') }}",
-                dataType: 'json',
-                async:false,
-                data: {'no_paket':id},
-                success:function(result){    
-                    var select = jadwal[0];
-                    var control = select.selectize;
-                    control.clearOptions();
-                    if(result.data.status){
-                        if(typeof result.data.data !== 'undefined'){
-                            for(i=0;i<result.data.data.length;i++){
-                                control.addOption([{text:result.data.data[i].no_jadwal + ' - ' + result.data.data[i].tgl_berangkat, value:result.data.data[i].no_jadwal}]);
-                            }
+    // var jadwal = $('#jadwal').selectize({
+    //     selectOnTab: true,
+    //     onChange: function (){
+    //         setQuota();
+    //     }
+    // });
+    // $('#paket').selectize({
+    //     selectOnTab: true,
+    //     onChange: function (){
+    //         var id = $('#paket')[0].selectize.getValue();
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: "{{ url('dago-trans/jadwal-detail') }}",
+    //             dataType: 'json',
+    //             async:false,
+    //             data: {'no_paket':id},
+    //             success:function(result){    
+    //                 var select = jadwal[0];
+    //                 var control = select.selectize;
+    //                 control.clearOptions();
+    //                 if(result.data.status){
+    //                     if(typeof result.data.data !== 'undefined'){
+    //                         for(i=0;i<result.data.data.length;i++){
+    //                             control.addOption([{text:result.data.data[i].no_jadwal + ' - ' + result.data.data[i].tgl_berangkat, value:result.data.data[i].no_jadwal}]);
+    //                         }
                             
-                        }
-                    }
-                    else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        Swal.fire({
-                            title: 'Session telah habis',
-                            text: 'harap login terlebih dahulu!',
-                            icon: 'error'
-                        }).then(function() {
-                            window.location.href = "{{ url('dago-auth/login') }}";
-                        })
-                    }
-                    setHarga();
-                    setQuota();
-                }
-                // error: function(jqXHR, textStatus, errorThrown) {       
-                //     if(jqXHR.status==422){
-                //         Swal.fire({
-                //             icon: 'error',
-                //             title: 'Oops...',
-                //             text: 'Something went wrong!',
-                //             footer: '<a href>'+jqXHR.responseText+'</a>'
-                //         })
-                //     }
-                // }
-            });
-        }
-    });
+    //                     }
+    //                 }
+    //                 else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                     Swal.fire({
+    //                         title: 'Session telah habis',
+    //                         text: 'harap login terlebih dahulu!',
+    //                         icon: 'error'
+    //                     }).then(function() {
+    //                         window.location.href = "{{ url('dago-auth/login') }}";
+    //                     })
+    //                 }
+    //                 setHarga();
+    //                 setQuota();
+    //             }
+    //             // error: function(jqXHR, textStatus, errorThrown) {       
+    //             //     if(jqXHR.status==422){
+    //             //         Swal.fire({
+    //             //             icon: 'error',
+    //             //             title: 'Oops...',
+    //             //             text: 'Something went wrong!',
+    //             //             footer: '<a href>'+jqXHR.responseText+'</a>'
+    //             //         })
+    //             //     }
+    //             // }
+    //         });
+    //     }
+    // });
 
-    function getPaket(){
+    function getPaket(paket){
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-master/paket') }}",
+            data:{'no_paket':paket},
             dataType: 'json',
             async:false,
             success:function(result){    
-                var select = $('#paket').selectize();
-                select = select[0];
-                var control = select.selectize;
-                control.clearOptions();
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_paket + ' - ' + result.daftar[i].nama, value:result.daftar[i].no_paket}]);
-                        }
+                if(result.status == "SUCCESS"){
+                    if(typeof result.daftar !== 'undefined' && res.daftar.length>0){
+                         $('#paket').val(res.daftar[0].no_paket);
+                         $('#label_paket').text(res.daftar[0].nama);
+                    }else{
+                        alert('NIK tidak valid');
+                        $('#paket').val('');
+                        $('#label_paket').text('');
+                        $('#paket').focus();
                     }
+                }
+                else if(result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
                 }
             },      
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -702,28 +733,24 @@
         });
     }
 
-    $('#agen').selectize({
-        selectOnTab: true,
-        onChange: function (){
-            var id = $('#agen')[0].selectize.getValue();
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('dago-trans/no-marketing') }}",
-                dataType: 'json',
-                async:false,
-                data: {'no_agen':id},
-                success:function(result){  
-                    
-                    $('#marketing')[0].selectize.setValue('');  
-                    if(result.data.status == "SUCCESS"){
-                        if(typeof result.data.marketing !== 'undefined'){
-                               
-                            $('#marketing')[0].selectize.setValue(result.data.marketing);
-                            
-                        }
+    $('#form-tambah').on('change','#agen',function(){
+        console.log($(this).val());
+        var id = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/no-marketing') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_agen':id},
+            success:function(result){  
+                $('#marketing').val('');  
+                if(result.data.status == "SUCCESS"){
+                    if(typeof result.data.marketing !== 'undefined'){
+                        $('#marketing').val(result.data.marketing);
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {       
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status==422){
                     Swal.fire({
                         icon: 'error',
@@ -733,8 +760,7 @@
                     })
                 }
             }
-            });
-        }
+        });
     });
 
     function getAgen(){
@@ -769,21 +795,22 @@
         });
     }
 
-    function getPeserta(){
+    function getPeserta(no_peserta){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/jamaah') }}",
+            url: "{{ url('dago-trans/jamaah-detail') }}",
             dataType: 'json',
+            data:{'no_peserta':no_peserta},
             async:false,
             success:function(result){    
                 if(result.data.status == "SUCCESS"){
-                    if(typeof result.data.data.data !== 'undefined' && result.data.data.length>0){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                          $('#no_peserta').val(result.data.data[0].no_peserta);
-                         $('#label_peserta').text(result.data.data[0].nama);
+                         $('#label_no_peserta').text(result.data.data[0].nama);
                     }else{
-                        alert('NIK tidak valid');
+                        alert('No Peserta tidak valid');
                         $('#no_peserta').val('');
-                        $('#label_peserta').text('');
+                        $('#label_no_peserta').text('');
                         $('#no_peserta').focus();
                     }
                 }
@@ -795,6 +822,11 @@
                     }).then(function() {
                         window.location.href = "{{ url('dago-auth/login') }}";
                     })
+                }else{
+                    alert('No Peserta tidak valid');
+                    $('#no_peserta').val('');
+                    $('#label_no_peserta').text('');
+                    $('#no_peserta').focus();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -884,7 +916,7 @@
         var header = [];
         $target = target1;
         $target2 = target2;
-        
+        var parameter = {};
         switch(par){
             case 'no_peserta': 
                 header = ['No Peserta', 'Nama'];
@@ -900,6 +932,89 @@
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'paket': 
+                header = ['No Paket', 'Nama'];
+                var toUrl = "{{ url('dago-master/paket') }}";
+                var columns = [
+                    { data: 'no_paket' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Paket";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'kode_pp': 
+                header = ['Kode PP', 'Nama'];
+            var toUrl = "{{ url('dago-trans/pp') }}";
+                var columns = [
+                    { data: 'kode_pp' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar PP";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'agen': 
+                header = ['Kode Agen', 'Nama'];
+                var toUrl = "{{ url('dago-master/agen') }}";
+                var columns = [
+                    { data: 'no_agen' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Agen";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'marketing': 
+                header = ['Kode Marketing', 'Nama'];
+                var toUrl = "{{ url('dago-master/marketing') }}";
+                var columns = [
+                    { data: 'no_marketing' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Marketing";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                var no_agen = $('#no_agen').val();
+                parameter = {'no_agen':no_agen};
+            break;
+            case 'jadwal': 
+                header = ['No Jadwal', 'Tgl Berangkat'];
+                var toUrl = "{{ url('dago-trans/jadwal-detail') }}";
+                var columns = [
+                    { data: 'no_jadwal' },
+                    { data: 'tgl_berangkat' }
+                ];
+                
+                var judul = "Daftar Jadwal";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                var no_paket = $('#paket').val();
+                parameter = {'no_paket':no_paket};
             break;
         }
 
@@ -921,7 +1036,7 @@
             // "serverSide": true,
             "ajax": {
                 "url": toUrl,
-                "data": {'param':par},
+                "data": parameter,
                 "type": "GET",
                 "async": false,
                 "dataSrc" : function(json) {
@@ -1105,7 +1220,7 @@
     }
 
     function setHarga(){
-        var no_paket = $('#paket')[0].selectize.getValue();
+        var no_paket = $('#paket').val();
         var jpaket = $('#jenis_promo')[0].selectize.getValue();
         var jenis = $('#jenis_paket')[0].selectize.getValue();
         $.ajax({
@@ -1146,10 +1261,10 @@
     }
 
     function setQuota(){
-        var no_paket = $('#paket')[0].selectize.getValue();
+        var no_paket = $('#paket').val();
         var jpaket = $('#jenis_promo')[0].selectize.getValue();
         var jenis = $('#jenis_paket')[0].selectize.getValue();
-        var jadwal = $('#jadwal')[0].selectize.getValue();
+        var jadwal = $('#jadwal').val();
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-trans/quota') }}",
@@ -1362,21 +1477,21 @@
         });
     }
     // getPeserta();
-    getPP();
-    getPaket();
-    getAgen();
-    getMarketing();
+    // getPP();
+    // getPaket();
+    // getAgen();
+    // getMarketing();
     getJenisPromo();
     getRoom();
+    getBTambah();
+    getBDok();
+    getDokumen();
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
         // $iconLoad.show();
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
-        getBTambah();
-        getBDok();
-        getDokumen();
         $('#id').val('0');
         $('#method').val('post');
         $('#dFile').hide();
@@ -1476,11 +1591,9 @@
         }     
     });
 
-    
     $('#form-tambah').on('click', '.search-item2', function(){
-
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').find('label').attr('id');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
@@ -1492,13 +1605,26 @@
         getPeserta(par);
     });
 
-    $('#form-tambah').on('keydown', '#no_peserta', function(e){
-    e.preventDefault();
-        if(e.which == 13 || e.which == 9){
-            var par = $(this).val();
-            getPeserta(par);
-        }
+    // $('#form-tambah').on('keydown', '#no_peserta', function(e){
+    // e.preventDefault();
+    //     if(e.which == 13 || e.which == 9){
+    //         var par = $(this).val();
+    //         getPeserta(par);
+    //     }
+    // });
+
+    $('#form-tambah').on('change', '#paket', function(){
+        var par = $(this).val();
+        getPaket(par);
     });
+
+    // $('#form-tambah').on('keydown', '#paket', function(e){
+    // e.preventDefault();
+    //     if(e.which == 13 || e.which == 9){
+    //         var par = $(this).val();
+    //         getPaket(par);
+    //     }
+    // });
 
     $('#slide-print').on('click', '#btn-reg-kembali', function(){
         $('#saku-data-reg').show();
@@ -1521,9 +1647,9 @@
                     $('#method').val('put');
                     $('#no_reg').val(id);
                     $('#tgl_input').val(result.data.data[0].tgl_input);
-                    $('#paket')[0].selectize.setValue(result.data.data[0].no_paket);
-                    $('#jadwal')[0].selectize.setValue(result.data.data[0].no_jadwal);
-                    $('#kode_pp')[0].selectize.setValue(result.data.data[0].kode_pp);
+                    $('#paket').val(result.data.data[0].no_paket);
+                    $('#jadwal').val(result.data.data[0].no_jadwal);
+                    $('#kode_pp').val(result.data.data[0].kode_pp);
                     $('#jenis_paket')[0].selectize.setValue(result.data.data[0].jenis);
                     $('#jenis_promo')[0].selectize.setValue(result.data.data[0].kode_harga);
                     $('#quota').val(result.data.data[0].no_quota);
@@ -1542,8 +1668,8 @@
 
                     $('#flag_group')[0].selectize.setValue(result.data.data[0].flag_group);
                     $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].uk_pakaian);
-                    $('#agen')[0].selectize.setValue(result.data.data[0].no_agen);
-                    $('#marketing')[0].selectize.setValue(result.data.data[0].no_marketing);
+                    $('#agen').val(result.data.data[0].no_agen);
+                    $('#marketing').val(result.data.data[0].no_marketing);
                     $('#sumber')[0].selectize.setValue(result.data.data[0].info);
                     $('#diskon').val(result.data.data[0].diskon);
                     // $('#tot_tambah').val(toRp2(result.data.data[0].total_tambah));
@@ -1751,9 +1877,9 @@
     });
    
 
-    $('#no_ktp,#nama_wali,#alamat,#no_telp,#nis,#nama_siswa,#tgl_bayar').keydown(function(e){
+    $('#no_peserta,#paket,#jadwal,#kode_pp,#jenis_paket,#jenis_promo,#harga_paket,#type_room,#harga_room,#referal,#brkt_dgn,#hubungan,#uk_pakaian,#keterangan_diskon,#agen,#no_marketing,#diskon,#sumber').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['no_ktp','nama_wali','alamat','no_telp','nis','nama_siswa','tgl_bayar'];
+        var nxt = ['no_peserta','paket','jadwal','kode_pp','jenis_paket','jenis_promo','harga_paket','type_room','harga_room','referal','brkt_dgn','hubungan','uk_pakaian','keterangan_diskon','agen','no_marketing','diskon','sumber'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

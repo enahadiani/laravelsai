@@ -453,8 +453,7 @@ class RegistrasiController extends Controller
         $this->validate($request, [
             'no_paket' => 'required'
         ]);
-
-        try{
+        try {
             $client = new Client();
             $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket,[
                 'headers' => [
@@ -463,22 +462,21 @@ class RegistrasiController extends Controller
                 ],
                 'query' => [
                     'no_paket' => $request->no_paket
-                ]
+                    ]
             ]);
-
+                    
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data;
+                $data = $data["data"];
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+                    
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = "FAILED";
-            return response()->json(['data' => $data], 200);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     }
 
@@ -536,9 +534,8 @@ class RegistrasiController extends Controller
         }
     }
 
-    public function getPP()
-    {
-        try{
+    public function getPP(){
+        try {
             $client = new Client();
             $response = $client->request('GET', $this->link.'pp',[
                 'headers' => [
@@ -551,15 +548,14 @@ class RegistrasiController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data;
+                $data = $data["data"];
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = "FAILED";
-            return response()->json(['data' => $data], 200);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     }
 
