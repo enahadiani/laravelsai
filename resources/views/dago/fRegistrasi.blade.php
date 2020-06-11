@@ -166,7 +166,7 @@
                             <div class="form-group row">
                                 <label for="kode_pp" class="col-3 col-form-label">PP</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
+                                    <input type='text' name="kode_pp2" id="kode_pp" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
@@ -706,6 +706,53 @@
         });
     }
 
+    function getJadwal(paket,jadwal){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/jadwal-detail') }}",
+            dataType: 'json',
+            data:{'no_paket':paket,'no_jadwal':jadwal},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#jadwal').val(result.daftar[0].no_jadwal);
+                         $('#label_jadwal').text(result.daftar[0].tgl_berangkat);
+                    }else{
+                        alert('Jadwal tidak valid');
+                        $('#jadwal').val('');
+                        $('#label_jadwal').text('');
+                        $('#jadwal').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    alert('Jadwal tidak valid');
+                    $('#jadwal').val('');
+                    $('#label_jadwal').text('');
+                    $('#jadwal').focus();
+                }
+            },      
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
     $('#form-tambah').on('change','#agen',function(){
         var id = $(this).val();
         getAgen(id);
@@ -723,6 +770,7 @@
                          $('#agen').val(result.data.data[0].no_agen);
                          $('#label_agen').text(result.data.data[0].nama);
                          $('#marketing').val(result.data.data[0].kode_marketing);
+                         $('#marketing').trigger('change');
                     }else{
                         alert('No Agen tidak valid');
                         $('#agen').val('');
@@ -747,17 +795,6 @@
                     $('#agen').focus();
                     $('#marketing').val('');
                 }
-                // var select = $('#agen').selectize();
-                // select = select[0];
-                // var control = select.selectize;
-                // control.clearOptions(); 
-                // if(result.status){
-                //     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                //         for(i=0;i<result.daftar.length;i++){
-                //             control.addOption([{text:result.daftar[i].no_agen + ' - ' + result.daftar[i].nama_agen, value:result.daftar[i].no_agen}]);
-                //         }
-                //     }
-                // }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status==422){
@@ -1485,23 +1522,26 @@
             $('#tot_dokumen').val(sepNum(total));
         });
     }
-    // getPeserta();
-    // getPP();
-    // getPaket();
-    // getAgen();
-    // getMarketing();
+
     getJenisPromo();
     getRoom();
     getBTambah();
     getBDok();
     getDokumen();
-    $('#kode_pp').val("{{ Session::get('kodePP') }}");
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
         // $iconLoad.show();
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
+        var kode_pp = "{{ Session::get('kodePP') }}";
+        $('#kode_pp').val(kode_pp);
+        $('#kode_pp').trigger("change");
+        $('#label_no_peserta').text('');
+        $('#label_paket').text('');
+        $('#label_jadwal').text('');
+        $('#label_agen').text('');
+        $('#label_marketing').text('');
         $('#id').val('0');
         $('#method').val('post');
         $('#dFile').hide();
@@ -1622,9 +1662,20 @@
         getPaket(par);
     });
 
+    $('#form-tambah').on('change', '#jadwal', function(){
+        var par = $('#paket').val();
+        var par2 = $(this).val();
+        getJadwal(par,par2);
+    });
+
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
+    });
+
+    $('#form-tambah').on('change', '#marketing', function(){
+        var par = $(this).val();
+        getMarketing(par);
     });
 
     $('#table-btambah').on('click', 'td', function(){
@@ -1985,11 +2036,14 @@
     $('#no_peserta,#paket,#jadwal,#kode_pp,#jenis_paket,#jenis_promo,#harga_paket,#type_room,#harga_room,#referal,#brkt_dgn,#hubungan,#uk_pakaian,#keterangan_diskon,#agen,#marketing,#diskon,#sumber').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['no_peserta','paket','jadwal','kode_pp','jenis_paket','jenis_promo','harga_paket','type_room','harga_room','referal','brkt_dgn','hubungan','uk_pakaian','keterangan_diskon','agen','marketing','diskon','sumber'];
-        if (code == 13 || code == 40) {
+        if (code == 13){
+            e.preventDefault();
+            return false;
+        } 
+        else if( code == 40 || code == 9) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-           
             $('#'+nxt[idx]).focus();
             
         }else if(code == 38){
@@ -2015,8 +2069,7 @@
             dataType: 'json',
             async:false,
             data: {'no_reg':id},
-            success:function(result){  
-                console.log(result);  
+            success:function(result){    
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         var line =result.data.data[0];

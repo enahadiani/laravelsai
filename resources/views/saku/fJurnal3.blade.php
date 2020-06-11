@@ -1291,13 +1291,13 @@
         getNIKPeriksa(par);
     });
 
-    $('#form-tambah').on('keydown', '#nik_periksa', function(e){
-        e.preventDefault();
-        if(e.which == 13 || e.which == 9){
-            var par = $(this).val();
-            getNIKPeriksa(par);
-        }
-    });
+    // $('#form-tambah').on('keydown', '#nik_periksa', function(e){
+    //     e.preventDefault();
+    //     if(e.which == 13 || e.which == 9){
+    //         var par = $(this).val();
+    //         getNIKPeriksa(par);
+    //     }
+    // });
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
         if(e.which == 40){

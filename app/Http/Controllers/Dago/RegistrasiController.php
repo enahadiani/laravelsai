@@ -458,13 +458,13 @@ class RegistrasiController extends Controller
             $client = new Client();
             if(isset($request->no_jadwal)){
                
-                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket,='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
+                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'no_paket,' => $request->no_paket,
+                        'no_paket' => $request->no_paket,
                         'no_jadwal' => $request->no_jadwal
                     ]
                 ]);
@@ -490,7 +490,7 @@ class RegistrasiController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
 
