@@ -79,13 +79,14 @@ class UploadDokController extends Controller
         try{
            
             $name = array('upload_tgl_terima','upload_no_reg');
+            $name2 = array('tgl_terima','no_reg');
 
             $req = $request->all();
             $fields = array();
             $data = array();
             for($i=0;$i<count($name);$i++){
                 $fields_data[$i] = array(
-                    'name'     => $name[$i],
+                    'name'     => $name2[$i],
                     'contents' => $req[$name[$i]],
                 );   
                 $data[$i] = $name[$i];
@@ -94,6 +95,7 @@ class UploadDokController extends Controller
             $fields = array_merge($fields,$fields_data);
 
             $fields_foto = array();
+            $fields_no_dok = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
@@ -109,8 +111,13 @@ class UploadDokController extends Controller
                             'Mime-Type'=> $image_mime,
                             'contents' => fopen( $image_path, 'r' ),
                         );
+                        $fields_no_dok[$i] = array(
+                            'name'     => 'no_dokumen[]',
+                            'contents' => $req['upload_no_dokumen'][$i],
+                        );
                     }
                     $fields = array_merge($fields,$fields_foto);
+                    $fields = array_merge($fields,$fields_no_dok);
                 }
             }
             
@@ -134,7 +141,7 @@ class UploadDokController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }

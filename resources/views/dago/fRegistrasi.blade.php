@@ -1371,7 +1371,7 @@
     $('#sumber').selectize();
     $('#ukuran_pakaian').selectize();
     $('#saku-data-reg').on('click', '#btn-reg-tambah', function(){
-        $iconLoad.show();
+        // $iconLoad.show();
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
         getBTambah();
@@ -1382,7 +1382,7 @@
         $('#dFile').hide();
         $('#saku-data-reg').hide();
         $('#form-tambah-reg').show();
-        $iconLoad.hide();
+        // $iconLoad.hide();
     });
 
     $('#saku-data-reg').on('click','#btn-print',function(e){
@@ -1508,7 +1508,7 @@
 
     $('#saku-data-reg').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        $iconLoad.show();
+        // $iconLoad.show();
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-trans/registrasi-detail') }}",
@@ -1630,7 +1630,7 @@
                 }
             }
         });
-        $iconLoad.hide();
+        // $iconLoad.hide();
     });
 
     $('#saku-data-reg').on('click','#btn-print',function(e){

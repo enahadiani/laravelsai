@@ -314,9 +314,9 @@
                         'success'
                     )
                     $('#form-tambah')[0].reset();
-                    // $('#upload_no_reg')[0].selectize.setValue('');
                     $('#input-dok tbody').html('');
-                        
+                    $('#form-upload-reg').hide();
+                    $('#saku-data-reg').show();                        
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -328,8 +328,6 @@
                 
                 $iconLoad.hide();
                 
-                $('#form-upload-reg').hide();
-                $('#saku-data-reg').show();
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
