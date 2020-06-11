@@ -106,7 +106,7 @@
                             <div class="form-group row">
                                 <label for="tarif_agen" class="col-3 col-form-label">Tarif Agen</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Tarif Agen" id="tarif_agen" name="tarif_agen">
+                                    <input class="form-control harga" type="text" placeholder="Tarif Agen" id="tarif_agen" name="tarif_agen">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -143,11 +143,11 @@
                                 }
                             </style>
                              <div class="tab-pane active" id="bharga" role="tab">
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                {{-- <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                     <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
                                     <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
                                     <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
-                                </div>
+                                </div> --}}
                             <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                 <style>
                                     #input-harga .selectize-input, #input-harga .form-control, #input-harga .custom-file-label{
@@ -185,7 +185,7 @@
                                 </table>
                             </div>
                                 </div>
-                                <div class="tab-pane active" id="bjadwal" role="tab">
+                                <div class="tab-pane" id="bjadwal" role="tab">
                                     <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                     <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
                                     <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
@@ -237,6 +237,22 @@
 
     </div> 
 
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- END MODAL -->
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
@@ -246,7 +262,7 @@
         var $target = "";
         var $target2 = "";
 
-        $('#tarif_agen').inputmask("numeric", {
+        $('.harga').inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
             digits: 0,
@@ -260,6 +276,52 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
         });
+
+        function getProduk(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('dago-master/produk') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            $('#kode_produk').val(result.daftar[0].kode_produk);
+                            $('#label_kode_produk').text(result.daftar[0].nama);
+                        }else{
+                            alert('Kode Produk tidak valid');
+                            $('#kode_produk').val('');
+                            $('#kode_produk').focus();
+                        }
+                    }
+                }
+            });
+    }
+
+    function getLabelProduk(id){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('dago-master/produk') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(var i=0;i<=result.daftar.length;i++){   
+                            if(result.daftar[i].kode_produk === id){
+                                $('#label_kode_produk').text(result.daftar[i].nama);
+                                break;
+                              }
+                            }
+                        }else{
+                            alert('Kode Produk tidak valid');
+                            $('#kode_produk').val('');
+                            $('#kode_produk').focus();
+                        }
+                    }
+                }
+            });
+    }
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
@@ -313,6 +375,7 @@
         $('#form-tambah')[0].reset();
         $('#method').val('post');
         $('#no_paket').attr('readonly', false);
+        $('#label_kode_produk').text('');
         $('#kode_curr')[0].selectize.setValue('');
         $('#jenis')[0].selectize.setValue('');
         $('#saku-datatable').hide();
@@ -320,10 +383,326 @@
         // $('#form-tambah #add-row').click();
     });
 
-     $('#saku-form').on('click', '#btn-kembali', function(){
+    $('#saku-form').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
     });
+
+    $('#saku-form').on('blur', '#no_paket', function(){
+        var bodytableHarga = $('#input-harga tbody tr').length;
+        if(bodytableHarga <= 0) {
+            $.ajax({
+                url: "{{ url('dago-master/jenis-harga') }}",
+                type: 'GET',
+                success: function(result) {
+                    var input = "";
+                    var no = 1;
+                    if(result.status){
+                    for(var i=0;i<result.daftar.length;i++){
+                        var line = result.daftar[i];    
+                        input += "<tr class='row-harga'>";
+                        input += "<td class='no-harga text-center'>"+no+"</td>";
+                        input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+line.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+result.kode_harga+"' readonly /></td>";
+                        input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+line.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+result.nama+"' readonly /></td>";
+                        input += "<td><span class='td-hargastd tdhargastdke"+no+"'></span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+"' value='0' /></td>";
+                        input += "<td><span class='td-hargasemi tdhargasemike"+no+"'></span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+"' value='0' /></td>";
+                        input += "<td><span class='td-hargaeks tdhargaekske"+no+"'></span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+"' value='0' /></td>";
+                        input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'></span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+"' value='0' /></td>";
+                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select hidden name='curr[]' class='form-control inp-curr currke"+no+"' value='' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
+                        input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                        input += "</tr>";
+
+                        no++;
+                    }
+                    $('.currke'+no).selectize({
+                        selectOnTab:true,
+                        onChange: function(value) {
+                            $('.tdcurrke'+no).text(value);
+                        }
+                    });
+                    $('.selectize-control .currke'+no).addClass('hidden');
+                    $('.hargake'+no).inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        oncleared: function () { self.Value(''); }
+                    });
+                    $('#input-harga tbody').html(input);
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error..',
+                        text: 'Terjadi kesalahan',
+                    })
+                }
+                }
+            });
+        } else {
+            return;
+        }
+    });
+
+    $('#input-harga tbody').on('click', 'tr', function(){
+        if ( $(this).hasClass('selected-row') ) {
+            $(this).removeClass('selected-row');
+        }
+        else {
+            $('#input-harga tbody tr').removeClass('selected-row');
+            $(this).addClass('selected-row');
+        }
+    });
+
+    $('#input-harga').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-harga td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var kode_harga = $(this).parents("tr").find(".inp-kdharga").val();
+                var keterangan = $(this).parents("tr").find(".inp-nmharga").val();
+                var hargaStd = $(this).parents("tr").find(".td-hargastd").text();
+                var hargaSemi = $(this).parents("tr").find(".inp-hargasemi").val();
+                var hargaEks = $(this).parents("tr").find(".inp-hargaeks").val();
+                var Agen = $(this).parents("tr").find(".inp-hargaagen").val();
+                var curr = $(this).parents("tr").find(".inp-curr").val();
+                var no = $(this).parents("tr").find(".no-harga").text();
+        
+                $(this).parents("tr").find(".inp-hargastd").val(hargaStd);
+                $(this).parents("tr").find(".td-hargastd").text(hargaStd);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-hargastd").show();
+                    $(this).parents("tr").find(".td-hargastd").hide();
+                    $(this).parents("tr").find(".inp-hargastd").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-hargastd").hide();
+                    $(this).parents("tr").find(".td-hargastd").show();
+                }
+
+                $(this).parents("tr").find(".inp-hargasemi").val(hargaSemi);
+                $(this).parents("tr").find(".td-hargasemi").text(hargaSemi);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-hargasemi").show();
+                    $(this).parents("tr").find(".td-hargasemi").hide();
+                    $(this).parents("tr").find(".inp-hargasemi").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-hargasemi").hide();
+                    $(this).parents("tr").find(".td-hargasemi").show();
+                }
+
+                $(this).parents("tr").find(".inp-hargaeks").val(hargaEks);
+                $(this).parents("tr").find(".td-hargaeks").text(hargaEks);
+                if(idx == 5){
+                    $(this).parents("tr").find(".inp-hargaeks").show();
+                    $(this).parents("tr").find(".td-hargaeks").hide();
+                    $(this).parents("tr").find(".inp-hargaeks").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-hargaeks").hide();
+                    $(this).parents("tr").find(".td-hargaeks").show();
+                }
+
+                $(this).parents("tr").find(".inp-hargaagen").val(Agen);
+                $(this).parents("tr").find(".td-hargaagen").text(Agen);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-hargaagen").show();
+                    $(this).parents("tr").find(".td-hargaagen").hide();
+                    $(this).parents("tr").find(".inp-hargaagen").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-hargaagen").hide();
+                    $(this).parents("tr").find(".td-hargaagen").show();
+                }
+
+                // $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
+                // $(this).parents("tr").find(".td-curr").text(curr);
+                // if(idx == 7){
+                //     $('.currke'+no)[0].selectize.setValue(curr);
+                //     var currx = $('.tdcurrke'+no).text();
+                //     if(currx == ""){
+                //         $('.tdcurrke'+no).text('IDR');  
+                //     }
+                //     $(this).parents("tr").find(".selectize-control").show();
+                //     $(this).parents("tr").find(".td-curr").hide();
+                //     $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
+                // }else{
+                //     $(this).parents("tr").find(".selectize-control").hide();
+                //     $(this).parents("tr").find(".td-curr").show();
+                // }
+
+            }
+        }
+    });
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
+    function showFilter(param,target1,target2){
+        var par = param;
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        
+        switch(par){
+            case 'kode_produk': 
+            header = ['Kode', 'Nama'];
+            var toUrl = "{{ url('dago-master/produk') }}";
+                var columns = [
+                    { data: 'kode_produk' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Produk";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": {'param':par},
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).attr('value',kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            console.log($target3);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+                
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
