@@ -402,34 +402,38 @@
                         var line = result.daftar[i];    
                         input += "<tr class='row-harga'>";
                         input += "<td class='no-harga text-center'>"+no+"</td>";
-                        input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+line.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+result.kode_harga+"' readonly /></td>";
-                        input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+line.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+result.nama+"' readonly /></td>";
-                        input += "<td><span class='td-hargastd tdhargastdke"+no+"'></span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+"' value='0' /></td>";
-                        input += "<td><span class='td-hargasemi tdhargasemike"+no+"'></span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+"' value='0' /></td>";
-                        input += "<td><span class='td-hargaeks tdhargaekske"+no+"'></span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+"' value='0' /></td>";
-                        input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'></span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+"' value='0' /></td>";
-                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select hidden name='curr[]' class='form-control inp-curr currke"+no+"' value='' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
+                        input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+line.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+line.kode_harga+"' readonly /></td>";
+                        input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+line.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+line.nama+"' readonly /></td>";
+                        input += "<td><span class='td-hargastd tdhargastdke"+no+"'>0</span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+" hidden' value='0' /></td>";
+                        input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>0</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='0' /></td>";
+                        input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
+                        input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>0</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='0' /></td>";
+                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
                         input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                         input += "</tr>";
 
                         no++;
                     }
-                    $('.currke'+no).selectize({
-                        selectOnTab:true,
-                        onChange: function(value) {
-                            $('.tdcurrke'+no).text(value);
-                        }
-                    });
-                    $('.selectize-control .currke'+no).addClass('hidden');
-                    $('.hargake'+no).inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
                     $('#input-harga tbody').html(input);
+                    no = 1;
+                    for(var i=0;i<result.daftar.length;i++){
+                        $('.currke'+no).selectize({
+                            selectOnTab:true,
+                            onChange: function(value) {
+                                $('.tdcurrke'+no).text(value);
+                            }
+                        });
+                        $('.selectize-control .currke'+no).addClass('hidden');
+                        $('.hargake'+no).inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
+                        no++;
+                    }
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -467,12 +471,34 @@
         
                 var kode_harga = $(this).parents("tr").find(".inp-kdharga").val();
                 var keterangan = $(this).parents("tr").find(".inp-nmharga").val();
-                var hargaStd = $(this).parents("tr").find(".td-hargastd").text();
+                var hargaStd = $(this).parents("tr").find(".inp-hargastd").val();
                 var hargaSemi = $(this).parents("tr").find(".inp-hargasemi").val();
                 var hargaEks = $(this).parents("tr").find(".inp-hargaeks").val();
                 var Agen = $(this).parents("tr").find(".inp-hargaagen").val();
-                var curr = $(this).parents("tr").find(".inp-curr").val();
+                var curr = $(this).parents("tr").find(".td-curr").text();
                 var no = $(this).parents("tr").find(".no-harga").text();
+
+                $(this).parents("tr").find(".inp-kdharga").val(kode_harga);
+                $(this).parents("tr").find(".td-kodeharga").text(kode_harga);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-kdharga").show();
+                    $(this).parents("tr").find(".td-kodeharga").hide();
+                }else{
+                    $(this).parents("tr").find(".inp-kdharga").hide();
+                    $(this).parents("tr").find(".td-kodeharga").show();
+                    
+                }
+        
+                $(this).parents("tr").find(".inp-nmharga").val(keterangan);
+                $(this).parents("tr").find(".td-namaharga").text(keterangan);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nmharga").show();
+                    $(this).parents("tr").find(".td-namaharga").hide();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nmharga").hide();
+                    $(this).parents("tr").find(".td-namaharga").show();
+                }
         
                 $(this).parents("tr").find(".inp-hargastd").val(hargaStd);
                 $(this).parents("tr").find(".td-hargastd").text(hargaStd);
@@ -518,21 +544,24 @@
                     $(this).parents("tr").find(".td-hargaagen").show();
                 }
 
-                // $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
-                // $(this).parents("tr").find(".td-curr").text(curr);
-                // if(idx == 7){
-                //     $('.currke'+no)[0].selectize.setValue(curr);
-                //     var currx = $('.tdcurrke'+no).text();
-                //     if(currx == ""){
-                //         $('.tdcurrke'+no).text('IDR');  
-                //     }
-                //     $(this).parents("tr").find(".selectize-control").show();
-                //     $(this).parents("tr").find(".td-curr").hide();
-                //     $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
-                // }else{
-                //     $(this).parents("tr").find(".selectize-control").hide();
-                //     $(this).parents("tr").find(".td-curr").show();
-                // }
+                $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
+                $(this).parents("tr").find(".td-curr").text(curr);
+                if(idx == 7){
+                    $('.currke'+no)[0].selectize.setValue(curr);
+                    var dcx = $('.tdcurrke'+no).text();
+                    if(dcx == ""){
+                        $('.tdcurrke'+no).text('IDR');  
+                    }
+                    
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".td-curr").hide();
+                    $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
+                    
+                }else{
+                    
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".td-curr").show();
+                }
 
             }
         }
