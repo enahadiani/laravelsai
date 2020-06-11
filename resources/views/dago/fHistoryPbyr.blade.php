@@ -688,7 +688,7 @@
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         var line =result.data.data[0];
                         
-                        var foto = "dago.png";
+                        var foto = "{{ asset('asset_elite/images/dago.png') }}";
                         var html=`
                         <style>
                             td,th{
