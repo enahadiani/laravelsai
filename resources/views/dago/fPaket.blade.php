@@ -417,13 +417,7 @@
                     $('#input-harga tbody').html(input);
                     no = 1;
                     for(var i=0;i<result.daftar.length;i++){
-                        $('.currke'+no).selectize({
-                            selectOnTab:true,
-                            onChange: function(value) {
-                                $('.tdcurrke'+no).text(value);
-                            }
-                        });
-                        $('.selectize-control.currke'+no).addClass('hidden');
+                        $('.currke'+no).addClass('hidden');
                         $('.hargake'+no).inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
@@ -456,6 +450,17 @@
             $('#input-harga tbody tr').removeClass('selected-row');
             $(this).addClass('selected-row');
         }
+    });
+
+    $('#input-harga').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-harga').each(function(){
+            var nom = $(this).closest('tr').find('.no-harga');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
     $('#input-harga').on('click', 'td', function(){
@@ -544,22 +549,22 @@
                     $(this).parents("tr").find(".td-hargaagen").show();
                 }
 
-                $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
+                $(this).parents("tr").find(".inp-curr").val(curr);
                 $(this).parents("tr").find(".td-curr").text(curr);
                 if(idx == 7){
-                    $('.currke'+no)[0].selectize.setValue(curr);
+                    $('.currke'+no).val(curr);
                     var dcx = $('.tdcurrke'+no).text();
                     if(dcx == ""){
                         $('.tdcurrke'+no).text('IDR');  
                     }
                     
-                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".inp-curr").show();
                     $(this).parents("tr").find(".td-curr").hide();
-                    $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
+                    $(this).parents("tr").find(".inp-curr").focus();
                     
                 }else{
                     
-                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".inp-curr").hide();
                     $(this).parents("tr").find(".td-curr").show();
                 }
 
@@ -605,6 +610,17 @@
             $('#input-jadwal tbody tr').removeClass('selected-row');
             $(this).addClass('selected-row');
         }
+    });
+
+    $('#input-jadwal').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-jadwal').each(function(){
+            var nom = $(this).closest('tr').find('.no-jadwal');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
     $('#input-jadwal').on('click', 'td', function(){
