@@ -74,7 +74,7 @@ class UploadDokController extends Controller
             'upload_tgl_terima' => 'required',
             'upload_no_reg' => 'required',
             'upload_no_dokumen'=>'required|array',
-            'file_dok'=>'required|file|max:3072|array'
+            'file_dok.*'=>'required|file|max:3072'
         ]); 
         try{
            
