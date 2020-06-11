@@ -267,7 +267,7 @@
             ],
         'columns': [
             { data: 'no_agen' },
-            { data: 'nama_agen' },
+            { data: 'nama' },
             { data: 'no_hp' },
             { data: 'email' },
             { data: 'kode_marketing' },

@@ -144,7 +144,7 @@
             ],
         'columns': [
             { data: 'no_marketing' },
-            { data: 'nama_marketing' },
+            { data: 'nama' },
         ],
         dom: 'lBfrtip',
         buttons: [

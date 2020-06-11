@@ -57,13 +57,31 @@ class PaketController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_harga' => 'required',
+            'no_paket' => 'required',
             'nama' => 'required',
+            'kode_curr' => 'required',
+            'jenis' => 'required',
+            'kode_produk' => 'required',
+            'tarif_agen' => 'required',
+            'kode_harga' => 'required|array',
+            'nama_harga' => 'required|array',
+            'harga_std' => 'required|array',
+            'harga_semi' => 'required|array',
+            'harga_eks' => 'required|array',
+            'harga_agen' => 'required|array',
+            'curr' => 'required|array',
+            'tgl_plan' => 'required|array',
+            'tgl_akt' => 'required|array',
+            'hari' => 'required|array',
+            'q_std' => 'required|array',
+            'q_semi' => 'required|array',
+            'q_eks' => 'required|array',
+            'id' => 'required|array',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', $this->link.'paket',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

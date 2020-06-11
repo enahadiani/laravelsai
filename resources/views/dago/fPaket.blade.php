@@ -408,17 +408,30 @@
                         input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>0</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='0' /></td>";
                         input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
                         input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>0</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required><option value='IDR'>IDR</option><option value='USD'>USD</option></select></td>";
+                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required></select></td>";
                         input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                         input += "</tr>";
 
                         no++;
                     }
                     $('#input-harga tbody').html(input);
-                    no = 1;
+                    var nomor = 1;
                     for(var i=0;i<result.daftar.length;i++){
-                        $('.currke'+no).addClass('hidden');
-                        $('.hargake'+no).inputmask("numeric", {
+                        $('.currke'+nomor).selectize({
+                            selectOnTab:true,
+                            dropdownParent: 'body',
+                            options: [
+                                { text: "IDR", value: "IDR" },
+                                { text: "USD", value: "USD" }
+                            ],
+                            onChange: function(value) {
+                                $('.tdcurrke'+nomor).text(value);
+                            }
+                        });
+                        $('.currke'+nomor).css("background-color", "white"); 
+                        $('.currke'+nomor+' option').css("background-color", "white"); 
+                        $('.selectize-control.currke'+nomor).addClass('hidden');
+                        $('.hargake'+nomor).inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
                             digits: 2,
@@ -426,7 +439,7 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
-                        no++;
+                        nomor++;
                     }
                 }else{
                     Swal.fire({
@@ -480,9 +493,8 @@
                 var hargaSemi = $(this).parents("tr").find(".inp-hargasemi").val();
                 var hargaEks = $(this).parents("tr").find(".inp-hargaeks").val();
                 var Agen = $(this).parents("tr").find(".inp-hargaagen").val();
-                var curr = $(this).parents("tr").find(".td-curr").text();
+                var curr = $(this).parents("tr").find(".inp-curr").val();
                 var no = $(this).parents("tr").find(".no-harga").text();
-
                 $(this).parents("tr").find(".inp-kdharga").val(kode_harga);
                 $(this).parents("tr").find(".td-kodeharga").text(kode_harga);
                 if(idx == 1){
@@ -549,22 +561,22 @@
                     $(this).parents("tr").find(".td-hargaagen").show();
                 }
 
-                $(this).parents("tr").find(".inp-curr").val(curr);
+                $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
                 $(this).parents("tr").find(".td-curr").text(curr);
                 if(idx == 7){
+                    console.log(curr);
                     $('.currke'+no).val(curr);
-                    var dcx = $('.tdcurrke'+no).text();
-                    if(dcx == ""){
+                    var currx = $('.tdcurrke'+no).text();
+                    var currv = $('.inp-curr').val();
+                    if(currx == ""){
                         $('.tdcurrke'+no).text('IDR');  
                     }
-                    
-                    $(this).parents("tr").find(".inp-curr").show();
+                    $(this).parents("tr").find(".selectize-control").show();
                     $(this).parents("tr").find(".td-curr").hide();
-                    $(this).parents("tr").find(".inp-curr").focus();
-                    
+                    $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
+                    // $(this).parents("tr").find(".inp-curr").focus();
                 }else{
-                    
-                    $(this).parents("tr").find(".inp-curr").hide();
+                    $(this).parents("tr").find(".selectize-control").hide();
                     $(this).parents("tr").find(".td-curr").show();
                 }
 
@@ -600,6 +612,36 @@
             rightAlign: true,
             oncleared: function () { self.Value(''); }
         });
+    });
+
+    $('.nav-control').on('click', '#copy-row', function(){
+        if($(".selected-row").length != 1){
+            alert('Harap pilih row yang akan dicopy terlebih dahulu!');
+            return false;
+        }else{
+            var tgl_plan = $('#input-jadwal tbody tr.selected-row').find(".inp-tglplan").val();
+            var tgl_akt= $('#input-jadwal tbody tr.selected-row').find(".inp-tglakt").val();
+            var hari= $('#input-jadwal tbody tr.selected-row').find(".inp-hari").val();
+            var qstd= $('#input-jadwal tbody tr.selected-row').find(".inp-qstd").val();
+            var qsemi= $('#input-jadwal tbody tr.selected-row').find(".inp-qsemi").val();
+            var qeks= $('#input-jadwal tbody tr.selected-row').find(".inp-qeks").val();
+            var id= $('#input-jadwal tbody tr.selected-row').find(".inp-id").val();
+            var noJadwal=$('#input-jadwal .row-jadwal:last').index();
+            noJadwal=noJadwal+2;
+            var inputJadwal = "";
+            inputJadwal += "<tr class='row-jadwal'>";
+            inputJadwal += "<td class='no-jadwal text-center'>"+noJadwal+"</td>";
+            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+" hidden value='"+tgl_plan+"' required'/></td>";
+            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+" hidden value='"+tgl_akt+"' required'/></td>";
+            inputJadwal += "<td><span class='td-hari tdharike"+noJadwal+"'>"+hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+" hidden value='"+hari+"' required'/></td>";
+            inputJadwal += "<td><span class='td-qstd tdqstdke"+noJadwal+"'>"+qstd+"</span><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+" hidden' value='"+qstd+"' required /></td>";
+            inputJadwal += "<td><span class='td-qsemi tdqsemike"+noJadwal+"'>"+qsemi+"</span><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+" hidden' value='"+qsemi+"' required /></td>";
+            inputJadwal += "<td><span class='td-qeks tdqekske"+noJadwal+"'>"+qeks+"</span><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+" hidden' value='"+qeks+"' required /></td>";
+            inputJadwal += "<td><span class='td-id tdidke"+noJadwal+"'>"+id+"</span><input name='id[]' class='form-control inp-id idke"+noJadwal+" hidden' value='"+id+"' required /></td>";
+            inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            $('#input-jadwal tbody').append(inputJadwal);
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        }
     });
 
     $('#input-jadwal tbody').on('click', 'tr', function(){

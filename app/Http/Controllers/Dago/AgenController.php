@@ -82,7 +82,7 @@ class AgenController extends Controller
                     ],
                     'form_params' => [
                         'no_agen' => $request->no_agen,
-                        'nama_agen' => $request->nama_agen,
+                        'nama' => $request->nama_agen,
                         'alamat' => $request->alamat,
                         'flag_aktif' => $request->flag_aktif,
                         'tempat_lahir' => $request->tempat_lahir,
@@ -165,7 +165,7 @@ class AgenController extends Controller
                     ],
                     'form_params' => [
                         'no_agen' => $request->no_agen,
-                        'nama_agen' => $request->nama_agen,
+                        'nama' => $request->nama_agen,
                         'alamat' => $request->alamat,
                         'flag_aktif' => $request->flag_aktif,
                         'tempat_lahir' => $request->tempat_lahir,

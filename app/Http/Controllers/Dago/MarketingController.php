@@ -71,7 +71,7 @@ class MarketingController extends Controller
                     ],
                     'form_params' => [
                         'no_marketing' => $request->no_marketing,
-                        'nama_marketing' => $request->nama_marketing,
+                        'nama' => $request->nama_marketing,
                         'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
@@ -133,7 +133,7 @@ class MarketingController extends Controller
                     ],
                     'form_params' => [
                         'no_marketing' => $request->no_marketing,
-                        'nama_marketing' => $request->nama_marketing,
+                        'nama' => $request->nama_marketing,
                         'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
