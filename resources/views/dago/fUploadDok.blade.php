@@ -1,35 +1,14 @@
-<?php
-    session_start();
-    $root_lib=$_SERVER["DOCUMENT_ROOT"];
-    if (substr($root_lib,-1)!="/") {
-        $root_lib=$root_lib."/";
-    }
-    include_once($root_lib.'app/dago/setting.php');
-    $kode_lokasi=$_SESSION['lokasi'];
-    $nik=$_SESSION['userLog'];
-    $kode_pp=$_SESSION['kodePP'];
-    $periode=$_SESSION['periode'];
-?>
-<style>
-.form-group{
-    margin-bottom:15px !important;
-}
-
-.dataTables_wrapper{
-    padding:5px
-}
-</style>
+<link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
     <div class="container-fluid mt-3">
         <div class="row" id="saku-data-reg">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data Dokumen Registrasi 
-                        <!-- <button type="button" id="btn-reg-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
+                        <h4 class="card-title" style="font-size:16px">Data Dokumen Registrasi 
                         </h4>
-                        <hr>
+                        <hr style="margin-bottom:0px;margin-top:25px">
                         <div class="table-responsive ">
-                            <table id="table-reg" class="table table-bordered table-striped">
+                            <table id="table-reg" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No Registrasi</th>
@@ -57,10 +36,9 @@
                 <div class="card">
                     <form class="form" id="form-tambah" >
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Upload Dokumen
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Upload Dokumen
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-upload-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                            
                             </h4>
                             <hr>
                         </div>
@@ -143,8 +121,6 @@
             </div>
         </div>
     </div>     
-    
-    <script src="<?=$folderroot_js?>/inputmask.js"></script>
     <script>
     
     function getNamaBulan(no_bulan){
@@ -169,21 +145,54 @@
 
     var $iconLoad = $('.preloader');
     
-    var kode_lokasi = '<?php echo $kode_lokasi ?>';
     var dataTable = $('#table-reg').DataTable({
-        'processing': true,
-        'serverSide': true,
+        // 'processing': true,
+        // 'serverSide': true,
         "ordering": true,
         "order": [[0, "desc"]],
         'ajax': {
-            'url': '<?=$root_ser?>/UploadDok.php?fx=getReg',
-            'data': {'kode_lokasi':kode_lokasi},
+            'url': "{{ url('dago-trans/upload-dok') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.data;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                    return [];
+                }
             }
-        }
+        },
+        'columns': [
+            { data: 'no_reg' },
+            { data: 'no_peserta' },
+            { data: 'nama' },
+            { data: 'tgl_input' },
+            { data: 'nama_paket' },
+            { data: 'tgl_berangkat' },
+            { data: 'jum_dok' },
+            { data: 'action' }
+        ],
+        'columnDefs': [
+            {
+                "targets": 7,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.sts_dok == "-"){
+                        return "<a href='#' title='Upload Dokumen' class='badge badge-success' id='btn-upload'><i class='ti-upload'></i></a>";
+                    }else{
+                        return "<a href='#' title='Upload Dokumen' class='badge badge-success' id='btn-upload'><i class='ti-upload'></i></a>&nbsp;<a href='#' title='Sudah Upload' class='badge badge-success' ><i class='fas fa-check'></i></a>";
+                    }
+                    
+                }
+            }
+        ]
     });
 
     // $('#upload_no_reg').selectize({
@@ -203,24 +212,24 @@
         var id = $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
             type: 'GET',
-            url: '<?=$root_ser?>/UploadDok.php?fx=getUpload',
+            url: "{{ url('dago-trans/upload-dok-detail') }}",
             dataType: 'json',
             async:false,
-            data: {'kode_lokasi':'<?=$kode_lokasi?>','no_reg':id},
+            data: {'no_reg':id},
             success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var line = result.daftar[0];
+                if(result.data.status){
+                    if(typeof result.data.data_reg !== 'undefined' && result.data.data_reg.length>0){
+                        var line = result.data.data_reg[0];
                         $('#upload_no_reg').val(line.no_reg);
                         $('#upload_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
                         $('#upload_paket').val(line.nama_paket);
                         $('#upload_jadwal').val(line.tgl_berangkat);
                         $('#upload_alamat').val(line.alamat);
-                        if(typeof result.daftar2 !== 'undefined' && result.daftar2.length>0){
+                        if(typeof result.data.data_dokumen !== 'undefined' && result.data.data_dokumen.length>0){
                             var html='';
                             var no=1;
-                            for(var i=0;i<result.daftar2.length;i++){
-                                var line2 = result.daftar2[i];
+                            for(var i=0;i<result.data.data_dokumen.length;i++){
+                                var line2 = result.data.data_dokumen[i];
                                 
                                 html+= `<tr class='row-upload-dok'>"
                                 <td width='5%'  class='no-dok'>`+no+`</td>
@@ -246,7 +255,7 @@
                                 <td width='5%'>`;
                                 if(line2.fileaddres != "-"){
 
-                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='<?=$root?>/upload/`+line2.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>`;
+                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+line2.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>`;
                                    
                                 }else{
                                     var link =``;
@@ -260,9 +269,18 @@
                         $('#form-upload-reg').show();
                         $('#saku-data-reg').hide();
                     }
-
-                    
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
 
@@ -277,21 +295,10 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
-        
-        var nik='<?php echo $nik; ?>' ;
-        var kode_lokasi='<?php echo $kode_lokasi; ?>' ;
-        var kode_pp='<?php echo $kode_pp; ?>' ;
-        var periode='<?php echo $periode; ?>' ;
-        
-        formData.append('nik_user', nik);
-        formData.append('kode_lokasi', kode_lokasi);
-        formData.append('kode_pp', kode_pp);
-        formData.append('periode', periode);
-        // formData.append('no_jadwal', no_jadwal);
-        
+                
         $.ajax({
             type: 'POST',
-            url: '<?=$root_ser?>/UploadDok.php?fx=simpanUpload',
+            url: "{{ url('dago-trans/upload-dok') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -299,11 +306,11 @@
             cache: false,
             processData: false, 
             success:function(result){
-                if(result.status){
+                if(result.data.status == "SUCCESS"){
                     dataTable.ajax.reload();
                     Swal.fire(
                         'Great Job!',
-                        'Your data has been saved.'+result.message,
+                        'Your data has been saved.'+result.data.message,
                         'success'
                     )
                     $('#form-tambah')[0].reset();
@@ -315,7 +322,7 @@
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.message+'</a>'
+                        footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
                 
@@ -326,6 +333,18 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+                $iconLoad.hide();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });      
     });
