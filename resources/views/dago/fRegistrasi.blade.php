@@ -1972,6 +1972,7 @@
             var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-btambah_total').val(sub);
+            $(this).closest('tr').find('.td-btambah_total').text(toRp2(sub));
             hitungTambah2();
 
         }
@@ -1984,6 +1985,7 @@
             var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-btambah_total').val(sub);
+            $(this).closest('tr').find('.td-btambah_total').text(toRp2(sub));
             hitungTambah2();
     });
 
@@ -2005,6 +2007,7 @@
             var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-bdok_total').val(sub);
+            $(this).closest('tr').find('.td-bdok_total').text(toRp2(sub));
             hitungDok2();
         }
     });
@@ -2017,6 +2020,7 @@
         var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
         var sub = toNilai(nil)*toNilai(jum);
         $(this).closest('tr').find('.inp-bdok_total').val(sub);
+        $(this).closest('tr').find('.td-bdok_total').text(toRp2(sub));
         hitungDok2();
     });
    
