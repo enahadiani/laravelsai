@@ -33,7 +33,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Kartu Pembayaran</h4>
+                    <h4 class="card-title pl-1" style="font-size:16px"><i class='fas fa-file'></i> Laporan Kartu Pembayaran</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -438,7 +438,6 @@
         e.preventDefault();
         var param = $(this).data('no_reg');
         var back = true;
-        $formData.append('nik', nik);
         
         $formData.delete('param');
         $formData.append('param', param);
