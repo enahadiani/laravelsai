@@ -19,6 +19,8 @@ Route::get('filter-paket','Dago\FilterController@getFilterPaket');
 Route::get('filter-jadwal','Dago\FilterController@getFilterJadwal');
 Route::get('filter-noreg','Dago\FilterController@getFilterNoReg');
 Route::get('filter-peserta','Dago\FilterController@getFilterPeserta');
+Route::get('filter-kwitansi','Dago\FilterController@getFilterKwitansi');
+Route::get('filter-jk','Dago\FilterController@getFilterJK');
 
 //Pihak ketiga
 

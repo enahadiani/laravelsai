@@ -1,3 +1,4 @@
+
     <style>
         .sidepanel  {
             width: 0px;
@@ -33,7 +34,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Daftar Registrasi</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Mku Keuangan</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -190,7 +191,6 @@
         </div>
     <!-- /.modal-dialog -->
     </div>
-
 <script type="text/javascript">
     var $loadBar = $('#loading-bar');
     var $loadBar2 = $('#loading-bar2');
@@ -221,8 +221,6 @@
     });  
 
     $('#show').selectize();
-
-   
     function getPeriode(){
         $.ajax({
             type: 'GET',
@@ -422,7 +420,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptMkuKeu";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -430,7 +428,28 @@
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptMkuKeu";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '.bayar', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_reg');
+        
+        $formData.delete('param');
+        $formData.append('param', param);
+        $formData.delete('back');
+        $formData.append('back', true);
+        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyr";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '#btn-back', function(e){
+        e.preventDefault();
+        xurl = "{{ url('/dago-auth/form')}}/rptMkuKeu";
+        
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });

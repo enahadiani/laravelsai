@@ -1,3 +1,4 @@
+
     <style>
         .sidepanel  {
             width: 0px;
@@ -20,6 +21,7 @@
         .open{
             width:300px;
         }
+
         #subFixbar
         {
             width: calc(100% - 280px);
@@ -33,7 +35,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Daftar Registrasi</h4>
+                    <h4 class="card-title pl-1" style="font-size:16px"><i class='fas fa-file'></i> Laporan Registrasi</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -79,6 +81,7 @@
         <h3 style='margin-bottom:20px;position: absolute;'>Filter Laporan</h3>
         <a href='#' id='btn-close'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
         <form id="formFilter2" style='margin-top:50px'>
+        
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
@@ -190,7 +193,6 @@
         </div>
     <!-- /.modal-dialog -->
     </div>
-
 <script type="text/javascript">
     var $loadBar = $('#loading-bar');
     var $loadBar2 = $('#loading-bar2');
@@ -213,8 +215,6 @@
         openNav();
     });
 
-    
-
     $('.sidepanel').on('click', '#btn-close', function(e){
         e.preventDefault();
         openNav();
@@ -222,7 +222,6 @@
 
     $('#show').selectize();
 
-   
     function getPeriode(){
         $.ajax({
             type: 'GET',
@@ -404,35 +403,33 @@
     getNoReg();
     getPeserta();
     
-    function sepNum(x){
-        if (typeof x === 'undefined' || !x) { 
-            return 0;
-        }else{
-            if(x < 0){
-                var x = parseFloat(x).toFixed(0);
-            }
+    // function sepNum(x){
+    //     if (typeof x === 'undefined' || !x) { 
+    //         return 0;
+    //     }else{
+    //         if(x < 0){
+    //             var x = parseFloat(x).toFixed(0);
+    //         }
             
-            var parts = x.toString().split(",");
-            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
-            return parts.join(".");
-        }
-    }
+    //         var parts = x.toString().split(",");
+    //         parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+    //         return parts.join(".");
+    //     }
+    // }
 
     var $formData = "";
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
         $('#content-lap').load(xurl);
-        // drawLapReg(formData);
     });
 
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
         $('#content-lap').load(xurl);
-        // drawLapReg(formData);
     });
 
     $('#sai-rpt-print').click(function(){
@@ -444,7 +441,6 @@
         $('#canvasPreview').tblToExcel();
     });
 
-    
     $("#btnEmail").click(function(e) {
         e.preventDefault();
         $('#formEmail')[0].reset();
@@ -482,6 +478,7 @@
         });
         
     });
+
     
 </script>
    

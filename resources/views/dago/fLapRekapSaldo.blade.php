@@ -1,3 +1,4 @@
+
     <style>
         .sidepanel  {
             width: 0px;
@@ -17,7 +18,8 @@
             width:0px;
             right: -30px;
         }
-        .open{
+        .open
+        {
             width:300px;
         }
         #subFixbar
@@ -33,7 +35,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Daftar Registrasi</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Rekap Saldo</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -190,7 +192,6 @@
         </div>
     <!-- /.modal-dialog -->
     </div>
-
 <script type="text/javascript">
     var $loadBar = $('#loading-bar');
     var $loadBar2 = $('#loading-bar2');
@@ -221,8 +222,7 @@
     });  
 
     $('#show').selectize();
-
-   
+ 
     function getPeriode(){
         $.ajax({
             type: 'GET',
@@ -342,7 +342,7 @@
                 }
             }
         });
-    }
+    }   
 
     $('#periode2').selectize({
         selectOnTab: true,
@@ -422,15 +422,86 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptRekapSaldo";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
 
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
-        $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        $formData = new FormData(this);        
+        xurl = "{{ url('/dago-auth/form')}}/rptRekapSaldo";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '.tagihan', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_reg');
+        $formData.delete('param');      
+        $formData.append('param', param);
+        xurl = "{{ url('/dago-auth/form')}}/rptDetailTagihan";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '.bayar', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_reg');
+        
+        $formData.delete('param');
+        $formData.append('param', param);
+        $formData.delete('back');
+        $formData.append('back', true);
+        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyr";
+        
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '.saldo', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_reg');
+        
+        $formData.delete('param');
+        $formData.append('param', param);
+        xurl = "{{ url('/dago-auth/form')}}/rptDetailSaldo";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '.reg', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_reg');
+        var back = true;
+        $formData.delete('param');
+        $formData.append('param', param);
+
+        $formData.delete('back');
+        $formData.append('back', back);
+        xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+
+    $('#content-lap').on('click', '.byr', function(e){
+        e.preventDefault();
+        var param = $(this).data('no_bayar');
+        var back = true;
+        $formData.delete('no_bayar');
+        $formData.append('no_bayar', param);
+
+        $formData.delete('back');
+        $formData.append('back', back);
+        xurl = "{{ url('/dago-auth/form')}}/rptPbyr";
+        $('#content-lap').load(xurl);
+        // drawLapReg(formData);
+    });
+
+    $('#content-lap').on('click', '#btn-back', function(e){
+        e.preventDefault();
+        xurl = "{{ url('/dago-auth/form')}}/rptRekapSaldo";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -457,6 +528,7 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
+        
         var html= $('#canvasPreview').html();
         formData.append('html', html);
         $loadBar2.show();

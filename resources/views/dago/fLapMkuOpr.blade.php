@@ -1,3 +1,4 @@
+
     <style>
         .sidepanel  {
             width: 0px;
@@ -33,7 +34,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Daftar Registrasi</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan MKU Operasional</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -190,7 +191,6 @@
         </div>
     <!-- /.modal-dialog -->
     </div>
-
 <script type="text/javascript">
     var $loadBar = $('#loading-bar');
     var $loadBar2 = $('#loading-bar2');
@@ -221,8 +221,6 @@
     });  
 
     $('#show').selectize();
-
-   
     function getPeriode(){
         $.ajax({
             type: 'GET',
@@ -422,7 +420,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptMkuOpr";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -430,7 +428,7 @@
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/dago-auth/form')}}/rptDaftarReg";
+        xurl = "{{ url('/dago-auth/form')}}/rptMkuOpr";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -455,8 +453,8 @@
         e.preventDefault();
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
+            console.log(pair[0]+ ', '+ pair[1]);
+        } 
         var html= $('#canvasPreview').html();
         formData.append('html', html);
         $loadBar2.show();
