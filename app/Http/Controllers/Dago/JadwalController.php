@@ -55,44 +55,10 @@ class JadwalController extends Controller
         }
     }
 
-    public function store(Request $request) {
-        $this->validate($request, [
-            'kode_harga' => 'required',
-            'nama' => 'required',
-        ]);
-
-        try {
-                $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
-
-        } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
-    }
-
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -117,63 +83,56 @@ class JadwalController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_harga' => 'required',
+            'no_paket' => 'required',
             'nama' => 'required',
+            'no_jadwal' => 'required|array',
+            'jadwal_baru' => 'required|array',
         ]);
 
+        $data_jadwal = array();
+        if(isset($request->no_jadwal)){
+            $jadwal_lama = $request->jadwal_lama;
+            $jadwal_baru = $request->jadwal_baru;
+            $no_jadwal = $request->no_jadwal;
+            for($i=0;$i<count($request->no_jadwal);$i++) {
+                $data_jadwal[] = array(
+                    'jadwal_lama' => str_replace('/','-',$jadwal_lama[$i]),
+                    'jadwal_baru' => str_replace('/','-',$jadwal_baru[$i]),
+                    'no_jadwal' => $no_jadwal[$i],
+                );
+            }
+        }
+
+        $fields = array(
+            'no_paket' => $request->no_paket,
+            'nama' => $request->nama,
+            'data_jadwal' => $data_jadwal
+        );
+
         try {
-                $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+            var_dump(json_encode($fields));
+                // $client = new Client();
+                // $response = $client->request('PUT', $this->link.'jadwal?no_paket='.$id,[
+                //     'headers' => [
+                //         'Authorization' => 'Bearer '.Session::get('token'),
+                //         'Accept'     => 'application/json',
+                //     ],
+                //     'body' => json_encode($fields)
+                // ]);
+                // if ($response->getStatusCode() == 200) { // 200 OK
+                //     $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+                //     $data = json_decode($response_data,true);
+                //     return response()->json(['data' => $data], 200);  
+                // }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
-    }
-
-    public function delete($id) {
-        try{
-            $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-            }
-            return response()->json(['data' => $data], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
-        }
-
     }
    
 }
