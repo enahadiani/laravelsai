@@ -27,7 +27,7 @@
         var data = data;
         console.log(data.length);
         if(data.length > 0){
-            if(res.back){
+            if(res.res.back){
                 var back= `<div class="row mb-2">
                     <div class="col-md-12 pull-right">
                     <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Back</button></div></div>`;

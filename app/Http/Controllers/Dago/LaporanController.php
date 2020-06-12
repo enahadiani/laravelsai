@@ -58,8 +58,13 @@ class LaporanController extends Controller
             }else{
                 $periode = "Semua Periode";
             }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
             
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res
+            ], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -94,6 +99,11 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
@@ -131,6 +141,11 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
@@ -170,6 +185,11 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -207,6 +227,10 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -244,6 +268,9 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            if(isset($request->back)){
+                $res['back']=true;
+            }
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -279,6 +306,10 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
@@ -316,6 +347,10 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
@@ -355,6 +390,10 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+            
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -390,6 +429,10 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
@@ -429,6 +472,11 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -466,6 +514,10 @@ class LaporanController extends Controller
                 $periode = "Semua Periode";
             }
             
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -501,6 +553,10 @@ class LaporanController extends Controller
                 $periode = $request->periode;
             }else{
                 $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
             }
             
             return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 

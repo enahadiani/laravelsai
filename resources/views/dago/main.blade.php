@@ -149,6 +149,9 @@
     <script src="{{ asset('asset_elite/jquery.formnavigation.js') }}"></script>  
     <script src="{{ asset('asset_elite/datatables/dataTables.buttons.min.js') }}"></script>  
 
+    <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
+    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+
     <!-- Tiny Editor -->
     <script src="{{ asset('asset_elite/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>

@@ -440,6 +440,8 @@
         var no_reg = $(this).data('no_reg');
         $formData.delete('no_reg');      
         $formData.append('no_reg', no_reg);
+        $formData.delete('back');
+        $formData.append('back', true);
         xurl = "{{ url('/dago-auth/form')}}/rptDetailTagihan";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
@@ -465,6 +467,9 @@
         
         $formData.delete('no_reg');
         $formData.append('no_reg', no_reg);
+        
+        $formData.delete('back');
+        $formData.append('back', true);
         xurl = "{{ url('/dago-auth/form')}}/rptDetailSaldo";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
