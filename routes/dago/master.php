@@ -91,7 +91,6 @@ Route::delete('paket/{id}', 'Dago\PaketController@delete');
 
 //Jadwal //
 Route::get('jadwal', 'Dago\JadwalController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
+Route::get('jadwal/{id}', 'Dago\JadwalController@getData');
+Route::put('jadwal/{id}', 'Dago\JadwalController@update');
+Route::delete('jadwal/{id}', 'Dago\JadwalController@delete');

@@ -80,16 +80,64 @@ class PaketController extends Controller
         ]);
 
         try {
+                $data_harga = array();
+                if(isset($request->kode_harga)){
+                $kode_harga = $request->kode_harga;
+                $harga  = $request->harga_std;
+                $harga_se  = $request->harga_std;
+                $harga_e  = $request->harga_eks;
+                $fee  = $request->harga_agen;
+                $curr_fee = $request->curr;
+                for($i=0;$i<count($kode_harga);$i++){
+                        $data_harga[] = array(
+                            'kode_harga' => $kode_harga[$i],
+                            'harga' => $harga[$i],
+                            'harga_se' => $harga_se[$i],
+                            'harga_e' => $harga_e[$i],
+                            'fee' => $fee[$i],
+                            'curr_fee' => $curr_fee[$i]
+                        );
+                    }
+                }
+
+                $data_jadwal = array();
+                if(isset($request->tgl_plan)){
+                    $tgl_berangkat = $request->tgl_plan;
+                    $tgl_datang = $request->tgl_akt;
+                    $lama_hari = $request->hari;
+                    $quota = $request->q_std;
+                    $quota_se = $request->q_se;
+                    $quota_e = $request->q_eks;
+                    for($i=0;$i<count($request->tgl_plan);$i++) {
+                        $data_jadwal[] = array(
+                            'tgl_berangkat' => str_replace('/','-',$tgl_berangkat[$i]),
+                            'tgl_datang' => str_replace('/','-',$tgl_datang[$i]),
+                            'lama_hari' => $lama_hari[$i],
+                            'quota' => str_replace('.','',$quota[$i]),
+                            'quota_se' => str_replace('.','',$quota_se[$i]),
+                            'quota_e' => str_replace('.','',$quota_e[$i]),
+                        );
+                    }
+                }
+
+                $fields = array(
+                    'no_paket' => $request->no_paket,
+                    'nama' => $request->nama,
+                    'jenis' => $request->jenis,
+                    'kode_curr'=>$request->kode_curr,
+                    'kode_produk' => $request->kode_produk,
+                    'tarif_agen' => str_replace('.','',$request->tarif_agen),
+                    'data_harga' => $data_harga,
+                    'data_jadwal' => $data_jadwal
+                );
+                // var_dump(json_encode($fields));
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'paket',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_harga' => $request->kode_harga,
-                        'nama' => $request->nama,
-                    ]
+                    'body' => json_encode($fields)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -101,7 +149,7 @@ class PaketController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }

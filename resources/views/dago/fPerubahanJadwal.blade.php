@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Harga dan Tipe Room 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Perubahan Jadwal 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -57,7 +57,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Harga Promo Paket
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Perubahan Jadwal
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -330,7 +330,7 @@
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('dago-master/paket') }}",
+            'url': "{{ url('dago-master/jadwal') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
