@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-       saiPost('dago-trans/lap-detail-pembayaran', null, formData, null, function(res){
+       saiPost('dago-trans/lap-detail-bayar', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -78,8 +78,8 @@
                                                 <td align='center' class='isi_laporan'>`+no+`</td>
                                                 <td  class='isi_laporan'>`+line2.kode_biaya+`</td>
                                                 <td class='isi_laporan'>`+line2.nama+`</td>
-                                                <td class='isi_laporan text-right' >`+sepNumPas(line2.jml)+`</td>
-                                                <td class='isi_laporan text-right'>`+sepNumPas(line2.byr)+`</td>
+                                                <td class='isi_laporan text-right' >`+toRp2(line2.jml)+`</td>
+                                                <td class='isi_laporan text-right'>`+toRp2(line2.byr)+`</td>
                                                 </tr>`;	
                                                 no++;
                                             
@@ -89,7 +89,7 @@
                                             mon_html+=det+`
                                             <tr>
                                                 <td class='isi_laporan' colspan='4' >TOTAL</td>
-                                                <td class='isi_laporan text-right'>`+sepNumPas(byr)+`</td>
+                                                <td class='isi_laporan text-right'>`+toRp2(byr)+`</td>
                                             </tr>
                                         </tbody>
                                     </table>

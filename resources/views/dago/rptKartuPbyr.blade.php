@@ -29,8 +29,11 @@
                var mon_html = "<div id='sai-rpt-table-export-tbl-daftar-pnj'>"+back;
                    var arr_tl = [0,0,0,0,0,0,0,0,0];
                    var x=1;
+                //    console.log(res);
                    for (var i=0;i<data.length;i++)
                    { 
+
+                       
                        var line = data[i];
                        mon_html+=`
                             <table class='table' cellspacing='0' cellpadding='1' class='kotak'>
@@ -115,9 +118,9 @@
                                             var nilai_t=0;                                           
                                             var nilai_m=0;
                                             var det =``;
-                                            for(var j=0;j<res.result2.length;j++){
+                                            for(var j=0;j<res.res.data_detail.length;j++){
 
-                                                var line2 = res.result2[j];
+                                                var line2 = res.res.data_detail[j];
                                                 if(line.no_reg == line2.no_reg){
 
                                                     nilai_p+=parseFloat(line2.nilai_p);

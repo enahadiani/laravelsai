@@ -35,6 +35,9 @@ Route::post('lap-form-registrasi','Dago\LaporanController@getFormRegistrasi');
 Route::post('lap-registrasi','Dago\LaporanController@getRegistrasi');
 Route::post('lap-pembayaran','Dago\LaporanController@getPembayaran');
 Route::post('lap-rekap-saldo','Dago\LaporanController@getRekapSaldo');
+Route::post('lap-detail-saldo','Dago\LaporanController@getDetailSaldo');
+Route::post('lap-detail-tagihan','Dago\LaporanController@getDetailTagihan');
+Route::post('lap-detail-bayar','Dago\LaporanController@getDetailBayar');
 Route::post('lap-kartu-pembayaran','Dago\LaporanController@getKartuPembayaran');
 
 
