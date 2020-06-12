@@ -14,5 +14,25 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+Route::get('filter-periode','Dago\FilterController@getFilterPeriode');
+Route::get('filter-paket','Dago\FilterController@getFilterPaket');
+Route::get('filter-jadwal','Dago\FilterController@getFilterJadwal');
+Route::get('filter-noreg','Dago\FilterController@getFilterNoReg');
+Route::get('filter-peserta','Dago\FilterController@getFilterPeserta');
+
+//Pihak ketiga
+
+//Laporan
+Route::post('lap-mku-operasional','Dago\LaporanController@getMkuOperasional');
+Route::post('lap-mku-keuangan','Dago\LaporanController@getMkuKeuangan');
+Route::post('lap-paket','Dago\LaporanController@getPaket');
+Route::post('lap-dokumen','Dago\LaporanController@getDokumen');
+Route::post('lap-jamaah','Dago\LaporanController@getJamaah');
+
+Route::post('lap-form-registrasi','Dago\LaporanController@getFormRegistrasi');
+Route::post('lap-registrasi','Dago\LaporanController@getRegistrasi');
+Route::post('lap-pembayaran','Dago\LaporanController@getPembayaran');
+Route::post('lap-rekap-saldo','Dago\LaporanController@getRekapSaldo');
+Route::post('lap-kartu-pembayaran','Dago\LaporanController@getKartuPembayaran');
 
 
