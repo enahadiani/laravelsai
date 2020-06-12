@@ -433,7 +433,7 @@
                         no = 1;
                         for(var i=0;i<result.data.length;i++) {
                             $('.datepickerke'+no).datepicker({
-                                format: 'yyyy/mm/dd',
+                                format: 'dd/mm/yyyy',
                                 startDate: new Date()
                             });
                         }

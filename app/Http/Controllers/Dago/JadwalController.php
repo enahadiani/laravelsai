@@ -91,14 +91,22 @@ class JadwalController extends Controller
 
         $data_jadwal = array();
         if(isset($request->no_jadwal)){
-            $jadwal_lama = $request->jadwal_lama;
-            $jadwal_baru = $request->jadwal_baru;
-            $no_jadwal = $request->no_jadwal;
             for($i=0;$i<count($request->no_jadwal);$i++) {
+                $explode_string_jadwal_lama = explode('/', $request->jadwal_lama[$i]);
+                $tgl_lama = $explode_string_jadwal_lama[0];
+                $bln_lama = $explode_string_jadwal_lama[1];
+                $tahun_lama = $explode_string_jadwal_lama[2];
+                $jadwal_lama = $tahun_lama."-".$bln_lama."-".$tgl_lama;
+
+                $explode_string_jadwal_baru = explode('/', $request->jadwal_baru[$i]);
+                $tgl_baru = $explode_string_jadwal_baru[0];
+                $bln_baru = $explode_string_jadwal_baru[1];
+                $tahun_baru = $explode_string_jadwal_baru[2];
+                $jadwal_baru = $tahun_baru."-".$bln_baru."-".$tgl_baru;
                 $data_jadwal[] = array(
-                    'jadwal_lama' => str_replace('/','-',$jadwal_lama[$i]),
-                    'jadwal_baru' => str_replace('/','-',$jadwal_baru[$i]),
-                    'no_jadwal' => $no_jadwal[$i],
+                    'tgl_berangkat' => $jadwal_lama,
+                    'tgl_baru' => $jadwal_baru,
+                    'no_jadwal' => $request->no_jadwal[$i],
                 );
             }
         }
@@ -110,21 +118,21 @@ class JadwalController extends Controller
         );
 
         try {
-            var_dump(json_encode($fields));
-                // $client = new Client();
-                // $response = $client->request('PUT', $this->link.'jadwal?no_paket='.$id,[
-                //     'headers' => [
-                //         'Authorization' => 'Bearer '.Session::get('token'),
-                //         'Accept'     => 'application/json',
-                //     ],
-                //     'body' => json_encode($fields)
-                // ]);
-                // if ($response->getStatusCode() == 200) { // 200 OK
-                //     $response_data = $response->getBody()->getContents();
+            // var_dump(json_encode($fields));
+                $client = new Client();
+                $response = $client->request('PUT', $this->link.'jadwal?no_paket='.$id,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Content-Type'     => 'application/json',
+                    ],
+                    'body' => json_encode($fields)
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
                     
-                //     $data = json_decode($response_data,true);
-                //     return response()->json(['data' => $data], 200);  
-                // }
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
