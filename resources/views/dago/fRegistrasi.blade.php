@@ -1678,6 +1678,126 @@
         getMarketing(par);
     });
 
+    $('#table-btambah').on('keydown','.inp-btambah_jumlah, .inp-btambah_total',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = [' .inp-btambah_kode_biaya','.inp-btambah_nama',' .inp-btambah_nilai','.inp-btambah_jumlah',' .inp-btambah_total'];
+        var nxt2 = ['.td-btambah_kode_biaya','.td-btambah_nama','.td-btambah_nilai','.td-btambah_jumlah','.td-btambah_total'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    return false;                 
+                    break;
+                case 1:
+                    return false;
+                    break;
+                case 2:
+                    return false;
+                case 3:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        hitungTambah2();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                case 4:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        hitungTambah2();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#table-bdok').on('keydown','.inp-bdok_jumlah, .inp-bdok_total',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = [' .inp-bdok_kode_biaya','.inp-bdok_nama',' .inp-bdok_nilai','.inp-bdok_jumlah',' .inp-bdok_total'];
+        var nxt2 = ['.td-bdok_kode_biaya','.td-bdok_nama','.td-bdok_nilai','.td-bdok_jumlah','.td-bdok_total'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    return false;                 
+                    break;
+                case 1:
+                    return false;
+                    break;
+                case 2:
+                    return false;
+                case 3:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        hitungTambah2();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                case 4:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        hitungTambah2();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
     $('#table-btambah').on('click', 'td', function(){
         var idx = $(this).index();
         var nilai = $(this).parents("tr").find(".inp-btambah_nilai").val();
