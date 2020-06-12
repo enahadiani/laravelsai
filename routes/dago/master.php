@@ -84,7 +84,7 @@ Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
 
 //Paket //
 Route::get('paket', 'Dago\PaketController@index');
-Route::get('paket/{id}', 'Dago\PaketController@getData');
+Route::get('paket-detail/{id}', 'Dago\PaketController@getData');
 Route::post('paket', 'Dago\PaketController@store');
 Route::put('paket/{id}', 'Dago\PaketController@update');
 Route::delete('paket/{id}', 'Dago\PaketController@delete');

@@ -118,7 +118,6 @@ class JadwalController extends Controller
         );
 
         try {
-            // var_dump(json_encode($fields));
                 $client = new Client();
                 $response = $client->request('PUT', $this->link.'jadwal?no_paket='.$id,[
                     'headers' => [

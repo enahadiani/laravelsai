@@ -632,9 +632,9 @@
             var inputJadwal = "";
             inputJadwal += "<tr class='row-jadwal'>";
             inputJadwal += "<td class='no-jadwal text-center'>"+noJadwal+"</td>";
-            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+" hidden value='"+tgl_plan+"' required'/></td>";
-            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+" hidden value='"+tgl_akt+"' required'/></td>";
-            inputJadwal += "<td><span class='td-hari tdharike"+noJadwal+"'>"+hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+" hidden value='"+hari+"' required'/></td>";
+            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+" hidden' value='"+tgl_plan+"' required></td>";
+            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+" hidden' value='"+tgl_akt+"' required></td>";
+            inputJadwal += "<td><span class='td-hari tdharike"+noJadwal+"'>"+hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+" hidden' value='"+hari+"' required/></td>";
             inputJadwal += "<td><span class='td-qstd tdqstdke"+noJadwal+"'>"+qstd+"</span><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+" hidden' value='"+qstd+"' required /></td>";
             inputJadwal += "<td><span class='td-qsemi tdqsemike"+noJadwal+"'>"+qsemi+"</span><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+" hidden' value='"+qsemi+"' required /></td>";
             inputJadwal += "<td><span class='td-qeks tdqekske"+noJadwal+"'>"+qeks+"</span><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+" hidden' value='"+qeks+"' required /></td>";
@@ -938,7 +938,7 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
-        var id = $('#id').val();
+        var id = $('#id_data').val();
         if(parameter == "edit"){
             var url = "{{ url('dago-master/paket') }}/"+id;
             var pesan = "updated";
@@ -1011,7 +1011,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-master/type-room') }}/"+id,
+                    url: "{{ url('dago-master/paket') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -1052,7 +1052,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/type-room') }}/" + id,
+            url: "{{ url('dago-master/paket-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1060,15 +1060,102 @@
                 if(result.status === 'SUCCESS'){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#no_type').attr('readonly', true);
-                    $('#no_type').val(id);
-                    $('#id').val(id);
+                    $('#no_paket').attr('readonly', true);
+                    $('#no_paket').val(id);
+                    $('#id_data').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#harga').val(result.data[0].harga);
+                    $('#tarif_agen').val(result.data[0].tarif_agen);
+                    $('#kode_produk').val(result.data[0].kode_produk);
                     $('#kode_curr')[0].selectize.setValue(result.data[0].kode_curr);
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    getLabelProduk(result.data[0].kode_produk);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    if(result.data_harga.length > 0) {
+                        var input = "";
+                        var no = 1;
+                        for(var i=0;i<result.data_harga.length;i++) {
+                            var lineHarga = result.data_harga[i];
+                            input += "<tr class='row-harga'>";
+                            input += "<td class='no-harga text-center'>"+no+"</td>";
+                            input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+lineHarga.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+lineHarga.kode_harga+"' readonly /></td>";
+                            input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+lineHarga.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+lineHarga.nama+"' readonly /></td>";
+                            input += "<td><span class='td-hargastd tdhargastdke"+no+"'>"+lineHarga.harga+"</span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+" hidden' value='"+lineHarga.harga+"' /></td>";
+                            input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>"+lineHarga.harga_se+"</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='"+lineHarga.harga_se+"' /></td>";
+                            input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
+                            input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>"+lineHarga.fee+"</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='"+lineHarga.fee+"' /></td>";
+                            input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required></select></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+
+                            no++;
+                        }
+                        $('#input-harga tbody').html(input);
+                        no = 1;
+                        for(var i=0;i<result.data_harga.length;i++){
+                        var lineHarga = result.data_harga[i];
+                        $('.currke'+no).selectize({
+                            selectOnTab:true,
+                            dropdownParent: 'body',
+                            options: [
+                                { text: "IDR", value: "IDR" },
+                                { text: "USD", value: "USD" }
+                            ],
+                            onChange: function(value) {
+                                $('.tdcurrke'+no).text(value);
+                            }
+                        });
+                        $('.currke'+no)[0].selectize.setValue(lineHarga.curr_fee);
+                        $('.inp-curr').css("background-color", "white"); 
+                        $('.inp-curr option').css("background-color", "white"); 
+                        $('.selectize-control.currke'+no).addClass('hidden');
+                        $('.hargake'+no).inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { var self =this; self.Value(''); }
+                        });
+                        no++;
+                        }
+                    }
+                    if(result.data_jadwal.length > 0) {
+                        var inputJadwal = "";
+                        var nomor = 1;
+                        for(var i=0;i<result.data_jadwal.length;i++) {
+                            var lineJadwal = result.data_jadwal[i];
+                            inputJadwal += "<tr class='row-jadwal'>";
+                            inputJadwal += "<td class='no-jadwal text-center'>"+nomor+"</td>";
+                            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+nomor+"'>"+lineJadwal.tgl_berangkat+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+" hidden' value='"+lineJadwal.tgl_berangkat+"' required></td>";
+                            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+nomor+"'>"+lineJadwal.tgl_datang+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+" hidden' value='"+lineJadwal.tgl_berangkat+"' required></td>";
+                            inputJadwal += "<td><span class='td-hari tdharike"+nomor+"'>"+lineJadwal.lama_hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+" hidden' value='"+lineJadwal.lama_hari+"' required></td>";
+                            inputJadwal += "<td><span class='td-qstd tdqstdke"+nomor+"'>"+lineJadwal.quota+"</span><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+" hidden' value='"+lineJadwal.quota+"' required></td>";
+                            inputJadwal += "<td><span class='td-qsemi tdqsemike"+nomor+"'>"+lineJadwal.quota_se+"</span><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+" hidden' value='"+lineJadwal.quota_se+"' required></td>";
+                            inputJadwal += "<td><span class='td-qeks tdqekske"+nomor+"'>"+lineJadwal.quota_e+"</span><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+" hidden' value='"+lineJadwal.quota_e+"' required></td>";
+                            inputJadwal += "<td><span class='td-id tdidke"+nomor+"'>"+lineJadwal.no_jadwal+"</span><input name='id[]' class='form-control inp-id idke"+nomor+" hidden' value='"+lineJadwal.no_jadwal+"' required /></td>";
+                            inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
+                            
+                            nomor++
+                        }
+                        $('#input-jadwal tbody').html(inputJadwal);
+                         nomor = 1;
+                        for(var i=0;i<result.data_jadwal.length;i++) {
+                            $('.datepickerke'+nomor).datepicker({
+                                format: 'yyyy/mm/dd'
+                            });
+                            $('.qke'+nomor).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { var self = this; self.Value(''); }
+                            });
+                            nomor++;
+                        }
+                    }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     Swal.fire({
