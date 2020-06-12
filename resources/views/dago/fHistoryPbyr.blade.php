@@ -46,6 +46,39 @@
                                         background:#4286f5 !important;
                                         color:white;
                                     }
+
+                                    i.search-item2:hover{
+                                        cursor: pointer;
+                                        color: #4286f5;
+                                    }
+
+                                    i.search-item2{
+                                        color: #4286f5;
+                                    }
+
+                                    th{
+                                        vertical-align:middle !important;
+                                    }
+
+                                    #input-biaya .selectize-input, #input-biaya .form-control, #input-biaya .custom-file-label
+                                    {
+                                        border:0 !important;
+                                        border-radius:0 !important;
+                                    }
+                                    #input-biaya td:hover
+                                    {
+                                        background:#f4d180 !important;
+                                        color:white;
+                                    }
+                                    #input-biaya td
+                                    {
+                                        overflow:hidden !important;
+                                    }
+
+                                    #input-biaya thead, #table-his thead
+                                    {
+                                        background:#ff9500;color:white;
+                                    }
                                     
                                     </style>
                                     <div class='sai-container-overflow-x'>
@@ -75,17 +108,17 @@
             </div>
         </div>
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
+            <div class="col-sm-12">
                 <div class="card">
                     <form class="form" id="form-tambah" >
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Pembayaran
+                            <h4 class="card-title mb-4"  style="font-size:16px"><i class='fas fa-cube'></i> Data Pembayaran
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:450px' >
+                        <div class="card-body pt-0" style='min-height:450px' >
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                 <input class="form-control" type="hidden" id="method" name="_method" value="put">
@@ -104,10 +137,12 @@
                             </div>
                             <div class="form-group row">
                                 <label for="kode_akun" class="col-3 col-form-label">Rekening Kas Bank</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="kode_akun" name="kode_akun" required>
-                                    <option value='' disabled>--- Pilih Rekening Kas ---</option>
-                                    </select>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_akun" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -321,28 +356,219 @@
         ]
     });
 
-    function getRekBank(){
+    function showFilter(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        var parameter = {};
+        switch(par){
+            case 'kode_akun': 
+                header = ['Kode Akun', 'Nama'];
+            var toUrl = "{{ url('dago-trans/pembayaran-rekbank') }}";
+                var columns = [
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Akun";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+                $($target).trigger("change");
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+                $($target2).trigger("change");
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            console.log($target3);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+                $($target).trigger("change");
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+                $($target2).trigger("change");
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).trigger("change");
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                    $($target2).trigger("change");
+                }else{
+                    $($target2).text(nama);
+                }
+                
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
+    function getRekBank(kode_akun){
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-trans/pembayaran-rekbank') }}",
             dataType: 'json',
+            data:{'kode_akun':kode_akun},
             async:false,
             success:function(result){    
-                var select = $('#kode_akun').selectize();
-                select = select[0];
-                var control = select.selectize;
-                if(result.data.status == "SUCCESS"){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        for(i=0;i<result.data.data.length;i++){
-                            control.addOption([{text:result.data.data[i].kode_akun + ' - ' + result.data.data[i].nama, value:result.data.data[i].kode_akun}]);
-                        }
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_akun').val(result.daftar[0].kode_akun);
+                         $('#label_kode_akun').text(result.daftar[0].nama);
+                    }else{
+                        alert('Kode Akun tidak valid');
+                        $('#kode_akun').val('');
+                        $('#label_kode_akun').text('');
+                        $('#kode_akun').focus();
                     }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    alert('Kode Akun tidak valid');
+                    $('#kode_akun').val('');
+                    $('#label_kode_akun').text('');
+                    $('#kode_akun').focus();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
             }
         });
     }
 
-    getRekBank();
+    // getRekBank();
     $('.selectize').selectize();
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
@@ -379,6 +605,96 @@
         $('#total_bayar').val(total);
         
     }
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+        // console.log('clikc');
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
+    $('#form-tambah').on('change', '#kode_akun', function(){
+        var par = $(this).val();
+        getRekBank(par);
+    });
+
+    $('#input-biaya').on('click', 'td', function(){
+        var idx = $(this).index();
+        var bayar = $(this).parents("tr").find(".inp-nbiaya_bayar").val();
+        var no = $(this).parents("tr").find(".no-biaya").text();
+        $(this).parents("tr").find(".inp-nbiaya_bayar").val(bayar);
+        $(this).parents("tr").find(".td-nbiaya_bayar").text(bayar);
+        if(idx != 7){
+            $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+            $(this).parents("tr").find(".td-nbiaya_bayar").show();
+            $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+            // return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                if(idx == 7){
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").show();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").show();
+                }
+        
+                hitungTotal();
+            }
+        }
+    });
+
+    
+    $('#input-biaya').on('keydown','.inp-nbiaya_bayar',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['','','','','','',' .inp-nbiaya_bayar'];
+        var nxt2 = ['','','','','','','.td-nbiaya_bayar'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    return false;
+                    break;
+                case 6:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        hitungTotal();
+                    }else{
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
 
     $('#saiweb_container').on('click', '#btn-kembali', function(){
         
@@ -441,7 +757,8 @@
                             var line4 = res.data.data_bayar[0];							
                             if (line4 != undefined){										
                                 $('#deskripsi').val(line4.keterangan);						
-                                $('#kode_akun')[0].selectize.setValue(line4.kode_akun);					
+                                $('#kode_akun').val(line4.kode_akun);							
+                                $('#kode_akun').trigger('change');					
                             }
                         }
                         var html='';
@@ -460,8 +777,10 @@
                                     <td class='text-right'>`+toRp2(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
                                     <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
-                                        html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
+                                    //     html+=`
+                                    // <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
+                                    html+=`
+                                    <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                     }else{
                                         if(line3.byr_e == "" || line3.byr_e == undefined){
                                             line3.byr_e = 0;
@@ -469,8 +788,11 @@
                                             line3.byr_e = line3.byr_e;
                                         }
                                         
+                                    // html+=`
+                                    // <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
+
                                     html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
+                                    <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+toRp2(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+toRp2(line3.byr_e)+`' ></td>`;
                                     }
                                     html+=`
                                 </tr>`;
@@ -511,10 +833,10 @@
                                     <td class='no-his'>`+no+`</td>
                                     <td>`+line4.no_kwitansi+`</td>
                                     <td>`+line4.tgl_bayar+`</td>
-                                    <td>`+toRp2(line4.nilai_p)+`</td>
-                                    <td>`+toRp2(line4.nilai_t)+`</td>
-                                    <td>`+toRp2(line4.nilai_m)+`</td>
-                                    <td>`+toRp2(line4.total_idr)+`</td>
+                                    <td class='text-right'>`+toRp2(line4.nilai_p)+`</td>
+                                    <td class='text-right'>`+toRp2(line4.nilai_t)+`</td>
+                                    <td class='text-right'>`+toRp2(line4.nilai_m)+`</td>
+                                    <td class='text-right'>`+toRp2(line4.total_idr)+`</td>
                                 </tr>`;
                                 no++;
                             }
@@ -832,5 +1154,27 @@
         });
     }
 
+    $('#kode_akun').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['no_peserta','kode_akun'];
+        if (code == 13){
+            e.preventDefault();
+            return false;
+        } 
+        // else if( code == 40 || code == 9) {
+        //     e.preventDefault();
+        //     var idx = nxt.indexOf(e.target.id);
+        //     idx++;
+        //     $('#'+nxt[idx]).focus();
+            
+        // }else if(code == 38){
+        //     e.preventDefault();
+        //     var idx = nxt.indexOf(e.target.id);
+        //     idx--;
+        //     if(idx != -1){ 
+        //         $('#'+nxt[idx]).focus();
+        //     }
+        // }
+    });
        
 </script>
