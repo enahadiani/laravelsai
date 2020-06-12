@@ -78,7 +78,7 @@
                                                 overflow:hidden !important;
                                             }
 
-                                            #input-biaya thead
+                                            #input-biaya thead, #table-his thead
                                             {
                                                 background:#ff9500;color:white;
                                             }
@@ -859,10 +859,10 @@
                                 <td class='no-his'>`+no+`</td>
                                 <td>`+line4.no_kwitansi+`</td>
                                 <td>`+line4.tgl_bayar+`</td>
-                                <td>`+toRp2(line4.nilai_p)+`</td>
-                                <td>`+toRp2(line4.nilai_t)+`</td>
-                                <td>`+toRp2(line4.nilai_m)+`</td>
-                                <td>`+toRp2(line4.total_idr)+`</td>
+                                <td class='text-right'>`+toRp2(line4.nilai_p)+`</td>
+                                <td class='text-right'>`+toRp2(line4.nilai_t)+`</td>
+                                <td class='text-right'>`+toRp2(line4.nilai_m)+`</td>
+                                <td class='text-right'>`+toRp2(line4.total_idr)+`</td>
                             </tr>`;
                             no++;
                         }
