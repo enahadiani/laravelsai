@@ -380,6 +380,20 @@
                         loadForm("{{ url('dago-auth/form') }}/"+form);
                     }
                 });
+
+                function setHeightReport(){
+                    var header = $('.topbar').height();
+                    var subheader = $('#subFixbar').height();
+                    var content = window.innerHeight;
+                    var tinggi = content-header-subheader-50;
+                    $('#content-lap').css('height',tinggi);
+                }
+
+                $( window ).resize(function() {
+                    if($('#content-lap').length > 0){
+                        setHeightReport();
+                    }
+                });
             </script>
         </div>
     </div>    

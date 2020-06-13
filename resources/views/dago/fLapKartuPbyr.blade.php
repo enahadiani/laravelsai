@@ -193,6 +193,7 @@
 <script type="text/javascript">
     var $loadBar = $('#loading-bar');
     var $loadBar2 = $('#loading-bar2');
+    setHeightReport();
     function openNav() {
         var element = $('#mySidepanel');
         
