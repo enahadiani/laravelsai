@@ -42,17 +42,6 @@
                                 text-align:center !important;
                             }
                         </style>
-                        <thead>
-                            <tr>
-                                <td class="style16" align="center"><h4>LAPORAN DETAIL SALDO</h4></td>
-                            </tr>
-                            <tr>
-                                <td class="style16" align="center">`+res.periode+`</td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
                                 <td align="center">

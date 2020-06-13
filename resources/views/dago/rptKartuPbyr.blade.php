@@ -45,12 +45,6 @@
                                         border:none !important;
                                     }
                                 </style>
-                                <tr>
-                                    <td class="style16" align="center"><h4>KARTU PEMBAYARAN</h4></td>
-                                </tr>
-                                <tr>
-                                    <td style='border:none !important;'>&nbsp;</td>
-                                </tr>
                                 <tr >
                                     <td height='23' colspan='7' style='border:none' class='header_laporan'>
                                         <table  class='table no-border' width='100%'>
