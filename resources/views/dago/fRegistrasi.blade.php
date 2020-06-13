@@ -1981,8 +1981,8 @@
                             <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
                             <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>0</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+toRp2(line.jml)+`' required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>0</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+toRp2(line.jml)+`' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>`+toRp2(line.jml)+`</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+toRp2(line.jml)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' required></td>
                             </tr>`;
                             no++;
                             
