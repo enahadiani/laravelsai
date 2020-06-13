@@ -340,7 +340,12 @@
     <!-- END MODAL --> 
 </div>
 <script>
-    
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
     var action_html2 = "<a href='#' title='Edit' class='badge badge-info web_datatable_edit' ><i class='fas fa-pencil-alt'></i>&nbsp; Edit</a>";
@@ -730,6 +735,9 @@
                         $(this).closest('tr').find(nxt2[idx]).show();
                         hitungTotal();
                     }else{
+                        $(this).closest('tr').find(nxt[idx]).val(0);
+                        $(this).closest('tr').find(nxt2[idx]).text(0);
+                        $(this).closest('tr').find(nxt[idx]).focus();
                         alert('Nilai yang dimasukkan tidak valid');
                         return false;
                     }
@@ -806,10 +814,10 @@
                                 <td class='no-biaya'>`+no+`</td>
                                 <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
                                 <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'></td>
-                                <td class='text-right'>`+toRp2(line3.nilai)+`</td>
-                                <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                <td class='text-right'>`+toRp2(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+toRp2(line3.byr)+`'></td>
-                                <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
+                                <td class='text-right'>`+format_number(line3.nilai)+`</td>
+                                <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                <td class='text-right'>`+format_number(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(line3.byr)+`'></td>
+                                <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
                                 html+=`
                                 <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                 html+=`
@@ -845,9 +853,9 @@
                     var saldo = hargapaket - bayarPaket - diskon;
                     var saldot = parseFloat(res.data.totTambah) - bayarTambah;						 
                     var saldom = parseFloat(res.data.totDok) - bayarDok;	
-                    $('#saldo_paket').val(toRp2(saldo));
-                    $('#saldo_biaya').val(toRp2(saldot));
-                    $('#saldo_dok').val(toRp2(saldom));   
+                    $('#saldo_paket').val(format_number(saldo));
+                    $('#saldo_biaya').val(format_number(saldot));
+                    $('#saldo_dok').val(format_number(saldom));   
 
                     var html='';
                     $('#table-his tbody').html('');
@@ -859,10 +867,10 @@
                                 <td class='no-his'>`+no+`</td>
                                 <td>`+line4.no_kwitansi+`</td>
                                 <td>`+line4.tgl_bayar+`</td>
-                                <td class='text-right'>`+toRp2(line4.nilai_p)+`</td>
-                                <td class='text-right'>`+toRp2(line4.nilai_t)+`</td>
-                                <td class='text-right'>`+toRp2(line4.nilai_m)+`</td>
-                                <td class='text-right'>`+toRp2(line4.total_idr)+`</td>
+                                <td class='text-right'>`+format_number(line4.nilai_p)+`</td>
+                                <td class='text-right'>`+format_number(line4.nilai_t)+`</td>
+                                <td class='text-right'>`+format_number(line4.nilai_m)+`</td>
+                                <td class='text-right'>`+format_number(line4.total_idr)+`</td>
                             </tr>`;
                             no++;
                         }
@@ -952,10 +960,10 @@
                                     <td class='no-biaya'>`+no+`</td>
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                     <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                    <td class='text-right'>`+toRp2(line3.nilai)+`</td>
-                                    <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                    <td class='text-right'>`+toRp2(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+toRp2(trbyr)+`'></td>
-                                    <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
+                                    <td class='text-right'>`+format_number(line3.nilai)+`</td>
+                                    <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                    <td class='text-right'>`+format_number(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(trbyr)+`'></td>
+                                    <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
                                         html+=`
                                     <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
@@ -968,7 +976,7 @@
                                         // console.log(line3.byr_e);
                                         
                                     html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
+                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+format_number(line3.byr_e)+`'></td>`;
                                     }
                                     html+=`
                                 </tr>`;

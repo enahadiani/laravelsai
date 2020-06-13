@@ -300,6 +300,11 @@
     </div>
 </div>
 <script>
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
     
     var $iconLoad = $('.preloader');
     var dataTable2 = $('#table-finish').DataTable({
@@ -682,6 +687,9 @@
                         $(this).closest('tr').find(nxt2[idx]).show();
                         hitungTotal();
                     }else{
+                        $(this).closest('tr').find(nxt[idx]).val(0);
+                        $(this).closest('tr').find(nxt2[idx]).text(0);
+                        $(this).closest('tr').find(nxt[idx]).focus();
                         alert('Nilai yang dimasukkan tidak valid');
                         return false;
                     }
@@ -733,7 +741,7 @@
                         $('#nama').val(line.nama);
                         $('#tgl_berangkat').val(line.tgl_berangkat);						
                         $('#paket').val(line.paket);
-                        var hargapaket = parseFloat(line.harga_tot);
+                        var hargapaket = parseFloat(line.harga_tot).toFixed(0);
                         var akunTitip = line.kode_akun;
                         $('#akunTitip').val(akunTitip);
                         var kurs_closing = parseFloat(line.kurs_closing);
@@ -772,10 +780,10 @@
                                     <td class='no-biaya'>`+no+`</td>
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                     <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                    <td class='text-right'>`+toRp2(line3.nilai)+`</td>
-                                    <td class='text-right'>`+toRp2(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                    <td class='text-right'>`+toRp2(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
-                                    <td class='text-right'>`+toRp2(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+toRp2(line3.saldo)+`'></td>`;
+                                    <td class='text-right'>`+format_number(line3.nilai)+`</td>
+                                    <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                    <td class='text-right'>`+format_number(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
+                                    <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
                                     //     html+=`
                                     // <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
@@ -789,10 +797,10 @@
                                         }
                                         
                                     // html+=`
-                                    // <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+toRp2(line3.byr_e)+`'></td>`;
+                                    // <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+format_number(line3.byr_e)+`'></td>`;
 
                                     html+=`
-                                    <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+toRp2(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+toRp2(line3.byr_e)+`' ></td>`;
+                                    <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number(line3.byr_e)+`' ></td>`;
                                     }
                                     html+=`
                                 </tr>`;
@@ -833,10 +841,10 @@
                                     <td class='no-his'>`+no+`</td>
                                     <td>`+line4.no_kwitansi+`</td>
                                     <td>`+line4.tgl_bayar+`</td>
-                                    <td class='text-right'>`+toRp2(line4.nilai_p)+`</td>
-                                    <td class='text-right'>`+toRp2(line4.nilai_t)+`</td>
-                                    <td class='text-right'>`+toRp2(line4.nilai_m)+`</td>
-                                    <td class='text-right'>`+toRp2(line4.total_idr)+`</td>
+                                    <td class='text-right'>`+format_number(line4.nilai_p)+`</td>
+                                    <td class='text-right'>`+format_number(line4.nilai_t)+`</td>
+                                    <td class='text-right'>`+format_number(line4.nilai_m)+`</td>
+                                    <td class='text-right'>`+format_number(line4.total_idr)+`</td>
                                 </tr>`;
                                 no++;
                             }

@@ -605,6 +605,12 @@
     </div>
     <!-- END MODAL --> 
     <script>
+    
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
     var $iconLoad = $('.preloader');
     var dataTable = $('#table-reg').DataTable({
         // 'processing': true,
@@ -1279,7 +1285,7 @@
                 $('#harga_paket').val(0);
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.harga !== 'undefined'){
-                        $('#harga_paket').val(result.data.harga);
+                        $('#harga_paket').val(format_number(result.data.harga));
                     }
                 }
             }
@@ -1299,7 +1305,7 @@
                 $('#harga_room').val(0);
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.harga_room !== 'undefined'){
-                        $('#harga_room').val(result.data.harga_room);
+                        $('#harga_room').val(format_number(result.data.harga_room));
                     }
                 }
             }
@@ -1368,7 +1374,7 @@
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'><span class='td-btambah_kode_biaya tdbtambah_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya btambah_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'><span class='td-btambah_nama tdbtambah_namake`+no+`'>`+line.nama+`</span><input type='text' name='btambah_nama[]' class='form-control inp-btambah_nama btambah_namake`+no+` hidden' value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+format_number(line.nilai)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>0</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='0' required></td>
                             <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>0</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='0' required></td>
                             </tr>`;
@@ -1416,7 +1422,7 @@
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+format_number(line.nilai)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>0</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='0' required></td>
                             <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>0</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='0' required></td>
                             </tr>`;
@@ -1493,7 +1499,7 @@
             var this_val = sub;
             total += +this_val;
             
-            $('#total').val(sepNum(total));
+            $('#total').val(format_number(total));
         });
     }
 
@@ -1508,7 +1514,7 @@
             
         });
         var tot=total;
-        $('#tot_tambah').val(sepNum(tot));
+        $('#tot_tambah').val(format_number(tot));
     }
 
     function hitungDok2(){
@@ -1519,7 +1525,7 @@
             var sub = toNilai(tmp)
             total += +sub;
             
-            $('#tot_dokumen').val(sepNum(total));
+            $('#tot_dokumen').val(format_number(total));
         });
     }
 
@@ -1923,9 +1929,9 @@
                     $('#quota').val(result.data.data[0].no_quota);
                     $('#lama_hari').val(result.data.data[0].lama_hari);
                     $('#kode_curr').val(result.data.data[0].kode_curr);
-                    $('#harga_paket').val(result.data.data[0].harga);
+                    $('#harga_paket').val(format_number(result.data.data[0].harga));
                     $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
-                    $('#harga_room').val(result.data.data[0].harga_room);
+                    $('#harga_room').val(format_number(result.data.data[0].harga_room));
                     $('#tgl_berangkat').val(result.data.data[0].tgl_berangkat);
                     $('#no_peserta').val(result.data.data[0].no_peserta);
                     // $('#no_peserta_ref')[0].selectize.setValue(result.data.data[0].no_peserta_ref);
@@ -1939,9 +1945,9 @@
                     $('#agen').val(result.data.data[0].no_agen);
                     $('#marketing').val(result.data.data[0].no_marketing);
                     $('#sumber')[0].selectize.setValue(result.data.data[0].info);
-                    $('#diskon').val(result.data.data[0].diskon);
-                    // $('#tot_tambah').val(toRp2(result.data.data[0].total_tambah));
-                    // $('#tot_dokumen').val(toRp2(result.data.data[0].total_dokumen));
+                    $('#diskon').val(format_number(result.data.data[0].diskon));
+                    // $('#tot_tambah').val(format_number(result.data.data[0].total_tambah));
+                    // $('#tot_dokumen').val(format_number(result.data.data[0].total_dokumen));
 
                     var input="";
                     var no=1;
@@ -1953,9 +1959,9 @@
                             <td width='5%' class='no-btambah'>`+no+`</td>
                             <td width='10%'><span class='td-btambah_kode_biaya tdbtambah_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='btambah_kode_biaya[]' class='form-control inp-btambah_kode_biaya btambah_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'><span class='td-btambah_nama tdbtambah_namake`+no+`'>`+line.nama+`</span><input type='text' name='btambah_nama[]' class='form-control inp-btambah_nama btambah_namake`+no+` hidden' value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+toRp2(line.tarif)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+toRp2(line.tarif)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>`+toRp2(line.jml)+`</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='`+toRp2(line.jml)+`' required></td>
-                            <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='`+toRp2(line.nilai)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_nilai tdbtambah_nilaike`+no+`'>`+format_number(line.tarif)+`</span><input type='text' name='btambah_nilai[]' class='form-control inp-btambah_nilai btambah_nilaike`+no+` currency hidden'  value='`+format_number(line.tarif)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-btambah_jumlah tdbtambah_jumlahke`+no+`'>`+format_number(line.jml)+`</span><input type='text' name='btambah_jumlah[]' class='form-control inp-btambah_jumlah btambah_jumlahke`+no+` currency hidden' value='`+format_number(line.jml)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-btambah_total tdbtambah_totalke`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='btambah_total[]' class='form-control inp-btambah_total currency hidden'  value='`+format_number(line.nilai)+`' required></td>
                             </tr>`;
                             no++;
                             tot+=parseFloat(line.nilai);
@@ -1972,7 +1978,7 @@
                             // <td width='5%' class='no-bdok'>`+no+`</td>
                             // <td width='10%'>`+line.kode_biaya+`<input type='hidden' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya' value='`+line.kode_biaya+`' readonly></td>
                             // <td width='35%' style='text-align:right'>`+line.nama+`<input type='hidden' name='bdok_nama[]' class='form-control inp-bdok_nama'  value='`+line.nama+`' readonly required></td>
-                            // <td width='20%' style='text-align:right'>`+toRp2(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+toRp2(line.tarif)+`' readonly required></td>
+                            // <td width='20%' style='text-align:right'>`+format_number(line.tarif)+`<input type='hidden' name='bdok_nilai[]' class='form-control inp-bdok_nilai currency2'  value='`+format_number(line.tarif)+`' readonly required></td>
                             // <td width='10%' style='text-align:right'><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah currency2'  value='`+line.jml+`' required></td>
                             // <td width='20%' style='text-align:right'><input type='text' name='bdok_total[]' class='form-control inp-bdok_total currency2'  value='`+line.nilai+`' required></td>
                             // </tr>`;
@@ -1980,9 +1986,9 @@
                             <td width='5%' class='no-bdok'>`+no+`</td>
                             <td width='10%'><span class='td-bdok_kode_biaya tdbdok_kode_biayake`+no+`'>`+line.kode_biaya+`</span><input type='text' name='bdok_kode_biaya[]' class='form-control inp-bdok_kode_biaya bdok_kode_biayake`+no+` hidden' value='`+line.kode_biaya+`' readonly></td>
                             <td width='35%' style='text-align:right'><span class='td-bdok_nama tdbdok_namake`+no+`'>`+line.nama+`</span><input type='text' name='bdok_nama[]' class='form-control inp-bdok_nama bdok_namake`+no+` hidden'  value='`+line.nama+`' readonly required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>`+toRp2(line.jml)+`</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+toRp2(line.jml)+`' required></td>
-                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>`+toRp2(line.nilai)+`</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+toRp2(line.nilai)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_nilai tdbdok_nilaike`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='bdok_nilai[]' class='form-control inp-bdok_nilai bdok_nilaike`+no+` currency2 hidden'  value='`+format_number(line.nilai)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bdok_jumlah tdbdok_jumlahke`+no+`'>`+format_number(line.jml)+`</span><input type='text' name='bdok_jumlah[]' class='form-control inp-bdok_jumlah bdok_jumlahke`+no+` hidden currency2'  value='`+format_number(line.jml)+`' required></td>
+                            <td width='20%' style='text-align:right'><span class='td-bdok_total tdbdok_totalke`+no+`'>`+format_number(line.nilai)+`</span><input type='text' name='bdok_total[]' class='form-control inp-bdok_total bdok_totalke`+no+` currency2 hidden'  value='`+format_number(line.nilai)+`' required></td>
                             </tr>`;
                             no++;
                             
@@ -2092,7 +2098,7 @@
             var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-btambah_total').val(sub);
-            $(this).closest('tr').find('.td-btambah_total').text(toRp2(sub));
+            $(this).closest('tr').find('.td-btambah_total').text(format_number(sub));
             hitungTambah2();
 
         }
@@ -2105,7 +2111,7 @@
             var jum = $(this).closest('tr').find('.inp-btambah_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-btambah_total').val(sub);
-            $(this).closest('tr').find('.td-btambah_total').text(toRp2(sub));
+            $(this).closest('tr').find('.td-btambah_total').text(format_number(sub));
             hitungTambah2();
     });
 
@@ -2127,7 +2133,7 @@
             var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
             var sub = toNilai(nil)*toNilai(jum);
             $(this).closest('tr').find('.inp-bdok_total').val(sub);
-            $(this).closest('tr').find('.td-bdok_total').text(toRp2(sub));
+            $(this).closest('tr').find('.td-bdok_total').text(format_number(sub));
             hitungDok2();
         }
     });
@@ -2140,7 +2146,7 @@
         var jum = $(this).closest('tr').find('.inp-bdok_jumlah').val();
         var sub = toNilai(nil)*toNilai(jum);
         $(this).closest('tr').find('.inp-bdok_total').val(sub);
-        $(this).closest('tr').find('.td-bdok_total').text(toRp2(sub));
+        $(this).closest('tr').find('.td-bdok_total').text(format_number(sub));
         hitungDok2();
     });
    
@@ -2313,15 +2319,15 @@
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>BIAYA PAKET </td>
-                        <td>:&nbsp;`+toRp2(line.harga)+`</td>
+                        <td>:&nbsp;`+format_number(line.harga)+`</td>
                         </tr>
                         <tr>
                             <td style='font-weight:bold;'>BIAYA ROOM </td>
-                            <td>:&nbsp;`+sepNum(line.harga_room)+`</td>
+                            <td>:&nbsp;`+format_number(line.harga_room)+`</td>
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>DISKON</td>
-                        <td>:&nbsp;`+toRp2(line.diskon)+`</td>
+                        <td>:&nbsp;`+format_number(line.diskon)+`</td>
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>TGL KEBERANGKATAN </td>
