@@ -1169,7 +1169,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>HARGA PAKET </td>
-                                                            <td>: `+line.kode_curr+` `+sepNum(line.harga_paket)+`</td>
+                                                            <td>: `+line.kode_curr+` `+format_number(line.harga_paket)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>KEBERANGKATAN </td>
@@ -1190,7 +1190,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="154">BIAYA PAKET (RP) </td>
-                                                            <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="244">: `+sepNum(line.biaya_paket)+` - KURS : `+sepNum(line.kurs)+`</td>
+                                                            <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="244">: `+format_number(line.biaya_paket)+` - KURS : `+format_number(line.kurs)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>SISTEM PEMBAYARAN</td>
@@ -1198,11 +1198,11 @@
                                                         </tr>
                                                         <tr>
                                                             <td>SALDO </td>
-                                                            <td>: `+sepNum(line.saldo)+`</td>
+                                                            <td>: `+format_number(line.saldo)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TOTAL BAYAR </td>
-                                                            <td>: `+sepNum(line.bayar)+`</td>
+                                                            <td>: `+format_number(line.bayar)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TERBILANG </td>
@@ -1210,7 +1210,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>SISA </td>
-                                                            <td>: `+sepNum(line.sisa)+`</td>
+                                                            <td>: `+format_number(line.sisa)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>DIINPUT OLEH </td>
