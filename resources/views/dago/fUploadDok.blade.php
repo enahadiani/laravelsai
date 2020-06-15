@@ -181,6 +181,13 @@
         ],
         'columnDefs': [
             {
+                "targets": 6,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return row.jum_upload+' dari '+row.jum_dok;
+                }
+            },
+            {
                 "targets": 7,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
