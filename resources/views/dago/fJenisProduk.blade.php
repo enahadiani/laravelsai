@@ -161,17 +161,23 @@
         }
         });
 
-        function getAkunPdpt(id=null){
+        function getAkunPdpt(akun){
             $.ajax({
                 type: 'GET',
                 url: "{{ url('dago-master/akun-pdpt') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(result){
+                    console.log(akun)    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#akun_pdpt').val(result.daftar[0].kode_akun);
-                            $('#label_akun_pdpt').text(result.daftar[0].nama);
+                            for(var i=0;i<result.daftar.length;i++){
+                                if(result.daftar[i].kode_akun === akun){
+                                    $('#akun_pdpt').val(result.daftar[i].kode_akun);
+                                    $('#label_akun_pdpt').text(result.daftar[i].nama);
+                                    break;
+                                }
+                            }
                         }else{
                             alert('Kode Akun tidak valid');
                             $('#akun_pdpt').val('');
@@ -254,17 +260,22 @@
     }
 
     
-       function getAkunPDD(id=null){
+       function getAkunPDD(akun){
             $.ajax({
                 type: 'GET',
                 url: "{{ url('dago-master/akun-pdd') }}",
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(result){   
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_akun').val(result.daftar[0].kode_akun);
-                            $('#label_kode_akun').text(result.daftar[0].nama);
+                            for(var i=0;i<result.daftar.length;i++){
+                                if(result.daftar[i].kode_akun === akun){
+                                    $('#kode_akun').val(result.daftar[i].kode_akun);
+                                    $('#label_kode_akun').text(result.daftar[i].nama);
+                                    break;
+                                }
+                            }
                         }else{
                             alert('Kode Akun tidak valid');
                             $('#kode_akun').val('');
@@ -473,6 +484,7 @@
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
+                $($target).val(kode);
                 $($target).attr('value',kode);
             }else{
                 $($target).text(kode);
@@ -575,7 +587,7 @@
 
     $('#form-tambah').on('change', '#kode_akun', function(){
         var par = $(this).val();
-        getLabelAkunPDD(par);
+        getAkunPDD(par);
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
@@ -693,8 +705,8 @@
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         var akun = $(this).closest('tr').find('td').eq(2).html();
-        var piutang = $(this).closest('tr').find('td').eq(3).html();
-        var pendapatan = $(this).closest('tr').find('td').eq(4).html();
+        var pendapatan = $(this).closest('tr').find('td').eq(3).html();
+        var piutang = $(this).closest('tr').find('td').eq(4).html();
         $iconLoad.show();
         $.ajax({
             type: 'GET',

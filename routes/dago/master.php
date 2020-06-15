@@ -75,13 +75,6 @@ Route::post('produk', 'Dago\ProdukController@store');
 Route::put('produk/{id}', 'Dago\ProdukController@update');
 Route::delete('produk/{id}', 'Dago\ProdukController@delete');
 
-//Master Dokumen //
-Route::get('master-dokumen', 'Dago\MasterDokumenController@index');
-Route::get('type-room/{id}', 'Dago\TypeRoomController@getData');
-Route::post('type-room', 'Dago\TypeRoomController@store');
-Route::put('type-room/{id}', 'Dago\TypeRoomController@update');
-Route::delete('type-room/{id}', 'Dago\TypeRoomController@delete');
-
 //Paket //
 Route::get('paket', 'Dago\PaketController@index');
 Route::get('paket-detail/{id}', 'Dago\PaketController@getData');
