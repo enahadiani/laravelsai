@@ -945,7 +945,7 @@
         });
     });
 
-    $('#saku-form').on('click','#btn-delete',function(e){
+    $('#saiweb_container').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -963,9 +963,9 @@
                     url: "{{ url('dago-trans/pembayaran') }}",
                     dataType: 'json',
                     async:false,
-                    data: {'no_kwitansi':kode},
+                    data: {'no_bukti':kode},
                     success:function(result){
-                        if(result.data.status == "SUCCESS"){
+                        if(result.data.status){
                             dataTable2.ajax.reload();
                             Swal.fire(
                                 'Deleted!',

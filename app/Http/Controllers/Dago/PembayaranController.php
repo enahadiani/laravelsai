@@ -357,18 +357,18 @@ class PembayaranController extends Controller
     {
 
         $this->validate($request, [
-            'no_reg' => 'required'
+            'no_bukti' => 'required'
         ]);
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'registrasi?no_reg='.$request->no_reg,[
+            $response = $client->request('DELETE', $this->link.'pembayaran?no_bukti='.$request->no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_reg' => $request->no_reg
+                    'no_bukti' => $request->no_bukti
                 ]
             ]);
 
