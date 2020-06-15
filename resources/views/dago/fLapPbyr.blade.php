@@ -285,6 +285,15 @@
         }
     });
 
+    $('#no_reg').selectize({
+        selectOnTab: true,
+        onChange: function (){
+            var periode = $('#periode2')[0].selectize.getValue();
+            var no_reg = $('#no_reg')[0].selectize.getValue();
+            getKwitansi(periode,no_reg);
+        }
+    });
+
     getPeriode();
     getNoReg();
     getKwitansi();
