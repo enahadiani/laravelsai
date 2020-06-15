@@ -305,7 +305,7 @@
                     $('#no_marketing').attr('readonly', true);
                     $('#no_marketing').val(id);
                     $('#id').val(id);
-                    $('#nama_marketing').val(result.data[0].nama_marketing);
+                    $('#nama_marketing').val(result.data[0].nama);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#row-id').show();
                     $('#saku-datatable').hide();

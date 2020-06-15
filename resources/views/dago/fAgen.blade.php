@@ -325,7 +325,7 @@
             var toUrl = "{{ url('dago-master/marketing') }}";
                 var columns = [
                     { data: 'no_marketing' },
-                    { data: 'nama_marketing' }
+                    { data: 'nama' }
                 ];
                 
                 var judul = "Daftar Marketing";
@@ -379,6 +379,7 @@
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
+                $($target).val(kode);
                 $($target).attr('value',kode);
             }else{
                 $($target).text(kode);
