@@ -603,7 +603,8 @@
 
         $('#input-jadwal tbody').append(inputJadwal);
         $('.datepickerke'+noJadwal).datepicker({
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            autoclose: true,
         });
         $('.qke'+noJadwal).inputmask("numeric", {
             radixPoint: ",",
@@ -1156,7 +1157,8 @@
                          nomor = 1;
                         for(var i=0;i<result.data_jadwal.length;i++) {
                             $('.datepickerke'+nomor).datepicker({
-                                format: 'dd/mm/yyyy'
+                                format: 'dd/mm/yyyy',
+                                autoclose: true,
                             });
                             $('.qke'+nomor).inputmask("numeric", {
                                 radixPoint: ",",
