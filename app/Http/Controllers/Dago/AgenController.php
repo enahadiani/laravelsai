@@ -82,7 +82,7 @@ class AgenController extends Controller
                     ],
                     'form_params' => [
                         'no_agen' => $request->no_agen,
-                        'nama' => $request->nama_agen,
+                        'nama_agen' => $request->nama_agen,
                         'alamat' => $request->alamat,
                         'flag_aktif' => $request->flag_aktif,
                         'tempat_lahir' => $request->tempat_lahir,
@@ -106,7 +106,7 @@ class AgenController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
@@ -165,7 +165,7 @@ class AgenController extends Controller
                     ],
                     'form_params' => [
                         'no_agen' => $request->no_agen,
-                        'nama' => $request->nama_agen,
+                        'nama_agen' => $request->nama_agen,
                         'alamat' => $request->alamat,
                         'flag_aktif' => $request->flag_aktif,
                         'tempat_lahir' => $request->tempat_lahir,
