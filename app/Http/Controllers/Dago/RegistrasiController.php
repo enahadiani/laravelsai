@@ -697,7 +697,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'harga_room?kode_curr='.$request->kode_curr.'&type_room='.$request->type_room,[
+            $response = $client->request('GET', $this->link.'harga-room?kode_curr='.$request->kode_curr.'&type_room='.$request->type_room,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -718,7 +718,7 @@ class RegistrasiController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res["message"];
             $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
