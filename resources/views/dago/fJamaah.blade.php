@@ -392,53 +392,53 @@
                     if(id == ""){
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
-                    }else if (result.data.daftar.length == 0) {
+                    }else if (result.data.data.length == 0) {
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
                         $('#id_peserta').val(id);
-                    }else if (result.data.daftar[0].id_peserta=='') {
+                    }else if (result.data.data[0].id_peserta=='') {
                         $('#id').val('');
                         $('#form-tambah')[0].reset();
                         $('#id_peserta').val(id);
                     }else{
                         $('#id').val('edit');
-                        $('#no_peserta').val(result.data.daftar[0].no_peserta);
-                        $('#id_peserta').val(result.data.daftar[0].id_peserta);
-                        $('#nama').val(result.data.daftar[0].nama);
-                        $('#tempat').val(result.data.daftar[0].tempat); 
-                        $('#tgl_lahir').val(result.data.daftar[0].tgl_lahir);
-                        $('#jk')[0].selectize.setValue(result.data.daftar[0].jk);
-                        $('#status')[0].selectize.setValue(result.data.daftar[0].status); 
-                        $('#ibu').val(result.data.daftar[0].ibu);
-                        $('#ayah').val(result.data.daftar[0].ayah);
-                        $('#alamat').val(result.data.daftar[0].alamat);
-                        $('#kode_pos').val(result.data.daftar[0].kode_pos); 
-                        $('#telp').val(result.data.daftar[0].telp);
-                        $('#hp').val(result.data.daftar[0].hp);
-                        $('#email').val(result.data.daftar[0].email);
-                        $('#pekerjaan')[0].selectize.setValue(result.data.daftar[0].pekerjaan);
-                        $('#bank').val(result.data.daftar[0].bank);
-                        $('#norek').val(result.data.daftar[0].norek);
-                        $('#cabang').val(result.data.daftar[0].cabang);
-                        $('#namarek').val(result.data.daftar[0].namarek);
-                        $('#nopass').val(result.data.daftar[0].nopass);
-                        $('#issued').val(result.data.daftar[0].issued);
-                        $('#ex_pass').val(result.data.daftar[0].ex_pass);
-                        $('#kantor_mig').val(result.data.daftar[0].kantor_mig);
-                        $('#ec_telp').val(result.data.daftar[0].ec_telp);
-                        $('#ec_hp').val(result.data.daftar[0].ec_hp);
-                        $('#sp')[0].selectize.setValue(result.data.daftar[0].sp); 
-                        $('#th_haji').val(result.data.daftar[0].th_haji);
-                        $('#th_umroh').val(result.data.daftar[0].th_umroh);
-                        $('#pendidikan').val(result.data.daftar[0].pendidikan);
-                        var html = "<img style='width:120px' src='https://api.simkug.com/api/dago-auth/storage/"+result.data.daftar[0].foto+"'>";
+                        $('#no_peserta').val(result.data.data[0].no_peserta);
+                        $('#id_peserta').val(result.data.data[0].id_peserta);
+                        $('#nama').val(result.data.data[0].nama);
+                        $('#tempat').val(result.data.data[0].tempat); 
+                        $('#tgl_lahir').val(result.data.data[0].tgl_lahir);
+                        $('#jk')[0].selectize.setValue(result.data.data[0].jk);
+                        $('#status')[0].selectize.setValue(result.data.data[0].status); 
+                        $('#ibu').val(result.data.data[0].ibu);
+                        $('#ayah').val(result.data.data[0].ayah);
+                        $('#alamat').val(result.data.data[0].alamat);
+                        $('#kode_pos').val(result.data.data[0].kode_pos); 
+                        $('#telp').val(result.data.data[0].telp);
+                        $('#hp').val(result.data.data[0].hp);
+                        $('#email').val(result.data.data[0].email);
+                        $('#pekerjaan')[0].selectize.setValue(result.data.data[0].pekerjaan);
+                        $('#bank').val(result.data.data[0].bank);
+                        $('#norek').val(result.data.data[0].norek);
+                        $('#cabang').val(result.data.data[0].cabang);
+                        $('#namarek').val(result.data.data[0].namarek);
+                        $('#nopass').val(result.data.data[0].nopass);
+                        $('#issued').val(result.data.data[0].issued);
+                        $('#ex_pass').val(result.data.data[0].ex_pass);
+                        $('#kantor_mig').val(result.data.data[0].kantor_mig);
+                        $('#ec_telp').val(result.data.data[0].ec_telp);
+                        $('#ec_hp').val(result.data.data[0].ec_hp);
+                        $('#sp')[0].selectize.setValue(result.data.data[0].sp); 
+                        $('#th_haji').val(result.data.data[0].th_haji);
+                        $('#th_umroh').val(result.data.data[0].th_umroh);
+                        $('#pendidikan').val(result.data.data[0].pendidikan);
+                        var html = "<img style='width:120px' src='"+result.data.data[0].foto+"'>";
                         $('.preview').html(html);
                         $('#row-id').show();
                         $('#saku-datatable').hide();
                         $('#form-tambah-jamaah').show();
                     }
                 }
-                else if(result.data.status == "SUCCESS" && result.data.message == 'Unauthorized'){
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
@@ -446,6 +446,11 @@
                     }).then(function() {
                         window.location.href = "{{ url('dago-auth/login') }}";
                     })
+                }else{
+                    $('#form-tambah')[0].reset();
+                    $('#id').val('');
+                    $('.preview').html('');
+                    $('#id_peserta').val(id);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
