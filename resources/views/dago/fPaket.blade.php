@@ -96,8 +96,8 @@
                             <div class="form-group row">
                                 <label for="jenis" class="col-3 col-form-label">Jenis Produk</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="jenis" name="jenis">
-                                        <option value='' disabled>--- Pilih Jenis ---</option>
+                                    <select class='form-control' id="jenis" name="jenis">
+                                        <option value='' disabled selected>--- Pilih Jenis ---</option>
                                         <option value='REGULER'>REGULER</option>
                                         <option value='PLUS'>PLUS</option>
                                     </select>
@@ -112,8 +112,7 @@
                             <div class="form-group row">
                                 <label for="kode_curr" class="col-3 col-form-label">Currency</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="kode_curr" name="kode_curr">
-                                        <option value='' disabled>--- Pilih Currency ---</option>
+                                    <select class='form-control' id="kode_curr" name="kode_curr">
                                         <option value='IDR'>IDR</option>
                                         <option value='USD'>USD</option>
                                     </select>
@@ -377,8 +376,8 @@
         $('#method').val('post');
         $('#no_paket').attr('readonly', false);
         $('#label_kode_produk').text('');
-        $('#kode_curr')[0].selectize.setValue('');
-        $('#jenis')[0].selectize.setValue('');
+        $('#kode_curr').val('IDR');
+        $('#jenis').val('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -391,6 +390,7 @@
 
     $('#saku-form').on('blur', '#no_paket', function(){
         var bodytableHarga = $('#input-harga tbody tr').length;
+        var currency = $('#kode_curr').val();
         if(bodytableHarga <= 0) {
             $.ajax({
                 url: "{{ url('dago-master/jenis-harga') }}",
@@ -405,11 +405,11 @@
                         input += "<td class='no-harga text-center'>"+no+"</td>";
                         input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+line.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+line.kode_harga+"' readonly /></td>";
                         input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+line.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+line.nama+"' readonly /></td>";
-                        input += "<td><span class='td-hargastd tdhargastdke"+no+"'>0</span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>0</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>0</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='0' /></td>";
-                        input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required></select></td>";
+                        input += "<td><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+"' value='0' /></td>";
+                        input += "<td><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+"' value='0' /></td>";
+                        input += "<td><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+"' value='0' /></td>";
+                        input += "<td><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+"' value='0' /></td>";
+                        input += "<td><select name='curr[]' class='form-control inp-curr currke"+no+"' required><option val='IDR'>IDR</option><option val='USD'>USD</option></select></td>";
                         input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                         input += "</tr>";
 
@@ -418,20 +418,7 @@
                     $('#input-harga tbody').html(input);
                     var nomor = 1;
                     for(var i=0;i<result.daftar.length;i++){
-                        $('.currke'+nomor).selectize({
-                            selectOnTab:true,
-                            dropdownParent: 'body',
-                            options: [
-                                { text: "IDR", value: "IDR" },
-                                { text: "USD", value: "USD" }
-                            ],
-                            onChange: function(value) {
-                                $('.tdcurrke'+nomor).text(value);
-                            }
-                        });
-                        $('.inp-curr').css("background-color", "white"); 
-                        $('.inp-curr option').css("background-color", "white"); 
-                        $('.selectize-control.currke'+nomor).addClass('hidden');
+                        $('.currke',+no).val(currency);
                         $('.hargake'+nomor).inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
@@ -476,113 +463,6 @@
             no++;
         });
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-
-    $('#input-harga').on('click', 'td', function(){
-        var idx = $(this).index();
-        if(idx == 0){
-            return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
-                return false;            
-            }else{
-                $('#input-harga td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-        
-                var kode_harga = $(this).parents("tr").find(".inp-kdharga").val();
-                var keterangan = $(this).parents("tr").find(".inp-nmharga").val();
-                var hargaStd = $(this).parents("tr").find(".inp-hargastd").val();
-                var hargaSemi = $(this).parents("tr").find(".inp-hargasemi").val();
-                var hargaEks = $(this).parents("tr").find(".inp-hargaeks").val();
-                var Agen = $(this).parents("tr").find(".inp-hargaagen").val();
-                var curr = $(this).parents("tr").find(".inp-curr").val();
-                var no = $(this).parents("tr").find(".no-harga").text();
-                $(this).parents("tr").find(".inp-kdharga").val(kode_harga);
-                $(this).parents("tr").find(".td-kodeharga").text(kode_harga);
-                if(idx == 1){
-                    $(this).parents("tr").find(".inp-kdharga").show();
-                    $(this).parents("tr").find(".td-kodeharga").hide();
-                }else{
-                    $(this).parents("tr").find(".inp-kdharga").hide();
-                    $(this).parents("tr").find(".td-kodeharga").show();
-                    
-                }
-        
-                $(this).parents("tr").find(".inp-nmharga").val(keterangan);
-                $(this).parents("tr").find(".td-namaharga").text(keterangan);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-nmharga").show();
-                    $(this).parents("tr").find(".td-namaharga").hide();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nmharga").hide();
-                    $(this).parents("tr").find(".td-namaharga").show();
-                }
-        
-                $(this).parents("tr").find(".inp-hargastd").val(hargaStd);
-                $(this).parents("tr").find(".td-hargastd").text(hargaStd);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-hargastd").show();
-                    $(this).parents("tr").find(".td-hargastd").hide();
-                    $(this).parents("tr").find(".inp-hargastd").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-hargastd").hide();
-                    $(this).parents("tr").find(".td-hargastd").show();
-                }
-
-                $(this).parents("tr").find(".inp-hargasemi").val(hargaSemi);
-                $(this).parents("tr").find(".td-hargasemi").text(hargaSemi);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-hargasemi").show();
-                    $(this).parents("tr").find(".td-hargasemi").hide();
-                    $(this).parents("tr").find(".inp-hargasemi").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-hargasemi").hide();
-                    $(this).parents("tr").find(".td-hargasemi").show();
-                }
-
-                $(this).parents("tr").find(".inp-hargaeks").val(hargaEks);
-                $(this).parents("tr").find(".td-hargaeks").text(hargaEks);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-hargaeks").show();
-                    $(this).parents("tr").find(".td-hargaeks").hide();
-                    $(this).parents("tr").find(".inp-hargaeks").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-hargaeks").hide();
-                    $(this).parents("tr").find(".td-hargaeks").show();
-                }
-
-                $(this).parents("tr").find(".inp-hargaagen").val(Agen);
-                $(this).parents("tr").find(".td-hargaagen").text(Agen);
-                if(idx == 6){
-                    $(this).parents("tr").find(".inp-hargaagen").show();
-                    $(this).parents("tr").find(".td-hargaagen").hide();
-                    $(this).parents("tr").find(".inp-hargaagen").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-hargaagen").hide();
-                    $(this).parents("tr").find(".td-hargaagen").show();
-                }
-
-                $(this).parents("tr").find(".inp-curr")[0].selectize.setValue(curr);
-                $(this).parents("tr").find(".td-curr").text(curr);
-                if(idx == 7){
-                    $('.currke'+no).val(curr);
-                    var currx = $('.tdcurrke'+no).text();
-                    var currv = $('.inp-curr').val();
-                    if(currx == ""){
-                        $('.tdcurrke'+no).text('IDR');  
-                    }
-                    $(this).parents("tr").find(".selectize-control").show();
-                    $(this).parents("tr").find(".td-curr").hide();
-                    $(this).parents("tr").find(".inp-curr")[0].selectize.focus();
-                    // $(this).parents("tr").find(".inp-curr").focus();
-                }else{
-                    $(this).parents("tr").find(".selectize-control").hide();
-                    $(this).parents("tr").find(".td-curr").show();
-                }
-
-            }
-        }
     });
 
     $('#form-tambah').on('click', '#add-row', function(){
@@ -1068,8 +948,8 @@
                     $('#nama').val(result.data[0].nama);
                     $('#tarif_agen').val(result.data[0].tarif_agen);
                     $('#kode_produk').val(result.data[0].kode_produk);
-                    $('#kode_curr')[0].selectize.setValue(result.data[0].kode_curr);
-                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#kode_curr').val(result.data[0].kode_curr);
+                    $('#jenis').val(result.data[0].jenis);
                     getLabelProduk(result.data[0].kode_produk);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
@@ -1079,15 +959,23 @@
                         var no = 1;
                         for(var i=0;i<result.data_harga.length;i++) {
                             var lineHarga = result.data_harga[i];
+                            var std = parseFloat(lineHarga.harga);
+                            var semi = parseFloat(lineHarga.harga_se);
+                            var eks = parseFloat(lineHarga.harga_e);
+                            var fee = parseFloat(lineHarga.fee);
+                            var hargaStd = std.toFixed();
+                            var hargaSemi = semi.toFixed();
+                            var hargaEks = eks.toFixed();
+                            var hargaAgen = fee.toFixed();
                             input += "<tr class='row-harga'>";
                             input += "<td class='no-harga text-center'>"+no+"</td>";
                             input += "<td><span class='td-kodeharga tdkodehargake"+no+"'>"+lineHarga.kode_harga+"</span><input name='kode_harga[]' class='form-control inp-kdharga kdhargake"+no+" hidden' value='"+lineHarga.kode_harga+"' readonly /></td>";
                             input += "<td><span class='td-namaharga tdnamahargake"+no+"'>"+lineHarga.nama+"</span><input name='nama_harga[]' class='form-control inp-nmharga nmhargake"+no+" hidden' value='"+lineHarga.nama+"' readonly /></td>";
-                            input += "<td><span class='td-hargastd tdhargastdke"+no+"'>"+lineHarga.harga+"</span><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+" hidden' value='"+lineHarga.harga+"' /></td>";
-                            input += "<td><span class='td-hargasemi tdhargasemike"+no+"'>"+lineHarga.harga_se+"</span><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+" hidden' value='"+lineHarga.harga_se+"' /></td>";
-                            input += "<td><span class='td-hargaeks tdhargaekske"+no+"'>0</span><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+" hidden' value='0' /></td>";
-                            input += "<td><span class='td-hargaagen tdhargaagenke"+no+"'>"+lineHarga.fee+"</span><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+" hidden' value='"+lineHarga.fee+"' /></td>";
-                            input += "<td><span class='td-curr tdcurrke"+no+"'></span><select name='curr[]' class='form-control inp-curr currke"+no+"' value='' required></select></td>";
+                            input += "<td><input name='harga_std[]' class='form-control hargake"+no+" inp-hargastd hargastdke"+no+"' value='"+hargaStd+"' /></td>";
+                            input += "<td><input name='harga_semi[]' class='form-control hargake"+no+" inp-hargasemi hargasemike"+no+"' value='"+hargaSemi+"' /></td>";
+                            input += "<td><input name='harga_eks[]' class='form-control hargake"+no+" inp-hargaeks hargaekske"+no+"' value='"+hargaEks+"' /></td>";
+                            input += "<td><input name='harga_agen[]' class='form-control hargake"+no+" inp-hargaagen hargaagenke"+no+"' value='"+hargaAgen+"' /></td>";
+                            input += "<td><select name='curr[]' class='form-control inp-curr currke"+no+"' required><option val='IDR'>IDR</option><option val='USD'>USD</option></select></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
 
@@ -1097,21 +985,7 @@
                         no = 1;
                         for(var i=0;i<result.data_harga.length;i++){
                         var lineHarga = result.data_harga[i];
-                        $('.currke'+no).selectize({
-                            selectOnTab:true,
-                            dropdownParent: 'body',
-                            options: [
-                                { text: "IDR", value: "IDR" },
-                                { text: "USD", value: "USD" }
-                            ],
-                            onChange: function(value) {
-                                $('.tdcurrke'+no).text(value);
-                            }
-                        });
-                        $('.currke'+no)[0].selectize.setValue(lineHarga.curr_fee);
-                        $('.inp-curr').css("background-color", "white"); 
-                        $('.inp-curr option').css("background-color", "white"); 
-                        $('.selectize-control.currke'+no).addClass('hidden');
+                        $('.currke'+no).val(lineHarga.curr_fee);
                         $('.hargake'+no).inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
@@ -1145,9 +1019,9 @@
                             inputJadwal += "<td><span class='td-tglplan tdtglplanke"+nomor+"'>"+berangkat+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+" hidden' value='"+berangkat+"' required></td>";
                             inputJadwal += "<td><span class='td-tglakt tdtglaktke"+nomor+"'>"+datang+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+" hidden' value='"+datang+"' required></td>";
                             inputJadwal += "<td><span class='td-hari tdharike"+nomor+"'>"+lineJadwal.lama_hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+" hidden' value='"+lineJadwal.lama_hari+"' required></td>";
-                            inputJadwal += "<td><span class='td-qstd tdqstdke"+nomor+"'>"+lineJadwal.quota+"</span><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+" hidden' value='"+lineJadwal.quota+"' required></td>";
-                            inputJadwal += "<td><span class='td-qsemi tdqsemike"+nomor+"'>"+lineJadwal.quota_se+"</span><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+" hidden' value='"+lineJadwal.quota_se+"' required></td>";
-                            inputJadwal += "<td><span class='td-qeks tdqekske"+nomor+"'>"+lineJadwal.quota_e+"</span><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+" hidden' value='"+lineJadwal.quota_e+"' required></td>";
+                            inputJadwal += "<td><span class='td-qstd tdqstdke"+nomor+"'>"+parseFloat(lineJadwal.quota)+"</span><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
+                            inputJadwal += "<td><span class='td-qsemi tdqsemike"+nomor+"'>"+parseFloat(lineJadwal.quota_se)+"</span><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
+                            inputJadwal += "<td><span class='td-qeks tdqekske"+nomor+"'>"+parseFloat(lineJadwal.quota_e)+"</span><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota_e)+"' required></td>";
                             inputJadwal += "<td><span class='td-id tdidke"+nomor+"'>"+lineJadwal.no_jadwal+"</span><input name='id[]' class='form-control inp-id idke"+nomor+" hidden' value='"+lineJadwal.no_jadwal+"' required /></td>";
                             inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
                             
