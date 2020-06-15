@@ -241,7 +241,7 @@
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
-        // // 'serverSide': true,
+        // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
             'url': "{{ url('dago-master/agen') }}",

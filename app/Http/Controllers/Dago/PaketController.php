@@ -84,7 +84,7 @@ class PaketController extends Controller
                 if(isset($request->kode_harga)){
                 $kode_harga = $request->kode_harga;
                 $harga  = $request->harga_std;
-                $harga_se  = $request->harga_std;
+                $harga_se  = $request->harga_semi;
                 $harga_e  = $request->harga_eks;
                 $fee  = $request->harga_agen;
                 $curr_fee = $request->curr;
@@ -220,7 +220,7 @@ class PaketController extends Controller
                 if(isset($request->kode_harga)){
                 $kode_harga = $request->kode_harga;
                 $harga  = $request->harga_std;
-                $harga_se  = $request->harga_std;
+                $harga_se  = $request->harga_semi;
                 $harga_e  = $request->harga_eks;
                 $fee  = $request->harga_agen;
                 $curr_fee = $request->curr;
