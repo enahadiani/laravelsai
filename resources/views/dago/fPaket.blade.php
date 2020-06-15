@@ -597,13 +597,13 @@
         inputJadwal += "<td><span class='td-qstd tdqstdke"+noJadwal+"'>0</span><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+" hidden' value='0' required /></td>";
         inputJadwal += "<td><span class='td-qsemi tdqsemike"+noJadwal+"'>0</span><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+" hidden' value='0' required /></td>";
         inputJadwal += "<td><span class='td-qeks tdqekske"+noJadwal+"'>0</span><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+" hidden' value='0' required /></td>";
-        inputJadwal += "<td><span class='td-id tdidke"+noJadwal+"'></span><input name='id[]' class='form-control inp-id idke"+noJadwal+" hidden' value='' required /></td>";
+        inputJadwal += "<td><span class='td-id tdidke"+noJadwal+"'>"+noJadwal+"</span><input name='id[]' class='form-control inp-id idke"+noJadwal+" hidden' value='"+noJadwal+"' required /></td>";
         inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
         inputJadwal += "</tr>";
 
         $('#input-jadwal tbody').append(inputJadwal);
         $('.datepickerke'+noJadwal).datepicker({
-            format: 'yyyy/mm/dd'
+            format: 'dd/mm/yyyy'
         });
         $('.qke'+noJadwal).inputmask("numeric", {
             radixPoint: ",",
@@ -844,6 +844,7 @@
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
+                $($target).val(kode);
                 $($target).attr('value',kode);
             }else{
                 $($target).text(kode);
@@ -1126,10 +1127,22 @@
                         var nomor = 1;
                         for(var i=0;i<result.data_jadwal.length;i++) {
                             var lineJadwal = result.data_jadwal[i];
+                            var splitTglBerangkat = lineJadwal.tgl_berangkat.split('-');
+                            var tahun_berangkat = splitTglBerangkat[0];
+                            var bulan_berangkat = splitTglBerangkat[1];
+                            var tgl_berangkat = splitTglBerangkat[2];
+                            var berangkat = tgl_berangkat+"/"+bulan_berangkat+"/"+tahun_berangkat;
+
+                            var splitTglDatang = lineJadwal.tgl_datang.split('-');
+                            var tahun_datang = splitTglDatang[0];
+                            var bulan_datang = splitTglDatang[1];
+                            var tgl_datang = splitTglDatang[2];
+                            var datang = tgl_datang+"/"+bulan_datang+"/"+tahun_datang;
+
                             inputJadwal += "<tr class='row-jadwal'>";
                             inputJadwal += "<td class='no-jadwal text-center'>"+nomor+"</td>";
-                            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+nomor+"'>"+lineJadwal.tgl_berangkat+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+" hidden' value='"+lineJadwal.tgl_berangkat+"' required></td>";
-                            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+nomor+"'>"+lineJadwal.tgl_datang+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+" hidden' value='"+lineJadwal.tgl_berangkat+"' required></td>";
+                            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+nomor+"'>"+berangkat+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+" hidden' value='"+berangkat+"' required></td>";
+                            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+nomor+"'>"+datang+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+" hidden' value='"+datang+"' required></td>";
                             inputJadwal += "<td><span class='td-hari tdharike"+nomor+"'>"+lineJadwal.lama_hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+" hidden' value='"+lineJadwal.lama_hari+"' required></td>";
                             inputJadwal += "<td><span class='td-qstd tdqstdke"+nomor+"'>"+lineJadwal.quota+"</span><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+" hidden' value='"+lineJadwal.quota+"' required></td>";
                             inputJadwal += "<td><span class='td-qsemi tdqsemike"+nomor+"'>"+lineJadwal.quota_se+"</span><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+" hidden' value='"+lineJadwal.quota_se+"' required></td>";
@@ -1143,7 +1156,7 @@
                          nomor = 1;
                         for(var i=0;i<result.data_jadwal.length;i++) {
                             $('.datepickerke'+nomor).datepicker({
-                                format: 'yyyy/mm/dd'
+                                format: 'dd/mm/yyyy'
                             });
                             $('.qke'+nomor).inputmask("numeric", {
                                 radixPoint: ",",

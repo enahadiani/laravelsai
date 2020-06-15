@@ -102,16 +102,27 @@ class PaketController extends Controller
 
                 $data_jadwal = array();
                 if(isset($request->tgl_plan)){
-                    $tgl_berangkat = $request->tgl_plan;
                     $tgl_datang = $request->tgl_akt;
                     $lama_hari = $request->hari;
                     $quota = $request->q_std;
                     $quota_se = $request->q_semi;
                     $quota_e = $request->q_eks;
                     for($i=0;$i<count($request->tgl_plan);$i++) {
+                        $explode_tgl_berangkat_lama = explode('/', $request->tgl_plan[$i]);
+                        $tgl_berangkat_lama = $explode_tgl_berangkat_lama[0];
+                        $bln_berangkat_lama = $explode_tgl_berangkat_lama[1];
+                        $tahun_berangkat_lama = $explode_tgl_berangkat_lama[2];
+                        $jadwal__berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
+
+                        $explode_tgl_berangkat_baru = explode('/', $request->tgl_akt[$i]);
+                        $tgl_berangkat_baru = $explode_tgl_berangkat_baru[0];
+                        $bln_berangkat_baru = $explode_tgl_berangkat_baru[1];
+                        $tahun_berangkat_baru = $explode_tgl_berangkat_baru[2];
+                        $jadwal__berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
+                        
                         $data_jadwal[] = array(
-                            'tgl_berangkat' => str_replace('/','-',$tgl_berangkat[$i]),
-                            'tgl_datang' => str_replace('/','-',$tgl_datang[$i]),
+                            'tgl_berangkat' => $jadwal__berangkat_lama,
+                            'tgl_datang' => $jadwal__berangkat_baru,
                             'lama_hari' => $lama_hari[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),
@@ -227,16 +238,26 @@ class PaketController extends Controller
 
                 $data_jadwal = array();
                 if(isset($request->tgl_plan)){
-                    $tgl_berangkat = $request->tgl_plan;
-                    $tgl_datang = $request->tgl_akt;
                     $lama_hari = $request->hari;
                     $quota = $request->q_std;
                     $quota_se = $request->q_semi;
                     $quota_e = $request->q_eks;
                     for($i=0;$i<count($request->tgl_plan);$i++) {
+                        $explode_tgl_berangkat_lama = explode('/', $request->tgl_plan[$i]);
+                        $tgl_berangkat_lama = $explode_tgl_berangkat_lama[0];
+                        $bln_berangkat_lama = $explode_tgl_berangkat_lama[1];
+                        $tahun_berangkat_lama = $explode_tgl_berangkat_lama[2];
+                        $jadwal__berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
+
+                        $explode_tgl_berangkat_baru = explode('/', $request->tgl_akt[$i]);
+                        $tgl_berangkat_baru = $explode_tgl_berangkat_baru[0];
+                        $bln_berangkat_baru = $explode_tgl_berangkat_baru[1];
+                        $tahun_berangkat_baru = $explode_tgl_berangkat_baru[2];
+                        $jadwal__berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
+
                         $data_jadwal[] = array(
-                            'tgl_berangkat' => str_replace('/','-',$tgl_berangkat[$i]),
-                            'tgl_datang' => str_replace('/','-',$tgl_datang[$i]),
+                            'tgl_berangkat' => $jadwal__berangkat_lama,
+                            'tgl_datang' => $jadwal__berangkat_baru,
                             'lama_hari' => $lama_hari[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),
