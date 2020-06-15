@@ -1957,9 +1957,14 @@
                     $('#method').val('put');
                     $('#no_reg').val(id);
                     $('#tgl_input').val(result.data.data[0].tgl_input);
+                    $('#no_peserta').val(result.data.data[0].no_peserta);
+                    $('#label_no_peserta').text(result.data.data[0].nama_peserta);
                     $('#paket').val(result.data.data[0].no_paket);
+                    $('#label_paket').text(result.data.data[0].nama_paket);
                     $('#jadwal').val(result.data.data[0].no_jadwal);
+                    $('#label_jadwal').text(result.data.data[0].tgl_berangkat);
                     $('#kode_pp').val(result.data.data[0].kode_pp);
+                    $('#label_kode_pp').text(result.data.data[0].nama_pp);
                     $('#jenis_paket')[0].selectize.setValue(result.data.data[0].jenis);
                     $('#jenis_promo')[0].selectize.setValue(result.data.data[0].kode_harga);
                     $('#quota').val(result.data.data[0].no_quota);
@@ -1969,7 +1974,6 @@
                     $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
                     $('#harga_room').val(format_number(result.data.data[0].harga_room));
                     $('#tgl_berangkat').val(result.data.data[0].tgl_berangkat);
-                    $('#no_peserta').val(result.data.data[0].no_peserta);
                     // $('#no_peserta_ref')[0].selectize.setValue(result.data.data[0].no_peserta_ref);
                     $('#referal').val(result.data.data[0].referal);
                     $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
@@ -1979,7 +1983,9 @@
                     $('#flag_group')[0].selectize.setValue(result.data.data[0].flag_group);
                     $('#ukuran_pakaian')[0].selectize.setValue(result.data.data[0].uk_pakaian);
                     $('#agen').val(result.data.data[0].no_agen);
+                    $('#label_agen').text(result.data.data[0].nama_agen);
                     $('#marketing').val(result.data.data[0].no_marketing);
+                    $('#label_marketing').text(result.data.data[0].nama_marketing);
                     $('#sumber')[0].selectize.setValue(result.data.data[0].info);
                     $('#diskon').val(format_number(result.data.data[0].diskon));
                     // $('#tot_tambah').val(format_number(result.data.data[0].total_tambah));
