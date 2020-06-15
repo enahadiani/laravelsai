@@ -146,7 +146,10 @@
         'columns': [
             { data: 'no_marketing' },
             { data: 'nama' },
-            { data: 'flag_aktif' },
+            { data: 'flag_aktif', render: function(data,type,row){  
+                var flag = data.split('.');
+                return flag[1];
+            }},
         ],
         dom: 'lBfrtip',
         buttons: [
