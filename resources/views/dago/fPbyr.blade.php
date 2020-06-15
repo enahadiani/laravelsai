@@ -727,13 +727,21 @@
                     break;
                 case 6:
                     if(toNilai(isi) != "" && toNilai(isi) > 0){
-                        $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        hitungTotal();
+                        var bayar = $(this).val();
+                        var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+                        if(toNilai(bayar) > toNilai(saldo)){
+                            $(this).val(0);
+                            $(this).focus();
+                            alert('nilai bayar tidak boleh melebihi saldo');
+                        }else{
+                            $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                            $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                            $(this).closest('tr').find(nxt[idx]).val(isi);
+                            $(this).closest('tr').find(nxt2[idx]).text(isi);
+                            $(this).closest('tr').find(nxt[idx]).hide();
+                            $(this).closest('tr').find(nxt2[idx]).show();
+                            hitungTotal();
+                        }
                     }else{
                         $(this).closest('tr').find(nxt[idx]).val(0);
                         $(this).closest('tr').find(nxt2[idx]).text(0);
