@@ -733,6 +733,7 @@
                             $(this).val(0);
                             $(this).focus();
                             alert('nilai bayar tidak boleh melebihi saldo');
+                            
                         }else{
                             $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
                             $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
