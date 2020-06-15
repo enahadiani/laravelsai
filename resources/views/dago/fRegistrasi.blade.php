@@ -1927,6 +1927,21 @@
             async:false,
             data: {'no_reg':id},
             success:function(result){
+                $('#label_no_peserta').text('');
+                $('#label_paket').text('');
+                $('#label_jadwal').text('');
+                $('#label_agen').text('');
+                $('#label_marketing').text('');
+                
+                $('.inp-btambah_jumlah').val(0);
+                $('.td-btambah_jumlah').text(0);
+                $('.inp-bdok_jumlah').val(0);
+                $('.td-bdok_jumlah').text(0);
+
+                $('.inp-btambah_total').val(0);
+                $('.td-btambah_total').text(0);
+                $('.inp-bdok_total').val(0);
+                $('.td-bdok_total').text(0);
                 if(result.data.status == "SUCCESS"){
                     $('#id').val('edit');
                     $('#method').val('put');
