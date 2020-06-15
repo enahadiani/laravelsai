@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Agen 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Marketing 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -40,7 +40,7 @@
                                         <th>Nama Agen</th>
                                         <th>No HP</th>
                                         <th>Email</th>
-                                        <th>Kode Marketing</th>
+                                        <th>Marketing</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -241,8 +241,8 @@
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
-        // 'serverSide': true,
-        "scrollX": true,
+        // // 'serverSide': true,
+        // "scrollX": true,
         'ajax': {
             'url': "{{ url('dago-master/agen') }}",
             'async':false,
@@ -589,7 +589,7 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var marketing= $(this).closest('tr').find('td').eq(9).html();
+        var marketing= $(this).closest('tr').find('td').eq(4).html();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
@@ -604,7 +604,7 @@
                     $('#no_agen').attr('readonly', true);
                     $('#no_agen').val(id);
                     $('#id').val(id);
-                    $('#nama_agen').val(result.data[0].nama_agen);
+                    $('#nama_agen').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
                     $('#email').val(result.data[0].email);
                     $('#bank').val(result.data[0].bank);
