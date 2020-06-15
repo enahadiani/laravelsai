@@ -59,6 +59,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapMidtransRoutes();
         
         $this->mapDagoRoutes();
+        
+        $this->mapTokoRoutes();
         //
     }
 
@@ -165,6 +167,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dago/report.php'));
+   
+    }
+
+    protected function mapTokoRoutes()
+    {
+        Route::prefix('toko-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/toko/auth.php'));
+
+        Route::prefix('toko-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/toko/dash.php'));
+    
+        Route::prefix('toko-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/toko/master.php'));
+    
+        Route::prefix('toko-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/toko/trans.php'));
+    
+        Route::prefix('toko-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/toko/report.php'));
    
     }
 }
