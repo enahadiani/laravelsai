@@ -38,6 +38,7 @@
                                     <tr>
                                         <th>No Marketing</th>
                                         <th>Nama</th>
+                                        <th>Flag Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -140,11 +141,12 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html },
+            {'targets': 3, data: null, 'defaultContent': action_html },
             ],
         'columns': [
             { data: 'no_marketing' },
             { data: 'nama' },
+            { data: 'flag_aktif' },
         ],
         dom: 'lBfrtip',
         buttons: [
