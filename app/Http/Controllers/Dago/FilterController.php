@@ -129,7 +129,8 @@ class FilterController extends Controller
                 'query' => [
                     'periode' => $request->periode,
                     'paket' => $request->paket,
-                    'jadwal' => $request->jadwal
+                    'jadwal' => $request->jadwal,
+                    'no_peserta' => $request->no_peserta
                 ]
             ]);
     
@@ -216,7 +217,8 @@ class FilterController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'periode' => $request->periode
+                    'periode' => $request->periode,
+                    'no_reg' => $request->no_reg
                 ]
             ]);
     

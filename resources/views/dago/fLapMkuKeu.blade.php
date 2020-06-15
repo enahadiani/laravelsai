@@ -113,9 +113,9 @@
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
-                    <label for="no_reg-selectized">No Registrasi</label>
-                    <select name="no_reg" id="no_reg" class="form-control">
-                    <option value="">Pilih No Registrasi</option>
+                    <label for="no_peserta-selectized">No Peserta</label>
+                    <select name="no_peserta" id="no_peserta" class="form-control">
+                    <option value="">Pilih Peserta</option>
                     </select>
                 </div>
             </div>
@@ -123,9 +123,9 @@
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
-                    <label for="no_peserta-selectized">No Peserta</label>
-                    <select name="no_peserta" id="no_peserta" class="form-control">
-                    <option value="">Pilih Peserta</option>
+                    <label for="no_reg-selectized">No Registrasi</label>
+                    <select name="no_reg" id="no_reg" class="form-control">
+                    <option value="">Pilih No Registrasi</option>
                     </select>
                 </div>
             </div>
@@ -320,13 +320,13 @@
         });
     }
 
-    function getNoReg(periode=null,paket=null,jadwal=null){
+    function getNoReg(periode=null,paket=null,jadwal=null,no_peserta=null){
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-report/filter-noreg') }}",
             dataType: 'json',
             async:false,
-            data: {'periode':periode,'paket':paket,'jadwal':jadwal},
+            data: {'periode':periode,'paket':paket,'jadwal':jadwal,'no_peserta':no_peserta},
             success:function(result){    
                 var select = $('#no_reg').selectize();
                 select = select[0];
@@ -353,8 +353,8 @@
             var no_peserta = $('#no_peserta')[0].selectize.getValue();
             getPaket(periode);
             getJadwal(periode,paket);
-            getNoReg(periode,paket,jadwal);
-            getPeserta(periode,paket,jadwal,noreg);
+            getPeserta(periode,paket,jadwal);
+            getNoReg(periode,paket,jadwal,no_peserta);
         }
     });
 
@@ -367,8 +367,8 @@
             var noreg = $('#no_reg')[0].selectize.getValue();
             var no_peserta = $('#no_peserta')[0].selectize.getValue();
             getJadwal(periode,paket);
-            getNoReg(periode,paket,jadwal);
-            getPeserta(periode,paket,jadwal,noreg);
+            getPeserta(periode,paket,jadwal);
+            getNoReg(periode,paket,jadwal,no_peserta);
         }
     });
 
@@ -380,28 +380,28 @@
             var jadwal = $('#jadwal')[0].selectize.getValue();
             var noreg = $('#no_reg')[0].selectize.getValue();
             var no_peserta = $('#no_peserta')[0].selectize.getValue();
-            getNoReg(periode,paket,jadwal);
-            getPeserta(periode,paket,jadwal,noreg);
+            getPeserta(periode,paket,jadwal);
+            getNoReg(periode,paket,jadwal,no_peserta);
         }
     });
 
-    $('#no_reg').selectize({
+    $('#no_peserta').selectize({
         selectOnTab: true,
         onChange: function (){
             var periode = $('#periode2')[0].selectize.getValue();
             var paket = $('#paket')[0].selectize.getValue();
             var jadwal = $('#jadwal')[0].selectize.getValue();
-            var noreg = $('#no_reg')[0].selectize.getValue();
+            // var noreg = $('#no_reg')[0].selectize.getValue();
             var no_peserta = $('#no_peserta')[0].selectize.getValue();
-            getPeserta(periode,paket,jadwal,noreg);
+            getNoReg(periode,paket,jadwal,no_peserta);
         }
     });
 
     getPeriode();
     getPaket();
     getJadwal();
-    getNoReg();
     getPeserta();
+    getNoReg();
     
     function sepNum(x){
         if (typeof x === 'undefined' || !x) { 

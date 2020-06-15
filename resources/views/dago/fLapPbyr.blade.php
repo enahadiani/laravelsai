@@ -91,6 +91,16 @@
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
+                    <label for="no_reg-selectized">No Registrasi</label>
+                    <select name="no_reg" id="no_reg" class="form-control">
+                    <option value="">Pilih No Registrasi</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
                     <label for="no_kwitansi-selectized">No Kuitansi</label>
                     <select name="no_kwitansi" id="no_kwitansi" class="form-control">
                     <option value="">Pilih No Kuitansi</option>
@@ -219,13 +229,13 @@
         });
     }
 
-    function getKwitansi(periode=null){
+    function getKwitansi(periode=null,no_reg=null){
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-report/filter-kwitansi') }}",
             dataType: 'json',
             async:false,
-            data: {'periode':periode},
+            data: {'periode':periode,'no_reg':no_reg},
             success:function(result){    
                 var select = $('#no_kwitansi').selectize();
                 select = select[0];
@@ -242,16 +252,41 @@
         });
     }
 
+    function getNoReg(periode=null,paket=null,jadwal=null,no_peserta=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-report/filter-noreg') }}",
+            dataType: 'json',
+            async:false,
+            data: {'periode':periode,'paket':paket,'jadwal':jadwal,'no_peserta':no_peserta},
+            success:function(result){    
+                var select = $('#no_reg').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_reg, value:result.daftar[i].no_reg}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     $('#periode2').selectize({
         selectOnTab: true,
         onChange: function (){
             var periode = $('#periode2')[0].selectize.getValue();
-            getKwitansi(periode);
+            var no_reg = $('#no_reg')[0].selectize.getValue();
+            getNoReg(periode);
+            getKwitansi(periode,no_reg);
         }
     });
 
-    
     getPeriode();
+    getNoReg();
     getKwitansi();
     
     function sepNum(x){
