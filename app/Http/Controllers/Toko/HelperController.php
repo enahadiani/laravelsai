@@ -16,7 +16,7 @@
             }
         }
 
-        public function getAkun() {
+        public function getAkunCust() {
 
             $client = new Client();
             $response = $client->request('GET', $this->link.'cust-akun',[
@@ -35,10 +35,10 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getAkunPiutang() {
+        public function getAkunVend() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akun-piutang',[
+            $response = $client->request('GET', $this->link.'vendor-akun',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
