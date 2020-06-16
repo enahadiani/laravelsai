@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Session;
 //Helper Controller//
 Route::get('cust-akun', 'Toko\HelperController@getAkunCust');
 Route::get('vendor-akun', 'Toko\HelperController@getAkunVend');
+Route::get('gudang-nik', 'Toko\HelperController@getNIKGud');
+Route::get('gudang-pp', 'Toko\HelperController@getPPGud');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');
@@ -20,3 +22,10 @@ Route::get('vendor/{id}', 'Toko\VendorController@getData');
 Route::post('vendor', 'Toko\VendorController@store');
 Route::put('vendor/{id}', 'Toko\VendorController@update');
 Route::delete('vendor/{id}', 'Toko\VendorController@delete');
+
+// Data Gudang //
+Route::get('gudang', 'Toko\GudangController@index');
+Route::get('gudang/{id}', 'Toko\GudangController@getData');
+Route::post('gudang', 'Toko\GudangController@store');
+Route::put('gudang/{id}', 'Toko\GudangController@update');
+Route::delete('gudang/{id}', 'Toko\GudangController@delete');
