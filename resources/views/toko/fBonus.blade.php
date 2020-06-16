@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Gudang 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Bonus 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,11 +36,12 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Telp</th>
-                                        <th>PIC</th>
+                                        <th>Kode Barang</th>
+                                        <th>Nama Bonus</th>
+                                        <th>Referensi Qty</th>
+                                        <th>Bonus Qty</th>
+                                        <th>Tgl Mulai</th>
+                                        <th>Tgl Selesai</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,13 +59,13 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Gudang
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Bonus
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 280px !important;">
+                        <div class="card-body pt-0" style="height: 250px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -72,48 +73,42 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                                <div class="form-group row ">
-								    <label for="kode_gudang" class="col-3 col-form-label">Kode</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Gudang" id="kode_gudang" name="kode_gudang">
-                                    </div>
-                                </div>
-                                <div class="form-group row ">
-                                    <label for="nama" class="col-3 col-form-label">Nama</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Gudang" id="nama" name="nama">
-                                    </div>
-                                </div>
                             <div class="form-group row">
-                                <label for="telp" class="col-3 col-form-label">No Telp</label>
+                                <label for="kode_barang" class="col-3 col-form-label">Kode Barang</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_barang" id="kode_barang" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_barang" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="Keterangan Bonus" id="keterangan" name="keterangan">
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ref_qty" class="col-3 col-form-label">Referensi Qty</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nomor Telepon" id="telp" name="telp">
+                                    <input class="form-control qty" type="text" placeholder="Ref Qty" id="ref_qty" name="ref_qty">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="alamat" class="col-3 col-form-label">Alamat</label>
-                                <div class="col-9">
-                                     <input class="form-control" type="text" placeholder="Alamat Gudang" id="alamat" name="alamat">
+                                <label for="bonus_qty" class="col-3 col-form-label">Bonus Qty</label>
+                                <div class="col-3">
+                                    <input class="form-control qty" type="text" placeholder="Bonus Qty" id="bonus_qty" name="bonus_qty">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="pic" class="col-3 col-form-label">Penanggung Jawab</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="pic" id="pic" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
+                                <div class="col-3">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
                                 </div>
-                                <div class="col-6">
-                                    <label id="label_pic" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">PP/Unit</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
+                                <label for="tgl_lahir" class="col-3 col-form-label">Tanggal Selesai</label>
+                                <div class="col-3">
+                                    <input class="form-control datepicker" type="text" placeholder="dd/mm/yyyy" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -154,92 +149,60 @@
         }
         });
 
-        function getNIK(id=null){
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+
+        $('.qty').inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 0,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+
+        function getBarang(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/gudang-nik') }}",
+                url: "{{ url('toko-master/barang') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#pic').val(result.daftar[0].nik);
-                            $('#label_pic').text(result.daftar[0].nama);
+                            $('#kode_barang').val(result.daftar[0].kode_barang);
+                            $('#label_kode_barang').text(result.daftar[0].nama);
                         }else{
-                            alert('PIC tidak valid');
-                            $('#pic').val('');
-                            $('#pic').focus();
+                            alert('Kode barang tidak valid');
+                            $('#kode_barang').val('');
+                            $('#kode_barang').focus();
                         }
                     }
                 }
             });
         }
 
-        function getLabelNIK(no){
+        function getLabelBarang(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/gudang-nik') }}",
+                url: "{{ url('toko-master/barang') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].nik === no){
-                                $('#label_pic').text(result.daftar[i].nama);
+                            if(result.daftar[i].kode_barang === no){
+                                $('#label_kode_barang').text(result.daftar[i].nama);
                                 break;
                               }
                             }
                         }else{
-                            alert('PIC tidak valid');
-                            $('#pic').val('');
-                            $('#pic').focus();
-                        }
-                    }
-                }
-            });
-        }
-
-        function getPP(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/gudang-pp') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_pp').val(result.daftar[0].kode_pp);
-                            $('#label_kode_pp').text(result.daftar[0].nama);
-                        }else{
-                            alert('PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
-                        }
-                    }
-                }
-            });
-        }
-
-        function getLabelPP(no){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/gudang-pp') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_pp === no){
-                                $('#label_kode_pp').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
-                        }else{
-                            alert('PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
+                            alert('Kode barang tidak valid');
+                            $('#kode_barang').val('');
+                            $('#kode_barang').focus();
                         }
                     }
                 }
@@ -254,7 +217,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-master/gudang') }}",
+            'url': "{{ url('toko-master/bonus') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -273,14 +236,33 @@
             }
         },
         'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html },
+            {'targets': 6, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_gudang' },
-            { data: 'nama' },
-            { data: 'alamat' },
-            { data: 'telp' },
-            { data: 'pic' },
+            { data: 'kode_barang' },
+            { data: 'keterangan' },
+            { data: 'ref_qty', render: function(data,type,row){
+                var ref = parseFloat(data);
+                return ref.toFixed();
+            } },
+            { data: 'bonus_qty', render: function(data,type,row){
+                var bonus = parseFloat(data);
+                return bonus.toFixed();
+            } },
+            { data: 'tgl_mulai', render: function(data,type,row){
+                var splitM = data.split('-');
+                var tglM = splitM[2];
+                var blnM = splitM[1];
+                var tahunM = splitM[0];
+                return tglM+"/"+blnM+"/"+tahunM;
+            } },
+            { data: 'tgl_selesai', render: function(data,type,row){
+                var splitS = data.split('-');
+                var tglS = splitS[2];
+                var blnS = splitS[1];
+                var tahunS = splitS[0];
+                return tglS+"/"+blnS+"/"+tahunS;
+            } },
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -298,10 +280,9 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
+        $('#kode_barang').attr('readonly',false);
+        $('.search-item2').show();
         $('#method').val('post');
-        $('#kode_gudang').attr('readonly', false);
-        $('#label_pic').text('');
-        $('#label_kode_pp').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -330,30 +311,15 @@
         $target2 = target2;
         
         switch(par){
-        case 'kode_pp': 
+        case 'kode_barang': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('toko-master/gudang-pp') }}";
+            var toUrl = "{{ url('toko-master/barang') }}";
                 var columns = [
-                    { data: 'kode_pp' },
+                    { data: 'kode_barang' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar PP";
-                var jTarget1 = "val";
-                var jTarget2 = "text";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-        break;
-        case 'pic': 
-            header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('toko-master/gudang-nik') }}";
-                var columns = [
-                    { data: 'nik' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar PIC";
+                var judul = "Daftar Barang";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
@@ -495,14 +461,9 @@
         })
     }
 
-    $('#form-tambah').on('change', '#pic', function(){
+    $('#form-tambah').on('change', '#kode_barang', function(){
         var par = $(this).val();
-        getNIK(par);
-    });
-
-    $('#form-tambah').on('change', '#kode_pp', function(){
-        var par = $(this).val();
-        getPP(par);
+        getBarang(par);
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
@@ -510,10 +471,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-master/gudang') }}/"+id;
+            var url = "{{ url('toko-master/bonus') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-master/gudang') }}";
+            var url = "{{ url('toko-master/bonus') }}";
             var pesan = "saved";
         }
 
@@ -581,7 +542,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-master/gudang') }}/"+id,
+                    url: "{{ url('toko-master/bonus') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -622,24 +583,39 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/gudang') }}/" + id,
+            url: "{{ url('toko-master/bonus') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    var ref_qty = parseFloat(result.data[0].ref_qty);
+                    var bonus_qty = parseFloat(result.data[0].bonus_qty);
+
+                    var splitTglmulai = result.data[0].tgl_mulai.split('-');
+                    var tahun_mulai = splitTglmulai[0];
+                    var bulan_mulai = splitTglmulai[1];
+                    var tgl_mulai = splitTglmulai[2];
+                    var mulai = tgl_mulai+"/"+bulan_mulai+"/"+tahun_mulai;
+
+                    var splitTglselesai = result.data[0].tgl_selesai.split('-');
+                    var tahun_selesai = splitTglselesai[0];
+                    var bulan_selesai = splitTglselesai[1];
+                    var tgl_selesai = splitTglselesai[2];
+                    var selesai = tgl_selesai+"/"+bulan_selesai+"/"+tahun_selesai;
+
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_gudang').attr('readonly', true);
-                    $('#kode_gudang').val(id);
+                    $('#kode_barang').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#pic').val(result.data[0].pic);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#telp').val(result.data[0].telp);
-                    getLabelNIK(result.data[0].pic);
-                    getLabelPP(result.data[0].kode_pp);
+                    $('#kode_barang').attr('readonly',true);
+                    $('.search-item2').hide();
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#ref_qty').val(ref_qty.toFixed());
+                    $('#bonus_qty').val(bonus_qty.toFixed());
+                    $('#tgl_mulai').val(mulai);
+                    $('#tgl_selesai').val(selesai);
+                    getLabelBarang(id);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

@@ -46,3 +46,17 @@ Route::get('barang-satuan/{id}', 'Toko\SatuanBarangController@getData');
 Route::post('barang-satuan', 'Toko\SatuanBarangController@store');
 Route::put('barang-satuan/{id}', 'Toko\SatuanBarangController@update');
 Route::delete('barang-satuan/{id}', 'Toko\SatuanBarangController@delete');
+
+// Data Barang //
+Route::get('barang', 'Toko\BarangController@index');
+Route::get('barang-satuan/{id}', 'Toko\SatuanBarangController@getData');
+Route::post('barang-satuan', 'Toko\SatuanBarangController@store');
+Route::put('barang-satuan/{id}', 'Toko\SatuanBarangController@update');
+Route::delete('barang-satuan/{id}', 'Toko\SatuanBarangController@delete');
+
+// Data Bonus //
+Route::get('bonus', 'Toko\BonusController@index');
+Route::get('bonus/{id}', 'Toko\BonusController@getData');
+Route::post('bonus', 'Toko\BonusController@store');
+Route::put('bonus/{id}', 'Toko\BonusController@update');
+Route::delete('bonus/{id}', 'Toko\BonusController@delete');

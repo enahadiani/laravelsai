@@ -112,17 +112,17 @@ class PaketController extends Controller
                         $tgl_berangkat_lama = $explode_tgl_berangkat_lama[0];
                         $bln_berangkat_lama = $explode_tgl_berangkat_lama[1];
                         $tahun_berangkat_lama = $explode_tgl_berangkat_lama[2];
-                        $jadwal__berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
+                        $jadwal_berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
 
                         $explode_tgl_berangkat_baru = explode('/', $request->tgl_akt[$i]);
                         $tgl_berangkat_baru = $explode_tgl_berangkat_baru[0];
                         $bln_berangkat_baru = $explode_tgl_berangkat_baru[1];
                         $tahun_berangkat_baru = $explode_tgl_berangkat_baru[2];
-                        $jadwal__berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
+                        $jadwal_berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
                         
                         $data_jadwal[] = array(
-                            'tgl_berangkat' => $jadwal__berangkat_lama,
-                            'tgl_datang' => $jadwal__berangkat_baru,
+                            'tgl_berangkat' => $jadwal_berangkat_lama,
+                            'tgl_datang' => $jadwal_berangkat_baru,
                             'lama_hari' => $lama_hari[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),
@@ -247,17 +247,17 @@ class PaketController extends Controller
                         $tgl_berangkat_lama = $explode_tgl_berangkat_lama[0];
                         $bln_berangkat_lama = $explode_tgl_berangkat_lama[1];
                         $tahun_berangkat_lama = $explode_tgl_berangkat_lama[2];
-                        $jadwal__berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
+                        $jadwal_berangkat_lama = $tahun_berangkat_lama."-".$bln_berangkat_lama."-".$tgl_berangkat_lama;
 
                         $explode_tgl_berangkat_baru = explode('/', $request->tgl_akt[$i]);
                         $tgl_berangkat_baru = $explode_tgl_berangkat_baru[0];
                         $bln_berangkat_baru = $explode_tgl_berangkat_baru[1];
                         $tahun_berangkat_baru = $explode_tgl_berangkat_baru[2];
-                        $jadwal__berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
+                        $jadwal_berangkat_baru = $tahun_berangkat_baru."-".$bln_berangkat_baru."-".$tgl_berangkat_baru;
 
                         $data_jadwal[] = array(
-                            'tgl_berangkat' => $jadwal__berangkat_lama,
-                            'tgl_datang' => $jadwal__berangkat_baru,
+                            'tgl_berangkat' => $jadwal_berangkat_lama,
+                            'tgl_datang' => $jadwal_berangkat_baru,
                             'lama_hari' => $lama_hari[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),

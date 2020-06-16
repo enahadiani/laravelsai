@@ -232,7 +232,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('dago-auth/login') }}";
+                        window.location.href = "{{ url('toko-auth/login') }}";
                     })
                     return [];
                 }
