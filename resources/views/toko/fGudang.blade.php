@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                                 <div class="form-group row ">
-								    <label for="kode_cust" class="col-3 col-form-label">Kode</label>
+								    <label for="kode_gudang" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
                                         <input class="form-control" type="text" placeholder="Kode Gudang" id="kode_gudang" name="kode_gudang">
                                     </div>
@@ -619,7 +619,6 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var marketing= $(this).closest('tr').find('td').eq(4).html();
         $iconLoad.show();
         $.ajax({
             type: 'GET',

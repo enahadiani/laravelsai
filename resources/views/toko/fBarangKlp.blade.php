@@ -38,7 +38,9 @@
                                     <tr>
                                         <th>Kode</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
+                                        <th>Akun Persediaan</th>
+                                        <th>Akun Pendapatan</th>
+                                        <th>Akun HPP</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -62,7 +64,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 420px !important;">
+                        <div class="card-body pt-0" style="height: 280px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -71,85 +73,45 @@
                                 </div>
                             </div>
                                 <div class="form-group row ">
-								    <label for="kode_vendor" class="col-3 col-form-label">Kode</label>
+								    <label for="kode_klp" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Vendor" id="kode_vendor" name="kode_vendor">
+                                        <input class="form-control" type="text" placeholder="Kode Kelompok Barang" id="kode_klp" name="kode_klp">
                                     </div>
+                                </div>
+                                <div class="form-group row ">
                                     <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Vendor" id="nama" name="nama">
+                                        <input class="form-control" type="text" placeholder="Nama Kelompok Barang" id="nama" name="nama">
                                     </div>
                                 </div>
                             <div class="form-group row">
-                                <label for="no_tel" class="col-3 col-form-label">No Telp</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
-                                </div>
-                                <label for="no_fax" class="col-3 col-form-label">No Fax</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="email" class="col-3 col-form-label">Email</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="email" placeholder="Email" id="email" name="email">
-                                </div>
-                                <label for="npwp" class="col-3 col-form-label">NPWP</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="NPWP Vendor" id="npwp" name="npwp">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="pic" class="col-3 col-form-label">PIC</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                                </div>
-                                <label for="no_tel" class="col-3 col-form-label">No Telp PIC</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nomor Telepon PIC" id="no_pictel" name="no_pictel">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="bank" class="col-3 col-form-label">Bank</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
-                                </div>
-                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_rek" class="col-3 col-form-label">No. Rekening</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek">
-                                </div>
-                                <label for="nama_rek" class="col-3 col-form-label">Nama Rekening</label>
-                                <div class="col-3">
-                                     <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="alamat" class="col-3 col-form-label">Alamat</label>
-                                <div class="col-9">
-                                     <input class="form-control" type="text" placeholder="Alamat Vendor" id="alamat" name="alamat">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="alamat2" class="col-3 col-form-label">Alamat NPWP</label>
-                                <div class="col-9">
-                                     <input class="form-control" type="text" placeholder="Alamat NPWP" id="alamat2" name="alamat2">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="akun_hutang" class="col-3 col-form-label">Akun Utang</label>
+                                <label for="akun_pers" class="col-3 col-form-label">Akun Persediaan</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="akun_hutang" id="akun_hutang" class="form-control" value="" required>
+                                    <input type='text' name="akun_pers" id="akun_pers" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_akun_hutang" style="margin-top: 10px;"></label>
+                                    <label id="label_akun_pers" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="akun_pdpt" class="col-3 col-form-label">Akun Pendapatan</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_pdpt" id="akun_pdpt" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_pdpt" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="akun_hpp" class="col-3 col-form-label">Akun HPP</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_hpp" id="akun_hpp" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_hpp" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -190,31 +152,31 @@
         }
         });
 
-        function getAkun(id=null){
+        function getAkunPers(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/vendor-akun') }}",
+                url: "{{ url('toko-master/barang-klp-persediaan') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#akun_hutang').val(result.daftar[0].kode_akun);
-                            $('#label_akun_hutang').text(result.daftar[0].nama);
+                            $('#akun_pers').val(result.daftar[0].kode_akun);
+                            $('#label_akun_pers').text(result.daftar[0].nama);
                         }else{
-                            alert('Kode Akun tidak valid');
-                            $('#akun_hutang').val('');
-                            $('#akun_hutang').focus();
+                            alert('Kode akun tidak valid');
+                            $('#akun_pers').val('');
+                            $('#akun_pers').focus();
                         }
                     }
                 }
             });
-    }
+        }
 
-        function getLabelAkun(no){
+        function getLabelAkunPers(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/vendor-akun') }}",
+                url: "{{ url('toko-master/barang-klp-persediaan') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -222,19 +184,111 @@
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_akun === no){
-                                $('#label_akun_hutang').text(result.daftar[i].nama);
+                                $('#label_akun_pers').text(result.daftar[i].nama);
                                 break;
                               }
                             }
                         }else{
-                            alert('Kode Akun tidak valid');
-                            $('#akun_hutang').val('');
-                            $('#akun_hutang').focus();
+                            alert('Akun tidak valid');
+                            $('#akun_pers').val('');
+                            $('#akun_pers').focus();
                         }
                     }
                 }
             });
-    }
+        }
+
+        function getAkunPdpt(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/barang-klp-pendapatan') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            $('#akun_pdpt').val(result.daftar[0].kode_akun);
+                            $('#label_akun_pdpt').text(result.daftar[0].nama);
+                        }else{
+                            alert('Akun tidak valid');
+                            $('#akun_pdpt').val('');
+                            $('#akun_pdpt').focus();
+                        }
+                    }
+                }
+            });
+        }
+
+        function getLabelAkunPdpt(no){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/barang-klp-pendapatan') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(var i=0;i<=result.daftar.length;i++){   
+                            if(result.daftar[i].kode_akun === no){
+                                $('#label_akun_pdpt').text(result.daftar[i].nama);
+                                break;
+                              }
+                            }
+                        }else{
+                            alert('Akun tidak valid');
+                            $('#kode_pdpt').val('');
+                            $('#kode_pdpt').focus();
+                        }
+                    }
+                }
+            });
+        }
+
+        function getAkunHPP(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/barang-klp-hpp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            $('#akun_hpp').val(result.daftar[0].kode_akun);
+                            $('#label_akun_hpp').text(result.daftar[0].nama);
+                        }else{
+                            alert('Akun tidak valid');
+                            $('#akun_hpp').val('');
+                            $('#akun_hpp').focus();
+                        }
+                    }
+                }
+            });
+        }
+
+        function getLabelAkunHPP(no){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/barang-klp-hpp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(var i=0;i<=result.daftar.length;i++){   
+                            if(result.daftar[i].kode_akun === no){
+                                $('#label_akun_hpp').text(result.daftar[i].nama);
+                                break;
+                              }
+                            }
+                        }else{
+                            alert('Akun tidak valid');
+                            $('#akun_hpp').val('');
+                            $('#akun_hpp').focus();
+                        }
+                    }
+                }
+            });
+        }
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
@@ -244,7 +298,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-master/vendor') }}",
+            'url': "{{ url('toko-master/barang-klp') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -263,12 +317,14 @@
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html },
+            {'targets': 5, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_vendor' },
+            { data: 'kode_klp' },
             { data: 'nama' },
-            { data: 'alamat' },
+            { data: 'akun_pers' },
+            { data: 'akun_pdpt' },
+            { data: 'akun_hpp' },
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -287,8 +343,10 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#kode_vendor').attr('readonly', false);
-        $('#label_akun_hutang').text('');
+        $('#kode_klp').attr('readonly', false);
+        $('#label_akun_pers').text('');
+        $('#label_akun_pdpt').text('');
+        $('#label_akun_hpp').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -317,21 +375,51 @@
         $target2 = target2;
         
         switch(par){
-        case 'akun_hutang': 
+        case 'akun_hpp': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('toko-master/vendor-akun') }}";
+            var toUrl = "{{ url('toko-master/barang-klp-hpp') }}";
                 var columns = [
                     { data: 'kode_akun' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar Akun";
+                var judul = "Daftar Akun HPP";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
-            break;
+        break;
+        case 'akun_pdpt': 
+            header = ['Kode', 'Nama'];
+            var toUrl = "{{ url('toko-master/barang-klp-pendapatan') }}";
+                var columns = [
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Akun Pendapatan";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+        break;
+        case 'akun_pers': 
+            header = ['Kode', 'Nama'];
+            var toUrl = "{{ url('toko-master/barang-klp-persediaan') }}";
+                var columns = [
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Akun Persediaan";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+        break;
         }
 
         var header_html = '';
@@ -467,9 +555,19 @@
         })
     }
 
-    $('#form-tambah').on('change', '#akun_hutang', function(){
+    $('#form-tambah').on('change', '#akun_pers', function(){
         var par = $(this).val();
-        getAkun(par);
+        getAkunPers(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_pdpt', function(){
+        var par = $(this).val();
+        getAkunPdpt(par);
+    });
+
+    $('#form-tambah').on('change', '#akun_hpp', function(){
+        var par = $(this).val();
+        getAkunHPP(par);
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
@@ -477,10 +575,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-master/vendor') }}/"+id;
+            var url = "{{ url('toko-master/barang-klp') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-master/vendor') }}";
+            var url = "{{ url('toko-master/barang-klp') }}";
             var pesan = "saved";
         }
 
@@ -548,7 +646,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-master/vendor') }}/"+id,
+                    url: "{{ url('toko-master/barang-klp') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -586,10 +684,13 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        var persediaan= $(this).closest('tr').find('td').eq(2).html();
+        var pendapatan= $(this).closest('tr').find('td').eq(3).html();
+        var hpp= $(this).closest('tr').find('td').eq(4).html();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/vendor') }}/" + id,
+            url: "{{ url('toko-master/barang-klp') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -597,24 +698,16 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_vendor').attr('readonly', true);
-                    $('#kode_vendor').val(id);
+                    $('#kode_klp').attr('readonly', true);
+                    $('#kode_klp').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#alamat2').val(result.data[0].alamat2);
-                    $('#email').val(result.data[0].email);
-                    $('#npwp').val(result.data[0].npwp);
-                    $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
-                    $('#no_tel').val(result.data[0].no_tel);
-                    $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);
-                    $('#akun_hutang').val(result.data[0].akun_hutang);
-                    getLabelAkun(result.data[0].akun_hutang);
+                    $('#akun_pers').val(persediaan);
+                    $('#akun_pdpt').val(pendapatan);
+                    $('#akun_hpp').val(hpp);
+                    getLabelAkunPers(persediaan);
+                    getLabelAkunPdpt(pendapatan);
+                    getLabelAkunHPP(hpp);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

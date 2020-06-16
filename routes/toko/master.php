@@ -8,6 +8,9 @@ Route::get('cust-akun', 'Toko\HelperController@getAkunCust');
 Route::get('vendor-akun', 'Toko\HelperController@getAkunVend');
 Route::get('gudang-nik', 'Toko\HelperController@getNIKGud');
 Route::get('gudang-pp', 'Toko\HelperController@getPPGud');
+Route::get('barang-klp-persediaan', 'Toko\HelperController@getAkunPersKelBar');
+Route::get('barang-klp-pendapatan', 'Toko\HelperController@getAkunPdptKelBar');
+Route::get('barang-klp-hpp', 'Toko\HelperController@getAkunHPPKelBar');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');
@@ -29,3 +32,10 @@ Route::get('gudang/{id}', 'Toko\GudangController@getData');
 Route::post('gudang', 'Toko\GudangController@store');
 Route::put('gudang/{id}', 'Toko\GudangController@update');
 Route::delete('gudang/{id}', 'Toko\GudangController@delete');
+
+// Data Kelompok Barang //
+Route::get('barang-klp', 'Toko\KelompokBarangController@index');
+Route::get('barang-klp/{id}', 'Toko\KelompokBarangController@getData');
+Route::post('barang-klp', 'Toko\KelompokBarangController@store');
+Route::put('barang-klp/{id}', 'Toko\KelompokBarangController@update');
+Route::delete('barang-klp/{id}', 'Toko\KelompokBarangController@delete');
