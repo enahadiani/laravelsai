@@ -39,3 +39,10 @@ Route::get('barang-klp/{id}', 'Toko\KelompokBarangController@getData');
 Route::post('barang-klp', 'Toko\KelompokBarangController@store');
 Route::put('barang-klp/{id}', 'Toko\KelompokBarangController@update');
 Route::delete('barang-klp/{id}', 'Toko\KelompokBarangController@delete');
+
+// Data Satuan Barang //
+Route::get('barang-satuan', 'Toko\SatuanBarangController@index');
+Route::get('barang-satuan/{id}', 'Toko\SatuanBarangController@getData');
+Route::post('barang-satuan', 'Toko\SatuanBarangController@store');
+Route::put('barang-satuan/{id}', 'Toko\SatuanBarangController@update');
+Route::delete('barang-satuan/{id}', 'Toko\SatuanBarangController@delete');
