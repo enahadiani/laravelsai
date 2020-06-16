@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Marketing 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,11 +36,9 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Agen</th>
-                                        <th>Nama Agen</th>
-                                        <th>No HP</th>
-                                        <th>Email</th>
-                                        <th>Marketing</th>
+                                        <th>Kode</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,13 +56,13 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Agen
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 450px !important;">
+                        <div class="card-body pt-0" style="height: 320px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -73,79 +71,61 @@
                                 </div>
                             </div>
                                 <div class="form-group row ">
-								    <label for="kode" class="col-3 col-form-label">Kode</label>
+								    <label for="kode_cust" class="col-3 col-form-label">Kode</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Agen" id="no_agen" name="no_agen">
+                                        <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
                                     </div>
                                     <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Agen" id="nama_agen" name="nama_agen">
+                                        <input class="form-control" type="text" placeholder="Nama Customer" id="nama" name="nama">
                                     </div>
                                 </div>
                             <div class="form-group row">
-                                <label for="tempat_lahir" class="col-3 col-form-label">Tempat Lahir</label>
+                                <label for="no_tel" class="col-3 col-form-label">No Telp</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Tempat lahir" id="tempat_lahir" name="tempat_lahir">
+                                    <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
                                 </div>
-                                <label for="tgl_lahir" class="col-3 col-form-label">Tanggal Lahir</label>
+                                <label for="no_fax" class="col-3 col-form-label">No Fax</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="yyyy/mm/dd" id="tgl_lahir" name="tgl_lahir" autocomplete="off">
+                                    <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="email" class="col-3 col-form-label">Email</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="email" placeholder="john.doe@email.com" id="email" name="email">
+                                    <input class="form-control" type="email" placeholder="Email" id="email" name="email">
                                 </div>
-                                <label for="tgl_lahir" class="col-3 col-form-label">No Handphone</label>
+                                <label for="npwp" class="col-3 col-form-label">NPWP</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="08xxxxxxxxxx" id="no_hp" name="no_hp">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="bank" class="col-3 col-form-label">Bank</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
-                                </div>
-                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
+                                    <input class="form-control" type="text" placeholder="NPWP Customer" id="npwp" name="npwp">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="norek" class="col-3 col-form-label">No. Rekening</label>
+                                <label for="pic" class="col-3 col-form-label">PIC</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="number" placeholder="No Rekening" id="norek" name="norek">
-                                </div>
-                                <label for="namarek" class="col-3 col-form-label">Nama Rekening</label>
-                                <div class="col-3">
-                                     <input class="form-control" type="text" placeholder="Nama Rekening" id="namarek" name="namarek">
+                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="alamat" class="col-3 col-form-label">Alamat</label>
                                 <div class="col-9">
-                                     <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
+                                     <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_marketing" class="col-3 col-form-label">Kode Marketing</label>
+                                <label for="alamat2" class="col-3 col-form-label">Alamat NPWP</label>
+                                <div class="col-9">
+                                     <input class="form-control" type="text" placeholder="Alamat NPWP" id="alamat2" name="alamat2">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="akun_piutang" class="col-3 col-form-label">Akun Piutang</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_marketing" id="kode_marketing" class="form-control" value="" required>
+                                    <input type='text' name="akun_piutang" id="akun_piutang" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_kode_marketing" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="flag_aktif" class="col-3 col-form-label">Flag Aktif</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled>--- Pilih Flag ---</option>
-                                        <option value="1">AKTIF</option>
-                                        <option value="0">NON-AKTIF</option>
-                                    </select>
+                                    <label id="label_akun_piutang" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -186,50 +166,46 @@
         }
         });
 
-        $('.datepicker').datepicker({
-            format: 'yyyy/mm/dd'
-        });
-
-        function getMarketing(id=null){
+        function getAkun(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('dago-master/marketing') }}",
+                url: "{{ url('toko-master/cust-akun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_marketing').val(result.daftar[0].no_marketing);
-                            $('#label_kode_marketing').text(result.daftar[0].nama);
+                            $('#akun_piutang').val(result.daftar[0].kode_akun);
+                            $('#label_akun_piutang').text(result.daftar[0].nama);
                         }else{
-                            alert('Kode Marketing tidak valid');
-                            $('#kode_marketing').val('');
-                            $('#kode_marketing').focus();
+                            alert('Kode Akun tidak valid');
+                            $('#akun_piutang').val('');
+                            $('#akun_piutang').focus();
                         }
                     }
                 }
             });
     }
 
-        function getLabelMarketing(no){
+        function getLabelAkun(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('dago-master/marketing') }}",
+                url: "{{ url('toko-master/cust-akun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].no_marketing === no){
-                                $('#label_kode_marketing').text(result.daftar[i].nama);
+                            if(result.daftar[i].kode_akun === no){
+                                $('#label_akun_piutang').text(result.daftar[i].nama);
                                 break;
                               }
                             }
                         }else{
-                            alert('Kode Marketing tidak valid');
-                            $('#kode_marketing').val('');
-                            $('#kode_marketing').focus();
+                            alert('Kode Akun tidak valid');
+                            $('#akun_piutang').val('');
+                            $('#akun_piutang').focus();
                         }
                     }
                 }
@@ -244,7 +220,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('dago-master/agen') }}",
+            'url': "{{ url('toko-master/cust') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -263,14 +239,12 @@
             }
         },
         'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html },
+            {'targets': 3, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'no_agen' },
+            { data: 'kode_cust' },
             { data: 'nama' },
-            { data: 'no_hp' },
-            { data: 'email' },
-            { data: 'kode_marketing' },
+            { data: 'alamat' },
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -289,9 +263,8 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#no_agen').attr('readonly', false);
-        $('#label_kode_marketing').text('');
-        $('#flag_aktif')[0].selectize.setValue('');
+        $('#kode_cust').attr('readonly', false);
+        $('#label_akun_piutang').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -320,15 +293,15 @@
         $target2 = target2;
         
         switch(par){
-        case 'kode_marketing': 
+        case 'akun_piutang': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('dago-master/marketing') }}";
+            var toUrl = "{{ url('toko-master/cust-akun') }}";
                 var columns = [
-                    { data: 'no_marketing' },
+                    { data: 'kode_akun' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar Marketing";
+                var judul = "Daftar Akun";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
@@ -470,9 +443,9 @@
         })
     }
 
-    $('#form-tambah').on('change', '#kode_marketing', function(){
+    $('#form-tambah').on('change', '#akun_piutang', function(){
         var par = $(this).val();
-        getMarketing(par);
+        getAkun(par);
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
@@ -480,10 +453,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('dago-master/agen') }}/"+id;
+            var url = "{{ url('toko-master/cust') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('dago-master/agen') }}";
+            var url = "{{ url('toko-master/cust') }}";
             var pesan = "saved";
         }
 
@@ -503,7 +476,7 @@
             processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
-                if(result.data.status === 'SUCCESS'){
+                if(result.data.status){
                     // location.reload();
                     dataTable.ajax.reload();
                     Swal.fire(
@@ -520,7 +493,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('/dago-auth/login') }}";
+                        window.location.href = "{{ url('/toko-auth/login') }}";
                     }) 
                 }else{
                         Swal.fire({
@@ -551,11 +524,11 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('dago-master/agen') }}/"+id,
+                    url: "{{ url('toko-master/cust') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
-                        if(result.data.status === 'SUCCESS'){
+                        if(result.data.status){
                             dataTable.ajax.reload();
                             Swal.fire(
                                 'Deleted!',
@@ -568,7 +541,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('dago-auth/login') }}";
+                                window.location.href = "{{ url('toko-auth/login') }}";
                             })
                         }else{
                             Swal.fire({
@@ -593,30 +566,27 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-master/agen') }}/" + id,
+            url: "{{ url('toko-master/cust') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
-                if(result.status === 'SUCCESS'){
+                if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#no_agen').attr('readonly', true);
-                    $('#no_agen').val(id);
+                    $('#kode_cust').attr('readonly', true);
+                    $('#kode_cust').val(id);
                     $('#id').val(id);
-                    $('#nama_agen').val(result.data[0].nama);
+                    $('#nama').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
+                    $('#alamat2').val(result.data[0].alamat2);
                     $('#email').val(result.data[0].email);
-                    $('#bank').val(result.data[0].bank);
-                    $('#norek').val(result.data[0].norek);
-                    $('#tgl_lahir').val(result.data[0].tgl_lahir);
-                    $('#tempat_lahir').val(result.data[0].tempat_lahir);
-                    $('#kode_marketing').val(result.data[0].kode_marketing);
-                    $('#no_hp').val(result.data[0].no_hp);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#namarek').val(result.data[0].namarek);
-                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
-                    getLabelMarketing(marketing);
+                    $('#npwp').val(result.data[0].npwp);
+                    $('#pic').val(result.data[0].pic);
+                    $('#no_tel').val(result.data[0].no_tel);
+                    $('#no_fax').val(result.data[0].no_fax);
+                    $('#akun_piutang').val(result.data[0].akun_piutang);
+                    getLabelAkun(result.data[0].akun_piutang);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
