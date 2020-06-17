@@ -131,7 +131,7 @@ class AuthController extends Controller
             $response_data = $response->getBody()->getContents();
             
             $data = json_decode($response_data,true);
-            $daftar_menu = $data['success']['data'];
+            $daftar_menu = $data['data'];
             if(count($daftar_menu) > 0){
                 
                 $pre_prt = 0;
