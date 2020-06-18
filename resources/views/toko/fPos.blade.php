@@ -152,7 +152,6 @@
                             <div class="col-9">
                                 <select class='form-control' id='modal-edit-kode' readonly>
                                     <option value=''>--- Pilih Barang ---</option>
-                                    
                                 </select>
                             </div>
                         </div>
@@ -254,8 +253,47 @@
 <script type="text/javascript">
     var $dtBrg = new Array();
     var $dtBrg2 = new Array();
+    var $no_open = "";
     $('#kd-barang2').focus();
     $('#area_print').hide();
+
+    document.onkeyup = function(e) {
+        if (e.ctrlKey && e.which == 66) {
+            $('#kd-barang2').focus();
+        }
+        if (e.ctrlKey && e.which == 67) {
+            $('#kd-barang-selectized').focus();
+        }
+        if (e.which == 118) {
+            // $('.inp-qtyb').prop('readonly');
+            $('.inp-qtyb').prop('readonly', false);
+            $('.inp-qtyb').first().focus();
+            $('.inp-qtyb').first().select();
+        }
+        if (e.which == 112) {
+            $('#kd-barang2').focus();
+        }
+        if (e.which == 119) {
+            $('#tobyr').focus();
+        }
+    };
+
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+
+    $('#modal-edit-kode').selectize({
+        selectOnTab: true,
+        onChange: function (){
+        var id = $('#modal-edit-kode').val();
+            setHarga(id);
+        }
+    });
 
     $('#kd-barang').selectize({
         selectOnTab:true,
@@ -293,13 +331,17 @@
             async: false,
             success: function(result) {
                 if(result.status) {
+                    var select = $('#modal-edit-kode').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+
                     var select2 = $('#kd-barang').selectize();
                     select2 = select2[0];
                     var control2 = select2.selectize;
                     control2.clearOptions();
 
                     for(i=0;i<result.daftar.length;i++){
-                        // control.addOption([{text:result.daftar[i].kode_barang + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
+                        control.addOption([{text:result.daftar[i].kode_barang + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
                         control2.addOption([{kd_barang:result.daftar[i].kode_barang, nama:result.daftar[i].nama,barcode:result.daftar[i].barcode}]);
                         $dtBrg[result.daftar[i].kode_barang] = {harga:result.daftar[i].hna};  
                         $dtBrg2[result.daftar[i].barcode] = {harga:result.daftar[i].hna,nama:result.daftar[i].nama,kd_barang:result.daftar[i].kode_barang};
@@ -333,6 +375,7 @@
             async: false,
             success: function(result) {
                 if(result.status) {
+                    $no_open = result.data.no_open;
                     $('#no_open').text(result.data.no_open)
                 }
             }
@@ -341,11 +384,93 @@
     getNoOpen();
     getBarang();
 
+    function hitungKembali(){
+        var total_stlh = toNilai($('#tostlh').val());
+        var total_bayar = toNilai($('#tobyr').val());
+        if(total_bayar > 0 ){
+            kembalian = +total_bayar - +total_stlh;
+            if(kembalian < 0) kembalian = 0;  
+            $("#kembalian").val(toRp(kembalian));
+        }
+    }
+
+    function hitungDisc(){
+        var total_trans = toNilai($('#totrans').val());
+        var total_disk= toNilai($('#todisk').val());
+        var total_stlh = +total_trans - +total_disk;
+        $('#tostlh').val(toRp(total_stlh));
+        var total_bayar = toNilai($('#tobyr').val());
+        if(total_bayar > 0 ){
+            kembalian = +total_bayar - +total_stlh;  
+            if(kembalian < 0) kembalian = 0; 
+            $("#kembalian").val(toRp(kembalian));
+        }
+    }
+
+    function hitungTotal(){
+        
+        // hitung total barang
+        if($('#todisk').val() == ""){
+            
+            $('#todisk').val(0);
+        }
+        var total_brg = 0;
+        var diskon =  0;
+        $('.row-barang').each(function(){
+            var qtyb = $(this).closest('tr').find('.inp-qtyb').val();
+            var hrgb = $(this).closest('tr').find('.inp-hrgb').val();
+            var disc = $(this).closest('tr').find('.inp-disc').val();
+            //var todis= (toNilai(hrgb) * toNilai(disc)) / 100
+            // var subb = (+qtyb * toNilai(hrgb)) - disc;
+            diskon += +toNilai(disc);
+            var subb = (+qtyb * toNilai(hrgb));
+            $(this).closest('tr').find('.inp-subb').val(toRp(subb));
+            total_brg += +subb;
+        });
+        $('#totrans').val(toRp(total_brg));
+        $('#todisk').val(toRp(diskon));
+
+        var total_disk= toNilai($('#todisk').val());
+        var total_stlh = +total_brg - +total_disk;
+        
+        $('#tostlh').val(toRp(total_stlh));
+        var total_bayar = toNilai($('#tobyr').val());
+        // alert(total_bayar);
+        if(total_bayar > 0 ){
+            if(kembalian < 0) kembalian = 0;
+            kembalian = +total_bayar - +total_stlh;
+            // alert(total_trans);
+        
+            $("#kembalian").val(toRp(kembalian));
+        }
+        
+    }
+    var count= 0;
+
     function toRp(num){
         if(num < 0){
             return "("+sepNum(num * -1)+")";
         }else{
             return sepNum(num);
+        }
+    }
+
+    function setHarga(id){
+        if(id == '' || id == null){
+            $('#qty-barang').val('');
+            $('#hrg-barang').val('');
+        }else{
+            $.ajax({
+                url: "{{url('toko-master/barang')}}/"+id,
+                type: "GET",
+                dataType: "json",
+                async: false,
+                success: function (result) {
+                    harga = result.daftar.hna;
+                    $('#modal-edit-harga').val(harga);
+                }
+            });
+            $('#modal-edit-qty').focus();
         }
     }
 
@@ -364,6 +489,115 @@
         // number = number.replace(',', '.');
         return +number;
     };
+
+    function setHarga3(id){ 
+        if (id != ""){
+            return $dtBrg2[id].harga;  
+        }else{
+            return "";
+        }
+    };
+
+    function getKode(id){ 
+        if (id != ""){
+            return $dtBrg2[id].kd_barang;  
+        }else{
+            return "";
+        }
+    };
+
+    function setNama(id){
+        if (id != ""){
+            return $dtBrg2[id].nama;  
+        }else{
+            return "";
+        }
+    };
+
+    function hapusBarang(rowindex){
+        $("#input-grid2 tr:eq("+rowindex+")").remove();
+        hitungTotal();
+    }
+
+    function ubahBarang(rowindex){
+        $('.row-barang').removeClass('set-selected');
+        $("#input-grid2 tr:eq("+rowindex+")").addClass('set-selected');
+
+        var kd = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-kdb').val();
+        var qty = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-qtyb').val();
+        var harga = toNilai($("#input-grid2 tr:eq("+rowindex+")").find('.inp-hrgb').val());    
+        var disc = $("#input-grid2 tr:eq("+rowindex+")").find('.inp-disc').val();
+
+        $('#modal-edit-kode')[0].selectize.setValue(kd);
+        $('#modal-edit-kode').val(kd);
+        $('#modal-edit-qty').val(qty);
+        $('#modal-edit-harga').val(harga);
+        $('#modal-edit-disc').val(disc);
+        
+        $('#modal-edit').modal('show');
+        var selectKode = $('#modal-edit-kode').data('selectize');
+        selectKode.disable();
+        $('.gridexample').formNavigation();
+
+    }
+
+    function addBarangBarcode(){
+        var kd1 = $('#kd-barang2').val();
+        var qty1 = 1;
+        var disc1 = 0;
+        var hrg1 = setHarga3(kd1);
+        var kd=getKode(kd1);
+        var nama = kd+"-"+setNama(kd1);
+        // || +qty1 <= 0 || +hrg1 <= 0
+        if(kd1 == '' || +hrg1 <= 0){
+            alert('Masukkan data barang yang valid');
+        }else{
+            // var kd = $('#kd-barang2').val();
+            
+            // var nama = $('#kd-barang option:selected').text();
+            var qty = qty1;
+            var hrg = hrg1;
+            var disc = disc1;
+            // var todis= (hrg * disc) / 100
+            var sub = (+qty * +hrg) - disc;
+            // var sub = +qty * +hrg;
+            
+            // cek barang sama
+            $('.row-barang').each(function(){
+                var kd_temp = $(this).closest('tr').find('.inp-kdb').val();
+                var qty_temp = $(this).closest('tr').find('.inp-qtyb').val();
+                var hrg_temp = $(this).closest('tr').find('.inp-hrgb').val();
+                var disc_temp = $(this).closest('tr').find('.inp-disc').val();
+                if(kd_temp == kd){
+                    qty+=+(toNilai(qty_temp));
+                    // hrg+=+(toNilai(hrg_temp));
+                    disc+=+(toNilai(disc_temp));
+                    //todis+=+(hrg*toNilai(disc_temp))/100;
+                    sub=(hrg*qty)-disc;
+                    $(this).closest('tr').remove();
+                }
+            });
+            
+            input = "<tr class='row-barang'>";
+            input += "<td width='30%'>"+nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+kd+"' readonly required></td>";
+            input += "<td width='20%' style='text-align:right'><input type='text' name='harga_barang[]' class='change-validation inp-hrgb form-control'  value='"+toRp(hrg)+"' readonly required></td>";
+            input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
+            input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
+            input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+disc+"' readonly required></td>";
+            input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:8px'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+            input += "</tr>";
+            
+            $("#input-grid2").append(input);
+            
+            hitungTotal();
+            
+            $('#kd-barang2').val('');
+            $("#input-grid2 tr:last").focus();
+            $('#kd-barang2').focus();
+            $('.gridexample').formNavigation();
+            
+        }
+    }
 
     function addBarangSelect() {
         var barangSelect = $('#kd-barang')[0].selectize.getValue();
@@ -417,6 +651,7 @@
                     input += "</tr>";
                     
                     $("#input-grid2").append(input);
+                    hitungTotal();
                     $('#kd-barang')[0].selectize.setValue('');
                     $("#input-grid2 tr:last").focus();
                     $('.gridexample').formNavigation();
@@ -424,6 +659,222 @@
             });
         }
 
-    }   
+    }
+
+    $('#edit-submit').click(function(e){
+        e.preventDefault();
+        
+        var hrg = toNilai($('#modal-edit-harga').val());
+        var qty = toNilai($('#modal-edit-qty').val());
+        var disc = toNilai($('#modal-edit-disc').val());
+        var kd = $('#modal-edit-kode option:selected').val();
+        var nama = $('#modal-edit-kode option:selected').text();
+        var sub = (+qty * +hrg);
+        var tgl = "{{date('Y-m-d')}}";
+
+            $.ajax({
+                type:'GET',
+                url:"{{url('toko-trans/penjualan-bonus')}}/"+kd+"/"+tgl+"/"+qty+"/"+hrg,
+                dataType: 'json',
+                async:false,
+                success: function(result) {
+                    qty=result.data.jumlah;
+                    disc=result.data.diskon;
+                    sub = (hrg*qty);
+
+                    input = "<tr class='row-barang'>";
+                    input += "<td width='30%'>"+nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+kd+"' readonly required></td>";
+                    input += "<td width='20%' style='text-align:right'><input type='text' name='harga_barang[]' class='change-validation inp-hrgb form-control'  value='"+toRp(hrg)+"' readonly required></td>";
+                    input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
+                    input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
+                    input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
+                    input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:8px'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+                    input += "</tr>";
+                    
+                    $('.set-selected').closest('tr').remove();
+                    $("#input-grid2").append(input);
+                    hitungTotal();    
+                    $('.gridexample').formNavigation();
+                    $('#modal-edit').modal('hide');
+                }
+            });
+    });
+
+    $('#kd-barang2').scannerDetection({
+        timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+        avgTimeByChar: 40, // it's not a barcode if a character takes longer than 100ms
+        preventDefault: true,
+        endChar: [13],
+        onComplete: function(barcode, qty){
+        validScan = true;
+            $('#kd-barang2').val (barcode);
+            addBarangBarcode();
+        },
+        onError: function(string, qty) {
+            console.log('barcode-error');
+        }	
+    });
+
+    $('#cetakBtn').click(function(){
+        var no_jual = $('#modal-no_jual').text();      
+    }); 
+
+    $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
+        if (e.which == 9 || e.which == 40 || e.which == 38) {
+            hitungTotal();   
+        }else if(e.which == 13){
+            hitungTotal();
+            $('.inp-qtyb').prop('readonly', true);
+        }
+    });
+
+    $('#web-form-pos').on('click', '#edit-qty', function(e){
+       $('.inp-qtyb').prop('readonly', false);
+       $('.inp-qtyb').first().focus();
+       $('.inp-qtyb').first().select(); 
+    });  
+
+    $('#web-form-pos').on('click', '#pbyr', function(e){
+       $('#tobyr').focus(); 
+    });
+
+    $('#tobyr').change(function(){
+        hitungKembali();
+    });
+
+    $('#btn-ok').click(function(){
+        var tot = toNilai($('#inp-byr').val());
+        $('#tobyr').val(toRp(tot));
+        hitungTotal();
+        $('#modal-bayar').modal('hide');
+        $('#inp-byr').val(0);
+        $('#param').val('');
+    });
+
+    $('#kembalian').keydown(function(e){
+        var value = String.fromCharCode(e.which) || e.key;
+        
+        if (e.key == 'ArrowUp') {
+            e.preventDefault();
+            $('#tobyr').focus();
+        }
+    });
+
+    $('#btn-byr').click(function(){
+        $('#modal-bayar').modal('show');
+    });
+
+    $("#input-grid2").on("dblclick", '.row-barang',function(){
+        var index = $(this).closest('tr').index();
+        ubahBarang(index);
+    });
+
+    $("#input-grid2").on("click", '.ubah-barang', function(){
+        var index = $(this).closest('tr').index();
+        ubahBarang(index);
+    });
+    
+    $("#input-grid2").on("click", '.hapus-item', function(){
+        var index = $(this).closest('tr').index();
+        hapusBarang(index);
+    });
+
+        // Simpan Penjualan
+    $('#web-form-pos').submit(function(e){
+        e.preventDefault();
+        var totrans=toNilai($('#totrans').val());
+        var todisk=toNilai($('#todisk').val());
+        var tostlh=toNilai($('#tostlh').val());
+        var tobyr=toNilai($('#tobyr').val());
+        var kembalian=tobyr-tostlh;
+            if(totrans <= 0){
+                alert('Total transaksi tidak valid');
+            }
+            else if(tobyr <= 0){
+                alert('Total bayar tidak valid');
+            }
+            else if(kembalian < 0){
+                alert('Total Bayar kurang dari Total Transaksi');
+            }else if($no_open == ""){
+                alert('Anda belum melakukan open kasir!');
+            }else{
+                var formData = new FormData(this);
+                formData.append('no_open', $no_open);
+                for(var pair of formData.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url('toko-trans/penjualan')}}",
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(result) {
+                        console.log(result);
+                        if(result.data.status){
+                            $('#modal-totrans').text(sepNum(totrans));
+                            $('#modal-diskon').text(sepNum(todisk)); 
+                            $('#modal-tostlhdisk').text(sepNum(tostlh));
+                            $('#modal-tobyr').text(sepNum(tobyr));
+                            $('#modal-kembalian').text(sepNum(kembalian));
+                            $('#modal-no_jual').text(result.no_jual);
+                            $('#modal-bayar2').modal('show');
+                        } else if(!result.data.status && result.data.message === "Unauthorized"){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('/toko-auth/login') }}";
+                    }) 
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                }
+                });
+            }
+    });
+
+    $(document).on("keypress", '#modal-bayar2', function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            $('#cetakBtn').click();
+        }
+    });
+
+    $(document).on("keypress", 'form', function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            return false;
+        } 
+    });
+
+    $(':input[type="number"], .currency').on('keydown', function (e){
+        var value = String.fromCharCode(e.which) || e.key;
+        if (!/[0-9\.]/.test(value) //angka dan titik
+            && e.which != 190 // .
+            && e.which != 116 // F5
+            && e.which != 8   // backspace
+            && e.which != 9   // tab
+            && e.which != 13   // enter
+            && e.which != 46  // delete
+            && (e.which < 37 || e.which > 40) // arah 
+            && (e.keyCode < 96 || e.keyCode > 105) // dan angka dari numpad
+        ){
+            e.preventDefault();
+            return false;
+        }
+    });
 
 </script>
