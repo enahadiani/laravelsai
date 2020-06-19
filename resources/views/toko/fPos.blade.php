@@ -79,7 +79,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="col-md-6 mt-2 float-right">
+                                <div class="col-6 mt-2 float-right">
                                     <div class="form-group row">
                                          <label for="judul" class="col-4 col-form-label" style="font-size:16px">Pembayaran</label>
                                          <div class="col-6">
