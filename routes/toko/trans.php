@@ -12,3 +12,9 @@ Route::post('penjualan', 'Toko\PenjualanController@store');
 Route::get('open-kasir', 'Toko\OpenKasirController@index');
 Route::post('open-kasir', 'Toko\OpenKasirController@store');
 Route::put('open-kasir/{nik}/{no_open}', 'Toko\OpenKasirController@update');
+
+//Close Kasir //
+Route::get('close-kasir-new', 'Toko\CloseKasirController@indexNew');
+Route::get('close-kasir-finish', 'Toko\CloseKasirController@indexFinish');
+Route::get('close-kasir-detail/{no_open}', 'Toko\CloseKasirController@getData');
+Route::post('close-kasir', 'Toko\CloseKasirController@store');

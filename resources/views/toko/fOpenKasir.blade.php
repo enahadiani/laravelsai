@@ -78,13 +78,13 @@
                                     </div>
                             </div>
                             <div class="form-group row ">
-								    <label for="kode_klp" class="col-3 col-form-label">NIK Kasir</label>
+								    <label for="nik" class="col-3 col-form-label">NIK Kasir</label>
                                     <div class="col-3">
                                         <input class="form-control" type="text" placeholder="NIK Kasir" id="nik" name="nik" value="{{Session::get('userLog')}}" readonly>
                                     </div>
                             </div>
                             <div class="form-group row ">
-                                    <label for="nama" class="col-3 col-form-label">Saldo Awal</label>
+                                    <label for="saldo_awal" class="col-3 col-form-label">Saldo Awal</label>
                                     <div class="col-3">
                                         <input class="form-control currency" type="text" placeholder="Saldo Awal" id="saldo_awal" name="saldo_awal">
                                     </div>
