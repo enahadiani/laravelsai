@@ -66,9 +66,9 @@
                         <div class="card-body pt-0">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
-                                    <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                    <input class="form-control" type="hidden" id="id_edit" name="id_edit" value="-">
                                     <input type="hidden" id="method" name="_method" value="post">
-                                    <input type="hidden" id="id_data" name="id_data">
+                                    <input type="hidden" id="id_data" name="id_data" value="-">
                                 </div>
                             </div>
                                 <div class="form-group row ">
@@ -374,6 +374,9 @@
         $('#id_data').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
+        $('#id_edit').val('-');
+        $('#id_data').val('-');
+        $('#method').val('post');
         $('#no_paket').attr('readonly', false);
         $('#label_kode_produk').text('');
         $('#kode_curr').val('IDR');
@@ -471,13 +474,13 @@
         var inputJadwal = "";
         inputJadwal += "<tr class='row-jadwal'>";
         inputJadwal += "<td class='no-jadwal text-center'>"+noJadwal+"</td>";
-        inputJadwal += "<td><span class='td-tglplan tdtglplanke"+noJadwal+"'></span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+" hidden value='' required'/></td>";
-        inputJadwal += "<td><span class='td-tglakt tdtglaktke"+noJadwal+"'></span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+" hidden value='' required'/></td>";
-        inputJadwal += "<td><span class='td-hari tdharike"+noJadwal+"'></span><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+" hidden value='' required'/></td>";
-        inputJadwal += "<td><span class='td-qstd tdqstdke"+noJadwal+"'>0</span><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+" hidden' value='0' required /></td>";
-        inputJadwal += "<td><span class='td-qsemi tdqsemike"+noJadwal+"'>0</span><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+" hidden' value='0' required /></td>";
-        inputJadwal += "<td><span class='td-qeks tdqekske"+noJadwal+"'>0</span><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+" hidden' value='0' required /></td>";
-        inputJadwal += "<td><span class='td-id tdidke"+noJadwal+"'>"+noJadwal+"</span><input name='id[]' class='form-control inp-id idke"+noJadwal+" hidden' value='"+noJadwal+"' required /></td>";
+        inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+"' value='' required'/></td>";
+        inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+"' value='' required'/></td>";
+        inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+"' value='' required'/></td>";
+        inputJadwal += "<td><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+"' value='0' required /></td>";
+        inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='0' required /></td>";
+        inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='0' required /></td>";
+        inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+noJadwal+"' required /></td>";
         inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
         inputJadwal += "</tr>";
 
@@ -513,13 +516,13 @@
             var inputJadwal = "";
             inputJadwal += "<tr class='row-jadwal'>";
             inputJadwal += "<td class='no-jadwal text-center'>"+noJadwal+"</td>";
-            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+" hidden' value='"+tgl_plan+"' required></td>";
-            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+noJadwal+"'>"+tgl_plan+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+" hidden' value='"+tgl_akt+"' required></td>";
-            inputJadwal += "<td><span class='td-hari tdharike"+noJadwal+"'>"+hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+" hidden' value='"+hari+"' required/></td>";
-            inputJadwal += "<td><span class='td-qstd tdqstdke"+noJadwal+"'>"+qstd+"</span><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+" hidden' value='"+qstd+"' required /></td>";
-            inputJadwal += "<td><span class='td-qsemi tdqsemike"+noJadwal+"'>"+qsemi+"</span><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+" hidden' value='"+qsemi+"' required /></td>";
-            inputJadwal += "<td><span class='td-qeks tdqekske"+noJadwal+"'>"+qeks+"</span><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+" hidden' value='"+qeks+"' required /></td>";
-            inputJadwal += "<td><span class='td-id tdidke"+noJadwal+"'>"+id+"</span><input name='id[]' class='form-control inp-id idke"+noJadwal+" hidden' value='"+id+"' required /></td>";
+            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+noJadwal+" inp-tglplan tglplanke"+noJadwal+"' value='"+tgl_plan+"' required></td>";
+            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+noJadwal+" inp-tglakt tglaktke"+noJadwal+"' value='"+tgl_akt+"' required></td>";
+            inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+noJadwal+"' value='"+hari+"' required/></td>";
+            inputJadwal += "<td><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+"' value='"+qstd+"' required /></td>";
+            inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='"+qsemi+"' required /></td>";
+            inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='"+qeks+"' required /></td>";
+            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+id+"' required /></td>";
             inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             $('#input-jadwal tbody').append(inputJadwal);
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -547,106 +550,43 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-    $('#input-jadwal').on('click', 'td', function(){
-        var idx = $(this).index();
-        if(idx == 0){
-            return false;
-        }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
-                return false;            
-            }else{
-                $('#input-jadwal td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-        
-                var tgl_plan = $(this).parents("tr").find(".inp-tglplan").val();
-                var tgl_akt = $(this).parents("tr").find(".inp-tglakt").val();
-                var hari = $(this).parents("tr").find(".inp-hari").val();
-                var q_std = $(this).parents("tr").find(".inp-qstd").val();
-                var q_semi = $(this).parents("tr").find(".inp-qsemi").val();
-                var q_eks = $(this).parents("tr").find(".inp-qeks").val();
-                var id = $(this).parents("tr").find(".inp-id").val();
-                var no = $(this).parents("tr").find(".no-jadwal").text();
+    $('#input-jadwal').on('change', '.inp-tglplan', function(){
+        var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglplan").val();
+        if(tgl_plan == '' || tgl_plan == undefined) {
+            var date = new Date();
+            var bulan = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+            var tgl = date.getDate() + "/" + bulan + "/" + date.getFullYear();
+            $('#input-jadwal tbody tr').find(".inp-tglplan").val(tgl);
+        }
+    });
 
-                $(this).parents("tr").find(".inp-tglplan").val(tgl_plan);
-                $(this).parents("tr").find(".td-tglplan").text(tgl_plan);
-                if(idx == 1){
-                    $(this).parents("tr").find(".inp-tglplan").show();
-                    $(this).parents("tr").find(".td-tglplan").hide();
-                    $(this).parents("tr").find(".inp-tglplan").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-tglplan").hide();
-                    $(this).parents("tr").find(".td-tglplan").show();
-                }
-        
-                $(this).parents("tr").find(".inp-tglakt").val(tgl_akt);
-                $(this).parents("tr").find(".td-tglakt").text(tgl_akt);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-tglakt").show();
-                    $(this).parents("tr").find(".td-tglakt").hide();
-                    $(this).parents("tr").find(".inp-tglakt").focus();
+    $('#input-jadwal').on('blur', '.inp-tglplan', function(){
+        var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglplan").val();
+        if(tgl_plan == '' || tgl_plan == undefined) {
+            var date = new Date();
+            var bulan = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+            var tgl = date.getDate() + "/" + bulan + "/" + date.getFullYear();
+            $('#input-jadwal tbody tr').find(".inp-tglplan").val(tgl);
+        }
+    });
 
-                }else{
-                    $(this).parents("tr").find(".inp-tglakt").hide();
-                    $(this).parents("tr").find(".td-tglakt").show();
-                }
-        
-                $(this).parents("tr").find(".inp-hari").val(hari);
-                $(this).parents("tr").find(".td-hari").text(hari);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-hari").show();
-                    $(this).parents("tr").find(".td-hari").hide();
-                    $(this).parents("tr").find(".inp-hari").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-hari").hide();
-                    $(this).parents("tr").find(".td-hari").show();
-                }
+        $('#input-jadwal').on('change', '.inp-tglakt', function(){
+        var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglakt").val();
+        if(tgl_plan == '' || tgl_plan == undefined) {
+            var date = new Date();
+            var bulan = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+            var tgl = date.getDate() + "/" + bulan + "/" + date.getFullYear();
+            $('#input-jadwal tbody tr').find(".inp-tglakt").val(tgl);
+        }
+    });
 
-                $(this).parents("tr").find(".inp-qstd").val(q_std);
-                $(this).parents("tr").find(".td-qstd").text(q_std);
-                if(idx == 4){
-                    $(this).parents("tr").find(".inp-qstd").show();
-                    $(this).parents("tr").find(".td-qstd").hide();
-                    $(this).parents("tr").find(".inp-qstd").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-qstd").hide();
-                    $(this).parents("tr").find(".td-qstd").show();
-                }
-
-                $(this).parents("tr").find(".inp-qsemi").val(q_semi);
-                $(this).parents("tr").find(".td-qsemi").text(q_semi);
-                if(idx == 5){
-                    $(this).parents("tr").find(".inp-qsemi").show();
-                    $(this).parents("tr").find(".td-qsemi").hide();
-                    $(this).parents("tr").find(".inp-qsemi").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-qsemi").hide();
-                    $(this).parents("tr").find(".td-qsemi").show();
-                }
-
-                $(this).parents("tr").find(".inp-qeks").val(q_eks);
-                $(this).parents("tr").find(".td-qeks").text(q_eks);
-                if(idx == 6){
-                    $(this).parents("tr").find(".inp-qeks").show();
-                    $(this).parents("tr").find(".td-qeks").hide();
-                    $(this).parents("tr").find(".inp-qeks").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-qeks").hide();
-                    $(this).parents("tr").find(".td-qeks").show();
-                }
-
-                $(this).parents("tr").find(".inp-id").val(id);
-                $(this).parents("tr").find(".td-id").text(id);
-                if(idx == 7){
-                    $(this).parents("tr").find(".inp-id").show();
-                    $(this).parents("tr").find(".td-id").hide();
-                    $(this).parents("tr").find(".inp-id").focus();
-                    
-                }else{
-                    $(this).parents("tr").find(".inp-id").hide();
-                    $(this).parents("tr").find(".td-id").show();
-                }
-
-            }
+    $('#input-jadwal').on('blur', '.inp-tglakt', function(){
+        var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglakt").val();
+        if(tgl_plan == '' || tgl_plan == undefined) {
+            var date = new Date();
+            var bulan = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+            var tgl = date.getDate() + "/" + bulan + "/" + date.getFullYear();
+            $('#input-jadwal tbody tr').find(".inp-tglakt").val(tgl);
         }
     });
 
@@ -832,6 +772,10 @@
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
+            if(pair[1] == '' || pair[1] == null) {
+                alert('Form tidak boleh ada yang kosong!')
+                break;
+            }
         }
         
         $.ajax({
@@ -1016,13 +960,13 @@
 
                             inputJadwal += "<tr class='row-jadwal'>";
                             inputJadwal += "<td class='no-jadwal text-center'>"+nomor+"</td>";
-                            inputJadwal += "<td><span class='td-tglplan tdtglplanke"+nomor+"'>"+berangkat+"</span><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+" hidden' value='"+berangkat+"' required></td>";
-                            inputJadwal += "<td><span class='td-tglakt tdtglaktke"+nomor+"'>"+datang+"</span><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+" hidden' value='"+datang+"' required></td>";
-                            inputJadwal += "<td><span class='td-hari tdharike"+nomor+"'>"+lineJadwal.lama_hari+"</span><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+" hidden' value='"+lineJadwal.lama_hari+"' required></td>";
-                            inputJadwal += "<td><span class='td-qstd tdqstdke"+nomor+"'>"+parseFloat(lineJadwal.quota)+"</span><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
-                            inputJadwal += "<td><span class='td-qsemi tdqsemike"+nomor+"'>"+parseFloat(lineJadwal.quota_se)+"</span><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
-                            inputJadwal += "<td><span class='td-qeks tdqekske"+nomor+"'>"+parseFloat(lineJadwal.quota_e)+"</span><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+" hidden' value='"+parseFloat(lineJadwal.quota_e)+"' required></td>";
-                            inputJadwal += "<td><span class='td-id tdidke"+nomor+"'>"+lineJadwal.no_jadwal+"</span><input name='id[]' class='form-control inp-id idke"+nomor+" hidden' value='"+lineJadwal.no_jadwal+"' required /></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+"' value='"+berangkat+"' required></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+"' value='"+datang+"' required></td>";
+                            inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+"' value='"+lineJadwal.lama_hari+"' required></td>";
+                            inputJadwal += "<td><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+"' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
+                            inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+"' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
+                            inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+"' value='"+parseFloat(lineJadwal.quota_e)+"' required></td>";
+                            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+nomor+"' value='"+lineJadwal.no_jadwal+"' required /></td>";
                             inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
                             
                             nomor++
