@@ -5,7 +5,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Daftar Pembelian 
-                            <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
                         <div class="table-responsive ">
