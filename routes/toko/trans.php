@@ -20,5 +20,6 @@ Route::get('close-kasir-detail/{no_open}', 'Toko\CloseKasirController@getData');
 Route::post('close-kasir', 'Toko\CloseKasirController@store');
 
 // Pembelian Routes //
+Route::get('pembelian', 'Toko\PembelianController@index');
 Route::get('pembelian-barang', 'Toko\PembelianController@getBarang');
 Route::post('pembelian', 'Toko\PembelianController@store');
