@@ -61,6 +61,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapDagoRoutes();
         
         $this->mapTokoRoutes();
+
+        $this->mapRtrwRoutes();
         //
     }
 
@@ -197,5 +199,17 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/toko/report.php'));
    
+    }
+
+    protected function mapRtrwRoutes()
+    {
+        Route::prefix('rtrw-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rtrw/auth.php'));
+        Route::prefix('rtrw-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rtrw/master.php'));
     }
 }
