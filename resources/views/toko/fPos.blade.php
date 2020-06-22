@@ -814,7 +814,6 @@
                     cache: false,
                     processData: false,
                     success: function(result) {
-                        console.log(result);
                         if(result.data.status){
                             $('#modal-totrans').text(sepNum(totrans));
                             $('#modal-diskon').text(sepNum(todisk)); 
