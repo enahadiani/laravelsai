@@ -194,6 +194,7 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#detBayar" role="tab" aria-selected="true"><span class="hidden-xs-down">Detail Pembayaran</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#detBiaya" role="tab" aria-selected="true"><span class="hidden-xs-down">Detail Biaya</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#detHis" role="tab" aria-selected="true"><span class="hidden-xs-down">History Pembayaran</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#detKurs" role="tab" aria-selected="true"><span class="hidden-xs-down">Kalkulator Kurs</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border" style='margin-bottom:30px'>
                                 <div class="tab-pane active" id="detBayar" role="tabpanel">
@@ -214,11 +215,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="kode_curr" class="col-3 col-form-label">Curr</label>
+                                        <div class="col-3">
+                                        <input class="form-control" type="text" id="kode_curr" name="kode_curr" readonly>
+                                        </div>
+
+                                        <label for="kurs" class="col-3 col-form-label">Kurs</label>
+                                        <div class="col-3">
+                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label for="saldo_paket" class="col-3 col-form-label">Saldo Paket + Room</label>
                                         <div class="col-3">
                                         <input class="form-control currency" type="text" value="0" readonly id="saldo_paket" name="saldo_paket">
                                         </div>
-                                        <label for="bayar_paket currency" class="col-3 col-form-label">Bayar Paket Curr</label>
+                                        <label for="bayar_paket" class="col-3 col-form-label">Bayar Paket Curr</label>
                                         <div class="col-3">
                                         <input class="form-control currency " readonly type="text" value="0" id="bayar_paket" name="bayar_paket">
                                         </div>
@@ -301,6 +313,27 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="detKurs" role="tabpanel">
+                                    <div class="form-group row mt-2">
+                                        <label for="jenis_bayar" class="col-3 col-form-label">Bayar</label>
+                                        <div class="col-3">
+                                            <select class='form-control selectize' id="jenis_bayar" name="jenis_bayar">
+                                                <option value='' disabled>--- Pilih ---</option>
+                                                <option value='PAKET'>PAKET</option>
+                                                <option value='ROOM'>ROOM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="konversi" class="col-3 col-form-label">IDR --> USD</label>
+                                        <div class="col-3">
+                                            <input class="form-control currency" type="text" value="0" id="konversi" name="konversi">
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="btn btn-info" id="konversi_btn" href="#">Konversi</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -343,6 +376,12 @@
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
+        return num;
+    }
+
+    function format_number2(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum(num);
         return num;
     }
 
@@ -614,6 +653,46 @@
         });
     }
 
+    function getKurs(curr){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/pembayaran-kurs') }}",
+            dataType: 'json',
+            data:{'kode_curr':curr},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.kurs !== 'undefined'){
+                        $('#kurs').val(format_number(result.kurs));
+                    }else{
+                        $('#kurs').val(1);
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    $('#kurs').val(1);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
     // getRekBank();
     $('.selectize').selectize();
 
@@ -632,6 +711,10 @@
                 total_d += +toNilai(nilai);
             }else{
                 total_p += +toNilai(nilai);
+                
+                console.log(nilai);
+                console.log(toNilai(nilai));
+                console.log(total_p);
             }
         });
 
@@ -640,8 +723,38 @@
         $('#bayar_paket').val(total_p);
         var total =toNilai($('#bayar_paket').val()) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
         total = Math.round(total);
+        console.log(total_t);
         $('#total_bayar').val(total);
         
+    }
+
+    function konversiKurs(){
+
+        var kurs = toNilai($('#kurs').val());
+        var konversi = toNilai($('#konversi').val());
+        var hasil = konversi/kurs;
+        hasil = Math.round(hasil * 100) / 100;
+        var jenis = $('#jenis_bayar').val();
+        if(jenis == "PAKET"){
+            var saldo = toNilai($("[value=PAKET]").closest('tr').find('.inp-saldo_det').val());
+            if(hasil <= saldo){
+                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+            }else{
+                alert('Nilai bayar melebihi saldo Paket');
+            }
+            console.log(saldo);
+        }else if(jenis == "ROOM"){
+            var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
+            if(hasil <= saldo){
+                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+            }else{
+                alert('Nilai bayar melebihi saldo Room');
+            }
+        }
     }
 
     $('.currency').inputmask("numeric", {
@@ -666,6 +779,10 @@
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
+    });
+
+    $('#form-tambah').on('click', '#konversi_btn', function(){
+        konversiKurs();
     });
 
     $('#form-tambah').on('change', '#kode_akun', function(){
@@ -772,6 +889,12 @@
         $('#slide-print').hide();
     });
 
+    $('#kode_curr').on('change', function(){
+        var kode_curr = $(this).val();
+        getKurs(kode_curr);
+        
+    });
+
     $('#saiweb_container').on('click', '.web_datatable_bayar', function(){
                       // getset value
         var kode = $(this).closest('tr').find('td:eq(0)').text();
@@ -791,6 +914,8 @@
                     $('#no_bukti').val('');
                     $('#no_reg').val(line.no_reg);
                     $('#nama').val(line.nama);
+                    $('#kode_curr').val(line.kode_curr);
+                    $('#kode_curr').trigger('change');
                     $('#tgl_berangkat').val(line.tgl_berangkat);						
                     $('#paket').val(line.paket);
                     var hargapaket = parseFloat(line.harga_tot);

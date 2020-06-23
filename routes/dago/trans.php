@@ -50,6 +50,7 @@ Route::put('pembayaran','Dago\PembayaranController@update');
 Route::delete('pembayaran','Dago\PembayaranController@destroy');
 Route::get('pembayaran-rekbank','Dago\PembayaranController@getRekBank');
 Route::get('pembayaran-preview','Dago\PembayaranController@getPreview');
+Route::get('pembayaran-kurs','Dago\PembayaranController@getKurs');
 
 //UploadDok
 Route::get('upload-dok','Dago\UploadDokController@index');

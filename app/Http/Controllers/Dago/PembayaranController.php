@@ -62,6 +62,38 @@ class PembayaranController extends Controller
         }
     }
 
+    public function getKurs(Request $request){
+        $this->validate($request,[
+            'kode_curr' => 'required'
+        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'pembayaran-kurs',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'kode_curr' => $request->kode_curr
+                ]
+
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["kurs"];
+            }
+            return response()->json(['kurs' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getRegistrasi(){
         try {
             $client = new Client();
