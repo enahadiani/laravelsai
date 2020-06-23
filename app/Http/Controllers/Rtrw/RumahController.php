@@ -30,14 +30,22 @@ class RumahController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
+            if(isset($request->blok)){
+                $query = [
+                    'blok' => $request->blok
+                ];
+            }else{
+                $query = [];
+            }
             $response = $client->request('GET', $this->link.'rumah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $query
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
