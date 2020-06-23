@@ -161,7 +161,7 @@
                             <div class="form-group row">
                                 <label for="kode_akun" class="col-3 col-form-label">Rekening Kas Bank</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" required>
+                                    <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" >
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
@@ -201,7 +201,7 @@
                                     <div class="form-group row mt-2">
                                         <label for="deskripsi" class="col-3 col-form-label">Deskripsi</label>
                                         <div class="col-9">
-                                        <input class="form-control" type="text" id="deskripsi" name="deskripsi" required>
+                                        <input class="form-control" type="text" id="deskripsi" name="deskripsi">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -386,6 +386,9 @@
     }
 
     var $iconLoad = $('.preloader');
+    var $kurs_closing = 1;
+    var $akunTambah = "-";
+    var $akunDokumen = "-";
     var action_html = "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
     var action_html2 = "<a href='#' title='Edit' class='badge badge-info web_datatable_edit' ><i class='fas fa-pencil-alt'></i>&nbsp; Edit</a>";
     var dataTable = $('#table-new').DataTable({
@@ -701,6 +704,7 @@
         var total_t = 0;
         var total_d = 0;
         var total_p = 0;
+        var kurs = toNilai($('#kurs').val());
 
         $('.row-biaya').each(function(){
             var jenis = $(this).closest('tr').find('.inp-jenis_biaya').val();
@@ -711,19 +715,14 @@
                 total_d += +toNilai(nilai);
             }else{
                 total_p += +toNilai(nilai);
-                
-                console.log(nilai);
-                console.log(toNilai(nilai));
-                console.log(total_p);
             }
         });
 
         $('#bayar_tambahan').val(total_t);
         $('#bayar_dok').val(total_d);
-        $('#bayar_paket').val(total_p);
-        var total =toNilai($('#bayar_paket').val()) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+        $('#bayar_paket').val(format_number2(total_p));
+        var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
         total = Math.round(total);
-        console.log(total_t);
         $('#total_bayar').val(total);
         
     }
@@ -743,8 +742,9 @@
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Paket');
+                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
-            console.log(saldo);
         }else if(jenis == "ROOM"){
             var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
@@ -753,6 +753,8 @@
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Room');
+                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }
     }
@@ -921,12 +923,12 @@
                     var hargapaket = parseFloat(line.harga_tot);
                     var akunTitip = line.kode_akun;
                     $('#akunTitip').val(akunTitip);
-                    var kurs_closing = parseFloat(line.kurs_closing);
+                    $kurs_closing = parseFloat(line.kurs_closing);
                     var diskon = parseFloat(line.diskon);
                     
                     if (line.no_closing != "-") {
-                        var akunDokumen = line.akun_piutang;
-                        var akunTambah = line.akun_piutang;
+                        $akunDokumen = line.akun_piutang;
+                        $akunTambah = line.akun_piutang;
                     }
 
                     if (res.data.detail_bayar.length){
@@ -1034,134 +1036,7 @@
       });
 
       
-    });
-    $('#saiweb_container').on('click', '.web_datatable_edit', function(){
-                          // getset value
-            var kode = $(this).closest('tr').find('td:eq(2)').text();
-            var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
-            $('#form-tambah')[0].reset();
-            $('#input-biaya tbody').html('');
-            $.ajax({
-              type: 'GET',
-              url: "{{ url('dago-trans/pembayaran-edit') }}",
-              dataType: 'json',
-              data: {'no_reg':kode,'no_bukti':no_bukti},
-              success:function(res){
-                  if(res.data.status){  
-                    if(res.data.data_jamaah.length > 0 ){
-                        var line = res.data.data_jamaah[0];
-                        $('#id_edit').val('edit');
-                        $('#no_reg').val(line.no_reg);
-                        $('#no_bukti').val(no_bukti);
-                        $('#nama').val(line.nama);
-                        $('#tgl_berangkat').val(line.tgl_berangkat);						
-                        $('#paket').val(line.paket);
-                        var hargapaket = parseFloat(line.harga_tot);
-                        var akunTitip = line.kode_akun;
-                        $('#akunTitip').val(akunTitip);
-                        var kurs_closing = parseFloat(line.kurs_closing);
-                        var diskon = parseFloat(line.diskon);
-                        
-                        if (line.no_closing != "-") {
-                            var akunDokumen = line.akun_piutang;
-                            var akunTambah = line.akun_piutang;
-                        }
-    
-                        if (res.data.detail_bayar.length){
-                            var line2 = res.data.detail_bayar[0];							
-                            if (line2 != undefined){										
-                                var bayarTambah = parseFloat(line2.tambahan);
-                                var bayarPaket = parseFloat(line2.paket);
-                                var bayarDok = parseFloat(line2.dokumen);					
-                            }
-                        }
-
-                        if (res.daftar4.length){
-                            var line4 = res.daftar4[0];							
-                            if (line4 != undefined){										
-                                $('#deskripsi').val(line4.keterangan);						
-                                $('#kode_akun')[0].selectize.setValue(line4.kode_akun);					
-                            }
-                        }
-                        var html='';
-                        if (res.data.detail_biaya.length){
-                            var no=1;
-                            for(var i=0;i< res.data.detail_biaya.length;i++){
-                                var line3 = res.data.detail_biaya[i];		
-                                
-                                var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);							
-                                html+=`<tr class='row-biaya'>
-                                    <td class='no-biaya'>`+no+`</td>
-                                    <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
-                                    <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
-                                    <td class='text-right'>`+format_number(line3.nilai)+`</td>
-                                    <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                    <td class='text-right'>`+format_number(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(trbyr)+`'></td>
-                                    <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
-                                    if(line3.kode_biaya == 'DISKON'){
-                                        html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' readonly class='form-control inp-nbiaya_bayar' value='0'></td>`;
-                                    }else{
-                                        if(line3.byr_e == "" || line3.byr_e == undefined){
-                                            line3.byr_e = 0;
-                                        }else{
-                                            line3.byr_e = line3.byr_e;
-                                        }
-                                        // console.log(line3.byr_e);
-                                        
-                                    html+=`
-                                    <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+format_number(line3.byr_e)+`'></td>`;
-                                    }
-                                    html+=`
-                                </tr>`;
-                                no++;
-                            }
-                            $('#input-biaya tbody').html(html);
-                            $('.inp-nbiaya_bayar').inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            hitungTotal();
-                            $('#input-biaya').on('change', '.inp-nbiaya_bayar', function(){
-                                var bayar = $(this).val();
-                                var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
-                                if(toNilai(bayar) > toNilai(saldo)){
-                                    $(this).val(0);
-                                    $(this).focus();
-                                    alert('nilai bayar tidak boleh melebihi saldo');
-                                }else{
-    
-                                    hitungTotal();
-                                }
-                            });
-    
-                        }
-    
-                        var saldo = hargapaket - bayarPaket;
-                        var saldot = parseFloat(res.totTambah) - bayarTambah - diskon;						 
-                        var saldom = parseFloat(res.totDok) - bayarDok;		
-                        
-                        
-    
-                        $('#saldo_paket').val(saldo);
-                        $('#saldo_biaya').val(saldot);
-                        $('#saldo_dok').val(saldom);         
-                        $('#web_datatable').hide();
-                        $('#saku-form').show();
-                    } 
-                  }
-              },
-              fail: function(xhr, textStatus, errorThrown){
-                  alert('request failed:');
-              }
-          });
-    
-    
-    });      
+    });     
    
     $('#saiweb_container').on('submit', '#form-tambah', function(e){
       e.preventDefault();
@@ -1172,6 +1047,9 @@
         var saldo_t = toNilai($('#saldo_biaya').val());
         var saldo_d = toNilai($('#saldo_dok').val());
         var total = toNilai($('#total_bayar').val());
+        var kurs = toNilai($('#kurs').val());
+        var kode_akun = $('#kode_akun').val();
+        var deskripsi = $('#deskripsi').val();
 
         if (nilai_p > saldo) {
             alert("Transaksi tidak valid. Nilai Bayar Paket melebihi Saldo Paket.");
@@ -1189,8 +1067,23 @@
             alert("Transaksi tidak valid. Total Bayar tidak boleh nol atau kurang");
             return false;						
         }	
+        if(kurs <= 0){
+            alert("Kurs tidak valid. Kurs tidak boleh nol atau kurang");
+            return false;	
+        }
+        if(kode_akun == ""){
+            alert("Transaksi tidak valid. Rekening kas tidak boleh kosong");
+            return false;	
+        }
+        if(deskripsi == ""){
+            alert("Transaksi tidak valid. Deskripsi tidak boleh kosong");
+            return false;	
+        }
 
         var formData = new FormData(this);        
+        formData.append('kurs_closing',$kurs_closing);
+        formData.append('akun_tambah',$akunTambah);
+        formData.append('akun_dokumen',$akunTambah);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }

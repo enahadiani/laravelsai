@@ -133,6 +133,11 @@ class PembayaranController extends Controller
             'deskripsi' => 'required',
             'kode_akun' => 'required',
             'akunTitip' => 'required',
+            'kode_curr' => 'required',
+            'kurs' => 'required',
+            'kurs_closing' => 'required',
+            'akun_tambah' => 'required',
+            'akun_dokumen' => 'required',
             'paket' => 'required',
             'tgl_berangkat' => 'required|date_format:Y-m-d',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
@@ -170,6 +175,11 @@ class PembayaranController extends Controller
                 'kode_pp' => Session::get('kodePP'),
                 'kode_akun' => $request->kode_akun,
                 'akun_titip' => $request->akunTitip,
+                'kode_curr' => $request->kode_curr,
+                'kurs' => $this->joinNum($request->kurs),
+                'kurs_closing' => $this->joinNum($request->kurs_closing),
+                'akun_tambah' => $request->akun_tambah,
+                'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
                 'tgl_berangkat' => $request->tgl_berangkat,
                 'status_bayar' => $request->status_bayar,
@@ -304,6 +314,11 @@ class PembayaranController extends Controller
             'deskripsi' => 'required',
             'kode_akun' => 'required',
             'akunTitip' => 'required',
+            'kode_curr' => 'required',
+            'kurs' => 'required',
+            'kurs_closing' => 'required',
+            'akun_tambah' => 'required',
+            'akun_dokumen' => 'required',
             'paket' => 'required',
             'tgl_berangkat' => 'required|date_format:Y-m-d',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
@@ -316,9 +331,8 @@ class PembayaranController extends Controller
             'kode_akunbiaya' => 'required|array',
             'nbiaya_bayar' => 'required|array'
         ]);
-
+            
         try{
-
             $biaya = array();
             if(isset($request->kode_biaya)){
                 $kode_biaya = $request->kode_biaya;
@@ -343,6 +357,11 @@ class PembayaranController extends Controller
                 'kode_pp' => Session::get('kodePP'),
                 'kode_akun' => $request->kode_akun,
                 'akun_titip' => $request->akunTitip,
+                'kode_curr' => $request->kode_curr,
+                'kurs' => $this->joinNum($request->kurs),
+                'kurs_closing' => $this->joinNum($request->kurs_closing),
+                'akun_tambah' => $request->akun_tambah,
+                'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
                 'tgl_berangkat' => $request->tgl_berangkat,
                 'status_bayar' => $request->status_bayar,
