@@ -130,6 +130,7 @@ class PembayaranController extends Controller
         $this->validate($request, [
             'tanggal' => 'required|date_format:Y-m-d',
             'no_reg' => 'required',
+            'nama' => 'required',
             'deskripsi' => 'required',
             'kode_akun' => 'required',
             'akunTitip' => 'required',
@@ -171,6 +172,7 @@ class PembayaranController extends Controller
             $fields = array (
                 'tanggal' => $request->tanggal,
                 'no_reg' => $request->no_reg,
+                'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
                 'kode_pp' => Session::get('kodePP'),
                 'kode_akun' => $request->kode_akun,
@@ -310,6 +312,7 @@ class PembayaranController extends Controller
         $this->validate($request, [
             'tanggal' => 'required|date_format:Y-m-d',
             'no_reg' => 'required',
+            'nama' => 'required',
             'no_bukti' => 'required',
             'deskripsi' => 'required',
             'kode_akun' => 'required',
@@ -352,6 +355,7 @@ class PembayaranController extends Controller
             $fields = array (
                 'tanggal' => $request->tanggal,
                 'no_reg' => $request->no_reg,
+                'nama' => $request->nama,
                 'no_bukti' => $request->no_bukti,
                 'deskripsi' => $request->deskripsi,
                 'kode_pp' => Session::get('kodePP'),
