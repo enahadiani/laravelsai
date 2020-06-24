@@ -671,6 +671,7 @@
         var total_t = 0;
         var total_d = 0;
         var total_p = 0;
+        var kurs = toNilai($('#kurs').val());
 
         $('.row-biaya').each(function(){
             var jenis = $(this).closest('tr').find('.inp-jenis_biaya').val();
@@ -686,7 +687,7 @@
 
         $('#bayar_tambahan').val(total_t);
         $('#bayar_dok').val(total_d);
-        $('#bayar_paket').val(total_p);
+        $('#bayar_paket').val(format_number2(total_p));
         var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
         total = Math.round(total);
         $('#total_bayar').val(total);
@@ -926,17 +927,22 @@
                                     html+=`
                                     <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                     }else{
+                                        
                                         if(line3.byr_e == "" || line3.byr_e == undefined){
                                             line3.byr_e = 0;
                                         }else{
                                             line3.byr_e = line3.byr_e;
                                         }
-                                        
-                                    // html+=`
-                                    // <td class='text-right'><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar' value='`+format_number(line3.byr_e)+`'></td>`;
 
-                                    html+=`
-                                    <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number(line3.byr_e)+`' ></td>`;
+                                        if(line3.kode_biaya == "PAKET" || line3.kode_biaya == "ROOM"){
+                                            html+=`
+                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number2(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number2(line3.byr_e)+`' ></td>`;
+                                        }else{
+                                            html+=`
+                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number(line3.byr_e)+`' ></td>`;
+                                            
+                                        }
+
                                     }
                                     html+=`
                                 </tr>`;
