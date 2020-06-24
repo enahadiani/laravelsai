@@ -534,7 +534,6 @@
         }else{
             return "";
         }
-    
     };
 
     function getPPN(){
@@ -692,6 +691,7 @@
             });
 
             var no = $('#input-grid2 tr:last').index()+1;
+            var input = "";
             
             input = "<tr class='row-barang'>";
             input += "<td width='5%' style='text-align:center' class='no-barang'>"+no+"</td>";
@@ -771,6 +771,7 @@
             });
 
             var no = $('#input-grid2 tr:last').index()+1;
+            var input = "";
             
             input = "<tr class='row-barang'>";
             input += "<td width='5%' style='text-align:center' class='no-barang'>"+no+"</td>";
