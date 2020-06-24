@@ -24,6 +24,11 @@ class JamaahController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -67,7 +72,7 @@ class JamaahController extends Controller
             'id_peserta' => 'required',
             'nama' => 'required',
             'tempat' => 'required',
-            'tgl_lahir' => 'required|date_format:Y-m-d',
+            'tgl_lahir' => 'required',
             'jk' => 'required|in:Perempuan,Laki-laki',
             'status' => 'required|in:-,Menikah,Belum Menikah',
             'ibu' => 'required',
@@ -83,8 +88,8 @@ class JamaahController extends Controller
             'cabang' => 'required',
             'namarek' => 'required',
             'nopass' => 'required',
-            'issued' => 'required|date_format:Y-m-d',
-            'ex_pass' => 'required|date_format:Y-m-d',
+            'issued' => 'required',
+            'ex_pass' => 'required',
             'kantor_mig' => 'required',
             'ec_telp' => 'required',
             'ec_hp' => 'required',
@@ -117,7 +122,14 @@ class JamaahController extends Controller
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen($image_path, 'r' ),
                     );
-                }else{
+                }
+                else if($name[$i] == "tgl_lahir" || $name[$i] == "issued" || $name[$i] == "ex_pass" ){
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->reverseDate($req[$name[$i]],'/','-'),
+                    );    
+                }
+                else{
                     $fields_data[$i] = array(
                         'name'     => $name[$i],
                         'contents' => $req[$name[$i]],
@@ -252,7 +264,7 @@ class JamaahController extends Controller
             'id_peserta' => 'required',
             'nama' => 'required',
             'tempat' => 'required',
-            'tgl_lahir' => 'required|date_format:Y-m-d',
+            'tgl_lahir' => 'required',
             'jk' => 'required|in:Perempuan,Laki-laki',
             'status' => 'required|in:-,Menikah,Belum Menikah',
             'ibu' => 'required',
@@ -268,8 +280,8 @@ class JamaahController extends Controller
             'cabang' => 'required',
             'namarek' => 'required',
             'nopass' => 'required',
-            'issued' => 'required|date_format:Y-m-d',
-            'ex_pass' => 'required|date_format:Y-m-d',
+            'issued' => 'required',
+            'ex_pass' => 'required',
             'kantor_mig' => 'required',
             'ec_telp' => 'required',
             'ec_hp' => 'required',
@@ -303,7 +315,14 @@ class JamaahController extends Controller
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen($image_path, 'r' ),
                     );
-                }else{
+                }
+                else if($name[$i] == "tgl_lahir" || $name[$i] == "issued" || $name[$i] == "ex_pass" ){
+                    $fields_data[$i] = array(
+                        'name'     => $name[$i],
+                        'contents' => $this->reverseDate($req[$name[$i]],'/','-'),
+                    );    
+                }
+                else{
                     $fields_data[$i] = array(
                         'name'     => $name[$i],
                         'contents' => $req[$name[$i]],
