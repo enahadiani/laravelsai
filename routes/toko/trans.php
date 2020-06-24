@@ -26,3 +26,10 @@ Route::post('pembelian', 'Toko\PembelianController@store');
 Route::put('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@update');
 Route::delete('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@delete');
 Route::get('pembelian-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@show');
+
+// Retur Pembelian //
+Route::post('retur-beli', 'Toko\ReturBeliController@store');
+Route::get('retur-beli-new', 'Toko\ReturBeliController@getNew');
+Route::get('retur-beli-finish', 'Toko\ReturBeliController@getFinish');
+Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@getBarang');
+Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@show');
