@@ -23,3 +23,6 @@ Route::post('close-kasir', 'Toko\CloseKasirController@store');
 Route::get('pembelian', 'Toko\PembelianController@index');
 Route::get('pembelian-barang', 'Toko\PembelianController@getBarang');
 Route::post('pembelian', 'Toko\PembelianController@store');
+Route::put('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@update');
+Route::delete('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@delete');
+Route::get('pembelian-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\PembelianController@show');
