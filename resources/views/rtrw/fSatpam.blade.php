@@ -274,7 +274,7 @@
     $('#saku-form').on('submit', '#form-tambah', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var id = $('#nik').val();
+        var id = $('#id_satpam').val();
         if(parameter == "edit"){
             var url = "{{ url('rtrw-master/satpam') }}/"+id;
             var pesan = "updated";
