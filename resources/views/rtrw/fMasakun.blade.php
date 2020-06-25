@@ -91,7 +91,7 @@
                 <div class="card">
                     <form class="form mb-5" id="form-tambah" >
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Masakun
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Data Master Akun
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -256,7 +256,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('dago-auth/login') }}";
+                        window.location.href = "{{ url('rtrw-auth/login') }}";
                     })
                     return [];
                 }

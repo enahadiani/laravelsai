@@ -56,3 +56,17 @@ Route::get('masakun-detail/{kode}','Rtrw\MasakunController@show');
 Route::post('masakun','Rtrw\MasakunController@store');
 Route::put('masakun/{kode}','Rtrw\MasakunController@update');
 Route::delete('masakun/{kode}','Rtrw\MasakunController@destroy');
+
+//Master Relasi
+Route::get('relakun-pp','Rtrw\RelakunPPController@index');
+Route::get('relakun-pp-detail/{kode}','Rtrw\RelakunPPController@show');
+Route::post('relakun-pp','Rtrw\RelakunPPController@store');
+Route::put('relakun-pp/{kode}','Rtrw\RelakunPPController@update');
+Route::delete('relakun-pp/{kode}','Rtrw\RelakunPPController@destroy');
+
+//Master Referensi
+Route::get('reftrans','Rtrw\ReferensiTransController@index');
+Route::get('reftrans-detail/{kode}','Rtrw\ReferensiTransController@show');
+Route::post('reftrans','Rtrw\ReferensiTransController@store');
+Route::put('reftrans/{kode}','Rtrw\ReferensiTransController@update');
+Route::delete('reftrans/{kode}','Rtrw\ReferensiTransController@destroy');
