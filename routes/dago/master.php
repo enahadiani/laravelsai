@@ -86,3 +86,9 @@ Route::delete('paket/{id}', 'Dago\PaketController@delete');
 Route::get('jadwal', 'Dago\JadwalController@index');
 Route::get('jadwal-detail/{id}', 'Dago\JadwalController@getData');
 Route::put('jadwal/{id}', 'Dago\JadwalController@update');
+
+//Kurs //
+Route::get('kurs', 'Dago\KursController@index');
+Route::post('kurs', 'Dago\KursController@store');
+Route::put('kurs/{id}', 'Dago\KursController@update');
+Route::delete('kurs/{id}', 'Dago\KursController@delete');
