@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 // Helper 
 Route::get('masakun-curr','Rtrw\HelperController@getCurr');
 Route::get('masakun-modul','Rtrw\HelperController@getModul');
+Route::get('reftrans-kode/{jenis}','Rtrw\HelperController@getRef');
 
 //Master Satpam
 Route::get('satpam','Rtrw\SatpamController@index');

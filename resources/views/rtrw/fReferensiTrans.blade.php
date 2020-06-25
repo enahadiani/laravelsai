@@ -1,12 +1,12 @@
 <div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
+        {{-- <div class="row" id="saku-datatable"> --}}
+        <div class="row" id="saku-datatable" style="display:none;">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Referensi Transaksi 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Pengajuan</h6> -->
                         <hr>
                         <div class="table-responsive ">
                             <style>
@@ -87,18 +87,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="saku-form" style="display:none;">
+        {{-- <div class="row" id="saku-form" style="display:none;"> --}}
+        <div class="row" id="saku-form">
             <div class="col-sm-12">
                 <div class="card">
                     <form class="form mb-5" id="form-tambah" >
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Data Master Akun
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Referensi Transaksi
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style='height:350px !important'>
+                        <div class="card-body pt-0" style='height:250px !important'>
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input type="hidden" id="id_edit" name="id_edit">
@@ -106,77 +107,61 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                            <div class="form-group row mt-3">   
-                                <label for="kode_akun" class="col-3 col-form-label">Kode Akun</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun">
-                                </div>
-                            </div>
-                            <div class="form-group row">   
-                                <label for="nama" class="col-3 col-form-label">Nama Akun</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Akun" id="nama" name="nama">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="curr" class="col-3 col-form-label">Currency</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="curr" id="curr" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_curr" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="modul" class="col-3 col-form-label">Modul</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="modul" id="modul" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_modul" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <label for="jenis" class="col-3 col-form-label">Jenis</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="jenis" name="jenis" required>
+                                    <select required class='form-control selectize' id="jenis" name="jenis" required>
                                     <option value=''>--- Pilih Jenis ---</option>
-                                    <option value='Neraca'>Neraca</option>
-                                    <option value='Pendapatan'>Pendapatan</option>
-                                    <option value='Beban'>Beban</option>
+                                    <option value='PENGELUARAN'>PENGELUARAN</option>
+                                    <option value='PEMASUKAN'>PEMASUKAN</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="block" class="col-3 col-form-label">Status Aktifasi</label>
+                            <div class="form-group row">   
+                                <label for="kode_ref" class="col-3 col-form-label">Kode Ref</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="block" name="block" required>
-                                    <option value=''>--- Pilih Status ---</option>
-                                    <option value='0'>AKTIF</option>
-                                    <option value='1'>BLOCK</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly>
+                                        <div class="input-group-append">
+                                            <button disabled="true" class="btn btn-info" id="getRef" type="button"><i class="mdi mdi-sync"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">   
+                                <label for="deskripsi" class="col-3 col-form-label">Deskripsi</label>
+                                <div class="col-7">
+                                    <input class="form-control" type="text" placeholder="Deskripsi" id="nama" name="nama" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="gar" class="col-3 col-form-label">Status Budget</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="gar" name="gar" required>
-                                    <option value=''>--- Pilih Status ---</option>
-                                    <option value='0'>0 - NON</option>
-                                    <option value='1'>1 - BUDGET</option>
-                                    </select>
+                                <label for="akun_debet" class="col-3 col-form-label">Akun Debet</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_debet" id="akun_debet" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_debet" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="normal" class="col-3 col-form-label">Normal Account</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="normal" name="normal" required>
-                                    <option value=''>--- Pilih Normal Account ---</option>
-                                    <option value='C'>C - Kredit</option>
-                                    <option value='D'>D - Debet</option>
-                                    </select>
+                                <label for="akun_kredit" class="col-3 col-form-label">Akun Kredit</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_kredit" id="akun_kredit" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_kredit" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_pp" class="col-3 col-form-label">Unit/PP</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -235,49 +220,74 @@
             }
         });
 
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('rtrw-master/reftrans') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('rtrw-auth/login') }}";
-                    })
-                    return [];
+        function getRef(jenis){
+                $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/reftrans-kode') }}/"+jenis,
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.daftar.status){
+                        $('#kode_ref').val(result.daftar.kode);
+                    }
+                },error:function(error) {
+                    alert('Terjadi kesalahan')
                 }
-            }
-        },
-        'columnDefs': [
-            {'targets': 6, data: null, 'defaultContent': action_html }
+            });
+        }
+
+        $('#form-tambah').on('change', '#jenis', function(){
+            $('#getRef').attr('disabled', false);
+        });
+
+        $('#form-tambah').on('click', '#getRef', function(){
+            var jenis = $('#jenis').val();
+            getRef(jenis)
+        });
+
+        var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+        var dataTable = $('#table-data').DataTable({
+            // 'processing': true,
+            // 'serverSide': true,
+            'ajax': {
+                'url': "{{ url('rtrw-master/reftrans') }}",
+                'async':false,
+                'type': 'GET',
+                'dataSrc' : function(json) {
+                    if(json.status){
+                        return json.daftar;   
+                    }else{
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('rtrw-auth/login') }}";
+                        })
+                        return [];
+                    }
+                }
+            },
+            'columnDefs': [
+                {'targets': 6, data: null, 'defaultContent': action_html }
+                ],
+            'columns': [
+                { data: 'kode_ref' },
+                { data: 'nama' },
+                { data: 'akun_debet' },
+                { data: 'akun_kredit' },
+                { data: 'jenis' },
+                { data: 'pp' },
             ],
-        'columns': [
-            { data: 'kode_ref' },
-            { data: 'nama' },
-            { data: 'akun_debet' },
-            { data: 'akun_kredit' },
-            { data: 'jenis' },
-            { data: 'pp' },
-        ],
-        dom: 'lBfrtip',
-        buttons: [
-            // {
-            //     text: '<i class="fa fa-filter"></i> Filter',
-            //     action: function ( e, dt, node, config ) {
-            //         openFilter();
-            //     },
-            //     className: 'btn btn-default ml-2' 
-            // }
-        ]
-    });
+            dom: 'lBfrtip',
+            buttons: [
+                // {
+                //     text: '<i class="fa fa-filter"></i> Filter',
+                //     action: function ( e, dt, node, config ) {
+                //         openFilter();
+                //     },
+                //     className: 'btn btn-default ml-2' 
+                // }
+            ]
+        });
     </script>

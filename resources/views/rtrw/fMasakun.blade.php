@@ -108,19 +108,19 @@
                             <div class="form-group row mt-3">   
                                 <label for="kode_akun" class="col-3 col-form-label">Kode Akun</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun">
+                                    <input required class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun">
                                 </div>
                             </div>
                             <div class="form-group row">   
                                 <label for="nama" class="col-3 col-form-label">Nama Akun</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Akun" id="nama" name="nama">
+                                    <input required class="form-control" type="text" placeholder="Nama Akun" id="nama" name="nama">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="curr" class="col-3 col-form-label">Currency</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="curr" id="curr" class="form-control" required>
+                                    <input required type='text' name="curr" id="curr" class="form-control" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
@@ -130,7 +130,7 @@
                             <div class="form-group row">
                                 <label for="modul" class="col-3 col-form-label">Modul</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="modul" id="modul" class="form-control" required>
+                                    <input required type='text' name="modul" id="modul" class="form-control" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
@@ -140,7 +140,7 @@
                             <div class="form-group row">
                                 <label for="jenis" class="col-3 col-form-label">Jenis</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="jenis" name="jenis" required>
+                                    <select required class='form-control selectize' id="jenis" name="jenis" required>
                                     <option value=''>--- Pilih Jenis ---</option>
                                     <option value='Neraca'>Neraca</option>
                                     <option value='Pendapatan'>Pendapatan</option>
@@ -151,7 +151,7 @@
                             <div class="form-group row">
                                 <label for="block" class="col-3 col-form-label">Status Aktifasi</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="block" name="block" required>
+                                    <select required class='form-control selectize' id="block" name="block" required>
                                     <option value=''>--- Pilih Status ---</option>
                                     <option value='0'>AKTIF</option>
                                     <option value='1'>BLOCK</option>
@@ -161,7 +161,7 @@
                             <div class="form-group row">
                                 <label for="gar" class="col-3 col-form-label">Status Budget</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="gar" name="gar" required>
+                                    <select required class='form-control selectize' id="gar" name="gar" required>
                                     <option value=''>--- Pilih Status ---</option>
                                     <option value='0'>0 - NON</option>
                                     <option value='1'>1 - BUDGET</option>
@@ -171,7 +171,7 @@
                             <div class="form-group row">
                                 <label for="normal" class="col-3 col-form-label">Normal Account</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="normal" name="normal" required>
+                                    <select required class='form-control selectize' id="normal" name="normal" required>
                                     <option value=''>--- Pilih Normal Account ---</option>
                                     <option value='C'>C - Kredit</option>
                                     <option value='D'>D - Debet</option>
@@ -318,12 +318,16 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(var i=0;i<=result.daftar.length;i++) {   
-                            if(result.daftar[i].kode_curr == id){
-                                $('#curr').val(result.daftar[i].kode_curr);
-                                $('#label_curr').text(result.daftar[i].kode_curr);
-                                break;
-                            }
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_curr == id);
+                        if(filter.length > 0) {
+                            $('#curr').val(filter[0].kode_curr);
+                            $('#label_curr').text(filter[0].kode_curr);
+                        } else {
+                            alert('Currency tidak valid');
+                            $('#curr').val('');
+                            $('#label_curr').text('');
+                            $('#curr').focus();
                         }
                     }
                 }
@@ -340,12 +344,16 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_tipe == id){
-                                $('#modul').val(result.daftar[i].kode_tipe);
-                                $('#label_modul').text(result.daftar[i].nama_tipe);
-                                break;
-                            }
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_tipe == id);
+                        if(filter.length > 0) {
+                            $('#modul').val(filter[0].kode_tipe);
+                            $('#label_modul').text(filter[0].nama_tipe);
+                        } else {
+                            alert('Modul tidak valid');
+                            $('#modul').val('');
+                            $('#label_modul').text('');
+                            $('#modul').focus();
                         }
                     }
                 }
