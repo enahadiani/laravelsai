@@ -29,6 +29,8 @@ Route::get('/menu', 'Dago\AuthController@getMenu');
 Route::get('/login', 'Dago\AuthController@login');
 Route::post('/login', 'Dago\AuthController@cek_auth');
 Route::get('/logout', 'Dago\AuthController@logout');
+Route::get('/profile', 'Dago\AuthController@getProfile');
+Route::post('/update_password', 'Dago\AuthController@updatePassword');
 
 
 

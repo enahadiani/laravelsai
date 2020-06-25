@@ -259,7 +259,7 @@
                             <span class="hidden-md-down"> {{Session::get('namaUser')}} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <!-- text-->
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
+                                <a href="#" onclick="loadProfile()" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
@@ -306,6 +306,9 @@
                 </div>
             </section>
             <script>
+                function loadProfile(){
+                   loadForm("{{url('dago-auth/form/fProfile')}}");
+                }
                 function loadForm(url){
                     $.ajax({
                         type: 'GET',
