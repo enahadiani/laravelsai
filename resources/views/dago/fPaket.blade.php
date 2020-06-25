@@ -295,7 +295,7 @@
                     }
                 }
             });
-    }
+        }
 
     function getLabelProduk(id){
             $.ajax({

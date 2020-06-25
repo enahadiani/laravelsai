@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+// Helper 
+Route::get('masakun-curr','Rtrw\HelperController@getCurr');
+Route::get('masakun-modul','Rtrw\HelperController@getModul');
+
 //Master Satpam
 Route::get('satpam','Rtrw\SatpamController@index');
 Route::post('satpam','Rtrw\SatpamController@store');
@@ -45,3 +49,10 @@ Route::get('warga-detail/{no_bukti}','Rtrw\WargaController@show');
 Route::post('warga','Rtrw\WargaController@store');
 Route::post('warga/{no_bukti}','Rtrw\WargaController@update');
 Route::delete('warga/{no_bukti}','Rtrw\WargaController@destroy');
+
+//Master Akun
+Route::get('masakun','Rtrw\MasakunController@index');
+Route::get('masakun-detail/{kode}','Rtrw\MasakunController@show');
+Route::post('masakun','Rtrw\MasakunController@store');
+Route::put('masakun/{kode}','Rtrw\MasakunController@update');
+Route::delete('masakun/{kode}','Rtrw\MasakunController@destroy');
