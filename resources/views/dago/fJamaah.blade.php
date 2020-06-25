@@ -89,7 +89,7 @@
                                 </div>
                                 <label for="tgl_lahir" class="col-3 col-form-label">Tgl Lahir</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date"  id="tgl_lahir" name="tgl_lahir" required>
+                                    <input class="form-control datepicker" type="text"  id="tgl_lahir" name="tgl_lahir" required placeholder="dd/mm/yyyy">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -109,6 +109,8 @@
                                     <option value=''>--- Pilih Status ---</option>
                                     <option value='Menikah'>Menikah</option>
                                     <option value='Belum Menikah'>Belum Menikah</option>
+                                    <option value='Cerai Hidup'>Cerai Hidup</option>
+                                    <option value='Cerai Mati'>Cerai Mati</option>
                                     </select>
                                 </div>
                             </div>
@@ -195,11 +197,11 @@
                             <div class="form-group row">
                                 <label for="issued" class="col-3 col-form-label">Issued</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="issued" name="issued" required>
+                                    <input class="form-control datepicker" type="text" id="issued" name="issued" required placeholder="dd/mm/yyyy">
                                 </div>
                                 <label for="ex_pass" class="col-3 col-form-label">Expired</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="ex_pass" name="ex_pass" required>
+                                    <input class="form-control datepicker" type="text" id="ex_pass" name="ex_pass" required placeholder="dd/mm/yyyy">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -258,6 +260,13 @@
         </div>
     </div>           
     <script>
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
 
     function getPekerjaan(){
         $.ajax({
@@ -292,6 +301,10 @@
 
     getPekerjaan();
    
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
     $('#jk').selectize();    
     $('#status').selectize();    
     $('#sp').selectize();
@@ -325,7 +338,7 @@
                     $('#id_peserta').val(result.data.data[0].id_peserta);
                     $('#nama').val(result.data.data[0].nama);
                     $('#tempat').val(result.data.data[0].tempat); 
-                    $('#tgl_lahir').val(result.data.data[0].tgl_lahir);
+                    $('#tgl_lahir').val(reverseDateNew(result.data.data[0].tgl_lahir,'-','/'));
                     $('#jk')[0].selectize.setValue(result.data.data[0].jk);
                     $('#status')[0].selectize.setValue(result.data.data[0].status); 
                     $('#ibu').val(result.data.data[0].ibu);
@@ -341,8 +354,8 @@
                     $('#cabang').val(result.data.data[0].cabang);
                     $('#namarek').val(result.data.data[0].namarek);
                     $('#nopass').val(result.data.data[0].nopass);
-                    $('#issued').val(result.data.data[0].issued);
-                    $('#ex_pass').val(result.data.data[0].ex_pass);
+                    $('#issued').val(reverseDateNew(result.data.data[0].issued,'-','/'));
+                    $('#ex_pass').val(reverseDateNew(result.data.data[0].ex_pass,'-','/'));
                     $('#kantor_mig').val(result.data.data[0].kantor_mig);
                     $('#ec_telp').val(result.data.data[0].ec_telp);
                     $('#ec_hp').val(result.data.data[0].ec_hp);

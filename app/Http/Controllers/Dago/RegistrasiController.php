@@ -26,6 +26,11 @@ class RegistrasiController extends Controller
         return $num;
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+    
     public function __contruct(){
         if(!Session::get('login')){
             return redirect('dago-auth/login')->with('alert','Session telah habis !');

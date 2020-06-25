@@ -118,6 +118,64 @@ class AuthController extends Controller
         return redirect('dago-auth/login')->with('alert','Kamu sudah logout');
     }
 
+    public function getProfile(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'/profile',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["user"];
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
+    public function updatePassword(Request $request){
+        $this->validate($request,[
+            'password_lama' => 'required',
+            'password_baru' => 'required',
+        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('POST', 'https://api.simkug.com/api/dago-auth/update_password',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'password_lama' => $request->password_lama,
+                    'password_baru' => $request->password_baru,
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
+    }
+
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');

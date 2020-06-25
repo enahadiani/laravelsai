@@ -113,7 +113,7 @@
                             <div class="form-group row mt-2">
                                 <label for="tgl_input" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="tgl_input" name="tgl_input" required value="{{ date('Y-m-d')}}">
+                                    <input class="form-control datepicker" type="text" id="tgl_input" name="tgl_input" placeholder="dd-mm-yyyy" required value="{{ date('d-m-Y')}}">
                                 </div>
                                 <label for="periode" class="col-3 col-form-label">Periode</label>
                                 <div class="col-3">
@@ -199,7 +199,7 @@
                                 </div>
                                 <label for="tgl_berangkat" class="col-3 col-form-label">Tgl Berangkat</label>
                                 <div class="col-3">
-                                    <input class="form-control" readonly type="date" id="tgl_berangkat" name="tgl_berangkat" >
+                                    <input class="form-control datepicker" readonly type="text" id="tgl_berangkat" name="tgl_berangkat" placeholder="dd-mm-yyyy" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -444,7 +444,7 @@
                             <div class="form-group row">
                                 <label for="upload_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="upload_tgl_terima" name="upload_tgl_terima" required value="{{ date('Y-m-d') }}">
+                                    <input class="form-control datepicker" type="text" id="upload_tgl_terima" placeholder="dd-mm-yyyy"  name="upload_tgl_terima" required value="{{ date('d-m-Y') }}">
                                 </div>
                             </div>
                             
@@ -535,7 +535,7 @@
                             <div class="form-group row">
                                 <label for="group_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="group_tgl_terima" name="group_tgl_terima" required value="{{ date('Y-m-d') }}">
+                                    <input class="form-control datepicker" type="text" id="group_tgl_terima" placeholder="dd-mm-yyyy" name="group_tgl_terima" required value="{{ date('d-m-Y') }}">
                                 </div>
                             </div>
                             
@@ -605,7 +605,14 @@
     </div>
     <!-- END MODAL --> 
     <script>
-    
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -723,7 +730,7 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#jadwal').val(result.daftar[0].no_jadwal);
-                         $('#label_jadwal').text(result.daftar[0].tgl_berangkat);
+                         $('#label_jadwal').text(reverseDateNew(result.daftar[0].tgl_berangkat),'-','/');
                     }else{
                         alert('Jadwal tidak valid');
                         $('#jadwal').val('');
@@ -1341,7 +1348,7 @@
                 $('#quota').val(0); 
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.tgl_berangkat !== 'undefined'){
-                        $('#tgl_berangkat').val(result.data.tgl_berangkat);
+                        $('#tgl_berangkat').val(reverseDateNew(result.data.tgl_berangkat,'-','/'));
                     }
                     if(typeof result.data.kode_curr !== 'undefined'){
                         $('#kode_curr').val(result.data.kode_curr);
@@ -1539,6 +1546,12 @@
         });
     }
 
+    
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
+
     getJenisPromo();
     getRoom();
     getBTambah();
@@ -1590,7 +1603,7 @@
 
     $('#form-tambah-reg').on('change', '#tgl_input', function(){
         var tgl = $('#tgl_input').val();
-        var per = tgl.substr(0,4)+''+tgl.substr(5,2);
+        var per = tgl.substr(6,4)+''+tgl.substr(3,2);
         $('#periode').val(per);
     });
 
@@ -1956,13 +1969,13 @@
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_reg').val(id);
-                    $('#tgl_input').val(result.data.data[0].tgl_input);
+                    $('#tgl_input').val(reverseDateNew(result.data.data[0].tgl_input,'-','/'));
                     $('#no_peserta').val(result.data.data[0].no_peserta);
                     $('#label_no_peserta').text(result.data.data[0].nama_peserta);
                     $('#paket').val(result.data.data[0].no_paket);
                     $('#label_paket').text(result.data.data[0].nama_paket);
                     $('#jadwal').val(result.data.data[0].no_jadwal);
-                    $('#label_jadwal').text(result.data.data[0].tgl_berangkat);
+                    $('#label_jadwal').text(reverseDateNew(result.data.data[0].tgl_berangkat,'-','/'));
                     $('#kode_pp').val(result.data.data[0].kode_pp);
                     $('#label_kode_pp').text(result.data.data[0].nama_pp);
                     $('#jenis_paket')[0].selectize.setValue(result.data.data[0].jenis);
@@ -1973,7 +1986,7 @@
                     $('#harga_paket').val(format_number(result.data.data[0].harga));
                     $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
                     $('#harga_room').val(format_number(result.data.data[0].harga_room));
-                    $('#tgl_berangkat').val(result.data.data[0].tgl_berangkat);
+                    $('#tgl_berangkat').val(reverseDateNew(result.data.data[0].tgl_berangkat,'-','/'));
                     // $('#no_peserta_ref')[0].selectize.setValue(result.data.data[0].no_peserta_ref);
                     $('#referal').val(result.data.data[0].referal);
                     $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
@@ -2435,7 +2448,7 @@
                         $('#upload_no_reg').val(line.no_reg);
                         $('#upload_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
                         $('#upload_paket').val(line.nama_paket);
-                        $('#upload_jadwal').val(line.tgl_berangkat);
+                        $('#upload_jadwal').val(reverseDateNew(line.tgl_berangkat,'-','/'));
                         $('#upload_alamat').val(line.alamat);
                         if(typeof result.daftar2 !== 'undefined' && result.daftar2.length>0){
                             var html='';
@@ -2607,7 +2620,7 @@
                         $('#group_no_reg').val(line.no_reg);
                         $('#group_jamaah').val(line.no_peserta+' - '+line.nama_peserta);
                         $('#group_paket').val(line.nama_paket);
-                        $('#group_jadwal').val(line.tgl_berangkat);
+                        $('#group_jadwal').val(reverseDateNew(line.tgl_berangkat,'-','/'));
                         $('#group_alamat').val(line.alamat);
                         $('#input-anggota tbody').html('');
                         if(typeof result.data.data_detail !== 'undefined' && result.data.data_detail.length>0){

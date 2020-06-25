@@ -234,6 +234,7 @@ class SatpamController extends Controller
             'nama' => 'required',
             'alamat' => 'required',
             'no_hp' => 'required',
+            'password' => 'required',
             'status' => 'required',
             'flag_aktif' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
@@ -263,6 +264,14 @@ class SatpamController extends Controller
                         'contents' => $request->status,
                     ],
                     [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'password',
+                        'contents' => $request->password,
+                    ],
+                    [
                         'name' => 'flag_aktif',
                         'contents' => $request->flag_aktif,
                     ],
@@ -287,6 +296,14 @@ class SatpamController extends Controller
                     [
                         'name' => 'alamat',
                         'contents' => $request->alamat,
+                    ],
+                    [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'password',
+                        'contents' => $request->password,
                     ],
                     [
                         'name' => 'status',
@@ -317,7 +334,7 @@ class SatpamController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
