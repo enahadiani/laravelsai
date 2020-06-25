@@ -212,6 +212,12 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
 
     <script type="text/javascript">
+        var $iconLoad = $('.preloader');
+        var $target = "";
+        var $target2 = "";
+        var $target3 = "";
+        var $par1 = "";
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -233,6 +239,99 @@
                 }
             });
         }
+
+        function getAkunDebet(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/masakun') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_akun == id);
+                            if(filter.length > 0) {
+                                $('#akun_debet').val(filter[0].kode_akun);
+                                $('#label_akun_debet').text(filter[0].nama);
+                            } else {
+                                alert('Akun tidak valid');
+                                $('#akun_debet').val('');
+                                $('#label_akun_debet').text('');
+                                $('#akun_debet').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getAkunKredit(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/masakun') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_akun == id);
+                            if(filter.length > 0) {
+                                $('#akun_kredit').val(filter[0].kode_akun);
+                                $('#label_akun_kredit').text(filter[0].nama);
+                            } else {
+                                alert('Akun tidak valid');
+                                $('#akun_kredit').val('');
+                                $('#label_akun_kredit').text('');
+                                $('#akun_kredit').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getPP(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/relakun-pp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_pp == id);
+                            if(filter.length > 0) {
+                                $('#kode_pp').val(filter[0].kode_pp);
+                                $('#label_kode_pp').text(filter[0].kode_lokasi);
+                            } else {
+                                alert('PP tidak valid');
+                                $('#kode_pp').val('');
+                                $('#label_kode_pp').text('');
+                                $('#kode_pp').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        $('#form-tambah').on('change', '#akun_debet', function(){
+            var par = $(this).val();
+            getAkunDebet(par);
+        });
+
+        $('#form-tambah').on('change', '#akun_kredit', function(){
+            var par = $(this).val();
+            getAkunKredit(par);
+        });
+
+        $('#form-tambah').on('change', '#kode_pp', function(){
+            var par = $(this).val();
+            getPP(par);
+        });
 
         $('#form-tambah').on('change', '#jenis', function(){
             $('#getRef').attr('disabled', false);
@@ -307,6 +406,202 @@
         $('#saku-form').on('click', '#btn-kembali', function(){
             $('#saku-datatable').show();
             $('#saku-form').hide();
+        });
+
+        function showFilter(param,target1,target2){
+            var par = param;
+            var modul = '';
+            var header = [];
+            $target = target1;
+            $target2 = target2;
+            
+            switch(par){
+                case 'akun_debet': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                    var columns = [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Akun";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+                case 'akun_kredit': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                    var columns = [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Akun";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+                case 'kode_pp': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/relakun-pp') }}";
+                    var columns = [
+                        { data: 'kode_pp' },
+                        { data: 'kode_lokasi' }
+                    ];
+                    
+                    var judul = "Daftar PP";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+            }
+
+            var header_html = '';
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th>"+header[i]+"</th>";
+            }
+            header_html +=  "<th></th>";
+
+            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
+
+            $('#modal-search .modal-body').html(table);
+
+            var searchTable = $("#table-search").DataTable({
+                // fixedHeader: true,
+                // "scrollY": "300px",
+                // "processing": true,
+                // "serverSide": true,
+                "ajax": {
+                    "url": toUrl,
+                    "data": {'param':par},
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                "columnDefs": [{
+                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+                }],
+                'columns': columns
+                // "iDisplayLength": 25,
+            });
+
+            // searchTable.$('tr.selected').removeClass('selected');
+            $('#table-search tbody').find('tr:first').addClass('selected');
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search').on('click','.check-item',function(){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('dblclick','tr',function(){
+                console.log('dblclick');
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $(document).keydown(function(e) {
+                if (e.keyCode == 40){ //arrow down
+                    var tr = searchTable.$('tr.selected');
+                    tr.removeClass('selected');
+                    tr.next().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+                if (e.keyCode == 38){ //arrow up
+                    
+                    var tr = searchTable.$('tr.selected');
+                    searchTable.$('tr.selected').removeClass('selected');
+                    tr.prev().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+
+                if (e.keyCode == 13){
+                    var kode = $('tr.selected').find('td:nth-child(1)').text();
+                    var nama = $('tr.selected').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+                    
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            })
+        }
+
+        $('#form-tambah').on('click', '.search-item2', function(){
+            var par = $(this).closest('div').find('input').attr('name');
+            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+            target1 = par;
+            target2 = par2;
+            showFilter(par,target1,target2);
         });
 
     </script>

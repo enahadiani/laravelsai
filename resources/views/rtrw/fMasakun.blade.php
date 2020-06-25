@@ -381,7 +381,7 @@
                     { data: 'kode_curr' }
                 ];
                 
-                var judul = "Daftar Produk";
+                var judul = "Daftar Currency";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
@@ -396,7 +396,7 @@
                     { data: 'nama_tipe' }
                 ];
                 
-                var judul = "Daftar Produk";
+                var judul = "Daftar Modul";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
