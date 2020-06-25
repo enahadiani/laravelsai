@@ -290,6 +290,10 @@
         $('#form-tambah')[0].reset();
         $('#method').val('post');
         $('#kode_akun').attr('readonly', false);
+        $('#curr').val('');
+        $('#label_curr').text('');
+        $('#modul').val('');
+        $('#label_modul').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });

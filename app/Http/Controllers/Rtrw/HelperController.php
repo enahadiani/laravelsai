@@ -72,6 +72,5 @@
             }
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
-
     }
 ?>

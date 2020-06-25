@@ -1,6 +1,5 @@
 <div class="container-fluid mt-3">
-        {{-- <div class="row" id="saku-datatable"> --}}
-        <div class="row" id="saku-datatable" style="display:none;">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -87,8 +86,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row" id="saku-form" style="display:none;"> --}}
-        <div class="row" id="saku-form">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
                     <form class="form mb-5" id="form-tambah" >
@@ -290,4 +288,25 @@
                 // }
             ]
         });
+
+        $('#saku-datatable').on('click', '#btn-tambah', function(){
+            $('#row-id').hide();
+            $('#id_edit').val('');
+            $('#form-tambah')[0].reset();
+            $('#method').val('post');
+            $('#akun_debet').val('');
+            $('#label_akun_debet').text('');
+            $('#akun_kredit').val('');
+            $('#label_akun_kredit').text('');
+            $('#kode_pp').val('');
+            $('#label_kode_pp').text('');
+            $('#saku-datatable').hide();
+            $('#saku-form').show();
+        });
+
+        $('#saku-form').on('click', '#btn-kembali', function(){
+            $('#saku-datatable').show();
+            $('#saku-form').hide();
+        });
+
     </script>
