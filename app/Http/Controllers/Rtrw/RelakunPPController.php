@@ -58,7 +58,7 @@ class RelakunPPController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun-detail?kode_akun='.$id,
+            $response = $client->request('GET', $this->link.'relakun-pp-detail?kode_pp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -83,32 +83,18 @@ class RelakunPPController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_akun' => 'required',
-            'nama' => 'required',
-            'curr' => 'required',
-            'modul' => 'required',
-            'jenis' => 'required',
-            'block' => 'required',
-            'gar' => 'required',
-            'normal' => 'required',
+            'kode_akun' => 'required|array',
+            'kode_pp' => 'required',
         ]);
+        $fields = array('kode_akun'=>$request->kode_akun,'kode_pp'=>$request->kode_pp);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'masakun',[
+                $response = $client->request('POST', $this->link.'relakun-pp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_akun' => $request->kode_akun,
-                        'nama' => $request->nama,
-                        'modul' => $request->modul,
-                        'jenis' => $request->jenis,
-                        'kode_curr' => $request->curr,
-                        'block' => $request->block,
-                        'status_gar' => $request->gar,
-                        'normal' => $request->normal,
-                    ]
+                    'body' => json_encode($fields)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -128,31 +114,18 @@ class RelakunPPController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_akun' => 'required',
-            'nama' => 'required',
-            'curr' => 'required',
-            'modul' => 'required',
-            'jenis' => 'required',
-            'block' => 'required',
-            'gar' => 'required',
-            'normal' => 'required',
+            'kode_akun' => 'required|array',
+            'kode_pp' => 'required',
         ]);
+        $fields = array('kode_akun'=>$request->kode_akun,'kode_pp'=>$request->kode_pp);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'masakun?kode_akun='.$id,[
+                $response = $client->request('PUT', $this->link.'relakun-pp?kode_pp='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'nama' => $request->nama,
-                        'modul' => $request->modul,
-                        'jenis' => $request->jenis,
-                        'kode_curr' => $request->curr,
-                        'block' => $request->block,
-                        'status_gar' => $request->gar,
-                        'normal' => $request->normal,
-                    ]
+                    'body' => json_encode($fields)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -173,7 +146,7 @@ class RelakunPPController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'masakun?kode_akun='.$id,
+            $response = $client->request('DELETE', $this->link.'relakun-pp?kode_pp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

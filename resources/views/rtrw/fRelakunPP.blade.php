@@ -86,7 +86,7 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <form class="form mb-5" id="form-tambah" >
+                    <form class="form" id="form-tambah" >
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Relasi Akun
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
@@ -94,7 +94,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style='height:460px !important'>
+                        <div class="card-body pt-0" style='min-height:471px !important'>
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input type="hidden" id="id_edit" name="id_edit">
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
+                                {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
                                 <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
                                 <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
                             </div>
@@ -203,15 +203,6 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-    });
-
-     var grid = $('#input-akun').DataTable({
-         "pageLength": 5,
-         "columnDefs": [
-            { "width": "5%", "targets": 0 },
-            { "width": "10%", "targets": 1 },
-            { "width": "5%", "targets": 3 }
-        ]
     });
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
@@ -319,6 +310,8 @@
         $('#form-tambah')[0].reset();
         $('#method').val('post');
         $('#kode_pp').val('');
+        $('#kode_pp').attr('readonly', false);
+        $('.search-item2').show();
         $('#label_kode_pp').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -335,7 +328,7 @@
         var header = [];
         $target = target1;
         $target2 = target2;
-            
+            console.log(par)
         switch(par){
             case 'kode_pp': 
             header = ['Kode', 'Nama'];
@@ -351,6 +344,21 @@
             $target = "#"+$target;
             $target2 = "#"+$target2;
             $target3 = "";
+            break;
+            case 'kode_akun[]': 
+            header = ['Kode', 'Nama'];
+            var toUrl = "{{ url('rtrw-master/masakun') }}";
+            var columns = [
+                { data: 'kode_akun' },
+                { data: 'nama' }
+            ];
+                    
+            var judul = "Daftar Akun";
+            var jTarget1 = "val";
+            var jTarget2 = "val";
+            $target = "."+$target;
+            $target3 = ".td"+$target2;
+            $target2 = "."+$target2;
             break;
             }
 
@@ -412,6 +420,8 @@
                     $($target3).text(nama);
                 }
                 console.log($target3);
+                console.log($target2);
+                console.log($target);
                 $('#modal-search').modal('hide');
             });
 
@@ -496,31 +506,20 @@
 
     var no = 1;
     $('#form-tambah').on('click', '#add-row', function(){
-        var row = grid.row.add(
-            [
-                no,
-                "<input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>",
-                'nama_akun',
-                'actions'
-            ]
-        ).draw(false);
-        $(row)
-        .addClass("td-akun-no"+no+"")
-        no++;
-        // var no=$('#input-akun .row-akun:last').index();
-        // no=no+2;
-        // var input = "";
-        // input += "<tr class='row-akun'>";
-        // input += "<td class='no-akun text-center'>"+no+"</td>";
-        // input += "<td><input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        // input += "<td><span class='td-nakun tdnmakunke"+no+"'></span></td>";
-        // input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
-        // input += "</tr>";
-        // $('#input-akun tbody').append(input);
-        // $('#input-akun td').removeClass('px-0 py-0 aktif');
-        // $('#input-akun tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        // $('#input-akun tbody tr:last').find(".search-matpel").show();
-        // $('#input-akun tbody tr:last').find(".inp-matpel").focus();
+        var no=$('#input-akun .row-akun:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-akun'>";
+        input += "<td class='no-akun text-center'>"+no+"</td>";
+        input += "<td><input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nakun tdnmakunke"+no+"'></span><input type='text' name='nama[]' class='form-control inp-nakun nmakunke"+no+" hidden'  value='' readonly></td>";
+        input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        input += "</tr>";
+        $('#input-akun tbody').append(input);
+        $('#input-akun td').removeClass('px-0 py-0 aktif');
+        $('#input-akun tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        $('#input-akun tbody tr:last').find(".search-akun").show();
+        $('#input-akun tbody tr:last').find(".inp-akun").focus();
     });
 
     $('#input-akun').on('click', '.hapus-item', function(){
@@ -544,7 +543,7 @@
         }
     });
 
-    $('#input-akun').on('click', 'td', function(){
+$('#input-akun').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
             return false;
@@ -556,21 +555,221 @@
                 $(this).addClass('px-0 py-0 aktif');
         
                 var kode_akun = $(this).parents("tr").find(".inp-akun").val();
-                var nama_akun = $(this).parents("tr").find(".td-nakun").text();
+                var nama_akun = $(this).parents("tr").find(".inp-nakun").val();
+                var no = $(this).parents("tr").find(".no-akun").text();
                 $(this).parents("tr").find(".inp-akun").val(kode_akun);
                 if(idx == 1){
+                    $(this).parents("tr").find(".inp-akun").show();
                     $(this).parents("tr").find(".search-akun").show();
                     $(this).parents("tr").find(".inp-akun").focus();
                 }else{
+                    $(this).parents("tr").find(".inp-akun").show();
                     $(this).parents("tr").find(".search-akun").hide();
                 }
         
+                $(this).parents("tr").find(".inp-nakun").val(nama_akun);
                 $(this).parents("tr").find(".td-nakun").text(nama_akun);
                 if(idx == 2){
-                    $(this).parents("tr").find(".search-akun").hide();
+                    $(this).parents("tr").find(".td-nakun").show();
+                }else{
+                    $(this).parents("tr").find(".td-nakun").show();
                 }
             }
         }
+    });
+
+    $('#input-akun').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+
+        var modul = '';
+        var header = [];
+        
+        switch(par){
+            case 'kode_akun[]': 
+                var par2 = "nama[]";
+            break;
+        }
+
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        console.log(tmp);
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        console.log(tmp);
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+
+        showFilter(par,target1,target2);
+    });
+
+    $('#saku-form').on('submit', '#form-tambah', function(e){
+        e.preventDefault();
+        var parameter = $('#id_edit').val();
+        var id = $('#id').val();
+        if(parameter == "edit"){
+            var url = "{{ url('rtrw-master/relakun-pp') }}/"+id;
+            var pesan = "updated";
+        }else{
+            var url = "{{ url('rtrw-master/relakun-pp') }}";
+            var pesan = "saved";
+        }
+
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        
+        $.ajax({
+            type: 'POST', 
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status){
+                    // location.reload();
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                 
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                    }) 
+                }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var kode= $(this).closest('tr').find('td').eq(0).html();
+        $iconLoad.show();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/relakun-pp-detail') }}/" + kode,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                console.log(result);
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_pp').attr('readonly', true);
+                    $('.search-item2').hide();
+                    getPP(kode);
+                    $('#id').val(kode);
+
+                    if(result.detail.length > 0) {
+                        var input = "";
+                        var no = 1;
+
+                        for(var i=0;i<result.detail.length;i++) {
+                            var line = result.detail[i];    
+                            input += "<tr class='row-akun'>";
+                            input += "<td class='no-akun text-center'>"+no+"</td>";
+                            input += "<td><input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nakun tdnmakunke"+no+"'>"+line.nama+"</span><input type='text' name='nama[]' class='form-control inp-nakun nmakunke"+no+" hidden'  value='"+line.nama+"' readonly></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+
+                            no++;
+                        }
+                        $('#input-akun tbody').html(input);
+                        $('#row-id').show();
+                        $('#saku-datatable').hide();
+                        $('#saku-form').show();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                    })
+                }
+                $iconLoad.hide();
+            },error: function(error) {
+                alert('Terjadi kesalahan')
+                $iconLoad.hide();
+            }
+        });
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(this).closest('tr').find('td').eq(0).html();
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('rtrw-master/relakun-pp') }}/"+id,
+                    dataType: 'json',
+                    async:false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('rtrw-auth/login') }}";
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
     });
 
     </script>
