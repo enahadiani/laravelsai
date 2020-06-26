@@ -230,11 +230,12 @@
                                 </tr>
                                 <tr>
                                 <td style='text-align:center'></td>
-                                <td style='text-align:center' colspan='2'>`+line.tgl_input.substr(0,2)+` `+getNamaBulan(line.tgl_input.substr(3,2))+` `+line.tgl_input.substr(6,4)+`</td >
+                                <td style='text-align:center' colspan='2'>Tanggal `+line.tgl_input.substr(0,2)+` `+getNamaBulan(line.tgl_input.substr(3,2))+` `+line.tgl_input.substr(6,4)+`</td >
                                 </tr>
                                 <tr>
                                 <td style='text-align:center'>MKT/DWI/FORM/006</td>
-                                <td style='text-align:center' colspan='2'>Rev 0.0</td >
+                                <td style='text-align:left;padding-left: 120px !important;'>Rev 0.0</td >
+                                <td></td>
                                 </tr>
                                 </table>
                                 <br><DIV style='page-break-after:always'></DIV>`;

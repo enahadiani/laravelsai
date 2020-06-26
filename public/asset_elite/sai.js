@@ -153,11 +153,11 @@ function terbilang(int){
     else if (int < 100)
         return terbilang(int / 10) + " puluh" + terbilang(int % 10);
     else if (int < 200)
-        return "seratus" + terbilang(int - 100);
+        return " seratus" + terbilang(int - 100);
     else if (int < 1000)
         return terbilang(int / 100) + " ratus" + terbilang(int % 100);
     else if (int < 2000)
-        return "seribu" + terbilang(int - 1000);
+        return " seribu" + terbilang(int - 1000);
     else if (int < 1000000)
         return terbilang(int / 1000) + " ribu" + terbilang(int % 1000);
     else if (int < 1000000000)

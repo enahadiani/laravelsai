@@ -7,6 +7,42 @@
 </div>
 <script type="text/javascript">
 
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
+    function terbilang2(kode_curr){
+        if(kode_curr == "IDR"){
+            var ket_curr = " rupiah";
+        }else if(kode_curr == "USD"){
+            var ket_curr = " dollar Amerika";
+        }
+        return ket_curr;
+    }
+
+    function getNamaBulan(no_bulan){
+        switch (no_bulan){
+            case 1 : case '1' : case '01': bulan = "Januari"; break;
+            case 2 : case '2' : case '02': bulan = "Februari"; break;
+            case 3 : case '3' : case '03': bulan = "Maret"; break;
+            case 4 : case '4' : case '04': bulan = "April"; break;
+            case 5 : case '5' : case '05': bulan = "Mei"; break;
+            case 6 : case '6' : case '06': bulan = "Juni"; break;
+            case 7 : case '7' : case '07': bulan = "Juli"; break;
+            case 8 : case '8' : case '08': bulan = "Agustus"; break;
+            case 9 : case '9' : case '09': bulan = "September"; break;
+            case 10 : case '10' : case '10': bulan = "Oktober"; break;
+            case 11 : case '11' : case '11': bulan = "November"; break;
+            case 12 : case '12' : case '12': bulan = "Desember"; break;
+            default: bulan = null;
+        }
+
+        return bulan;
+    }
 
     function drawLap(formData){
        saiPost('dago-report/lap-pembayaran', null, formData, null, function(res){
@@ -73,87 +109,97 @@
                                                     <tbody>
                                                         <tr>
                                                             <td width="154">TANGGAL BAYAR</td>
-                                                            <td width="244">: `+line.tgl_bayar+`</td>
+                                                            <td width="244" colspan='2'>: `+reverseDateNew(line.tgl_bayar,'-','/')+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>DITERIMA DARI</td>
-                                                            <td>: `+line.peserta+`</td>
+                                                            <td colspan='2'>: `+line.peserta+`</td>
                                                         </tr>
 
                                                         <tr>
                                                             <td>PAKET / ROOM</td>
-                                                            <td>: `+line.paket+` / `+line.room+`</td>
+                                                            <td colspan='2'>: `+line.paket+` / `+line.room+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>HARGA PAKET </td>
-                                                            <td>: `+line.kode_curr+` `+sepNumPas(line.harga_paket)+`</td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.harga_paket)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>KEBERANGKATAN </td>
-                                                            <td>: `+line.jadwal+`</td>
+                                                            <td colspan='2'>: `+reverseDateNew(line.jadwal,'-','/')+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>MARKETING</td>
-                                                            <td>: `+line.nama_marketing+`</td>
+                                                            <td colspan='2'>: `+line.nama_marketing+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>AGEN / REFERAL</td>
-                                                            <td>:  `+line.nama_agen+` / `+line.referal+`</td>
+                                                            <td colspan='2'>:  `+line.nama_agen+` / `+line.referal+`</td>
                                                         </tr>
                                                         <tr><td>&nbsp;</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" align="center"><b>DATA PEMBAYARAN</b></td>
+                                                            <td colspan="3" align="center"><b>DATA PEMBAYARAN</b></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="154">BIAYA PAKET (RP) </td>
-                                                            <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="244">: `+sepNumPas(line.biaya_paket)+` - KURS : `+sepNumPas(line.kurs)+`</td>
+                                                            <td style="border-top:1px dotted black;border-bottom:1px dotted black" width="244" colspan='2'>: `+sepNumPas(line.biaya_paket)+` - KURS : `+sepNumPas(line.kurs)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>SISTEM PEMBAYARAN</td>
-                                                            <td>: Cicilan Ke-`+line.cicil_ke+`</td>
+                                                            <td colspan='2'>: Cicilan Ke-`+line.cicil_ke+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>SALDO </td>
-                                                            <td>: `+sepNumPas(line.saldo)+`</td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.saldo)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TOTAL BAYAR </td>
-                                                            <td>: `+sepNumPas(line.bayar)+`</td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.bayar)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TERBILANG </td>
-                                                            <td width="300">: `+terbilang(line.bayar)+`</td>
+                                                            <td width="300" colspan='2'>: `+terbilang(line.bayar)+` `+terbilang2(line.kode_curr)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>SISA </td>
-                                                            <td>: `+sepNumPas(line.sisa)+`</td>
+                                                            <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.sisa)+`</td>
                                                         </tr>
                                                         <tr>
                                                             <td>DIINPUT OLEH </td>
-                                                            <td>: `+line.nik_user+` </td>
+                                                            <td colspan='2'>: `+line.nik_user+` </td>
                                                         </tr>
-                                                        <tr><td>&nbsp;</td>
+                                                        <tr><td colspan='3'>&nbsp;</td>
                                                         </tr>
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
                                                         </tr>
                                                     <tr>
-                                                        <td align="left"></td>
-                                                        <td align="center">Customer,</td>
+                                                        <td align="center" style="width:30%">Customer</td>
+                                                        <td align="center" style="width:30%"></td>
+                                                        <td align="center" style="width:40%">Keuangan</td>
                                                     </tr>
                                                     <tr>
+                                                        <td style="">&nbsp;</td>
                                                         <td style="">&nbsp;</td>
                                                         <td style="">&nbsp;</td>
                                                     </tr>
                                                     <tr>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
                                                     </tr>
-                                                        <tr>
-                                                            <td valign="top" align="left"></td>
-                                                            <td align="center">(`+line.peserta+`)</td>
+                                                    <tr>
+                                                        <td valign="top" align="center">`+line.peserta+`</td>
+                                                        <td>&nbsp;</td>
+                                                        <td align="center">-------------------------</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="top" align="center">KEU/DWI/FORM/001</td>
+                                                        <td align="center">Rev 0.0</td>
+                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(8,2)+` `+getNamaBulan(line.tgl_bayar.substr(5,2))+` `+line.tgl_bayar.substr(0,4)+`</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
