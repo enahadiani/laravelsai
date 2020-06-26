@@ -74,10 +74,10 @@
                                 <div class="form-group row ">
 								    <label for="curr" class="col-3 col-form-label">Kode Curr</label>
                                     <div class="col-3">
-                                        <select class='form-control' id="curr" name="curr" disabled>
-                                            <option value='USD' selected>USD</option>
-                                    </select>
-                                    <input type="hidden" id="kode_curr" name="kode_curr" readonly />
+                                        <select class='form-control' id="kode_curr" name="kode_curr">
+                                            <option value='USD'>USD</option>
+                                            <option value='IDR'>IDR</option>
+                                        </select>
                                     </div>
                                 </div>
                             <div class="form-group row">
