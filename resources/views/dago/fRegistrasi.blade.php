@@ -2425,8 +2425,8 @@
                         <td colspan='2'>:&nbsp;`+line.info+`</td>
                         </tr>
                         <tr>
-                        <td colspan='2'>&nbsp;</td>
-                        <td colspan='2'>&nbsp;</td>
+                        <td colspan='3'>&nbsp;</td>
+                        <td colspan='3'>&nbsp;</td>
                         </tr>
                         <tr>
                         <td align='center'>Calon Jamaah</td>
@@ -2446,7 +2446,8 @@
                         </tr>
                         <tr>
                         <td style='text-align:center'>MKT/DWI/FORM/006</td>
-                        <td style='text-align:center' colspan='2'>Rev 0.0</td >
+                        <td style='text-align:left;padding-left: 120px !important;'>Rev 0.0</td >
+                        <td></td>
                         </tr>
                         </table>
                         </div>
