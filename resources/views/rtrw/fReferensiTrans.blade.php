@@ -108,7 +108,7 @@
                             <div class="form-group row">
                                 <label for="jenis" class="col-3 col-form-label">Jenis</label>
                                 <div class="col-3">
-                                    <select required class='form-control selectize' id="jenis" name="jenis" required>
+                                    <select required class='form-control' id="jenis" name="jenis" required>
                                     <option value=''>--- Pilih Jenis ---</option>
                                     <option value='PENGELUARAN'>PENGELUARAN</option>
                                     <option value='PEMASUKAN'>PEMASUKAN</option>
@@ -603,5 +603,142 @@
             target2 = par2;
             showFilter(par,target1,target2);
         });
+
+    $('#saku-form').on('submit', '#form-tambah', function(e){
+        e.preventDefault();
+        var parameter = $('#id_edit').val();
+        var id = $('#id').val();
+        if(parameter == "edit"){
+            var url = "{{ url('rtrw-master/reftrans') }}/"+id;
+            var pesan = "updated";
+        }else{
+            var url = "{{ url('rtrw-master/reftrans') }}";
+            var pesan = "saved";
+        }
+
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        
+        $.ajax({
+            type: 'POST', 
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status){
+                    // location.reload();
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                 
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                    }) 
+                }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var kode= $(this).closest('tr').find('td').eq(0).html();
+        var nama= $(this).closest('tr').find('td').eq(1).html();
+        var debet= $(this).closest('tr').find('td').eq(2).html();
+        var kredit= $(this).closest('tr').find('td').eq(3).html();
+        var jenis= $(this).closest('tr').find('td').eq(4).html();
+        var pp = $(this).closest('tr').find('td').eq(5).html();
+        var kode_pp = pp.substr(0,2); 
+        $iconLoad.show();
+        getAkunDebet(debet);
+        getAkunKredit(kredit);
+        getPP(kode_pp);
+        $('#method').val('put');
+        $('#id_edit').val('edit');
+        $('#getRef').attr('disabled', true);
+        $('#id').val(kode);
+        $('#jenis').val(jenis);
+        $('#kode_ref').val(kode);
+        $('#nama').val(nama);
+        $('#row-id').show();
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        $iconLoad.hide();
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $(this).closest('tr').find('td').eq(0).html();
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('rtrw-master/reftrans') }}/"+id,
+                    dataType: 'json',
+                    async:false,
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your data has been deleted.',
+                                'success'
+                            )
+                        }else if(!result.data.status && result.data.message == "Unauthorized"){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('rtrw-auth/login') }}";
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
+    });
 
     </script>
