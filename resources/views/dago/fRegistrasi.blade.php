@@ -618,6 +618,27 @@
         num = sepNumX(num);
         return num;
     }
+
+    function getNamaBulan(no_bulan){
+        switch (no_bulan){
+            case 1 : case '1' : case '01': bulan = "Januari"; break;
+            case 2 : case '2' : case '02': bulan = "Februari"; break;
+            case 3 : case '3' : case '03': bulan = "Maret"; break;
+            case 4 : case '4' : case '04': bulan = "April"; break;
+            case 5 : case '5' : case '05': bulan = "Mei"; break;
+            case 6 : case '6' : case '06': bulan = "Juni"; break;
+            case 7 : case '7' : case '07': bulan = "Juli"; break;
+            case 8 : case '8' : case '08': bulan = "Agustus"; break;
+            case 9 : case '9' : case '09': bulan = "September"; break;
+            case 10 : case '10' : case '10': bulan = "Oktober"; break;
+            case 11 : case '11' : case '11': bulan = "November"; break;
+            case 12 : case '12' : case '12': bulan = "Desember"; break;
+            default: bulan = null;
+        }
+
+        return bulan;
+    }
+
     var $iconLoad = $('.preloader');
     var dataTable = $('#table-reg').DataTable({
         // 'processing': true,
@@ -2404,8 +2425,8 @@
                         <td colspan='2'>:&nbsp;`+line.info+`</td>
                         </tr>
                         <tr>
-                        <td colspan='2'>&nbsp;</td>
-                        <td colspan='2'>&nbsp;</td>
+                        <td colspan='3'>&nbsp;</td>
+                        <td colspan='3'>&nbsp;</td>
                         </tr>
                         <tr>
                         <td align='center'>Calon Jamaah</td>
@@ -2421,11 +2442,12 @@
                         </tr>
                         <tr>
                         <td style='text-align:center'></td>
-                        <td style='text-align:center' colspan='2'>`+line.tgl_input+`</td >
+                        <td style='text-align:center' colspan='2'>`+line.tgl_input.substr(0,2)+` `+getNamaBulan(line.tgl_input.substr(3,2))+` `+line.tgl_input.substr(6,4)+`</td >
                         </tr>
                         <tr>
                         <td style='text-align:center'>MKT/DWI/FORM/006</td>
-                        <td style='text-align:center' colspan='2'>Rev 0.0</td >
+                        <td style='text-align:left;padding-left: 120px !important;'>Rev 0.0</td >
+                        <td></td>
                         </tr>
                         </table>
                         </div>
