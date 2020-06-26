@@ -2419,15 +2419,15 @@
                         <td style='text-align:center'>(..............................................)</td>
                         <td style='text-align:center' colspan='2'>(..............................................)</td >
                         </tr>
+                        <tr>
+                        <td style='text-align:center'></td>
+                        <td style='text-align:center' colspan='2'>`+line.tgl_input+`</td >
+                        </tr>
+                        <tr>
+                        <td style='text-align:center'>MKT/DWI/FORM/006</td>
+                        <td style='text-align:center' colspan='2'>Rev 0.0</td >
+                        </tr>
                         </table>
-                            <div class="footer_form row text-left">
-                                <div class="col-6">
-                                    <span>MKT/DWI/FORM/006</span>
-                                </div>
-                                <div class="col-6">
-                                    <span>Rev 0.0</span>
-                                </div>
-                            </div>
                         </div>
                         
                         <br><DIV style='page-break-after:always'></DIV>`;
