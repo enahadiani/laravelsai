@@ -2276,10 +2276,10 @@
                         </tr>
                         <tr>
                         <td colspan='2' style='font-weight:bold;'>DATA PRIBADI </td>
-                        <td rowspan='5'>
+                        <td rowspan='6'>
                         <div class="foto-jamaah" style="width: 152px;height: 227px;">
                             <img src="`+line.foto+`" style="width: 152px;height: 227px;">
-                        </div>
+                        </div></td>
                         </tr>
                         <tr>
                         <td width='30%' style='font-weight:bold;'>NO REGISTRASI </td>
@@ -2299,7 +2299,7 @@
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>STATUS</td>
-                        <td colspan='2'>:&nbsp;`+line.status+`</td>
+                        <td>:&nbsp;`+line.status+`</td>
                         </tr>
                         <tr>
                         <td style='font-weight:bold;'>JENIS KELAMIN </td>

@@ -6,7 +6,14 @@
 <div id='canvasPreview' style='font-size:12pt !important;'>
 </div>
 <script type="text/javascript">
+    
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
 
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
 
     function drawLap(formData){
        saiPost('dago-report/lap-form-registrasi', null, formData, null, function(res){
@@ -34,13 +41,16 @@
                 var back= ``;
             }
 
-            var mon_html = `<div align='center' style='padding:10px' id='sai-rpt-table-export-tbl-daftar-reg'>
-                    `+back;
+            var mon_html = `<div align='center' style='padding:10px' id='sai-rpt-table-export-tbl-daftar-reg'>`+back+`
+                       `;
                     var arr_tl = [0,0,0,0,0,0,0,0,0];
                     var x=1;
                     for(var i=0;i<data.length;i++){
                         var line = data[i];
                         mon_html +=`
+                                <div class="kop" style="height:80px;width:100%">
+                                    <img src="{{ asset('asset_elite/images/dago_form_logo.jpeg') }}" style="height:80px;width:100%">
+                                </div>
                                 <table width='100%' class='table no-border' cellspacing='1' cellpadding='2'>
                                 <style>
                                     td,th{
@@ -48,13 +58,17 @@
                                     }
                                 </style>
                                 <tr>
-                                <td colspan='2' align='center' style='font-weight:bold;'>FORMULIR PENDAFTARAN UMROH </td>
+                                <td colspan='3' align='center' style='font-weight:bold;font-size:20px'>FORMULIR PENDAFTARAN UMROH </td>
                                 </tr>
                                 <tr>
-                                <td colspan='2'>&nbsp;</td>
+                                <td colspan='3'>&nbsp;</td>
                                 </tr>
                                 <tr>
                                 <td colspan='2' style='font-weight:bold;'>DATA PRIBADI </td>
+                                <td rowspan='6'>
+                                <div class="foto-jamaah" style="width: 152px;height: 227px;">
+                                    <img src="`+line.foto+`" style="width: 152px;height: 227px;">
+                                </div></td>
                                 </tr>
                                 <tr>
                                 <td width='30%' style='font-weight:bold;'>NO REGISTRASI </td>
@@ -78,105 +92,105 @@
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>JENIS KELAMIN </td>
-                                <td>:&nbsp;`+line.jk+`</td>
+                                <td colspan='2'>:&nbsp;`+line.jk+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>TEMPAT &amp; TGL LAHIR </td>
-                                <td>:&nbsp;`+line.tempat+` `+line.tgl_lahir+`</td>
+                                <td colspan='2'>:&nbsp;`+line.tempat+` `+reverseDateNew(line.tgl_lahir,'-','/')+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>BERANGKAT DENGAN </td>
-                                <td>:&nbsp;`+line.brkt_dgn+`<br> Hubungan : `+line.hubungan+`</td>
+                                <td colspan='2'>:&nbsp;`+line.brkt_dgn+`<br> Hubungan : `+line.hubungan+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>PERNAH UMROH / HAJI </td>
-                                <td>:&nbsp;`+line.th_umroh+`/`+line.th_haji+`</td>
+                                <td colspan='2'>:&nbsp;`+line.th_umroh+`/`+line.th_haji+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>PEKERJAAN</td>
-                                <td>:&nbsp;`+line.nama_pekerjaan+`</td>
+                                <td colspan='2'>:&nbsp;`+line.nama_pekerjaan+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>NO PASSPORT </td>
-                                <td>:&nbsp;`+line.nopass+`</td>
+                                <td colspan='2'>:&nbsp;`+line.nopass+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>KANTOR IMIGRASI </td>
-                                <td>:&nbsp;`+line.kantor_mig+`</td>
+                                <td colspan='2'>:&nbsp;`+line.kantor_mig+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold'>HP</td>
-                                <td>:&nbsp;`+line.hp+`</td>
+                                <td colspan='2'>:&nbsp;`+line.hp+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>TELEPON</td>
-                                <td>:&nbsp;`+line.telp+`</td>
+                                <td colspan='2'>:&nbsp;`+line.telp+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>EMAIL</td>
-                                <td>:&nbsp;`+line.email+`</td>
+                                <td colspan='2'>:&nbsp;`+line.email+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>ALAMAT</td>
-                                <td>:&nbsp;`+line.alamat+`</td>
+                                <td colspan='2'>:&nbsp;`+line.alamat+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>NO EMERGENCY </td>
-                                <td>:&nbsp;`+line.ec_telp+`</td>
+                                <td colspan='2'>:&nbsp;`+line.ec_telp+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>MARKETING</td>
-                                <td>:&nbsp;`+line.nama_marketing+`</td>
+                                <td colspan='2'>:&nbsp;`+line.nama_marketing+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>AGEN</td>
-                                <td>:&nbsp;`+line.nama_agen+`</td>
+                                <td colspan='2'>:&nbsp;`+line.nama_agen+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>REFERAL</td>
-                                <td>:&nbsp;`+line.referal+`</td>
+                                <td colspan='2'>:&nbsp;`+line.referal+`</td>
                                 </tr>
                                 <tr>
-                                <td colspan='2'>&nbsp;</td>
+                                <td colspan='3'>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                <td colspan='2' style='font-weight:bold;'>DATA KELANGKAPAN PERJALANAN </td>
+                                <td colspan='3' style='font-weight:bold;'>DATA KELANGKAPAN PERJALANAN </td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>PAKET</td>
-                                <td>:&nbsp;`+line.namapaket+`</td>
+                                <td colspan='2'>:&nbsp;`+line.namapaket+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>PROGRAM UMROH / HAJI </td>
-                                <td>:&nbsp;`+line.jenis_paket+`</td>
+                                <td colspan='2'>:&nbsp;`+line.jenis_paket+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>TYPE ROOM </td>
-                                <td>:&nbsp;`+line.type+`</td>
+                                <td colspan='2'>:&nbsp;`+line.type+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>BIAYA PAKET </td>
-                                <td>:&nbsp;`+sepNum(line.harga)+`</td>
+                                <td colspan='2'>:&nbsp;`+sepNum(line.harga)+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>BIAYA ROOM </td>
-                                <td>:&nbsp;`+sepNum(line.harga_room)+`</td>
+                                <td colspan='2'>:&nbsp;`+sepNum(line.harga_room)+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>DISKON</td>
-                                <td>:&nbsp;`+sepNum(line.diskon)+`</td>
+                                <td colspan='2'>:&nbsp;`+sepNum(line.diskon)+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>TGL KEBERANGKATAN </td>
-                                <td>:&nbsp;`+line.tgl_berangkat+`</td>
+                                <td colspan='2'>:&nbsp;`+reverseDateNew(line.tgl_berangkat,'-','/')+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>UKURAN PAKAIAN </td>
-                                <td>:&nbsp;`+line.uk_pakaian+`</td>
+                                <td colspan='2'>:&nbsp;`+line.uk_pakaian+`</td>
                                 </tr>
                                 <tr>
                                 <td style='font-weight:bold;'>SUMBER INFORMASI </td>
-                                <td>:&nbsp;`+line.info+`</td>
+                                <td colspan='2'>:&nbsp;`+line.info+`</td>
                                 </tr>
                                 <tr>
                                 <td>&nbsp;</td>
@@ -184,17 +198,25 @@
                                 </tr>
                                 <tr>
                                 <td align='center'>Calon Jamaah</td>
-                                <td align='center'>MO</td>
+                                <td colspan='2' align='center'>MO</td>
                                 </tr>
                                 <tr>
                                 <td height='60'>&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td colspan='2'>&nbsp;</td>
                                 </tr>
                                 <tr>
                                 <td style='text-align:center'>(..............................................)</td>
-                                <td style='text-align:center'>(..............................................)</td>
+                                <td colspan='2' style='text-align:center'>(..............................................)</td>
                                 </tr>
                                 </table>
+                                <div class="footer_form row text-left">
+                                    <div class="col-6">
+                                        <span>MKT/DWI/FORM/006</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>Rev 0.0</span>
+                                    </div>
+                                </div>
                                 <br><DIV style='page-break-after:always'></DIV>`;
                                 
                     }
