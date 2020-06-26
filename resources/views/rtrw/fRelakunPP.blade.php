@@ -94,7 +94,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style='height:350px !important'>
+                        <div class="card-body pt-0" style='height:460px !important'>
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input type="hidden" id="id_edit" name="id_edit">
@@ -111,6 +111,60 @@
                                 <div class="col-6">
                                     <label id="label_kode_pp" style="margin-top: 10px;"></label>
                                 </div>
+                            </div>
+                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
+                                <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
+                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                            </div>
+                            <div class='col-xs-12' style="min-height:420px; margin:0px; padding:0px;">
+                                <style>
+                                    th{
+                                        vertical-align:middle !important;
+                                    }
+                                    /* #input-jurnal td{
+                                        padding:0 !important;
+                                    } */
+                                    #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                        border:0 !important;
+                                        border-radius:0 !important;
+                                    }
+                                    .modal-header .close {
+                                        padding: 1rem;
+                                        margin: -1rem 0 -1rem auto;
+                                    }
+                                    .check-item{
+                                        cursor:pointer;
+                                    }
+                                    .selected{
+                                        cursor:pointer;
+                                        background:#4286f5 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td:hover{
+                                        background:#f4d180 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td{
+                                        overflow:hidden !important;
+                                    }
+
+                                    #input-jurnal td:nth-child(4){
+                                        overflow:unset !important;
+                                    }
+                                </style>
+                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-akun" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <thead style="background:#ff9500;color:white">
+                                    <tr>
+                                        <th style="width:5%">No</th>
+                                        <th style="width:10%">Kode Akun</th>
+                                        <th style="width:50%">Nama Akun</th>
+                                        <th style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                </table>
                             </div>
                         </div>
                     </form>
@@ -149,6 +203,15 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+     var grid = $('#input-akun').DataTable({
+         "pageLength": 5,
+         "columnDefs": [
+            { "width": "5%", "targets": 0 },
+            { "width": "10%", "targets": 1 },
+            { "width": "5%", "targets": 3 }
+        ]
     });
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
@@ -219,6 +282,32 @@
         });
     }
 
+    function getAkunK(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/masakun') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_akun == id);
+                        if(filter.length > 0) {
+                            $('#akun_kredit').val(filter[0].kode_akun);
+                            $('#label_akun_kredit').text(filter[0].nama);
+                        } else {
+                            alert('Akun tidak valid');
+                            $('#akun_kredit').val('');
+                            $('#label_akun_kredit').text('');
+                            $('#akun_kredit').focus();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
@@ -233,6 +322,11 @@
         $('#label_kode_pp').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+    });
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
     });
 
     function showFilter(param,target1,target2){
@@ -399,4 +493,84 @@
         target2 = par2;
         showFilter(par,target1,target2);
     });
+
+    var no = 1;
+    $('#form-tambah').on('click', '#add-row', function(){
+        var row = grid.row.add(
+            [
+                no,
+                "<input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a>",
+                'nama_akun',
+                'actions'
+            ]
+        ).draw(false);
+        $(row)
+        .addClass("td-akun-no"+no+"")
+        no++;
+        // var no=$('#input-akun .row-akun:last').index();
+        // no=no+2;
+        // var input = "";
+        // input += "<tr class='row-akun'>";
+        // input += "<td class='no-akun text-center'>"+no+"</td>";
+        // input += "<td><input type='text' name='kode_akun[]' class='form-control inp-akun akunke"+no+"' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        // input += "<td><span class='td-nakun tdnmakunke"+no+"'></span></td>";
+        // input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        // input += "</tr>";
+        // $('#input-akun tbody').append(input);
+        // $('#input-akun td').removeClass('px-0 py-0 aktif');
+        // $('#input-akun tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        // $('#input-akun tbody tr:last').find(".search-matpel").show();
+        // $('#input-akun tbody tr:last').find(".inp-matpel").focus();
+    });
+
+    $('#input-akun').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-akun').each(function(){
+            var nom = $(this).closest('tr').find('.no-akun');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-akun tbody').on('click', 'tr', function(){
+        if ( $(this).hasClass('selected-row') ) {
+            $(this).removeClass('selected-row');
+        }
+        else {
+            $('#input-akun tbody tr').removeClass('selected-row');
+            $(this).addClass('selected-row');
+        }
+    });
+
+    $('#input-akun').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-akun td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var kode_akun = $(this).parents("tr").find(".inp-akun").val();
+                var nama_akun = $(this).parents("tr").find(".td-nakun").text();
+                $(this).parents("tr").find(".inp-akun").val(kode_akun);
+                if(idx == 1){
+                    $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".inp-akun").focus();
+                }else{
+                    $(this).parents("tr").find(".search-akun").hide();
+                }
+        
+                $(this).parents("tr").find(".td-nakun").text(nama_akun);
+                if(idx == 2){
+                    $(this).parents("tr").find(".search-akun").hide();
+                }
+            }
+        }
+    });
+
     </script>
