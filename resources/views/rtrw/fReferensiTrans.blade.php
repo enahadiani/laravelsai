@@ -6,7 +6,6 @@
                         <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Referensi Transaksi 
                         <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
-                        <!-- <h6 class="card-subtitle">Tabel Pengajuan</h6> -->
                         <hr>
                         <div class="table-responsive ">
                             <style>
@@ -92,13 +91,13 @@
                 <div class="card">
                     <form class="form mb-5" id="form-tambah" >
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Data Master Akun
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Referensi Transaksi
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style='height:350px !important'>
+                        <div class="card-body pt-0" style='height:250px !important'>
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input type="hidden" id="id_edit" name="id_edit">
@@ -106,77 +105,61 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                            <div class="form-group row mt-3">   
-                                <label for="kode_akun" class="col-3 col-form-label">Kode Akun</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun">
-                                </div>
-                            </div>
-                            <div class="form-group row">   
-                                <label for="nama" class="col-3 col-form-label">Nama Akun</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Akun" id="nama" name="nama">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="curr" class="col-3 col-form-label">Currency</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="curr" id="curr" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_curr" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="modul" class="col-3 col-form-label">Modul</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="modul" id="modul" class="form-control" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_modul" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <label for="jenis" class="col-3 col-form-label">Jenis</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="jenis" name="jenis" required>
+                                    <select required class='form-control selectize' id="jenis" name="jenis" required>
                                     <option value=''>--- Pilih Jenis ---</option>
-                                    <option value='Neraca'>Neraca</option>
-                                    <option value='Pendapatan'>Pendapatan</option>
-                                    <option value='Beban'>Beban</option>
+                                    <option value='PENGELUARAN'>PENGELUARAN</option>
+                                    <option value='PEMASUKAN'>PEMASUKAN</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="block" class="col-3 col-form-label">Status Aktifasi</label>
+                            <div class="form-group row">   
+                                <label for="kode_ref" class="col-3 col-form-label">Kode Ref</label>
                                 <div class="col-3">
-                                    <select class='form-control selectize' id="block" name="block" required>
-                                    <option value=''>--- Pilih Status ---</option>
-                                    <option value='0'>AKTIF</option>
-                                    <option value='1'>BLOCK</option>
-                                    </select>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" placeholder="Kode Ref" id="kode_ref" name="kode_ref" required readonly>
+                                        <div class="input-group-append">
+                                            <button disabled="true" class="btn btn-info" id="getRef" type="button"><i class="mdi mdi-sync"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">   
+                                <label for="deskripsi" class="col-3 col-form-label">Deskripsi</label>
+                                <div class="col-7">
+                                    <input class="form-control" type="text" placeholder="Deskripsi" id="nama" name="nama" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="gar" class="col-3 col-form-label">Status Budget</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="gar" name="gar" required>
-                                    <option value=''>--- Pilih Status ---</option>
-                                    <option value='0'>0 - NON</option>
-                                    <option value='1'>1 - BUDGET</option>
-                                    </select>
+                                <label for="akun_debet" class="col-3 col-form-label">Akun Debet</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_debet" id="akun_debet" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_debet" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="normal" class="col-3 col-form-label">Normal Account</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="normal" name="normal" required>
-                                    <option value=''>--- Pilih Normal Account ---</option>
-                                    <option value='C'>C - Kredit</option>
-                                    <option value='D'>D - Debet</option>
-                                    </select>
+                                <label for="akun_kredit" class="col-3 col-form-label">Akun Kredit</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="akun_kredit" id="akun_kredit" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_akun_kredit" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_pp" class="col-3 col-form-label">Unit/PP</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -229,55 +212,396 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
 
     <script type="text/javascript">
+        var $iconLoad = $('.preloader');
+        var $target = "";
+        var $target2 = "";
+        var $target3 = "";
+        var $par1 = "";
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
 
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
-    var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('rtrw-master/reftrans') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('rtrw-auth/login') }}";
-                    })
-                    return [];
+        function getRef(jenis){
+                $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/reftrans-kode') }}/"+jenis,
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.daftar.status){
+                        $('#kode_ref').val(result.daftar.kode);
+                    }
+                },error:function(error) {
+                    alert('Terjadi kesalahan')
                 }
-            }
-        },
-        'columnDefs': [
-            {'targets': 6, data: null, 'defaultContent': action_html }
+            });
+        }
+
+        function getAkunDebet(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/masakun') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_akun == id);
+                            if(filter.length > 0) {
+                                $('#akun_debet').val(filter[0].kode_akun);
+                                $('#label_akun_debet').text(filter[0].nama);
+                            } else {
+                                alert('Akun tidak valid');
+                                $('#akun_debet').val('');
+                                $('#label_akun_debet').text('');
+                                $('#akun_debet').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getAkunKredit(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/masakun') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_akun == id);
+                            if(filter.length > 0) {
+                                $('#akun_kredit').val(filter[0].kode_akun);
+                                $('#label_akun_kredit').text(filter[0].nama);
+                            } else {
+                                alert('Akun tidak valid');
+                                $('#akun_kredit').val('');
+                                $('#label_akun_kredit').text('');
+                                $('#akun_kredit').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getPP(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/relakun-pp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_pp == id);
+                            if(filter.length > 0) {
+                                $('#kode_pp').val(filter[0].kode_pp);
+                                $('#label_kode_pp').text(filter[0].kode_lokasi);
+                            } else {
+                                alert('PP tidak valid');
+                                $('#kode_pp').val('');
+                                $('#label_kode_pp').text('');
+                                $('#kode_pp').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        $('#form-tambah').on('change', '#akun_debet', function(){
+            var par = $(this).val();
+            getAkunDebet(par);
+        });
+
+        $('#form-tambah').on('change', '#akun_kredit', function(){
+            var par = $(this).val();
+            getAkunKredit(par);
+        });
+
+        $('#form-tambah').on('change', '#kode_pp', function(){
+            var par = $(this).val();
+            getPP(par);
+        });
+
+        $('#form-tambah').on('change', '#jenis', function(){
+            $('#getRef').attr('disabled', false);
+        });
+
+        $('#form-tambah').on('click', '#getRef', function(){
+            var jenis = $('#jenis').val();
+            getRef(jenis)
+        });
+
+        var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+        var dataTable = $('#table-data').DataTable({
+            // 'processing': true,
+            // 'serverSide': true,
+            'ajax': {
+                'url': "{{ url('rtrw-master/reftrans') }}",
+                'async':false,
+                'type': 'GET',
+                'dataSrc' : function(json) {
+                    if(json.status){
+                        return json.daftar;   
+                    }else{
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('rtrw-auth/login') }}";
+                        })
+                        return [];
+                    }
+                }
+            },
+            'columnDefs': [
+                {'targets': 6, data: null, 'defaultContent': action_html }
+                ],
+            'columns': [
+                { data: 'kode_ref' },
+                { data: 'nama' },
+                { data: 'akun_debet' },
+                { data: 'akun_kredit' },
+                { data: 'jenis' },
+                { data: 'pp' },
             ],
-        'columns': [
-            { data: 'kode_ref' },
-            { data: 'nama' },
-            { data: 'akun_debet' },
-            { data: 'akun_kredit' },
-            { data: 'jenis' },
-            { data: 'pp' },
-        ],
-        dom: 'lBfrtip',
-        buttons: [
-            // {
-            //     text: '<i class="fa fa-filter"></i> Filter',
-            //     action: function ( e, dt, node, config ) {
-            //         openFilter();
-            //     },
-            //     className: 'btn btn-default ml-2' 
-            // }
-        ]
-    });
+            dom: 'lBfrtip',
+            buttons: [
+                // {
+                //     text: '<i class="fa fa-filter"></i> Filter',
+                //     action: function ( e, dt, node, config ) {
+                //         openFilter();
+                //     },
+                //     className: 'btn btn-default ml-2' 
+                // }
+            ]
+        });
+
+        $('#saku-datatable').on('click', '#btn-tambah', function(){
+            $('#row-id').hide();
+            $('#id_edit').val('');
+            $('#form-tambah')[0].reset();
+            $('#method').val('post');
+            $('#akun_debet').val('');
+            $('#label_akun_debet').text('');
+            $('#akun_kredit').val('');
+            $('#label_akun_kredit').text('');
+            $('#kode_pp').val('');
+            $('#label_kode_pp').text('');
+            $('#saku-datatable').hide();
+            $('#saku-form').show();
+        });
+
+        $('#saku-form').on('click', '#btn-kembali', function(){
+            $('#saku-datatable').show();
+            $('#saku-form').hide();
+        });
+
+        function showFilter(param,target1,target2){
+            var par = param;
+            var modul = '';
+            var header = [];
+            $target = target1;
+            $target2 = target2;
+            
+            switch(par){
+                case 'akun_debet': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                    var columns = [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Akun";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+                case 'akun_kredit': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                    var columns = [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Akun";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+                case 'kode_pp': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('rtrw-master/relakun-pp') }}";
+                    var columns = [
+                        { data: 'kode_pp' },
+                        { data: 'kode_lokasi' }
+                    ];
+                    
+                    var judul = "Daftar PP";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+            }
+
+            var header_html = '';
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th>"+header[i]+"</th>";
+            }
+            header_html +=  "<th></th>";
+
+            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
+
+            $('#modal-search .modal-body').html(table);
+
+            var searchTable = $("#table-search").DataTable({
+                // fixedHeader: true,
+                // "scrollY": "300px",
+                // "processing": true,
+                // "serverSide": true,
+                "ajax": {
+                    "url": toUrl,
+                    "data": {'param':par},
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                "columnDefs": [{
+                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+                }],
+                'columns': columns
+                // "iDisplayLength": 25,
+            });
+
+            // searchTable.$('tr.selected').removeClass('selected');
+            $('#table-search tbody').find('tr:first').addClass('selected');
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search').on('click','.check-item',function(){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('dblclick','tr',function(){
+                console.log('dblclick');
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $(document).keydown(function(e) {
+                if (e.keyCode == 40){ //arrow down
+                    var tr = searchTable.$('tr.selected');
+                    tr.removeClass('selected');
+                    tr.next().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+                if (e.keyCode == 38){ //arrow up
+                    
+                    var tr = searchTable.$('tr.selected');
+                    searchTable.$('tr.selected').removeClass('selected');
+                    tr.prev().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+
+                if (e.keyCode == 13){
+                    var kode = $('tr.selected').find('td:nth-child(1)').text();
+                    var nama = $('tr.selected').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+                    
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            })
+        }
+
+        $('#form-tambah').on('click', '.search-item2', function(){
+            var par = $(this).closest('div').find('input').attr('name');
+            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+            target1 = par;
+            target2 = par2;
+            showFilter(par,target1,target2);
+        });
+
     </script>
