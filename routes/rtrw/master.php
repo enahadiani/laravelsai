@@ -76,5 +76,5 @@ Route::delete('reftrans/{kode}','Rtrw\ReferensiTransController@destroy');
 Route::get('setting-saldo-awal','Rtrw\SaldoController@index');
 // Route::get('reftrans-detail/{kode}','Rtrw\ReferensiTransController@show');
 Route::post('setting-saldo-awal','Rtrw\SaldoController@store');
-Route::put('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\ReferensiTransController@update');
-Route::delete('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\ReferensiTransController@destroy');
+Route::put('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\SaldoController@update');
+Route::delete('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\SaldoController@destroy');
