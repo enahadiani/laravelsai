@@ -211,7 +211,7 @@ class JuskebController extends Controller
                     );
                 }
                 $send_data = array_merge($fields,$fields_barang);
-                $send_data = array_merge($fields,$fields_barang_klp);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -324,7 +324,7 @@ class JuskebController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
@@ -455,7 +455,7 @@ class JuskebController extends Controller
                     );
                 }
                 $send_data = array_merge($fields,$fields_barang);
-                $send_data = array_merge($fields,$fields_barang_klp);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
