@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 // Helper 
+Route::get('jenis-iuran','Rtrw\HelperController@getJenisIuran');
 Route::get('masakun-curr','Rtrw\HelperController@getCurr');
 Route::get('masakun-modul','Rtrw\HelperController@getModul');
 Route::get('reftrans-kode/{jenis}','Rtrw\HelperController@getRef');
@@ -78,3 +79,6 @@ Route::get('setting-saldo-awal','Rtrw\SaldoController@index');
 Route::post('setting-saldo-awal','Rtrw\SaldoController@store');
 Route::put('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\SaldoController@update');
 Route::delete('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\SaldoController@destroy');
+
+//Generate iuran
+Route::post('generate-iuran','Rtrw\IuranController@store');
