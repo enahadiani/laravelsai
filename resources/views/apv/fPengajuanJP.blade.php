@@ -122,14 +122,20 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-3">
+                                <div class="col-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
+                                <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -173,10 +179,13 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="50%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Barang</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="10%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -615,6 +624,7 @@
                         $('#no_juskeb').val(id);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
+                        $('#kode_kota').val(result.data[0].kode_kota);
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
@@ -626,10 +636,13 @@
                                 var line = result.data_detail[x];
                                 input += "<tr class='row-barang'>";
                                 input += "<td width='5%' class='no-barang'>"+no+"</td>";
+                                input += "<td width='45%'>'"+line.nama_klp+"'<input type='hidden' name='barang_klp[]' class='form-control inp-barang_klp' value='"+line.barang_klp+"' required></td>";
                                 input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
                                 input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                                 input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                                 input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<td width='20%' style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td width='20%' style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -687,6 +700,7 @@
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
+                        $('#kode_kota').val(result.data[0].kode_kota);
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
@@ -696,12 +710,15 @@
                         if(result.data_detail.length > 0){
                             for(var x=0;x<result.data_detail.length;x++){
                                 var line = result.data_detail[x];
-                                input += "<tr class='row-barang'>";
+                                iinput += "<tr class='row-barang'>";
                                 input += "<td width='5%' class='no-barang'>"+no+"</td>";
+                                input += "<td width='45%'>'"+line.nama_klp+"'<input type='hidden' name='barang_klp[]' class='form-control inp-barang_klp' value='"+line.barang_klp+"' required></td>";
                                 input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
                                 input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                                 input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                                 input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<td width='20%' style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td width='20%' style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }

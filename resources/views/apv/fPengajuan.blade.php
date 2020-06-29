@@ -85,7 +85,7 @@
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
                                 </div>
                             </div>
                             
@@ -127,9 +127,9 @@
                                                 <th width="15%">Kelompok Barang</th>
                                                 <th width="15%">Barang</th>
                                                 <th width="10%">Harga</th>
-                                                <th width="5%">Qty</th>
+                                                <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
-                                                <th width="15%">PPN</th>
+                                                <th width="10%">PPN</th>
                                                 <th width="20%">Grand Total</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
@@ -290,10 +290,10 @@
                         select = select[0];
                         var control = select.selectize;
                         for(i=0;i<result.data.length;i++){
-                            control.addOption([{text:result.data[i].kode_barang + ' - ' + result.data[i].nama, value:result.data[i].kode_barang}]);
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_barang}]);
                         }
-                        if(pp != null){
-                            control.setValue(pp);
+                        if(barang_klp != null){
+                            control.setValue(barang_klp);
                         }
                     }
                 }
@@ -495,9 +495,11 @@
     $('#kode_kota').change(function(){
         var tmp = $("#kode_pp option:selected").text();
         tmp = tmp.split(" - ");
-        var pp = tmp[1];
+        var pp =  tmp[1];
         var kota = $("#kode_kota option:selected").text();
         var tanggal = $('#tanggal').val();
+        console.log(pp);
+        console.log(kota);
         generateDok(tanggal,pp,kota);
     });
 
@@ -696,6 +698,7 @@
                     $('#tanggal').val(result.data[0].tanggal);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
@@ -713,7 +716,7 @@
                             input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                             input += "<td ><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
                             input += "</tr>";
@@ -742,9 +745,9 @@
 
                     $('#input-grid2 tbody').html(input);
                     
-                    for(var i=0;i<result.detail.length;i++){
-                        var line =result.detail[i];
-                        getPP('barang_klpke'+no);
+                    for(var i=0;i<result.data_detail.length;i++){
+                        var line =result.data_detail[i];
+                        getBarangKlp('barang_klpke'+no);
                         $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
                         no++;
                     }

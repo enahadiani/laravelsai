@@ -110,13 +110,19 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-3">
+                                <div class="col-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" readonly>
                                 </div>
-                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
+                            </div>
+                            <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" readonly>
                                     </select>
+                                </div>
+                                <label for="nama" class="col-3 col-form-label">Kode Kota</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kota" id="kode_kota" name="kode_kota" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -160,10 +166,13 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="45%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Barang</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="10%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -344,6 +353,7 @@
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_pp')[0].selectize.disable();
+                    $('#kode_kota').val(result.data[0].kode_kota);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
@@ -356,10 +366,13 @@
                             var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
                             input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                            input += "<td width='50%'>"+line.barang+"</td>";
+                            input += "<td width='15%'>"+line.barang_klp+"</td>";
+                            input += "<td width='20%'>"+line.barang+"</td>";
                             input += "<td width='15%' style='text-align:right'>"+toRp(line.harga)+"</td>";
                             input += "<td width='10%' style='text-align:right'>"+toRp(line.jumlah)+"</td>";
-                            input += "<td width='20%' style='text-align:right'>"+toRp(line.nilai)+"</td>";
+                            input += "<td width='15%' style='text-align:right'>"+toRp(line.nilai)+"</td>";
+                            input += "<td width='15%' style='text-align:right'>"+toRp(line.ppn)+"</td>";
+                            input += "<td width='15%' style='text-align:right'>"+toRp(line.grand_total)+"</td>";
                             input += "</tr>";
                             no++;
                         }

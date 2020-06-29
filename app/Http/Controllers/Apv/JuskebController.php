@@ -142,13 +142,13 @@ class JuskebController extends Controller
             'dasar' => 'required',
             'total' => 'required',
             'barang'=> 'required|array',
-            'barang_klp'=> 'require|array',
-            'harga'=> 'require|array',
-            'qty'=> 'require|array',
-            'nilai'=> 'require|array',
-            'ppn'=> 'require|array',
-            'grand_total'=> 'require|array',
-            'nama_dok'=>'require|array',
+            'barang_klp'=> 'required|array',
+            'harga'=> 'required|array',
+            'qty'=> 'required|array',
+            'nilai'=> 'required|array',
+            'ppn'=> 'required|array',
+            'grand_total'=> 'required|array',
+            'nama_dok'=>'array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -211,7 +211,7 @@ class JuskebController extends Controller
                     );
                 }
                 $send_data = array_merge($fields,$fields_barang);
-                $send_data = array_merge($fields,$fields_barang_klp);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -394,13 +394,13 @@ class JuskebController extends Controller
             'dasar' => 'required',
             'total' => 'required',
             'barang'=> 'required|array',
-            'barang_klp'=> 'require|array',
-            'harga'=> 'require|array',
-            'qty'=> 'require|array',
-            'nilai'=> 'require|array',
-            'ppn'=> 'require|array',
-            'grand_total'=> 'require|array',
-            'nama_dok'=>'require|array',
+            'barang_klp'=> 'required|array',
+            'harga'=> 'required|array',
+            'qty'=> 'required|array',
+            'nilai'=> 'required|array',
+            'ppn'=> 'required|array',
+            'grand_total'=> 'required|array',
+            'nama_dok'=>'array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -455,7 +455,7 @@ class JuskebController extends Controller
                     );
                 }
                 $send_data = array_merge($fields,$fields_barang);
-                $send_data = array_merge($fields,$fields_barang_klp);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -732,10 +732,15 @@ class JuskebController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'generate-dok/'.$request->tanggal."/".$request->nama_pp."/".$request->nama_kota,[
+            $response = $client->request('GET', $this->link.'generate-dok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'tanggal' => $request->tanggal,
+                    'nama_pp' => $request->nama_pp,
+                    'nama_kota' => $request->nama_kota
                 ]
             ]);
 
