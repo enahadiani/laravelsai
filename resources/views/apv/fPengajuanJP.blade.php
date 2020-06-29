@@ -127,9 +127,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
+                                <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -172,11 +178,14 @@
                                         <table class="table table-striped table-bordered table-condensed" id="input-grid2">
                                         <thead>
                                             <tr>
-                                                <th width="5%">No</th>
-                                                <th width="50%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                            <th width="5%">No</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Barang</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="10%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -85,7 +85,7 @@
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
                                 </div>
                             </div>
                             
@@ -290,7 +290,7 @@
                         select = select[0];
                         var control = select.selectize;
                         for(i=0;i<result.data.length;i++){
-                            control.addOption([{text:result.data[i].kode_barang + ' - ' + result.data[i].nama, value:result.data[i].kode_barang}]);
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_barang}]);
                         }
                         if(barang_klp != null){
                             control.setValue(barang_klp);
@@ -495,9 +495,11 @@
     $('#kode_kota').change(function(){
         var tmp = $("#kode_pp option:selected").text();
         tmp = tmp.split(" - ");
-        var pp = tmp[1];
+        var pp =  tmp[1];
         var kota = $("#kode_kota option:selected").text();
         var tanggal = $('#tanggal').val();
+        console.log(pp);
+        console.log(kota);
         generateDok(tanggal,pp,kota);
     });
 

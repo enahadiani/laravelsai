@@ -732,10 +732,15 @@ class JuskebController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'generate-dok/'.$request->tanggal."/".$request->nama_pp."/".$request->nama_kota,[
+            $response = $client->request('GET', $this->link.'generate-dok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'tanggal' => $request->tanggal,
+                    'nama_pp' => $request->nama_pp,
+                    'nama_kota' => $request->nama_kota
                 ]
             ]);
 
