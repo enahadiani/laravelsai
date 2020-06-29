@@ -324,7 +324,7 @@ class JuskebController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res;
+            $data['message'] = $res['message'];
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }

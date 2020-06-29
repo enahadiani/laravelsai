@@ -292,8 +292,8 @@
                         for(i=0;i<result.data.length;i++){
                             control.addOption([{text:result.data[i].kode_barang + ' - ' + result.data[i].nama, value:result.data[i].kode_barang}]);
                         }
-                        if(pp != null){
-                            control.setValue(pp);
+                        if(barang_klp != null){
+                            control.setValue(barang_klp);
                         }
                     }
                 }
@@ -696,6 +696,7 @@
                     $('#tanggal').val(result.data[0].tanggal);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
@@ -713,7 +714,7 @@
                             input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
                             input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                             input += "<td ><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
                             input += "</tr>";
@@ -742,9 +743,9 @@
 
                     $('#input-grid2 tbody').html(input);
                     
-                    for(var i=0;i<result.detail.length;i++){
-                        var line =result.detail[i];
-                        getPP('barang_klpke'+no);
+                    for(var i=0;i<result.data_detail.length;i++){
+                        var line =result.data_detail[i];
+                        getBarangKlp('barang_klpke'+no);
                         $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
                         no++;
                     }
