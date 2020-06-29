@@ -529,6 +529,11 @@
         }
     });
 
+    $('#kode_curr').on('change', function() {
+        var kodeCurr = $(this).val();
+        $('.inp-curr').val(kodeCurr)
+    });
+
     $('#input-jadwal tbody').on('click', 'tr', function(){
         if ($(this).hasClass('selected-row') ) {
             $(this).removeClass('selected-row');
@@ -570,7 +575,7 @@
         }
     });
 
-        $('#input-jadwal').on('change', '.inp-tglakt', function(){
+    $('#input-jadwal').on('change', '.inp-tglakt', function(){
         var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglakt").val();
         if(tgl_plan == '' || tgl_plan == undefined) {
             var date = new Date();
