@@ -127,7 +127,7 @@ class SaldoController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.
+                $response = $client->request('PUT', $this->link.
                 'setting-saldo-awal?kode_akun='.$id.'&kode_pp='.$pp.'&periode='.$periode
                 ,[
                     'headers' => [
