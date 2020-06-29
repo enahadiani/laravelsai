@@ -127,9 +127,9 @@
                                                 <th width="15%">Kelompok Barang</th>
                                                 <th width="15%">Barang</th>
                                                 <th width="10%">Harga</th>
-                                                <th width="5%">Qty</th>
+                                                <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
-                                                <th width="15%">PPN</th>
+                                                <th width="10%">PPN</th>
                                                 <th width="20%">Grand Total</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
