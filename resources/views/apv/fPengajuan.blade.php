@@ -36,7 +36,7 @@
                 <div class="card">
                     <form class="form" id="form-tambah" style='margin-bottom:100px'>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Pengajuan
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Kebutuhan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -125,7 +125,7 @@
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th width="15%">Kelompok Barang</th>
-                                                <th width="15%">Barang</th>
+                                                <th width="15%">Deskripsi</th>
                                                 <th width="10%">Harga</th>
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
@@ -590,7 +590,8 @@
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
 
             hitungBrg();
@@ -606,7 +607,8 @@
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -620,7 +622,8 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
@@ -635,7 +638,8 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -645,9 +649,9 @@
     $('#input-grid2').on('keydown', '.inp-ppn', function(e){
         if (e.which == 13 || e.which == 9) {
             e.preventDefault();
-            var sub = $(this).closest('tr').find('.inp-sub').val();
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = toNilai(sub)+toNilai(ppn);
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
@@ -657,9 +661,9 @@
     $('#input-grid2').on('change', '.inp-ppn', function(e){
         // if (e.which == 13 || e.which == 9) {
             e.preventDefault();
-            var sub = $(this).closest('tr').find('.inp-sub').val();
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = toNilai(sub)+toNilai(ppn);
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
