@@ -162,6 +162,14 @@ class VerifikasiController extends Controller
             'status' => 'required',
             'keterangan' => 'required',
             'total' => 'required',
+            'barang'=> 'required|array',
+            'barang_klp'=> 'required|array',
+            'harga'=> 'required|array',
+            'qty'=> 'required|array',
+            'nilai'=> 'required|array',
+            'ppn'=> 'required|array',
+            'grand_total'=> 'required|array',
+            'nama_dok'=>'array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -194,6 +202,7 @@ class VerifikasiController extends Controller
             ];
 
             $fields_barang = array();
+            $fields_barang_klp = array();
             if(count($request->barang) > 0){
 
                 for($i=0;$i<count($request->barang);$i++){
@@ -201,8 +210,13 @@ class VerifikasiController extends Controller
                         'name'     => 'barang[]',
                         'contents' => $request->barang[$i],
                     );
+                    $fields_barang_klp[$i] = array(
+                        'name'     => 'barang_klp[]',
+                        'contents' => $request->barang_klp[$i],
+                    );
                 }
                 $send_data = array_merge($fields,$fields_barang);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -232,6 +246,8 @@ class VerifikasiController extends Controller
             }
 
             $fields_subtotal = array();
+            $fields_ppn = array();
+            $fields_grand_total = array();
             if(count($request->nilai) > 0){
 
                 for($i=0;$i<count($request->nilai);$i++){
@@ -240,8 +256,20 @@ class VerifikasiController extends Controller
                         'name'     => 'subtotal[]',
                         'contents' => $sub,
                     );
+                    $ppn = $this->joinNum($request->ppn[$i]);
+                    $fields_ppn[$i] = array(
+                        'name'     => 'ppn[]',
+                        'contents' => $ppn,
+                    );
+                    $grand = $this->joinNum($request->grand_total[$i]);
+                    $fields_grand_total[$i] = array(
+                        'name'     => 'grand_total[]',
+                        'contents' => $grand,
+                    );
                 }
                 $send_data = array_merge($send_data,$fields_subtotal);
+                $send_data = array_merge($send_data,$fields_ppn);
+                $send_data = array_merge($send_data,$fields_grand_total);
             }
 
             $fields_foto = array();
