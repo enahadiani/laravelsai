@@ -55,19 +55,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal</label>
+                                <label for="tanggal" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
+                                <label for="waktu" class="col-3 col-form-label">Tanggal Kebutuhan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
+                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
+                                <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" required>
                                     <option value=''>--- Pilih Regional ---</option>
@@ -75,19 +75,28 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Waktu</label>
+                                <label for="kode_kota" class="col-3 col-form-label">Kota</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="{{ date('Y-m-d') }}" required>
+                                    <select class='form-control' id="kode_kota" name="kode_kota" required>
+                                    <option value=''>--- Pilih Kota ---</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kegiatan</label>
+                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan" name="kegiatan" required>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Justifikasi Kebutuhan</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="Justifikasi Kebutuhan" id="kegiatan" name="kegiatan" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Dasar</label>
+                                <label for="nama" class="col-3 col-form-label">Dasar/Latar Belakang</label>
                                 <div class="col-9">
                                     <input class="form-control" type="text" placeholder="Dasar" id="dasar" name="dasar" required>
                                 </div>
@@ -115,10 +124,13 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="45%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Barang</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="5%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="15%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
@@ -211,7 +223,7 @@
         $('#total').val(0);
         total= 0;
         $('.row-barang').each(function(){
-            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var sub = toNilai($(this).closest('tr').find('.inp-grand_total').val());
             var this_val = sub;
             total += +this_val;
             
@@ -263,6 +275,32 @@
 
         return bulan;
     }
+
+    function getBarangKlp(param,barang_klp=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/apv/barang-klp') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        var select = $('.'+param).selectize();
+                        select = select[0];
+                        var control = select.selectize;
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_barang + ' - ' + result.data[i].nama, value:result.data[i].kode_barang}]);
+                        }
+                        if(pp != null){
+                            control.setValue(pp);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 
     function printAju(id){
         $.ajax({
@@ -402,13 +440,66 @@
                             control.addOption([{text:result.data[i].kode_pp + ' - ' + result.data[i].nama, value:result.data[i].kode_pp}]);
                         }
                         control.setValue("{{ Session::get('kodePP') }}");
+                        getKota("{{ Session::get('kodePP') }}");
                     }
                 }
             }
         });
     }
 
+    function getKota(kode_pp){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/kota') }}",
+            dataType: 'json',
+            data:{'kode_pp':kode_pp},
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                var select = $('#kode_kota').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_kota}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function generateDok(tanggal,nama_pp,nama_kota){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/generate-dok') }}",
+            dataType: 'json',
+            data:{'tanggal':tanggal,'nama_pp':nama_pp,'nama_kota':nama_kota},
+            async:false,
+            success:function(res){
+                $('#no_dokumen').val(res.no_dokumen);
+            }
+        });
+    }
+
     getPP();
+    $('#kode_kota').selectize();
+    $('#kode_pp').selectize({
+        selectOnTab: true,
+        onChange: function (value){
+            getKota(value);
+        }
+    });
+
+    $('#kode_kota').change(function(){
+        var tmp = $("#kode_pp option:selected").text();
+        tmp = tmp.split(" - ");
+        var pp = tmp[1];
+        var kota = $("#kode_kota option:selected").text();
+        var tanggal = $('#tanggal').val();
+        generateDok(tanggal,pp,kota);
+    });
 
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
@@ -458,14 +549,18 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-barang'>";
-        input += "<td width='5%' class='no-barang'>"+no+"</td>";
-        input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='' required></td>";
-        input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control currency inp-hrg'  value='0' required></td>";
-        input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control currency inp-qty'  value='0' required></td>";
-        input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control currency inp-sub' readonly value='0' required></td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "<td class='no-barang'>"+no+"</td>";
+        input += "<td><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+        input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='' required></td>";
+        input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control currency inp-hrg'  value='0' required></td>";
+        input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control currency inp-qty'  value='0' required></td>";
+        input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control currency inp-sub' readonly value='0' required></td>";
+        input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control currency inp-ppn' value='0' required></td>";
+        input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control currency inp-grand_total' readonly value='0' required></td>";
+        input += "<td><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
         input += "</tr>";
         $('#input-grid2 tbody').append(input);
+        getBarangKlp('barang_klpke'+no);
         $('.currency').inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
@@ -492,6 +587,10 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = sub+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+
             hitungBrg();
         }
     });
@@ -504,6 +603,9 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = sub+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
     });
@@ -515,6 +617,9 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = sub+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
         }
@@ -527,6 +632,33 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = sub+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+            hitungBrg();
+        // }
+    });
+
+
+    $('#input-grid2').on('keydown', '.inp-ppn', function(e){
+        if (e.which == 13 || e.which == 9) {
+            e.preventDefault();
+            var sub = $(this).closest('tr').find('.inp-sub').val();
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = toNilai(sub)+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+            hitungBrg();
+            $('#add-row').click();
+        }
+    });
+
+    $('#input-grid2').on('change', '.inp-ppn', function(e){
+        // if (e.which == 13 || e.which == 9) {
+            e.preventDefault();
+            var sub = $(this).closest('tr').find('.inp-sub').val();
+            var ppn = $(this).closest('tr').find('.inp-ppn').val();
+            var grand = toNilai(sub)+toNilai(ppn);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
     });
@@ -575,12 +707,15 @@
                         for(var x=0;x<result.data_detail.length;x++){
                             var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
-                            input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                            input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
-                            input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                            input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
-                            input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                            input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
+                            input += "<td class='no-barang'>"+no+"</td>";
+                            input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+                            input += "<td ><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                            input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                            input += "<td ><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
                             input += "</tr>";
                             no++;
                         }
@@ -606,6 +741,14 @@
                     }
 
                     $('#input-grid2 tbody').html(input);
+                    
+                    for(var i=0;i<result.detail.length;i++){
+                        var line =result.detail[i];
+                        getPP('barang_klpke'+no);
+                        $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
+                        no++;
+                    }
+                    
                     $('#input-dok tbody').html(input2);
                     $('.currency').inputmask("numeric", {
                         radixPoint: ",",
@@ -795,6 +938,12 @@
                 var pesan = "updated";
             }
             var formData = new FormData(this);
+            var tmp = $("#kode_pp option:selected").text();
+            tmp = tmp.split(" - ");
+            var pp = tmp[1];
+            var kota = $("#kode_kota option:selected").text();
+            formData.append('nama_pp',pp);
+            formData.append('nama_kota',kota);
             for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }

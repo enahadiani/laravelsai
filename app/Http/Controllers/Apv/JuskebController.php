@@ -134,15 +134,21 @@ class JuskebController extends Controller
             'tanggal' => 'required',
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
+            'kode_kota' => 'required',
+            'nama_pp' => 'required',
+            'nama_kota' => 'required',
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
             'total' => 'required',
-            'barang.*'=> 'required',
-            'harga.*'=> 'required',
-            'qty.*'=> 'required',
-            'nilai.*'=> 'required',
-            'nama_dok.*'=>'required',
+            'barang'=> 'required|array',
+            'barang_klp'=> 'require|array',
+            'harga'=> 'require|array',
+            'qty'=> 'require|array',
+            'nilai'=> 'require|array',
+            'ppn'=> 'require|array',
+            'grand_total'=> 'require|array',
+            'nama_dok'=>'require|array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -159,6 +165,18 @@ class JuskebController extends Controller
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->kode_pp,
+                ],
+                [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
+                ],
+                [
+                    'name' => 'nama_pp',
+                    'contents' => $request->nama_pp,
+                ],
+                [
+                    'name' => 'nama_kota',
+                    'contents' => $request->nama_kota,
                 ],
                 [
                     'name' => 'waktu',
@@ -179,6 +197,7 @@ class JuskebController extends Controller
             ];
 
             $fields_barang = array();
+            $fields_barang_klp = array();
             if(count($request->barang) > 0){
 
                 for($i=0;$i<count($request->barang);$i++){
@@ -186,8 +205,13 @@ class JuskebController extends Controller
                         'name'     => 'barang[]',
                         'contents' => $request->barang[$i],
                     );
+                    $fields_barang_klp[$i] = array(
+                        'name'     => 'barang_klp[]',
+                        'contents' => $request->barang_klp[$i],
+                    );
                 }
                 $send_data = array_merge($fields,$fields_barang);
+                $send_data = array_merge($fields,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -217,6 +241,8 @@ class JuskebController extends Controller
             }
 
             $fields_subtotal = array();
+            $fields_ppn = array();
+            $fields_grand_total = array();
             if(count($request->nilai) > 0){
 
                 for($i=0;$i<count($request->nilai);$i++){
@@ -225,8 +251,20 @@ class JuskebController extends Controller
                         'name'     => 'subtotal[]',
                         'contents' => $sub,
                     );
+                    $ppn = $this->joinNum($request->ppn[$i]);
+                    $fields_ppn[$i] = array(
+                        'name'     => 'ppn[]',
+                        'contents' => $ppn,
+                    );
+                    $grand = $this->joinNum($request->grand_total[$i]);
+                    $fields_grand_total[$i] = array(
+                        'name'     => 'grand_total[]',
+                        'contents' => $grand,
+                    );
                 }
                 $send_data = array_merge($send_data,$fields_subtotal);
+                $send_data = array_merge($send_data,$fields_ppn);
+                $send_data = array_merge($send_data,$fields_grand_total);
             }
 
             $fields_foto = array();
@@ -350,15 +388,19 @@ class JuskebController extends Controller
             'tanggal' => 'required',
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
+            'kode_kota' => 'required',
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
             'total' => 'required',
-            'barang.*'=> 'required',
-            'harga.*'=> 'required',
-            'qty.*'=> 'required',
-            'nilai.*'=> 'required',
-            'nama_dok.*'=>'required',
+            'barang'=> 'required|array',
+            'barang_klp'=> 'require|array',
+            'harga'=> 'require|array',
+            'qty'=> 'require|array',
+            'nilai'=> 'require|array',
+            'ppn'=> 'require|array',
+            'grand_total'=> 'require|array',
+            'nama_dok'=>'require|array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -375,6 +417,10 @@ class JuskebController extends Controller
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->kode_pp,
+                ],
+                [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
                 ],
                 [
                     'name' => 'waktu',
@@ -395,6 +441,7 @@ class JuskebController extends Controller
             ];
 
             $fields_barang = array();
+            $fields_barang_klp = array();
             if(count($request->barang) > 0){
 
                 for($i=0;$i<count($request->barang);$i++){
@@ -402,8 +449,13 @@ class JuskebController extends Controller
                         'name'     => 'barang[]',
                         'contents' => $request->barang[$i],
                     );
+                    $fields_barang_klp[$i] = array(
+                        'name'     => 'barang_klp[]',
+                        'contents' => $request->barang_klp[$i],
+                    );
                 }
                 $send_data = array_merge($fields,$fields_barang);
+                $send_data = array_merge($fields,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -433,6 +485,8 @@ class JuskebController extends Controller
             }
 
             $fields_subtotal = array();
+            $fields_ppn = array();
+            $fields_grand_total = array();
             if(count($request->nilai) > 0){
 
                 for($i=0;$i<count($request->nilai);$i++){
@@ -441,8 +495,20 @@ class JuskebController extends Controller
                         'name'     => 'subtotal[]',
                         'contents' => $sub,
                     );
+                    $ppn = $this->joinNum($request->ppn[$i]);
+                    $fields_ppn[$i] = array(
+                        'name'     => 'ppn[]',
+                        'contents' => $ppn,
+                    );
+                    $grand = $this->joinNum($request->grand_total[$i]);
+                    $fields_grand_total[$i] = array(
+                        'name'     => 'grand_total[]',
+                        'contents' => $grand,
+                    );
                 }
                 $send_data = array_merge($send_data,$fields_subtotal);
+                $send_data = array_merge($send_data,$fields_ppn);
+                $send_data = array_merge($send_data,$fields_grand_total);
             }
 
             $fields_foto = array();
@@ -592,6 +658,97 @@ class JuskebController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getKota(Request $request)
+    {
+        $this->validate($request,[
+            'kode_pp' => 'required'
+        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'kota',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'kode_pp' => $request->kode_pp
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getBarangKlp(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'barang-klp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function generateDok(Request $request)
+    {
+        $this->validate($request,[
+            'tanggal' => 'required',
+            'nama_pp' => 'required',
+            'nama_kota' => 'required'
+        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'generate-dok/'.$request->tanggal."/".$request->nama_pp."/".$request->nama_kota,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = $response_data;
+            }
+            return response()->json(['no_dokumen' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }

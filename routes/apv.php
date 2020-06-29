@@ -65,6 +65,9 @@ Route::get('/hakakses_menu','Apv\HakaksesController@getMenu');
 
 Route::get('juskeb','Apv\JuskebController@index');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
+Route::get('kota','Apv\JuskebController@getKota');
+Route::get('barang-klp','Apv\JuskebController@getBarangKlp');
+Route::get('generate-dok','Apv\JuskebController@generateDok');
 Route::post('juskeb','Apv\JuskebController@store');
 Route::post('juskeb/{no_bukti}','Apv\JuskebController@update');
 Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
