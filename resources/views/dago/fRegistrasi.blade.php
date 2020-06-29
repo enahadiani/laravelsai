@@ -2283,6 +2283,12 @@
                         <div class="kop" style="height:80px;width:100%">
                             <img src="{{ asset('asset_elite/images/dago_form_logo.jpeg') }}" style="height:80px;width:100%">
                         </div>
+                        <div style="height:20px;width:100%;font-size: 14px;background:#009ed72b" class="subkop text-left">
+                            <span style="padding-right:10px">Website : www.dagowisata.com</span>
+                            <span style="padding-right:10px">Email : info@dagowisata.com</span>
+                            <span style="padding-right:10px">Twiter : @dagowisata</span>        
+                            <span style="padding-right:10px">FB : facebook.com/dagowisata</span>
+                        </div>
                         <table width='100%' class='table table-bordered table-striped' cellspacing='1' cellpadding='2'>
                         <style>
                             th,td{
