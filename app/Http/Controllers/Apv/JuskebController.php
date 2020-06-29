@@ -148,7 +148,7 @@ class JuskebController extends Controller
             'nilai'=> 'required|array',
             'ppn'=> 'required|array',
             'grand_total'=> 'required|array',
-            'nama_dok'=>'required|array',
+            'nama_dok'=>'array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
@@ -400,7 +400,7 @@ class JuskebController extends Controller
             'nilai'=> 'required|array',
             'ppn'=> 'required|array',
             'grand_total'=> 'required|array',
-            'nama_dok'=>'required|array',
+            'nama_dok'=>'array',
             'file_dok.*'=>'file|max:3072'
         ]);
             
