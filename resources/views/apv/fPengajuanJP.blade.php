@@ -292,7 +292,7 @@
         $('#total').val(0);
         total= 0;
         $('.row-barang').each(function(){
-            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var sub = toNilai($(this).closest('tr').find('.inp-grand_total').val());
             var this_val = sub;
             total += +this_val;
             
@@ -719,6 +719,11 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
+            
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+
             hitungBrg();
         }
     });
@@ -731,6 +736,9 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
     });
@@ -742,6 +750,9 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
         }
@@ -754,6 +765,33 @@
             var qty = $(this).closest('tr').find('.inp-qty').val();
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+            hitungBrg();
+        // }
+    });
+
+
+    $('#input-grid2').on('keydown', '.inp-ppn', function(e){
+        if (e.which == 13 || e.which == 9) {
+            e.preventDefault();
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
+            hitungBrg();
+            $('#add-row').click();
+        }
+    });
+
+    $('#input-grid2').on('change', '.inp-ppn', function(e){
+        // if (e.which == 13 || e.which == 9) {
+            e.preventDefault();
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
+            $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
     });
@@ -816,8 +854,8 @@
                                 input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }

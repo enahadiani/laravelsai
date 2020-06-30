@@ -546,7 +546,8 @@
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
 
             hitungBrg();
@@ -562,7 +563,8 @@
             $(this).closest('tr').find('.inp-qty').focus();
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -576,7 +578,8 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
@@ -591,7 +594,8 @@
             var sub = toNilai(hrg)*toNilai(qty);
             $(this).closest('tr').find('.inp-sub').val(sub);
             var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = sub+toNilai(ppn);
+            var nppn = toNilai(ppn)/100;
+            var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
@@ -601,9 +605,9 @@
     $('#input-grid2').on('keydown', '.inp-ppn', function(e){
         if (e.which == 13 || e.which == 9) {
             e.preventDefault();
-            var sub = $(this).closest('tr').find('.inp-sub').val();
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = toNilai(sub)+toNilai(ppn);
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
             $('#add-row').click();
@@ -613,9 +617,9 @@
     $('#input-grid2').on('change', '.inp-ppn', function(e){
         // if (e.which == 13 || e.which == 9) {
             e.preventDefault();
-            var sub = $(this).closest('tr').find('.inp-sub').val();
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var grand = toNilai(sub)+toNilai(ppn);
+            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
+            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
+            var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
