@@ -117,18 +117,37 @@
                                     <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
+                            @if(Session::get('kodePP') == "7")
+                                <div class="form-group row">
+                                    <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
+                                    <div class="col-3">
+                                        <select class='form-control' id="kode_pp" name="kode_pp" required>
+                                        <option value=''>--- Pilih Regional ---</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="kode_kota" class="col-3 col-form-label">Kota</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
+                                <div class="form-group row">
+                                    <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                                    <div class="col-3">
+                                        <select class='form-control' id="kode_kota" name="kode_kota" required>
+                                        <option value=''>--- Pilih Kota ---</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="form-group row">
+                                    <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="col-9">
@@ -495,6 +514,68 @@
         });
     }
 
+    function getPP(){
+        var kode_pp = "{{ Session::get('kodePP')}}";
+        if(kode_pp == "7"){
+            var url = "{{ url('apv/unit') }}";
+        }else{
+            var url = "{{ url('apv/unit') }}/"+kode_pp;
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                if(kode_pp == "7"){
+                    var line = res.daftar;
+                    var status = res.status;
+                }else{
+                    
+                    var line = res.data.data;
+                    var status = res.data.status;
+                }   
+                var select = $('#kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(status){
+                    if(typeof line !== 'undefined' && line.length>0){
+                        for(i=0;i<line.length;i++){
+                            control.addOption([{text:line[i].kode_pp + ' - ' + line[i].nama, value:line[i].kode_pp}]);
+                        }
+                        if(kode_pp != "7"){
+                            control.setValue("{{ Session::get('kodePP') }}");
+                            getKota("{{ Session::get('kodePP') }}");
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getKota(kode_pp){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/kota') }}",
+            dataType: 'json',
+            data:{'kode_pp':kode_pp},
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                var select = $('#kode_kota').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_kota}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     var $iconLoad = $('.preloader');
     var dataTable = $('#table-data').DataTable({
         'ajax': {
@@ -560,6 +641,32 @@
     //         { data: 'action'}
     //     ]
     // });
+    var appPP = "{{ Session::get('kodePP') }}";
+    if(appPP == "7"){
+
+        getPP();
+        $('#kode_kota').selectize();
+        $('#kode_pp').selectize({
+            selectOnTab: true,
+            onChange: function (value){
+                getKota(value);
+            }
+        });
+    
+        $('#kode_kota').change(function(){
+            // var tmp = $("#kode_pp option:selected").text();
+            // tmp = tmp.split(" - ");
+            // var pp =  tmp[1];
+            // var kota = $("#kode_kota option:selected").text();
+            var pp = $('#kode_pp')[0].selectize.getValue();
+            var kota = $('#kode_kota')[0].selectize.getValue();
+            var tanggal = $('#tanggal').val();
+            // console.log(pp);
+            // console.log(kota);
+            generateDok(tanggal,pp,kota);
+        });
+    }
+
 
     $('#saku-data').on('click', '#btn-aju-tambah', function(){
         $('#row-id').hide();
@@ -680,8 +787,15 @@
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
                         $('#method').val('post');
-                        $('#kode_pp').val(result.data[0].kode_pp);
-                        $('#kode_kota').val(result.data[0].kode_kota);
+                        var appKodePP = "{{ Session::get('kodePP') }}";
+                        if(appKodePP == "7"){
+                            $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                            getKota(result.data[0].kode_pp);
+                            $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                        }else{
+                            $('#kode_pp').val(result.data[0].kode_pp);
+                            $('#kode_kota').val(result.data[0].kode_kota);
+                        }
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
