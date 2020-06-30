@@ -475,7 +475,7 @@
             type: 'GET',
             url: "{{ url('apv/generate-dok') }}",
             dataType: 'json',
-            data:{'tanggal':tanggal,'nama_pp':nama_pp,'nama_kota':nama_kota},
+            data:{'tanggal':tanggal,'kode_pp':nama_pp,'kode_kota':nama_kota},
             async:false,
             success:function(res){
                 $('#no_dokumen').val(res.no_dokumen);
