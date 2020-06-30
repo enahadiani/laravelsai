@@ -315,18 +315,21 @@
                         var det='';
                         var no=1;var total=0;
                         for(var i=0;i<result.data_detail.length;i++){
-                            total+=+result.data_detail[i].nilai;
+                            total+=+result.data_detail[i].grand_total;
                             det +=`<tr>
                                 <td>`+no+`</td>
+                                <td>`+result.data_detail[i].nama_klp+`</td>
                                 <td>`+result.data_detail[i].barang+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].harga)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].jumlah)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].nilai)+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].ppn)+`%</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].grand_total)+`</td>
                             </tr>`;
                             no++;
                         }
                         det +=`<tr>
-                                <td colspan='4'>Total</td>
+                                <td colspan='7'>Total</td>
                                 <td class='text-right'>`+toRp(total)+`</td>
                             </tr>`;
 
@@ -343,7 +346,7 @@
                         }
                         var html=`<div class="row">
                                 <div class="col-12" style='border-bottom:3px solid black;text-align:center'>
-                                    <h3>JUSTIFIKASI PENGADAAN</h3>
+                                    <h3>JUSTIFIKASI KEBUTUHAN</h3>
                                     <h3 id='print-kegiatan'>`+result.data[0].kegiatan+`</h3>
                                 </div>
                                 <div class="col-12 my-2" style='text-align:center'>
@@ -359,12 +362,17 @@
                                                 <td width="70%" id='print-unit'>`+result.data[0].nama_pp+`</td>
                                             </tr>
                                             <tr>
-                                                <td>2</td>
+                                                <td width="5%">2</td>
+                                                <td width="25">NAMA KOTA</td>
+                                                <td width="70%" id='print-unit'>`+result.data[0].nama_kota+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
                                                 <td>NAMA KEGIATAN</td>
                                                 <td id='print-kegiatan2'>`+result.data[0].kegiatan+`</td>
                                             </tr>
                                             <tr>
-                                                <td>3</td>
+                                                <td>4</td>
                                                 <td>SAAT PENGGUNAAN</td>
                                                 <td id='print-waktu'>`+result.data[0].waktu.substr(8,2)+' '+getNamaBulan(result.data[0].waktu.substr(5,2))+' '+result.data[0].waktu.substr(0,4)+`</td>
                                             </tr>
@@ -379,10 +387,13 @@
                                         <thead>
                                             <tr>
                                                 <td width="5%">No</td>
-                                                <td width="25">Deskripsi</td>
+                                                <td width="15">Kelompok Barang</td>
+                                                <td width="20">Deskripsi</td>
                                                 <td width="15%">Harga</td>
-                                                <td width="25%">Qty</td>
-                                                <td width="30%">Jumlah Harga</td>
+                                                <td width="10%">Qty</td>
+                                                <td width="20%">Jumlah Harga</td>
+                                                <td width="15%">PPN</td>
+                                                <td width="20%">Grand Total</td>
                                             </tr>
                                         </thead>
                                         <tbody>`+det+`

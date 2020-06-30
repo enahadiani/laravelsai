@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-3">
+                                <div class="col-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" readonly>
                                 </div>
                             </div>
