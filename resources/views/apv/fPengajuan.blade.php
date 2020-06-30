@@ -498,7 +498,7 @@
         // var pp =  tmp[1];
         // var kota = $("#kode_kota option:selected").text();
         var pp = $('#kode_pp')[0].selectize.getValue();
-        var pp = $('#kode_kota')[0].selectize.getValue();
+        var kota = $('#kode_kota')[0].selectize.getValue();
         var tanggal = $('#tanggal').val();
         // console.log(pp);
         // console.log(kota);
