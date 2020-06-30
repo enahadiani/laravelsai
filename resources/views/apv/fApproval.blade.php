@@ -365,14 +365,14 @@
                         for(var x=0;x<result.data_detail.length;x++){
                             var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
-                            input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                            input += "<td width='15%'>"+line.barang_klp+"</td>";
-                            input += "<td width='20%'>"+line.barang+"</td>";
-                            input += "<td width='15%' style='text-align:right'>"+toRp(line.harga)+"</td>";
-                            input += "<td width='10%' style='text-align:right'>"+toRp(line.jumlah)+"</td>";
-                            input += "<td width='15%' style='text-align:right'>"+toRp(line.nilai)+"</td>";
-                            input += "<td width='15%' style='text-align:right'>"+toRp(line.ppn)+"</td>";
-                            input += "<td width='15%' style='text-align:right'>"+toRp(line.grand_total)+"</td>";
+                            input += "<td class='no-barang'>"+no+"</td>";
+                            input += "<td >"+line.nama_klp+"</td>";
+                            input += "<td >"+line.barang+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.harga)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.jumlah)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.nilai)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.ppn)+"%</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.grand_total)+"</td>";
                             input += "</tr>";
                             no++;
                         }
