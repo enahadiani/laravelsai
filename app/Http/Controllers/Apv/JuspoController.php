@@ -339,6 +339,42 @@ class JuspoController extends Controller
         }
     }
 
+    public function generateDok(Request $request)
+    {
+        $this->validate($request,[
+            'tanggal' => 'required',
+            'kode_pp' => 'required',
+            'kode_kota' => 'required'
+        ]);
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'generate-dok-juspo',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'tanggal' => $request->tanggal,
+                    'kode_pp' => $request->kode_pp,
+                    'kode_kota' => $request->kode_kota
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = $response_data;
+            }
+            return response()->json(['no_dokumen' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
     public function getDetailJuskeb($no_bukti)
     {
         try{

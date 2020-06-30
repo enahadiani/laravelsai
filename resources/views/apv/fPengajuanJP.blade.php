@@ -102,28 +102,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal</label>
+                                <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">No Justifikasi Kebutuhan</label>
+                                <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" id="no_juskeb" name="no_juskeb" readonly required>
-                                
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal JusKeb</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" id="tgl_juskeb" name="tgl_juskeb" required readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
+                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -139,13 +126,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Waktu</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
+                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kegiatan</label>
+                                <label for="nama" class="col-3 col-form-label">No Justifikasi Kebutuhan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" id="no_juskeb" name="no_juskeb" readonly required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Justifikasi Pengadaan</label>
                                 <div class="col-9">
                                     <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan" name="kegiatan" required readonly>
                                 </div>
@@ -329,6 +322,19 @@
         return bulan;
     }
 
+    function generateDok(tanggal,nama_pp,nama_kota){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/generate-dok-juspo') }}",
+            dataType: 'json',
+            data:{'tanggal':tanggal,'kode_pp':nama_pp,'kode_kota':nama_kota},
+            async:false,
+            success:function(res){
+                $('#no_dokumen').val(res.no_dokumen);
+            }
+        });
+    }
+
     function printAju(id){
         $.ajax({
             type: 'GET',
@@ -443,6 +449,31 @@
                             $('#slide-print').show();
                             $('#saku-data').hide();
                             $('#saku-form').hide();
+                    }
+                }
+            }
+        });
+    }
+
+    function getBarangKlp(param,barang_klp=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/apv/barang-klp') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        var select = $('.'+param).selectize();
+                        select = select[0];
+                        var control = select.selectize;
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_barang}]);
+                        }
+                        if(barang_klp != null){
+                            control.setValue(barang_klp);
+                        }
                     }
                 }
             }
@@ -619,7 +650,7 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('');
                         $('#no_bukti').val('');
-                        $('#no_dokumen').val(result.data[0].no_dokumen);
+                        generateDok(result.data[0].tanggal,result.data[0].kode_pp,result.data[0].kode_kota);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
                         $('#method').val('post');
@@ -636,7 +667,7 @@
                                 var line = result.data_detail[x];
                                 input += "<tr class='row-barang'>";
                                 input += "<td class='no-barang'>"+no+"</td>";
-                                input += "<td>"+line.nama_klp+"<input type='hidden' name='barang_klp[]' class='form-control inp-barang_klp' value='"+line.barang_klp+"' required></td>";
+                                input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
                                 input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
@@ -665,6 +696,14 @@
                         }
 
                         $('#input-grid2 tbody').html(input);
+                        
+                        var no =1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
+                            getBarangKlp('barang_klpke'+no);
+                            $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
+                            no++;
+                        }
                         $('#input-dok tbody').html(input2);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",
