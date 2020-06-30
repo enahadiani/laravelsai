@@ -14,7 +14,7 @@
                             vertical-align:middle !important;
                         }
                         </style>
-                        <h4 class="card-title">Data Approval 
+                        <h4 class="card-title">Data Approval Justifikasi Kebutuhan
                         </h4>
                         <hr>
                         <div class="table-responsive ">
