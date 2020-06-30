@@ -553,7 +553,7 @@
         });
     }
 
-    function getKota(kode_pp){
+    function getKota(kode_pp,kode_kota = null){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/kota') }}",
@@ -569,6 +569,9 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         for(i=0;i<result.data.length;i++){
                             control.addOption([{text:result.data[i].nama, value:result.data[i].kode_kota}]);
+                        }
+                        if(kode_kota != null){
+                            control.setValue(kode_kota);
                         }
                     }
                 }
@@ -790,8 +793,9 @@
                         var appKodePP = "{{ Session::get('kodePP') }}";
                         if(appKodePP == "7"){
                             $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
-                            getKota(result.data[0].kode_pp);
-                            $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                            getKota(result.data[0].kode_pp,result.data[0].kode_kota);
+                            // $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                            // console.log(result.data[0].kode_kota);
                         }else{
                             $('#kode_pp').val(result.data[0].kode_pp);
                             $('#kode_kota').val(result.data[0].kode_kota);
