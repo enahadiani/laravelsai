@@ -713,9 +713,9 @@
                     $('#no_bukti').val(id);
                     // $('#kode_barang').attr('readonly', true);
                     $('#tanggal').val(result.data[0].tanggal);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
