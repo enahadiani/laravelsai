@@ -50,7 +50,6 @@
                                                 <th class="header_laporan" align="center" >No Dokumen</th>
                                                 <th class="header_laporan" align="center" >Justifikasi Kebutuhan</th>
                                                 <th class="header_laporan" align="center" >Dasar</th>
-                                                <th class="header_laporan" align="center" >NIK Buat</th>
                                                 <th class="header_laporan" align="center" >Nilai Kebutuhan</th>
                                                 <th class="header_laporan" align="center" >Posisi</th>
                                                 <th class="header_laporan" align="center" >No Verifikasi</th>
@@ -85,8 +84,7 @@
                                                 <td  class='isi_laporan'>`+line2.no_dokumen+`</td>
                                                 <td  class='isi_laporan'>`+line2.kegiatan+`</td>
                                                 <td  class='isi_laporan'>`+line2.dasar+`</td>
-                                                <td class='isi_laporan'>`+line2.nik_buat+`</td>
-                                                <td class='isi_laporan'>`+sepNumX(line2.nilai)+`</td>
+                                                <td class='isi_laporan text-right'>`+sepNumPas(line2.nilai_kebutuhan)+`</td>
                                                 <td class='isi_laporan'>`+line2.posisi+`</td>
                                                 <td  class='isi_laporan'>`+line2.no_ver+`</td>
                                                 <td  class='isi_laporan'>`+line2.tgl_ver+`</td>
@@ -94,7 +92,7 @@
                                                 <td class='isi_laporan'>`+line2.tgl_apprm+`</td>
                                                 <td  class='isi_laporan'>`+line2.no_juspo+`</td>
                                                 <td  class='isi_laporan'>`+line2.tgl_pengadaan+`</td>
-                                                <td class='isi_laporan'>`+sepNumX(line2.nilai_pengadaan)+`</td>
+                                                <td class='isi_laporan text-right'>`+sepNumPas(line2.nilai_pengadaan)+`</td>
                                                 <td  class='isi_laporan'>`+line2.nik_app1+`</td>
                                                 <td  class='isi_laporan'>`+line2.tgl_app1+`</td>
                                                 <td class='isi_laporan'>`+line2.nik_app2+`</td>

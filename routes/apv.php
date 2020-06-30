@@ -109,4 +109,13 @@ Route::get('dash_posisi','Apv\DashboardController@getPosisi');
 Route::post('notif_register','Apv\NotifController@register');
 Route::get('notif_send','Apv\NotifController@sendNotif');
 
+//Filter Laporan
+Route::get('filter-pp','Apv\FilterController@getFilterPP');
+Route::get('filter-kota','Apv\FilterController@getFilterKota');
+Route::get('filter-nobukti','Apv\FilterController@getFilterNoBukti');
+Route::get('filter-nodokumen','Apv\FilterController@getFilterNoDokumen');
+
+//Pihak ketiga
+//Laporan
+Route::get('lap-posisi','Apv\LapInternalController@getPosisi');
 

@@ -164,7 +164,10 @@ th{
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="det" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                         <style>
                                             th,td{
                                                 padding:8px !important;
@@ -175,15 +178,14 @@ th{
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="10%">Kode Klp</th>
-                                                <th width="15%">Nama Kelompok</th>
+                                                <th width="15%"> Kelompok Barang</th>
                                                 <th width="15%">Deskripsi</th>
                                                 <th width="10%">Harga</th>
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
                                                 <th width="10%">PPN</th>
                                                 <th width="20%">Grand Total</th>
-                                                <th width="5%" class="text-center"><a type="button" href="#" id="add-row" class="btn btn-default py-0 px-0"><i class="fa fa-plus-circle"></i></a></th>
+                                                <th width="5%" class="text-center"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -192,7 +194,10 @@ th{
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="dok" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
                                         <style>
                                             th,td{
                                                 padding:8px !important;
@@ -812,7 +817,7 @@ th{
         var input = "";
         input += "<tr class='row-barang'>";
         input += "<td class='no-barang'>"+no+"</td>";
-        input += "<td><span class='td-barang_klp tdbarang_klpke"+no+"'></span><input type='text' name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-barang_klp hidden' style='position: absolute;z-index: 2;margin-top: 8px;margin-left:5px'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-barang_klp tdbarang_klpke"+no+"'></span><select hidden name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
         input += "<td><span class='td-nama tdnamake"+no+"'></span><input type='text' name='nama[]' class='form-control inp-nama namake"+no+" hidden'  value='' readonly></td>";
         input += "<td><span class='td-barang tdbarangke"+no+"'></span><input type='text' name='barang[]' class='form-control inp-barang barangke"+no+" hidden'  value=''></td>";
         input += "<td style='text-align:right'><span class='td-harga tdhargake"+no+"'></span><input type='text' name='harga[]' class='form-control inp-harga hargake"+no+" hidden'  value='' required></td>";
