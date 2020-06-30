@@ -15,7 +15,7 @@
                         </ul> -->
                         <div class='row'>   
                             <div class="col-md-12">
-                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Pengajuan
+                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Justifikasi Pengadaan
                                 </h4>
                                 <hr>
                             </div>
@@ -83,7 +83,7 @@
                 <div class="card" style="height:560px">
                     <form class="form" id="form-tambah">
                     <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Pengajuan
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Pengadaan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -180,7 +180,7 @@
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th width="15%">Kelompok Barang</th>
-                                                <th width="15%">Barang</th>
+                                                <th width="15%">Deskripsi</th>
                                                 <th width="10%">Harga</th>
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>

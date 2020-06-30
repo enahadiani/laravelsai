@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class='row'>   
                             <div class="col-md-12">
-                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Approval Pengadaan
+                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Approval Justifikasi Pengadaan
                                 </h4>
                                 <hr>
                             </div>
@@ -76,7 +76,7 @@
                 <div class="card" style="height:560px">
                     <form class="form" id="form-tambah">
                         <div class="card-body">
-                            <h4 class="card-title" style='margin-bottom: 15px;'>Form Approval
+                            <h4 class="card-title" style='margin-bottom: 15px;'>Form Approval Justifikasi Pengadaan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-app-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -115,13 +115,20 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-3">
+                                <div class="col-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" readonly>
                                 </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Kode Regional</label>
                                 <div class="col-3">
                                     <select class='form-control' id="kode_pp" name="kode_pp" readonly>
                                     </select>
+                                </div>
+                                
+                                <label for="kode_kota" class="col-3 col-form-label">Kode Kota</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Kota" id="kode_kota" name="kode_kota" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -165,10 +172,13 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="45%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Deskripsi</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="10%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -349,6 +359,7 @@
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_pp')[0].selectize.disable();
+                    $('#kode_kota').val(result.data[0].kode_kota);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
@@ -360,11 +371,14 @@
                         for(var x=0;x<result.data_detail.length;x++){
                             var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
-                            input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                            input += "<td width='50%'>"+line.barang+"</td>";
-                            input += "<td width='15%' style='text-align:right'>"+toRp(line.harga)+"</td>";
-                            input += "<td width='10%' style='text-align:right'>"+toRp(line.jumlah)+"</td>";
-                            input += "<td width='20%' style='text-align:right'>"+toRp(line.nilai)+"</td>";
+                            input += "<td class='no-barang'>"+no+"</td>";
+                            input += "<td >"+line.barang_klp+"</td>";
+                            input += "<td >"+line.barang+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.harga)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.jumlah)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.nilai)+"</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.ppn)+"%</td>";
+                            input += "<td style='text-align:right'>"+toRp(line.grand_total)+"</td>";
                             input += "</tr>";
                             no++;
                         }
