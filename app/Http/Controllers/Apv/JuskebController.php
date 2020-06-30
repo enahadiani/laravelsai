@@ -135,8 +135,6 @@ class JuskebController extends Controller
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
             'kode_kota' => 'required',
-            'nama_pp' => 'required',
-            'nama_kota' => 'required',
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
@@ -169,14 +167,6 @@ class JuskebController extends Controller
                 [
                     'name' => 'kode_kota',
                     'contents' => $request->kode_kota,
-                ],
-                [
-                    'name' => 'nama_pp',
-                    'contents' => $request->nama_pp,
-                ],
-                [
-                    'name' => 'nama_kota',
-                    'contents' => $request->nama_kota,
                 ],
                 [
                     'name' => 'waktu',
@@ -727,8 +717,8 @@ class JuskebController extends Controller
     {
         $this->validate($request,[
             'tanggal' => 'required',
-            'nama_pp' => 'required',
-            'nama_kota' => 'required'
+            'kode_pp' => 'required',
+            'kode_kota' => 'required'
         ]);
         try{
             $client = new Client();
@@ -739,8 +729,8 @@ class JuskebController extends Controller
                 ],
                 'query' =>[
                     'tanggal' => $request->tanggal,
-                    'nama_pp' => $request->nama_pp,
-                    'nama_kota' => $request->nama_kota
+                    'kode_pp' => $request->kode_pp,
+                    'kode_kota' => $request->kode_kota
                 ]
             ]);
 

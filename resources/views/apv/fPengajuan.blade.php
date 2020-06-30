@@ -493,13 +493,15 @@
     });
 
     $('#kode_kota').change(function(){
-        var tmp = $("#kode_pp option:selected").text();
-        tmp = tmp.split(" - ");
-        var pp =  tmp[1];
-        var kota = $("#kode_kota option:selected").text();
+        // var tmp = $("#kode_pp option:selected").text();
+        // tmp = tmp.split(" - ");
+        // var pp =  tmp[1];
+        // var kota = $("#kode_kota option:selected").text();
+        var pp = $('#kode_pp')[0].selectize.getValue();
+        var pp = $('#kode_kota')[0].selectize.getValue();
         var tanggal = $('#tanggal').val();
-        console.log(pp);
-        console.log(kota);
+        // console.log(pp);
+        // console.log(kota);
         generateDok(tanggal,pp,kota);
     });
 
@@ -945,12 +947,12 @@
                 var pesan = "updated";
             }
             var formData = new FormData(this);
-            var tmp = $("#kode_pp option:selected").text();
-            tmp = tmp.split(" - ");
-            var pp = tmp[1];
-            var kota = $("#kode_kota option:selected").text();
-            formData.append('nama_pp',pp);
-            formData.append('nama_kota',kota);
+            // var tmp = $("#kode_pp option:selected").text();
+            // tmp = tmp.split(" - ");
+            // var pp = tmp[1];
+            // var kota = $("#kode_kota option:selected").text();
+            // formData.append('nama_pp',pp);
+            // formData.append('nama_kota',kota);
             for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
