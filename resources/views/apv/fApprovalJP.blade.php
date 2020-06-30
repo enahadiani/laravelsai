@@ -372,7 +372,7 @@
                             var line = result.data_detail[x];
                             input += "<tr class='row-barang'>";
                             input += "<td class='no-barang'>"+no+"</td>";
-                            input += "<td >"+line.barang_klp+"</td>";
+                            input += "<td >"+line.nama_klp+"</td>";
                             input += "<td >"+line.barang+"</td>";
                             input += "<td style='text-align:right'>"+toRp(line.harga)+"</td>";
                             input += "<td style='text-align:right'>"+toRp(line.jumlah)+"</td>";

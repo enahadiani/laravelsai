@@ -169,6 +169,7 @@ class JuspoController extends Controller
             'tanggal' => 'required',
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
+            'kode_kota' => 'required',
             'tgl_juskeb' => 'required',
             'no_juskeb' => 'required',
             'waktu' => 'required',
@@ -204,6 +205,10 @@ class JuspoController extends Controller
                     'contents' => $request->kode_pp,
                 ],
                 [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
+                ],
+                [
                     'name' => 'waktu',
                     'contents' => $request->waktu,
                 ],
@@ -222,6 +227,7 @@ class JuspoController extends Controller
             ];
 
             $fields_barang = array();
+            $fields_barang_klp = array();
             if(count($request->barang) > 0){
 
                 for($i=0;$i<count($request->barang);$i++){
@@ -229,8 +235,13 @@ class JuspoController extends Controller
                         'name'     => 'barang[]',
                         'contents' => $request->barang[$i],
                     );
+                    $fields_barang_klp[$i] = array(
+                        'name'     => 'barang_klp[]',
+                        'contents' => $request->barang_klp[$i],
+                    );
                 }
                 $send_data = array_merge($fields,$fields_barang);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -260,6 +271,8 @@ class JuspoController extends Controller
             }
 
             $fields_subtotal = array();
+            $fields_ppn = array();
+            $fields_grand_total = array();
             if(count($request->nilai) > 0){
 
                 for($i=0;$i<count($request->nilai);$i++){
@@ -268,8 +281,20 @@ class JuspoController extends Controller
                         'name'     => 'subtotal[]',
                         'contents' => $sub,
                     );
+                    $ppn = $this->joinNum($request->ppn[$i]);
+                    $fields_ppn[$i] = array(
+                        'name'     => 'ppn[]',
+                        'contents' => $ppn,
+                    );
+                    $grand = $this->joinNum($request->grand_total[$i]);
+                    $fields_grand_total[$i] = array(
+                        'name'     => 'grand_total[]',
+                        'contents' => $grand,
+                    );
                 }
                 $send_data = array_merge($send_data,$fields_subtotal);
+                $send_data = array_merge($send_data,$fields_ppn);
+                $send_data = array_merge($send_data,$fields_grand_total);
             }
                 
             $client = new Client();
@@ -429,6 +454,7 @@ class JuspoController extends Controller
             'no_juskeb' => 'required',
             'no_dokumen' => 'required',
             'kode_pp' => 'required',
+            'kode_kota' => 'required',
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
@@ -462,6 +488,10 @@ class JuspoController extends Controller
                     'contents' => $request->kode_pp,
                 ],
                 [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
+                ],
+                [
                     'name' => 'waktu',
                     'contents' => $request->waktu,
                 ],
@@ -480,6 +510,7 @@ class JuspoController extends Controller
             ];
 
             $fields_barang = array();
+            $fields_barang_klp = array();
             if(count($request->barang) > 0){
 
                 for($i=0;$i<count($request->barang);$i++){
@@ -487,8 +518,13 @@ class JuspoController extends Controller
                         'name'     => 'barang[]',
                         'contents' => $request->barang[$i],
                     );
+                    $fields_barang_klp[$i] = array(
+                        'name'     => 'barang_klp[]',
+                        'contents' => $request->barang_klp[$i],
+                    );
                 }
                 $send_data = array_merge($fields,$fields_barang);
+                $send_data = array_merge($send_data,$fields_barang_klp);
             }else{
                 $send_data = $fields;
             }
@@ -518,6 +554,8 @@ class JuspoController extends Controller
             }
 
             $fields_subtotal = array();
+            $fields_ppn = array();
+            $fields_grand_total = array();
             if(count($request->nilai) > 0){
 
                 for($i=0;$i<count($request->nilai);$i++){
@@ -526,8 +564,20 @@ class JuspoController extends Controller
                         'name'     => 'subtotal[]',
                         'contents' => $sub,
                     );
+                    $ppn = $this->joinNum($request->ppn[$i]);
+                    $fields_ppn[$i] = array(
+                        'name'     => 'ppn[]',
+                        'contents' => $ppn,
+                    );
+                    $grand = $this->joinNum($request->grand_total[$i]);
+                    $fields_grand_total[$i] = array(
+                        'name'     => 'grand_total[]',
+                        'contents' => $grand,
+                    );
                 }
                 $send_data = array_merge($send_data,$fields_subtotal);
+                $send_data = array_merge($send_data,$fields_ppn);
+                $send_data = array_merge($send_data,$fields_grand_total);
             }
                 
             $client = new Client();

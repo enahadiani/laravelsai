@@ -324,6 +324,9 @@
 
                                 $('.body-content').load(url);
                             }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
                         }
                     });
                 }
@@ -370,6 +373,31 @@
                     }else{
                         loadForm(url);
 
+                    }
+                });
+                $(document).ready(function(){
+                    setTimeout(function(){
+                        alert('Session token telah habis, silahkan login kembali');
+                        window.location.href = "{{url('apv/logout')}}";
+                    }, 1000 * 60 * 60);
+
+                    var form ="{{ Session::get('dash') }}";
+                    if(form !="" || form != "-"){
+                        loadForm("{{ url('apv/form') }}/"+form);
+                    }
+                });
+
+                function setHeightReport(){
+                    var header = $('.topbar').height();
+                    var subheader = $('#subFixbar').height();
+                    var content = window.innerHeight;
+                    var tinggi = content-header-subheader-50;
+                    $('#content-lap').css('height',tinggi);
+                }
+
+                $( window ).resize(function() {
+                    if($('#content-lap').length > 0){
+                        setHeightReport();
                     }
                 });
             </script>

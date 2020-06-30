@@ -2,6 +2,9 @@
 .form-group{
     margin-bottom:15px !important;
 }
+.hidden{
+    display:none;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-data">
@@ -68,6 +71,8 @@
                                 <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                    
+                                    <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb" name="tgl_juskeb" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -460,7 +465,7 @@
                         $('#id').val('edit');
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
-                        $('#tanggal').val(result.data[0].tgl_input);
+                        $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
