@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card" style="min-height:560px">
                     <div class="card-body">    
-                        <h4 class="card-title">Data Verifikasi 
+                        <h4 class="card-title">Data Verifikasi Justifikasi Kebutuhan
                         </h4>
                         <hr>
                         <div class="table-responsive ">
@@ -39,7 +39,7 @@
                 <div class="card">
                     <form class="form" id="form-tambah">
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Verifikasi
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Verifikasi Justifikasi Kebutuhan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -131,7 +131,7 @@
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th width="15%">Kelompok Barang</th>
-                                                <th width="15%">Barang</th>
+                                                <th width="15%">Deskripsi</th>
                                                 <th width="10%">Harga</th>
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
