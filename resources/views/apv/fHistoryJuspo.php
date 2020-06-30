@@ -65,9 +65,33 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal</label>
+                                <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_kota" class="col-3 col-form-label">Kode Kota</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -78,31 +102,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal JusKeb</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" id="tgl_juskeb" name="tgl_juskeb" required readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kode Regional</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Waktu</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kegiatan</label>
+                                <label for="nama" class="col-3 col-form-label">Justifikasi Pengadaan</label>
                                 <div class="col-9">
                                     <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan" name="kegiatan" required readonly>
                                 </div>
@@ -136,10 +136,13 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
-                                                <th width="50%">Barang</th>
-                                                <th width="20%">Harga</th>
-                                                <th width="10%">Qty</th>
-                                                <th width="20%">Subtotal</th>
+                                                <th width="15%">Kelompok Barang</th>
+                                                <th width="15%">Deskripsi</th>
+                                                <th width="10%">Harga</th>
+                                                <th width="7%">Qty</th>
+                                                <th width="15%">Subtotal</th>
+                                                <th width="10%">PPN</th>
+                                                <th width="20%">Grand Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -295,18 +298,21 @@
                         var det='';
                         var no=1;var total=0;
                         for(var i=0;i<result.data_detail.length;i++){
-                            total+=+result.data_detail[i].nilai;
+                            total+=+result.data_detail[i].grand_total;
                             det +=`<tr>
                                 <td>`+no+`</td>
+                                <td>`+result.data_detail[i].barang_klp+`</td>
                                 <td>`+result.data_detail[i].barang+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].harga)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].jumlah)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].nilai)+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].ppn)+`</td>
+                                <td class='text-right'>`+toRp(result.data_detail[i].grand_total)+`</td>
                             </tr>`;
                             no++;
                         }
                         det +=`<tr>
-                                <td colspan='4'>Total</td>
+                                <td colspan='7'>Total</td>
                                 <td class='text-right'>`+toRp(total)+`</td>
                             </tr>`;
 
@@ -340,11 +346,16 @@
                                             </tr>
                                             <tr>
                                                 <td>2</td>
+                                                <td>NAMA KOTA</td>
+                                                <td id='print-kota'>`+result.data[0].nama_kota+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
                                                 <td>NAMA KEGIATAN</td>
                                                 <td id='print-kegiatan2'>`+result.data[0].kegiatan+`</td>
                                             </tr>
                                             <tr>
-                                                <td>3</td>
+                                                <td>4</td>
                                                 <td>SAAT PENGGUNAAN</td>
                                                 <td id='print-waktu'>`+result.data[0].waktu.substr(8,2)+' '+getNamaBulan(result.data[0].waktu.substr(5,2))+' '+result.data[0].waktu.substr(0,4)+`</td>
                                             </tr>
@@ -359,10 +370,13 @@
                                         <thead>
                                             <tr>
                                                 <td width="5%">No</td>
-                                                <td width="25">Deskripsi</td>
+                                                <td width="15">Kelompok Barang</td>
+                                                <td width="20">Deskripsi</td>
                                                 <td width="15%">Harga</td>
-                                                <td width="25%">Qty</td>
-                                                <td width="30%">Jumlah Harga</td>
+                                                <td width="10%">Qty</td>
+                                                <td width="20%">Jumlah Harga</td>
+                                                <td width="15%">PPN</td>
+                                                <td width="20%">Grand Total</td>
                                             </tr>
                                         </thead>
                                         <tbody>`+det+`
@@ -447,7 +461,6 @@
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
                         $('#tanggal').val(result.data[0].tgl_input);
-                        $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
@@ -461,11 +474,15 @@
                             for(var x=0;x<result.data_detail.length;x++){
                                 var line = result.data_detail[x];
                                 input += "<tr class='row-barang'>";
-                                input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                                input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
-                                input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                                input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<tr class='row-barang'>";
+                                input += "<td class='no-barang'>"+no+"</td>";
+                                input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+                                input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -488,6 +505,13 @@
                         }
 
                         $('#input-grid2 tbody').html(input);
+                        var no =1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
+                            getBarangKlp('barang_klpke'+no);
+                            $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
+                            no++;
+                        }
                         $('#input-dok tbody').html(input2);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",
