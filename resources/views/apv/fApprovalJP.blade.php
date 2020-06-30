@@ -300,7 +300,18 @@
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.daftar;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                    return [];
+                }  
             }
         },
         'columnDefs': [
@@ -413,6 +424,15 @@
                     $('#saku-data').hide();
                     $('#saku-form').show();
                 }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                }
             }
         });
     });
@@ -450,7 +470,17 @@
                     )
                     $('#saku-form').hide();
                     $('#saku-data').show();
-                }else{
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                }
+                else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',

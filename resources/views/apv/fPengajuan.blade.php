@@ -526,7 +526,18 @@
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
-                return json.daftar;   
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                    return [];
+                }
             }
         },
         'columnDefs': [
@@ -849,13 +860,13 @@
                         $('#saku-datatable').hide();
                         $('#saku-form').hide();
                     }
-                } else if(!res.status && res == "Unauthorized"){
+                } else if(!result.status && result.message == "Unauthorized"){
                     Swal.fire({
                         title: 'Session telah habis',
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('apv/login') }}";
+                        window.location.href = "{{ url('apv/logout') }}";
                     })
                 } else{
                     var html = `
@@ -919,7 +930,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('apv/login') }}";
+                                window.location.href = "{{ url('apv/logout') }}";
                             })
                         }
                         else{
@@ -994,7 +1005,7 @@
                             text: 'harap login terlebih dahulu!',
                             icon: 'error'
                         }).then(function() {
-                            window.location.href = "{{ url('apv/login') }}";
+                            window.location.href = "{{ url('apv/logout') }}";
                         })
                     }
                     else{
