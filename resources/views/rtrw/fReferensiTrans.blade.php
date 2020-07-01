@@ -64,6 +64,13 @@
                                     cursor: pointer;
                                     color: blue;
                                 }
+                                .extra{
+                                    display: inline;
+                                    margin-left: 20px;
+                                }
+                                .select-pp {
+                                    width: 60px;
+                                }
                             </style>
                             <table id="table-data" class="table table-bordered table-striped " width="100%">
                                 <thead>
@@ -318,6 +325,26 @@
             });
         }
 
+        function getPPSelect(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('rtrw-master/relakun-pp') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            console.log(data.length)
+                            for(var i=0;i<data.length;i++) {
+                                $('#select-pp').append(`<option value='${data[i].kode_pp}'>${data[i].kode_pp}</option>`)
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         $('#form-tambah').on('change', '#akun_debet', function(){
             var par = $(this).val();
             getAkunDebet(par);
@@ -376,8 +403,11 @@
                 { data: 'jenis' },
                 { data: 'pp' },
             ],
-            dom: 'lBfrtip',
-            buttons: [
+            dom: 'l<"extra">frtip',
+            initComplete: function(setting,json) {
+                $('div.extra').html('<label>PP/Unit</label><select class="form-control select-pp ml-2" id="select-pp"></select>')
+            },
+            // buttons: [
                 // {
                 //     text: '<i class="fa fa-filter"></i> Filter',
                 //     action: function ( e, dt, node, config ) {
@@ -385,8 +415,26 @@
                 //     },
                 //     className: 'btn btn-default ml-2' 
                 // }
-            ]
+            // ]
         });
+
+        getPPSelect();
+        
+        $.fn.dataTable.ext.search.push(
+            function(setting,data,dataIndex) {
+                var ppSelected = $('#select-pp').val();
+                var pp = data[5].substr(0,2);
+
+                if(ppSelected === pp) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $('#select-pp').change(function(){
+            dataTable.draw();
+        })
 
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('#row-id').hide();
