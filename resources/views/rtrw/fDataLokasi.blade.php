@@ -305,7 +305,7 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('rtrw-master/lokasi') }}/"+id;
+            var url = "{{ url('rtrw-master/lokasi-ubah') }}/"+id;
             var pesan = "updated";
         }else{
             var url = "{{ url('rtrw-master/lokasi') }}";
@@ -380,6 +380,7 @@
                     var tgl = splitTgl[2];
                     var pkp = tgl+"/"+bulan+"/"+tahun;
 
+                    $('.custom-file-label').html('');
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#kode_lokasi').val(id);

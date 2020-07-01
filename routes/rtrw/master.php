@@ -88,5 +88,5 @@ Route::post('generate-iuran','Rtrw\IuranController@store');
 Route::get('lokasi','Rtrw\LokasiController@index');
 Route::get('lokasi-detail/{kode}','Rtrw\LokasiController@show');
 Route::post('lokasi','Rtrw\LokasiController@store');
-Route::put('lokasi/{kode}','Rtrw\LokasiController@update');
+Route::put('lokasi-ubah/{kode}','Rtrw\LokasiController@update');
 Route::delete('lokasi/{kode}','Rtrw\LokasiController@destroy');

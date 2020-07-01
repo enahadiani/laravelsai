@@ -303,7 +303,7 @@ class LokasiController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'lokasi?kode_lokasi='.$id,[
+                $response = $client->request('POST', $this->link.'lokasi-ubah?kode_lokasi='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
