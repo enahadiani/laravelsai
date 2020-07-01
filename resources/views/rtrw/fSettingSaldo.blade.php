@@ -37,8 +37,7 @@
                                 <thead>
                                     <tr>
                                         <th>Kode Akun</th>
-                                        <th>PP/Unit</th>
-                                        <th>Periode</th>
+                                        <th>Nama Akun</th>
                                         <th>Saldo Awal</th>
                                         <th>Action</th>
                                     </tr>
@@ -229,17 +228,16 @@
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html },
+            {'targets': 3, data: null, 'defaultContent': action_html },
             {
-                'targets': [3],
+                'targets': [2],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             },
             ],
         'columns': [
             { data: 'kode_akun' },
-            { data: 'kode_pp' },
-            { data: 'periode' },
+            { data: 'nama_akun' },
             { data: 'so_akhir' }
         ],
         dom: 'lBfrtip',
