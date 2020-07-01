@@ -31,15 +31,22 @@
                                 cursor: pointer;
                                 color: blue;
                             }
+                            .extra{
+                                display: inline;
+                                margin-left: 20px;
+                            }
+                            .select-periode  {
+                                width: 90px;
+                            }
 
                             </style>
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
                                         <th>Kode Akun</th>
-                                        <th>PP/Unit</th>
-                                        <th>Periode</th>
+                                        <th>Nama Akun</th>
                                         <th>Saldo Awal</th>
+                                        <th>Tahun</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -96,7 +103,7 @@
                                 <div class="form-group row">
                                     <label for="periode" class="col-3 col-form-label">Periode</label>
                                     <div class="col-3">
-                                        <input class="form-control datepicker" type="text" placeholder="YYYYMM" id="periode" name="periode" autocomplete="off">
+                                        <input class="form-control datepicker" type="text" placeholder="YYYY" id="periode" name="periode" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -195,6 +202,25 @@
         });
     }
 
+    function getPeriode(id=null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('rtrw-master/setting-saldo-tahun') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var data = result.daftar;
+                        for(var i=0;i<data.length;i++) {
+                            $('#select-periode').append(`<option value='${data[i].tahun}'>${data[i].tahun}</option>`)
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     $('#form-tambah').on('change', '#kode_akun', function(){
         var par = $(this).val();
         getAkun(par);
@@ -229,21 +255,25 @@
             }
         },
         'columnDefs': [
+            {'targets': 3, 'visible':false  },
             {'targets': 4, data: null, 'defaultContent': action_html },
             {
-                'targets': [3],
+                'targets': [2],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             },
             ],
         'columns': [
             { data: 'kode_akun' },
-            { data: 'kode_pp' },
-            { data: 'periode' },
-            { data: 'so_akhir' }
+            { data: 'nama_akun' },
+            { data: 'so_akhir' },
+            { data: 'tahun' }
         ],
-        dom: 'lBfrtip',
-        buttons: [
+        dom: 'l<"extra">frtip',
+        initComplete: function(setting,json) {
+            $('div.extra').html('<label>Periode</label><select class="form-control select-periode ml-2" id="select-periode"></select>')
+        },
+        // buttons: [
             // {
             //     text: '<i class="fa fa-filter"></i> Filter',
             //     action: function ( e, dt, node, config ) {
@@ -251,13 +281,21 @@
             //     },
             //     className: 'btn btn-default ml-2'
             // }
-        ]
+        // ]
     });
 
+    getPeriode();
+
+    $('#select-periode').change(function(){
+        dataTable.search(this.value).draw();
+    })
+
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        var periode = $('#select-periode').val();
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
+        $('#periode').val(periode);
         $('#method').val('post');
         $('#kode_pp').val('');
         $('#kode_pp').attr('readonly',false);

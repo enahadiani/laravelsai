@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 // Helper 
+Route::get('setting-saldo-tahun','Rtrw\HelperController@getTahun');
 Route::get('jenis-iuran','Rtrw\HelperController@getJenisIuran');
 Route::get('masakun-curr','Rtrw\HelperController@getCurr');
 Route::get('masakun-modul','Rtrw\HelperController@getModul');

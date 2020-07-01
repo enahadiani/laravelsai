@@ -98,7 +98,7 @@ class SaldoController extends Controller
                     'form_params' => [
                         'kode_akun' => $request->kode_akun,
                         'kode_pp' => $request->kode_pp,
-                        'periode' => $request->periode,
+                        'periode' => $request->periode."01",
                         'so_akhir' => intval(str_replace('.','', $request->so_akhir))
                     ]
                 ]);
