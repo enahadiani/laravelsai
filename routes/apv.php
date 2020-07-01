@@ -117,5 +117,5 @@ Route::get('filter-nodokumen','Apv\FilterController@getFilterNoDokumen');
 
 //Pihak ketiga
 //Laporan
-Route::get('lap-posisi','Apv\LapInternalController@getPosisi');
+Route::post('lap-posisi','Apv\LaporanController@getPosisi');
 

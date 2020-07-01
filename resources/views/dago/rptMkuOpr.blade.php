@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-       saiPost('apv/lap-posisi', null, formData, null, function(res){
+       saiPost('dago-report/lap-mku-operasional', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -42,32 +42,46 @@
                                     <table width="100%" class="table table-striped color-table info-table">
                                         <thead>
                                             <tr>
-                                                <th class="header_laporan" align="center" >NO</th>
-                                                <th class="header_laporan" align="center" >No Bukti</th>
-                                                <th class="header_laporan" align="center" >Tgl Kebutuhan</th>
-                                                <th class="header_laporan" align="center" >Kode PP</th>
-                                                <th class="header_laporan" align="center" >Kode Kota</th>
-                                                <th class="header_laporan" align="center" >No Dokumen</th>
-                                                <th class="header_laporan" align="center" >Justifikasi Kebutuhan</th>
-                                                <th class="header_laporan" align="center" >Dasar</th>
-                                                <th class="header_laporan" align="center" >NIK Buat</th>
-                                                <th class="header_laporan" align="center" >Nilai Kebutuhan</th>
-                                                <th class="header_laporan" align="center" >Posisi</th>
-                                                <th class="header_laporan" align="center" >No Verifikasi</th>
-                                                <th class="header_laporan" align="center" >Tgl Verifikasi</th>
-                                                <th class="header_laporan" align="center" >NIK App RM</th>
-                                                <th class="header_laporan" align="center" >Tgl App RM</th>
-                                                <th class="header_laporan" align="center" >No Pengadaan</th>
-                                                <th class="header_laporan" align="center" >Tgl Pengadaan</th>	
-                                                <th class="header_laporan" align="center" >Nilai Pengadaan</th>	
-                                                <th class="header_laporan" align="center" >NIK App1</th>	
-                                                <th class="header_laporan" align="center" >Tgl App1</th>	
-                                                <th class="header_laporan" align="center" >NIK App2</th>	
-                                                <th class="header_laporan" align="center" >Tgl App2</th>	
-                                                <th class="header_laporan" align="center" >NIK App3</th>	
-                                                <th class="header_laporan" align="center" >Tgl App3</th>	
-                                                <th class="header_laporan" align="center" >NIK App4</th>	
-                                                <th class="header_laporan" align="center" >Tgl App4</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>NO</th>
+                                                <th class="header_laporan" align="center" colspan='2'>KEBERANGKATAN</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>PAKET UMROH</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>NAMA LENGKAP</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>SEX</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>TEMPAT LAHIR</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>TANGGAL LAHIR</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>USIA</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>NO KTP</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>ALAMAT LENGKAP</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>NO HP</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>MARITAL STATUS</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>WOG</th>
+                                                <th class="header_laporan" align="center" rowspan='2'>MAHROM</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>ROOM</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>NO PASSPOR</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>ISSUE</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>EXPIRED</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>PLACE OF ISSUED</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>MARKETING</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>NAMA AYAH</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>NAMA IBU</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>NAMA KAKEK</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>PENDIDIKAN</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>PEKERJAAN</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>STATUS</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>Agen</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>PJ BERKAS</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>PASSPOR</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>KTP</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>KK</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>SURAT NIKAH</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>AKTE</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>VAKSIN</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>FOTO 4x6</th>	
+                                                <th class="header_laporan" align="center" rowspan='2'>BIOMETRIK</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="header_laporan" align="center">PLAN</th>
+                                                <th class="header_laporan" align="center">AKTUAL</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
@@ -78,31 +92,42 @@
                                               
                                                 det+=`<tr>
                                                 <td align='center' class='isi_laporan'>`+no+`</td>
-                                                <td  class='isi_laporan'>`+line2.no_bukti+`</td>
-                                                <td class='isi_laporan'>`+line2.waktu+`</td>
-                                                <td class='isi_laporan'>`+line2.kode_pp+`</td>
-                                                <td class='isi_laporan'>`+line2.kode_kota+`</td>
-                                                <td  class='isi_laporan'>`+line2.no_dokumen+`</td>
-                                                <td  class='isi_laporan'>`+line2.kegiatan+`</td>
-                                                <td  class='isi_laporan'>`+line2.dasar+`</td>
-                                                <td class='isi_laporan'>`+line2.nik_buat+`</td>
-                                                <td class='isi_laporan'>`+sepNumX(line2.nilai)+`</td>
-                                                <td class='isi_laporan'>`+line2.posisi+`</td>
-                                                <td  class='isi_laporan'>`+line2.no_ver+`</td>
-                                                <td  class='isi_laporan'>`+line2.tgl_ver+`</td>
-                                                <td class='isi_laporan'>`+line2.nik_apprm+`</td>
-                                                <td class='isi_laporan'>`+line2.tgl_apprm+`</td>
-                                                <td  class='isi_laporan'>`+line2.no_juspo+`</td>
-                                                <td  class='isi_laporan'>`+line2.tgl_pengadaan+`</td>
-                                                <td class='isi_laporan'>`+sepNumX(line2.nilai_pengadaan)+`</td>
-                                                <td  class='isi_laporan'>`+line2.nik_app1+`</td>
-                                                <td  class='isi_laporan'>`+line2.tgl_app1+`</td>
-                                                <td class='isi_laporan'>`+line2.nik_app2+`</td>
-                                                <td class='isi_laporan'>`+line2.tgl_app2+`</td>
-                                                <td class='isi_laporan'>`+line2.nik_app3+`</td>
-                                                <td  class='isi_laporan'>`+line2.tgl_app3+`</td>
-                                                <td  class='isi_laporan'>`+line2.nik_app4+`</td>
-                                                <td class='isi_laporan'>`+line2.tgl_app4+`</td>
+                                                <td  class='isi_laporan'>`+line2.tgl_berangkat+`</td>
+                                                <td class='isi_laporan'>`+line2.tgl_aktual+`</td>
+                                                <td class='isi_laporan'>`+line2.nama_paket+`</td>
+                                                <td class='isi_laporan'>`+line2.nama+`</td>
+                                                <td  class='isi_laporan'>`+line2.jk+`</td>
+                                                <td  class='isi_laporan'>`+line2.tempat+`</td>
+                                                <td  class='isi_laporan'>`+line2.tgl_lahir+`</td>
+                                                <td class='isi_laporan'>`+line2.usia+`</td>
+                                                <td class='isi_laporan'>`+line2.id_peserta+`</td>
+                                                <td class='isi_laporan'>`+line2.alamat+`</td>
+                                                <td  class='isi_laporan'>`+line2.hp+`</td>
+                                                <td  class='isi_laporan'>`+line2.brkt_dgn+`</td>
+                                                <td  class='isi_laporan'>-</td>
+                                                <td class='isi_laporan'>-</td>
+                                                <td class='isi_laporan'>`+line2.nama_room+`</td>
+                                                <td class='isi_laporan'>`+line2.nopass+`</td>
+                                                <td  class='isi_laporan'>`+line2.issued+`</td>
+                                                <td  class='isi_laporan'>`+line2.ex_pass+`</td>
+                                                <td class='isi_laporan'>`+line2.kantor_mig+`</td>
+                                                <td class='isi_laporan'>`+line2.nama_marketing+`</td>
+                                                <td class='isi_laporan'>`+line2.ayah+`</td>
+                                                <td  class='isi_laporan'>`+line2.ibu+`</td>
+                                                <td  class='isi_laporan'>`+line2.kakek+`</td>
+                                                <td class='isi_laporan'>`+line2.pendidikan+`</td>
+                                                <td  class='isi_laporan'>`+line2.pekerjaan+`</td>
+                                                <td  class='isi_laporan'>`+line2.status+`</td>
+                                                <td  class='isi_laporan'>`+line2.agen+`</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
+                                                <td  class='isi_laporan'>&nbsp;</td>
                                                 </tr>`;	
                                                 no++;
                                             
