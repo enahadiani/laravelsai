@@ -335,7 +335,6 @@
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             var data = result.daftar;
-                            console.log(data.length)
                             for(var i=0;i<data.length;i++) {
                                 $('#select-pp').append(`<option value='${data[i].kode_pp}'>${data[i].kode_pp}</option>`)
                             }
