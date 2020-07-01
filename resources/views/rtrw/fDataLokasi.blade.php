@@ -373,8 +373,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    var substrTgl = result.data[0].tgl_pkp.substr(1,9) 
-                    var splitTgl = substrTgl.split('-');
+                    var splitTglDB = result.data[0].tgl_pkp.split(' ') 
+                    var splitTgl = splitTglDB[0].split('-');
                     var tahun = splitTgl[0];
                     var bulan = splitTgl[1];
                     var tgl = splitTgl[2];
