@@ -344,6 +344,16 @@
         num = sepNum(num);
         return num;
     }
+
+    
+    function terbilang2(kode_curr){
+        if(kode_curr == "IDR"){
+            var ket_curr = " rupiah";
+        }else if(kode_curr == "USD"){
+            var ket_curr = " dollar Amerika";
+        }
+        return ket_curr;
+    }
     
     var $iconLoad = $('.preloader');
     

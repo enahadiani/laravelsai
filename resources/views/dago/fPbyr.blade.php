@@ -373,6 +373,16 @@
     <!-- END MODAL --> 
 </div>
 <script>
+    
+    function terbilang2(kode_curr){
+        if(kode_curr == "IDR"){
+            var ket_curr = " rupiah";
+        }else if(kode_curr == "USD"){
+            var ket_curr = " dollar Amerika";
+        }
+        return ket_curr;
+    }
+    
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
