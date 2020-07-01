@@ -419,21 +419,9 @@
         });
 
         getPPSelect();
-        
-        $.fn.dataTable.ext.search.push(
-            function(setting,data,dataIndex) {
-                var ppSelected = $('#select-pp').val();
-                var pp = data[5].substr(0,2);
-
-                if(ppSelected === pp) {
-                    return true;
-                }
-                return false;
-            }
-        );
 
         $('#select-pp').change(function(){
-            dataTable.draw();
+          dataTable.search(this.value).draw();
         })
 
         $('#saku-datatable').on('click', '#btn-tambah', function(){
