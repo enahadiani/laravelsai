@@ -37,7 +37,7 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style="height:540px">
+                <div class="card" style="height:240px">
                         <form class="form" id="form-tambah">
                             <div class="card-body pb-0">
                                 <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data PP
