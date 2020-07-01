@@ -385,6 +385,23 @@
         return num;
     }
 
+    function sepNum2(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(2);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
+    function format_number3(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum2(num);
+        return num;
+    }
+
     var $iconLoad = $('.preloader');
     var $kurs_closing = 1;
     var $akunTambah = "-";
@@ -1222,23 +1239,45 @@
                                                         <tr>
                                                             <td>SISTEM PEMBAYARAN</td>
                                                             <td>: Cicilan Ke-`+line.cicil_ke+`</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>SALDO </td>
-                                                            <td>: `+format_number(line.saldo)+`</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>TOTAL BAYAR </td>
-                                                            <td>: `+format_number(line.bayar)+`</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>TERBILANG </td>
-                                                            <td width="300">: `+terbilang(line.bayar)+`</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>SISA </td>
-                                                            <td>: `+format_number(line.sisa)+`</td>
-                                                        </tr>
+                                                            </tr>`;
+                                                    if(line.kode_curr == "IDR"){
+                                                        mon_html+=`
+                                                                <tr>
+                                                                    <td>SALDO </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.saldo)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TOTAL BAYAR </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.bayar)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TERBILANG </td>
+                                                                    <td width="300" colspan='2'>: `+terbilang(line.bayar)+` `+terbilang2(line.kode_curr)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SISA </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.sisa)+`</td>
+                                                                </tr>`;
+                                                    }else{
+                                                        mon_html+=`
+                                                                <tr>
+                                                                    <td>SALDO </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+format_number2(line.saldo)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TOTAL BAYAR </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+format_number2(line.bayar)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TERBILANG </td>
+                                                                    <td width="300" colspan='2'>: `+terbilangkoma(line.bayar)+` `+terbilang2(line.kode_curr)+`</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SISA </td>
+                                                                    <td colspan='2'>: `+line.kode_curr+` `+format_number2(line.sisa)+`</td>
+                                                                </tr>`;
+                                                    }
+                                                    mon_html+=` 
                                                         <tr>
                                                             <td>DIINPUT OLEH </td>
                                                             <td>: `+line.nik_user+` </td>
