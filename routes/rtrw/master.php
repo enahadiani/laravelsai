@@ -83,3 +83,10 @@ Route::delete('setting-saldo-awal/{kode}/{pp}/{periode}','Rtrw\SaldoController@d
 
 //Generate iuran
 Route::post('generate-iuran','Rtrw\IuranController@store');
+
+//Master Lokasi
+Route::get('lokasi','Rtrw\LokasiController@index');
+Route::get('lokasi-detail/{kode}','Rtrw\LokasiController@show');
+Route::post('lokasi','Rtrw\LokasiController@store');
+Route::put('lokasi/{kode}','Rtrw\LokasiController@update');
+Route::delete('lokasi/{kode}','Rtrw\LokasiController@destroy');
