@@ -1252,7 +1252,7 @@
                                                             <td>: Cicilan Ke-`+line.cicil_ke+`</td>
                                                             </tr>`;
                                                     if(line.kode_curr == "IDR"){
-                                                        mon_html+=`
+                                                        html+=`
                                                                 <tr>
                                                                     <td>SALDO </td>
                                                                     <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.saldo)+`</td>
@@ -1270,7 +1270,7 @@
                                                                     <td colspan='2'>: `+line.kode_curr+` `+sepNumPas(line.sisa)+`</td>
                                                                 </tr>`;
                                                     }else{
-                                                        mon_html+=`
+                                                        html+=`
                                                                 <tr>
                                                                     <td>SALDO </td>
                                                                     <td colspan='2'>: `+line.kode_curr+` `+format_number2(line.saldo)+`</td>
@@ -1288,7 +1288,7 @@
                                                                     <td colspan='2'>: `+line.kode_curr+` `+format_number2(line.sisa)+`</td>
                                                                 </tr>`;
                                                     }
-                                                    mon_html+=` 
+                                                    html+=` 
                                                         <tr>
                                                             <td>DIINPUT OLEH </td>
                                                             <td>: `+line.nik_user+` </td>
