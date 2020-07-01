@@ -419,7 +419,7 @@
                         $('#id_peserta').val(result.data.data[0].id_peserta);
                         $('#nama').val(result.data.data[0].nama);
                         $('#tempat').val(result.data.data[0].tempat); 
-                        $('#tgl_lahir').val(result.data.data[0].tgl_lahir);
+                        $('#tgl_lahir').val(reverseDateNew(result.data.data[0].tgl_lahir,'-','/'));
                         $('#jk')[0].selectize.setValue(result.data.data[0].jk);
                         $('#status')[0].selectize.setValue(result.data.data[0].status); 
                         $('#ibu').val(result.data.data[0].ibu);
@@ -435,8 +435,8 @@
                         $('#cabang').val(result.data.data[0].cabang);
                         $('#namarek').val(result.data.data[0].namarek);
                         $('#nopass').val(result.data.data[0].nopass);
-                        $('#issued').val(result.data.data[0].issued);
-                        $('#ex_pass').val(result.data.data[0].ex_pass);
+                        $('#issued').val(reverseDateNew(result.data.data[0].issued,'-','/'));
+                        $('#ex_pass').val(reverseDateNew(result.data.data[0].ex_pass,'-','/'));
                         $('#kantor_mig').val(result.data.data[0].kantor_mig);
                         $('#ec_telp').val(result.data.data[0].ec_telp);
                         $('#ec_hp').val(result.data.data[0].ec_hp);
