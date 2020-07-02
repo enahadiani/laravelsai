@@ -20,7 +20,7 @@ class BarangController extends Controller
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('dago-auth/login')->with('alert','Session telah habis !');
+            return redirect('toko-auth/login')->with('alert','Session telah habis !');
         }
     }
 
