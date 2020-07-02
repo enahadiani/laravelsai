@@ -58,14 +58,10 @@ Route::get('upload-dok-detail','Dago\UploadDokController@show');
 Route::post('upload-dok','Dago\UploadDokController@store');
 
 //Pembayaran Group
-Route::get('pembayaran-group','Dago\PembayaranGroupController@getRegistrasi');
-Route::get('pembayaran-group-history','Dago\PembayaraGroupnController@index');
-Route::post('pembayaran-group','Dago\PembayaraGroupnController@store');
-Route::get('pembayaran-group-detail','Dago\PembayaraGroupnController@show');
-Route::get('pembayaran-group-edit','Dago\PembayaraGroupnController@edit');
-Route::put('pembayaran-group','Dago\PembayaraGroupnController@update');
-Route::delete('pembayaran-group','Dago\PembayaraGroupnController@destroy');
-Route::get('pembayaran-group-preview','Dago\PembayaraGroupnController@getPreview');
+Route::get('pembayaran-group-nobukti','Dago\PembayaranGroupController@getNoBukti');
+Route::get('pembayaran-group-reg','Dago\PembayaranGroupController@getRegistrasi');
+Route::get('pembayaran-group-det','Dago\PembayaranGroupController@getDetailBiaya');
+Route::post('pembayaran-group-det','Dago\PembayaranGroupController@simpanDetTmp');
 
 
 

@@ -40,6 +40,11 @@
                                 background:#4286f5 !important;
                                 color:white;
                             }
+                            .selected-row{
+                                cursor:pointer;
+                                background:#001cff59 !important;
+                                color:white;
+                            }
                             i.search-item2:hover{
                                 cursor: pointer;
                                 color: #4286f5;
@@ -69,6 +74,26 @@
                             }
 
                             #table-reg thead, #table-bdok thead
+                            {
+                                background:#ff9500;color:white;
+                            }
+
+                            #input-biaya .selectize-input, #input-biaya .form-control, #input-biaya .custom-file-label
+                            {
+                                border:0 !important;
+                                border-radius:0 !important;
+                            }
+                            #input-biaya td:hover
+                            {
+                                background:#f4d180 !important;
+                                color:white;
+                            }
+                            #input-biaya td
+                            {
+                                overflow:hidden !important;
+                            }
+                            
+                            #input-biaya thead, #table-his thead
                             {
                                 background:#ff9500;color:white;
                             }
@@ -106,13 +131,21 @@
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                    <input class="form-control" type="hidden" id="no_bukti" name="no_bukti" required >
                                 </div>
                             </div>
                             <div class="form-group row mt-2">
-                                <label for="tgl_input" class="col-3 col-form-label">Tanggal</label>
+                                <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" id="tgl_input" name="tgl_input" placeholder="dd-mm-yyyy" required value="{{ date('d-m-Y')}}">
+                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd-mm-yyyy" required value="{{ date('d-m-Y')}}">
+                                </div>
+                                <label for="no_bukti" class="col-3 col-form-label">No Bukti</label>
+                                <div class="col-3">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" required readonly>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-info" id="btn-bukti" type="button"><i class="mdi mdi-sync"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -144,7 +177,7 @@
                             <div class="form-group row">
                                 <label for="kurs" class="col-3 col-form-label">Kurs</label>
                                 <div class="col-3">
-                                <input class="form-control currency " type="text" value="0" id="kurs" name="kurs">
+                                <input class="form-control currency " type="text" value="" id="kurs" name="kurs">
                                 </div>
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -189,6 +222,9 @@
                                             <div class="col-6">
                                                 <label id="label_no_peserta" style="margin-top: 10px;"></label>
                                             </div>
+                                        </div>
+                                        <div class="form-group row">
+                                        <button type="button" id="btn-load" class="btn btn-info ml-2" style=""><i class="fa fa-plus-circle"></i> Tampil Data</button>
                                         </div>
                                     </div>
                                 </div>
@@ -252,7 +288,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-reg-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-reg-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px;padding:10px;font-size:12pt !important'>
                         </div>
@@ -281,7 +317,7 @@
     <!-- END MODAL --> 
     <!-- MODAL BAYAR DETAIL-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-bayar">
-        <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-dialog modal-lg" role="document" style="max-width:1000px">
             <div class="modal-content">
             <form id="form-bayar">
                 <div class='modal-header'>
@@ -302,6 +338,12 @@
                     </ul>
                     <div class="tab-content tabcontent-border" style='margin-bottom:30px'>
                         <div class="tab-pane active" id="detBiaya" role="tabpanel">
+                            <div class="form-group row mt-2">
+                                <label for="modal_no_reg" class="col-3 col-form-label">No Reg</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="modal_no_reg" id="modal_no_reg" class="form-control" value="" required>
+                                </div>
+                            </div>
                             <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
                                 <style>
                                 th,td{
@@ -328,23 +370,25 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="detKurs" role="tabpanel">
-                            <div class="form-group row mt-2">
-                                <label for="jenis_bayar" class="col-3 col-form-label">Bayar</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="jenis_bayar" name="jenis_bayar">
-                                    <option value='' disabled>--- Pilih ---</option>
-                                    <option value='PAKET'>PAKET</option>
-                                    <option value='ROOM'>ROOM</option>
-                                    </select>
+                            <div class='col-xs-12 mt-2' style='height:300px; margin:0px; padding:0px;'>
+                                <div class="form-group row mt-2">
+                                    <label for="jenis_bayar" class="col-3 col-form-label">Bayar</label>
+                                    <div class="col-3">
+                                        <select class='form-control selectize' id="jenis_bayar" name="jenis_bayar">
+                                        <option value='' disabled>--- Pilih ---</option>
+                                        <option value='PAKET'>PAKET</option>
+                                        <option value='ROOM'>ROOM</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="konversi" class="col-3 col-form-label">IDR --> USD</label>
-                                <div class="col-3">
-                                    <input class="form-control currency" type="text" value="0" id="konversi" name="konversi">
-                                </div>
-                                <div class="col-2">
-                                    <a class="btn btn-info" id="konversi_btn" href="#">Konversi</a>
+                                <div class="form-group row">
+                                    <label for="konversi" class="col-3 col-form-label">IDR --> USD</label>
+                                    <div class="col-3">
+                                        <input class="form-control currency" type="text" value="0" id="konversi" name="konversi">
+                                    </div>
+                                    <div class="col-2">
+                                        <a class="btn btn-info" id="konversi_btn" href="#">Konversi</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -389,6 +433,432 @@
 
         return bulan;
     }
+
+    function showFilter(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+        var parameter = {};
+        switch(par){
+            case 'kode_akun': 
+                header = ['Kode Akun', 'Nama'];
+            var toUrl = "{{ url('dago-trans/pembayaran-rekbank') }}";
+                var columns = [
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Akun";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'no_peserta': 
+                header = ['No Peserta', 'Nama'];
+            var toUrl = "{{ url('dago-trans/jamaah') }}";
+                var columns = [
+                    { data: 'no_peserta' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Peserta Jamaah";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'paket': 
+                header = ['No Paket', 'Nama'];
+                var toUrl = "{{ url('dago-master/paket') }}";
+                var columns = [
+                    { data: 'no_paket' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Paket";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+            case 'jadwal': 
+                header = ['No Jadwal', 'Tgl Berangkat'];
+                var toUrl = "{{ url('dago-trans/jadwal-detail') }}";
+                var columns = [
+                    { data: 'no_jadwal' },
+                    { data: 'tgl_berangkat' }
+                ];
+                
+                var judul = "Daftar Jadwal";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                var no_paket = $('#paket').val();
+                parameter = {'no_paket':no_paket};
+            break;
+            case 'agen': 
+                header = ['Kode Agen', 'Nama'];
+                var toUrl = "{{ url('dago-master/agen') }}";
+                var columns = [
+                    { data: 'no_agen' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Agen";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                parameter = {'param':par};
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+                $($target).trigger("change");
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+                $($target2).trigger("change");
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            console.log($target3);
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+                $($target).trigger("change");
+            }else{
+                $($target).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+                $($target2).trigger("change");
+            }else{
+                $($target2).text(nama);
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).trigger("change");
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                    $($target2).trigger("change");
+                }else{
+                    $($target2).text(nama);
+                }
+                
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
+    function getRekBank(kode_akun){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
+            dataType: 'json',
+            data:{'kode_akun':kode_akun},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_akun').val(result.daftar[0].kode_akun);
+                         $('#label_kode_akun').text(result.daftar[0].nama);
+                    }else{
+                        alert('Kode Akun tidak valid');
+                        $('#kode_akun').val('');
+                        $('#label_kode_akun').text('');
+                        $('#kode_akun').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    alert('Kode Akun tidak valid');
+                    $('#kode_akun').val('');
+                    $('#label_kode_akun').text('');
+                    $('#kode_akun').focus();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
+    function getKurs(curr){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/pembayaran-kurs') }}",
+            dataType: 'json',
+            data:{'kode_curr':curr},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.kurs !== 'undefined'){
+                        $('#kurs').val(format_number(result.kurs));
+                    }else{
+                        $('#kurs').val(1);
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    $('#kurs').val(1);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
+    function getNoBukti(){
+        var tanggal = $('#tanggal').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/pembayaran-group-nobukti') }}",
+            dataType: 'json',
+            data:{'tanggal':tanggal},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.no_bukti !== 'undefined'){
+                        $('#no_bukti').val(result.no_bukti);
+                    }else{
+                        $('#no_bukti').val('');
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }else{
+                    $('#no_bukti').val('');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
+    function getReg(){
+        var no_agen = $('#agen').val();
+        var no_bukti = $('#no_bukti').val();
+        var tanggal = $('#tanggal').val();
+        var no_peserta = $('#no_peserta').val();
+        var no_jadwal = $('#jadwal').val();
+        var no_paket = $('#paket').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dago-trans/pembayaran-group-reg') }}",
+            dataType: 'json',
+            data:{'tanggal':tanggal,'no_bukti':no_bukti,'no_agen':no_agen,'no_peserta':no_peserta,'no_jadwal':no_jadwal,'no_paket':no_paket},
+            async:false,
+            success:function(result){ 
+                var html ='';
+                if(result.data.status == "SUCCESS"){
+                    if(result.data.data.length > 0){
+                        var no=1;
+                        for(var i=0;i<result.data.data.length;i++){
+                            var line =result.data.data[i];
+                            html+=`<tr class='row-datareg'>
+                            <td class='no-datareg'>`+no+`</td>
+                            <td ><span class='td-no_reg tdno_regke`+no+`'>`+line.no_reg+`</span><input type='text' name='no_reg[]' class='form-control inp-no_reg no_regke`+no+` hidden' value='`+line.no_reg+`' readonly>
+                            <input type='text' name='no_closing[]' class='form-control inp-no_closing no_closingke`+no+` hidden' value='`+line.no_closing+`' readonly>
+                            <input type='text' name='kode_akun[]' class='form-control inp-kode_akun kode_akunke`+no+` hidden' value='`+line.kode_akun+`' readonly>
+                            <input type='text' name='kurs_closing[]' class='form-control inp-kurs_closing kurs_closingke`+no+` currency2 hidden'  value='`+format_number(line.kurs_closing)+`' readonly required>
+                            </td>
+                            <td ><span class='td-tgl_berangkat tdtgl_berangkatke`+no+`'>`+line.tgl_berangkat+`</span><input type='text' name='tgl_berangkat[]' class='form-control inp-tgl_berangkat tgl_berangkatke`+no+` hidden' value='`+line.tgl_berangkat+`' readonly></td>
+                            <td ><span class='td-no_paket tdno_paketke`+no+`'>`+line.paket+`</span><input type='text' name='no_paket[]' class='form-control inp-no_paket no_paketke`+no+` hidden' value='`+line.npaket+`' readonly></td>
+                            <td ><span class='td-no_peserta2 tdno_peserta2ke`+no+`'>`+line.no_peserta+`</span><input type='text' name='no_peserta2[]' class='form-control inp-no_peserta2 no_peserta2ke`+no+` hidden' value='`+line.no_peserta+`' readonly></td>
+                            <td ><span class='td-nama tdnamake`+no+`'>`+line.nama+`</span><input type='text' name='nama[]' class='form-control inp-nama namake`+no+` hidden' value='`+line.nama+`' readonly></td>
+                            <td style='text-align:right'><span class='td-saldo_p tdsaldo_pke`+no+`'>`+format_number(line.saldo_p)+`</span><input type='text' name='saldo_p[]' class='form-control inp-saldo_p saldo_pke`+no+` currency2 hidden'  value='`+format_number(line.saldo_p)+`' readonly required></td>
+                            <td style='text-align:right'><span class='td-saldo_t tdsaldo_tke`+no+`'>`+format_number(line.saldo_t)+`</span><input type='text' name='saldo_t[]' class='form-control inp-saldo_t saldo_tke`+no+` currency2 hidden'  value='`+format_number(line.saldo_t)+`' readonly required></td>
+                            <td style='text-align:right'><span class='td-saldo_m tdsaldo_mke`+no+`'>`+format_number(line.saldo_m)+`</span><input type='text' name='saldo_m[]' class='form-control inp-saldo_m saldo_mke`+no+` currency2 hidden'  value='`+format_number(line.saldo_m)+`' readonly required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bayar_paket tdbayar_paketke`+no+`'>0</span><input type='text' name='bayar_paket[]' class='form-control inp-bayar_paket bayar_paketke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bayar_tambahan tdbayar_tambahanke`+no+`'>0</span><input type='text' name='bayar_tambahan[]' class='form-control inp-bayar_tambahan bayar_tambahanke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-bayar_dok tdbayar_dokke`+no+`'>0</span><input type='text' name='bayar_dok[]' class='form-control inp-bayar_dok bayar_dokke`+no+` hidden currency2'  value='0' required></td>
+                            </tr>`;
+                            no++;
+                        }
+                        $('#table-reg tbody').html(html);
+                        $('.currency2').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
+                        $('a[href=\"#data-reg\"]').click();
+                        
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+    }
+
 
     var $iconLoad = $('.preloader');
     var dataTable = $('#table-data').DataTable({
@@ -444,21 +914,136 @@
         //     }
         // }]
     });
-
+    
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });
+    
+    
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
         $('#form-tambah')[0].reset();
         $('#id').val('');
+        $('#kode_curr').val('USD');
+        getNoBukti();
+        getKurs('USD');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
     });
 
-    $('#form-tambah').on('click', '#bayar-btn', function(){
+    $('#table-reg tbody').on('click', 'tr', function(){
+        if ( $(this).hasClass('selected-row') ) {
+            $(this).removeClass('selected-row');
+        }
+        else {
+            $('#table-reg tbody tr').removeClass('selected-row');
+            $(this).addClass('selected-row');
+        }
+    });
+
+    $('.nav-control').on('click', '#bayar-btn', function(){
+        if($(".selected-row").length != 1){
+            alert('Harap pilih row yang akan dicopy terlebih dahulu!');
+            return false;
+        }else{
+            var kode = $('#table-reg tbody tr.selected-row').find(".inp-no_reg").val();
+            var no_bukti = $('#no_bukti').val(); 
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('dago-trans/pembayaran-group-det') }}",
+                dataType: 'json',
+                data: {'no_reg':kode,'no_bukti':no_bukti},
+                success:function(res){
+                    if(res.data.status == "SUCCESS"){  
+                       
+                        $('#modal_no_reg').val(kode);
+                        var html='';
+                        $('#input-biaya tbody').html('');
+                        if (res.data.data.length){
+                            var no=1;
+                            for(var i=0;i< res.data.data.length;i++){
+                                var line3 = res.data.data[i];	
+                                // var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);						
+                                html+=`<tr class='row-biaya'>
+                                <td class='no-biaya'>`+no+`</td>
+                                <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
+                                <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'></td>
+                                <td class='text-right'>`+format_number(line3.nilai)+`</td>
+                                <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                <td class='text-right'>`+format_number(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(line3.byr)+`'></td>
+                                <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
+                                html+=`
+                                <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
+                                html+=`
+                                </tr>`;
+                                no++;
+                            }
+                            $('#input-biaya tbody').html(html);
+                            
+                            
+                            $('.inp-nbiaya_bayar').inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('#input-biaya').on('change', '.inp-nbiaya_bayar', function(){
+                                var bayar = $(this).val();
+                                var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+                                if(toNilai(bayar) > toNilai(saldo)){
+                                    $(this).val(0);
+                                    $(this).focus();
+                                    alert('nilai bayar tidak boleh melebihi saldo');
+                                }else{
+                                    
+                                    hitungTotal();
+                                }
+                            });
+                            
+                            $('#modal-bayar .modal-title').html('Form Detail Bayar');
+                            $('#modal-bayar').modal('show');
+                            
+                        }   
+                        
+                    }
+                    //   $iconLoad.hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:');
+                    //   $iconLoad.hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status==422){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }
+                    // $iconLoad.hide();
+                }
+            });
+        }
+    });
+
+    $('#form-tambah').on('click', '#btn-bukti', function(){
+        getNoBukti();
+    });
+
+    $('#form-tambah').on('click', '#btn-load', function(){
         
-        $('#modal-bayar .modal-title').html('Form Detail Bayar');
-        $('#modal-bayar').modal('show');
+        
+        getReg();
 
     });
 
@@ -467,5 +1052,138 @@
         $('#saku-form').hide();
     });
 
+    $('#form-tambah').on('click', '.search-item2', function(){
+        // console.log('clikc');
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
+    function konversiKurs(){
+
+        var kurs = toNilai($('#kurs').val());
+        var konversi = toNilai($('#konversi').val());
+        var hasil = konversi/kurs;
+        hasil = Math.round(hasil * 100) / 100;
+        var jenis = $('#jenis_bayar').val();
+        if(jenis == "PAKET"){
+            var saldo = toNilai($("[value=PAKET]").closest('tr').find('.inp-saldo_det').val());
+            if(hasil <= saldo){
+                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+            }else{
+                alert('Nilai bayar melebihi saldo Paket');
+                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
+            }
+        }else if(jenis == "ROOM"){
+            var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
+            if(hasil <= saldo){
+                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+            }else{
+                alert('Nilai bayar melebihi saldo Room');
+                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
+            }
+        }
+    }
+
+
+    $('#form-bayar').on('click', '#konversi_btn', function(){
+        konversiKurs();
+    });
+
+
+    $('#input-biaya').on('click', 'td', function(){
+        var idx = $(this).index();
+        var bayar = $(this).parents("tr").find(".inp-nbiaya_bayar").val();
+        var no = $(this).parents("tr").find(".no-biaya").text();
+        $(this).parents("tr").find(".inp-nbiaya_bayar").val(bayar);
+        $(this).parents("tr").find(".td-nbiaya_bayar").text(bayar);
+        if(idx != 7){
+            $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+            $(this).parents("tr").find(".td-nbiaya_bayar").show();
+            $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+            // return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+                
+                if(idx == 7){
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").show();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").show();
+                }
+                
+                hitungTotal();
+            }
+        }
+    });
+
+    $('#input-biaya').on('keydown','.inp-nbiaya_bayar',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['','','','','','',' .inp-nbiaya_bayar'];
+        var nxt2 = ['','','','','','','.td-nbiaya_bayar'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    return false;
+                break;
+                case 6:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        var bayar = $(this).val();
+                        var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+                        if(toNilai(bayar) > toNilai(saldo)){
+                            $(this).val(0);
+                            $(this).focus();
+                            alert('nilai bayar tidak boleh melebihi saldo');
+                            
+                        }else{
+                            $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                            $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                            $(this).closest('tr').find(nxt[idx]).val(isi);
+                            $(this).closest('tr').find(nxt2[idx]).text(isi);
+                            $(this).closest('tr').find(nxt[idx]).hide();
+                            $(this).closest('tr').find(nxt2[idx]).show();
+                            hitungTotal();
+                        }
+                    }else{
+                        $(this).closest('tr').find(nxt[idx]).val(0);
+                        $(this).closest('tr').find(nxt2[idx]).text(0);
+                        $(this).closest('tr').find(nxt[idx]).focus();
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
     </script>
     
