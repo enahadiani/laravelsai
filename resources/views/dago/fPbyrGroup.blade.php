@@ -948,7 +948,7 @@
 
     $('.nav-control').on('click', '#bayar-btn', function(){
         if($(".selected-row").length != 1){
-            alert('Harap pilih row yang akan dicopy terlebih dahulu!');
+            alert('Harap pilih row No Reg yang akan dibayar terlebih dahulu!');
             return false;
         }else{
             var kode = $('#table-reg tbody tr.selected-row').find(".inp-no_reg").val();
