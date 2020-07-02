@@ -158,11 +158,18 @@ class RegistrasiController extends Controller
                 }
             }
 
+            if(isset($request->no_peserta_ref)){
+                $no_peserta_ref = $request->no_peserta_ref;
+            }else{
+                $no_peserta_ref = $request->no_peserta;
+            }
+            
             $fields = array (
                 'periode' => $request->periode2,
                 'paket' => $request->paket,
                 'jadwal' => $request->jadwal,
                 'no_peserta' => $request->no_peserta,
+                'no_peserta_ref' => $no_peserta_ref,
                 'agen' => $request->agen,
                 'type_room' => $request->type_room,
                 'harga_room' => $this->joinNum($request->harga_room),
@@ -361,6 +368,7 @@ class RegistrasiController extends Controller
                 'paket' => $request->paket,
                 'jadwal' => $request->jadwal,
                 'no_peserta' => $request->no_peserta,
+                'no_peserta_ref' => $request->no_peserta_ref,
                 'agen' => $request->agen,
                 'type_room' => $request->type_room,
                 'harga_room' => $this->joinNum($request->harga_room),

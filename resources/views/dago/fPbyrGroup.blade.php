@@ -414,6 +414,12 @@
         return num;
     }
 
+    function format_number2(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum(num);
+        return num;
+    }
+
     function getNamaBulan(no_bulan){
         switch (no_bulan){
             case 1 : case '1' : case '01': bulan = "Januari"; break;
@@ -1009,6 +1015,7 @@
                                 }
                             });
                             
+                            $('#jenis_bayar').selectize();
                             $('#modal-bayar .modal-title').html('Form Detail Bayar');
                             $('#modal-bayar').modal('show');
                             

@@ -136,6 +136,7 @@
                             <div class="form-group row">
                                 <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
                                 <div class="input-group col-3">
+                                    <input type='hidden' name="no_peserta_ref" id="no_peserta_ref" class="form-control" value="" required>
                                     <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
@@ -2008,7 +2009,7 @@
                     $('#type_room')[0].selectize.setValue(result.data.data[0].no_type);
                     $('#harga_room').val(format_number(result.data.data[0].harga_room));
                     $('#tgl_berangkat').val(reverseDateNew(result.data.data[0].tgl_berangkat,'-','/'));
-                    // $('#no_peserta_ref')[0].selectize.setValue(result.data.data[0].no_peserta_ref);
+                    $('#no_peserta_ref').val(result.data.data[0].no_peserta_ref);
                     $('#referal').val(result.data.data[0].referal);
                     $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
                     $('#hubungan').val(result.data.data[0].hubungan);
