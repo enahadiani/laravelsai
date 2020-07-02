@@ -416,7 +416,7 @@
                     input += "<td width='40%'><select name='kode_barang[]' class='form-control inp-kode ke"+no+"' value='' required></select></td>";
                     input += "<td width='10%'><input type='text' class='form-control inp-harga' name='harga[]' readonly ></td>";
                     input += "<td width='10%'><input type='text' class='form-control inp-qtybeli' name='qty_beli[]' readonly ><input type='hidden' class='form-control inp-akun' name='kode_akun[]' readonly ></td>";
-                    input += "<td width='10%'><input type='text' class='form-control inp-qtyretur' name='qty_retur[]'  ></td>";
+                    input += "<td width='10%'><input type='text' class='form-control inp-qtyretur' name='qty_retur[]'  ><input type='text' class='form-control inp-satuanretur hidden' name='satuan[]' value='-'></td>";
                     input += "<td width='20%'><input type='text' class='form-control inp-subb' name='subtotal[]'  ></td>";
                     input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
                     input += "</tr>";
