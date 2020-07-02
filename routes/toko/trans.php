@@ -33,3 +33,10 @@ Route::get('retur-beli-new', 'Toko\ReturBeliController@getNew');
 Route::get('retur-beli-finish', 'Toko\ReturBeliController@getFinish');
 Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@getBarang');
 Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@show');
+
+// Stok Opname //
+Route::get('stok-opname', 'Toko\StokOpnameController@index');
+// Route::get('retur-beli-new', 'Toko\ReturBeliController@getNew');
+// Route::get('retur-beli-finish', 'Toko\ReturBeliController@getFinish');
+// Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@getBarang');
+// Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@show');
