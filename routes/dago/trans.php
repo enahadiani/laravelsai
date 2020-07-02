@@ -58,6 +58,7 @@ Route::get('upload-dok-detail','Dago\UploadDokController@show');
 Route::post('upload-dok','Dago\UploadDokController@store');
 
 //Pembayaran Group
+Route::get('pembayaran-group','Dago\PembayaranGroupController@index');
 Route::get('pembayaran-group-nobukti','Dago\PembayaranGroupController@getNoBukti');
 Route::get('pembayaran-group-reg','Dago\PembayaranGroupController@getRegistrasi');
 Route::get('pembayaran-group-det','Dago\PembayaranGroupController@getDetailBiaya');

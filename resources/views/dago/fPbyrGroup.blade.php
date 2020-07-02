@@ -870,55 +870,47 @@
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
         // 'serverSide': true,
-        // "ordering": true,
-        // "order": [[0, "desc"]],
-        // 'ajax': {
-        //     'url': "{{ url('dago-trans/registrasi') }}",
-        //     'async':false,
-        //     'type': 'GET',
-        //     'dataSrc' : function(json) {
-        //         if(json.status){
-        //             return json.daftar;   
-        //         }else{
-        //             Swal.fire({
-        //                 title: 'Session telah habis',
-        //                 text: 'harap login terlebih dahulu!',
-        //                 icon: 'error'
-        //             }).then(function() {
-        //                 window.location.href = "{{ url('dago-auth/login') }}";
-        //             })
-        //             return [];
-        //         }  
-        //     }
-        // },
-        // 'columns': [
-        //     { data: 'no_reg' },
-        //     { data: 'no_peserta' },
-        //     { data: 'nama' },
-        //     { data: 'tgl_input' },
-        //     { data: 'nama_paket' },
-        //     { data: 'tgl_berangkat' },
-        //     { data: 'action'}
-        // ],
-        // "columnDefs": [ {
-        //     "targets": 6,
-        //     "data": null,
-        //     "render": function ( data, type, row, meta ) {
-        //         if(row.flag_group == "1"){
-        //             if("{{ Session::get('userLog') }}" == "U"){
-        //                 return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;<a href='#' title='Grouping Anggota' class='badge badge-primary' id='btn-group'><i class='fas fa-user-plus' style='color: white;'></i></a>";
-        //             }else{
-        //                 return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;<a href='#' title='Grouping Anggota' class='badge badge-primary' id='btn-group'><i class='fas fa-user-plus' style='color: white;'></i></a>";
-        //             }
-        //         }else{
-        //             if("{{ Session::get('userLog') }}" == "U"){
-        //                 return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
-        //             }else{
-        //                 return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
-        //             }
-        //         }
-        //     }
-        // }]
+        "ordering": true,
+        "order": [[0, "desc"]],
+        'ajax': {
+            'url': "{{ url('dago-trans/pembayaran-group') }}",
+            'async':false,
+            'type': 'GET',
+            'dataSrc' : function(json) {
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                    //     window.location.href = "{{ url('dago-auth/login') }}";
+                    // })
+                    return [];
+                }  
+            }
+        },
+        'columns': [
+            { data: 'no_bukti' },
+            { data: 'tanggal' },
+            { data: 'agen' },
+            { data: 'nilai1' }
+        ],
+        "columnDefs": [
+            {
+                "targets": 4,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "";
+                }
+            },
+            {
+                'targets': 3, 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            }
+        ]
     });
     
     $('.currency').inputmask("numeric", {

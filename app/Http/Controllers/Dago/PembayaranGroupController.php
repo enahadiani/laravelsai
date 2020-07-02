@@ -46,7 +46,7 @@ class PembayaranGroupController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembayaran-history',[
+            $response = $client->request('GET', $this->link.'pembayaran-group',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -64,7 +64,7 @@ class PembayaranGroupController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
 
