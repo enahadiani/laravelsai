@@ -324,4 +324,12 @@
         // drawLapReg(formData);
     });
     $('#show').selectize();
+    $('.sidepanel').on('submit', '#formFilter2', function(e){
+        e.preventDefault();
+        $formData = new FormData(this);
+        xurl = "{{ url('/toko-auth/form')}}/rptPnj3";
+        $('#content-lap').load(xurl);
+        openNav();
+        // drawLapReg(formData);
+    });
     </script>
