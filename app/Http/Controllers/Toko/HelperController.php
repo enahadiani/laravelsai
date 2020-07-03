@@ -9,11 +9,66 @@
     class HelperController extends Controller {
 
         public $link = 'https://api.simkug.com/api/toko-master/';
+        public $linkReport = 'https://api.simkug.com/api/toko-report/';
 
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
             }
+        }
+
+        public function getBukti() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-bukti',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getNik() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-nik',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getPeriode() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-periode',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
         public function getAkunCust() {
