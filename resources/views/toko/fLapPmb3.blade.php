@@ -34,7 +34,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1" style="font-size:16px"><i class='fas fa-file'></i> Laporan Penjualan</h4>
+                    <h4 class="card-title pl-1" style="font-size:16px"><i class='fas fa-file'></i> Laporan Pembelian</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -176,7 +176,7 @@
     function getPeriode() {
         $.ajax({
             type:'GET',
-            url:"{{url('toko-report/filter-periode')}}",
+            url:"{{url('toko-report/filter-periode-pmb')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -214,7 +214,7 @@
     function getNik() {
         $.ajax({
             type:'GET',
-            url:"{{url('toko-report/filter-nik')}}",
+            url:"{{url('toko-report/filter-nik-pmb')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -252,14 +252,14 @@
     function getNoBukti() {
         $.ajax({
             type:'GET',
-            url:"{{url('toko-report/filter-bukti')}}",
+            url:"{{url('toko-report/filter-bukti-pmb')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
                 if(result.status) {
                     for(var i=0;i<result.daftar.length;i++){
                         var line = result.daftar[i];
-                        $('#no_bukti').append(`<option value='${line.no_jual}'>${line.keterangan}</option>`)
+                        $('#no_bukti').append(`<option value='${line.no_bukti}'>${line.no_bukti} ${line.keterangan}</option>`)
                     }
                 }else if(!result.status && result.daftar.message == "Unauthorized"){
                     Swal.fire({
@@ -319,7 +319,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/toko-auth/form')}}/rptPnj3";
+        xurl = "{{ url('/toko-auth/form')}}/rptPmb3";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -327,7 +327,7 @@
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/toko-auth/form')}}/rptPnj3";
+        xurl = "{{ url('/toko-auth/form')}}/rptPmb3";
         $('#content-lap').load(xurl);
         openNav();
         // drawLapReg(formData);

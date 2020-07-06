@@ -17,7 +17,61 @@
             }
         }
 
-        public function getBukti() {
+        public function getBuktiPmb() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-bukti-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getNikPmb() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-nik-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getPeriodePmb() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-periode-pmb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getBuktiPnj() {
             $client = new Client();
             $response = $client->request('GET', $this->linkReport.'filter-bukti',[
             'headers' => [
@@ -35,7 +89,7 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getNik() {
+        public function getNikPnj() {
             $client = new Client();
             $response = $client->request('GET', $this->linkReport.'filter-nik',[
             'headers' => [
@@ -53,7 +107,7 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getPeriode() {
+        public function getPeriodePnj() {
             $client = new Client();
             $response = $client->request('GET', $this->linkReport.'filter-periode',[
             'headers' => [
