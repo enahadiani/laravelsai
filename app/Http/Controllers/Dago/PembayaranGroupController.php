@@ -153,30 +153,39 @@ class PembayaranGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function simpanDetTmp(Request $request)
     {
         $this->validate($request, [
             'no_bukti' => 'required',
-            'no_reg' => 'required',
+            'modal_no_reg' => 'required',
             'kode_biaya' => 'required|array',
+            'kode_akunbiaya' => 'required|array',
             'jenis_biaya' => 'required|array',
-            'nilai' => 'required|array',
-            'nik_user' => 'required'
+            'nbiaya_bayar' => 'required|array'
         ]);
             
         try{
 
+            $ar_nilai = array();
+            if(isset($request->nbiaya_bayar)){
+                $bayar = $request->nbiaya_bayar;
+                for($i=0;$i<count($bayar);$i++){
+                    $ar_nilai[] = $this->joinNum($bayar[$i]);
+                }
+            }
+
             $fields = array (
                 'no_bukti' => $request->no_bukti,
-                'no_reg' => $request->no_reg,
+                'no_reg' => $request->modal_no_reg,
                 'kode_biaya' => $request->kode_biaya,
+                'kode_akunbiaya' => $request->kode_akunbiaya,
                 'jenis_biaya' => $request->jenis_biaya,
-                'nilai' => $request->nilai,
+                'nilai' => $ar_nilai,
                 'nik_user' => Session::get('nikUser')
             );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'pembayaran',[
+            $response = $client->request('POST', $this->link.'pembayaran-group-det',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'

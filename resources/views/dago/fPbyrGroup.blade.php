@@ -134,11 +134,13 @@
                                 </div>
                             </div>
                             <div class="form-group row mt-2">
-                                <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
+                                <label for="tanggal" class="col-2 col-form-label">Tanggal</label>
                                 <div class="col-3">
                                     <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd-mm-yyyy" required value="{{ date('d-m-Y')}}">
                                 </div>
-                                <label for="no_bukti" class="col-3 col-form-label">No Bukti</label>
+                            </div>
+                            <div class="form-group row mt-2">
+                                <label for="no_bukti" class="col-2 col-form-label">No Bukti</label>
                                 <div class="col-3">
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" required readonly>
@@ -147,54 +149,82 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-2"></div>
+                                <label for="status_bayar" class="col-2 col-form-label">Status Bayar</label>
+                                <div class="col-3">
+                                <select class='form-control selectize' id="status_bayar" name="status_bayar">
+                                <option value='' disabled>--- Pilih Status Bayar ---</option>
+                                <option value='TUNAI'>TUNAI</option>
+                                <option value='TRANSFER'>TRANSFER</option>
+                                </select>
+                                </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_akun" class="col-3 col-form-label">Rekening Kas Bank</label>
+                                <label for="kode_akun" class="col-2 col-form-label">Rekening Kas Bank</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" >
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-2">
                                     <label id="label_kode_akun" style="margin-top: 10px;"></label>
+                                </div>
+                                <label for="bayar_paket" class="col-2 col-form-label">Bayar Paket Curr</label>
+                                <div class="col-3">
+                                <input class="form-control currency " readonly type="text" value="0" id="bayar_paket" name="bayar_paket">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="agen" class="col-3 col-form-label">Agen</label>
+                                <label for="agen" class="col-2 col-form-label">Agen</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="agen" id="agen" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-2">
                                     <label id="label_agen" style="margin-top: 10px;"></label>
+                                </div>
+                                <label for="bayar_tambahan" class="col-2 col-form-label">Bayar Tambahan</label>
+                                <div class="col-3">
+                                <input class="form-control currency " type="text"  readonly value="0" id="bayar_tambahan" name="bayar_tambahan">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_curr" class="col-3 col-form-label">Currency</label>
+                                <label for="kode_curr" class="col-2 col-form-label">Currency</label>
                                 <div class="col-3">
                                 <input class="form-control" type="text" id="kode_curr" name="kode_curr" readonly>
                                 </div>
+                                <div class="col-2"></div>
+                                <label for="bayar_dok" class="col-2 col-form-label">Bayar Dokumen</label>
+                                <div class="col-3">
+                                <input class="form-control currency " type="text" readonly value="0" id="bayar_dok" name="bayar_dok">
+                                </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kurs" class="col-3 col-form-label">Kurs</label>
+                                <label for="kurs" class="col-2 col-form-label">Kurs</label>
                                 <div class="col-3">
                                 <input class="form-control currency " type="text" value="" id="kurs" name="kurs">
+                                </div>
+                                <div class="col-2"></div>
+                                <label for="total_bayar" class="col-2 col-form-label">Total Bayar</label>
+                                <div class="col-3">
+                                <input class="form-control currency" type="text" value="0"  id="total_bayar" name="total_bayar">
                                 </div>
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-filter" role="tab" aria-selected="true"><span class="hidden-xs-down">Filter</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-reg" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Registrasi</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-konversi" role="tab" aria-selected="true"><span class="hidden-xs-down">Kalkulator Kurs</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="data-filter" role="tabpanel">
                                     <div class='col-xs-12 mt-2' style='height:300px;'>
                                         <div class="form-group row">
-                                            <label for="deskripsi" class="col-3 col-form-label">Deskripsi</label>
+                                            <label for="deskripsi" class="col-2 col-form-label">Deskripsi</label>
                                             <div class="col-9">
                                             <input class="form-control" type="text" id="deskripsi" name="deskripsi">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="paket" class="col-3 col-form-label">Paket</label>
+                                            <label for="paket" class="col-2 col-form-label">Paket</label>
                                             <div class="input-group col-3">
                                                 <input type='text' name="paket" id="paket" class="form-control" value="" required>
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
@@ -204,7 +234,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="jadwal" class="col-3 col-form-label">Jadwal</label>
+                                            <label for="jadwal" class="col-2 col-form-label">Jadwal</label>
                                             <div class="input-group col-3">
                                                 <input type='text' name="jadwal" id="jadwal" class="form-control" value="" required>
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
@@ -214,7 +244,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
+                                            <label for="no_peserta" class="col-2 col-form-label">No Jamaah</label>
                                             <div class="input-group col-3">
                                                 <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" required>
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
@@ -261,19 +291,50 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="dok" role="tabpanel" hidden>
-                                    <table class="table table-striped table-bordered table-condensed mt-3" id="table-dok">
-                                        <thead>
-                                        <tr>
-                                        <th width="5%">No</th>
-                                        <th width="20%">Kode Dokumen</th>
-                                        <th width="45%">Nama Dokumen</th>
-                                        <th width="30%">Jenis</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="tab-pane" id="data-konversi" role="tabpanel">
+                                    <div class="col-xs-12 mt-2">
+                                        <div class="form-group row mt-2">
+                                            <label for="jenis_bayar" class="col-2 col-form-label">Bayar</label>
+                                            <div class="col-3">
+                                                <select class='form-control selectize' id="jenis_bayar" name="jenis_bayar">
+                                                <option value='' disabled>--- Pilih ---</option>
+                                                <option value='PAKET'>PAKET</option>
+                                                <option value='ROOM'>ROOM</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="konversi" class="col-2 col-form-label">IDR --> USD</label>
+                                            <div class="col-3">
+                                                <input class="form-control currency" type="text" value="0" id="konversi" name="konversi">
+                                            </div>
+                                            <div class="col-2">
+                                                <a class="btn btn-info" id="konversi_btn" href="#">Konversi</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                        th,td{
+                                            padding:8px !important;
+                                            vertical-align:middle !important;
+                                        }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-biaya2">
+                                            <thead>
+                                                <tr>
+                                                <th width="5%">No</th>
+                                                <th width="10%">Kode</th>
+                                                <th width="30%">Nama Biaya</th>
+                                                <th width="20%">Saldo</th>
+                                                <th width="20%">Nilai Bayar</th>
+                                                <th width="15%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -339,7 +400,7 @@
                     <div class="tab-content tabcontent-border" style='margin-bottom:30px'>
                         <div class="tab-pane active" id="detBiaya" role="tabpanel">
                             <div class="form-group row mt-2">
-                                <label for="modal_no_reg" class="col-3 col-form-label">No Reg</label>
+                                <label for="modal_no_reg" class="col-2 col-form-label">No Reg</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="modal_no_reg" id="modal_no_reg" class="form-control" value="" required>
                                 </div>
@@ -372,7 +433,7 @@
                         <div class="tab-pane" id="detKurs" role="tabpanel">
                             <div class='col-xs-12 mt-2' style='height:300px; margin:0px; padding:0px;'>
                                 <div class="form-group row mt-2">
-                                    <label for="jenis_bayar" class="col-3 col-form-label">Bayar</label>
+                                    <label for="jenis_bayar" class="col-2 col-form-label">Bayar</label>
                                     <div class="col-3">
                                         <select class='form-control selectize' id="jenis_bayar" name="jenis_bayar">
                                         <option value='' disabled>--- Pilih ---</option>
@@ -382,7 +443,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="konversi" class="col-3 col-form-label">IDR --> USD</label>
+                                    <label for="konversi" class="col-2 col-form-label">IDR --> USD</label>
                                     <div class="col-3">
                                         <input class="form-control currency" type="text" value="0" id="konversi" name="konversi">
                                     </div>
@@ -847,6 +908,53 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
+
+                        var html='';
+                        $('#input-biaya2 tbody').html('');
+                        if (result.data.data_detail.length){
+                            var no=1;
+                            for(var i=0;i< result.data.data_detail.length;i++){
+                                var line3 = result.data.data_detail[i];	
+                                // var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);	
+                                var saldo = parseFloat(line3.saldo)*4;					
+                                html+=`<tr class='row-biaya'>
+                                <td class='no-biaya'>`+no+`</td>
+                                <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
+                                <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'><input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                <td class='text-right'>`+format_number(saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(saldo)+`'></td>`;
+                                html+=`
+                                <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
+                                html+=`
+                                <td><a href='#' class='btn-distribusi btn btn-primary btn-sm'>Distribusi</a></td>
+                                </tr>`;
+                                no++;
+                            }
+                            $('#input-biaya2 tbody').html(html);
+                            
+                            
+                            $('.inp-nbiaya_bayar').inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('#input-biaya2').on('change', '.inp-nbiaya_bayar', function(){
+                                var bayar = $(this).val();
+                                var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+                                if(toNilai(bayar) > toNilai(saldo)){
+                                    $(this).val(0);
+                                    $(this).focus();
+                                    alert('nilai bayar tidak boleh melebihi saldo');
+                                }else{
+                                    
+                                    // hitungTotal();
+                                }
+                            });
+                            
+                        }   
+
                         $('a[href=\"#data-reg\"]').click();
                         
                     }
@@ -922,7 +1030,7 @@
         oncleared: function () { self.Value(''); }
     });
     
-    
+    $('.selectize').selectize();
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
@@ -1003,11 +1111,10 @@
                                     alert('nilai bayar tidak boleh melebihi saldo');
                                 }else{
                                     
-                                    hitungTotal();
+                                    // hitungTotal();
                                 }
                             });
                             
-                            $('#jenis_bayar').selectize();
                             $('#modal-bayar .modal-title').html('Form Detail Bayar');
                             $('#modal-bayar').modal('show');
                             
@@ -1040,10 +1147,7 @@
     });
 
     $('#form-tambah').on('click', '#btn-load', function(){
-        
-        
         getReg();
-
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -1059,6 +1163,31 @@
         target2 = par2;
         showFilter(par,target1,target2);
     });
+
+    function hitungBayar(){
+        
+        var total_t = 0;
+        var total_d = 0;
+        var total_p = 0;
+        var kurs = toNilai($('#kurs').val());
+
+        $('.row-datareg').each(function(){
+            var nilai_p = $(this).closest('tr').find('.inp-bayar_paket').val();
+            var nilai_t = $(this).closest('tr').find('.inp-bayar_tambahan').val();
+            var nilai_d = $(this).closest('tr').find('.inp-bayar_dok').val();
+            total_t += +toNilai(nilai_t);
+            total_d += +toNilai(nilai_d);
+            total_p += +toNilai(nilai_p);
+        });
+
+        $('#bayar_tambahan').val(total_t);
+        $('#bayar_dok').val(total_d);
+        $('#bayar_paket').val(format_number2(total_p));
+        var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+        total = Math.round(total);
+        $('#total_bayar').val(total);
+        
+    }
 
     function konversiKurs(){
 
@@ -1090,6 +1219,9 @@
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }
+        
+        $('a[href=\"#detBiaya\"]').click();
+        console.log('ok');
     }
 
 
@@ -1125,7 +1257,7 @@
                     $(this).parents("tr").find(".td-nbiaya_bayar").show();
                 }
                 
-                hitungTotal();
+                // hitungTotal();
             }
         }
     });
@@ -1165,7 +1297,7 @@
                             $(this).closest('tr').find(nxt2[idx]).text(isi);
                             $(this).closest('tr').find(nxt[idx]).hide();
                             $(this).closest('tr').find(nxt2[idx]).show();
-                            hitungTotal();
+                            // hitungTotal();
                         }
                     }else{
                         $(this).closest('tr').find(nxt[idx]).val(0);
@@ -1183,6 +1315,60 @@
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
+    });
+
+    $('#modal-bayar').on('submit', '#form-bayar', function(e){
+      e.preventDefault();
+        
+        var formData = new FormData(this);     
+        var no_bukti = $('#no_bukti').val();   
+        formData.append('no_bukti',no_bukti);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        // $iconLoad.show();
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dago-trans/pembayaran-group-det') }}",
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status == "SUCCESS"){
+                    $('#modal-bayar').modal('hide');
+                    $('.selected-row').closest('tr').find('.inp-bayar_paket').val(format_number2(result.data.bayar_paket));
+                    $('.selected-row').closest('tr').find('.td-bayar_paket').text(format_number2(result.data.bayar_paket));
+                    $('.selected-row').closest('tr').find('.inp-bayar_tambahan').val(format_number(result.data.bayar_tambahan));
+                    $('.selected-row').closest('tr').find('.td-bayar_tambahan').text(format_number(result.data.bayar_tambahan));
+                    $('.selected-row').closest('tr').find('.inp-bayar_dok').val(format_number(result.data.bayar_dokumen));
+                    $('.selected-row').closest('tr').find('.td-bayar_dok').text(format_number(result.data.bayar_dokumen));
+                    $('a[href=\"#data-reg\"]').click();
+                    hitungBayar();
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+                // $iconLoad.hide();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
     </script>
     
