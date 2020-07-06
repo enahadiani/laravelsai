@@ -78,22 +78,23 @@
                                 background:#ff9500;color:white;
                             }
 
-                            #input-biaya .selectize-input, #input-biaya .form-control, #input-biaya .custom-file-label
+                            #input-biaya .selectize-input, #input-biaya .form-control, #input-biaya .custom-file-label,
+                            #input-biaya2 .selectize-input, #input-biaya2 .form-control, #input-biaya2 .custom-file-label
                             {
                                 border:0 !important;
                                 border-radius:0 !important;
                             }
-                            #input-biaya td:hover
+                            #input-biaya td:hover,#input-biaya2 td:hover
                             {
                                 background:#f4d180 !important;
                                 color:white;
                             }
-                            #input-biaya td
+                            #input-biaya td,#input-biaya2 td
                             {
                                 overflow:hidden !important;
                             }
                             
-                            #input-biaya thead, #table-his thead
+                            #input-biaya thead, #table-his thead,#input-biaya2 thead
                             {
                                 background:#ff9500;color:white;
                             }
@@ -925,7 +926,7 @@
                                 html+=`
                                 <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                 html+=`
-                                <td><a href='#' class='btn-distribusi btn btn-primary btn-sm'>Distribusi</a></td>
+                                <td><a href='#' class='btn-dist btn btn-primary btn-sm'>Distribusi</a></td>
                                 </tr>`;
                                 no++;
                             }
@@ -1039,6 +1040,13 @@
         $('#kode_curr').val('USD');
         getNoBukti();
         getKurs('USD');
+        $('#agen').val('AG-001');
+        $('#no_bukti').val('11-BM2007.0006');
+        $('#tanggal').val('06-07-2020');
+        $('#paket').val('C.01');
+        $('#jadwal').val('1');
+        $('#no_peserta').val('2000065');
+
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -1189,7 +1197,7 @@
         
     }
 
-    function konversiKurs(){
+    function konversiKurs(id_table){
 
         var kurs = toNilai($('#kurs').val());
         var konversi = toNilai($('#konversi').val());
@@ -1197,36 +1205,177 @@
         hasil = Math.round(hasil * 100) / 100;
         var jenis = $('#jenis_bayar').val();
         if(jenis == "PAKET"){
-            var saldo = toNilai($("[value=PAKET]").closest('tr').find('.inp-saldo_det').val());
+            var saldo = toNilai($(id_table+" [value=PAKET]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
-                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
-                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
-                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+                $(id_table+" [value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $(id_table+" [value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $(id_table+" [value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Paket');
-                $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
-                $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
+                $(id_table+" value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $(id_table+" value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }else if(jenis == "ROOM"){
-            var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
+            var saldo = toNilai($(id_table+" [value=ROOM]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
-                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
-                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
-                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
+                $(id_table+" [value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
+                $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Room');
-                $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
-                $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
+                $(id_table+" [value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
+                $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }
-        
-        $('a[href=\"#detBiaya\"]').click();
-        console.log('ok');
+        if(id_table == "#input-biaya"){
+            $('a[href=\"#detBiaya\"]').click();
+        }
+    }
+
+    function distribusi(ini,jenis = null){
+        // try{
+			//nilai paket = USD
+            var no_bukti = $('#no_bukti').val();
+            var kode_biaya = ini.find('.inp-kode_biaya').val();
+            var kode_akunbiaya = ini.find('.inp-kode_akun').val();
+            var jenis_biaya = ini.find('.inp-jenis_biaya').val();
+            var nbiaya_bayar = ini.find('.inp-nbiaya_bayar').val();
+
+            var formData = new FormData();     
+            formData.append('no_bukti',no_bukti);
+            formData.append('kode_biaya',kode_biaya); 
+            formData.append('kode_akunbiaya',kode_akunbiaya);
+            formData.append('jenis_biaya',jenis_biaya);
+            formData.append('nbiaya_bayar',nbiaya_bayar);
+            $('.row-datareg').each(function(){
+                var kode = $(this).closest("tr").find('.td-no_reg').text();
+                var saldo_paket = $(this).closest("tr").find('.td-saldo_p').text();
+                var saldo_tambahan = $(this).closest("tr").find('.td-saldo_t').text();
+                var saldo_dokumen = $(this).closest("tr").find('.td-saldo_m').text();
+                formData.append('no_reg[]',kode); 
+                formData.append('saldo_paket[]',saldo_paket); 
+                formData.append('saldo_tambahan[]',saldo_tambahan); 
+                formData.append('saldo_dokumen[]',saldo_dokumen);  
+            });
+
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('dago-trans/pembayaran-group-det2') }}",
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status == "SUCCESS"){
+                        switch(jenis){
+                            case 'TAMBAHAN':
+                                var nm_colom = 'bayar_tambahan';
+                                var col1 = 7;
+                                var col2 = 10;
+                                var nilaiUSD = toNilai(format_number(result.data.bayar_tambahan));
+                            break;
+                            case 'DOKUMEN':
+                                var nm_colom = 'bayar_dok';
+                                var col1 = 8;
+                                var col2 = 11;
+                                
+                                var nilaiUSD = toNilai(format_number(result.data.bayar_dokumen));
+                            break;
+                            case '-' :
+                                var nm_colom = 'bayar_paket';
+                                var col1 = 6;
+                                var col2 = 9;
+                                
+                                var nilaiUSD = toNilai(format_number2(result.data.bayar_paket));
+                            break;
+                        }
+
+                        var jmlRow = $('#table-reg tbody tr').length;
+                        if (nilaiUSD != "" && nilaiUSD != "0" && jmlRow != 0) {
+                            var total = nilaiUSD / jmlRow;
+                            var nilaiDis = Math.round(total*100)/100;
+                            var nTemp = 0;
+                            for (var i=0;i < jmlRow ;i++){
+                                var saldo = $("#table-reg tbody tr:eq("+i+") td:eq("+col1+")");
+                                var bayar = $("#table-reg tbody tr:eq("+i+") td:eq("+col2+")");
+                                if (toNilai(saldo.text())  > 0) {
+                                    if (toNilai(saldo.text()) > nilaiDis) {
+                                        if(jenis == "-"){
+                                            bayar.parents("tr").find('.td-'+nm_colom).text(format_number2(nilaiDis));
+                                            bayar.parents("tr").find('.inp-'+nm_colom).val(format_number2(nilaiDis));
+
+                                        }else{
+                                            bayar.parents("tr").find('.td-'+nm_colom).text(format_number(nilaiDis));
+                                            bayar.parents("tr").find('.inp-'+nm_colom).val(format_number(nilaiDis));
+                                        }
+                                        nTemp += nilaiDis;
+                                    }
+                                    else {
+                                        bayar.parents("tr").find('.td-'+nm_colom).text(saldo.text());
+                                        bayar.parents("tr").find('.inp-'+nm_colom).val(saldo.text());
+                                        nTemp += toNilai(saldo.text());
+                                    }
+                                    var j=i;
+                                }
+                            }	
+
+                            var selisih = (nilaiUSD * 100) - (nTemp * 100);
+                            var recAkhir = Math.round(selisih + (toNilai($("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").text()) * 100));
+                            if(jenis == "-"){
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.td-'+nm_colom).text(format_number2(recAkhir/100));
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number2(recAkhir/100));			
+                            }else{
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.td-'+nm_colom).text(format_number(recAkhir/100));
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number(recAkhir/100));	
+                            }
+                        }
+
+                        $('a[href=\"#data-reg\"]').click();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                    // $iconLoad.hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status==422){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+jqXHR.responseText+'</a>'
+                        })
+                    }
+                    // $iconLoad.hide();
+                }
+            });
+
+		// } catch(e){
+		// 	alert(e);
+		// }
     }
 
 
     $('#form-bayar').on('click', '#konversi_btn', function(){
-        konversiKurs();
+        konversiKurs("#input-biaya");
+    });
+    $('#form-tambah').on('click', '#konversi_btn', function(){
+        konversiKurs("#input-biaya2");
+    });
+
+    $('#input-biaya2').on('click', '.btn-dist', function(){
+        var jenis = $(this).parents("tr").find('.inp-jenis_biaya').val();
+        console.log(jenis);
+        distribusi($(this).parents("tr"),jenis);
     });
 
 
@@ -1282,6 +1431,90 @@
                     return false;
                 break;
                 case 6:
+                    if(toNilai(isi) != "" && toNilai(isi) > 0){
+                        var bayar = $(this).val();
+                        var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+                        if(toNilai(bayar) > toNilai(saldo)){
+                            $(this).val(0);
+                            $(this).focus();
+                            alert('nilai bayar tidak boleh melebihi saldo');
+                            
+                        }else{
+                            $(this).closest("tr").find("td").removeClass("px-0 py-0 aktif");
+                            $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                            $(this).closest('tr').find(nxt[idx]).val(isi);
+                            $(this).closest('tr').find(nxt2[idx]).text(isi);
+                            $(this).closest('tr').find(nxt[idx]).hide();
+                            $(this).closest('tr').find(nxt2[idx]).show();
+                            // hitungTotal();
+                        }
+                    }else{
+                        $(this).closest('tr').find(nxt[idx]).val(0);
+                        $(this).closest('tr').find(nxt2[idx]).text(0);
+                        $(this).closest('tr').find(nxt[idx]).focus();
+                        alert('Nilai yang dimasukkan tidak valid');
+                        return false;
+                    }
+                break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#input-biaya2').on('click', 'td', function(){
+        var idx = $(this).index();
+        var bayar = $(this).parents("tr").find(".inp-nbiaya_bayar").val();
+        var no = $(this).parents("tr").find(".no-biaya").text();
+        $(this).parents("tr").find(".inp-nbiaya_bayar").val(bayar);
+        $(this).parents("tr").find(".td-nbiaya_bayar").text(bayar);
+        if(idx != 4){
+            $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+            $(this).parents("tr").find(".td-nbiaya_bayar").show();
+            $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+            // return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $(this).closest('tr').find('td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+                
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").show();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nbiaya_bayar").hide();
+                    $(this).parents("tr").find(".td-nbiaya_bayar").show();
+                }
+                
+                // hitungTotal();
+            }
+        }
+    });
+
+    $('#input-biaya2').on('keydown','.inp-nbiaya_bayar',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['','','','','','',' .inp-nbiaya_bayar'];
+        var nxt2 = ['','','','','','','.td-nbiaya_bayar'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                case 1:
+                case 2:
+                    return false;
+                break;
+                case 3:
                     if(toNilai(isi) != "" && toNilai(isi) > 0){
                         var bayar = $(this).val();
                         var saldo = $(this).closest('tr').find('.inp-saldo_det').val();

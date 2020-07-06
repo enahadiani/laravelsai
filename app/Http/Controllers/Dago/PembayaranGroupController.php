@@ -210,6 +210,75 @@ class PembayaranGroupController extends Controller
         }
     }
 
+    public function simpanDetTmp2(Request $request)
+    {
+        $this->validate($request, [
+            'no_bukti' => 'required',
+            'no_reg' => 'required|array',
+            'saldo_paket' => 'required|array',
+            'saldo_tambahan' => 'required|array',
+            'saldo_dokumen' => 'required|array',
+            'kode_biaya' => 'required',
+            'kode_akunbiaya' => 'required',
+            'jenis_biaya' => 'required',
+            'nbiaya_bayar' => 'required'
+        ]);
+            
+        try{
+
+            $ar_saldo_paket = array();
+            $ar_saldo_tambahan = array();
+            $ar_saldo_dokumen = array();
+            if(isset($request->nbiaya_bayar)){
+                $p = $request->saldo_paket;
+                $t = $request->saldo_tambahan;
+                $d = $request->saldo_dokumen;
+                for($i=0;$i<count($p);$i++){
+                    $ar_saldo_paket[] = $this->joinNum($p[$i]);
+                    $ar_saldo_tambahan[] = $this->joinNum($t[$i]);
+                    $ar_saldo_dokumen[] = $this->joinNum($d[$i]);
+                }
+            }
+
+            $fields = array (
+                'no_bukti' => $request->no_bukti,
+                'no_reg' => $request->no_reg,
+                'saldo_paket' => $ar_saldo_paket,
+                'saldo_tambahan' => $ar_saldo_tambahan,
+                'saldo_dokumen' => $ar_saldo_dokumen,
+                'kode_biaya' => $request->kode_biaya,
+                'kode_akunbiaya' => $request->kode_akunbiaya,
+                'jenis_biaya' => $request->jenis_biaya,
+                'nilai' => $this->joinNum($request->nbiaya_bayar),
+                'nik_user' => Session::get('nikUser')
+            );
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'pembayaran-group-det2',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+            
+            // return response()->json(['data' => $fields], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = "FAILED";
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

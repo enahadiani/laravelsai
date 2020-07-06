@@ -63,6 +63,7 @@ Route::get('pembayaran-group-nobukti','Dago\PembayaranGroupController@getNoBukti
 Route::get('pembayaran-group-reg','Dago\PembayaranGroupController@getRegistrasi');
 Route::get('pembayaran-group-det','Dago\PembayaranGroupController@getDetailBiaya');
 Route::post('pembayaran-group-det','Dago\PembayaranGroupController@simpanDetTmp');
+Route::post('pembayaran-group-det2','Dago\PembayaranGroupController@simpanDetTmp2');
 
 
 
