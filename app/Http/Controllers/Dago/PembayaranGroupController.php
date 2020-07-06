@@ -279,6 +279,106 @@ class PembayaranGroupController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'deskripsi' => 'required',
+            'kode_akun' => 'required',
+            'kode_curr' => 'required',
+            'kurs' => 'required',
+            'agen' => 'required',
+            'status_bayar' => 'required|in:TUNAI,TRANSFER',
+            'total_bayar' => 'required',
+            'bayar_paket' => 'required',
+            'bayar_tambahan' => 'required',
+            'bayar_dok' => 'required',
+            'no_bukti' => 'required',
+            'no_reg' => 'required|array',
+            'nama' => 'required|array',
+            'no_paket' => 'required|array',
+            'akun_titip' => 'required|array',
+            'tgl_berangkat' => 'required|array',
+            'nilai_paket' => 'required|array',
+            'nilai_tambahan' => 'required|array',
+            'nilai_dok' => 'required|array',
+            'kurs_closing' => 'required|array',
+            'no_closing' => 'required|array',
+        ]);
+            
+        try{
+            $npaket = array();
+            $ntambah = array();
+            $ndok = array();
+            $nkurs = array();
+            $ntgl = array();
+            if(isset($request->nilai_paket)){
+                $nilai_paket = $request->nilai_paket;
+                $nilai_dok = $request->nilai_dok;
+                $nilai_tambahan = $request->nilai_tambahan;
+                $kurs_closing = $request->kurs_closing;
+                for($i=0;$i<count($nilai_paket);$i++){
+                    $npaket[] = $this->joinNum($nilai_paket[$i]);
+                    $ntambah[] = $this->joinNum($nilai_tambahan[$i]);
+                    $ndok[] = $this->joinNum($nilai_dok[$i]);
+                    $nkurs[] = $this->joinNum($kurs_closing[$i]);
+                    $ntgl[]= $this->reverseDate($request->tgl_berangkat[$i],"/","-");
+                }
+            }
+
+            $fields = array (
+                'tanggal' => $this->reverseDate($request->tanggal,"-","-"),
+                'deskripsi' => $request->deskripsi,
+                'kode_pp' => Session::get('kodePP'),
+                'kode_akun' => $request->kode_akun,
+                'kode_curr' => $request->kode_curr,
+                'kurs' => $this->joinNum($request->kurs),
+                'no_agen' => $request->agen,
+                'status_bayar' => $request->status_bayar,
+                'total_bayar' => $this->joinNum($request->total_bayar),
+                'bayar_paket' => $this->joinNum($request->bayar_paket),
+                'bayar_tambahan' => $this->joinNum($request->bayar_tambahan),
+                'bayar_dok' => $this->joinNum($request->bayar_dok),
+                'nik_user' => Session::get('nikUser'),
+                'no_bukti' => $request->no_bukti,
+                'no_reg' => $request->no_reg,
+                'nama' => $request->nama,
+                'paket' => $request->no_paket,
+                'akun_titip' => $request->akun_titip,
+                'tgl_berangkat' => $ntgl,
+                'nilai_paket' => $npaket,
+                'nilai_tambahan' => $ntambah,
+                'nilai_dok' => $ndok,
+                'kurs_closing' => $nkurs,
+                'no_closing' => $request->no_closing
+            );
+    
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'pembayaran-group',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+            
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+            
+            // return response()->json(['data' => $fields], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = "FAILED";
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -371,74 +471,79 @@ class PembayaranGroupController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required|date_format:Y-m-d',
-            'no_reg' => 'required',
-            'nama' => 'required',
-            'no_bukti' => 'required',
+            'tanggal' => 'required',
             'deskripsi' => 'required',
             'kode_akun' => 'required',
-            'akunTitip' => 'required',
             'kode_curr' => 'required',
             'kurs' => 'required',
-            'kurs_closing' => 'required',
-            'akun_tambah' => 'required',
-            'akun_dokumen' => 'required',
-            'paket' => 'required',
-            'tgl_berangkat' => 'required|date_format:Y-m-d',
+            'agen' => 'required',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
             'total_bayar' => 'required',
             'bayar_paket' => 'required',
             'bayar_tambahan' => 'required',
             'bayar_dok' => 'required',
-            'kode_biaya' => 'required|array',
-            'jenis_biaya' => 'required|array',
-            'kode_akunbiaya' => 'required|array',
-            'nbiaya_bayar' => 'required|array'
+            'no_bukti' => 'required',
+            'no_reg' => 'required|array',
+            'nama' => 'required|array',
+            'no_paket' => 'required|array',
+            'akun_titip' => 'required|array',
+            'tgl_berangkat' => 'required|array',
+            'nilai_paket' => 'required|array',
+            'nilai_tambahan' => 'required|array',
+            'nilai_dok' => 'required|array',
+            'kurs_closing' => 'required|array',
+            'no_closing' => 'required|array',
         ]);
             
         try{
-            $biaya = array();
-            if(isset($request->kode_biaya)){
-                $kode_biaya = $request->kode_biaya;
-                $jenis_biaya = $request->jenis_biaya;
-                $kode_akun = $request->kode_akunbiaya;
-                $bayar = $request->nbiaya_bayar;
-                for($i=0;$i<count($kode_biaya);$i++){
-                    $biaya[] = array(
-                        'kode_biaya' => $kode_biaya[$i],
-                        'jenis_biaya' => $jenis_biaya[$i],
-                        'kode_akun' => $kode_akun[$i],
-                        'bayar' => $this->joinNum($bayar[$i])
-                    );
+            $npaket = array();
+            $ntambah = array();
+            $ndok = array();
+            $nkurs = array();
+            $ntgl = array();
+            if(isset($request->nilai_paket)){
+                $nilai_paket = $request->nilai_paket;
+                $nilai_dok = $request->nilai_dok;
+                $nilai_tambahan = $request->nilai_tambahan;
+                $kurs_closing = $request->kurs_closing;
+                for($i=0;$i<count($nilai_paket);$i++){
+                    $npaket[] = $this->joinNum($nilai_paket[$i]);
+                    $ntambah[] = $this->joinNum($nilai_tambahan[$i]);
+                    $ndok[] = $this->joinNum($nilai_dok[$i]);
+                    $nkurs[] = $this->joinNum($kurs_closing[$i]);
+                    $ntgl[]= $this->reverseDate($request->tgl_berangkat[$i],"/","-");
                 }
             }
 
             $fields = array (
-                'tanggal' => $request->tanggal,
-                'no_reg' => $request->no_reg,
-                'nama' => $request->nama,
-                'no_bukti' => $request->no_bukti,
+                'tanggal' => $this->reverseDate($request->tanggal,"-","-"),
                 'deskripsi' => $request->deskripsi,
                 'kode_pp' => Session::get('kodePP'),
                 'kode_akun' => $request->kode_akun,
-                'akun_titip' => $request->akunTitip,
                 'kode_curr' => $request->kode_curr,
+                'no_agen' => $request->agen,
                 'kurs' => $this->joinNum($request->kurs),
-                'kurs_closing' => $this->joinNum($request->kurs_closing),
-                'akun_tambah' => $request->akun_tambah,
-                'akun_dokumen' => $request->akun_dokumen,
-                'paket' => $request->paket,
-                'tgl_berangkat' => $request->tgl_berangkat,
                 'status_bayar' => $request->status_bayar,
                 'total_bayar' => $this->joinNum($request->total_bayar),
                 'bayar_paket' => $this->joinNum($request->bayar_paket),
                 'bayar_tambahan' => $this->joinNum($request->bayar_tambahan),
                 'bayar_dok' => $this->joinNum($request->bayar_dok),
-                'biaya' => $biaya
+                'nik_user' => Session::get('nikUser'),
+                'no_bukti' => $request->no_bukti,
+                'no_reg' => $request->no_reg,
+                'nama' => $request->nama,
+                'paket' => $request->no_paket,
+                'akun_titip' => $request->akun_titip,
+                'tgl_berangkat' => $ntgl,
+                'nilai_paket' => $npaket,
+                'nilai_tambahan' => $ntambah,
+                'nilai_dok' => $ndok,
+                'kurs_closing' => $nkurs,
+                'no_closing' => $request->no_closing
             );
     
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'pembayaran',[
+            $response = $client->request('PUT', $this->link.'pembayaran-group',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -478,7 +583,7 @@ class PembayaranGroupController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'pembayaran?no_bukti='.$request->no_bukti,[
+            $response = $client->request('DELETE', $this->link.'pembayaran-group?no_bukti='.$request->no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -499,6 +604,43 @@ class PembayaranGroupController extends Controller
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             $data['message'] = $res['message'];
+            $data['status'] = "FAILED";
+            return response()->json(['data' => $data], 200);
+        }
+    
+    }
+
+    public function destroyDetTmp(Request $request)
+    {
+
+        $this->validate($request, [
+            'no_bukti' => 'required'
+        ]);
+
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'pembayaran-group-det',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->no_bukti,
+                    'nik_user' => Session::get('nikUser'),
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
             $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
