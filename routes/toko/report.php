@@ -10,6 +10,10 @@ Route::get('filter-bukti', 'Toko\HelperController@getBuktiPnj');
 Route::get('filter-periode-pmb', 'Toko\HelperController@getPeriodePmb');
 Route::get('filter-nik-pmb', 'Toko\HelperController@getNikPmb');
 Route::get('filter-bukti-pmb', 'Toko\HelperController@getBuktiPmb');
+Route::get('filter-periode-close', 'Toko\HelperController@getPeriodeClose');
+Route::get('filter-nik-close', 'Toko\HelperController@getNikClose');
+Route::get('filter-bukti-close', 'Toko\HelperController@getBuktiClose');
 
 Route::post('lap-penjualan', 'Toko\LaporanController@getPenjualan');
 Route::post('lap-pembelian', 'Toko\LaporanController@getPembelian');
+Route::post('lap-closing', 'Toko\LaporanController@getClosing');
