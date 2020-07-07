@@ -1794,14 +1794,20 @@
                        $('#method').val('put');
                     //    $('#tanggal').val(line.tanggal);
                        $('#kode_akun').val(line.param1);
-                       $('#kode_curr').val(line.kode_curr);
+                       $('#kode_curr').val('USD');
                        $('#deskripsi').val(line.keterangan);
                        $('#status_bayar').val(line.sistem_bayar);
                        $('#agen').val(line.nik1);
                        $('#kurs').val(line.kurs);
+                       
+                       $('#bayar_paket').val(format_number3(line.nilai_p));
+                       $('#bayar_tambahan').val(format_number3(line.nilai_t));
+                       $('#bayar_dok').val(format_number3(line.nilai_m));
+                       $('#total_bayar').val(format_number3(line.nilai1));
                     }
                     if(result.data.detail_reg.length > 0){ 
                         var html='';
+                        var no=1;
                         for(var i=0;i<result.data.detail_reg.length;i++){
                             var line =result.data.detail_reg[i];
                             html+=`<tr class='row-datareg'>

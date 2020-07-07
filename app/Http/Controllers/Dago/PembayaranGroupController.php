@@ -439,7 +439,8 @@ class PembayaranGroupController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_bukti' => $request->no_kwitansi
+                    'no_bukti' => $request->no_kwitansi,
+                    'nik_user' => Session::get('nikUser')
                 ]
             ]);
 
