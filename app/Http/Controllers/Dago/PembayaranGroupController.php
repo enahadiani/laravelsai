@@ -428,19 +428,17 @@ class PembayaranGroupController extends Controller
     public function edit(Request $request)
     {
         $this->validate($request, [
-            'no_reg' => 'required',
             'no_kwitansi' => 'required'
         ]);
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembayaran-edit?no_reg='.$request->no_reg.'&no_bukti='.$request->no_kwitansi,[
+            $response = $client->request('GET', $this->link.'pembayaran-group-edit?no_bukti='.$request->no_kwitansi,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_reg' => $request->no_reg,
                     'no_bukti' => $request->no_kwitansi
                 ]
             ]);

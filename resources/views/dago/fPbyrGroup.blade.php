@@ -482,6 +482,18 @@
         return num;
     }
 
+    function format_number3(x){
+        var num = parseFloat(x).toFixed(2);
+        if(num.toString().substr(-2) == "00"){
+            num = parseFloat(x).toFixed(0);
+            num = sepNumX(num);
+        }else{
+            num = parseFloat(x).toFixed(2);
+            num = sepNum(num);
+        }
+        return num;
+    }
+
     function getNamaBulan(no_bulan){
         switch (no_bulan){
             case 1 : case '1' : case '01': bulan = "Januari"; break;
@@ -652,12 +664,10 @@
             if($target3 != ""){
                 $($target3).text(nama);
             }
-            console.log($target3);
             $('#modal-search').modal('hide');
         });
 
         $('#table-search tbody').on('dblclick','tr',function(){
-            console.log('dblclick');
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
@@ -929,7 +939,7 @@
                             <td ><span class='td-no_paket tdno_paketke`+no+`'>`+line.paket+`</span><input type='text' name='no_paket[]' class='form-control inp-no_paket no_paketke`+no+` hidden' value='`+line.no_paket+`' readonly></td>
                             <td ><span class='td-no_peserta2 tdno_peserta2ke`+no+`'>`+line.no_peserta+`</span><input type='text' name='no_peserta2[]' class='form-control inp-no_peserta2 no_peserta2ke`+no+` hidden' value='`+line.no_peserta+`' readonly></td>
                             <td ><span class='td-nama tdnamake`+no+`'>`+line.nama+`</span><input type='text' name='nama[]' class='form-control inp-nama namake`+no+` hidden' value='`+line.nama+`' readonly></td>
-                            <td style='text-align:right'><span class='td-saldo_p tdsaldo_pke`+no+`'>`+format_number(line.saldo_p)+`</span><input type='text' name='saldo_p[]' class='form-control inp-saldo_p saldo_pke`+no+` currency2 hidden'  value='`+format_number(line.saldo_p)+`' readonly required></td>
+                            <td style='text-align:right'><span class='td-saldo_p tdsaldo_pke`+no+`'>`+format_number3(line.saldo_p)+`</span><input type='text' name='saldo_p[]' class='form-control inp-saldo_p saldo_pke`+no+` currency2 hidden'  value='`+format_number3(line.saldo_p)+`' readonly required></td>
                             <td style='text-align:right'><span class='td-saldo_t tdsaldo_tke`+no+`'>`+format_number(line.saldo_t)+`</span><input type='text' name='saldo_t[]' class='form-control inp-saldo_t saldo_tke`+no+` currency2 hidden'  value='`+format_number(line.saldo_t)+`' readonly required></td>
                             <td style='text-align:right'><span class='td-saldo_m tdsaldo_mke`+no+`'>`+format_number(line.saldo_m)+`</span><input type='text' name='saldo_m[]' class='form-control inp-saldo_m saldo_mke`+no+` currency2 hidden'  value='`+format_number(line.saldo_m)+`' readonly required></td>
                             <td width='10%' style='text-align:right'><span class='td-nilai_paket tdnilai_paketke`+no+`'>0</span><input type='text' name='nilai_paket[]' class='form-control inp-nilai_paket nilai_paketke`+no+` hidden currency2'  value='0' required></td>
@@ -960,7 +970,7 @@
                                 <td class='no-biaya'>`+no+`</td>
                                 <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
                                 <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'><input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                <td class='text-right'>`+format_number(saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(saldo)+`'></td>`;
+                                <td class='text-right'>`+format_number3(saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number3(saldo)+`'></td>`;
                                 html+=`
                                 <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                 html+=`
@@ -1050,7 +1060,11 @@
                 "targets": 4,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
-                    return "";
+                    if("{{ Session::get('userStatus') }}" == "U"){
+                        return "";
+                    }else{
+                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                    }
                 }
             },
             {
@@ -1080,8 +1094,10 @@
         getNoBukti();
         clearTmp();
         getKurs('USD');
+        $('#table-reg tbody').html('');
+        $('#input-biaya tbody').html('');
+        $('#input-biaya2 tbody').html('');
         $('#agen').val('AG-001');
-        $('#no_bukti').val('11-BM2007.0006');
         $('#tanggal').val('06-07-2020');
         $('#paket').val('C.01');
         $('#jadwal').val('1');
@@ -1129,10 +1145,10 @@
                                 <td class='no-biaya'>`+no+`</td>
                                 <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
                                 <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'></td>
-                                <td class='text-right'>`+format_number(line3.nilai)+`</td>
-                                <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
-                                <td class='text-right'>`+format_number(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(line3.byr)+`'></td>
-                                <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
+                                <td class='text-right'>`+format_number3(line3.nilai)+`</td>
+                                <td class='text-right'>`+format_number3(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                <td class='text-right'>`+format_number3(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number3(line3.byr)+`'></td>
+                                <td class='text-right'>`+format_number3(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number3(line3.saldo)+`'></td>`;
                                 html+=`
                                 <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
                                 html+=`
@@ -1205,7 +1221,6 @@
     });
 
     $('#form-tambah').on('click', '.search-item2', function(){
-        // console.log('clikc');
         var par = $(this).closest('div').find('input').attr('name');
         var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
@@ -1231,7 +1246,7 @@
 
         $('#bayar_tambahan').val(total_t);
         $('#bayar_dok').val(total_d);
-        $('#bayar_paket').val(format_number2(total_p));
+        $('#bayar_paket').val(format_number3(total_p));
         var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
         total = Math.round(total);
         $('#total_bayar').val(total);
@@ -1248,8 +1263,8 @@
         if(jenis == "PAKET"){
             var saldo = toNilai($(id_table+" [value=PAKET]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
-                $(id_table+" [value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
-                $(id_table+" [value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $(id_table+" [value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number3(hasil));
+                $(id_table+" [value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number3(hasil));
                 $(id_table+" [value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Paket');
@@ -1259,8 +1274,8 @@
         }else if(jenis == "ROOM"){
             var saldo = toNilai($(id_table+" [value=ROOM]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
-                $(id_table+" [value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
-                $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
+                $(id_table+" [value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number3(hasil));
+                $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number3(hasil));
                 $(id_table+" [value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
                 alert('Nilai bayar melebihi saldo Room');
@@ -1332,7 +1347,7 @@
                                 var col1 = 6;
                                 var col2 = 9;
                                 
-                                var nilaiUSD = toNilai(format_number2(result.data.bayar_paket));
+                                var nilaiUSD = toNilai(format_number3(result.data.bayar_paket));
                             break;
                         }
 
@@ -1347,8 +1362,8 @@
                                 if (toNilai(saldo.text())  > 0) {
                                     if (toNilai(saldo.text()) > nilaiDis) {
                                         if(jenis == "-"){
-                                            bayar.parents("tr").find('.td-'+nm_colom).text(format_number2(nilaiDis));
-                                            bayar.parents("tr").find('.inp-'+nm_colom).val(format_number2(nilaiDis));
+                                            bayar.parents("tr").find('.td-'+nm_colom).text(format_number3(nilaiDis));
+                                            bayar.parents("tr").find('.inp-'+nm_colom).val(format_number3(nilaiDis));
 
                                         }else{
                                             bayar.parents("tr").find('.td-'+nm_colom).text(format_number(nilaiDis));
@@ -1368,8 +1383,8 @@
                             var selisih = (nilaiUSD * 100) - (nTemp * 100);
                             var recAkhir = Math.round(selisih + (toNilai($("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").text()) * 100));
                             if(jenis == "-"){
-                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.td-'+nm_colom).text(format_number2(recAkhir/100));
-                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number2(recAkhir/100));			
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.td-'+nm_colom).text(format_number3(recAkhir/100));
+                                $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number3(recAkhir/100));			
                             }else{
                                 $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.td-'+nm_colom).text(format_number(recAkhir/100));
                                 $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number(recAkhir/100));	
@@ -1416,7 +1431,6 @@
 
     $('#input-biaya2').on('click', '.btn-dist', function(){
         var jenis = $(this).parents("tr").find('.inp-jenis_biaya').val();
-        console.log(jenis);
         distribusi($(this).parents("tr"),jenis);
     });
 
@@ -1598,9 +1612,9 @@
         var formData = new FormData(this);     
         var no_bukti = $('#no_bukti').val();   
         formData.append('no_bukti',no_bukti);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
+        // for(var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', '+ pair[1]); 
+        // }
         // $iconLoad.show();
         
         $.ajax({
@@ -1614,12 +1628,12 @@
             success:function(result){
                 if(result.data.status == "SUCCESS"){
                     $('#modal-bayar').modal('hide');
-                    $('.selected-row').closest('tr').find('.inp-bayar_paket').val(format_number2(result.data.bayar_paket));
-                    $('.selected-row').closest('tr').find('.td-bayar_paket').text(format_number2(result.data.bayar_paket));
-                    $('.selected-row').closest('tr').find('.inp-bayar_tambahan').val(format_number(result.data.bayar_tambahan));
-                    $('.selected-row').closest('tr').find('.td-bayar_tambahan').text(format_number(result.data.bayar_tambahan));
-                    $('.selected-row').closest('tr').find('.inp-bayar_dok').val(format_number(result.data.bayar_dokumen));
-                    $('.selected-row').closest('tr').find('.td-bayar_dok').text(format_number(result.data.bayar_dokumen));
+                    $('.selected-row').closest('tr').find('.inp-nilai_paket').val(format_number3(result.data.bayar_paket));
+                    $('.selected-row').closest('tr').find('.td-nilai_paket').text(format_number3(result.data.bayar_paket));
+                    $('.selected-row').closest('tr').find('.inp-nilai_tambahan').val(format_number(result.data.bayar_tambahan));
+                    $('.selected-row').closest('tr').find('.td-nilai_tambahan').text(format_number(result.data.bayar_tambahan));
+                    $('.selected-row').closest('tr').find('.inp-nilai_dok').val(format_number(result.data.bayar_dokumen));
+                    $('.selected-row').closest('tr').find('.td-nilai_dok').text(format_number(result.data.bayar_dokumen));
                     $('a[href=\"#data-reg\"]').click();
                     hitungBayar();
                 }else{
@@ -1648,9 +1662,9 @@
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
       e.preventDefault();
-        var nilai_p = toNilai($('#bayar_paket').val());
-        var nilai_t = toNilai($('#bayar_tambahan').val());
-        var nilai_d = toNilai($('#bayar_dok').val());
+        var bayar_p = toNilai($('#bayar_paket').val());
+        var bayar_t = toNilai($('#bayar_tambahan').val());
+        var bayar_d = toNilai($('#bayar_dok').val());
         var total = toNilai($('#total_bayar').val());
         var kurs = toNilai($('#kurs').val());
         var kode_akun = $('#kode_akun').val();
@@ -1673,10 +1687,46 @@
             return false;	
         }
 
-        var formData = new FormData(this);        
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
+        var totP=0;
+        var totT=0;
+        var totM=0;
+        var i=0;
+        $('.row-datareg').each(function(){
+            var nilai_p = $(this).closest('tr').find('.inp-nilai_paket').val();
+            var nilai_t = $(this).closest('tr').find('.inp-nilai_tambahan').val();
+            var nilai_d = $(this).closest('tr').find('.inp-nilai_dok').val();
+            var saldo_p = $(this).closest('tr').find('.inp-saldo_p').val();
+            var saldo_t = $(this).closest('tr').find('.inp-saldo_t').val();
+            var saldo_d = $(this).closest('tr').find('.inp-saldo_m').val();
+            totT += +toNilai(nilai_t);
+            totM += +toNilai(nilai_d);
+            totP += +toNilai(nilai_p);
+            if ((toNilai(saldo_p) < toNilai(nilai_p)) || (toNilai(saldo_t) < toNilai(nilai_t)) || (toNilai(saldo_d) < toNilai(nilai_d)) ) {
+				var j = i+1;
+				alert("Transaksi tidak valid. Nilai Pembayaran melebihi Saldo.[Baris : "+j+"]");
+				return false;
+			}
+            i++;
+        });
+
+        totP = Math.round(totP * 100) / 100;
+        if (toNilai(bayar_p) != totP) {
+            alert(this,"Transaksi tidak valid.","Total Bayar Paket tidak sama dengan rincian");
+            return false;						
         }
+        if (toNilai(bayar_t) != totT) {
+            alert(this,"Transaksi tidak valid.","Total Bayar Tambahan tidak sama dengan rincian");
+            return false;						
+        }
+        if (toNilai(bayar_d) != totM) {
+            alert(this,"Transaksi tidak valid.","Total Bayar Tambahan tidak sama dengan rincian");
+            return false;						
+        }		
+
+        var formData = new FormData(this);        
+        // for(var pair of formData.entries()) {
+        //     console.log(pair[0]+ ', '+ pair[1]); 
+        // }
         $iconLoad.show();
         
         $.ajax({
@@ -1722,6 +1772,84 @@
                 $iconLoad.hide();
             }
         });
+    });
+
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
+        $('#form-tambah')[0].reset();
+        $('#input-reg tbody').html('');
+        $('#input-biaya tbody').html('');
+        $('#input-biaya2 tbody').html('');
+        $.ajax({
+              type: 'GET',
+              url: "{{ url('dago-trans/pembayaran-group-edit') }}",
+              dataType: 'json',
+              data: {'no_kwitansi':no_bukti},
+              success:function(res){
+                  if(res.data.status){ 
+                      
+                  }
+              },
+              fail: function(xhr, textStatus, errorThrown){
+                  alert('request failed:');
+              }
+          });
+    
+    
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();     
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('dago-trans/pembayaran-group') }}",
+                    dataType: 'json',
+                    async:false,
+                    data: {'no_bukti':kode},
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {       
+                        if(jqXHR.status==422){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+jqXHR.responseText+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
     });
     </script>
     
