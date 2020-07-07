@@ -227,7 +227,7 @@
                                         <div class="form-group row">
                                             <label for="paket" class="col-2 col-form-label">Paket</label>
                                             <div class="input-group col-3">
-                                                <input type='text' name="paket" id="paket" class="form-control" value="" required>
+                                                <input type='text' name="paket" id="paket" class="form-control" value="" >
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                             </div>
                                             <div class="col-6">
@@ -237,7 +237,7 @@
                                         <div class="form-group row">
                                             <label for="jadwal" class="col-2 col-form-label">Jadwal</label>
                                             <div class="input-group col-3">
-                                                <input type='text' name="jadwal" id="jadwal" class="form-control" value="" required>
+                                                <input type='text' name="jadwal" id="jadwal" class="form-control" value="" >
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                             </div>
                                             <div class="col-6">
@@ -247,7 +247,7 @@
                                         <div class="form-group row">
                                             <label for="no_peserta" class="col-2 col-form-label">No Jamaah</label>
                                             <div class="input-group col-3">
-                                                <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" required>
+                                                <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" >
                                                     <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                             </div>
                                             <div class="col-6">
@@ -1710,23 +1710,23 @@
         });
 
         totP = Math.round(totP * 100) / 100;
-        if (toNilai(bayar_p) != totP) {
+        if (bayar_p != totP) {
             alert(this,"Transaksi tidak valid.","Total Bayar Paket tidak sama dengan rincian");
             return false;						
         }
-        if (toNilai(bayar_t) != totT) {
+        if (bayar_t != totT) {
             alert(this,"Transaksi tidak valid.","Total Bayar Tambahan tidak sama dengan rincian");
             return false;						
         }
-        if (toNilai(bayar_d) != totM) {
+        if (bayar_d != totM) {
             alert(this,"Transaksi tidak valid.","Total Bayar Tambahan tidak sama dengan rincian");
             return false;						
         }		
 
         var formData = new FormData(this);        
-        // for(var pair of formData.entries()) {
-        //     console.log(pair[0]+ ', '+ pair[1]); 
-        // }
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
         $iconLoad.show();
         
         $.ajax({
