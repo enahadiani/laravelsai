@@ -14,8 +14,13 @@ Route::get('filter-periode-close', 'Toko\HelperController@getPeriodeClose');
 Route::get('filter-nik-close', 'Toko\HelperController@getNikClose');
 Route::get('filter-bukti-close', 'Toko\HelperController@getBuktiClose');
 Route::get('filter-barang', 'Toko\HelperController@getBarang');
+Route::get('filter-periode-retur', 'Toko\HelperController@getPeriodeRetur');
+Route::get('filter-nik-retur', 'Toko\HelperController@getNikRetur');
+Route::get('filter-bukti-retur', 'Toko\HelperController@getBuktiRetur');
+
 
 Route::post('lap-penjualan', 'Toko\LaporanController@getPenjualan');
+Route::post('lap-retur-beli', 'Toko\LaporanController@getReturBeli');
 Route::post('lap-pembelian', 'Toko\LaporanController@getPembelian');
 Route::post('lap-closing', 'Toko\LaporanController@getClosing');
 Route::post('lap-barang', 'Toko\LaporanController@getBarang');
