@@ -779,6 +779,44 @@
         });
     }
 
+    function clearTmp(kode_akun){
+        var kode = $('#no_bukti').val();     
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('dago-trans/pembayaran-group-det') }}",
+            dataType: 'json',
+            async:false,
+            data: {'no_bukti':kode},
+            success:function(result){
+                if(result.data.status){
+                    // Swal.fire(
+                    //     'Deleted!',
+                    //     'Your file has been deleted.',
+                    //     'success'
+                    //     )
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+            
+    }
+
     function getKurs(curr){
         $.ajax({
             type: 'GET',
@@ -884,19 +922,19 @@
                             <td class='no-datareg'>`+no+`</td>
                             <td ><span class='td-no_reg tdno_regke`+no+`'>`+line.no_reg+`</span><input type='text' name='no_reg[]' class='form-control inp-no_reg no_regke`+no+` hidden' value='`+line.no_reg+`' readonly>
                             <input type='text' name='no_closing[]' class='form-control inp-no_closing no_closingke`+no+` hidden' value='`+line.no_closing+`' readonly>
-                            <input type='text' name='kode_akun[]' class='form-control inp-kode_akun kode_akunke`+no+` hidden' value='`+line.kode_akun+`' readonly>
+                            <input type='text' name='akun_titip[]' class='form-control inp-akun_titip akun_titipke`+no+` hidden' value='`+line.kode_akun+`' readonly>
                             <input type='text' name='kurs_closing[]' class='form-control inp-kurs_closing kurs_closingke`+no+` currency2 hidden'  value='`+format_number(line.kurs_closing)+`' readonly required>
                             </td>
                             <td ><span class='td-tgl_berangkat tdtgl_berangkatke`+no+`'>`+line.tgl_berangkat+`</span><input type='text' name='tgl_berangkat[]' class='form-control inp-tgl_berangkat tgl_berangkatke`+no+` hidden' value='`+line.tgl_berangkat+`' readonly></td>
-                            <td ><span class='td-no_paket tdno_paketke`+no+`'>`+line.paket+`</span><input type='text' name='no_paket[]' class='form-control inp-no_paket no_paketke`+no+` hidden' value='`+line.npaket+`' readonly></td>
+                            <td ><span class='td-no_paket tdno_paketke`+no+`'>`+line.paket+`</span><input type='text' name='no_paket[]' class='form-control inp-no_paket no_paketke`+no+` hidden' value='`+line.no_paket+`' readonly></td>
                             <td ><span class='td-no_peserta2 tdno_peserta2ke`+no+`'>`+line.no_peserta+`</span><input type='text' name='no_peserta2[]' class='form-control inp-no_peserta2 no_peserta2ke`+no+` hidden' value='`+line.no_peserta+`' readonly></td>
                             <td ><span class='td-nama tdnamake`+no+`'>`+line.nama+`</span><input type='text' name='nama[]' class='form-control inp-nama namake`+no+` hidden' value='`+line.nama+`' readonly></td>
                             <td style='text-align:right'><span class='td-saldo_p tdsaldo_pke`+no+`'>`+format_number(line.saldo_p)+`</span><input type='text' name='saldo_p[]' class='form-control inp-saldo_p saldo_pke`+no+` currency2 hidden'  value='`+format_number(line.saldo_p)+`' readonly required></td>
                             <td style='text-align:right'><span class='td-saldo_t tdsaldo_tke`+no+`'>`+format_number(line.saldo_t)+`</span><input type='text' name='saldo_t[]' class='form-control inp-saldo_t saldo_tke`+no+` currency2 hidden'  value='`+format_number(line.saldo_t)+`' readonly required></td>
                             <td style='text-align:right'><span class='td-saldo_m tdsaldo_mke`+no+`'>`+format_number(line.saldo_m)+`</span><input type='text' name='saldo_m[]' class='form-control inp-saldo_m saldo_mke`+no+` currency2 hidden'  value='`+format_number(line.saldo_m)+`' readonly required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bayar_paket tdbayar_paketke`+no+`'>0</span><input type='text' name='bayar_paket[]' class='form-control inp-bayar_paket bayar_paketke`+no+` hidden currency2'  value='0' required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bayar_tambahan tdbayar_tambahanke`+no+`'>0</span><input type='text' name='bayar_tambahan[]' class='form-control inp-bayar_tambahan bayar_tambahanke`+no+` hidden currency2'  value='0' required></td>
-                            <td width='10%' style='text-align:right'><span class='td-bayar_dok tdbayar_dokke`+no+`'>0</span><input type='text' name='bayar_dok[]' class='form-control inp-bayar_dok bayar_dokke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-nilai_paket tdnilai_paketke`+no+`'>0</span><input type='text' name='nilai_paket[]' class='form-control inp-nilai_paket nilai_paketke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-nilai_tambahan tdnilai_tambahanke`+no+`'>0</span><input type='text' name='nilai_tambahan[]' class='form-control inp-nilai_tambahan nilai_tambahanke`+no+` hidden currency2'  value='0' required></td>
+                            <td width='10%' style='text-align:right'><span class='td-nilai_dok tdnilai_dokke`+no+`'>0</span><input type='text' name='nilai_dok[]' class='form-control inp-nilai_dok nilai_dokke`+no+` hidden currency2'  value='0' required></td>
                             </tr>`;
                             no++;
                         }
@@ -956,6 +994,7 @@
                             
                         }   
 
+                        hitungBayar();
                         $('a[href=\"#data-reg\"]').click();
                         
                     }
@@ -1039,6 +1078,7 @@
         $('#id').val('');
         $('#kode_curr').val('USD');
         getNoBukti();
+        clearTmp();
         getKurs('USD');
         $('#agen').val('AG-001');
         $('#no_bukti').val('11-BM2007.0006');
@@ -1155,6 +1195,7 @@
     });
 
     $('#form-tambah').on('click', '#btn-load', function(){
+        clearTmp();
         getReg();
     });
 
@@ -1180,9 +1221,9 @@
         var kurs = toNilai($('#kurs').val());
 
         $('.row-datareg').each(function(){
-            var nilai_p = $(this).closest('tr').find('.inp-bayar_paket').val();
-            var nilai_t = $(this).closest('tr').find('.inp-bayar_tambahan').val();
-            var nilai_d = $(this).closest('tr').find('.inp-bayar_dok').val();
+            var nilai_p = $(this).closest('tr').find('.inp-nilai_paket').val();
+            var nilai_t = $(this).closest('tr').find('.inp-nilai_tambahan').val();
+            var nilai_d = $(this).closest('tr').find('.inp-nilai_dok').val();
             total_t += +toNilai(nilai_t);
             total_d += +toNilai(nilai_d);
             total_p += +toNilai(nilai_p);
@@ -1274,20 +1315,20 @@
                     if(result.data.status == "SUCCESS"){
                         switch(jenis){
                             case 'TAMBAHAN':
-                                var nm_colom = 'bayar_tambahan';
+                                var nm_colom = 'nilai_tambahan';
                                 var col1 = 7;
                                 var col2 = 10;
                                 var nilaiUSD = toNilai(format_number(result.data.bayar_tambahan));
                             break;
                             case 'DOKUMEN':
-                                var nm_colom = 'bayar_dok';
+                                var nm_colom = 'nilai_dok';
                                 var col1 = 8;
                                 var col2 = 11;
                                 
                                 var nilaiUSD = toNilai(format_number(result.data.bayar_dokumen));
                             break;
                             case '-' :
-                                var nm_colom = 'bayar_paket';
+                                var nm_colom = 'nilai_paket';
                                 var col1 = 6;
                                 var col2 = 9;
                                 
@@ -1334,8 +1375,9 @@
                                 $("#table-reg tbody tr:eq("+j+") td:eq("+col2+")").parents("tr").find('.inp-'+nm_colom).val(format_number(recAkhir/100));	
                             }
                         }
-
+                        hitungBayar();
                         $('a[href=\"#data-reg\"]').click();
+
                     }else{
                         Swal.fire({
                             icon: 'error',
@@ -1600,6 +1642,84 @@
                     })
                 }
                 // $iconLoad.hide();
+            }
+        });
+    });
+
+    $('#saku-form').on('submit', '#form-tambah', function(e){
+      e.preventDefault();
+        var nilai_p = toNilai($('#bayar_paket').val());
+        var nilai_t = toNilai($('#bayar_tambahan').val());
+        var nilai_d = toNilai($('#bayar_dok').val());
+        var total = toNilai($('#total_bayar').val());
+        var kurs = toNilai($('#kurs').val());
+        var kode_akun = $('#kode_akun').val();
+        var deskripsi = $('#deskripsi').val();
+		
+        if (total <= 0) {
+            alert("Transaksi tidak valid. Total Bayar tidak boleh nol atau kurang");
+            return false;						
+        }	
+        if(kurs <= 0){
+            alert("Kurs tidak valid. Kurs tidak boleh nol atau kurang");
+            return false;	
+        }
+        if(kode_akun == ""){
+            alert("Transaksi tidak valid. Rekening kas tidak boleh kosong");
+            return false;	
+        }
+        if(deskripsi == ""){
+            alert("Transaksi tidak valid. Deskripsi tidak boleh kosong");
+            return false;	
+        }
+
+        var formData = new FormData(this);        
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $iconLoad.show();
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dago-trans/pembayaran-group') }}",
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status == "SUCCESS"){
+                    dataTable.ajax.reload();
+                    // dataTable2.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been saved.'+result.data.message,
+                        'success'
+                    )
+                    // printPbyr(result.data.no_kwitansi);
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
+                    
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+                $iconLoad.hide();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+                $iconLoad.hide();
             }
         });
     });
