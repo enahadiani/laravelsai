@@ -233,6 +233,24 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getTanggalPnj() {
+            $client = new Client();
+            $response = $client->request('GET', $this->linkReport.'filter-tanggal',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
         public function getPeriodePnj() {
             $client = new Client();
             $response = $client->request('GET', $this->linkReport.'filter-periode',[
