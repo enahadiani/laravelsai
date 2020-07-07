@@ -1097,11 +1097,11 @@
         $('#table-reg tbody').html('');
         $('#input-biaya tbody').html('');
         $('#input-biaya2 tbody').html('');
-        $('#agen').val('AG-001');
-        $('#tanggal').val('06-07-2020');
-        $('#paket').val('C.01');
-        $('#jadwal').val('1');
-        $('#no_peserta').val('2000065');
+        // $('#agen').val('AG-001');
+        // $('#tanggal').val('06-07-2020');
+        // $('#paket').val('C.01');
+        // $('#jadwal').val('1');
+        // $('#no_peserta').val('2000065');
 
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -1774,29 +1774,125 @@
         });
     });
 
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
-        $('#form-tambah')[0].reset();
-        $('#input-reg tbody').html('');
-        $('#input-biaya tbody').html('');
-        $('#input-biaya2 tbody').html('');
-        $.ajax({
-              type: 'GET',
-              url: "{{ url('dago-trans/pembayaran-group-edit') }}",
-              dataType: 'json',
-              data: {'no_kwitansi':no_bukti},
-              success:function(res){
-                  if(res.data.status){ 
-                      
-                  }
-              },
-              fail: function(xhr, textStatus, errorThrown){
-                  alert('request failed:');
-              }
-          });
+    // $('#saku-datatable').on('click', '#btn-edit', function(){
+    //     var no_bukti = $(this).closest('tr').find('td:eq(0)').text();
+    //     $('#form-tambah')[0].reset();
+    //     $('#input-reg tbody').html('');
+    //     $('#input-biaya tbody').html('');
+    //     $('#input-biaya2 tbody').html('');
+    //     $.ajax({
+    //           type: 'GET',
+    //           url: "{{ url('dago-trans/pembayaran-group-edit') }}",
+    //           dataType: 'json',
+    //           data: {'no_kwitansi':no_bukti},
+    //           success:function(result){
+    //             if(result.data.status){ 
+    //                 if(result.data.data.length > 0){ 
+    //                    var line =result.data.data[0];
+    //                    $('#no_bukti').val(no_bukti);
+    //                    $('#id_edit').val('edit');
+    //                    $('#method').val('put');
+    //                 //    $('#tanggal').val(line.tanggal);
+    //                    $('#kode_akun').val(line.param1);
+    //                    $('#kode_curr').val(line.kode_curr);
+    //                    $('#deskripsi').val(line.keterangan);
+    //                    $('#status_bayar').val(line.sistem_bayar);
+    //                    $('#agen').val(line.nik1);
+    //                    $('#kurs').val(line.kurs);
+    //                 }
+    //                 if(result.data.detail_reg.length > 0){ 
+    //                     var html='';
+    //                     for(var i=0;i<result.data.detail_reg.length;i++){
+    //                         var line =result.data.detail_reg[i];
+    //                         html+=`<tr class='row-datareg'>
+    //                         <td class='no-datareg'>`+no+`</td>
+    //                         <td ><span class='td-no_reg tdno_regke`+no+`'>`+line.no_reg+`</span><input type='text' name='no_reg[]' class='form-control inp-no_reg no_regke`+no+` hidden' value='`+line.no_reg+`' readonly>
+    //                         <input type='text' name='no_closing[]' class='form-control inp-no_closing no_closingke`+no+` hidden' value='`+line.no_closing+`' readonly>
+    //                         <input type='text' name='akun_titip[]' class='form-control inp-akun_titip akun_titipke`+no+` hidden' value='`+line.kode_akun+`' readonly>
+    //                         <input type='text' name='kurs_closing[]' class='form-control inp-kurs_closing kurs_closingke`+no+` currency2 hidden'  value='`+format_number(line.kurs_closing)+`' readonly required>
+    //                         </td>
+    //                         <td ><span class='td-tgl_berangkat tdtgl_berangkatke`+no+`'>`+line.tgl_berangkat+`</span><input type='text' name='tgl_berangkat[]' class='form-control inp-tgl_berangkat tgl_berangkatke`+no+` hidden' value='`+line.tgl_berangkat+`' readonly></td>
+    //                         <td ><span class='td-no_paket tdno_paketke`+no+`'>`+line.paket+`</span><input type='text' name='no_paket[]' class='form-control inp-no_paket no_paketke`+no+` hidden' value='`+line.no_paket+`' readonly></td>
+    //                         <td ><span class='td-no_peserta2 tdno_peserta2ke`+no+`'>`+line.no_peserta+`</span><input type='text' name='no_peserta2[]' class='form-control inp-no_peserta2 no_peserta2ke`+no+` hidden' value='`+line.no_peserta+`' readonly></td>
+    //                         <td ><span class='td-nama tdnamake`+no+`'>`+line.nama+`</span><input type='text' name='nama[]' class='form-control inp-nama namake`+no+` hidden' value='`+line.nama+`' readonly></td>
+    //                         <td style='text-align:right'><span class='td-saldo_p tdsaldo_pke`+no+`'>`+format_number3(line.saldo_p)+`</span><input type='text' name='saldo_p[]' class='form-control inp-saldo_p saldo_pke`+no+` currency2 hidden'  value='`+format_number3(line.saldo_p)+`' readonly required></td>
+    //                         <td style='text-align:right'><span class='td-saldo_t tdsaldo_tke`+no+`'>`+format_number(line.saldo_t)+`</span><input type='text' name='saldo_t[]' class='form-control inp-saldo_t saldo_tke`+no+` currency2 hidden'  value='`+format_number(line.saldo_t)+`' readonly required></td>
+    //                         <td style='text-align:right'><span class='td-saldo_m tdsaldo_mke`+no+`'>`+format_number(line.saldo_m)+`</span><input type='text' name='saldo_m[]' class='form-control inp-saldo_m saldo_mke`+no+` currency2 hidden'  value='`+format_number(line.saldo_m)+`' readonly required></td>
+    //                         <td width='10%' style='text-align:right'><span class='td-nilai_paket tdnilai_paketke`+no+`'>`+format_number3(line.nilai_p)+`</span><input type='text' name='nilai_paket[]' class='form-control inp-nilai_paket nilai_paketke`+no+` hidden currency2'  value='`+format_number3(line.nilai_p)+`' required></td>
+    //                         <td width='10%' style='text-align:right'><span class='td-nilai_tambahan tdnilai_tambahanke`+no+`'>`+format_number(line.nilai_t)+`</span><input type='text' name='nilai_tambahan[]' class='form-control inp-nilai_tambahan nilai_tambahanke`+no+` hidden currency2'  value='`+format_number(line.nilai_t)+`' required></td>
+    //                         <td width='10%' style='text-align:right'><span class='td-nilai_dok tdnilai_dokke`+no+`'>`+format_number(line.nilai_m)+`</span><input type='text' name='nilai_dok[]' class='form-control inp-nilai_dok nilai_dokke`+no+` hidden currency2'  value='`+format_number(line.nilai_m)+`' required></td>
+    //                         </tr>`;
+    //                         no++;
+    //                     }
+    //                     $('#table-reg tbody').html(html);
+    //                     $('.currency2').inputmask("numeric", {
+    //                         radixPoint: ",",
+    //                         groupSeparator: ".",
+    //                         digits: 2,
+    //                         autoGroup: true,
+    //                         rightAlign: true,
+    //                         oncleared: function () { self.Value(''); }
+    //                     });
+    //                 }
+
+    //                 if (result.data.detail_biaya.length){
+    //                     var html='';
+    //                     var no=1;
+    //                     for(var i=0;i< result.data.detail_biaya.length;i++){
+    //                         var line3 = result.data.detail_biaya[i];	
+    //                         // var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);	
+    //                         var saldo = parseFloat(line3.saldo)*4;	
+    //                         var byr = parseFloat(line3.byr)*4;					
+    //                         html+=`<tr class='row-biaya'>
+    //                         <td class='no-biaya'>`+no+`</td>
+    //                         <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
+    //                         <td>`+line3.nama+`<input type='text' name='kode_akunbiaya[]' class='form-control inp-kode_akun biayakode_akunbiayake`+no+` hidden' value='`+line3.akun_pdpt+`'><input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+    //                         <td class='text-right'>`+format_number3(saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number3(saldo)+`'></td>`;
+    //                         html+=`
+    //                         <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number3(byr)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number3(byr)+`' ></td>`;
+    //                         html+=`
+    //                         <td><a href='#' class='btn-dist btn btn-primary btn-sm'>Distribusi</a></td>
+    //                         </tr>`;
+    //                         no++;
+    //                     }
+    //                     $('#input-biaya2 tbody').html(html);
+                        
+                        
+    //                     $('.inp-nbiaya_bayar').inputmask("numeric", {
+    //                         radixPoint: ",",
+    //                         groupSeparator: ".",
+    //                         digits: 2,
+    //                         autoGroup: true,
+    //                         rightAlign: true,
+    //                         oncleared: function () { self.Value(''); }
+    //                     });
+    //                     $('#input-biaya2').on('change', '.inp-nbiaya_bayar', function(){
+    //                         var bayar = $(this).val();
+    //                         var saldo = $(this).closest('tr').find('.inp-saldo_det').val();
+    //                         if(toNilai(bayar) > toNilai(saldo)){
+    //                             $(this).val(0);
+    //                             $(this).focus();
+    //                             alert('nilai bayar tidak boleh melebihi saldo');
+    //                         }else{
+                                
+    //                             // hitungTotal();
+    //                         }
+    //                     });
+                        
+    //                 }  
+
+    //                 $('#saku-datatable').hide();
+    //                 $('#saku-form').show(); 
+
+    //             }
+    //           },
+    //           fail: function(xhr, textStatus, errorThrown){
+    //               alert('request failed:');
+    //           }
+    //       });
     
     
-    });
+    // });
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
