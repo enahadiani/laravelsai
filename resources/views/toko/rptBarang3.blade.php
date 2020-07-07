@@ -26,20 +26,6 @@ drawLap($formData);
             <table class='table no-border'>
                 <tbody>
                     <tr>
-                        <td class="style16" align="center">
-                            <b>Toko Asrama Putra TJ</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="style16" align="center"><b>LAPORAN BARANG</b></td>
-                    </tr>
-                    <tr>
-                        <td class="style16" align="center">Periode `+res.periode+`</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
                         <td align="center">
                             <style>
                             td,th{
