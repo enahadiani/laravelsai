@@ -1007,5 +1007,41 @@ class PembayaranGroupController extends Controller
         }
     }
 
+    public function getJamaahGroup(Request $request){
+        $this->validate($request, [
+            'paket' => 'required',
+            'jadwal' => 'required',
+            'agen' => 'required'
+        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jamaah-group',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'paket' => $request->paket,
+                    'jadwal' => $request->jadwal,
+                    'agen' => $request->agen
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+
 
 }

@@ -541,7 +541,7 @@
             break;
             case 'no_peserta': 
                 header = ['No Peserta', 'Nama'];
-            var toUrl = "{{ url('dago-trans/jamaah') }}";
+            var toUrl = "{{ url('dago-trans/jamaah-group') }}";
                 var columns = [
                     { data: 'no_peserta' },
                     { data: 'nama' }
@@ -553,7 +553,10 @@
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
-                parameter = {'param':par};
+                var paket = $('#paket').val();
+                var jadwal = $('#jadwal').val();
+                var agen = $('#agen').val();
+                parameter = {'paket':paket,'jadwal':jadwal,'agen':agen};
             break;
             case 'paket': 
                 header = ['No Paket', 'Nama'];
@@ -1211,8 +1214,11 @@
     });
 
     $('#form-tambah').on('click', '#btn-load', function(){
+        $(this).text("Please Wait...").attr('disabled', 'disabled');
         clearTmp();
         getReg();
+        $(this).html("<i class='fa fa-plus-circle'></i> Tampil Data").removeAttr('disabled');
+
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){

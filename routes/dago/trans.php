@@ -69,6 +69,7 @@ Route::get('pembayaran-group-edit','Dago\PembayaranGroupController@edit');
 Route::put('pembayaran-group','Dago\PembayaranGroupController@update');
 Route::delete('pembayaran-group','Dago\PembayaranGroupController@destroy');
 Route::delete('pembayaran-group-det','Dago\PembayaranGroupController@destroyDetTmp');
+Route::get('jamaah-group','Dago\PembayaranGroupController@getJamaahGroup');
 
 
 
