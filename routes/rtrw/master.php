@@ -48,6 +48,7 @@ Route::delete('rumah/{kode_rumah}','Rtrw\RumahController@destroy');
 
 //Master Warga
 Route::get('warga','Rtrw\WargaController@index');
+Route::post('upload-warga','Rtrw\WargaController@upload');
 Route::get('warga-detail/{no_bukti}','Rtrw\WargaController@show');
 Route::post('warga','Rtrw\WargaController@store');
 Route::post('warga/{no_bukti}','Rtrw\WargaController@update');
