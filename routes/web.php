@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('dago-auth/login');
     $domain = $_SERVER['SERVER_NAME'];
     switch ($domain){
         case 'dwi.simkug.com' : 
