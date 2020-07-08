@@ -70,9 +70,8 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
-                                    
-                                    <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb" name="tgl_juskeb" value="{{ date('Y-m-d') }}" required>
+                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="<?php echo date('Y-m-d') ?>" required>
+                                    <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb" name="tgl_juskeb" value="<?php echo date('Y-m-d') ?>" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -169,7 +168,7 @@
                                                 <th width="5%">No</th>
                                                 <th width="60%">Nama Dokumen</th>
                                                 <th width="305%">File</th>
-                                                <th width="5%">Action</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -476,10 +475,11 @@
                         $('#id').val('edit');
                         $('#no_bukti').val(id);
                         $('#no_dokumen').val(result.data[0].no_dokumen);
-                        $('#tgl_juskeb').val(result.data[0].tanggal);
+                        $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
                         $('#kode_pp').val(result.data[0].kode_pp);
+                        $('#kode_kota').val(result.data[0].kode_kota);
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
@@ -513,7 +513,7 @@
                                 input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                                 input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
                                 input2 += "<td width='30%'>"+
-                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
+                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
                                 line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
                                 input2 += "</tr>";
                                 no++;
@@ -843,6 +843,7 @@
                             'Your data has been '+pesan+'. '+result.data.message,
                             'success'
                             )
+                            console.log(result);
                         printAju(result.data.no_aju);
                         
                     }

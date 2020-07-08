@@ -223,7 +223,7 @@
                                                 <th width="5%">No</th>
                                                 <th width="60%">Nama Dokumen</th>
                                                 <th width="305%">File</th>
-                                                <th width="5%">Action</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -679,6 +679,21 @@
         $('#form-tambah')[0].reset();
     });
 
+    $('#saku-form').on('click', '#add-row-dok', function(){
+        var no=$('#input-dok .row-dok:last').index();
+        no=no+2;
+        var input="";
+        input = "<tr class='row-dok'>";
+        input += "<td width='5%'  class='no-dok'>"+no+"</td>";
+        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>";
+        input += "<td width='30%'>"+
+        "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+        "</td>";
+        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+        input += "</tr>";
+        $('#input-dok tbody').append(input);
+    });
+
     $('#saku-form').on('click', '#add-row', function(){
 
         var no=$('#input-grid2 .row-barang:last').index();
@@ -795,22 +810,7 @@
             hitungBrg();
         // }
     });
-
-    $('#saku-form').on('click', '#add-row-dok', function(){
-        var no=$('#input-dok .row-dok:last').index();
-        no=no+2;
-        var input="";
-        input = "<tr class='row-dok'>";
-        input += "<td width='5%'  class='no-dok'>"+no+"</td>";
-        input += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>";
-        input += "<td width='50%'>"+
-        "<input type='file' name='file_dok[]' required >"+
-        "</td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-        input += "</tr>";
-        $('#input-dok tbody').append(input);
-    });
-
+    
     $('#saku-data').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
