@@ -843,6 +843,7 @@
                             'Your data has been '+pesan+'. '+result.data.message,
                             'success'
                             )
+                            console.log(result);
                         printAju(result.data.no_aju);
                         
                     }
