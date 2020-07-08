@@ -30,6 +30,44 @@ class WargaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function upload(Request $request) {
+        $this->validate($request, [
+            'nama' => 'required|array',
+            'panggilan' => 'required|array',
+            'alamat' => 'required|array',
+            'no_hp' => 'required|array',
+        ]);
+        $fields = array(
+            'nama'=>$request->nama,
+            'alias'=>$request->panggilan,
+            'no_rumah'=>$request->alamat,
+            'no_hp'=>$request->no_hp,
+        );
+        try {
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'upload-warga',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json',
+                ],
+                    'body' => json_encode($fields)
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                 $response_data = $response->getBody()->getContents();
+                    
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
     public function index(Request $request){
 
         try {

@@ -1,6 +1,6 @@
 <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
 <div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
+        <div class="row" id="saku-form">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
@@ -134,5 +134,60 @@
         }
 
         reader.readAsBinaryString(selectedFile);
+    });
+
+    $('#saku-form').on('submit', '#form-tambah', function(e){
+        e.preventDefault();
+        var url = "{{ url('rtrw-master/upload-warga') }}";
+        var pesan = "saved";
+    
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        
+        $.ajax({
+            type: 'POST', 
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status){
+                    // location.reload();
+                    $('#input-warga tbody').empty();
+                    $('#file_excel').val('');
+                    $('.custom-file-label').html('')
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
+                 
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                    }) 
+                }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
     });
 </script>
