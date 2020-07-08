@@ -377,7 +377,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Yang Menerima</td>
-                                                <td class='text-center'>Yang Menyerahkan</td>
+                                                <td class='text-center'>Yang Menyetujui</td>
                                             </tr>
                                             <tr>
                                                 <td height='80px'>&nbsp;</td>
@@ -385,7 +385,7 @@
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td class='text-center'>`+result.data[0].nik_buat+`</td>
+                                                <td class='text-center'>`+result.data[0].nik+`</td>
                                             </tr>
                                         </tbody>
                                     </table>
