@@ -336,7 +336,7 @@
                         var no=1;var det2='';
                         for(var i=0;i<result.data_dokumen.length;i++){
                             det2 +=`<tr>
-                                <td>Dibuat Oleh</td>
+                                <td>`+result.data_dokumen[i].ket+`</td>
                                 <td>`+result.data_dokumen[i].nama_kar+`/`+result.data_dokumen[i].nik+`</td>
                                 <td>`+result.data_dokumen[i].nama_jab+`</td>
                                 <td>`+result.data_dokumen[i].tanggal+`</td>

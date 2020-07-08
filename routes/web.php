@@ -14,17 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-    // return redirect('dago-auth/login');
-    // $domain = $_SERVER['SERVER_NAME'];
-    // switch ($domain){
-    //     case 'dwi.simkug.com' : 
-    //         return redirect('dago-auth/login');
-    //     break;
-    //     default : 
-    //         return view('welcome');
-    //     break;
-    // }
+    $domain = $_SERVER['SERVER_NAME'];
+    switch ($domain){
+        case 'dwi.simkug.com' : 
+            return redirect('dago-auth/login');
+        break;
+        default : 
+            return view('welcome');
+        break;
+    }
 });
 
 // Route::get('/midtrans', 'DonationController@index')->name('midtrans');

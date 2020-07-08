@@ -428,20 +428,19 @@ class PembayaranGroupController extends Controller
     public function edit(Request $request)
     {
         $this->validate($request, [
-            'no_reg' => 'required',
             'no_kwitansi' => 'required'
         ]);
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembayaran-edit?no_reg='.$request->no_reg.'&no_bukti='.$request->no_kwitansi,[
+            $response = $client->request('GET', $this->link.'pembayaran-group-edit?no_bukti='.$request->no_kwitansi,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'no_reg' => $request->no_reg,
-                    'no_bukti' => $request->no_kwitansi
+                    'no_bukti' => $request->no_kwitansi,
+                    'nik_user' => Session::get('nikUser')
                 ]
             ]);
 
@@ -455,7 +454,7 @@ class PembayaranGroupController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = "FAILED";
             return response()->json(['data' => $data], 200);
         }
@@ -1007,6 +1006,42 @@ class PembayaranGroupController extends Controller
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     }
+
+    public function getJamaahGroup(Request $request){
+        $this->validate($request, [
+            'paket' => 'required',
+            'jadwal' => 'required',
+            'agen' => 'required'
+        ]);
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'jamaah-group',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'paket' => $request->paket,
+                    'jadwal' => $request->jadwal,
+                    'agen' => $request->agen
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
 
 
 }
