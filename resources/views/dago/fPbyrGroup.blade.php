@@ -1811,6 +1811,17 @@
                        $('#bayar_dok').val(format_number3(line.nilai_m));
                        $('#total_bayar').val(format_number3(line.nilai1));
                     }
+
+                    if(result.data.data_filter.length > 0){ 
+                       var line =result.data.data_filter[0];
+                       $('#paket').val(line.no_paket);
+                       $('#paket').trigger('change');
+                       $('#jadwal').val(line.no_jadwal);
+                       $('#jadwal').trigger('change');
+                       $('#no_peserta').val(line.no_peserta);
+                       $('#no_peserta').trigger('change');
+                    }
+
                     if(result.data.detail_reg.length > 0){ 
                         var html='';
                         var no=1;
