@@ -258,7 +258,7 @@
                                     <div class="form-group row">
                                         <label for="total_bayar" class="col-3 col-form-label">Total Bayar</label>
                                         <div class="col-3">
-                                        <input class="form-control currency" type="text" value="0"  id="total_bayar" name="total_bayar">
+                                        <input class="form-control currency" type="text" value="0"  id="total_bayar" name="total_bayar" readonly>
                                         </div>
                                     </div>
                                 </div>
