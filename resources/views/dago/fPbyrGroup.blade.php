@@ -968,7 +968,7 @@
                             for(var i=0;i< result.data.data_detail.length;i++){
                                 var line3 = result.data.data_detail[i];	
                                 // var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);	
-                                var saldo = parseFloat(line3.saldo)*4;					
+                                var saldo = parseFloat(line3.saldo);					
                                 html+=`<tr class='row-biaya'>
                                 <td class='no-biaya'>`+no+`</td>
                                 <td>`+line3.kode_biaya+`<input type='text' name='kode_biaya[]' class='form-control inp-kode_biaya biayakode_biayake`+no+` hidden' value='`+line3.kode_biaya+`'></td>
