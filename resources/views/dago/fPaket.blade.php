@@ -480,7 +480,7 @@
         inputJadwal += "<td><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+"' value='0' required /></td>";
         inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='0' required /></td>";
         inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='0' required /></td>";
-        inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+noJadwal+"' required /></td>";
+        inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+noJadwal+"' required readonly /></td>";
         inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
         inputJadwal += "</tr>";
 
@@ -522,7 +522,7 @@
             inputJadwal += "<td><input name='q_std[]' class='form-control qke"+noJadwal+" inp-qstd qstdke"+noJadwal+"' value='"+qstd+"' required /></td>";
             inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='"+qsemi+"' required /></td>";
             inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='"+qeks+"' required /></td>";
-            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+id+"' required /></td>";
+            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+id+"' required readonly /></td>";
             inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             $('#input-jadwal tbody').append(inputJadwal);
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
@@ -971,7 +971,7 @@
                             inputJadwal += "<td><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+"' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
                             inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+"' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
                             inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+"' value='"+parseFloat(lineJadwal.quota_e)+"' required></td>";
-                            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+nomor+"' value='"+lineJadwal.no_jadwal+"' required /></td>";
+                            inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+nomor+"' value='"+lineJadwal.no_jadwal+"' required readonly /></td>";
                             inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
                             
                             nomor++
