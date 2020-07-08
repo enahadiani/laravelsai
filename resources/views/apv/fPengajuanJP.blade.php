@@ -392,7 +392,7 @@
                         var no=1;var det2='';
                         for(var i=0;i<result.data_app.length;i++){
                             det2 +=`<tr>
-                                <td>Dibuat Oleh</td>
+                                <td>`+result.data_app[i].ket+`</td>
                                 <td>`+result.data_app[i].nama_kar+`/`+result.data_app[i].nik+`</td>
                                 <td>`+result.data_app[i].nama_jab+`</td>
                                 <td>`+result.data_app[i].tanggal+`</td>
