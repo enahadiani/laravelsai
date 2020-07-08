@@ -278,11 +278,11 @@ class JuskebApprovalController extends Controller
         }
     }
 
-    public function getPreview($no_bukti)
+    public function getPreview($no_bukti,$id)
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb_app_preview/'.$no_bukti,[
+            $response = $client->request('GET', $this->link.'juskeb_app_preview/'.$no_bukti.'/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

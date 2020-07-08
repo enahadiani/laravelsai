@@ -38,6 +38,18 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="slide-print" style="display:none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>     
     <script>
     function sepNum(x){
@@ -121,10 +133,10 @@
         return bulan;
     }
 
-    function printLap(id){
+    function printLap(id,kd){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juskeb_app_preview') }}/"+id,
+            url: "{{ url('apv/juskeb_app_preview') }}/"+id+"/"+kd,
             dataType: 'json',
             async:false,
             success:function(res){ 
@@ -141,12 +153,12 @@
                                     <table class="table no-border" width="100%" id='table-m'>
                                         <tbody>
                                             <tr>
-                                                <td width="25">No Bukti</td>
-                                                <td width="75%" >: `+result.data[0].no_bukti+`</td>
+                                                <td width="25">Id Approval</td>
+                                                <td width="75%" >: `+result.data[0].id+`</td>
                                             </tr>
                                             <tr>
                                                 <td>No Justifikasi Kebutuhan</td>
-                                                <td>: `+result.data[0].no_juskeb+`</td>
+                                                <td>: `+result.data[0].no_bukti+`</td>
                                             </tr>
                                             <tr>
                                                 <td>Tanggal</td>
@@ -163,6 +175,10 @@
                                             <tr>
                                                 <td>Nilai</td>
                                                 <td>: `+sepNumX(parseFloat(result.data[0].nilai))+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Status</td>
+                                                <td>: `+result.data[0].status+`</td>
                                             </tr>
                                             <tr>
                                                 <td height='20px'>&nbsp;</td>
@@ -209,7 +225,8 @@
 
     $('#saku-data').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
-        printLap(id);
+        var kd = $(this).closest('tr').find('td').eq(2).html();
+        printLap(id,kd);
     });
 
     $('#slide-print').on('click','#btn-aju-print',function(e){
