@@ -650,7 +650,7 @@
             var grand = sub+(nppn*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
-            $('#add-row').click();
+            // $('#add-row').click();
         }
     });
 
@@ -678,7 +678,7 @@
             var grand = sub+((ppn/100)*sub);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
-            $('#add-row').click();
+            // $('#add-row').click();
         }
     });
 
