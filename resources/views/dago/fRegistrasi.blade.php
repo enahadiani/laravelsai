@@ -123,6 +123,7 @@
                             <div class="form-group row">
                                 <label for="tgl_input" class="col-3 col-form-label">No Registrasi</label>
                                 <div class="col-3">
+                                    <input type='hidden' name="no_peserta_ref" id="no_peserta_ref" class="form-control" value="" required>
                                     <input class="form-control" readonly type="text" placeholder="No Register" id="no_reg" name="no_reg" >
                                 </div>
                                 <label for="flag_group" class="col-3 col-form-label">Status Group</label>
@@ -136,7 +137,6 @@
                             <div class="form-group row">
                                 <label for="no_peserta" class="col-3 col-form-label">No Jamaah</label>
                                 <div class="input-group col-3">
-                                    <input type='hidden' name="no_peserta_ref" id="no_peserta_ref" class="form-control" value="" required>
                                     <input type='text' name="no_peserta" id="no_peserta" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
