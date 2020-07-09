@@ -60,3 +60,10 @@ Route::get('bonus/{id}', 'Toko\BonusController@getData');
 Route::post('bonus', 'Toko\BonusController@store');
 Route::put('bonus/{id}', 'Toko\BonusController@update');
 Route::delete('bonus/{id}', 'Toko\BonusController@delete');
+
+// Data Unit //
+Route::get('unit', 'Toko\UnitController@index');
+Route::get('unit/{id}', 'Toko\UnitController@getData');
+Route::post('unit', 'Toko\UnitController@store');
+Route::put('unit/{id}', 'Toko\UnitController@update');
+Route::delete('unit/{id}', 'Toko\UnitController@delete');
