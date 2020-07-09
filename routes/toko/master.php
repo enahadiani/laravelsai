@@ -67,3 +67,10 @@ Route::get('unit/{id}', 'Toko\UnitController@getData');
 Route::post('unit', 'Toko\UnitController@store');
 Route::put('unit/{id}', 'Toko\UnitController@update');
 Route::delete('unit/{id}', 'Toko\UnitController@delete');
+
+// Data Klp Menu //
+Route::get('menu-klp', 'Toko\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Toko\KelompokMenuController@getData');
+Route::post('menu-klp', 'Toko\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Toko\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Toko\KelompokMenuController@delete');
