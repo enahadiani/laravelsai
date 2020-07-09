@@ -74,3 +74,10 @@ Route::get('menu-klp/{id}', 'Toko\KelompokMenuController@getData');
 Route::post('menu-klp', 'Toko\KelompokMenuController@store');
 Route::put('menu-klp/{id}', 'Toko\KelompokMenuController@update');
 Route::delete('menu-klp/{id}', 'Toko\KelompokMenuController@delete');
+
+// Data Karyawan //
+Route::get('karyawan', 'Toko\KaryawanController@index');
+Route::get('karyawan-detail/{id}', 'Toko\KaryawanController@getData');
+Route::post('karyawan', 'Toko\KaryawanController@store');
+Route::put('karyawan-ubah/{id}', 'Toko\KaryawanController@update');
+Route::delete('karyawan/{id}', 'Toko\KaryawanController@delete');
