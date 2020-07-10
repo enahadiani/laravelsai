@@ -42,3 +42,8 @@ Route::get('/', function () {
 // Route::post('/donation/store', 'DonationController@submitDonation')->name('donation.store');
 // Route::post('/midtrans/callback', 'DonationController@notificationHandler')->name('notification.handler');
  
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/socialite/callback/{provider}', 'SocialController@callback');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
