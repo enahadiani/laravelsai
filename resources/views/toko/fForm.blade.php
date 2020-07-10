@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Unit 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Form
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,9 +36,9 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode Unit</th>
+                                        <th>Kode Form</th>
                                         <th>Nama</th>
-                                        <th>Status</th>
+                                        <th>Program</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -56,13 +56,13 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Unit
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Form
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 210px !important;">
+                        <div class="card-body pt-0" style="height: 180px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -71,26 +71,22 @@
                                 </div>
                             </div>
                             <div class="form-group row ">
-								    <label for="kode_klp" class="col-3 col-form-label">Kode Unit</label>
+								    <label for="kode_form" class="col-3 col-form-label">Kode Form</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Unit" id="kode_pp" name="kode_pp" required>
+                                        <input class="form-control" type="text" placeholder="Kode Form" id="kode_form" name="kode_form" required>
                                     </div>
                             </div>
                             <div class="form-group row ">
-                                    <label for="nama" class="col-3 col-form-label">Nama Kelompok</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Kelompok" id="nama" name="nama" required>
+                                    <label for="nama" class="col-3 col-form-label">Nama Form</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="Nama Form" id="nama_form" name="nama_form" required>
                                     </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="flag_aktif" class="col-3 col-form-label">Status Aktif</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="flag_aktif" name="flag_aktif" required>
-                                    <option value='' disabled selected>--- Pilih Status Aktif ---</option>
-                                    <option value='1'>AKTIF</option>
-                                    <option value='0'>NON-AKTIF</option>
-                                    </select>
-                                </div>
+                            <div class="form-group row ">
+                                    <label for="form" class="col-3 col-form-label">Path Form</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="Path Form" id="form" name="form" required>
+                                    </div>
                             </div>
                         </div>
                     </form>
@@ -121,7 +117,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-master/unit') }}",
+            'url': "{{ url('toko-master/form') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -143,15 +139,9 @@
             {'targets': 3, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_pp' },
-            { data: 'nama' },
-            { data: 'flag_aktif', render:function(data,type,row) {
-                if(data == 1) {
-                    return 'AKTIF'
-                } else {
-                    return 'NON-AKTIF'
-                }
-            } }
+            { data: 'kode_form' },
+            { data: 'nama_form' },
+            { data: 'form' }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -170,7 +160,7 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#method').val('post');
-        $('#kode_pp').attr('readonly', false);
+        $('#kode_form').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
@@ -186,10 +176,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-master/unit') }}/"+id;
+            var url = "{{ url('toko-master/form') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-master/unit') }}";
+            var url = "{{ url('toko-master/form') }}";
             var pesan = "saved";
         }
 
@@ -257,7 +247,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-master/unit') }}/"+id,
+                    url: "{{ url('toko-master/form') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -298,7 +288,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/unit') }}/" + id,
+            url: "{{ url('toko-master/form') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -306,11 +296,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_pp').attr('readonly', true);
-                    $('#kode_pp').val(id);
+                    $('#kode_form').attr('readonly', true);
+                    $('#kode_form').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#flag_aktif').val(result.data[0].flag_aktif);
+                    $('#nama_form').val(result.data[0].nama_form);
+                    $('#form').val(result.data[0].form);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

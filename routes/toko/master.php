@@ -90,3 +90,10 @@ Route::get('akses-user-detail/{id}', 'Toko\AksesUserController@getData');
 Route::post('akses-user', 'Toko\AksesUserController@store');
 Route::put('akses-user/{id}', 'Toko\AksesUserController@update');
 Route::delete('akses-user/{id}', 'Toko\AksesUserController@delete');
+
+// Data Form //
+Route::get('form', 'Toko\FormController@index');
+Route::get('form/{id}', 'Toko\FormController@getData');
+Route::post('form', 'Toko\FormController@store');
+Route::put('form/{id}', 'Toko\FormController@update');
+Route::delete('form/{id}', 'Toko\FormController@delete');
