@@ -27,15 +27,19 @@ class SocialController extends Controller
     }
 
     function createUser($getInfo,$provider){
-        
-        $user = SocialiteUser::where('provider_id', $getInfo->id)->first();
+        if(is_int($getInfo->id)){
+            $id = str_val($getInfo->id);
+        }else{
+            $id = $getInfo->id;
+        }
+        $user = SocialiteUser::where('provider_id', $id)->first();
         
         if (!$user) {
             $user = SocialiteUser::create([
                 'name'     => $getInfo->name,
                 'email'    => $getInfo->email,
                 'provider' => $provider,
-                'provider_id' => $getInfo->id
+                'provider_id' => $id
             ]);
         }
         
