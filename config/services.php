@@ -42,7 +42,7 @@ return [
     'github' => [
         'client_id' => '372e99918bc8eb7fac71',
         'client_secret' => '98ced344ed28619fd43f06a6c83e518e44b5c8c4',
-        'redirect' => 'http://127.0.0.1:8000/socialite/callback/github',
+        'redirect' => 'http://app.simkug.com/socialite/callback/github',
     ], 
 
 ];
