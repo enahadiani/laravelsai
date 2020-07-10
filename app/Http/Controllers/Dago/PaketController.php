@@ -244,6 +244,7 @@ class PaketController extends Controller
                     $quota = $request->q_std;
                     $quota_se = $request->q_semi;
                     $quota_e = $request->q_eks;
+                    $id_jadwal = $request->id;
                     for($i=0;$i<count($request->tgl_plan);$i++) {
                         $explode_tgl_berangkat_lama = explode('/', $request->tgl_plan[$i]);
                         $tgl_berangkat_lama = $explode_tgl_berangkat_lama[0];
@@ -261,6 +262,7 @@ class PaketController extends Controller
                             'tgl_berangkat' => $jadwal_berangkat_lama,
                             'tgl_datang' => $jadwal_berangkat_baru,
                             'lama_hari' => $lama_hari[$i],
+                            'id_jadwal'=> $id_jadwal[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),
                             'quota_e' => str_replace('.','',$quota_e[$i]),
