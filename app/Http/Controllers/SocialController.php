@@ -28,7 +28,7 @@ class SocialController extends Controller
 
     function createUser($getInfo,$provider){
         if(is_int($getInfo->id)){
-            $id = str_val($getInfo->id);
+            $id = strval($getInfo->id);
         }else{
             $id = $getInfo->id;
         }
