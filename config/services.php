@@ -44,5 +44,10 @@ return [
         'client_secret' => '98ced344ed28619fd43f06a6c83e518e44b5c8c4',
         'redirect' => 'http://app.simkug.com/socialite/callback/github',
     ], 
+    'google' => [
+        'client_id' => '161169806009-3vk23oo4kmbs6l1s6s07is0sq5p97gk3.apps.googleusercontent.com',
+        'client_secret' => 'RwCwhc8clECmDX41JEgqZMXd',
+        'redirect' => 'http://app.simkug.com/socialite/callback/google',
+    ], 
 
 ];
