@@ -11,6 +11,8 @@ Route::get('gudang-pp', 'Toko\HelperController@getPPGud');
 Route::get('barang-klp-persediaan', 'Toko\HelperController@getAkunPersKelBar');
 Route::get('barang-klp-pendapatan', 'Toko\HelperController@getAkunPdptKelBar');
 Route::get('barang-klp-hpp', 'Toko\HelperController@getAkunHPPKelBar');
+Route::get('menu-klp', 'Toko\HelperController@getKlpMenu');
+Route::get('menu-form', 'Toko\HelperController@getLabMenu');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');
@@ -81,3 +83,10 @@ Route::get('karyawan-detail/{id}', 'Toko\KaryawanController@getData');
 Route::post('karyawan', 'Toko\KaryawanController@store');
 Route::put('karyawan-ubah/{id}', 'Toko\KaryawanController@update');
 Route::delete('karyawan/{id}', 'Toko\KaryawanController@delete');
+
+// Data Akses //
+Route::get('akses-user', 'Toko\AksesUserController@index');
+Route::get('akses-user/{id}', 'Toko\AksesUserController@getData');
+Route::post('akses-user', 'Toko\AksesUserController@store');
+Route::put('akses-user/{id}', 'Toko\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Toko\AksesUserController@delete');

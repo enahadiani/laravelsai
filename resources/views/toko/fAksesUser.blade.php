@@ -38,11 +38,9 @@
                                     <tr>
                                         <th>NIK</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Jabatan</th>
-                                        <th>No Telp</th>
-                                        <th>Email</th>
-                                        <th>Kode PP</th>
+                                        <th>Kode Menu</th>
+                                        <th>Kode Lokasi</th>
+                                        <th>Status Admin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -60,13 +58,13 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Barang
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Akses User
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 400px !important;">
+                        <div class="card-body pt-0" style="height: 340px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -77,70 +75,56 @@
                             <div class="form-group row">
                                 <label for="nik" class="col-3 col-form-label">NIK</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="NIK Karyawan" id="nik" name="nik" required>
+                                    <input class="form-control" type="text" placeholder="NIK User" id="nik" name="nik" required>
                                 </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="pass" class="col-3 col-form-label">Password</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Password" id="pass" name="pass" required>
+                                    </div>
                             </div>
                             <div class="form-group row ">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Karyawan" id="nama" name="nama" required>
+                                        <input class="form-control" type="text" placeholder="Nama User" id="nama" name="nama" required>
                                     </div>
                             </div>
                             <div class="form-group row ">
-                                <label for="alamat" class="col-3 col-form-label">Alamat</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat" required>
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="jabatan" class="col-3 col-form-label">Jabatan</label>
+                                <label for="klp_akses" class="col-3 col-form-label">Kelompok Akses</label>
                                     <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Jabatan Karyawan" id="jabatan" name="jabatan" required>
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="no_telp" class="col-3 col-form-label">Nomor Telpon</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nomor Telpon" id="no_telp" name="no_telp" required>
-                                    </div>
-                                <label for="email" class="col-3 col-form-label">Email</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Email Karyawan" id="email" name="email" required>
+                                        <input class="form-control" type="text" placeholder="Kelompok Akses" id="klp_akses" name="klp_akses" required>
                                     </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="no_telp" class="col-3 col-form-label">Nomor Handphone</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nomor Handphone Karyawan" id="no_hp" name="no_hp" required>
-                                    </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="flag_aktif" class="col-3 col-form-label">Status Aktif</label>
+                                <label for="status_admin" class="col-3 col-form-label">Status Admin</label>
                                 <div class="col-3">
-                                    <select class='form-control' id="flag_aktif" name="flag_aktif">
-                                    <option value='' disabled selected>--- Pilih Status Aktif ---</option>
-                                    <option value='1'>AKTIF</option>
-                                    <option value='0'>NON-AKTIF</option>
+                                    <select class='form-control' id="status_admin" name="status_admin">
+                                    <option value='' disabled selected>--- Pilih Status Admin ---</option>
+                                    <option value='A'>Admin</option>
+                                    <option value='U'>User</option>
+                                    <option value='P'>P</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-3 col-form-label">Foto</label>
-                                <div class="input-group col-6">
-                                    <div class="custom-file">
-                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar">
-                                        <label class="custom-file-label" for="file_gambar">Choose file</label>
-                                    </div>
+                                <label for="kode_klp_menu" class="col-3 col-form-label">Kelompok Menu</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_klp_menu" id="kode_klp_menu" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_klp_menu" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_menu_lab" class="col-3 col-form-label">Path View</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_menu_lab" id="kode_menu_lab" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_kode_menu_lab" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -188,25 +172,25 @@
             $(this).next('.custom-file-label').html(fileName);
         })
 
-        function getPP(id=null){
+        function getKlpMenu(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/unit') }}",
+                url: "{{ url('toko-master/menu-klp') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         var data = result.daftar;
-                        var filter = data.filter(data => data.kode_pp == id);
+                        var filter = data.filter(data => data.kode_klp == id);
                             if(filter.length > 0) {
-                                $('#kode_pp').val(filter[0].kode_pp);
-                                $('#label_kode_pp').text(filter[0].nama);
+                                $('#kode_klp_menu').val(filter[0].kode_klp);
+                                $('#label_kode_klp_menu').text(filter[0].nama);
                             } else {
-                                alert('PP tidak valid');
-                                $('#kode_pp').val('');
-                                $('#label_kode_pp').text('');
-                                $('#kode_pp').focus();
+                                alert('Kelompok menu tidak valid');
+                                $('#kode_klp_menu').val('');
+                                $('#label_kode_klp_menu').text('');
+                                $('#kode_klp_menu').focus();
                             }
                     }
                 }
@@ -214,9 +198,40 @@
             });
         }
 
-    $('#form-tambah').on('change', '#kode_pp', function(){
+        function getMenuLab(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/menu-form') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_form == id);
+                            if(filter.length > 0) {
+                                $('#kode_menu_lab').val(filter[0].kode_form);
+                                $('#label_kode_menu_lab').text(filter[0].form);
+                            } else {
+                                alert('Kode menu tidak valid');
+                                $('#kode_menu_lab').val('');
+                                $('#label_kode_menu_lab').text('');
+                                $('#kode_menu_lab').focus();
+                            }
+                    }
+                }
+                }
+            });
+        }
+
+    $('#form-tambah').on('change', '#kode_klp_menu', function(){
         var par = $(this).val();
-        getPP(par);
+        getKlpMenu(par);
+    });
+
+    $('#form-tambah').on('change', '#kode_menu_lab', function(){
+        var par = $(this).val();
+        getMenuLab(par);
     });
 
     $('[data-toggle="tooltip"]').tooltip(); 
@@ -227,7 +242,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-master/karyawan') }}",
+            'url': "{{ url('toko-master/akses-user') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -246,16 +261,14 @@
             }
         },
         'columnDefs': [
-            {'targets': 7, data: null, 'defaultContent': action_html },
+            {'targets': 5, data: null, 'defaultContent': action_html },
             ],
         'columns': [
             { data: 'nik' },
             { data: 'nama' },
-            { data: 'alamat' },
-            { data: 'jabatan' },
-            { data: 'no_telp' },
-            { data: 'email' },
-            { data: 'kode_pp' }
+            { data: 'kode_klp_menu' },
+            { data: 'kode_lokasi' },
+            { data: 'status_admin' }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -274,10 +287,10 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#nik').attr('readonly',false);
-        $('#label_kode_pp').text('');
-        $('.custom-file-label').text('');
-        $('#file_gambar').val('');
-        $('#kode_pp').val('');
+        $('#label_kode_menu_lab').text('');
+        $('#kode_menu_lab').val('');
+        $('#label_kode_klp_menu').text('');
+        $('#kode_klp_menu').val('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -307,15 +320,30 @@
         $target2 = target2;
         
         switch(par){
-        case 'kode_pp': 
+        case 'kode_klp_menu': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('toko-master/unit') }}";
+            var toUrl = "{{ url('toko-master/menu-klp') }}";
                 var columns = [
-                    { data: 'kode_pp' },
+                    { data: 'kode_klp' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar PP/Unit";
+                var judul = "Daftar Kelompok Menu";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+        break;
+        case 'kode_menu_lab': 
+            header = ['Kode', 'Nama'];
+            var toUrl = "{{ url('toko-master/menu-form') }}";
+                var columns = [
+                    { data: 'kode_form' },
+                    { data: 'form' }
+                ];
+                
+                var judul = "Daftar Form";
                 var jTarget1 = "val";
                 var jTarget2 = "text";
                 $target = "#"+$target;
@@ -462,10 +490,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-master/karyawan-ubah') }}/"+id;
+            var url = "{{ url('toko-master/akses-user') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-master/karyawan') }}";
+            var url = "{{ url('toko-master/akses-user') }}";
             var pesan = "saved";
         }
 
@@ -533,7 +561,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-master/karyawan') }}/"+id,
+                    url: "{{ url('toko-master/akses-user') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -574,7 +602,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/karyawan-detail') }}/" + id,
+            url: "{{ url('toko-master/akses-user') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -585,14 +613,12 @@
                     $('#nik').val(id);
                     $('#id').val(id);
                     $('#nik').attr('readonly',true);
-                    $('#nama').val(result.data[0].nama);;
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#jabatan').val(result.data[0].jabatan);
-                    $('#no_telp').val(result.data[0].no_telp);
-                    $('#no_hp').val(result.data[0].no_hp);
-                    $('#email').val(result.data[0].email);
-                    $('#flag_aktif').val(result.data[0].flag_aktif);
-                    getPP(result.data[0].kode_pp)
+                    $('#nama').val(result.data[0].nama);
+                    $('#pass').val(result.data[0].pass);
+                    $('#status_admin').val(result.data[0].status_admin);
+                    $('#klp_akses').val(result.data[0].klp_akses);
+                    getKlpMenu(result.data[0].kode_klp_menu);
+                    getMenuLab(result.data[0].kode_menu_lab);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
