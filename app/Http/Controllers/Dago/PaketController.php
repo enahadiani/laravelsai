@@ -124,7 +124,7 @@ class PaketController extends Controller
                         $data_jadwal[] = array(
                             'tgl_berangkat' => $jadwal_berangkat_lama,
                             'tgl_datang' => $jadwal_berangkat_baru,
-                            'id_jadwal'=> $id_jadwal,
+                            'id_jadwal'=> $id_jadwal[$i],
                             'lama_hari' => $lama_hari[$i],
                             'quota' => str_replace('.','',$quota[$i]),
                             'quota_se' => str_replace('.','',$quota_se[$i]),
