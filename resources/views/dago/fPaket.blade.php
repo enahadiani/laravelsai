@@ -951,6 +951,7 @@
                         }
                     }
                     if(result.data_jadwal.length > 0) {
+                        console.log(result.data_jadwal)
                         var inputJadwal = "";
                         var nomor = 1;
                         for(var i=0;i<result.data_jadwal.length;i++) {
