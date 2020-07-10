@@ -373,6 +373,8 @@
         $('#id_edit').val('');
         $('#id_data').val('');
         $('#form-tambah')[0].reset();
+        $('#input-harga tbody').empty();
+        $('#input-jadwal tbody').empty();
         $('#method').val('post');
         $('#id_edit').val('-');
         $('#id_data').val('-');
@@ -889,6 +891,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status === 'SUCCESS'){
+                    $('#input-harga tbody').empty();
+                    $('#input-jadwal tbody').empty();
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#no_paket').attr('readonly', true);
