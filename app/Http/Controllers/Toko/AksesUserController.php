@@ -102,7 +102,7 @@ class AksesUserController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akses-user?nik='.$id,
+            $response = $client->request('GET', $this->link.'akses-user-detail?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

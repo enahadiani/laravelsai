@@ -86,7 +86,7 @@ Route::delete('karyawan/{id}', 'Toko\KaryawanController@delete');
 
 // Data Akses //
 Route::get('akses-user', 'Toko\AksesUserController@index');
-Route::get('akses-user/{id}', 'Toko\AksesUserController@getData');
+Route::get('akses-user-detail/{id}', 'Toko\AksesUserController@getData');
 Route::post('akses-user', 'Toko\AksesUserController@store');
 Route::put('akses-user/{id}', 'Toko\AksesUserController@update');
 Route::delete('akses-user/{id}', 'Toko\AksesUserController@delete');

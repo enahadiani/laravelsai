@@ -602,7 +602,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/akses-user') }}/" + id,
+            url: "{{ url('toko-master/akses-user-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
