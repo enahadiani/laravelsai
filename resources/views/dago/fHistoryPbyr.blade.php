@@ -254,7 +254,7 @@
                                                 <th width="10%">Kode</th>
                                                 <th width="20%">Nama Biaya</th>
                                                 <th width="10%">Nilai Tagihan</th>
-                                                <th width="10%">Jumlah</th>
+                                                <th width="10%" class="hidden">Jumlah</th>
                                                 <th width="15%">Terbayar</th>
                                                 <th width="15%">Saldo</th>
                                                 <th width="15%">Nilai Bayar</th>
@@ -928,7 +928,7 @@
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
                                     <td>`+line3.nama+`<input type='hidden' name='kode_akunbiaya[]' class='form-control inp-kode_akun' value='`+line3.akun_pdpt+`'></td>
                                     <td class='text-right'>`+format_number(line3.nilai)+`</td>
-                                    <td class='text-right'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
+                                    <td class='text-right hidden'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
                                     <td class='text-right'>`+format_number(trbyr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+trbyr+`'></td>
                                     <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
                                     if(line3.kode_biaya == 'DISKON'){
