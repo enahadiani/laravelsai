@@ -98,22 +98,24 @@ class SettingMenuController extends Controller
             $jenis_menu[] = '-';
         }
 
-        try {   
+        try {
+                $fields = array(
+                    'kode_menu' => $request->kode_menu,
+                    'kode_klp' => $request->kode_klp,
+                    'level_menu' => $request->level_menu,
+                    'kode_form' => $request->kode_form,
+                    'nama_menu' => $request->nama_menu,
+                    'jenis_menu' => $jenis_menu,
+                    'icon' => $icon
+                 );
+
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'menu-move',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_menu' => $request->kode_menu,
-                        'kode_klp' => $request->kode_klp,
-                        'level_menu' => $request->level_menu,
-                        'kode_form' => $request->kode_form,
-                        'nama_menu' => $request->nama_menu,
-                        'jenis_menu' => $jenis_menu,
-                        'icon' => $icon,
-                    ]
+                    'body' => json_encode($fields)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
