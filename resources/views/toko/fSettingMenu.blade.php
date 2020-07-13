@@ -625,11 +625,15 @@ td,th{
         $("#sai-treegrid-modal-form").on("submit", function(event){
             event.preventDefault();
             var sel_index = $(".ui-selected").closest('tr').index();
+            console.log(sel_index)
             var sel_node = $(".treegrid-"+sel_index).treegrid('getId');
+            console.log(sel_node)
             var sel_depth = $(".treegrid-"+sel_index).treegrid('getDepth');
+            console.log(sel_depth)
             
             var sel_class = $("#sai-treegrid tbody tr:eq("+sel_index+")").attr('class');
-            var node_class = sel_class.match(/^treegrid-[0-9]+/gm);
+            console.log(sel_class)
+            // var node_class = sel_class.match(/^treegrid-[0-9]+/gm);
 
             var new_node = $("#sai-treegrid tbody tr:last").index() + 1;
             var kode_str = $('#kode-set').val();
