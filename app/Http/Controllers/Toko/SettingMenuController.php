@@ -44,7 +44,7 @@ class SettingMenuController extends Controller
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'form',[
+                $response = $client->request('POST', $this->link.'menu',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -54,10 +54,65 @@ class SettingMenuController extends Controller
                         'kode_klp' => $request->kode_klp,
                         'level_menu' => $request->level_menu,
                         'link' => $request->link,
+                        'kode_form' => $request->link,
                         'nama' => $request->nama,
                         'nu' => $request->nu,
+                        'rowindex'=>$request->rowindex,
                         'jenis_menu' => '-',
                         'icon' => $request->icon,
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
+        public function storeMenu(Request $request) {
+        $this->validate($request, [
+            'kode_klp' => 'required',
+            'kode_menu' => 'required|array',
+            'level_menu' => 'required|array',
+            'nama_menu' => 'required|array',
+            'jenis_menu' => 'required|array',
+            'kode_form' => 'required|array',
+            'icon' => 'required|array',
+        ]);
+
+        $icon = array();
+        for($i=0;$i<count($request->kode_menu);$i++){
+            $icon[] = '-';
+        }
+        $jenis_menu = array();
+        for($i=0;$i<count($request->kode_menu);$i++){
+            $jenis_menu[] = '-';
+        }
+
+        try {   
+                $client = new Client();
+                $response = $client->request('POST', $this->link.'menu-move',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'kode_menu' => $request->kode_menu,
+                        'kode_klp' => $request->kode_klp,
+                        'level_menu' => $request->level_menu,
+                        'kode_form' => $request->kode_form,
+                        'nama_menu' => $request->nama_menu,
+                        'jenis_menu' => $jenis_menu,
+                        'icon' => $icon,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -102,24 +157,36 @@ class SettingMenuController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $kd_menu,$kd_klp) {
         $this->validate($request, [
-            'kode_form' => 'required',
-            'nama_form' => 'required',
-            'form' => 'required',
+            'kode_menu' => 'required',
+            'nama' => 'required',
+            'link' => 'required',
+            'icon' => 'required',
+            'level_menu' => 'required',
+            'nu' => 'required',
+            'rowindex' => 'required',
+            'kode_klp' => 'required',
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'form?kode_form='.$id,[
+                $response = $client->request('PUT', $this->link.'menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_form' => $request->kode_form,
-                        'nama' => $request->nama_form,
-                        'form' => $request->form,
+                        'kode_menu' => $request->kode_menu,
+                        'kode_klp' => $request->kode_klp,
+                        'level_menu' => $request->level_menu,
+                        'link' => $request->link,
+                        'kode_form' => $request->link,
+                        'nama' => $request->nama,
+                        'rowindex'=>$request->rowindex,
+                        'nu' => $request->nu,
+                        'jenis_menu' => '-',
+                        'icon' => $request->icon,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -132,7 +199,7 @@ class SettingMenuController extends Controller
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }

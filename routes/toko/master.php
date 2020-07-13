@@ -101,5 +101,6 @@ Route::delete('form/{id}', 'Toko\FormController@delete');
 // Setting Menu Form //
 Route::get('menu/{id}', 'Toko\SettingMenuController@getData');
 Route::post('menu', 'Toko\SettingMenuController@store');
-Route::put('form/{id}', 'Toko\FormController@update');
+Route::post('menu-move', 'Toko\SettingMenuController@storeMenu');
+Route::put('menu/{kd_menu}/{kd_klp}', 'Toko\SettingMenuController@update');
 Route::delete('menu/{kd_menu}/{kd_klp}', 'Toko\SettingMenuController@delete');

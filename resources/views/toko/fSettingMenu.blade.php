@@ -53,6 +53,8 @@ td,th{
                 </div>
                 <div class="modal-body">
                     <div class="form-group row mt-40">
+                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                        <input type="hidden" id="method" name="_method" value="post">
                         <label for="kode-set" class="col-3 col-form-label">Kode</label>
                         <div class="col-9">
                             <input type='text' name='kode_menu' maxlength='5' class='form-control' required id='kode-set' style='text-align:left'>
@@ -537,6 +539,8 @@ td,th{
                 $('.del-gl-index').attr('href', '#');
             }
             getMenuLab();
+            $('#id_edit').val('');
+            $('#method').val('post');
             $('#kode-set').val('');
             $('#nama-set').val('');
             $('#icon-set').val('');
@@ -558,8 +562,9 @@ td,th{
                         url: "{{ url('toko-master/menu') }}/"+selected_id+"/"+kode_klp,
                         dataType: 'json',
                         success:function(res){
-                            alert(res.message);
-                            if(res.status){
+
+                            alert(res.data.message);
+                            if(res.data.status){
                                 init(kode_klp);
                                 
                             }
@@ -596,6 +601,8 @@ td,th{
             
                 
                 var klp_menu = $('#kode_klp')[0].selectize.getValue();
+                $('#id_edit').val('edit');
+                $('#method').val('put');
                 $('#kode-set').val(this_kode);
                 $('#klp-set').val(klp_menu);
                 $('#nama-set').val(this_nama);
@@ -632,23 +639,31 @@ td,th{
             var kode_klp = $('#klp-set').val();
             var link_str = $('#link-set')[0].selectize.getValue();
 
+            
+            var parameter = $('#id_edit').val();
+            if(parameter == "edit"){
+            var url = "{{ url('toko-master/menu') }}/"+kode_str+"/"+kode_klp;
+            }else{
+                var url = "{{url('toko-master/menu')}}";
+            }
+
             var formData = new FormData(this);
 
             for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
-                }
+            }
 
             $.ajax({
                 type: 'POST',
-                url: "{{url('toko-master/menu')}}",
+                url: url,
                 dataType: 'json',
                 data: formData,
                 contentType: false,
                 cache: false,
                 processData: false, 
                 success:function(res){
-                    alert(res.message);
-                    if(res){
+                    alert(res.data.message);
+                    if(res.data.status){
                         init(kode_klp);
                         $('#sai-treegrid-modal').modal('hide');
                         // $('#sai-treegrid tr').removeClass('ui-selected');
@@ -674,7 +689,7 @@ td,th{
         
         $.ajax({
             type: 'POST',
-            url: '',
+            url: "{{ url('toko-master/menu-move') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -682,8 +697,8 @@ td,th{
             cache: false,
             processData: false, 
             success:function(result){
-                alert('Perubahan '+result.message);
-                if(result.status){
+                alert('Perubahan '+result.data.message);
+                if(result.data.status){
                     init(kode_klp);
                 }
             },
