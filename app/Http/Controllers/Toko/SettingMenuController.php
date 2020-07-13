@@ -113,7 +113,7 @@ class SettingMenuController extends Controller
                 $response = $client->request('POST', $this->link.'menu-move',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json'
                     ],
                     'body' => json_encode($fields)
                 ]);
