@@ -144,7 +144,7 @@ class JuspoController extends Controller
                 if(count($data) > 0){
 
                     for($i=0;$i<count($data);$i++){
-                        if($data[$i]['status'] == "REVISI"){
+                        if($data[$i]['status'] == "REVISI" || $data[$i]['status'] == "Approval Pusat 1"){
                             $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
                         }else{
 
