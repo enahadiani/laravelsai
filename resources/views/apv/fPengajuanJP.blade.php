@@ -43,6 +43,7 @@
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
                                                         <th>Nilai</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -619,6 +620,7 @@
             { data: 'waktu' },
             { data: 'kegiatan' },
             { data: 'nilai' },
+            { data: 'status' },
             { data: 'action' }
         ]
     });
@@ -924,9 +926,11 @@
 
     $('#saku-data').on('click', '#btn-edit2', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        var dt = dataTable.row($(this).parents('tr')).data();
+        console.log(dt);
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo') }}/"+id,
+            url: "apv/juspo/"+id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -950,15 +954,16 @@
                         if(result.data_detail.length > 0){
                             for(var x=0;x<result.data_detail.length;x++){
                                 var line = result.data_detail[x];
-                                iinput += "<tr class='row-barang'>";
-                                input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                                input += "<td width='45%'>'"+line.nama_klp+"'<input type='hidden' name='barang_klp[]' class='form-control inp-barang_klp' value='"+line.barang_klp+"' required></td>";
-                                input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
-                                input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                                input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                                input += "<tr class='row-barang'>";
+                                input += "<tr class='row-barang'>";
+                                input += "<td class='no-barang'>"+no+"</td>";
+                                input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+                                input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -973,7 +978,7 @@
                                 input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                                 input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
                                 input2 += "<td width='30%'>"+
-                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
+                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
                                 line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
                                 input2 += "</tr>";
                                 no++;
@@ -981,6 +986,13 @@
                         }
 
                         $('#input-grid2 tbody').html(input);
+                        var no =1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
+                            getBarangKlp('barang_klpke'+no);
+                            $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
+                            no++;
+                        }
                         $('#input-dok tbody').html(input2);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",

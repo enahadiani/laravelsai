@@ -144,7 +144,12 @@ class JuspoController extends Controller
                 if(count($data) > 0){
 
                     for($i=0;$i<count($data);$i++){
-                        $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        if($data[$i]['status'] == "REVISI"){
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        }else{
+
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        }
                     }
                 }
             }
