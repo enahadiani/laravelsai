@@ -340,6 +340,8 @@
                                 <td>`+result.data_dokumen[i].nama_kar+`/`+result.data_dokumen[i].nik+`</td>
                                 <td>`+result.data_dokumen[i].nama_jab+`</td>
                                 <td>`+result.data_dokumen[i].tanggal+`</td>
+                                <td>`+result.data_dokumen[i].no_app+`</td>
+                                <td>`+result.data_dokumen[i].status+`</td>
                                 <td>&nbsp;</td>
                             </tr>`;
                             no++;
@@ -380,6 +382,10 @@
                                     </table>
                                 </div>
                                 <div class="col-12">
+                                    <h6 style='font-weight:bold'># <u>LATAR BELAKANG</u></h6>
+                                    <p>`+result.data[0].dasar+`</p>
+                                </div>
+                                <div class="col-12">
                                     <h6 style='font-weight:bold'># <u>KEBUTUHAN</u></h6>
                                 </div>
                                 <div class="col-12">
@@ -411,10 +417,12 @@
                                     <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
                                         <thead class="text-center">
                                             <tr>
-                                                <td width="20%"></td>
+                                                <td width="10%"></td>
                                                 <td width="25">NAMA/NIK</td>
-                                                <td width="25%">JABATAN</td>
-                                                <td width="15%">TANGGAL</td>
+                                                <td width="15%">JABATAN</td>
+                                                <td width="10%">TANGGAL</td>
+                                                <td width="15%">NO APPROVAL</td>
+                                                <td width="10%">STATUS</td>
                                                 <td width="15%">TTD</td>
                                             </tr>
                                         </thead>
