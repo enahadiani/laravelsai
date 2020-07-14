@@ -182,6 +182,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="det" role="tabpanel">
@@ -231,6 +232,27 @@
                                         </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="tab-pane" id="catt" role="tabpanel">
+                                    <div class="form-group row mt-3">
+                                        <label for="nik_app" class="col-3 col-form-label">NIK</label>
+                                        <div class="col-3">
+                                            <input class="form-control" type="text" id="nik_app" name="nik_app" readonly>
+                                        </div>
+                                        <label id="nama_app" class="col-3"></label>
+                                    </div>  
+                                    <div class="form-group row">
+                                        <label for="status_app" class="col-3 col-form-label">Status</label>
+                                        <div class="col-3">
+                                            <input class="form-control" type="text" id="status_app" name="status_app" readonly>
+                                        </div>
+                                    </div>   
+                                    <div class="form-group row">
+                                        <label for="ket_app" class="col-3 col-form-label">Keterangan Approval</label>
+                                        <div class="col-3">
+                                            <input class="form-control" type="text" id="ket_app" name="ket_app" readonly>
+                                        </div>
+                                    </div>   
                                 </div>
                             </div>
                         </div>
@@ -1002,6 +1024,13 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
+
+                        if(result.data_histori.length > 0){
+                            $('#nik_app').val(result.data_histori[0].nik);
+                            $('#nama_app').text(result.data_histori[0].nama);
+                            $('#ket_app').val(result.data_histori[0].keterangan);
+                            $('#status_app').val(result.data_histori[0].status);
+                        }
                         $('#saku-data').hide();
                         $('#saku-form').show();
                     }
