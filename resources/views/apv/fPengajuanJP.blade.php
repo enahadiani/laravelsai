@@ -925,9 +925,8 @@
     });
 
     $('#saku-data').on('click', '#btn-edit2', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
         var dt = dataTable.row($(this).parents('tr')).data();
-        console.log(dt);
+        var id= dt.id;
         $.ajax({
             type: 'GET',
             url: "apv/juspo/"+id,
@@ -943,8 +942,9 @@
                         $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
-                        $('#kode_pp').val(result.data[0].kode_pp);
-                        $('#kode_kota').val(result.data[0].kode_kota);
+                        $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                        $('#kode_pp')[0].selectize.trigger('change');
+                        $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
