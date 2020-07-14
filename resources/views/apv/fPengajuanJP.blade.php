@@ -858,6 +858,10 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('');
                         $('#no_bukti').val('');
+                        $('#nik_app').val('');
+                        $('#nama_app').text('');
+                        $('#ket_app').val('');
+                        $('#status_app').val('');
                         generateDok(result.data[0].tanggal,result.data[0].kode_pp,result.data[0].kode_kota);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
