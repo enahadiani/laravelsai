@@ -327,6 +327,8 @@
                                 <td>`+result.data_app[i].nama_kar+`/`+result.data_app[i].nik+`</td>
                                 <td>`+result.data_app[i].nama_jab+`</td>
                                 <td>`+result.data_app[i].tanggal+`</td>
+                                <td>`+result.data_app[i].no_app+`</td>
+                                <td>`+result.data_app[i].status+`</td>
                                 <td>&nbsp;</td>
                             </tr>`;
                             no++;
@@ -398,10 +400,12 @@
                                     <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
                                         <thead class="text-center">
                                             <tr>
-                                                <td width="20%"></td>
+                                                <td width="10%"></td>
                                                 <td width="25">NAMA/NIK</td>
-                                                <td width="25%">JABATAN</td>
-                                                <td width="15%">TANGGAL</td>
+                                                <td width="15%">JABATAN</td>
+                                                <td width="10%">TANGGAL</td>
+                                                <td width="15%">NO APPROVAL</td>
+                                                <td width="10%">STATUS</td>
                                                 <td width="15%">TTD</td>
                                             </tr>
                                         </thead>
