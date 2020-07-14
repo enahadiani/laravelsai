@@ -234,25 +234,27 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="catt" role="tabpanel">
-                                    <div class="form-group row mt-3">
-                                        <label for="nik_app" class="col-3 col-form-label">NIK</label>
-                                        <div class="col-3">
-                                            <input class="form-control" type="text" id="nik_app" name="nik_app" readonly>
-                                        </div>
-                                        <label id="nama_app" class="col-3"></label>
-                                    </div>  
-                                    <div class="form-group row">
-                                        <label for="status_app" class="col-3 col-form-label">Status</label>
-                                        <div class="col-3">
-                                            <input class="form-control" type="text" id="status_app" name="status_app" readonly>
-                                        </div>
-                                    </div>   
-                                    <div class="form-group row">
-                                        <label for="ket_app" class="col-3 col-form-label">Keterangan Approval</label>
-                                        <div class="col-3">
-                                            <input class="form-control" type="text" id="ket_app" name="ket_app" readonly>
-                                        </div>
-                                    </div>   
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-histori">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="20%">NIK</th>
+                                                <th width="30%">Nama</th>
+                                                <th width="15%">Status</th>
+                                                <th width="30%">Keterangan Approval</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -858,10 +860,7 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('');
                         $('#no_bukti').val('');
-                        $('#nik_app').val('');
-                        $('#nama_app').text('');
-                        $('#ket_app').val('');
-                        $('#status_app').val('');
+                        $('#input-histori tbody').html('');
                         generateDok(result.data[0].tanggal,result.data[0].kode_pp,result.data[0].kode_kota);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
@@ -1029,12 +1028,24 @@
                             oncleared: function () { self.Value(''); }
                         });
 
+                        var input = '';
+                        var no =1;
+                        $('#input-histori tbody').html('');
                         if(result.data_histori.length > 0){
-                            $('#nik_app').val(result.data_histori[0].nik);
-                            $('#nama_app').text(result.data_histori[0].nama);
-                            $('#ket_app').val(result.data_histori[0].keterangan);
-                            $('#status_app').val(result.data_histori[0].status);
+                            for(var x=0;x<result.data_histori.length;x++){
+                                var line = result.data_histori[x];
+                                input += `<tr class='row-his'>
+                                    <td>`+no+`</td>
+                                    <td>`+line.nik+`</td>
+                                    <td>`+line.nama+`</td>
+                                    <td>`+line.status+`</td>
+                                    <td>`+line.keterangan+`</td>
+                                </tr>`;
+                                no++;
+                            }
                         }
+                        
+                        $('#input-histori tbody').html(input);
                         $('#saku-data').hide();
                         $('#saku-form').show();
                     }
