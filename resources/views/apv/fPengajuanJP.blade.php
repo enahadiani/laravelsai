@@ -542,6 +542,7 @@
                 var select = $('#kode_pp').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions();
                 if(status){
                     if(typeof line !== 'undefined' && line.length>0){
                         for(i=0;i<line.length;i++){
@@ -569,6 +570,7 @@
                 var select = $('#kode_kota').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions();
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         for(i=0;i<result.data.length;i++){
@@ -653,11 +655,15 @@
 
         getPP();
         $('#kode_kota').selectize();
-        $('#kode_pp').selectize({
-            selectOnTab: true,
-            onChange: function (value){
-                getKota(value);
-            }
+        // $('#kode_pp').selectize({
+        //     selectOnTab: true,
+        //     onChange: function (value){
+        //         getKota(value);
+        //     }
+        // });
+        $('#kode_pp').change(function(){
+            var pp = $('#kode_pp')[0].selectize.getValue();
+            getKota(pp);
         });
     
         $('#kode_kota').change(function(){
