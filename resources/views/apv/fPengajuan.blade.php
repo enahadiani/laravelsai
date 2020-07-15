@@ -110,6 +110,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="det" role="tabpanel">
@@ -155,6 +156,29 @@
                                                 <th width="30%">Nama File Upload</th>
                                                 <th width="30%">Upload File</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="catt" role="tabpanel">
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-histori">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="20%">NIK</th>
+                                                <th width="30%">Nama</th>
+                                                <th width="15%">Status</th>
+                                                <th width="30%">Keterangan Approval</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -801,6 +825,26 @@
                         e.preventDefault();
                         $(this).closest('tr').find('.inp-nama').val('-');
                     });
+                    
+                    var input = '';
+                    var no =1;
+                    $('#input-histori tbody').html('');
+                    if(result.data_histori.length > 0){
+                        for(var x=0;x<result.data_histori.length;x++){
+                            var line = result.data_histori[x];
+                            input += `<tr class='row-his'>
+                            <td>`+no+`</td>
+                            <td>`+line.nik+`</td>
+                            <td>`+line.nama+`</td>
+                            <td>`+line.status+`</td>
+                            <td>`+line.keterangan+`</td>
+                            </tr>`;
+                            no++;
+                        }
+                    }
+                    
+                    $('#input-histori tbody').html(input);
+                        
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 } else if(!result.status && result.message == "Unauthorized"){
