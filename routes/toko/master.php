@@ -15,6 +15,7 @@ Route::get('menu-klp', 'Toko\HelperController@getKlpMenu');
 Route::get('menu-form', 'Toko\HelperController@getLabMenu');
 Route::get('masakun-curr','Toko\HelperController@getCurr');
 Route::get('masakun-modul','Toko\HelperController@getModul');
+Route::get('reftrans-kode/{jenis}','Toko\HelperController@getRef');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');
@@ -113,3 +114,10 @@ Route::get('masakun-detail/{id}', 'Toko\MasakunController@getData');
 Route::post('masakun', 'Toko\MasakunController@store');
 Route::put('masakun/{id}', 'Toko\MasakunController@update');
 Route::delete('masakun/{id}', 'Toko\MasakunController@delete');
+
+// Data Referensi Transaksi //
+Route::get('reftrans', 'Toko\ReferensiTransController@index');
+Route::get('reftrans-detail/{id}', 'Toko\ReferensiTransController@getData');
+Route::post('reftrans', 'Toko\ReferensiTransController@store');
+Route::put('reftrans/{id}', 'Toko\ReferensiTransController@update');
+Route::delete('reftrans/{id}', 'Toko\ReferensiTransController@delete');

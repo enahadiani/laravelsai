@@ -234,7 +234,7 @@
         function getRef(jenis){
                 $.ajax({
                 type: 'GET',
-                url: "{{ url('rtrw-master/reftrans-kode') }}/"+jenis,
+                url: "{{ url('toko-master/reftrans-kode') }}/"+jenis,
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -250,7 +250,7 @@
         function getAkunDebet(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('rtrw-master/masakun') }}",
+                url: "{{ url('toko-master/masakun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -276,7 +276,7 @@
         function getAkunKredit(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('rtrw-master/masakun') }}",
+                url: "{{ url('toko-master/masakun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -302,7 +302,7 @@
         function getPP(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('rtrw-master/relakun-pp') }}",
+                url: "{{ url('toko-master/relakun-pp') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -325,24 +325,24 @@
             });
         }
 
-        function getPPSelect(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('rtrw-master/relakun-pp') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            for(var i=0;i<data.length;i++) {
-                                $('#select-pp').append(`<option value='${data[i].kode_pp}'>${data[i].kode_pp}</option>`)
-                            }
-                        }
-                    }
-                }
-            });
-        }
+        // function getPPSelect(id=null){
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "{{ url('toko-master/relakun-pp') }}",
+        //         dataType: 'json',
+        //         async:false,
+        //         success:function(result){    
+        //             if(result.status){
+        //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+        //                     var data = result.daftar;
+        //                     for(var i=0;i<data.length;i++) {
+        //                         $('#select-pp').append(`<option value='${data[i].kode_pp}'>${data[i].kode_pp}</option>`)
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
 
         $('#form-tambah').on('change', '#akun_debet', function(){
             var par = $(this).val();
@@ -373,7 +373,7 @@
             // 'processing': true,
             // 'serverSide': true,
             'ajax': {
-                'url': "{{ url('rtrw-master/reftrans') }}",
+                'url': "{{ url('toko-master/reftrans') }}",
                 'async':false,
                 'type': 'GET',
                 'dataSrc' : function(json) {
@@ -385,7 +385,7 @@
                             text: 'harap login terlebih dahulu!',
                             icon: 'error'
                         }).then(function() {
-                            window.location.href = "{{ url('rtrw-auth/login') }}";
+                            window.location.href = "{{ url('toko-auth/login') }}";
                         })
                         return [];
                     }
@@ -403,9 +403,9 @@
                 { data: 'pp' },
             ],
             dom: 'l<"extra">frtip',
-            initComplete: function(setting,json) {
-                $('div.extra').html('<label>PP/Unit</label><select class="form-control select-pp ml-2" id="select-pp"></select>')
-            },
+            // initComplete: function(setting,json) {
+            //     $('div.extra').html('<label>PP/Unit</label><select class="form-control select-pp ml-2" id="select-pp"></select>')
+            // },
             // buttons: [
                 // {
                 //     text: '<i class="fa fa-filter"></i> Filter',
@@ -417,7 +417,7 @@
             // ]
         });
 
-        getPPSelect();
+        // getPPSelect();
 
         $('#select-pp').change(function(){
           dataTable.search(this.value).draw();
@@ -453,7 +453,7 @@
             switch(par){
                 case 'akun_debet': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                var toUrl = "{{ url('toko-master/masakun') }}";
                     var columns = [
                         { data: 'kode_akun' },
                         { data: 'nama' }
@@ -468,7 +468,7 @@
                 break;
                 case 'akun_kredit': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('rtrw-master/masakun') }}";
+                var toUrl = "{{ url('toko-master/masakun') }}";
                     var columns = [
                         { data: 'kode_akun' },
                         { data: 'nama' }
@@ -483,7 +483,7 @@
                 break;
                 case 'kode_pp': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('rtrw-master/relakun-pp') }}";
+                var toUrl = "{{ url('toko-master/relakun-pp') }}";
                     var columns = [
                         { data: 'kode_pp' },
                         { data: 'kode_lokasi' }
@@ -644,10 +644,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('rtrw-master/reftrans') }}/"+id;
+            var url = "{{ url('toko-master/reftrans') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('rtrw-master/reftrans') }}";
+            var url = "{{ url('toko-master/reftrans') }}";
             var pesan = "saved";
         }
 
@@ -684,7 +684,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                        window.location.href = "{{ url('/toko-auth/login') }}";
                     }) 
                 }else{
                         Swal.fire({
@@ -740,7 +740,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('rtrw-master/reftrans') }}/"+id,
+                    url: "{{ url('toko-master/reftrans') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -757,7 +757,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('rtrw-auth/login') }}";
+                                window.location.href = "{{ url('toko-auth/login') }}";
                             })
                         }else{
                             Swal.fire({

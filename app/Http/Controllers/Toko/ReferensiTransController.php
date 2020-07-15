@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Rtrw;
+namespace App\Http\Controllers\Toko;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +16,11 @@ class ReferensiTransController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
+    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('rtrw/login')->with('alert','Session telah habis !');
+            return redirect('toko-auth/login')->with('alert','Session telah habis !');
         }
     }
 
@@ -44,7 +44,8 @@ class ReferensiTransController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $data = $data;
+                // $data = $data['data'];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 

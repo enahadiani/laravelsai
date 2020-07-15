@@ -17,6 +17,25 @@
             }
         }
 
+        public function getRef($jenis) {
+
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'reftrans-kode?jenis='.$jenis,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getCurr() {
 
             $client = new Client();
