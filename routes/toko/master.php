@@ -13,6 +13,8 @@ Route::get('barang-klp-pendapatan', 'Toko\HelperController@getAkunPdptKelBar');
 Route::get('barang-klp-hpp', 'Toko\HelperController@getAkunHPPKelBar');
 Route::get('menu-klp', 'Toko\HelperController@getKlpMenu');
 Route::get('menu-form', 'Toko\HelperController@getLabMenu');
+Route::get('masakun-curr','Toko\HelperController@getCurr');
+Route::get('masakun-modul','Toko\HelperController@getModul');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');
@@ -104,3 +106,10 @@ Route::post('menu', 'Toko\SettingMenuController@store');
 Route::post('menu-move', 'Toko\SettingMenuController@storeMenu');
 Route::put('menu/{kd_menu}/{kd_klp}', 'Toko\SettingMenuController@update');
 Route::delete('menu/{kd_menu}/{kd_klp}', 'Toko\SettingMenuController@delete');
+
+// Data Akun //
+Route::get('masakun', 'Toko\MasakunController@index');
+Route::get('masakun-detail/{id}', 'Toko\MasakunController@getData');
+Route::post('masakun', 'Toko\MasakunController@store');
+Route::put('masakun/{id}', 'Toko\MasakunController@update');
+Route::delete('masakun/{id}', 'Toko\MasakunController@delete');
