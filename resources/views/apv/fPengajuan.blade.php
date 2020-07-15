@@ -804,7 +804,7 @@
                     }
 
                     $('#input-grid2 tbody').html(input);
-                    
+                    var no=1;
                     for(var i=0;i<result.data_detail.length;i++){
                         var line =result.data_detail[i];
                         getBarangKlp('barang_klpke'+no);
