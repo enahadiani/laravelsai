@@ -43,6 +43,7 @@
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
                                                         <th>Nilai</th>
+                                                        <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -181,6 +182,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="det" role="tabpanel">
@@ -224,6 +226,29 @@
                                                 <th width="60%">Nama Dokumen</th>
                                                 <th width="305%">File</th>
                                                 <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="catt" role="tabpanel">
+                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th,td{
+                                                padding:8px !important;
+                                                vertical-align:middle !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed" id="input-histori">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="20%">NIK</th>
+                                                <th width="30%">Nama</th>
+                                                <th width="15%">Status</th>
+                                                <th width="30%">Keterangan Approval</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -396,6 +421,8 @@
                                 <td>`+result.data_app[i].nama_kar+`/`+result.data_app[i].nik+`</td>
                                 <td>`+result.data_app[i].nama_jab+`</td>
                                 <td>`+result.data_app[i].tanggal+`</td>
+                                <td>`+result.data_app[i].no_app+`</td>
+                                <td>`+result.data_app[i].status+`</td>
                                 <td>&nbsp;</td>
                             </tr>`;
                             no++;
@@ -467,10 +494,12 @@
                                     <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
                                         <thead class="text-center">
                                             <tr>
-                                                <td width="20%"></td>
+                                                <td width="10%"></td>
                                                 <td width="25">NAMA/NIK</td>
-                                                <td width="25%">JABATAN</td>
-                                                <td width="15%">TANGGAL</td>
+                                                <td width="15%">JABATAN</td>
+                                                <td width="10%">TANGGAL</td>
+                                                <td width="15%">NO APPROVAL</td>
+                                                <td width="10%">STATUS</td>
                                                 <td width="15%">TTD</td>
                                             </tr>
                                         </thead>
@@ -538,6 +567,7 @@
                 var select = $('#kode_pp').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions();
                 if(status){
                     if(typeof line !== 'undefined' && line.length>0){
                         for(i=0;i<line.length;i++){
@@ -565,6 +595,7 @@
                 var select = $('#kode_kota').selectize();
                 select = select[0];
                 var control = select.selectize;
+                control.clearOptions();
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         for(i=0;i<result.data.length;i++){
@@ -613,6 +644,7 @@
             { data: 'waktu' },
             { data: 'kegiatan' },
             { data: 'nilai' },
+            { data: 'status' },
             { data: 'action' }
         ]
     });
@@ -649,11 +681,15 @@
 
         getPP();
         $('#kode_kota').selectize();
-        $('#kode_pp').selectize({
-            selectOnTab: true,
-            onChange: function (value){
-                getKota(value);
-            }
+        // $('#kode_pp').selectize({
+        //     selectOnTab: true,
+        //     onChange: function (value){
+        //         getKota(value);
+        //     }
+        // });
+        $('#kode_pp').change(function(){
+            var pp = $('#kode_pp')[0].selectize.getValue();
+            getKota(pp);
         });
     
         $('#kode_kota').change(function(){
@@ -824,6 +860,7 @@
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('');
                         $('#no_bukti').val('');
+                        $('#input-histori tbody').html('');
                         generateDok(result.data[0].tanggal,result.data[0].kode_pp,result.data[0].kode_kota);
                         $('#tgl_juskeb').val(result.data[0].tanggal);
                         $('#no_juskeb').val(id);
@@ -913,10 +950,11 @@
     });
 
     $('#saku-data').on('click', '#btn-edit2', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var dt = dataTable.row($(this).parents('tr')).data();
+        var id= dt.id;
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo') }}/"+id,
+            url: "apv/juspo/"+id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -929,8 +967,9 @@
                         $('#tgl_juskeb').val(result.data[0].tgl_juskeb);
                         $('#no_juskeb').val(result.data[0].no_juskeb);
                         $('#method').val('post');
-                        $('#kode_pp').val(result.data[0].kode_pp);
-                        $('#kode_kota').val(result.data[0].kode_kota);
+                        $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                        $('#kode_pp')[0].selectize.trigger('change');
+                        $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
                         $('#waktu').val(result.data[0].waktu);
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
@@ -940,15 +979,16 @@
                         if(result.data_detail.length > 0){
                             for(var x=0;x<result.data_detail.length;x++){
                                 var line = result.data_detail[x];
-                                iinput += "<tr class='row-barang'>";
-                                input += "<td width='5%' class='no-barang'>"+no+"</td>";
-                                input += "<td width='45%'>'"+line.nama_klp+"'<input type='hidden' name='barang_klp[]' class='form-control inp-barang_klp' value='"+line.barang_klp+"' required></td>";
-                                input += "<td width='45%'><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
-                                input += "<td width='15%' style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                                input += "<td width='10%' style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
-                                input += "<td width='20%' style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                                input += "<tr class='row-barang'>";
+                                input += "<tr class='row-barang'>";
+                                input += "<td class='no-barang'>"+no+"</td>";
+                                input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
+                                input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -963,7 +1003,7 @@
                                 input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
                                 input2 += "<td width='60%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required readonly></td>";
                                 input2 += "<td width='30%'>"+
-                                "<input type='text' name='file_dok[]' class='form-control inp-file' value='"+
+                                "<input type='text' name='nama_file[]' class='form-control inp-file' value='"+
                                 line2.file_dok+"' readonly></td><td width='5%'> <a type='button'  href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-download'></i></a></td>";
                                 input2 += "</tr>";
                                 no++;
@@ -971,6 +1011,13 @@
                         }
 
                         $('#input-grid2 tbody').html(input);
+                        var no =1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
+                            getBarangKlp('barang_klpke'+no);
+                            $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
+                            no++;
+                        }
                         $('#input-dok tbody').html(input2);
                         $('.currency').inputmask("numeric", {
                             radixPoint: ",",
@@ -980,6 +1027,25 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
+
+                        var input = '';
+                        var no =1;
+                        $('#input-histori tbody').html('');
+                        if(result.data_histori.length > 0){
+                            for(var x=0;x<result.data_histori.length;x++){
+                                var line = result.data_histori[x];
+                                input += `<tr class='row-his'>
+                                    <td>`+no+`</td>
+                                    <td>`+line.nik+`</td>
+                                    <td>`+line.nama+`</td>
+                                    <td>`+line.status+`</td>
+                                    <td>`+line.keterangan+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                        }
+                        
+                        $('#input-histori tbody').html(input);
                         $('#saku-data').hide();
                         $('#saku-form').show();
                     }

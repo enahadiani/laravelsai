@@ -144,7 +144,12 @@ class JuspoController extends Controller
                 if(count($data) > 0){
 
                     for($i=0;$i<count($data);$i++){
-                        $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        if($data[$i]['status'] == "REVISI" || $data[$i]['status'] == "Approval Pusat 1"){
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        }else{
+
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; ";
+                        }
                     }
                 }
             }
@@ -304,22 +309,24 @@ class JuspoController extends Controller
             if(!empty($cek)){
 
                 if(count($request->file_dok) > 0){
-    
+                    
                     for($i=0;$i<count($request->file_dok);$i++){
-                        $image_path = $request->file('file_dok')[$i]->getPathname();
-                        $image_mime = $request->file('file_dok')[$i]->getmimeType();
-                        $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
-                        $fields_foto[$i] = array(
-                            'name'     => 'file[]',
-                            'filename' => $image_org,
-                            'Mime-Type'=> $image_mime,
-                            'contents' => fopen( $image_path, 'r' ),
-                        );
-                        $nama_file = $request->nama_dok[$i];
-                        $fields_nama_file[$i] = array(
-                            'name'     => 'nama_file[]',
-                            'contents' => $nama_file,
-                        );
+                        if($request->hasfile('file_dok')[$i]){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            $nama_file = $request->nama_dok[$i];
+                            $fields_nama_file[$i] = array(
+                                'name'     => 'nama_file[]',
+                                'contents' => $nama_file,
+                            );
+                        }
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file);
