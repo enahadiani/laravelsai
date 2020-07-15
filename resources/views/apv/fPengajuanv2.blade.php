@@ -538,6 +538,10 @@
                             control.addOption([{text:result.data[i].nama, value:result.data[i].kode_divisi}]);
                         }
                     }
+                    if(result.kode_divisi !== 'undefined'){
+                        control.setValue(result.kode_divisi);
+                    }
+                    
                 }
             }
         });
