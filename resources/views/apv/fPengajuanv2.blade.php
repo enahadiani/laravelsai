@@ -83,6 +83,14 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="kode_divisi" class="col-3 col-form-label">Kode Divisi</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="kode_divisi" name="kode_divisi" >
+                                    <option value=''>--- Pilih Divisi ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="col-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
@@ -513,6 +521,28 @@
         });
     }
 
+    function getDivisi(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/divisi') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                var select = $('#kode_divisi').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_divisi}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function generateDok(tanggal,nama_pp,nama_kota){
         $.ajax({
             type: 'GET',
@@ -527,6 +557,7 @@
     }
 
     getPP();
+    getDivisi();
     $('#kode_kota').selectize();
     $('#kode_pp').selectize({
         selectOnTab: true,
@@ -758,6 +789,7 @@
                     $('#tanggal').val(result.data[0].tanggal);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                    $('#kode_divisi')[0].selectize.setValue(result.data[0].kode_divisi);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
