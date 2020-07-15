@@ -244,7 +244,7 @@
         // 'processing': true,
         // 'serverSide': true,
         'ajax': {
-            'url': "{{ url('rtrw-master/masakun') }}",
+            'url': "{{ url('toko-master/masakun') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -256,7 +256,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('rtrw-auth/login') }}";
+                        window.location.href = "{{ url('toko-auth/login') }}";
                     })
                     return [];
                 }
@@ -316,7 +316,7 @@
     function getCurr(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/masakun-curr') }}",
+            url: "{{ url('toko-master/masakun-curr') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -342,7 +342,7 @@
     function getModul(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/masakun-modul') }}",
+            url: "{{ url('toko-master/masakun-modul') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -375,7 +375,7 @@
         switch(par){
             case 'curr': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('rtrw-master/masakun-curr') }}";
+            var toUrl = "{{ url('toko-master/masakun-curr') }}";
                 var columns = [
                     { data: 'kode_curr' },
                     { data: 'kode_curr' }
@@ -390,7 +390,7 @@
             break;
             case 'modul': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('rtrw-master/masakun-modul') }}";
+            var toUrl = "{{ url('toko-master/masakun-modul') }}";
                 var columns = [
                     { data: 'kode_tipe' },
                     { data: 'nama_tipe' }
@@ -551,10 +551,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('rtrw-master/masakun') }}/"+id;
+            var url = "{{ url('toko-master/masakun') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('rtrw-master/masakun') }}";
+            var url = "{{ url('toko-master/masakun') }}";
             var pesan = "saved";
         }
 
@@ -591,7 +591,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                        window.location.href = "{{ url('/toko-auth/login') }}";
                     }) 
                 }else{
                         Swal.fire({
@@ -617,7 +617,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('rtrw-master/masakun-detail') }}/" + kode,
+            url: "{{ url('toko-master/masakun-detail') }}/" + kode,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -647,7 +647,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('/rtrw-auth/login') }}";
+                        window.location.href = "{{ url('/toko-auth/login') }}";
                     })
                 }
                 $iconLoad.hide();
@@ -672,7 +672,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('rtrw-master/masakun') }}/"+id,
+                    url: "{{ url('toko-master/masakun') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -689,7 +689,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('rtrw-auth/login') }}";
+                                window.location.href = "{{ url('toko-auth/login') }}";
                             })
                         }else{
                             Swal.fire({

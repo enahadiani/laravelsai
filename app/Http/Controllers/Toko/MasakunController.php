@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Rtrw;
+namespace App\Http\Controllers\Toko;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -9,18 +9,18 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class ReferensiTransController extends Controller
+class MasakunController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
+    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('rtrw/login')->with('alert','Session telah habis !');
+            return redirect('toko-auth/login')->with('alert','Session telah habis !');
         }
     }
 
@@ -33,7 +33,7 @@ class ReferensiTransController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans',[
+            $response = $client->request('GET', $this->link.'masakun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +58,7 @@ class ReferensiTransController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans-detail?kode_ref='.$id,
+            $response = $client->request('GET', $this->link.'masakun-detail?kode_akun='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -83,27 +83,31 @@ class ReferensiTransController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'jenis' => 'required',
-            'kode_ref' => 'required',
+            'kode_akun' => 'required',
             'nama' => 'required',
-            'akun_debet' => 'required',
-            'akun_kredit' => 'required',
-            'kode_pp' => 'required',
+            'curr' => 'required',
+            'modul' => 'required',
+            'jenis' => 'required',
+            'block' => 'required',
+            'gar' => 'required',
+            'normal' => 'required',
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'reftrans',[
+                $response = $client->request('POST', $this->link.'masakun',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'jenis' => $request->jenis,
+                        'kode_akun' => $request->kode_akun,
                         'nama' => $request->nama,
-                        'kode_ref' => $request->kode_ref,
-                        'akun_debet' => $request->akun_debet,
-                        'akun_kredit' => $request->akun_kredit,
-                        'kode_pp' => $request->kode_pp,
+                        'modul' => $request->modul,
+                        'jenis' => $request->jenis,
+                        'kode_curr' => $request->curr,
+                        'block' => $request->block,
+                        'status_gar' => $request->gar,
+                        'normal' => $request->normal,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -124,26 +128,30 @@ class ReferensiTransController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'jenis' => 'required',
-            'kode_ref' => 'required',
+            'kode_akun' => 'required',
             'nama' => 'required',
-            'akun_debet' => 'required',
-            'akun_kredit' => 'required',
-            'kode_pp' => 'required',
+            'curr' => 'required',
+            'modul' => 'required',
+            'jenis' => 'required',
+            'block' => 'required',
+            'gar' => 'required',
+            'normal' => 'required',
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'reftrans?kode_ref='.$id,[
+                $response = $client->request('PUT', $this->link.'masakun?kode_akun='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'jenis' => $request->jenis,
                         'nama' => $request->nama,
-                        'akun_debet' => $request->akun_debet,
-                        'akun_kredit' => $request->akun_kredit,
-                        'kode_pp' => $request->kode_pp,
+                        'modul' => $request->modul,
+                        'jenis' => $request->jenis,
+                        'kode_curr' => $request->curr,
+                        'block' => $request->block,
+                        'status_gar' => $request->gar,
+                        'normal' => $request->normal,
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -165,7 +173,7 @@ class ReferensiTransController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'reftrans?kode_ref='.$id,
+            $response = $client->request('DELETE', $this->link.'masakun?kode_akun='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
