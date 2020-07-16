@@ -205,9 +205,12 @@
             <div class="row" style="margin-left: -5px;">
                 <div class="col-sm-12">
                     <div class="form-group" style='margin-bottom:0'>
-                        <label for="kode_pp">PP</label>
-                        <select name="kode_pp" id="kode_pp2" class="form-control">
-                        <option value="">Pilih PP</option>
+                        <label for="kode_pp">Jenis Referensi</label>
+                        <select required class='form-control' id="jenis2" name="jenis2" required>
+                            <option value=''>--- Pilih Jenis ---</option>
+                            <option value='PENGELUARAN'>PENGELUARAN</option>
+                            <option value='PEMASUKAN'>PEMASUKAN</option>
+                            <option value='PINDAH BUKU'>PINDAH BUKU</option>
                         </select>
                     </div>
                 </div>
@@ -347,27 +350,27 @@
             });
         }
 
-        function getPPSelect(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/unit') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var select2 = $('#kode_pp2').selectize();
-                            select2 = select2[0];
-                            var control2 = select2.selectize;
-                            for(i=0;i<result.daftar.length;i++){
-                                control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        getPPSelect();
+        // function getPPSelect(id=null){
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "{{ url('toko-master/unit') }}",
+        //         dataType: 'json',
+        //         async:false,
+        //         success:function(result){    
+        //             if(result.status){
+        //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+        //                     var select2 = $('#kode_pp2').selectize();
+        //                     select2 = select2[0];
+        //                     var control2 = select2.selectize;
+        //                     for(i=0;i<result.daftar.length;i++){
+        //                         control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
+        // getPPSelect();
 
         $('#form-tambah').on('change', '#akun_debet', function(){
             var par = $(this).val();
@@ -458,8 +461,8 @@
 
         $('.sidepanel').on('submit', '#formFilter2', function(e){
             e.preventDefault();
-            var kode_pp= $('#kode_pp2')[0].selectize.getValue();
-            dataTable.column(5).search(kode_pp).draw();
+            var jenis= $('#jenis2').val()
+            dataTable.column(4).search(jenis).draw();
             openFilter();
         });
 
