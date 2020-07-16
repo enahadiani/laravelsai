@@ -17,6 +17,7 @@ Route::get('masakun-curr','Toko\HelperController@getCurr');
 Route::get('masakun-modul','Toko\HelperController@getModul');
 Route::get('reftrans-kode/{jenis}','Toko\HelperController@getRef');
 Route::get('reftrans-pemasukan','Toko\HelperController@getRefPemasukan');
+Route::get('reftrans-pengeluaran','Toko\HelperController@getRefPengeluaran');
 
 // Data Customer //
 Route::get('cust', 'Toko\CustomerController@index');

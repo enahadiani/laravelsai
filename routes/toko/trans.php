@@ -47,3 +47,10 @@ Route::get('pemasukan/{no_bukti}', 'Toko\PemasukanController@show');
 Route::post('pemasukan', 'Toko\PemasukanController@store');
 Route::put('pemasukan/{no_bukti}', 'Toko\PemasukanController@update');
 Route::delete('pemasukan/{no_bukti}', 'Toko\PemasukanController@destroy');
+
+// Pemasukan Routes //
+Route::get('pengeluaran', 'Toko\PengeluaranController@index');
+Route::get('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@show');
+Route::post('pengeluaran', 'Toko\PengeluaranController@store');
+Route::put('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@update');
+Route::delete('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@destroy');

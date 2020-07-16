@@ -148,52 +148,6 @@
         }
         });
 
-        function getNIK(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/gudang-nik') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#pic').val(result.daftar[0].nik);
-                            $('#label_pic').text(result.daftar[0].nama);
-                        }else{
-                            alert('PIC tidak valid');
-                            $('#pic').val('');
-                            $('#pic').focus();
-                        }
-                    }
-                }
-            });
-        }
-
-        function getLabelNIK(no){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('toko-master/gudang-nik') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].nik === no){
-                                $('#label_pic').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
-                        }else{
-                            alert('PIC tidak valid');
-                            $('#pic').val('');
-                            $('#pic').focus();
-                        }
-                    }
-                }
-            });
-        }
-
         function getPP(id=null){
             $.ajax({
                 type: 'GET',
@@ -233,7 +187,7 @@
                             var filter = data.filter(data => data.kode_ref == id);
                             if(filter.length > 0) {
                                 $('#kode_ref').val(filter[0].kode_ref);
-                                $('#label_kode_pp').text(filter[0].nama);
+                                $('#label_kode_ref').text(filter[0].nama);
                             } else {
                                 alert('Ref tidak valid');
                                 $('#kode_ref').val('');
@@ -633,13 +587,14 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    var nilai = Number.parseFloat(result.data[0].nilai1).toFixed();
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('.no_bukti').show();
                     $('#no_bukti').val(id);
                     $('#id').val(id);
                     $('#keterangan').val(result.data[0].keterangan);
-                    $('#nilai').val(result.data[0].nilai1);
+                    $('#nilai').val(nilai);
                     getPP(result.data[0].kode_pp);
                     getRef(result.data[0].kode_ref);
                     $('#row-id').show();

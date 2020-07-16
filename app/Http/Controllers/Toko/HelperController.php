@@ -17,6 +17,25 @@
             }
         }
 
+        public function getRefPengeluaran() {
+
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'reftrans?jenis=PENGELUARAN',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getRefPemasukan() {
 
             $client = new Client();
