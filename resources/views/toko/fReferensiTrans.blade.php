@@ -198,6 +198,27 @@
                 </div>
             </div>
         </div>
+        <div id='mySidepanel' class='sidepanel close'>
+            <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
+            <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
+            <form id="formFilter2" style='margin-top:50px'>
+            <div class="row" style="margin-left: -5px;">
+                <div class="col-sm-12">
+                    <div class="form-group" style='margin-bottom:0'>
+                        <label for="kode_pp">PP</label>
+                        <select name="kode_pp" id="kode_pp2" class="form-control">
+                        <option value="">Pilih PP</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
+                </div>
+            </div>
+            </form>
+        </div>
     </div>  
     <!-- MODAL SEARCH-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
@@ -326,24 +347,27 @@
             });
         }
 
-        // function getPPSelect(id=null){
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: "{{ url('toko-master/relakun-pp') }}",
-        //         dataType: 'json',
-        //         async:false,
-        //         success:function(result){    
-        //             if(result.status){
-        //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-        //                     var data = result.daftar;
-        //                     for(var i=0;i<data.length;i++) {
-        //                         $('#select-pp').append(`<option value='${data[i].kode_pp}'>${data[i].kode_pp}</option>`)
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     });
-        // }
+        function getPPSelect(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/unit') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var select2 = $('#kode_pp2').selectize();
+                            select2 = select2[0];
+                            var control2 = select2.selectize;
+                            for(i=0;i<result.daftar.length;i++){
+                                control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        getPPSelect();
 
         $('#form-tambah').on('change', '#akun_debet', function(){
             var par = $(this).val();
@@ -403,22 +427,46 @@
                 { data: 'jenis' },
                 { data: 'pp' },
             ],
-            dom: 'l<"extra">frtip',
+            dom: 'lBfrtip',
             // initComplete: function(setting,json) {
             //     $('div.extra').html('<label>PP/Unit</label><select class="form-control select-pp ml-2" id="select-pp"></select>')
             // },
-            // buttons: [
-                // {
-                //     text: '<i class="fa fa-filter"></i> Filter',
-                //     action: function ( e, dt, node, config ) {
-                //         openFilter();
-                //     },
-                //     className: 'btn btn-default ml-2' 
-                // }
-            // ]
+            buttons: [
+                {
+                    text: '<i class="fa fa-filter"></i> Filter',
+                    action: function ( e, dt, node, config ) {
+                        openFilter();
+                    },
+                    className: 'btn btn-default ml-2' 
+                }
+            ]
         });
 
-        // getPPSelect();
+        function openFilter() {
+            var element = $('#mySidepanel');
+            
+            var x = $('#mySidepanel').attr('class');
+            var y = x.split(' ');
+            if(y[1] == 'close'){
+                element.removeClass('close');
+                element.addClass('open');
+            }else{
+                element.removeClass('open');
+                element.addClass('close');
+            }
+        }
+
+        $('.sidepanel').on('submit', '#formFilter2', function(e){
+            e.preventDefault();
+            var kode_pp= $('#kode_pp2')[0].selectize.getValue();
+            dataTable.column(5).search(kode_pp).draw();
+            openFilter();
+        });
+
+        $('.sidepanel').on('click', '#btnClose', function(e){
+            e.preventDefault();
+            openFilter();
+        });
 
         $('#select-pp').change(function(){
           dataTable.search(this.value).draw();
