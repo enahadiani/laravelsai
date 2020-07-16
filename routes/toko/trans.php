@@ -40,3 +40,10 @@ Route::get('stok-opname', 'Toko\StokOpnameController@index');
 // Route::get('retur-beli-finish', 'Toko\ReturBeliController@getFinish');
 // Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@getBarang');
 // Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@show');
+
+// Pemasukan Routes //
+Route::get('pemasukan', 'Toko\PemasukanController@index');
+Route::get('pemasukan/{no_bukti}', 'Toko\PemasukanController@show');
+Route::post('pemasukan', 'Toko\PemasukanController@store');
+Route::put('pemasukan/{no_bukti}', 'Toko\PemasukanController@update');
+Route::delete('pemasukan/{no_bukti}', 'Toko\PemasukanController@destroy');
