@@ -259,7 +259,7 @@
         $('#form-tambah')[0].reset();
         $('#method').val('post');
         $('#kode_gudang').attr('readonly', false);
-        $('#label_pic').text('');
+        $('#label_kode_ref').text('');
         $('#label_kode_pp').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();

@@ -54,3 +54,10 @@ Route::get('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@show');
 Route::post('pengeluaran', 'Toko\PengeluaranController@store');
 Route::put('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@update');
 Route::delete('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@destroy');
+
+// Pindah buku Routes //
+Route::get('pindah-buku', 'Toko\PindahBukuController@index');
+Route::get('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@show');
+Route::post('pindah-buku', 'Toko\PindahBukuController@store');
+Route::put('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@update');
+Route::delete('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@destroy');
