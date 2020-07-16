@@ -303,7 +303,7 @@
         function getPP(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/relakun-pp') }}",
+                url: "{{ url('toko-master/unit') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -313,7 +313,7 @@
                             var filter = data.filter(data => data.kode_pp == id);
                             if(filter.length > 0) {
                                 $('#kode_pp').val(filter[0].kode_pp);
-                                $('#label_kode_pp').text(filter[0].kode_lokasi);
+                                $('#label_kode_pp').text(filter[0].nama);
                             } else {
                                 alert('PP tidak valid');
                                 $('#kode_pp').val('');
@@ -484,10 +484,10 @@
                 break;
                 case 'kode_pp': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('toko-master/relakun-pp') }}";
+                var toUrl = "{{ url('toko-master/unit') }}";
                     var columns = [
                         { data: 'kode_pp' },
-                        { data: 'kode_lokasi' }
+                        { data: 'nama' }
                     ];
                     
                     var judul = "Daftar PP";

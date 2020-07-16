@@ -40,3 +40,24 @@ Route::get('stok-opname', 'Toko\StokOpnameController@index');
 // Route::get('retur-beli-finish', 'Toko\ReturBeliController@getFinish');
 // Route::get('retur-beli-barang/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@getBarang');
 // Route::get('retur-beli-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Toko\ReturBeliController@show');
+
+// Pemasukan Routes //
+Route::get('pemasukan', 'Toko\PemasukanController@index');
+Route::get('pemasukan/{no_bukti}', 'Toko\PemasukanController@show');
+Route::post('pemasukan', 'Toko\PemasukanController@store');
+Route::put('pemasukan/{no_bukti}', 'Toko\PemasukanController@update');
+Route::delete('pemasukan/{no_bukti}', 'Toko\PemasukanController@destroy');
+
+// Pemasukan Routes //
+Route::get('pengeluaran', 'Toko\PengeluaranController@index');
+Route::get('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@show');
+Route::post('pengeluaran', 'Toko\PengeluaranController@store');
+Route::put('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@update');
+Route::delete('pengeluaran/{no_bukti}', 'Toko\PengeluaranController@destroy');
+
+// Pindah buku Routes //
+Route::get('pindah-buku', 'Toko\PindahBukuController@index');
+Route::get('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@show');
+Route::post('pindah-buku', 'Toko\PindahBukuController@store');
+Route::put('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@update');
+Route::delete('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@destroy');

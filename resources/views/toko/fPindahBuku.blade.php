@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pemasukan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pindah Buku
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -57,7 +57,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pemasukan
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pindah Buku
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -177,7 +177,7 @@
         function getRef(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('toko-master/reftrans-pemasukan') }}",
+                url: "{{ url('toko-master/reftrans-pindah-buku') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -208,7 +208,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-trans/pemasukan') }}",
+            'url': "{{ url('toko-trans/pindah-buku') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -306,7 +306,7 @@
         break;
         case 'kode_ref': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('toko-master/reftrans-pemasukan') }}";
+            var toUrl = "{{ url('toko-master/reftrans-pindah-buku') }}";
                 var columns = [
                     { data: 'kode_ref' },
                     { data: 'nama' }
@@ -469,10 +469,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-trans/pemasukan') }}/"+id;
+            var url = "{{ url('toko-trans/pindah-buku') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-trans/pemasukan') }}";
+            var url = "{{ url('toko-trans/pindah-buku') }}";
             var pesan = "saved";
         }
 
@@ -540,7 +540,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-trans/pemasukan') }}/"+id,
+                    url: "{{ url('toko-trans/pindah-buku') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -581,7 +581,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-trans/pemasukan') }}/" + id,
+            url: "{{ url('toko-trans/pindah-buku') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){

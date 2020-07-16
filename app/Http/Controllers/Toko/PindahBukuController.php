@@ -9,14 +9,14 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class ReferensiTransController extends Controller
+class PindahBukuController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
+    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class ReferensiTransController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans',[
+            $response = $client->request('GET', $this->link.'kbdual?jenis=PINDAH BUKU',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -44,8 +44,8 @@ class ReferensiTransController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                $data = $data["data"];
                 // $data = $data;
-                $data = $data['data'];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
@@ -59,7 +59,7 @@ class ReferensiTransController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans-detail?kode_ref='.$id,
+            $response = $client->request('GET', $this->link.'kbdual-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -84,27 +84,24 @@ class ReferensiTransController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'jenis' => 'required',
-            'kode_ref' => 'required',
-            'nama' => 'required',
-            'akun_debet' => 'required',
-            'akun_kredit' => 'required',
             'kode_pp' => 'required',
+            'kode_ref' => 'required',
+            'keterangan' => 'required',
+            'nilai' => 'required',
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'reftrans',[
+                $response = $client->request('POST', $this->link.'kbdual',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'jenis' => $request->jenis,
-                        'nama' => $request->nama,
-                        'kode_ref' => $request->kode_ref,
-                        'akun_debet' => $request->akun_debet,
-                        'akun_kredit' => $request->akun_kredit,
                         'kode_pp' => $request->kode_pp,
+                        'kode_ref' => $request->kode_ref,
+                        'kode_jenis' => "PINDAH BUKU",
+                        'keterangan' => $request->keterangan,
+                        'nilai' => intval(str_replace('.','', $request->nilai)),
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -120,31 +117,29 @@ class ReferensiTransController extends Controller
                 $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
-            }
+        }
     }
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'jenis' => 'required',
-            'kode_ref' => 'required',
-            'nama' => 'required',
-            'akun_debet' => 'required',
-            'akun_kredit' => 'required',
             'kode_pp' => 'required',
+            'kode_ref' => 'required',
+            'keterangan' => 'required',
+            'nilai' => 'required',
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'reftrans?kode_ref='.$id,[
+                $response = $client->request('PUT', $this->link.'kbdual?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'jenis' => $request->jenis,
-                        'nama' => $request->nama,
-                        'akun_debet' => $request->akun_debet,
-                        'akun_kredit' => $request->akun_kredit,
                         'kode_pp' => $request->kode_pp,
+                        'kode_ref' => $request->kode_ref,
+                        'kode_jenis' => "PINDAH BUKU",
+                        'keterangan' => $request->keterangan,
+                        'nilai' => intval(str_replace('.','', $request->nilai)),
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -160,13 +155,13 @@ class ReferensiTransController extends Controller
                 $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
-            }
+        }
     }
 
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'reftrans?kode_ref='.$id,
+            $response = $client->request('DELETE', $this->link.'kbdual?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
