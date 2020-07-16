@@ -375,14 +375,14 @@
                                     <table class="table table-condensed table-bordered" width="100%" id="table-d">
                                         <thead>
                                             <tr>
-                                                <td width="5%">No</td>
-                                                <td width="15">Kelompok Barang</td>
-                                                <td width="20">Deskripsi</td>
-                                                <td width="15%">Harga</td>
-                                                <td width="10%">Qty</td>
-                                                <td width="20%">Jumlah Harga</td>
-                                                <td width="15%">PPN</td>
-                                                <td width="20%">Grand Total</td>
+                                                <td style="width:3%">No</td>
+                                                <td style="width:15%">Kelompok Barang</td>
+                                                <td style="width:30%">Deskripsi</td>
+                                                <td style="width:10%">Harga</td>
+                                                <td style="width:6%">Qty</td>
+                                                <td style="width:15%">Jumlah Harga</td>
+                                                <td style="width:6%">PPN</td>
+                                                <td style="width:15%">Grand Total</td>
                                             </tr>
                                         </thead>
                                         <tbody>`+det+`
