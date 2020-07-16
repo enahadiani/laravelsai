@@ -102,6 +102,14 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="nik_ver" class="col-3 col-form-label">NIK Verifikasi</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="nik_ver" name="nik_ver" required>
+                                    <option value=''>--- Pilih NIK ---</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Total Barang</label>
                                 <div class="col-3">
                                     <input class="form-control text-right" type="text"  id="total" name="total" required readonly>
@@ -416,14 +424,14 @@
                                     <table class="table table-condensed table-bordered" width="100%" id="table-d">
                                         <thead>
                                             <tr>
-                                                <td width="5%">No</td>
-                                                <td width="15">Kelompok Barang</td>
-                                                <td width="20">Deskripsi</td>
-                                                <td width="15%">Harga</td>
-                                                <td width="10%">Qty</td>
-                                                <td width="20%">Jumlah Harga</td>
-                                                <td width="15%">PPN</td>
-                                                <td width="20%">Grand Total</td>
+                                                <td style="width:3%">No</td>
+                                                <td style="width:15%">Kelompok Barang</td>
+                                                <td style="width:30%">Deskripsi</td>
+                                                <td style="width:10%">Harga</td>
+                                                <td style="width:6%">Qty</td>
+                                                <td style="width:15%">Jumlah Harga</td>
+                                                <td style="width:6%">PPN</td>
+                                                <td style="width:15%">Grand Total</td>
                                             </tr>
                                         </thead>
                                         <tbody>`+det+`
@@ -484,6 +492,7 @@
                         }
                         control.setValue("{{ Session::get('kodePP') }}");
                         getKota("{{ Session::get('kodePP') }}");
+                        getNIKVer("{{ Session::get('kodePP') }}");
                     }
                 }
             }
@@ -513,6 +522,29 @@
         });
     }
 
+    function getNIKVer(kode_pp = null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/nik_verifikasi') }}",
+            dataType: 'json',
+            data:{'kode_pp':kode_pp},
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                var select = $('#nik_ver').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].nik+'-'+result.data[i].nama, value:result.data[i].nik}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function generateDok(tanggal,nama_pp,nama_kota){
         $.ajax({
             type: 'GET',
@@ -527,11 +559,14 @@
     }
 
     getPP();
+    // getNIKVer();
     $('#kode_kota').selectize();
+    $('#nik_ver').selectize();
     $('#kode_pp').selectize({
         selectOnTab: true,
         onChange: function (value){
             getKota(value);
+            getNIKVer(value);
         }
     });
 
@@ -758,6 +793,7 @@
                     $('#tanggal').val(result.data[0].tanggal);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                    $('#nik_ver')[0].selectize.setValue(result.data[0].nik_ver);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);

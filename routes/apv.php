@@ -67,6 +67,7 @@ Route::get('juskeb','Apv\JuskebController@index');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
 Route::get('kota','Apv\JuskebController@getKota');
 Route::get('divisi','Apv\JuskebController@getDivisi');
+Route::get('nik_verifikasi','Apv\JuskebController@getNIKVerifikasi');
 Route::get('barang-klp','Apv\JuskebController@getBarangKlp');
 Route::get('generate-dok','Apv\JuskebController@generateDok');
 Route::post('juskeb','Apv\JuskebController@store');
