@@ -395,10 +395,28 @@
                     $('#content-lap').css('height',tinggi);
                 }
 
+                function setHeightForm(){
+                    var header = $('.topbar').height();
+                    var content = window.innerHeight;
+                    var tinggi = content-header-40;
+                    var title = 66;
+                    var body = tinggi-title;
+                    if($('#saku-form').length > 0){
+
+                        $('#saku-form').css('height',tinggi);
+                        $('.title-form').css('height',title);
+                        $('.body-form').css('height',body);
+                    }
+                    if($('#saku-datatable').length > 0){
+                        $('#saku-datatable .card').css('min-height',tinggi);
+                    }
+                }
+
                 $( window ).resize(function() {
                     if($('#content-lap').length > 0){
                         setHeightReport();
                     }
+                    setHeightForm();
                 });
             </script>
         </div>

@@ -68,16 +68,16 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style="height:560px">
+                <div class="card">
                     <form class="form" id="form-tambah">
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0 title-form">
                             <h4 class="card-title" style='margin-bottom: 15px;'>Form Approval Justifikasi Kebutuhan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                        <div class="card-body table-responsive pt-0 body-form">
                             <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row mt-2">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
@@ -247,6 +247,7 @@
     </div>     
     
     <script>
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");

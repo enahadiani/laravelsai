@@ -4,7 +4,7 @@
 }
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
@@ -52,6 +52,8 @@
         </div>
     </div>     
     <script>
+    
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -203,7 +205,7 @@
                             </div>`;
                             $('#print-area').html(html);
                             $('#slide-print').show();
-                            $('#saku-data').hide();
+                            $('#saku-datatable').hide();
                     }
                 }
             }
@@ -213,11 +215,11 @@
 
 
     $('#slide-print').on('click', '#btn-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#slide-print').hide();
     });
 
-    $('#saku-data').on('click','#btn-print',function(e){
+    $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         printLap(id);
     });

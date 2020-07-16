@@ -41,16 +41,16 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style="height:560px">
+                <div class="card">
                         <form class="form" id="form-tambah">
-                            <div class="card-body pb-0">
+                            <div class="card-body pb-0 title-form">
                                 <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Karyawan
                                 <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                                 <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                                 </h4>
                                 <hr>
                             </div>
-                            <div class="card-body table-responsive pt-0" style='height:471px'>
+                            <div class="card-body table-responsive pt-0 body-form">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <div class="form-group row" id="row-id">
                                     <div class="col-9">
@@ -117,6 +117,8 @@
         </div>
     </div>           
     <script>
+    
+    setHeightForm();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

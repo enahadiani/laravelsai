@@ -86,14 +86,14 @@ th{
             <div class="col-sm-12">
                 <div class="card">
                     <form class="form" id="form-tambah" style='margin-bottom:100px'>
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0 title-form">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Kebutuhan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style='min-height:471px'>
+                        <div class="card-body pt-0 body-form">
                             <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
@@ -266,6 +266,8 @@ th{
     </div>     
     
     <script>
+    
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");

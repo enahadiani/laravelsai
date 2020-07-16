@@ -4,7 +4,7 @@
 }
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
@@ -73,16 +73,16 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style="height:560px">
+                <div class="card" >
                     <form class="form" id="form-tambah">
-                        <div class="card-body">
+                        <div class="card-body title-form">
                             <h4 class="card-title" style='margin-bottom: 15px;'>Form Approval Justifikasi Pengadaan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-app-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                        <div class="card-body table-responsive pt-0 body-form" >
                             <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row mt-2">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
@@ -253,6 +253,8 @@
     </div>     
     
     <script>
+    
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -417,7 +419,7 @@
                             </div>`;
                             $('#print-area').html(html);
                             $('#slide-print').show();
-                            $('#saku-data').hide();
+                            $('#saku-datatable').hide();
                             $('#saku-form').hide();
                     }
                 }
@@ -494,18 +496,18 @@
     // });
 
     $('#slide-print').on('click', '#btn-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#slide-print').hide();
     });
 
-    $('#saku-data').on('click','#btn-print',function(e){
+    $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         var kd = $(this).closest('tr').find('td').eq(2).html();
         printLap(id,kd);
     });
 
 
-    $('#saku-data').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
 
         $.ajax({
@@ -592,7 +594,7 @@
                     
                     $('#input-histori tbody').html(input);
                     
-                    $('#saku-data').hide();
+                    $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -609,7 +611,7 @@
     });
 
     $('#saku-form').on('click', '#btn-app-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#saku-form').hide();
     });
 
