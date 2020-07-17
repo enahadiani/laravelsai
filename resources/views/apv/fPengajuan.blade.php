@@ -1,4 +1,15 @@
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+#print-area
+{
+    font-family: 'Roboto', sans-serif !important;
+}
 
+#print-area h3, #print-area h6
+{
+    font-family: 'Roboto', sans-serif !important;
+}
+</style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
             <div class="col-12">
@@ -540,6 +551,9 @@
                         for(i=0;i<result.data.length;i++){
                             control.addOption([{text:result.data[i].nik+'-'+result.data[i].nama, value:result.data[i].nik}]);
                         }
+                    }
+                    if(res.data.nik_ver !== 'undefined'){
+                        control.setValue(res.data.nik_ver);
                     }
                 }
             }
@@ -1189,7 +1203,18 @@
                 <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
                 <!-- SAI CSS -->
                 <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
-                
+                    <style>
+                    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+                    body
+                    {
+                        font-family: 'Roboto', sans-serif !important;
+                    }
+
+                    h3, h6
+                    {
+                        font-family: 'Roboto', sans-serif !important;
+                    }
+                    </style>
             </head>
             <!--
             <body class="skin-default fixed-layout" >-->
