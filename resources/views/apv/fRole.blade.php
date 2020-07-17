@@ -79,6 +79,7 @@
                                     <option value=''>--- Pilih Modul ---</option>
                                     <option value='JK'>Justifikasi Kebutuhan</option>
                                     <option value='JP'>Justifikasi Pengadaan</option>
+                                    <option value='VR'>Verifikasi</option>
                                     </select>
                                 </div>
                             </div>
