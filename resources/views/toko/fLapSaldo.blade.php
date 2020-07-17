@@ -78,22 +78,6 @@
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
-                    <label for="tgl_awal">Tanggal Awal</label>
-                    <input class='form-control' name="tgl_awal" type="date" id="tgl_awal">
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="tgl_akhir">Tanggal Akhir</label>
-                    <input class='form-control' name="tgl_akhir" type="date" id="tgl_akhir">
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
                     <label for="periode-selectized">Periode</label>
                     <select name="periode" id="periode2" class="form-control">
                     <option value="">Pilih Periode</option>
@@ -107,6 +91,16 @@
                     <label for="kode_akun-selectized">Kode Akun</label>
                     <select name="kode_akun" id="kode_akun" class="form-control">
                     <option value="">Pilih Kode Akun</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="kode_pp-selectized">Kode PP</label>
+                    <select name="kode_pp" id="kode_pp" class="form-control">
+                    <option value="">Pilih Kode PP</option>
                     </select>
                 </div>
             </div>
@@ -191,6 +185,8 @@
 
     $('.card-body').on('click', '#btn-lanjut', function(e){
         e.preventDefault();
+        getAkun();
+        getPP();
         openNav();
     });
 
@@ -261,8 +257,31 @@
         });
     }
 
+    function getPP(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('toko-master/unit') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        var select = $('#kode_pp').selectize();
+                        select = select[0];
+                        var control = select.selectize;
+                        control.clearOptions();
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            for(i=0;i<result.daftar.length;i++){
+                                control.addOption([{text:result.daftar[i].kode_pp+'-'+result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
     getPeriode();
     getAkun();
+    getPP();
 
     function sepNum(x){
         if (typeof x === 'undefined' || !x) { 
