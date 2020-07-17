@@ -5,6 +5,11 @@
 .hidden{
     display:none;
 }
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+#print-area
+{
+    font-family: 'Roboto', sans-serif !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
