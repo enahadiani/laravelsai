@@ -32,7 +32,7 @@
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Saldo</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Buku Besar</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
@@ -280,6 +280,8 @@
         }
 
     getPeriode();
+    getAkun();
+    getPP();
 
     function sepNum(x){
         if (typeof x === 'undefined' || !x) { 
@@ -299,7 +301,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "toko-auth/form/rptSaldo";
+        xurl = "toko-auth/form/rptKartu";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -307,7 +309,7 @@
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "toko-auth/form/rptSaldo";
+        xurl = "saku/form/rptKartu";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
@@ -345,7 +347,7 @@
     $('#content-lap').on('click', '#btn-back', function(e){
         e.preventDefault();
         $formData.delete('back');
-        xurl = "saku/form/rptSaldo";
+        xurl = "saku/form/rptNrcLajur";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
