@@ -21,15 +21,15 @@
         public function getSaldo(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-saldo',[
+                $response = $client->request('GET', $this->link.'lap_saldo',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
                         'periode' => $request->periode,
-                        'nik_kasir' => $request->nik_kasir,
-                        'tanggal' => $request->tanggal
+                        'kode_akun' => $request->kode_akun,
+                        'kode_pp' => $request->kode_pp
                     ]
                 ]);
 
@@ -37,7 +37,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res["data"];
+                    $data = $res;
                 }
                 if($request->periode != ""){
                     $periode = $request->periode;

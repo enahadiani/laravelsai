@@ -282,7 +282,7 @@
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();
         $formData = new FormData(this);
-        xurl = "{{ url('/toko-auth/form')}}/rptSaldo";
+        xurl = "toko-auth/form/rptSaldo";
         $('#content-lap').load(xurl);
         // drawLapReg(formData);
     });
