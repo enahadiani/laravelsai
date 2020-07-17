@@ -63,6 +63,18 @@ Route::delete('/hakakses/{nik}','Apv\HakaksesController@destroy');
 Route::get('/form','Apv\HakaksesController@getForm');
 Route::get('/hakakses_menu','Apv\HakaksesController@getMenu');
 
+Route::get('/kota_all', 'Apv\KotaController@index');
+Route::post('/kota', 'Apv\KotaController@store');
+Route::get('/kota/{kode_kota}', 'Apv\KotaController@show');
+Route::put('/kota/{kode_kota}','Apv\KotaController@update');
+Route::delete('/kota/{kode_kota}','Apv\KotaController@destroy');
+
+Route::get('/divisi_all', 'Apv\DivisiController@index');
+Route::post('/divisi', 'Apv\DivisiController@store');
+Route::get('/divisi/{kode_divisi}', 'Apv\DivisiController@show');
+Route::put('/divisi/{kode_divisi}','Apv\DivisiController@update');
+Route::delete('/divisi/{kode_divisi}','Apv\DivisiController@destroy');
+
 Route::get('juskeb','Apv\JuskebController@index');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
 Route::get('kota','Apv\JuskebController@getKota');
