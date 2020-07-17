@@ -964,7 +964,18 @@
                 <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
                 <!-- SAI CSS -->
                 <link href="{{ asset('asset_elite/dist/css/sai.css') }}" rel="stylesheet">
-                
+                <style>
+                    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+                    body
+                    {
+                        font-family: 'Roboto', sans-serif !important;
+                    }
+
+                    h3, h6
+                    {
+                        font-family: 'Roboto', sans-serif !important;
+                    }
+                </style>
             </head>
             <!--
             <body class="skin-default fixed-layout" >-->
