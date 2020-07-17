@@ -112,7 +112,7 @@
                             <div class="form-group row">
                                 <label for="kode_curr" class="col-3 col-form-label">Currency</label>
                                 <div class="col-3">
-                                    <select class='form-control' id="kode_curr" name="kode_curr">
+                                    <select class='form-control' id="kode_curr" name="kode_curr" readonly>
                                         <option value='IDR'>IDR</option>
                                         <option value='USD'>USD</option>
                                     </select>
