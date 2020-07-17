@@ -541,6 +541,9 @@
                             control.addOption([{text:result.data[i].nik+'-'+result.data[i].nama, value:result.data[i].nik}]);
                         }
                     }
+                    if(res.data.nik_ver !== 'undefined'){
+                        control.setValue(res.data.nik_ver);
+                    }
                 }
             }
         });
