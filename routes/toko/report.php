@@ -26,4 +26,4 @@ Route::post('lap-retur-beli', 'Toko\LaporanController@getReturBeli');
 Route::post('lap-pembelian', 'Toko\LaporanController@getPembelian');
 Route::post('lap-closing', 'Toko\LaporanController@getClosing');
 Route::post('lap-barang', 'Toko\LaporanController@getBarang');
-Route::post('lap_saldo', 'Toko\LaporanController@getSaldo');
+Route::post('lap-saldo', 'Toko\LaporanController@getSaldo');

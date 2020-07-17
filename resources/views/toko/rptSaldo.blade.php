@@ -2,7 +2,7 @@
 <script src="{{ asset('asset_elite/sai.js') }}"></script>
 <script type="text/javascript">
 function drawLap(formData){
-    saiPost('toko-report/lap_saldo', null, formData, null, function(res){
+    saiPost('toko-report/lap-saldo', null, formData, null, function(res){
         if(res.result.length > 0){
             $('#pagination').html('');
             var show = $('#show')[0].selectize.getValue();
