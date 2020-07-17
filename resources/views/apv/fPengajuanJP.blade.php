@@ -7,7 +7,7 @@
 }
 </style>
     <div class="container-fluid mt-3">
-        <div class="row" id="saku-data">
+        <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
@@ -84,16 +84,16 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style="height:560px">
+                <div class="card">
                     <form class="form" id="form-tambah">
-                    <div class="card-body pb-0">
+                        <div class="card-body pb-0 title-form">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Pengadaan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                        <div class="card-body table-responsive pt-0 body-form" >
                             <input type="hidden" id="method" name="_method" value="post">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
@@ -288,6 +288,8 @@
     </div>     
     
     <script>
+    
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -510,7 +512,7 @@
                             </div>`;
                             $('#print-area').html(html);
                             $('#slide-print').show();
-                            $('#saku-data').hide();
+                            $('#saku-datatable').hide();
                             $('#saku-form').hide();
                     }
                 }
@@ -707,10 +709,10 @@
     }
 
 
-    $('#saku-data').on('click', '#btn-aju-tambah', function(){
+    $('#saku-datatable').on('click', '#btn-aju-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
-        $('#saku-data').hide();
+        $('#saku-datatable').hide();
         $('#saku-form').show();
         $('#form-tambah')[0].reset();
     });
@@ -847,7 +849,7 @@
         // }
     });
     
-    $('#saku-data').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
             type: 'GET',
@@ -932,7 +934,7 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
-                        $('#saku-data').hide();
+                        $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
                 }
@@ -949,7 +951,7 @@
         });
     });
 
-    $('#saku-data').on('click', '#btn-edit2', function(){
+    $('#saku-datatable').on('click', '#btn-edit2', function(){
         var dt = dataTable.row($(this).parents('tr')).data();
         var id= dt.id;
         $.ajax({
@@ -1046,7 +1048,7 @@
                         }
                         
                         $('#input-histori tbody').html(input);
-                        $('#saku-data').hide();
+                        $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
                 }
@@ -1065,24 +1067,24 @@
 
 
     $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-history').hide();
     });
 
     $('#slide-history').on('click', '#btn-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-history').hide();
     });
 
     $('#slide-print').on('click', '#btn-kembali', function(){
-        $('#saku-data').show();
+        $('#saku-datatable').show();
         $('#saku-form').hide();
         $('#slide-print').hide();
     });
 
-    $('#saku-data').on('click','#btn-history',function(e){
+    $('#saku-datatable').on('click','#btn-history',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
             type: 'GET',
@@ -1111,7 +1113,7 @@
                         
                         $('.profiletimeline').html(html);
                         $('#slide-history').show();
-                        $('#saku-data').hide();
+                        $('#saku-datatable').hide();
                         $('#saku-form').hide();
                     }
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -1138,7 +1140,7 @@
                     <hr>`;
                     $('.profiletimeline').html(html);
                     $('#slide-history').show();
-                    $('#saku-datatable').hide();
+                    $('#saku-datatabletable').hide();
                     $('#saku-form').hide();
                 
                 }
@@ -1146,13 +1148,13 @@
         });
     });
 
-    $('#saku-data').on('click','#btn-print',function(e){
+    $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         printAju(id);
     });
 
     
-    $('#saku-data').on('click','#btn-delete',function(e){
+    $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",

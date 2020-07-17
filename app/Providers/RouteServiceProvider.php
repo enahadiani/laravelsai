@@ -63,6 +63,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapTokoRoutes();
 
         $this->mapRtrwRoutes();
+
+        $this->mapSaiRoutes();
         //
     }
 
@@ -211,5 +213,34 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/rtrw/master.php'));
+    }
+
+    protected function mapSaiRoutes()
+    {
+        Route::prefix('sai-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sai/auth.php'));
+
+        Route::prefix('sai-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sai/dash.php'));
+    
+        Route::prefix('sai-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sai/master.php'));
+    
+        Route::prefix('sai-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sai/trans.php'));
+    
+        Route::prefix('sai-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sai/report.php'));
+   
     }
 }

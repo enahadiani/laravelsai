@@ -259,7 +259,7 @@
                                 <!-- text-->
                                 <div class="dropdown-divider"></div>
                                 <!-- text-->
-                                <a href="{{url('apv/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
+                                <a href="{{url('sai-auth/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                                 <!-- text-->
                             </div>
                         </li>
@@ -307,7 +307,7 @@
                 function loadForm(url){
                     $.ajax({
                         type: 'GET',
-                        url: "{{ url('apv/cek_session') }}",
+                        url: "{{ url('sai-auth/cek_session') }}",
                         dataType: 'json',
                         async:false,
                         success:function(result){    
@@ -318,7 +318,7 @@
                                     text: 'harap login terlebih dahulu!',
                                     icon: 'error'
                                 }).then(function() {
-                                    window.location.href = "{{ url('apv/login') }}";
+                                    window.location.href = "{{ url('sai-auth/login') }}";
                                 })
                             }else{
 
@@ -339,7 +339,7 @@
                 function loadMenu(){
                     $.ajax({
                         type: 'GET',
-                        url: "{{ url('/apv/menu') }}",
+                        url: "{{ url('/sai-auth/menu') }}",
                         dataType: 'json',
                         async:false,
                         success:function(result){
@@ -358,14 +358,14 @@
 
                 
                 if(form !="" || form != "-"){
-                    loadForm("{{ url('/apv/form')}}"+"/"+form)
+                    loadForm("{{ url('/sai-auth/form')}}"+"/"+form)
                 }
 
                 
                 $('.sidebar-nav').on('click','.a_link',function(e){
                     e.preventDefault();
                     var form = $(this).data('href');
-                    var url = "{{ url('/apv/form')}}"+"/"+form;
+                    var url = "{{ url('/sai-auth/form')}}"+"/"+form;
                     console.log(url);
                     if(form == "" || form == "-"){
                         // alert('Form dilock!');
@@ -378,12 +378,12 @@
                 $(document).ready(function(){
                     setTimeout(function(){
                         alert('Session token telah habis, silahkan login kembali');
-                        window.location.href = "{{url('apv/logout')}}";
+                        window.location.href = "{{url('sai-auth/logout')}}";
                     }, 1000 * 60 * 60);
 
                     var form ="{{ Session::get('dash') }}";
                     if(form !="" || form != "-"){
-                        loadForm("{{ url('apv/form') }}/"+form);
+                        loadForm("{{ url('sai-auth/form') }}/"+form);
                     }
                 });
 

@@ -38,14 +38,14 @@
             <div class="col-sm-12">
                 <div class="card">
                     <form class="form" id="form-tambah">
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0 title-form">
                             <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Verifikasi Justifikasi Kebutuhan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body table-responsive pt-0" style='height:471px'>
+                        <div class="card-body table-responsive pt-0 body-form">
                             <div class="form-group row mt-2">
                                 <label for="nama" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
@@ -213,6 +213,8 @@
     </div>     
     
     <script>
+    
+    setHeightForm();
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
