@@ -4,6 +4,11 @@
 {
     font-family: 'Roboto', sans-serif !important;
 }
+
+#print-area h3, #print-area h6
+{
+    font-family: 'Roboto', sans-serif !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
