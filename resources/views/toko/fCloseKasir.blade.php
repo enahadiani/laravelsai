@@ -26,7 +26,7 @@ i:hover{
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="min-height: 560px !important;">
                     <div class="row">
                         <div class="col-6">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Close Kasir</h4>
@@ -91,7 +91,7 @@ i:hover{
     <!-- FORM EDIT -->
     <div id="saku-form" class="row" style="display:none;">
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="min-height: 560px !important;">
                 <form id="form-tambah" style="">
                     <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Open Kasir

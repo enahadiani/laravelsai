@@ -3,7 +3,7 @@
         <div class="row" id="saku-datatable">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="min-height: 560px !important;">
                         <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
@@ -53,7 +53,7 @@
         </div>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style="min-height: 560px !important;">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
@@ -62,7 +62,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="height: 420px !important;">
+                        <div class="card-body pt-0" style="height: 560px !important;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
