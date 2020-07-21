@@ -780,7 +780,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
+                        window.location.href = "{{ url('toko-auth/login') }}";
                     })
                 }
                 $iconLoad.hide();
