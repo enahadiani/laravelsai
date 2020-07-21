@@ -16,3 +16,10 @@ Route::get('customer/{kode}','Sai\CustomerController@show');
 Route::post('customer','Sai\CustomerController@store');
 Route::post('customer-ubah/{kode}','Sai\CustomerController@update');
 Route::delete('customer/{kode}','Sai\CustomerController@destroy');
+
+//Master Proyek
+Route::get('proyek','Sai\ProyekController@index');
+Route::get('proyek/{kode}','Sai\ProyekController@show');
+Route::post('proyek','Sai\ProyekController@store');
+Route::post('proyek-ubah/{kode}','Sai\ProyekController@update');
+Route::delete('proyek/{kode}','Sai\ProyekController@destroy');  
