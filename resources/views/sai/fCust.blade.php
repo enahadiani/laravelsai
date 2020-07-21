@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Karyawan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,8 +36,10 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>NIK</th>
+                                        <th>Kode</th>
                                         <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>PIC</th>
                                         <th>Email</th>
                                         <th>No Telp</th>
                                         <th>Aksi</th>
@@ -57,7 +59,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Barang
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -72,15 +74,21 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nik" class="col-3 col-form-label">NIK</label>
+                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="NIK Karyawan" id="nik" name="nik">
+                                    <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Nama Karyawan" id="nama" name="nama">
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
+                                    </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="pic" class="col-3 col-form-label">PIC</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
                                     </div>
                             </div>
                             <div class="form-group row ">
@@ -93,6 +101,12 @@
                                 <label for="no_telp" class="col-3 col-form-label">No Telp</label>
                                     <div class="col-9">
                                         <input class="form-control" type="text" placeholder="No Telp" id="no_telp" name="no_telp">
+                                    </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="no_telp" class="col-3 col-form-label">Alamat</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
                                     </div>
                             </div>
                             <div class="form-group row">
@@ -157,7 +171,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-master/karyawan') }}",
+            'url': "{{ url('sai-master/customer') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -176,11 +190,13 @@
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html },
+            {'targets': 6, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'nik' },
+            { data: 'kode_cust' },
             { data: 'nama' },
+            { data: 'alamat' },
+            { data: 'pic' },
             { data: 'email' },
             { data: 'no_telp' }
         ],
@@ -200,7 +216,9 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#nik').attr('readonly',false);
+        $('#kode_cust').attr('readonly',false);
+        $('#file_gambar').val('');
+        $('.custom-file-label').val('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -217,10 +235,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-master/karyawan-ubah') }}/"+id;
+            var url = "{{ url('sai-master/customer-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-master/karyawan') }}";
+            var url = "{{ url('sai-master/customer') }}";
             var pesan = "saved";
         }
 
@@ -288,7 +306,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-master/karyawan') }}/"+id,
+                    url: "{{ url('sai-master/customer') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -329,7 +347,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-master/karyawan') }}/" + id,
+            url: "{{ url('sai-master/customer') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -337,12 +355,16 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#nik').val(id);
+                    $('#kode_cust').val(id);
                     $('#id').val(id);
-                    $('#nik').attr('readonly',true);
+                    $('#kode_cust').attr('readonly',true);
+                    $('#file_gambar').val('');
+                    $('.custom-file-label').val('');
                     $('#nama').val(result.data[0].nama);;
                     $('#email').val(result.data[0].email);
                     $('#no_telp').val(result.data[0].no_telp);
+                    $('#pic').val(result.data[0].pic);
+                    $('#alamat').val(result.data[0].alamat);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
