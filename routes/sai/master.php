@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+//Helper
+Route::get('user-menu','Sai\HelperController@getMenu');
+
 //Master Karyawan
 Route::get('karyawan','Sai\KaryawanController@index');
 Route::get('karyawan/{kode}','Sai\KaryawanController@show');
@@ -21,5 +24,12 @@ Route::delete('customer/{kode}','Sai\CustomerController@destroy');
 Route::get('proyek','Sai\ProyekController@index');
 Route::get('proyek/{kode}','Sai\ProyekController@show');
 Route::post('proyek','Sai\ProyekController@store');
-Route::post('proyek-ubah/{kode}','Sai\ProyekController@update');
-Route::delete('proyek/{kode}','Sai\ProyekController@destroy');  
+Route::put('proyek-ubah/{kode}','Sai\ProyekController@update');
+Route::delete('proyek/{kode}','Sai\ProyekController@destroy'); 
+
+//Master User
+Route::get('user','Sai\UserController@index');
+Route::get('user-detail/{kode}','Sai\UserController@show');
+Route::post('user','Sai\UserController@store');
+Route::put('user-ubah/{kode}','Sai\UserController@update');
+Route::delete('user/{kode}','Sai\UserController@destroy'); 

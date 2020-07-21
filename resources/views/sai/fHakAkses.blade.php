@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data User 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,11 +36,11 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Proyek</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Kode Cust</th>
-                                        <th>Tgl Mulai</th>
-                                        <th>Tgl Selesai</th>
+                                        <th>NIK</th>
+                                        <th>Nama</th>
+                                        <th>Kode Kelompok Menu</th>
+                                        <th>Kode Lokasi</th>
+                                        <th>Status Admin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,7 +58,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data User
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -73,37 +73,53 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="no_proyek" class="col-3 col-form-label">Kode Proyek</label>
+                                <label for="nik" class="col-3 col-form-label">NIK</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Proyek" id="no_proyek" name="no_proyek">
+                                    <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Nama Proyek</label>
+                                <label for="nama" class="col-3 col-form-label">Nama</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Proyek" id="nama" name="nama">
+                                    <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
+                                <label for="password" class="col-3 col-form-label">Password</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
+                                    <input class="form-control" type="text" placeholder="Password" id="pass" name="pass">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="klp_akses" class="col-3 col-form-label">Kelompok Akses</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Kelompok Akses" id="klp_akses" name="klp_akses">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_menu_lab" class="col-3 col-form-label">Kode Menu Lab</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Kode Menu Lab" id="kode_menu_lab" name="kode_menu_lab">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="status" class="col-3 col-form-label">Status User</label>
+                                <div class="col-3">
+                                    <select required class='form-control' id="status" name="status" required>
+                                        <option value='A'>Admin</option>
+                                        <option value='U'>User</option>
+                                        <option value='P'>Testing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="kode_klp_menu" class="col-3 col-form-label">Kelompok Menu</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="kode_klp_menu" id="kode_klp_menu" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_kode_cust" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tgl_selesai" class="col-3 col-form-label">Tanggal Selesai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Selesai" id="tgl_selesai" name="tgl_selesai">
+                                    <label id="label_kode_klp_menu" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +173,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-master/proyek') }}",
+            'url': "{{ url('sai-master/user') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -179,11 +195,11 @@
             {'targets': 5, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'no_proyek' },
+            { data: 'nik' },
             { data: 'nama' },
-            { data: 'kode_cust' },
-            { data: 'tgl_mulai' },
-            { data: 'tgl_selesai' }
+            { data: 'kode_klp_menu' },
+            { data: 'kode_lokasi' },
+            { data: 'status_admin' }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -201,7 +217,9 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#no_proyek').attr('readonly',false);
+        $('#nik').attr('readonly',false);
+        $('#kode_klp_menu').val('');
+        $('#label_kode_klp_menu').text('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -213,25 +231,25 @@
         $('#saku-form').hide();
     });
 
-        function getCustomer(id=null){
+        function getMenu(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sai-master/customer') }}",
+                url: "{{ url('sai-master/user-menu') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             var data = result.daftar;
-                            var filter = data.filter(data => data.kode_cust == id);
+                            var filter = data.filter(data => data.kode_klp == id);
                             if(filter.length > 0) {
-                                $('#kode_cust').val(filter[0].kode_cust);
-                                $('#label_kode_cust').text(filter[0].nama);
+                                $('#kode_klp_menu').val(filter[0].kode_klp);
+                                $('#label_kode_klp_menu').text(filter[0].kode_klp);
                             } else {
                                 alert('Customer tidak valid');
-                                $('#kode_cust').val('');
-                                $('#label_kode_cust').text('');
-                                $('#kode_cust').focus();
+                                $('#kode_klp_menu').val('');
+                                $('#label_kode_klp_menu').text('');
+                                $('#kode_klp_menu').focus();
                             }
                         }
                     }
@@ -239,9 +257,9 @@
             });
         }
 
-    $('#form-tambah').on('change', '#kode_cust', function(){
+    $('#form-tambah').on('change', '#kode_klp_menu', function(){
         var par = $(this).val();
-        getCustomer(par);
+        getMenu(par);
     });
 
         function showFilter(param,target1,target2){
@@ -252,15 +270,15 @@
             $target2 = target2;
             
             switch(par){
-                case 'kode_cust': 
+                case 'kode_klp_menu': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-master/customer') }}";
+                var toUrl = "{{ url('sai-master/user-menu') }}";
                     var columns = [
-                        { data: 'kode_cust' },
-                        { data: 'nama' }
+                        { data: 'kode_klp' },
+                        { data: 'kode_klp' }
                     ];
                     
-                    var judul = "Daftar Customer";
+                    var judul = "Daftar Kelompok Menu";
                     var jTarget1 = "val";
                     var jTarget2 = "text";
                     $target = "#"+$target;
@@ -416,10 +434,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-master/proyek-ubah') }}/"+id;
+            var url = "{{ url('sai-master/user-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-master/proyek') }}";
+            var url = "{{ url('sai-master/user') }}";
             var pesan = "saved";
         }
 
@@ -487,7 +505,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-master/proyek') }}/"+id,
+                    url: "{{ url('sai-master/user') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -528,33 +546,23 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-master/proyek') }}/" + id,
+            url: "{{ url('sai-master/user-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    var splitTglmulai = result.data[0].tgl_mulai.split('-');
-                    var tahun_mulai = splitTglmulai[0];
-                    var bulan_mulai = splitTglmulai[1];
-                    var tgl_mulai = splitTglmulai[2];
-                    var mulai = tgl_mulai+"/"+bulan_mulai+"/"+tahun_mulai;
-
-                    var splitTglselesai = result.data[0].tgl_selesai.split('-');
-                    var tahun_selesai = splitTglselesai[0];
-                    var bulan_selesai = splitTglselesai[1];
-                    var tgl_selesai = splitTglselesai[2];
-                    var selesai = tgl_selesai+"/"+bulan_selesai+"/"+tahun_selesai;
-
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#no_proyek').val(id);
+                    $('#nik').val(id);
                     $('#id').val(id);
-                    $('#no_proyek').attr('readonly',true);
+                    $('#nik').attr('readonly',true);
                     $('#nama').val(result.data[0].nama);;
-                    $('#tgl_mulai').val(mulai);
-                    $('#tgl_selesai').val(selesai);
-                    getCustomer(result.data[0].kode_cust);
+                    $('#pass').val(result.data[0].pass);
+                    $('#status').val(result.data[0].status_admin);
+                    $('#klp_akses').val(result.data[0].klp_akses);
+                    $('#kode_menu_lab').val(result.data[0].kode_menu_lab);
+                    getMenu(result.data[0].kode_klp_menu);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
