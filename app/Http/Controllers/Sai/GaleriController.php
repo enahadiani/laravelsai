@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class CustomerController extends Controller
+class GaleriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +33,7 @@ class CustomerController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'customer',[
+            $response = $client->request('GET', $this->link.'galeri',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -57,20 +57,17 @@ class CustomerController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_cust' => 'required',
             'nama' => 'required',
-            'pic' => 'required',
-            'alamat'=>'required',
-            'email' => 'required',
-            'no_telp' => 'required',
+            'isi' => 'required',
+            'kode_ktg'=>'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','file_gambar');
+                $name = array('nama','isi','jenis','kode_ktg','file_gambar');
             } else {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp');
+                $name = array('nama','isi','jenis','kode_ktg');
             }
             $req = $request->all();
             $fields = array();
@@ -97,7 +94,7 @@ class CustomerController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'customer',[
+                $response = $client->request('POST', $this->link.'galeri',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -123,7 +120,7 @@ class CustomerController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'customer?kode_cust='.$id,
+            $response = $client->request('GET', $this->link.'galeri?id='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -148,20 +145,17 @@ class CustomerController extends Controller
 
     public function update(Request $request, $id) {
        $this->validate($request, [
-            'kode_cust' => 'required',
             'nama' => 'required',
-            'email' => 'required',
-            'alamat'=>'required',
-            'pic' => 'required',
-            'no_telp' => 'required',
+            'isi' => 'required',
+            'kode_ktg'=>'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','file_gambar');
+                $name = array('nama','isi','jenis','kode_ktg','file_gambar');
             } else {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp');
+                $name = array('nama','isi','jenis','kode_ktg');
             }
             $req = $request->all();
             $fields = array();
@@ -188,7 +182,7 @@ class CustomerController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'customer-ubah?kode_custk='.$id,[
+                $response = $client->request('POST', $this->link.'galeri-ubah?id='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -208,13 +202,13 @@ class CustomerController extends Controller
                 $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
-            }
+        }
     }
 
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'customer?kode_cust='.$id,
+            $response = $client->request('DELETE', $this->link.'galeri?id='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

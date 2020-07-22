@@ -40,3 +40,10 @@ Route::get('konten-ktg/{kode}','Sai\KategoriKontenController@show');
 Route::post('konten-ktg','Sai\KategoriKontenController@store');
 Route::put('konten-ktg/{kode}','Sai\KategoriKontenController@update');
 Route::delete('konten-ktg/{kode}','Sai\KategoriKontenController@destroy');
+
+//Master Galeri
+Route::get('galeri','Sai\GaleriController@index');
+Route::get('galeri/{kode}','Sai\GaleriController@show');
+Route::post('galeri','Sai\GaleriController@store');
+Route::post('galeri-ubah/{kode}','Sai\GaleriController@update');
+Route::delete('galeri/{kode}','Sai\GaleriController@destroy');
