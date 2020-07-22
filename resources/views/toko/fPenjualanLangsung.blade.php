@@ -83,7 +83,7 @@
                                                 </th>
                                                 <th style='padding: 3px;width:5%'>Total</th>
                                                 <th style='padding: 3px;width:20%'>
-                                                    <input type='text' name="total_trans" min="1" class='form-control currency' id='totrans' required readonly/>
+                                                    <input type='text' name="total_trans" min="1" class='form-control currency' id='nilai_pesan' required readonly/>
                                                 </th>
                                             </tr>
                                         </table>
@@ -99,11 +99,7 @@
                                             </table>
                                         </div>
                                         <div class="col-12 mt-2">
-                                            <div class="form-group row float-right">
-                                                <div class="col-2">
-                                                    <button class="btn btn-info" type="submit" id="btnBayar">Bayar</button>
-                                                </div>
-                                            </div>
+                                            <button type="submit" class="btn btn-info float-right" style="margin-right: -10px;">Pesan</button>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +285,7 @@
                     <div class="col-6" style="">
                     Total 
                     </div>
-                    <div class="col-6 text-right" id="modal-totrans">
+                    <div class="col-6 text-right" id="modal-nilai_pesan">
                     300.800,26
                     </div>
                 </div>
@@ -519,7 +515,7 @@
     }
 
     function hitungDisc(){
-        var total_trans = toNilai($('#totrans').val());
+        var total_trans = toNilai($('#nilai_pesan').val());
         var total_disk= toNilai($('#todisk').val());
         var total_stlh = +total_trans - +total_disk;
         $('#tostlh').val(toRp(total_stlh));
@@ -551,7 +547,7 @@
             $(this).closest('tr').find('.inp-subb').val(toRp(subb));
             total_brg += +subb;
         });
-        $('#totrans').val(toRp(total_brg));
+        $('#nilai_pesan').val(toRp(total_brg));
         $('#todisk').val(toRp(diskon));
 
         var total_disk= toNilai($('#todisk').val());
@@ -917,15 +913,14 @@
         // Simpan penjualan-langsung
     $('#web-form-pos').submit(function(e){
         e.preventDefault();
-        var totrans=toNilai($('#totrans').val());
-            if(totrans <= 0){
+        var nilai_pesan=toNilai($('#nilai_pesan').val());
+            if(nilai_pesan <= 0){
                 alert('Total transaksi tidak valid');
             }else{
                 var formData = new FormData(this);
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
-
                 $.ajax({
                     type: 'POST',
                     url: "{{url('toko-trans/penjualan-langsung')}}",
@@ -937,30 +932,31 @@
                     processData: false,
                     success: function(result) {
                         if(result.data.status){
-                            $('#modal-totrans').text(sepNum(totrans));
-                            $('#modal-diskon').text(sepNum(todisk)); 
-                            $('#modal-tostlhdisk').text(sepNum(tostlh));
-                            $('#modal-tobyr').text(sepNum(tobyr));
-                            $('#modal-kembalian').text(sepNum(kembalian));
-                            $('#modal-no_jual').text(result.no_jual);
-                            $('#modal-bayar2').modal('show');
+                            // $('#modal-nilai_pesan').text(sepNum(nilai_pesan));
+                            // $('#modal-diskon').text(sepNum(todisk)); 
+                            // $('#modal-tostlhdisk').text(sepNum(tostlh));
+                            // $('#modal-tobyr').text(sepNum(tobyr));
+                            // $('#modal-kembalian').text(sepNum(kembalian));
+                            // $('#modal-no_jual').text(result.no_jual);
+                            // $('#modal-bayar2').modal('show');
+                            alert('Input data'+result.data.message);
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
-                        Swal.fire({
-                            title: 'Session telah habis',
-                            text: 'harap login terlebih dahulu!',
-                            icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('/toko-auth/login') }}";
-                    }) 
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('/toko-auth/login') }}";
+                            }) 
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
                     }
-                }
                 });
             }
     });

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class PenjualanController extends Controller
+class PenjualanLangsungController extends Controller
 {
     /**
      * Display a listing of the resource.
