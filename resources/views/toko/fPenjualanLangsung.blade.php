@@ -17,6 +17,12 @@
 .form-group.row{
    margin-bottom:5px !important;
 }
+
+#getCust,.search-kode_kirim
+{
+    cursor:pointer;
+}
+
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -127,18 +133,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="email" class="col-2 col-form-label">Email</label>
-                                            <div class="col-3">
-                                                <input class="form-control" type="email" placeholder="Email" id="email" name="email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="pic" class="col-2 col-form-label">PIC</label>
-                                            <div class="col-3">
-                                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="alamat" class="col-2 col-form-label">Alamat</label>
                                             <div class="col-10">
                                                 <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
@@ -159,12 +153,12 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="data-kirim" role="tabpanel">
-                                    <div class="col-12 mt-2">
+                                    <div class="col-12 mt-2" style="min-height:365px">
                                         <div class="form-group row">
                                             <label for="kode_kirim" class="col-2 col-form-label">Jasa Kirim</label>
                                             <div class="input-group col-3">
                                                 <input type='text' name="kode_kirim" id="kode_kirim" class="form-control" value="" required>
-                                                    <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                                    <i class='fa fa-search search-kode_kirim' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_kode_kirim" style="margin-top: 10px;"></label>
@@ -172,8 +166,14 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="nilai_ongkir" class="col-2 col-form-label">Nilai Ongkir</label>
-                                            <div class="col-4">
-                                                <input class="form-control currency" type="text" id="nilai_ongkir" name="nilai_ongkir" readonly>
+                                            <div class="col-3">
+                                                <input class="form-control currency" type="text" id="nilai_ongkir" value="0" name="nilai_ongkir" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="catatan" class="col-2 col-form-label">Catatan</label>
+                                            <div class="col-10">
+                                                <textarea class="form-control" id="catatan" name="catatan"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -333,9 +333,11 @@
     </div>
 </div>
 
+@include('searchModal')
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
 <script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
+<script src="{{ asset('asset_elite/inputSearch.js') }}" ></script> 
 
 <script type="text/javascript">
     var $dtBrg = new Array();
@@ -379,6 +381,21 @@
         onChange: function (){
         var id = $('#modal-edit-kode').val();
             setHarga(id);
+        }
+    });
+
+    $(".search-kode_kirim").inputSearch({
+        title: 'Daftar Jasa Kirim',
+        url: "{{ url('toko-master/jasa-kirim') }}",
+        header:['Kode Kirim','Nama'],
+        columns:[
+                    { data: 'kode_kirim' },
+                    { data: 'nama' }
+                ],
+        parameter:{},
+        onItemSelected: function(data){
+            $('input[name=kode_kirim]').val(data.kode_kirim);
+            $('#label_kode_kirim').text(data.nama);
         }
     });
 
@@ -449,6 +466,41 @@
                         text: 'Something went wrong!',
                         footer: '<a href>'+result.data.message+'</a>'
                     })
+                }
+            }
+        });
+    }
+
+    function getCustomer(kode_cust) {
+        $.ajax({
+            type:'GET',
+            url:"{{url('toko-master/cust-ol')}}/"+kode_cust,
+            dataType: 'json',
+            async: false,
+            success: function(res) {
+                result = res.data;
+                if(result.status) {
+                    if(result.data.length > 0){
+                        $('#nama').val(result.data[0].nama);
+                        $('#no_tel').val(result.data[0].no_tel);
+                        $('#alamat').val(result.data[0].alamat);
+                        $('#kota').val(result.data[0].kota);
+                        $('#provinsi').val(result.data[0].provinsi);
+                    }
+                }else if(!res.data.status && res.data.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('toko-auth/login') }}";
+                    })
+                } else{
+                    $('#nama').val('');
+                    $('#no_tel').val('');
+                    $('#alamat').val('');
+                    $('#kota').val('');
+                    $('#provinsi').val('');
                 }
             }
         });
@@ -772,6 +824,17 @@
             });
     });
 
+    $('#web-form-pos').on('change', '#kode_cust', function(){
+        // $('#getCust').attr('disabled', false);
+        var kode_cust = $('#kode_cust').val();
+        getCustomer(kode_cust);
+    });
+    
+    $('#web-form-pos').on('click', '#getCust', function(){
+        var kode_cust = $('#kode_cust').val();
+        getCustomer(kode_cust);
+    });
+
     $('#kd-barang2').scannerDetection({
         timeBeforeScanTest: 200, // wait for the next character for upto 200ms
         avgTimeByChar: 40, // it's not a barcode if a character takes longer than 100ms
@@ -855,10 +918,6 @@
     $('#web-form-pos').submit(function(e){
         e.preventDefault();
         var totrans=toNilai($('#totrans').val());
-        var todisk=toNilai($('#todisk').val());
-        var tostlh=toNilai($('#tostlh').val());
-        var tobyr=toNilai($('#tobyr').val());
-        var kembalian=tobyr-tostlh;
             if(totrans <= 0){
                 alert('Total transaksi tidak valid');
             }else{

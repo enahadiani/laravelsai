@@ -61,3 +61,7 @@ Route::get('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@show');
 Route::post('pindah-buku', 'Toko\PindahBukuController@store');
 Route::put('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@update');
 Route::delete('pindah-buku/{no_bukti}', 'Toko\PindahBukuController@destroy');
+
+//Penjualan OL //
+Route::get('penjualan-langsung-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Toko\PenjualanLangsungController@cekBonus');
+Route::post('penjualan-langsung', 'Toko\PenjualanLangsungController@store');
