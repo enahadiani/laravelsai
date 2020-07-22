@@ -1,0 +1,217 @@
+<?php
+
+namespace App\Http\Controllers\Sai;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Session;
+use GuzzleHttp\Exception\BadResponseException;
+
+class KontrakController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public $link = 'https://api.simkug.com/api/sai-trans/';
+
+    public function __contruct(){
+        if(!Session::get('login')){
+            return redirect('sai-auth/login')->with('alert','Session telah habis !');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function index(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'kontrak',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function store(Request $request) {
+        $this->validate($request, [
+            'no_dokumen' => 'required',
+            'tgl_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'kode_cust' => 'required',
+            'keterangan' => 'required',
+            'nilai' => 'required',
+        ]);
+
+        try { 
+                $explode_tgl_mulai = explode('/', $request->tgl_mulai);
+                $tgl_mulai = $explode_tgl_mulai[0];
+                $bln_mulai = $explode_tgl_mulai[1];
+                $tahun_mulai = $explode_tgl_mulai[2];
+                $tanggal_mulai = $tahun_mulai."-".$bln_mulai."-".$tgl_mulai;
+                
+                $explode_tgl_selesai = explode('/', $request->tgl_selesai);
+                $tgl_selesai = $explode_tgl_selesai[0];
+                $bln_selesai = $explode_tgl_selesai[1];
+                $tahun_selesai = $explode_tgl_selesai[2];
+                $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
+                $client = new Client();
+                $response = $client->request('POST', $this->link.'kontrak',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'no_dokumen' => $request->no_dokumen,
+                        'tgl_awal' => $tanggal_mulai,
+                        'tgl_akhir' => $tanggal_selesai,
+                        'kode_cust'=> $request->kode_cust,
+                        'keterangan'=> $request->keterangan,
+                        'nilai'=> intval(str_replace('.','', $request->nilai)),
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
+    public function show($id) {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'kontrak?no_kontrak='.$id,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function update(Request $request, $id) {
+       $this->validate($request, [
+            'no_dokumen' => 'required',
+            'tgl_mulai' => 'required',
+            'tgl_selesai' => 'required',
+            'kode_cust' => 'required',
+            'keterangan' => 'required',
+            'nilai' => 'required',
+        ]);
+
+        try { 
+                $explode_tgl_mulai = explode('/', $request->tgl_mulai);
+                $tgl_mulai = $explode_tgl_mulai[0];
+                $bln_mulai = $explode_tgl_mulai[1];
+                $tahun_mulai = $explode_tgl_mulai[2];
+                $tanggal_mulai = $tahun_mulai."-".$bln_mulai."-".$tgl_mulai;
+                
+                $explode_tgl_selesai = explode('/', $request->tgl_selesai);
+                $tgl_selesai = $explode_tgl_selesai[0];
+                $bln_selesai = $explode_tgl_selesai[1];
+                $tahun_selesai = $explode_tgl_selesai[2];
+                $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
+                $client = new Client();
+                $response = $client->request('PUT', $this->link.'kontrak?no_kontrak='.$id,[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'no_dokumen' => $request->no_dokumen,
+                        'tgl_awal' => $tanggal_mulai,
+                        'tgl_akhir' => $tanggal_selesai,
+                        'kode_cust'=> $request->kode_cust,
+                        'keterangan'=> $request->keterangan,
+                        'nilai'=> intval(str_replace('.','', $request->nilai)),
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);  
+                }
+
+        } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+    }
+
+    public function destroy($id) {
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', $this->link.'kontrak?no_kontrak='.$id,
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+
+    }
+   
+}
