@@ -66,7 +66,7 @@
                             </ul>
                             <div class="tab-content tabcontent-border col-12 p-0">
                                 <div class="tab-pane active" id="data-brg" role="tabpanel">
-                                    <div class="col-12 mt-1">
+                                    <div class="col-12 mt-1" style="min-height:365px">
                                         <table class="table table-input" style="margin-bottom: 5px">
                                             <tr>
                                                 <th style='padding: 3px;width:25%' colspan='2'>
@@ -98,9 +98,6 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="col-12 mt-2">
-                                            <button type="submit" class="btn btn-info float-right" style="margin-right: -10px;">Pesan</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="data-cust" role="tabpanel">
@@ -109,7 +106,7 @@
                                             <label for="kode_cust" class="col-2 col-form-label">Kode Customer</label>
                                             <div class="col-3">
                                                 <div class="input-group">
-                                                    <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust" required>
+                                                    <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
                                                     <div class="input-group-append">
                                                         <button disabled="true" class="btn btn-info" id="getCust" type="button"><i class="fa fa-search"></i></button>
                                                     </div>
@@ -153,7 +150,7 @@
                                         <div class="form-group row">
                                             <label for="kode_kirim" class="col-2 col-form-label">Jasa Kirim</label>
                                             <div class="input-group col-3">
-                                                <input type='text' name="kode_kirim" id="kode_kirim" class="form-control" value="" required>
+                                                <input type='text' name="kode_kirim" id="kode_kirim" class="form-control" value="">
                                                     <i class='fa fa-search search-kode_kirim' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
                                             </div>
                                             <div class="col-6">
@@ -170,6 +167,11 @@
                                             <label for="catatan" class="col-2 col-form-label">Catatan</label>
                                             <div class="col-10">
                                                 <textarea class="form-control" id="catatan" name="catatan"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12 float-right">
+                                            <button type="submit" class="btn btn-info float-right" style="margin-right: 0;">Pesan</button>
                                             </div>
                                         </div>
                                     </div>
