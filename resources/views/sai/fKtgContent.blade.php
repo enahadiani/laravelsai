@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Kategori Konten 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,11 +36,8 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Proyek</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Kode Cust</th>
-                                        <th>Tgl Mulai</th>
-                                        <th>Tgl Selesai</th>
+                                        <th>Kode Kategori</th>
+                                        <th>Nama Kategori</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,7 +55,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Kategori Konten
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -72,38 +69,16 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="no_proyek" class="col-3 col-form-label">Kode Proyek</label>
+                            <div class="form-group row kode_ktg">
+                                <label for="no_proyek" class="col-3 col-form-label">Kode Kategori</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Proyek" id="no_proyek" name="no_proyek">
+                                    <input class="form-control" type="text" placeholder="Kode Kategori" id="kode_ktg" name="kode_ktg">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Nama Proyek</label>
+                                <label for="nama" class="col-3 col-form-label">Nama Kategori</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Proyek" id="nama" name="nama">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_cust" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tgl_selesai" class="col-3 col-form-label">Tanggal Selesai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Selesai" id="tgl_selesai" name="tgl_selesai">
+                                    <input class="form-control" type="text" placeholder="Nama Kategori" id="nama" name="nama">
                                 </div>
                             </div>
                         </div>
@@ -157,7 +132,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-master/proyek') }}",
+            'url': "{{ url('sai-master/konten-ktg') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -176,14 +151,11 @@
             }
         },
         'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html },
+            {'targets': 2, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'no_proyek' },
+            { data: 'kode_ktg' },
             { data: 'nama' },
-            { data: 'kode_cust' },
-            { data: 'tgl_mulai' },
-            { data: 'tgl_selesai' }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -201,7 +173,7 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#no_proyek').attr('readonly',false);
+        $('.kode_ktg').hide();
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -213,213 +185,15 @@
         $('#saku-form').hide();
     });
 
-        function getCustomer(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sai-master/customer') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.kode_cust == id);
-                            if(filter.length > 0) {
-                                $('#kode_cust').val(filter[0].kode_cust);
-                                $('#label_kode_cust').text(filter[0].nama);
-                            } else {
-                                alert('Customer tidak valid');
-                                $('#kode_cust').val('');
-                                $('#label_kode_cust').text('');
-                                $('#kode_cust').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-    $('#form-tambah').on('change', '#kode_cust', function(){
-        var par = $(this).val();
-        getCustomer(par);
-    });
-
-        function showFilter(param,target1,target2){
-            var par = param;
-            var modul = '';
-            var header = [];
-            $target = target1;
-            $target2 = target2;
-            
-            switch(par){
-                case 'kode_cust': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-master/customer') }}";
-                    var columns = [
-                        { data: 'kode_cust' },
-                        { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar Customer";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-            }
-
-            var header_html = '';
-            for(i=0; i<header.length; i++){
-                header_html +=  "<th>"+header[i]+"</th>";
-            }
-            header_html +=  "<th></th>";
-
-            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-            table += "<tbody></tbody></table>";
-
-            $('#modal-search .modal-body').html(table);
-
-            var searchTable = $("#table-search").DataTable({
-                // fixedHeader: true,
-                // "scrollY": "300px",
-                // "processing": true,
-                // "serverSide": true,
-                "ajax": {
-                    "url": toUrl,
-                    "data": {'param':par},
-                    "type": "GET",
-                    "async": false,
-                    "dataSrc" : function(json) {
-                        return json.daftar;
-                    }
-                },
-                "columnDefs": [{
-                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-                }],
-                'columns': columns
-                // "iDisplayLength": 25,
-            });
-
-            // searchTable.$('tr.selected').removeClass('selected');
-            $('#table-search tbody').find('tr:first').addClass('selected');
-            $('#modal-search .modal-title').html(judul);
-            $('#modal-search').modal('show');
-            searchTable.columns.adjust().draw();
-
-            $('#table-search').on('click','.check-item',function(){
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                    $($target).attr('value',kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                console.log($target3);
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('dblclick','tr',function(){
-                console.log('dblclick');
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    searchTable.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });
-
-            $(document).keydown(function(e) {
-                if (e.keyCode == 40){ //arrow down
-                    var tr = searchTable.$('tr.selected');
-                    tr.removeClass('selected');
-                    tr.next().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-                if (e.keyCode == 38){ //arrow up
-                    
-                    var tr = searchTable.$('tr.selected');
-                    searchTable.$('tr.selected').removeClass('selected');
-                    tr.prev().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-
-                if (e.keyCode == 13){
-                    var kode = $('tr.selected').find('td:nth-child(1)').text();
-                    var nama = $('tr.selected').find('td:nth-child(2)').text();
-                    if(jTarget1 == "val"){
-                        $($target).val(kode);
-                    }else{
-                        $($target).text(kode);
-                    }
-
-                    if(jTarget2 == "val"){
-                        $($target2).val(nama);
-                    }else{
-                        $($target2).text(nama);
-                    }
-                    
-                    if($target3 != ""){
-                        $($target3).text(nama);
-                    }
-                    $('#modal-search').modal('hide');
-                }
-            })
-        }
-
-        $('#form-tambah').on('click', '.search-item2', function(){
-            var par = $(this).closest('div').find('input').attr('name');
-            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-            target1 = par;
-            target2 = par2;
-            showFilter(par,target1,target2);
-        });
-
-
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-master/proyek-ubah') }}/"+id;
+            var url = "{{ url('sai-master/konten-ktg') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-master/proyek') }}";
+            var url = "{{ url('sai-master/konten-ktg') }}";
             var pesan = "saved";
         }
 
@@ -487,7 +261,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-master/proyek') }}/"+id,
+                    url: "{{ url('sai-master/konten-ktg') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -528,33 +302,19 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-master/proyek') }}/" + id,
+            url: "{{ url('sai-master/konten-ktg') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    var splitTglmulai = result.data[0].tgl_mulai.split('-');
-                    var tahun_mulai = splitTglmulai[0];
-                    var bulan_mulai = splitTglmulai[1];
-                    var tgl_mulai = splitTglmulai[2];
-                    var mulai = tgl_mulai+"/"+bulan_mulai+"/"+tahun_mulai;
-
-                    var splitTglselesai = result.data[0].tgl_selesai.split('-');
-                    var tahun_selesai = splitTglselesai[0];
-                    var bulan_selesai = splitTglselesai[1];
-                    var tgl_selesai = splitTglselesai[2];
-                    var selesai = tgl_selesai+"/"+bulan_selesai+"/"+tahun_selesai;
-
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#no_proyek').val(id);
+                    $('.kode_ktg').show();
+                    $('#kode_ktg').val(id);
                     $('#id').val(id);
-                    $('#no_proyek').attr('readonly',true);
+                    $('#kode_ktg').attr('readonly',true);
                     $('#nama').val(result.data[0].nama);
-                    $('#tgl_mulai').val(mulai);
-                    $('#tgl_selesai').val(selesai);
-                    getCustomer(result.data[0].kode_cust);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

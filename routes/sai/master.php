@@ -32,4 +32,11 @@ Route::get('user','Sai\UserController@index');
 Route::get('user-detail/{kode}','Sai\UserController@show');
 Route::post('user','Sai\UserController@store');
 Route::put('user-ubah/{kode}','Sai\UserController@update');
-Route::delete('user/{kode}','Sai\UserController@destroy'); 
+Route::delete('user/{kode}','Sai\UserController@destroy');
+
+//Master User
+Route::get('konten-ktg','Sai\KategoriKontenController@index');
+Route::get('konten-ktg/{kode}','Sai\KategoriKontenController@show');
+Route::post('konten-ktg','Sai\KategoriKontenController@store');
+Route::put('konten-ktg/{kode}','Sai\KategoriKontenController@update');
+Route::delete('konten-ktg/{kode}','Sai\KategoriKontenController@destroy');
