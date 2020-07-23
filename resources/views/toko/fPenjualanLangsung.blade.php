@@ -225,41 +225,6 @@
     <div id="area_print"></div>
 </div>
 
-<!-- FORM MODAL BAYAR -->
-<div class='modal' id='modal-bayar' tabindex='-1' role='dialog'>
-    <div class='modal-dialog modal-sm' role='document'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <h5 class='modal-title'>Pilih Nominal</h5>
-                <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                </button>
-            </div>
-            <div class='modal-body'>
-                <div class='row mb-2' style="text-align: center;">
-                <a class="btn btn-lg btn-secondary" id="nom0" style="width: 126px;">Uang Pas</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom1' style="width: 126px;">1.000</a></div>
-                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom2' style="width: 126px;">2.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom3' style="width: 126px;">5.000</a></div>
-                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom4' style="width: 126px;">10.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom5' style="width: 126px;">20.000</a></div>
-                <div class='row mb-2'><a class="btn btn-lg btn-secondary" id='nom6' style="width: 126px;">50.000</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-lg btn-secondary" id='nom7' style="width: 126px;">100.000</a></div>
-                <div class='form-group row'>
-                    <label for="judul" class="col-3 col-form-label">Nominal Bayar</label>
-                    <div class="col-9">
-                    <input type='text' class='form-control currency' maxlength='100' id='inp-byr' readonly>
-                    </div>
-                </div>
-                <div class='form-group row'>
-                    <div class="col-9">
-                    <input type='hidden' class='form-control' id='param' readonly>
-                    </div>
-                </div>
-            </div>
-            <div class='modal-footer'>
-            <button type='button' id='btn-ok' class='btn btn-success'>OK</button>
-            <button type='button' id='btn-clear' class='btn btn-default'>C</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- FORM EDIT MODAL -->
 <div class='modal' id='modal-edit' tabindex='-1' role='dialog'>
     <div class='modal-dialog' role='document'>
@@ -303,6 +268,55 @@
                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-bayar2" tabindex="-1" role="dialog" aria-modal="true">
+    <div role="document" style="" class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px !important;">
+            <div class="modal-header " style="display:block">
+                <div class="row text-center" style="">
+                    <div class="col-md-12">
+                        <h5 class="">Total Transaksi</h5>
+                        <h5 id="modal-no_bukti" hidden></h5>
+                        <h1 class="text-info" id="modal-total_all"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2" style="">
+                    <div class="col-6" style="">
+                    Total Transaksi
+                    </div>
+                    <div class="col-6 text-right" id="modal-total_trans">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                <div class="col-6">
+                    Diskon 
+                    </div>
+                    <div class="col-6 text-right" id="modal-diskon">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                    Nilai Ongkir
+                    </div>
+                    <div class="col-6 text-right" id="modal-nilai_ongkir">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-6">
+                    Lama Pengiriman (hari)
+                    </div>
+                    <div class="col-6 text-right" id="modal-lama_kirim">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0;">
+            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;margin:0">Cetak</button>
             </div>
         </div>
     </div>
@@ -436,10 +450,10 @@
                 target2 = "#"+target2;
                 target3 = "#nilai_ongkir";
                 target4 = "#lama_hari";
-                var city = $('#kota').val();
+                var kecamatan = $('#kecamatan').val();
                 var weight = toNilai($('#berat').val());
                 var courier = $('#kode_kirim').val();
-                parameter = {'destination':city,'weight':weight,'courier':courier};
+                parameter = {'destination':kecamatan,'weight':weight,'courier':courier};
             break;
         }
 
@@ -1108,7 +1122,10 @@
     });
 
     $('#cetakBtn').click(function(){
-        var no_jual = $('#modal-no_jual').text();      
+        $('#modal-bayar2').modal('hide');
+        $('#web-form-pos')[0].reset();
+        $('#input-grid2 tbody').html('');
+        $('[id^=label]').text('');
     }); 
 
     $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
@@ -1144,6 +1161,13 @@
         // Simpan penjualan-langsung
     $('#web-form-pos').submit(function(e){
         e.preventDefault();
+
+        var total_trans=toNilai($('#nilai_pesan').val());
+        var diskon=toNilai($('#todisk').val());
+        var nilai_ongkir=toNilai($('#nilai_ongkir').val());
+        var total_all = total_trans+diskon+nilai_ongkir;
+        var lama_hari=$('#lama_hari').val();
+
         var nilai_pesan=toNilai($('#nilai_pesan').val());
             if(nilai_pesan <= 0){
                 alert('Total transaksi tidak valid');
@@ -1163,14 +1187,13 @@
                     processData: false,
                     success: function(result) {
                         if(result.data.status){
-                            // $('#modal-nilai_pesan').text(sepNumX(nilai_pesan));
-                            // $('#modal-diskon').text(sepNumX(todisk)); 
-                            // $('#modal-tostlhdisk').text(sepNumX(tostlh));
-                            // $('#modal-tobyr').text(sepNumX(tobyr));
-                            // $('#modal-kembalian').text(sepNumX(kembalian));
-                            // $('#modal-no_jual').text(result.no_jual);
-                            // $('#modal-bayar2').modal('show');
                             alert('Input data'+result.data.message);
+                            $('#modal-total_all').text(toRp(total_all));
+                            $('#modal-total_trans').text(toRp(total_trans)); 
+                            $('#modal-diskon').text(toRp(diskon)); 
+                            $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
+                            $('#modal-lama_hari').text(lama_hari);
+                            $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             Swal.fire({
                                 title: 'Session telah habis',

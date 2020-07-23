@@ -71,14 +71,18 @@ class PenjualanLangsungController extends Controller
             'alamat'=>'required',
             'kota'=>'required',
             'provinsi'=>'required',
+            'kecamatan'=>'required',
+            'service'=>'required',
+            'berat'=>'required',
+            'lama_hari'=>'required',
             'catatan'=>'required',
             'kode_kirim'=>'required',
             'nilai_ongkir'=>'required',
-            'nilai_pesan'=>'required',
+            'total_trans'=>'required',
             'kode_barang' => 'required|array',
             'qty_barang' => 'required|array',
             'harga_barang' => 'required|array',
-            'diskon_barang' => 'required|array',
+            'disc_barang' => 'required|array',
             'sub_barang' => 'required|array',
         ]);
 
@@ -99,12 +103,16 @@ class PenjualanLangsungController extends Controller
                 'notel_cust'=>$request->no_tel,
                 'alamat_cust'=>$request->alamat,
                 'kota_cust'=>$request->kota,
+                'kecamatan_cust'=>$request->kecamatan,
                 'prop_cust'=>$request->provinsi,
                 'catatan'=>$request->catatan,
+                'service'=>$request->service,
+                'berat'=>$this->joinNum($request->berat),
+                'lama_hari'=>$request->lama_hari,
                 'kode_kirim'=>$request->kode_kirim,
                 'no_resi'=>'-',
                 'nilai_ongkir'=>$this->joinNum($request->nilai_ongkir),
-                'nilai_pesan'=>$this->joinNum($request->nilai_pesan),
+                'nilai_pesan'=>$this->joinNum($request->total_trans),
                 'kode_barang' => $request->kode_barang,
                 'qty_barang' => $request->qty_barang,
                 'harga_barang' => $data_harga,
@@ -286,10 +294,10 @@ class PenjualanLangsungController extends Controller
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true,'kode_kota'=>Session::get('kode_kota')], 200); 
+            return response()->json(['daftar' => $data,'status'=>true,'kode_kota'=>Session::get('kode_kota')], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
