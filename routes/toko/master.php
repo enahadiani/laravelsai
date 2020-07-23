@@ -124,3 +124,17 @@ Route::get('reftrans-detail/{id}', 'Toko\ReferensiTransController@getData');
 Route::post('reftrans', 'Toko\ReferensiTransController@store');
 Route::put('reftrans/{id}', 'Toko\ReferensiTransController@update');
 Route::delete('reftrans/{id}', 'Toko\ReferensiTransController@delete');
+
+// Data Jasa Kirim //
+Route::get('jasa-kirim', 'Toko\JasaKirimController@index');
+Route::get('jasa-kirim-detail', 'Toko\JasaKirimController@getData');
+Route::post('jasa-kirim', 'Toko\JasaKirimController@store');
+Route::put('jasa-kirim', 'Toko\JasaKirimController@update');
+Route::delete('jasa-kirim', 'Toko\JasaKirimController@delete');
+
+// Data Customer //
+Route::get('cust-ol', 'Toko\CustomerOLController@index');
+Route::get('cust-ol/{id}', 'Toko\CustomerOLController@getData');
+Route::post('cust-ol', 'Toko\CustomerOLController@store');
+Route::put('cust-ol/{id}', 'Toko\CustomerOLController@update');
+Route::delete('cust-ol/{id}', 'Toko\CustomerOLController@delete');
