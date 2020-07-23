@@ -14,5 +14,5 @@ Route::delete('kontrak/{kode}','Sai\KontrakController@destroy');
 Route::get('tagihan','Sai\TagihanController@index');
 Route::get('kontrak/{kode}','Sai\KontrakController@show');
 Route::post('tagihan','Sai\TagihanController@store');
-Route::put('kontrak-ubah/{kode}','Sai\KontrakController@update');
-Route::delete('kontrak/{kode}','Sai\KontrakController@destroy');
+Route::post('tagihan-ubah/{kode}','Sai\TagihanController@update');
+Route::delete('tagihan/{kode}','Sai\TagihanController@destroy');
