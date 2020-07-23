@@ -692,7 +692,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-trans/kontrak') }}/"+id,
+                    url: "{{ url('sai-trans/tagihan') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
