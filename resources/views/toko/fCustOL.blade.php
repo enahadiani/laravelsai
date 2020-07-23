@@ -107,15 +107,21 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="provinsi" class="col-3 col-form-label">Provinsi</label>
+                                <div class="col-9">
+                                     <input class="form-control" type="text" placeholder="Provinsi Customer" id="provinsi" name="provinsi">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="kota" class="col-3 col-form-label">Kota</label>
                                 <div class="col-9">
                                      <input class="form-control" type="text" placeholder="Kota Customer" id="kota" name="kota">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="provinsi" class="col-3 col-form-label">Provinsi</label>
+                                <label for="kecamatan" class="col-3 col-form-label">Kecamatan</label>
                                 <div class="col-9">
-                                     <input class="form-control" type="text" placeholder="Provinsi Customer" id="provinsi" name="provinsi">
+                                     <input class="form-control" type="text" placeholder="kecamatan Customer" id="kecamatan" name="kecamatan">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -346,6 +352,7 @@
                     $('#nama').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
                     $('#kota').val(result.data[0].kota);
+                    $('#kecamatan').val(result.data[0].kecamatan);
                     $('#provinsi').val(result.data[0].provinsi);
                     $('#email').val(result.data[0].email);
                     $('#pic').val(result.data[0].pic);

@@ -182,7 +182,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="berat" class="col-2 col-form-label">Berat Produk</label>
+                                            <label for="berat" class="col-2 col-form-label">Berat Produk (gram)</label>
                                             <div class="col-3">
                                                 <input class="form-control currency" type="text" id="berat" value="0" name="berat" >
                                             </div>
