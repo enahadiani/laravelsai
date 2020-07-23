@@ -70,39 +70,40 @@ class CustomerOLController extends Controller
         ]);
 
         try {   
-                $client = new Client();
-                $response = $client->request('POST', $this->link.'cust-ol',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_cust' => $request->kode_cust,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'kota' => $request->kota,
-                        'kecamatan' => $request->kecamatan,
-                        'provinsi' => $request->provinsi,
-                        'no_tel' => $request->no_tel,
-                        'email' => $request->email,
-                        'pic' => $request->pic,
-                        'id_lain' => $request->id_lain,
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'cust-ol',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_cust' => $request->kode_cust,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'kota' => $request->kota,
+                    'kecamatan' => $request->kecamatan,
+                    'provinsi' => $request->provinsi,
+                    'no_tel' => $request->no_tel,
+                    'email' => $request->email,
+                    'pic' => $request->pic,
+                    'id_lain' => $request->id_lain,
                     ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function getData($id) {
@@ -146,39 +147,40 @@ class CustomerOLController extends Controller
         ]);
 
         try {
-                $client = new Client();
-                $response = $client->request('PUT', $this->link.'cust-ol?kode_cust='.$id,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_cust' => $request->kode_cust,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'kota' => $request->kota,
-                        'kecamatan' => $request->kecamatan,
-                        'provinsi' => $request->provinsi,
-                        'no_tel' => $request->no_tel,
-                        'email' => $request->email,
-                        'pic' => $request->pic,
-                        'id_lain' => $request->id_lain,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'cust-ol?kode_cust='.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_cust' => $request->kode_cust,
+                    'nama' => $request->nama,
+                    'alamat' => $request->alamat,
+                    'kota' => $request->kota,
+                    'kecamatan' => $request->kecamatan,
+                    'provinsi' => $request->provinsi,
+                    'no_tel' => $request->no_tel,
+                    'email' => $request->email,
+                    'pic' => $request->pic,
+                    'id_lain' => $request->id_lain,
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function delete($id) {

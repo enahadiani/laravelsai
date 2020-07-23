@@ -348,7 +348,7 @@
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#kode_kirim').attr('readonly', true);
-                    $('#kode_kirim').val(id);
+                    $('#kode_kirim').val(result.data[0].kode_kirim);
                     $('#nama').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
                     $('#email').val(result.data[0].email);
