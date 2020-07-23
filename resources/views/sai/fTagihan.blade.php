@@ -139,61 +139,122 @@
                                     <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
                                 </div>
                             </div>
-                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
-                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
-                            </div>
-                            <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                <style>
-                                    th{
-                                        vertical-align:middle !important;
-                                    }
-                                    /* #input-jurnal td{
-                                        padding:0 !important;
-                                    } */
-                                    #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
-                                        border:0 !important;
-                                        border-radius:0 !important;
-                                    }
-                                    .modal-header .close {
-                                        padding: 1rem;
-                                        margin: -1rem 0 -1rem auto;
-                                    }
-                                    .check-item{
-                                        cursor:pointer;
-                                    }
-                                    .selected{
-                                        cursor:pointer;
-                                        background:#4286f5 !important;
-                                        color:white;
-                                    }
-                                    #input-jurnal td:hover{
-                                        background:#f4d180 !important;
-                                        color:white;
-                                    }
-                                    #input-jurnal td{
-                                        overflow:hidden !important;
-                                    }
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bitem" role="tab" aria-selected="true"><span class="hidden-xs-down">Rincian</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bupload" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                            </ul>
+                            <div class="tab-content tabcontent-border">
+                                <div class="tab-pane active" id="bitem" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
 
-                                    #input-jurnal td:nth-child(4){
-                                        overflow:unset !important;
-                                    }
-                                </style>
-                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                <thead style="background:#ff9500;color:white">
-                                    <tr>
-                                        <th style="width:3%">No</th>
-                                        <th style="width:20%">Item</th>
-                                        <th style="width:10%">Jumlah</th>
-                                        <th style="width:10%">Harga</th>
-                                        <th style="width:10%">Subtotal</th>
-                                        <th style="width:30%">Upload File</th>
-                                        <th style="width:5%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                </table>
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:30%">Item</th>
+                                                <th style="width:15%">Jumlah</th>
+                                                <th style="width:15%">Harga</th>
+                                                <th style="width:15%">Subtotal</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="bupload" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row2" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan2" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:10%">No</th>
+                                                <th style="width:80%">Upload File</th>
+                                                <th style="width:10%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -578,7 +639,6 @@
             input += "<td><input type='text' name='jumlah[]' class='form-control inp-tagihan jumlah jumlahke"+no+"'  value='0'></td>";
             input += "<td><input type='text' name='harga[]' class='form-control inp-tagihan harga hargake"+no+"'  value='0' required></td>";
             input += "<td><input type='text' name='subtotal[]' class='form-control inp-tagihan subtotal subtotalke"+no+"'  value='' required readonly></td>";
-            input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-tagihan tbody').append(input);
@@ -614,6 +674,29 @@
             var jumlah = $(this).closest('tr').find('.jumlah').val();
             var sub = toNilai(jumlah) * toNilai(harga);
             $(this).closest('tr').find('.subtotal').val(sub); 
+        });
+
+        $('#form-tambah').on('click', '#add-row2', function(){
+            var no2=$('#input-tagihan2 .row-tagihan2:last').index();
+            no2=no2+2;
+            var input2 = "";
+            input2 += "<tr class='row-tagihan2'>";
+            input2 += "<td class='no-tagihan2 text-center'>"+no2+"</td>";
+            input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input2 += "</tr>";
+            $('#input-tagihan2 tbody').append(input2);
+        });
+
+        $('#input-tagihan2').on('click', '.hapus-item2', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-tagihan2').each(function(){
+                var nom = $(this).closest('tr').find('.no-tagihan2');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
