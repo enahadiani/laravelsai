@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Kontrak 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Tagihan 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,11 +36,10 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Kontrak</th>
+                                        <th>No Tagihan</th>
                                         <th>No Dokumen</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
-                                        <th>Nilai Kontrak</th>
+                                        <th>Keterangan</th>
+                                        <th>Nilai</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,7 +57,7 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Kontrak
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Tagihan
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
@@ -74,18 +73,8 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="input-group col-4">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
-                                </div>
-                                <label for="tgl_lahir" class="col-3 col-form-label">Tanggal Selesai</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Selesai" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_dokumen" id="no_dokumen" class="form-control" value="" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -99,16 +88,112 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="no_kontrak" class="col-3 col-form-label">No Kontrak</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_kontrak" id="no_kontrak" class="form-control" value="" required>
+                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_no_kontrak" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nilai" class="col-3 col-form-label">Nilai Tagihan</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="nilai" name="nilai">
+                                </div>
+                                <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="bank" class="col-3 col-form-label">Bank</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
+                                </div>
+                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
+                                </div>
+                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
+                                <div class="col-3">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
                                 <div class="input-group col-9">
                                     <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="keterangan" class="col-3 col-form-label">Nilai</label>
-                                <div class="input-group col-4">
-                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai">
-                                </div>
+                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                            </div>
+                            <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <style>
+                                    th{
+                                        vertical-align:middle !important;
+                                    }
+                                    /* #input-jurnal td{
+                                        padding:0 !important;
+                                    } */
+                                    #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                        border:0 !important;
+                                        border-radius:0 !important;
+                                    }
+                                    .modal-header .close {
+                                        padding: 1rem;
+                                        margin: -1rem 0 -1rem auto;
+                                    }
+                                    .check-item{
+                                        cursor:pointer;
+                                    }
+                                    .selected{
+                                        cursor:pointer;
+                                        background:#4286f5 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td:hover{
+                                        background:#f4d180 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td{
+                                        overflow:hidden !important;
+                                    }
+
+                                    #input-jurnal td:nth-child(4){
+                                        overflow:unset !important;
+                                    }
+                                </style>
+                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <thead style="background:#ff9500;color:white">
+                                    <tr>
+                                        <th style="width:3%">No</th>
+                                        <th style="width:20%">Item</th>
+                                        <th style="width:10%">Jumlah</th>
+                                        <th style="width:10%">Harga</th>
+                                        <th style="width:10%">Subtotal</th>
+                                        <th style="width:30%">Upload File</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                </table>
                             </div>
                         </div>
                     </form>
@@ -153,6 +238,14 @@
             autoclose: true,
         });
 
+        function toNilai(str_num){
+            var parts = str_num.split('.');
+            number = parts.join('');
+            number = number.replace('Rp', '');
+            // number = number.replace(',', '.');
+            return +number;
+        }
+
     $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
@@ -161,7 +254,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-trans/kontrak') }}",
+            'url': "{{ url('sai-trans/tagihan') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -184,30 +277,17 @@
             }
         },
         'columnDefs': [
-            {'targets': 5, data: null, 'defaultContent': action_html },
+            {'targets': 4, data: null, 'defaultContent': action_html },
              {
-                'targets': 4,
+                'targets': 3,
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             }
             ],
         'columns': [
-            { data: 'no_kontrak' },
+            { data: 'no_bill' },
             { data: 'no_dokumen' },
-            { data: 'tgl_awal', render: function(data,type,row) {
-                var dataDate = new Date(data);
-                var tgl = ("0" + dataDate.getDate()).slice(-2)
-                var bln = ("0" + (dataDate.getMonth() + 1)).slice(-2);
-                var tahun = dataDate.getFullYear();
-                return tgl+"/"+bln+"/"+tahun;
-            } },
-            { data: 'tgl_akhir', render: function(data,type,row) {
-                var dataDate = new Date(data);
-                var tgl = ("0" + dataDate.getDate()).slice(-2)
-                var bln = ("0" + (dataDate.getMonth() + 1)).slice(-2)
-                var tahun = dataDate.getFullYear();
-                return tgl+"/"+bln+"/"+tahun;
-            } },
+            { data: 'keterangan' },
             { data: 'nilai' },
         ],
         dom: 'lBfrtip',
@@ -230,6 +310,10 @@
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('.kode_ktg').hide();
+        $('#kode_cust').val('');
+        $('#no_kontrak').val('');
+        $('#label_kode_cust').text('');
+        $('#label_no_kontrak').text('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -267,9 +351,40 @@
             });
         }
 
+        function getKontrak(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-master/kontrak') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.no_kontrak == id);
+                            if(filter.length > 0) {
+                                $('#no_dokumen').val(filter[0].no_kontrak);
+                                $('#label_no_dokumen').text(filter[0].no_dokumen);
+                            } else {
+                                alert('Dokumen tidak valid');
+                                $('#no_dokumen').val('');
+                                $('#label_no_dokumen').text('');
+                                $('#no_dokumen').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
     $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
         getCustomer(par);
+    });
+
+    $('#form-tambah').on('change', '#no_kontrak', function(){
+        var par = $(this).val();
+        getKontrak(par);
     });
 
         function showFilter(param,target1,target2){
@@ -280,6 +395,21 @@
             $target2 = target2;
             
             switch(par){
+                case 'no_kontrak': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sai-trans/kontrak') }}";
+                    var columns = [
+                        { data: 'no_kontrak' },
+                        { data: 'no_dokumen' }
+                    ];
+                    
+                    var judul = "Daftar Dokumen";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
                 case 'kode_cust': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sai-master/customer') }}";
@@ -438,15 +568,63 @@
             showFilter(par,target1,target2);
         });
 
+        $('#form-tambah').on('click', '#add-row', function(){
+            var no=$('#input-tagihan .row-tagihan:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-tagihan'>";
+            input += "<td class='no-tagihan text-center'>"+no+"</td>";
+            input += "<td><input type='text' name='item[]' class='form-control inp-item itemke"+no+"' value='' required='' style='z-index: 1;position: relative;'></td>";
+            input += "<td><input type='text' name='jumlah[]' class='form-control inp-tagihan jumlah jumlahke"+no+"'  value='0'></td>";
+            input += "<td><input type='text' name='harga[]' class='form-control inp-tagihan harga hargake"+no+"'  value='0' required></td>";
+            input += "<td><input type='text' name='subtotal[]' class='form-control inp-tagihan subtotal subtotalke"+no+"'  value='' required readonly></td>";
+            input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input += "</tr>";
+            $('#input-tagihan tbody').append(input);
+            var jumlah = $('.jumlahke'+no).val();
+            var harga = $('.hargake'+no).val();
+            var sub = jumlah * harga;
+            $('.subtotalke'+no).val(sub);
+
+            $('.inp-tagihan').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                onCleared: function () { self.Value(''); }
+            });
+        });
+
+        $('#input-tagihan').on('click', '.hapus-item', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-tagihan').each(function(){
+                var nom = $(this).closest('tr').find('.no-tagihan');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#input-tagihan tbody').on('change','.jumlah, .harga', function(){
+            var index = $(this).closest('tr').index();
+            var harga = $(this).closest('tr').find('.harga').val();
+            var jumlah = $(this).closest('tr').find('.jumlah').val();
+            var sub = toNilai(jumlah) * toNilai(harga);
+            $(this).closest('tr').find('.subtotal').val(sub); 
+        });
+
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-trans/kontrak-ubah') }}/"+id;
+            var url = "{{ url('sai-trans/tagihan-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-trans/kontrak') }}";
+            var url = "{{ url('sai-trans/tagihan') }}";
             var pesan = "saved";
         }
 
