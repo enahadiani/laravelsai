@@ -69,4 +69,5 @@ Route::post('penjualan-langsung', 'Toko\PenjualanLangsungController@store');
 // Data Provinsi //
 Route::get('provinsi', 'Toko\PenjualanLangsungController@getProvinsi');
 Route::get('kota', 'Toko\PenjualanLangsungController@getKota');
+Route::get('kecamatan', 'Toko\PenjualanLangsungController@getKecamatan');
 Route::get('service', 'Toko\PenjualanLangsungController@getService');
