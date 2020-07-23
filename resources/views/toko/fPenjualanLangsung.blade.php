@@ -30,6 +30,11 @@
             <div class="card">
                 <div class="card-body">
                     <form class="form" id="web-form-pos" method="POST">
+                        <div class="row mb-2">
+                            <div class="col-12 text-right">                                   
+                                <button type="submit" class="btn btn-info float-right" style="margin-right: 0;">Simpan</button>
+                            </div>                                     
+                        </div>
                         <div class="row">
                             <div class="col-4">
                                 <div class="row">
@@ -126,21 +131,29 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="alamat" class="col-2 col-form-label">Alamat</label>
-                                            <div class="col-10">
-                                                <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
+                                            <label for="provinsi" class="col-2 col-form-label">Provinsi</label>
+                                            <div class="input-group col-3">
+                                                <input type='text' name="provinsi" id="provinsi" class="form-control" value="">
+                                                    <i class='fa fa-search search-provinsi' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            </div>
+                                            <div class="col-6">
+                                                <label id="label_provinsi" style="margin-top: 10px;"></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="kota" class="col-2 col-form-label">Kota</label>
-                                            <div class="col-4">
-                                                <input class="form-control" type="text" placeholder="Kota Customer" id="kota" name="kota">
+                                            <div class="input-group col-3">
+                                                <input type='text' name="kota" id="kota" class="form-control" value="">
+                                                    <i class='fa fa-search search-kota' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            </div>
+                                            <div class="col-6">
+                                                <label id="label_kota" style="margin-top: 10px;"></label>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="provinsi" class="col-2 col-form-label">Provinsi</label>
-                                            <div class="col-4">
-                                                <input class="form-control" type="text" placeholder="Provinsi Customer" id="provinsi" name="provinsi">
+                                            <label for="alamat" class="col-2 col-form-label">Alamat</label>
+                                            <div class="col-10">
+                                                <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
                                             </div>
                                         </div>
                                     </div>
@@ -158,20 +171,35 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="berat" class="col-2 col-form-label">Berat Produk</label>
+                                            <div class="col-3">
+                                                <input class="form-control currency" type="number" id="berat" value="0" name="berat" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="service" class="col-2 col-form-label">Service Kirim</label>
+                                            <div class="input-group col-3">
+                                                <input type='text' name="service" id="service" class="form-control" value="">
+                                                    <i class='fa fa-search search-service' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            </div>
+                                            <div class="col-6">
+                                                <label id="label_service" style="margin-top: 10px;"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="nilai_ongkir" class="col-2 col-form-label">Nilai Ongkir</label>
                                             <div class="col-3">
                                                 <input class="form-control currency" type="text" id="nilai_ongkir" value="0" name="nilai_ongkir" readonly>
+                                            </div>
+                                            <label for="lama_hari" class="col-2 col-form-label">Lama pengiriman</label>
+                                            <div class="col-3">
+                                                <input class="form-control text" type="text" id="lama_hari" value="" name="lama_hari" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="catatan" class="col-2 col-form-label">Catatan</label>
                                             <div class="col-10">
                                                 <textarea class="form-control" id="catatan" name="catatan"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-12 float-right">
-                                            <button type="submit" class="btn btn-info float-right" style="margin-right: 0;">Pesan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -335,7 +363,7 @@
 <script src="{{url('asset_elite/inputmask.js')}}"></script>
 <script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
 <script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
-<script src="{{ asset('asset_elite/inputSearch.js') }}" ></script> 
+<!-- <script src="{{ asset('asset_elite/inputSearch.js') }}" ></script>  -->
 
 <script type="text/javascript">
     var $dtBrg = new Array();
@@ -365,6 +393,277 @@
         }
     };
 
+    function showFilter(param,target1,target2){
+        var par = param;
+
+        var modul = '';
+        var header = [];
+        var target1 = target1;
+        var target2 = target2;
+        var target3 = "";
+        var target4 = "";
+        var parameter = {};
+        switch(par){
+            case 'kode_kirim': 
+                header = ['Kode Kirim', 'Nama'];
+            var toUrl = "{{ url('toko-master/jasa-kirim') }}";
+                var columns = [
+                    { data: 'kode_kirim' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Jasa Kirim";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                target1 = "#"+target1;
+                target2 = "#"+target2;
+                parameter = {'param':par};
+            break;
+            case 'provinsi': 
+                header = ['ID Provinsi', 'Nama'];
+                var toUrl = "{{ url('toko-trans/provinsi') }}";
+                var columns = [
+                    { data: 'province_id' },
+                    { data: 'province' }
+                ];
+                
+                var judul = "Daftar Provinsi";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                target1 = "#"+target1;
+                target2 = "#"+target2;
+                parameter = {'param':par};
+            break;
+            case 'kota': 
+                header = ['ID Kota', 'Nama'];
+                var toUrl = "{{ url('toko-trans/kota') }}";
+                var columns = [
+                    { data: 'city_id' },
+                    { data: 'city_name' }
+                ];
+                
+                var judul = "Daftar Kota";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                target1 = "#"+target1;
+                target2 = "#"+target2;
+                var provinsi = $('#provinsi').val();
+                parameter = {'province':provinsi};
+            break;
+            case 'service': 
+                header = ['Service','Description','Nilai','Lama Hari'];
+                var toUrl = "{{ url('toko-trans/service') }}";
+                var columns = [
+                    { data: 'service' },
+                    { data: 'description' },
+                    { data: 'cost' },
+                    { data: 'etd' }
+                ];
+                
+                var judul = "Daftar Nilai Ongkir";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                var jTarget3 = "val";
+                var jTarget4 = "val";
+                target1 = "#"+target1;
+                target2 = "#"+target2;
+                target3 = "#nilai_ongkir";
+                target4 = "#lama_hari";
+                var kota = $('#kota').val();
+                var weight = $('#berat').val();
+                var courier = $('#kode_kirim').val();
+                parameter = {'destination':kota,'weight':weight,'courier':courier};
+            break;
+        }
+
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
+        }
+        header_html +=  "<th></th>";
+
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": header.length, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
+
+        // searchTable.$('tr.selected').removeClass('selected');
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+
+        $('#table-search').on('click','.check-item',function(){
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $(target1).val(kode);
+                $(target1).trigger("change");
+            }else{
+                $(target1).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $(target2).val(nama);
+                $(target2).trigger("change");
+            }else{
+                $(target2).text(nama);
+            }
+
+            if(target3 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(3)').text();
+                if(jTarget3 == "val"){
+                    $(target3).val(value);
+                    $(target3).trigger("change");
+                }else{
+                    $(target3).text(value);
+                }
+            }
+            if(target4 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(4)').text();
+                if(jTarget4 == "val"){
+                    $(target4).val(value);
+                    $(target4).trigger("change");
+                }else{
+                    $(target4).text(value);
+                }
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $(target1).val(kode);
+                $(target1).trigger("change");
+            }else{
+                $(target1).text(kode);
+            }
+
+            if(jTarget2 == "val"){
+                $(target2).val(nama);
+                $(target2).trigger("change");
+            }else{
+                $(target2).text(nama);
+            }
+
+            if(target3 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(3)').text();
+                if(jTarget3 == "val"){
+                    $(target3).val(value);
+                    $(target3).trigger("change");
+                }else{
+                    $(target3).text(value);
+                }
+            }
+            if(target4 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(4)').text();
+                if(jTarget4 == "val"){
+                    $(target4).val(value);
+                    $(target4).trigger("change");
+                }else{
+                    $(target4).text(value);
+                }
+            }
+            $('#modal-search').modal('hide');
+        });
+
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+
+            }
+
+            if (e.keyCode == 13){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $(target1).val(kode);
+                    $(target1).trigger("change");
+                }else{
+                    $(target1).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $(target2).val(nama);
+                    $(target2).trigger("change");
+                }else{
+                    $(target2).text(nama);
+                }
+
+                if(target3 != ""){
+                
+                    var value = $(this).closest('tr').find('td:nth-child(3)').text();
+                    if(jTarget3 == "val"){
+                        $(target3).val(value);
+                        $(target3).trigger("change");
+                    }else{
+                        $(target3).text(value);
+                    }
+                }
+                if(target4 != ""){
+                    
+                    var value = $(this).closest('tr').find('td:nth-child(4)').text();
+                    if(jTarget4 == "val"){
+                        $(target4).val(value);
+                        $(target4).trigger("change");
+                    }else{
+                        $(target4).text(value);
+                    }
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
+
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -382,20 +681,99 @@
         }
     });
 
-    $(".search-kode_kirim").inputSearch({
-        title: 'Daftar Jasa Kirim',
-        url: "{{ url('toko-master/jasa-kirim') }}",
-        header:['Kode Kirim','Nama'],
-        columns:[
-                    { data: 'kode_kirim' },
-                    { data: 'nama' }
-                ],
-        parameter:{},
-        onItemSelected: function(data){
-            $('input[name=kode_kirim]').val(data.kode_kirim);
-            $('#label_kode_kirim').text(data.nama);
-        }
+    $('#web-form-pos').on('click', '.search-provinsi,.search-kota,.search-kode_kirim,.search-service', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
     });
+
+
+    // $(".search-kode_kirim").inputSearch({
+    //     title: 'Daftar Jasa Kirim',
+    //     url: "{{ url('toko-master/jasa-kirim') }}",
+    //     header:['Kode Kirim','Nama'],
+    //     columns:[
+    //                 { data: 'kode_kirim' },
+    //                 { data: 'nama' }
+    //             ],
+    //     parameter:{},
+    //     onItemSelected: function(data){
+    //         $('input[name=kode_kirim]').val(data.kode_kirim);
+    //         $('#label_kode_kirim').text(data.nama);
+    //     }
+    // });
+
+    // $(".search-provinsi").inputSearch({
+    //     title: 'Daftar Provinsi',
+    //     url: "{{ url('toko-trans/provinsi') }}",
+    //     header:['Kode Provinsi','Nama'],
+    //     columns:[
+    //                 { data: 'province_id' },
+    //                 { data: 'province' }
+    //             ],
+    //     parameter:{},
+    //     onItemSelected: function(data){
+    //         $('input[name=provinsi]').val(data.province_id);
+    //         $('#label_provinsi').text(data.province);
+    //         $('input[name=provinsi]').trigger('change');
+    //     }
+    // });
+
+    
+
+    // var provinsi = $('#provinsi').val();
+    // $(".search-kota").inputSearch({
+    //     title: 'Daftar Kota',
+    //     url: "{{ url('toko-trans/kota') }}",
+    //     header:['Kode Kota','Nama'],
+    //     columns:[
+    //                 { data: 'city_id' },
+    //                 { data: 'city_name' }
+    //             ],
+    //     parameter:{'province':provinsi},
+    //     onItemSelected: function(data){
+    //         $('input[name=kota]').val(data.city_id);
+    //         $('#label_kota').text(data.city);
+    //     }
+    // });
+
+    // var kota = $('#kota').val();
+    // var weight = $('#berat').val();
+    // var courier = $('#kode_kirim').val();
+
+    // $(".search-service").inputSearch({
+    //     title: 'Daftar Ongkir',
+    //     url: "{{ url('toko-trans/service') }}",
+    //     header:['Service','Description','Nilai','Lama Hari'],
+    //     columns:[
+    //                 { data: 'service' },
+    //                 { data: 'description' },
+    //                 { data: 'cost' },
+    //                 { data: 'etd' }
+    //             ],
+    //     parameter:{'destination':kota,'weight':weight,'courier':courier},
+    //     onItemSelected: function(data){
+    //         $('input[name=service]').val(data.service);
+    //         $('#label_service').text(data.description);
+    //         $('#nilai_ongkir').val(data.cost);
+    //     }
+    // });
+
+    // $('#web-form-pos').on('change','#provinsi',function(){
+    //     provinsi = $(this).val();
+    // });
+    // $('#web-form-pos').on('change','#kota',function(){
+    //     kota = $(this).val();
+    // });
+    // $('#web-form-pos').on('change','#berat',function(){
+    //     weight = $(this).val();
+    // });
+    // $('#web-form-pos').on('change','#kode_kirim',function(){
+    //     courier = $(this).val();
+    // });
+
 
     $('#kd-barang').selectize({
         selectOnTab:true,

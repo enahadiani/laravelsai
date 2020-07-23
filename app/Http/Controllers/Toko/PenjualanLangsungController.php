@@ -132,4 +132,122 @@ class PenjualanLangsungController extends Controller
             return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
+
+    public function getProvinsi(Request $request){
+
+        try {
+
+            $query = array();
+            if(isset($request->id)){
+                $query = array(
+                    'id' => $request->id
+                );
+            }
+
+            $client = new Client();
+
+            $response = $client->request('GET', $this->link.'provinsi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $query
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200);
+            
+            return response()->json(['message' => 'tes', 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    
+    public function getKota(Request $request){
+        try {
+            
+            $query = array();
+            if(isset($request->id)){
+                $kota = array(
+                    'id' => $request->id
+                );
+                $query = array_merge($query,$kota);
+            }
+            if(isset($request->province)){
+                $provinsi = array(
+                    'province' => $request->province
+                );
+                $query = array_merge($query,$provinsi);
+            }
+
+            $client = new Client();
+
+            $response = $client->request('GET', $this->link.'kota',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $query
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getService(Request $request){
+        try {
+            
+            $query = array(
+                'destination' => $request->destination,
+                // 'origin' => Session::get('kode_kota'),
+                'origin' => '22',
+                'weight' => $request->weight,
+                'courier' => $request->courier,
+            );
+
+            $client = new Client();
+
+            $response = $client->request('GET', $this->link.'nilai-ongkir',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $query
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
 }

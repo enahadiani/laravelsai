@@ -91,7 +91,7 @@
                             <div class="form-group row">
                                 <label for="email" class="col-3 col-form-label">Email</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="email" placeholder="Email" id="email" name="email">
+                                    <input class="form-control" type="text" placeholder="Email" id="email" name="email">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -117,7 +117,7 @@
                             <div class="form-group row">
                                 <label for="no_rek" class="col-3 col-form-label">No. Rekening</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek">
+                                    <input class="form-control" type="text" placeholder="No Rekening" id="no_rek" name="no_rek">
                                 </div>
                                 <label for="nama_rek" class="col-3 col-form-label">Nama Rekening</label>
                                 <div class="col-3">
