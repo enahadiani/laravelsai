@@ -214,13 +214,61 @@ class PenjualanLangsungController extends Controller
         }
     }
 
+    public function getKecamatan(Request $request){
+        try {
+            
+            $query = array();
+            if(isset($request->id)){
+                $kota = array(
+                    'id' => $request->id
+                );
+                $query = array_merge($query,$kota);
+            }
+            if(isset($request->province)){
+                $provinsi = array(
+                    'province' => $request->province
+                );
+                $query = array_merge($query,$provinsi);
+            }
+
+            if(isset($request->city)){
+                $city = array(
+                    'city' => $request->city
+                );
+                $query = array_merge($query,$city);
+            }
+
+            $client = new Client();
+
+            $response = $client->request('GET', $this->link.'kecamatan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $query
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getService(Request $request){
         try {
             
             $query = array(
                 'destination' => $request->destination,
-                // 'origin' => Session::get('kode_kota'),
-                'origin' => '22',
+                'origin' => Session::get('kode_kota'),
                 'weight' => $request->weight,
                 'courier' => $request->courier,
             );
@@ -241,7 +289,7 @@ class PenjualanLangsungController extends Controller
                 $data = json_decode($response_data,true);
                 $data = $data["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true,'kode_kota'=>Session::get('kode_kota')], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

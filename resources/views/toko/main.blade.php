@@ -89,7 +89,7 @@
             line-height: 35px !important;
         }
 
-        .selectize-input, input.form-control , .custom-file-label{
+        .selectize-input, input.form-control , .custom-file-label, textarea.form-control{
             border-color:#929090;
         }
 
