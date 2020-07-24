@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="data-cust" role="tabpanel">
-                                    <div class="col-12 mt-2" style="min-height:330px">
+                                    <div class="col-12 mt-2" style="min-height:328px">
                                         <div class="form-group row">   
                                             <label for="kode_cust" class="col-2 col-form-label">Kode Customer</label>
                                             <div class="col-3">
@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="data-kirim" role="tabpanel">
-                                    <div class="col-12 mt-2" style="min-height:330px">
+                                    <div class="col-12 mt-2" style="min-height:328px">
                                         <div class="form-group row">
                                             <label for="kode_kirim" class="col-2 col-form-label">Jasa Kirim</label>
                                             <div class="input-group col-3">

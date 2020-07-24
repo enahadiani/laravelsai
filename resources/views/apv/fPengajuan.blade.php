@@ -196,8 +196,9 @@
                                                 <th width="5%">No</th>
                                                 <th width="20%">NIK</th>
                                                 <th width="30%">Nama</th>
-                                                <th width="15%">Status</th>
-                                                <th width="30%">Keterangan Approval</th>
+                                                <th width="10%">Status</th>
+                                                <th width="20%">Keterangan Approval</th>
+                                                <th width="15%">No APP</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -889,6 +890,7 @@
                             <td>`+line.nama+`</td>
                             <td>`+line.status+`</td>
                             <td>`+line.keterangan+`</td>
+                            <td>`+line.no_bukti+`</td>
                             </tr>`;
                             no++;
                         }
