@@ -16,3 +16,10 @@ Route::get('tagihan/{kode}','Sai\TagihanController@show');
 Route::post('tagihan','Sai\TagihanController@store');
 Route::post('tagihan-ubah/{kode}','Sai\TagihanController@update');
 Route::delete('tagihan/{kode}','Sai\TagihanController@destroy');
+
+//Faktur
+Route::get('faktur-pajak','Sai\FakturPajakController@index');
+Route::get('faktur-pajak-detail/{kode}','Sai\FakturPajakController@show');
+Route::post('faktur-pajak','Sai\FakturPajakController@store');
+Route::put('faktur-pajak-ubah/{kode}','Sai\FakturPajakController@update');
+Route::delete('faktur-pajak/{kode}','Sai\FakturPajakController@destroy');
