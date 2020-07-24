@@ -219,7 +219,7 @@
                                         <th style="width:15%">Q Semi Eks</th>
                                         <th style="width:15%">Q Eks</th>
                                         <th style="width:10%">ID</th>
-                                        <th style="width:10%"></th>
+                                        {{-- <th style="width:10%"></th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -483,7 +483,7 @@
         inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='0' required /></td>";
         inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='0' required /></td>";
         inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+noJadwal+"' required readonly /></td>";
-        inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        // inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
         inputJadwal += "</tr>";
 
         $('#input-jadwal tbody').append(inputJadwal);
@@ -525,7 +525,7 @@
             inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+noJadwal+" inp-qsemi qsemike"+noJadwal+"' value='"+qsemi+"' required /></td>";
             inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+noJadwal+" inp-qeks qekske"+noJadwal+"' value='"+qeks+"' required /></td>";
             inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+noJadwal+"' value='"+id+"' required readonly /></td>";
-            inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            // inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             $('#input-jadwal tbody').append(inputJadwal);
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
@@ -546,16 +546,16 @@
         }
     });
 
-    $('#input-jadwal').on('click', '.hapus-item', function(){
-        $(this).closest('tr').remove();
-        no=1;
-        $('.row-jadwal').each(function(){
-            var nom = $(this).closest('tr').find('.no-jadwal');
-            nom.html(no);
-            no++;
-        });
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
+    // $('#input-jadwal').on('click', '.hapus-item', function(){
+    //     $(this).closest('tr').remove();
+    //     no=1;
+    //     $('.row-jadwal').each(function(){
+    //         var nom = $(this).closest('tr').find('.no-jadwal');
+    //         nom.html(no);
+    //         no++;
+    //     });
+    //     $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    // });
 
     $('#input-jadwal').on('change', '.inp-tglplan', function(){
         var tgl_plan = $('#input-jadwal tbody tr').find(".inp-tglplan").val();
@@ -970,14 +970,14 @@
 
                             inputJadwal += "<tr class='row-jadwal'>";
                             inputJadwal += "<td class='no-jadwal text-center'>"+nomor+"</td>";
-                            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+"' value='"+berangkat+"' required></td>";
-                            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+"' value='"+datang+"' required></td>";
-                            inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+"' value='"+lineJadwal.lama_hari+"' required></td>";
-                            inputJadwal += "<td><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+"' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
-                            inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+"' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
-                            inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+"' value='"+parseFloat(lineJadwal.quota_e)+"' required></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+"' value='"+berangkat+"' required readonly></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+"' value='"+datang+"' required readonly></td>";
+                            inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+"' value='"+lineJadwal.lama_hari+"' required readonly></td>";
+                            inputJadwal += "<td><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+"' value='"+parseFloat(lineJadwal.quota)+"' required readonly></td>";
+                            inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+"' value='"+parseFloat(lineJadwal.quota_se)+"' required readonly></td>";
+                            inputJadwal += "<td><input name='q_eks[]' class='form-control qke"+nomor+" inp-qeks qekske"+nomor+"' value='"+parseFloat(lineJadwal.quota_e)+"' required readonly></td>";
                             inputJadwal += "<td><input name='id[]' class='form-control inp-id idke"+nomor+"' value='"+lineJadwal.no_jadwal+"' required readonly /></td>";
-                            inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
+                            // inputJadwal += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";    
                             
                             nomor++
                         }

@@ -71,6 +71,12 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
+                            <div class="form-group row no_tagihan">
+                                <label for="no_tagihan" class="col-3 col-form-label">No Dokumen</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_tagihan" id="no_tagihan" class="form-control" value="" required readonly>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="input-group col-3">
@@ -81,10 +87,35 @@
                                 <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
+                                        {{-- <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i> --}}
                                 </div>
                                 <div class="col-6">
                                     <label id="label_kode_cust" style="margin-top: 10px;"></label>
+                                </div>
+                            </div>
+                            <div class="data-customer">
+                                <div class="form-group row">
+                                    <label for="bank" class="col-3 col-form-label">Bank</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" readonly>
+                                    </div>
+                                    <label for="cabang" class="col-3 col-form-label">Cabang</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="no_rek" class="col-3 col-form-label">No Rek</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek" readonly>
+                                    </div>
+                                    <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -105,26 +136,6 @@
                                 <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
                                 <div class="input-group col-3">
                                     <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="bank" class="col-3 col-form-label">Bank</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
-                                </div>
-                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
-                                </div>
-                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -369,8 +380,9 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('.data-customer').hide();
         $('#form-tambah')[0].reset();
-        $('.kode_ktg').hide();
+        $('.no_tagihan').hide();
         $('#kode_cust').val('');
         $('#no_kontrak').val('');
         $('#label_kode_cust').text('');
@@ -400,6 +412,11 @@
                             if(filter.length > 0) {
                                 $('#kode_cust').val(filter[0].kode_cust);
                                 $('#label_kode_cust').text(filter[0].nama);
+                                $('#bank').val(filter[0].bank);
+                                $('#cabang').val(filter[0].cabang);
+                                $('#no_rek').val(filter[0].no_rek);
+                                $('#nama_rek').val(filter[0].nama_rek);
+                                $('.data-customer').show();
                             } else {
                                 alert('Customer tidak valid');
                                 $('#kode_cust').val('');
@@ -532,6 +549,7 @@
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                     $($target).attr('value',kode);
+                    $($target).trigger('change');
                 }else{
                     $($target).text(kode);
                 }
@@ -824,15 +842,19 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#id').val(id);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
-                    $('#keterangan').val(result.data[0].keterangan);
-                    $('#tgl_mulai').val(tglM);
-                    $('#tgl_selesai').val(tglS);
-                    $('#nilai').val(parseFloat(result.data[0].nilai));
-                    getCustomer(result.data[0].kode_cust);
+                    var tanggal = result.data[0].tanggal;
+                    var split = tanggal.split(/[- :]/);
+                    console.table(split);
+                    // $('.no_tagihan').show();
+                    // $('#id_edit').val('edit');
+                    // $('#method').val('put');
+                    // $('#id').val(id);
+                    // $('#no_tagihan').val(result.data[0].no_bill);
+                    // $('#no_dokumen').val(result.data[0].no_dokumen);
+                    // $('#tgl_mulai').val(tglM);
+                    // $('#tgl_selesai').val(tglS);
+                    // $('#nilai').val(parseFloat(result.data[0].nilai));
+                    // getCustomer(result.data[0].kode_cust);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

@@ -109,6 +109,16 @@
                                         <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
                                     </div>
                             </div>
+                            <div class="form-group row ">
+                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
+                                    </div>
+                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
+                                    </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-3 col-form-label">Foto</label>
                                 <div class="input-group col-6">
@@ -360,7 +370,9 @@
                     $('#kode_cust').attr('readonly',true);
                     $('#file_gambar').val('');
                     $('.custom-file-label').val('');
-                    $('#nama').val(result.data[0].nama);;
+                    $('#nama').val(result.data[0].nama);
+                    $('#no_rek').val(result.data[0].no_rek);
+                    $('#nama_rek').val(result.data[0].nama_rek);
                     $('#email').val(result.data[0].email);
                     $('#no_telp').val(result.data[0].no_telp);
                     $('#pic').val(result.data[0].pic);

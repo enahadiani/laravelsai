@@ -62,15 +62,17 @@ class CustomerController extends Controller
             'pic' => 'required',
             'alamat'=>'required',
             'email' => 'required',
+            'no_rek'=>'required',
+            'nama_rek'=>'required',
             'no_telp' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','file_gambar');
+                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek','file_gambar');
             } else {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp');
+                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek');
             }
             $req = $request->all();
             $fields = array();
@@ -152,6 +154,8 @@ class CustomerController extends Controller
             'nama' => 'required',
             'email' => 'required',
             'alamat'=>'required',
+            'no_rek'=>'required',
+            'nama_rek'=>'required',
             'pic' => 'required',
             'no_telp' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
@@ -159,9 +163,9 @@ class CustomerController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','file_gambar');
+                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','nama_rek','file_gambar');
             } else {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp');
+                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','nama_rek');
             }
             $req = $request->all();
             $fields = array();
