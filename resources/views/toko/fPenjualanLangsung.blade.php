@@ -794,8 +794,9 @@
                         $('#nama').val(result.data[0].nama);
                         $('#no_tel').val(result.data[0].no_tel);
                         $('#alamat').val(result.data[0].alamat);
-                        $('#kota').val(result.data[0].kota);
                         $('#provinsi').val(result.data[0].provinsi);
+                        $('#kota').val(result.data[0].kota);
+                        $('#kecamatan').val(result.data[0].kecamatan);
                     }
                 }else if(!res.data.status && res.data.message == "Unauthorized"){
                     Swal.fire({
