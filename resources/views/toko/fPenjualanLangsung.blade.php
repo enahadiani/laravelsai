@@ -18,7 +18,7 @@
    margin-bottom:5px !important;
 }
 
-#getCust,.search-kode_kirim,.search-provinsi,.search-kota,.search-kecamatan,.search-service
+#getCust,#search-kode_kirim,#search-provinsi,#search-kota,#search-kecamatan,#search-service
 {
     cursor:pointer;
 }
@@ -114,7 +114,7 @@
                                                 <div class="input-group">
                                                     <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
                                                     <div class="input-group-append">
-                                                        <button disabled="true" class="btn btn-info" id="getCust" type="button"><i class="fa fa-search"></i></button>
+                                                        <button class="btn btn-info" id="getCust" type="button"><i class="fa fa-search"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,31 +131,43 @@
                                                 <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row">   
                                             <label for="provinsi" class="col-2 col-form-label">Provinsi</label>
-                                            <div class="input-group col-3">
-                                                <input type='text' name="provinsi" id="provinsi" class="form-control" value="">
-                                                    <i class='fa fa-search search-provinsi' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            <div class="col-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" placeholder="Provinsi" id="provinsi" name="provinsi">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-info" id="search-provinsi" type="button"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_provinsi" style="margin-top: 10px;"></label>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row">   
                                             <label for="kota" class="col-2 col-form-label">Kota</label>
-                                            <div class="input-group col-3">
-                                                <input type='text' name="kota" id="kota" class="form-control" value="">
-                                                    <i class='fa fa-search search-kota' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            <div class="col-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" placeholder="Kota" id="kota" name="kota">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-info" id="search-kota" type="button"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_kota" style="margin-top: 10px;"></label>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row">   
                                             <label for="kecamatan" class="col-2 col-form-label">Kecamatan</label>
-                                            <div class="input-group col-3">
-                                                <input type='text' name="kecamatan" id="kecamatan" class="form-control" value="">
-                                                    <i class='fa fa-search search-kecamatan' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            <div class="col-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" placeholder="Kecamatan" id="kecamatan" name="kecamatan">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-info" id="search-kecamatan" type="button"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_kecamatan" style="margin-top: 10px;"></label>
@@ -171,11 +183,15 @@
                                 </div>
                                 <div class="tab-pane" id="data-kirim" role="tabpanel">
                                     <div class="col-12 mt-2" style="min-height:328px">
-                                        <div class="form-group row">
+                                        <div class="form-group row">   
                                             <label for="kode_kirim" class="col-2 col-form-label">Jasa Kirim</label>
-                                            <div class="input-group col-3">
-                                                <input type='text' name="kode_kirim" id="kode_kirim" class="form-control" value="">
-                                                    <i class='fa fa-search search-kode_kirim' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            <div class="col-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" placeholder="Jasa Kirim" id="kode_kirim" name="kode_kirim">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-info" id="search-kode_kirim" type="button"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_kode_kirim" style="margin-top: 10px;"></label>
@@ -187,11 +203,15 @@
                                                 <input class="form-control currency" type="text" id="berat" value="0" name="berat" >
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row">   
                                             <label for="service" class="col-2 col-form-label">Service Kirim</label>
-                                            <div class="input-group col-3">
-                                                <input type='text' name="service" id="service" class="form-control" value="">
-                                                    <i class='fa fa-search search-service' style="font-size: 18px;margin-top:10px;margin-left:5px;color:#6cb1ee"></i>
+                                            <div class="col-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" placeholder="Service kirim" id="service" name="service">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-info" id="search-service" type="button"><i class="fa fa-search"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
                                                 <label id="label_service" style="margin-top: 10px;"></label>
@@ -662,16 +682,14 @@
         }
     });
 
-    $('#web-form-pos').on('click', '.search-provinsi,.search-kota,.search-kode_kirim,.search-kecamatan,.search-service', function(){
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+    $('#web-form-pos').on('click', '#search-provinsi,#search-kota,#search-kode_kirim,#search-kecamatan,#search-service', function(){
+        var par = $(this).closest('.row').find('input').attr('name');
+        var par2 = "label_"+par;
+        showFilter(par,par,par2);
     });
 
 
-    // $(".search-kode_kirim").inputSearch({
+    // $("#search-kode_kirim").inputSearch({
     //     title: 'Daftar Jasa Kirim',
     //     url: "{{ url('toko-master/jasa-kirim') }}",
     //     header:['Kode Kirim','Nama'],
