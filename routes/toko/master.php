@@ -138,3 +138,4 @@ Route::get('cust-ol/{id}', 'Toko\CustomerOLController@getData');
 Route::post('cust-ol', 'Toko\CustomerOLController@store');
 Route::put('cust-ol/{id}', 'Toko\CustomerOLController@update');
 Route::delete('cust-ol/{id}', 'Toko\CustomerOLController@delete');
+

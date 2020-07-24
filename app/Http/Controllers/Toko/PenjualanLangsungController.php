@@ -74,7 +74,6 @@ class PenjualanLangsungController extends Controller
             'kecamatan'=>'required',
             'service'=>'required',
             'berat'=>'required',
-            'lama_hari'=>'required',
             'catatan'=>'required',
             'kode_kirim'=>'required',
             'nilai_ongkir'=>'required',
@@ -96,6 +95,11 @@ class PenjualanLangsungController extends Controller
                 $data_sub[] = $this->joinNum($request->sub_barang[$i]);
             }
 
+            if($request->lama_hari == ""){
+                $lama_hari="-";
+            }else{
+                $lama_hari=$request->lama_hari;
+            }
             $fields = array (
                 'tanggal'=>date('Y-m-d H:i:s'),
                 'kode_cust'=>$request->kode_cust,
@@ -108,7 +112,7 @@ class PenjualanLangsungController extends Controller
                 'catatan'=>$request->catatan,
                 'service'=>$request->service,
                 'berat'=>$this->joinNum($request->berat),
-                'lama_hari'=>$request->lama_hari,
+                'lama_hari'=>$lama_hari,
                 'kode_kirim'=>$request->kode_kirim,
                 'no_resi'=>'-',
                 'nilai_ongkir'=>$this->joinNum($request->nilai_ongkir),
