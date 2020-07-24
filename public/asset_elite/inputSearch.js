@@ -76,6 +76,7 @@
 
             $('#modal-search').keydown(function(e) {
                 e.preventDefault();
+                $('input[type=search]').unbind("keydown");
                 var selectRow = $('.selected').index();
                 var jumRow = $('.selected').parents('table').find('tbody tr').length;
                 var last = false;
@@ -90,9 +91,9 @@
                     first = false;
                     last = false;
                 }
-
                 var tr = searchTable.$('tr.selected');
-                if (e.keyCode == 40){ //arrow down
+                if (e.keyCode == 40){ 
+                    //arrow down
                     if(!last){
                         tr.removeClass('selected');
                         tr.next().toggleClass('selected');
