@@ -206,7 +206,7 @@ class TagihanController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kontrak?no_kontrak='.$id,
+            $response = $client->request('GET', $this->link.'tagihan-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -12,7 +12,7 @@ Route::delete('kontrak/{kode}','Sai\KontrakController@destroy');
 
 //Tagihan
 Route::get('tagihan','Sai\TagihanController@index');
-Route::get('kontrak/{kode}','Sai\KontrakController@show');
+Route::get('tagihan/{kode}','Sai\TagihanController@show');
 Route::post('tagihan','Sai\TagihanController@store');
 Route::post('tagihan-ubah/{kode}','Sai\TagihanController@update');
 Route::delete('tagihan/{kode}','Sai\TagihanController@destroy');

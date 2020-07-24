@@ -90,10 +90,9 @@
                                     <div class="input-group-append">
                                         <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
                                     </div>
-                                        {{-- <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i> --}}
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_kode_cust" style="margin-top: 10px;"></label>
+                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="data-customer">
@@ -122,10 +121,12 @@
                                 <label for="no_kontrak" class="col-3 col-form-label">No Kontrak</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="no_kontrak" id="no_kontrak" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_no_kontrak" style="margin-top: 10px;"></label>
+                                    <label id="label_no_kontrak" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -385,7 +386,7 @@
         $('.no_tagihan').hide();
         $('#kode_cust').val('');
         $('#no_kontrak').val('');
-        $('#label_kode_cust').text('');
+        // $('#label_kode_cust').text('');
         $('#label_no_kontrak').text('');
         $('#method').val('post');
         $('#saku-datatable').hide();
@@ -432,7 +433,7 @@
         function getKontrak(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sai-master/kontrak') }}",
+                url: "{{ url('sai-trans/kontrak') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -441,13 +442,13 @@
                             var data = result.daftar;
                             var filter = data.filter(data => data.no_kontrak == id);
                             if(filter.length > 0) {
-                                $('#no_dokumen').val(filter[0].no_kontrak);
-                                $('#label_no_dokumen').text(filter[0].no_dokumen);
+                                $('#no_kontrak').val(filter[0].no_kontrak);
+                                $('#label_no_kontrak').text(filter[0].no_dokumen);
                             } else {
-                                alert('Dokumen tidak valid');
-                                $('#no_dokumen').val('');
-                                $('#label_no_dokumen').text('');
-                                $('#no_dokumen').focus();
+                                alert('Kontrak tidak valid');
+                                $('#no_kontrak').val('');
+                                $('#label_no_kontrak').text('');
+                                $('#no_kontrak').focus();
                             }
                         }
                     }
@@ -640,8 +641,8 @@
         }
 
         $('#form-tambah').on('click', '.search-item2', function(){
-            var par = $(this).closest('div').find('input').attr('name');
-            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+            var par = $(this).closest('.row').find('input').attr('name');
+            var par2 = $(this).closest('.row').find('label.label-kode').attr('id');
             target1 = par;
             target2 = par2;
             showFilter(par,target1,target2);
@@ -836,7 +837,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/kontrak') }}/" + id,
+            url: "{{ url('sai-trans/tagihan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -844,17 +845,19 @@
                 if(result.status){
                     var tanggal = result.data[0].tanggal;
                     var split = tanggal.split(/[- :]/);
-                    console.table(split);
-                    // $('.no_tagihan').show();
-                    // $('#id_edit').val('edit');
-                    // $('#method').val('put');
-                    // $('#id').val(id);
-                    // $('#no_tagihan').val(result.data[0].no_bill);
-                    // $('#no_dokumen').val(result.data[0].no_dokumen);
-                    // $('#tgl_mulai').val(tglM);
-                    // $('#tgl_selesai').val(tglS);
-                    // $('#nilai').val(parseFloat(result.data[0].nilai));
-                    // getCustomer(result.data[0].kode_cust);
+                    tanggal = split[2]+"/"+split[1]+"/"+split[0];
+                    $('.no_tagihan').show();
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#id').val(id);
+                    $('#no_tagihan').val(result.data[0].no_bill);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#tanggal').val(tanggal);
+                    $('#nilai').val(parseFloat(result.data[0].nilai));
+                    $('#nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
+                    getCustomer(result.data[0].kode_cust);
+                    getKontrak(result.data[0].no_kontrak);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
