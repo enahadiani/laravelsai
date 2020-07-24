@@ -353,7 +353,7 @@ class TagihanController extends Controller
         
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan?no_bukti='.$id,[
+                $response = $client->request('POST', $this->link.'tagihan-ubah?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

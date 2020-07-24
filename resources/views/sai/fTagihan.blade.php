@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="form-group row no_tagihan">
-                                <label for="no_tagihan" class="col-3 col-form-label">No Dokumen</label>
+                                <label for="no_tagihan" class="col-3 col-form-label">No Tagihan</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="no_tagihan" id="no_tagihan" class="form-control" value="" required readonly>
                                 </div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn">
+                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -464,6 +464,12 @@
     $('#form-tambah').on('change', '#no_kontrak', function(){
         var par = $(this).val();
         getKontrak(par);
+    });
+
+    $('#nilai').change(function(){
+        var nominal = $(this).val();
+        var ppn = toNilai(nominal) * 10/100;
+        $('#nilai_ppn').val(ppn);
     });
 
         function showFilter(param,target1,target2){
@@ -848,7 +854,7 @@
                     tanggal = split[2]+"/"+split[1]+"/"+split[0];
                     $('.no_tagihan').show();
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#id').val(id);
                     $('#no_tagihan').val(result.data[0].no_bill);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
@@ -858,6 +864,49 @@
                     $('#nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     getCustomer(result.data[0].kode_cust);
                     getKontrak(result.data[0].no_kontrak);
+                    
+                    if(result.data_detail.length > 0) {
+                        var input = "";
+                        var nomor = 1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line = result.data_detail[i];
+                            input += "<tr class='row-tagihan'>";
+                            input += "<td class='no-tagihan text-center'>"+nomor+"</td>";
+                            input += "<td><input type='text' name='item[]' class='form-control inp-item itemke"+nomor+"' value='"+line.item+"' required='' style='z-index: 1;position: relative;'></td>";
+                            input += "<td><input type='text' name='jumlah[]' class='form-control inp-tagihan jumlah jumlahke"+nomor+"'  value='"+toNilai(line.harga)+"'></td>";
+                            input += "<td><input type='text' name='harga[]' class='form-control inp-tagihan harga hargake"+nomor+"'  value='"+toNilai(line.jumlah)+"' required></td>";
+                            input += "<td><input type='text' name='subtotal[]' class='form-control inp-tagihan subtotal subtotalke"+nomor+"'  value='"+toNilai(line.harga)*toNilai(line.jumlah)+"' required readonly></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+                            nomor++;
+                        }
+                        $('#input-tagihan tbody').html(input);
+                        $('.inp-tagihan').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            onCleared: function () { self.Value(''); }
+                        });
+                    }
+
+                    if(result.data_dokumen.length > 0) {
+                        var input2 = "";
+                        var nomor = 1;
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line = result.data_dokumen[i];
+                            input2 += "<tr class='row-tagihan2'>";
+                            input2 += "<td class='no-tagihan2 text-center'>"+nomor+"</td>";
+                            input2 += "<td><input type='file' name='file_dok[]' value='"+line.no_gambar+"' required  class='inp-file_dok'></td>";
+                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input2 += "</tr>";
+                            nomor++;
+                        }
+                        $('#input-tagihan2 tbody').html(input2);
+
+                    }
+
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
