@@ -948,7 +948,7 @@
                             html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid #03a9f3;border-radius: 50%;background: #03a9f3;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
                                 </div>
                                 <div class="sl-right">
-                                    <div><a href="javascript:void(0)" class="link">`+result.data[i].nama+`</a> <span class="sl-date">`+result.data[i].tanggal+`</span>
+                                    <div><a href="javascript:void(0)" class="link">`+result.data[i].nama+`</a> <span class="sl-date">`+result.data[i].tanggal+` (`+result.data[i].status+`)</span>
                                     <div class="row mt-3 mb-2">
                                         <div class="col-md-6">No Bukti : </div>
                                         <div class="col-md-6">`+result.data[i].no_bukti+`</div>
