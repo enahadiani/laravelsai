@@ -1213,6 +1213,14 @@
                                                             <td width="244">: `+line.tgl_bayar+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td width="154">STATUS BAYAR</td>
+                                                            <td width="244">: `+line.sistem_bayar+`</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="154">AKUN</td>
+                                                            <td width="244">: `+line.nama_akun+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>DITERIMA DARI</td>
                                                             <td>: `+line.peserta+`</td>
                                                         </tr>
