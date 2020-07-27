@@ -129,6 +129,14 @@
                                                             <td width="244" colspan='2'>: `+reverseDateNew(line.tgl_bayar,'-','/')+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>STATUS BAYAR</td>
+                                                            <td colspan='2'>: `+line.sistem_bayar+`</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>AKUN</td>
+                                                            <td colspan='2'>: `+line.nama_akun+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>DITERIMA DARI</td>
                                                             <td colspan='2'>: `+line.peserta+`</td>
                                                         </tr>
