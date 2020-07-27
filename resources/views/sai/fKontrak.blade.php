@@ -92,10 +92,12 @@
                                 <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_kode_cust" style="margin-top: 10px;"></label>
+                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -108,6 +110,122 @@
                                 <label for="keterangan" class="col-3 col-form-label">Nilai</label>
                                 <div class="input-group col-4">
                                     <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai">
+                                </div>
+                            </div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bitem" role="tab" aria-selected="true"><span class="hidden-xs-down">Rincian Modul</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bupload" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                            </ul>
+                            <div class="tab-content tabcontent-border">
+                                <div class="tab-pane active" id="bitem" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid1" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:60%">Deskripsi Modul</th>
+                                                <th style="width:30%">Nilai Modul</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="bupload" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row2" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid2" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:10%">No</th>
+                                                <th style="width:40%">Nama Dokumen</th>
+                                                <th style="width:40%">Upload File</th>
+                                                <th style="width:10%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -431,11 +549,68 @@
         }
 
         $('#form-tambah').on('click', '.search-item2', function(){
-            var par = $(this).closest('div').find('input').attr('name');
-            var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+            var par = $(this).closest('.row').find('input').attr('name');
+            var par2 = $(this).closest('.row').find('label.label-kode').attr('id');
             target1 = par;
             target2 = par2;
             showFilter(par,target1,target2);
+        });
+
+        $('#form-tambah').on('click', '#add-row', function(){
+            var no=$('#input-grid1 .row-grid:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-grid'>";
+            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='' required='' style='z-index: 1;position: relative;'></td>";
+            input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='0' required></td>";
+            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input += "</tr>";
+            $('#input-grid1 tbody').append(input);
+
+            $('.inp-nilai-modul').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                onCleared: function () { self.Value(''); }
+            });
+        });
+
+        $('#input-grid1').on('click', '.hapus-item', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid1');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#form-tambah').on('click', '#add-row2', function(){
+            var no2=$('#input-grid2 .row-grid2:last').index();
+            no2=no2+2;
+            var input2 = "";
+            input2 += "<tr class='row-grid2'>";
+            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
+            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' readonly></td>";
+            input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input2 += "</tr>";
+            $('#input-grid2 tbody').append(input2);
+        });
+
+        $('#input-grid2').on('click', '.hapus-item2', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid2').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid2');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){

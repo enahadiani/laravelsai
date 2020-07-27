@@ -258,7 +258,9 @@
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th style="width:10%">No</th>
-                                                <th style="width:80%">Upload File</th>
+                                                <th style="width:10%">Jenis Dokumen</th>
+                                                <th style="width:20%">Nama Dokumen</th>
+                                                <th style="width:50%">Upload File</th>
                                                 <th style="width:10%"></th>
                                             </tr>
                                         </thead>

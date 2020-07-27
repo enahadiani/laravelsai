@@ -105,6 +105,57 @@
                                     <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
                                 </div>
                             </div>
+                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                            </div>
+                            <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                <style>
+                                    th{
+                                        vertical-align:middle !important;
+                                    }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                     #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                        border:0 !important;
+                                        border-radius:0 !important;
+                                    }
+                                    .modal-header .close {
+                                        padding: 1rem;
+                                        margin: -1rem 0 -1rem auto;
+                                    }
+                                    .check-item{
+                                        cursor:pointer;
+                                    }
+                                    .selected{
+                                        cursor:pointer;
+                                        background:#4286f5 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td:hover{
+                                        background:#f4d180 !important;
+                                        color:white;
+                                    }
+                                    #input-jurnal td{
+                                        overflow:hidden !important;
+                                    }
+                                    #input-jurnal td:nth-child(4){
+                                        overflow:unset !important;
+                                    }
+                                </style>
+                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan2" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#ff9500;color:white">
+                                        <tr>
+                                            <th style="width:10%">No</th>
+                                            <th style="width:80%">Upload File</th>
+                                            <th style="width:10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                             </div>
                         </div>
                     </form>
                 </div>
@@ -142,6 +193,13 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
         });
+
+        $('.custom-file-input').on('change',function(){
+            //get the file name
+            var fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
 
         $('.datepicker').datepicker({
             format: 'dd/mm/yyyy',
