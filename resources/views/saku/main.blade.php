@@ -104,6 +104,10 @@
         input.form-control:focus{
             border-color:#929090;
         }
+
+        .skin-white.topbar{
+            background:white;
+        }
     </style>
     <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
@@ -185,8 +189,8 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+        <header class="skin-white topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
@@ -211,7 +215,7 @@
                         <li class="nav-item"> <a class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                         <li class="nav-item"> 
-                        <h3 style='line-height:50px;color:white'> 
+                        <h3 style='line-height:50px;'> 
                         {{Session::get('namaLokasi')}}</h3>
                         </li>
                     </ul>
@@ -223,7 +227,7 @@
                         <!-- Comment -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
@@ -246,14 +250,11 @@
                         <!-- User Profile-->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown u-pro">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                                <img src="{{ asset('asset_elite/images/user.png') }}"  alt="user" class=""> 
-                            @else
-                                <img src="{{ asset('asset_elite/images/'.Session::get('foto')) }}"  alt="user" class="">
-                            @endif
-                            
-                            <span class="hidden-md-down"> {{Session::get('namaUser')}} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;display: inline-block;">
+                                <div class="hidden-md-down text-right pr-3" style="width: 135px;line-height: 18px;"><span style="text-transform: uppercase;"> {{Session::get('namaUser')}} </span></div>
+                                <div class="hidden-md-down text-right pr-3" style="width: 135px;line-height: 12px;"><span class="small" style="font-size: 11px;"> {{Session::get('userLog')}} </span></div>
+                                <img src="http://localhost:8080/laravelsai/public/asset_elite/images/user.png" alt="user" class="" style="margin-left: 135px;z-index: 2;position: absolute;top: 10px;"> 
+                            </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <!-- text-->
                                 <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
