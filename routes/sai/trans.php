@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('kontrak','Sai\KontrakController@index');
 Route::get('kontrak/{kode}','Sai\KontrakController@show');
 Route::post('kontrak','Sai\KontrakController@store');
-Route::put('kontrak-ubah/{kode}','Sai\KontrakController@update');
+Route::post('kontrak-ubah/{kode}','Sai\KontrakController@update');
 Route::delete('kontrak/{kode}','Sai\KontrakController@destroy');
 
 //Tagihan

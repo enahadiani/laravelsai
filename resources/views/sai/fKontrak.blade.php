@@ -344,6 +344,8 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#input-grid1 tbody').empty();
+        $('#input-grid2 tbody').empty();
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
@@ -736,10 +738,12 @@
             dataType: 'json',
             async:false,
             success:function(res){
+                $('#input-grid1 tbody').empty();
+                $('#input-grid2 tbody').empty();
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#id').val(id);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
@@ -747,6 +751,46 @@
                     $('#tgl_selesai').val(tglS);
                     $('#nilai').val(parseFloat(result.data[0].nilai));
                     getCustomer(result.data[0].kode_cust);
+                    if(result.data_detail.length > 0) {
+                        var no = 1;
+                        var input = "";
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line = result.data_detail[i];
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='"+line.keterangan+"' required='' style='z-index: 1;position: relative;'></td>";
+                            input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-grid1 tbody').append(input);
+                        $('.inp-nilai-modul').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            onCleared: function () { self.Value(''); }
+                        });
+                    }
+
+                    if(result.data_dokumen.length > 0) {
+                        var no2 = 1;
+                        var input2 = "";
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line = result.data_dokumen[i];
+                            input2 += "<tr class='row-grid2'>";
+                            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
+                            input2 += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
+                            input2 += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "</tr>";
+                            no2++
+                        }
+                        $('#input-grid2 tbody').append(input2);
+                    }
+
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

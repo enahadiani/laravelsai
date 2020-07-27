@@ -157,7 +157,7 @@ class KontrakController extends Controller
                 $response = $client->request('POST', $this->link.'kontrak',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json',
+                        'Accept'     => 'application/json',
                     ],
                     'multipart' => $send_data
                 ]);
@@ -211,6 +211,8 @@ class KontrakController extends Controller
             'kode_cust' => 'required',
             'keterangan' => 'required',
             'nilai' => 'required',
+            'deskripsi_modul' => 'required|array',
+            'nilai_modul' => 'required|array',
         ]);
 
         try { 
@@ -225,20 +227,87 @@ class KontrakController extends Controller
                 $bln_selesai = $explode_tgl_selesai[1];
                 $tahun_selesai = $explode_tgl_selesai[2];
                 $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
+
+                $fields = [
+                    [
+                        'name' => 'no_dokumen',
+                        'contents' => $request->no_dokumen,
+                    ],
+                    [
+                        'name' => 'tgl_awal',
+                        'contents' => $tanggal_mulai,
+                    ],
+                    [
+                        'name' => 'tgl_akhir',
+                        'contents' => $tanggal_selesai,
+                    ],
+                    [
+                        'name' => 'kode_cust',
+                        'contents' => $request->kode_cust,
+                    ],
+                    [
+                        'name' => 'keterangan',
+                        'contents' => $request->keterangan,
+                    ],
+                    [
+                        'name' => 'nilai',
+                        'contents' => intval(str_replace('.','', $request->nilai)),
+                    ],
+                ];
+
+                $fields_desk_modul = array();
+                if(count($request->deskripsi_modul) > 0){
+                    for($i=0;$i<count($request->deskripsi_modul);$i++){
+                            $fields_desk_modul[$i] = array(
+                                'name'     => 'deskripsi_modul[]',
+                                'contents' => $request->deskripsi_modul[$i],
+                        );
+                    }
+                    $send_data = array_merge($fields,$fields_desk_modul);
+                }
+
+                $fields_nilai_modul = array();
+                if(count($request->nilai_modul) > 0){
+                    for($i=0;$i<count($request->nilai_modul);$i++){
+                            $fields_nilai_modul[$i] = array(
+                                'name'     => 'nilai_modul[]',
+                                'contents' => intval(str_replace('.','', $request->nilai_modul[$i])),
+                        );
+                    }
+                    $send_data = array_merge($send_data,$fields_nilai_modul);
+                }
+
+                $cek = $request->file_dok;
+                $fields_dok = array();
+                $fields_nama_dok = array();
+                if(!empty($cek)){
+                    if(count($request->file_dok) > 0){
+            
+                        for($i=0;$i<count($request->file_dok);$i++){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_dok[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            $fields_nama_dok[$i] = array(
+                                'name' => 'nama_file[]',
+                                'contents' => $image_org
+                            );
+                        }
+                            $send_data = array_merge($send_data,$fields_dok,$fields_nama_dok);
+                        }
+                }
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'kontrak?no_kontrak='.$id,[
+                $response = $client->request('POST', $this->link.'kontrak-ubah?no_kontrak='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'no_dokumen' => $request->no_dokumen,
-                        'tgl_awal' => $tanggal_mulai,
-                        'tgl_akhir' => $tanggal_selesai,
-                        'kode_cust'=> $request->kode_cust,
-                        'keterangan'=> $request->keterangan,
-                        'nilai'=> intval(str_replace('.','', $request->nilai)),
-                    ]
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
