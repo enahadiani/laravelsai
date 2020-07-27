@@ -63,7 +63,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="min-height: 560px;">
+                        <div class="card-body pt-0" style="min-height: auto;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -81,6 +81,18 @@
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="no_dokumen" id="no_dokumen" class="form-control" value="" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="app_nik" class="col-3 col-form-label">NIK Karyawan</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="app_nik" id="app_nik" class="form-control" value="" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label id="label_app_nik" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -132,11 +144,11 @@
                             <div class="form-group row">
                                 <label for="nilai" class="col-3 col-form-label">Nilai Tagihan</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="nilai" name="nilai">
+                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="total_nilai" name="total_nilai">
                                 </div>
                                 <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn" readonly>
+                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="total_nilai_ppn" name="total_nilai_ppn" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -205,6 +217,7 @@
                                                 <th style="width:15%">Jumlah</th>
                                                 <th style="width:15%">Harga</th>
                                                 <th style="width:15%">Subtotal</th>
+                                                <th style="width:15%">PPN</th>
                                                 <th style="width:5%"></th>
                                             </tr>
                                         </thead>
@@ -258,9 +271,8 @@
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th style="width:10%">No</th>
-                                                <th style="width:10%">Jenis Dokumen</th>
-                                                <th style="width:20%">Nama Dokumen</th>
-                                                <th style="width:50%">Upload File</th>
+                                                <th style="width:40%">Nama Dokumen</th>
+                                                <th style="width:40%">Upload File</th>
                                                 <th style="width:10%"></th>
                                             </tr>
                                         </thead>
@@ -381,6 +393,8 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#input-tagihan tbody').empty();
+        $('#input-tagihan2 tbody').empty();
         $('#row-id').hide();
         $('#id_edit').val('');
         $('.data-customer').hide();
@@ -388,8 +402,10 @@
         $('.no_tagihan').hide();
         $('#kode_cust').val('');
         $('#no_kontrak').val('');
-        // $('#label_kode_cust').text('');
+        $('#app_nik').val('');
+        $('#label_kode_cust').text('');
         $('#label_no_kontrak').text('');
+        $('#label_app_nik').text('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -458,6 +474,32 @@
             });
         }
 
+        function getNIK(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-master/karyawan') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.nik == id);
+                            if(filter.length > 0) {
+                                $('#app_nik').val(filter[0].nik);
+                                $('#label_app_nik').text(filter[0].nama);
+                            } else {
+                                alert('NIK tidak valid');
+                                $('#app_nik').val('');
+                                $('#label_app_nik').text('');
+                                $('#app_nik').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
     $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
         getCustomer(par);
@@ -468,10 +510,15 @@
         getKontrak(par);
     });
 
-    $('#nilai').change(function(){
+    $('#form-tambah').on('change', '#app_nik', function(){
+        var par = $(this).val();
+        getNIK(par);
+    });
+
+    $('#total_nilai').change(function(){
         var nominal = $(this).val();
         var ppn = toNilai(nominal) * 10/100;
-        $('#nilai_ppn').val(ppn);
+        $('#total_nilai_ppn').val(ppn);
     });
 
         function showFilter(param,target1,target2){
@@ -482,6 +529,21 @@
             $target2 = target2;
             
             switch(par){
+                case 'app_nik': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sai-master/karyawan') }}";
+                    var columns = [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Karyawan";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
                 case 'no_kontrak': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sai-trans/kontrak') }}";
@@ -665,7 +727,8 @@
             input += "<td><input type='text' name='item[]' class='form-control inp-item itemke"+no+"' value='' required='' style='z-index: 1;position: relative;'></td>";
             input += "<td><input type='text' name='jumlah[]' class='form-control inp-tagihan jumlah jumlahke"+no+"'  value='0'></td>";
             input += "<td><input type='text' name='harga[]' class='form-control inp-tagihan harga hargake"+no+"'  value='0' required></td>";
-            input += "<td><input type='text' name='subtotal[]' class='form-control inp-tagihan subtotal subtotalke"+no+"'  value='' required readonly></td>";
+            input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='0' required readonly></td>";
+            input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='0' required readonly></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-tagihan tbody').append(input);
@@ -700,7 +763,9 @@
             var harga = $(this).closest('tr').find('.harga').val();
             var jumlah = $(this).closest('tr').find('.jumlah').val();
             var sub = toNilai(jumlah) * toNilai(harga);
-            $(this).closest('tr').find('.subtotal').val(sub); 
+            var ppn = sub * 10/100;
+            $(this).closest('tr').find('.nilai').val(sub); 
+            $(this).closest('tr').find('.nilai_ppn').val(ppn); 
         });
 
         $('#form-tambah').on('click', '#add-row2', function(){
@@ -709,6 +774,7 @@
             var input2 = "";
             input2 += "<tr class='row-tagihan2'>";
             input2 += "<td class='no-tagihan2 text-center'>"+no2+"</td>";
+            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' readonly></td>";
             input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
             input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input2 += "</tr>";
@@ -851,6 +917,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    $('#input-tagihan tbody').empty();
+                    $('#input-tagihan2 tbody').empty();
                     var tanggal = result.data[0].tanggal;
                     var split = tanggal.split(/[- :]/);
                     tanggal = split[2]+"/"+split[1]+"/"+split[0];
@@ -862,10 +930,11 @@
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#tanggal').val(tanggal);
-                    $('#nilai').val(parseFloat(result.data[0].nilai));
-                    $('#nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
+                    $('#total_nilai').val(parseFloat(result.data[0].nilai));
+                    $('#total_nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     getCustomer(result.data[0].kode_cust);
                     getKontrak(result.data[0].no_kontrak);
+                    getNIK(result.data[0].nik_app);
                     
                     if(result.data_detail.length > 0) {
                         var input = "";
@@ -877,7 +946,8 @@
                             input += "<td><input type='text' name='item[]' class='form-control inp-item itemke"+nomor+"' value='"+line.item+"' required='' style='z-index: 1;position: relative;'></td>";
                             input += "<td><input type='text' name='jumlah[]' class='form-control inp-tagihan jumlah jumlahke"+nomor+"'  value='"+toNilai(line.harga)+"'></td>";
                             input += "<td><input type='text' name='harga[]' class='form-control inp-tagihan harga hargake"+nomor+"'  value='"+toNilai(line.jumlah)+"' required></td>";
-                            input += "<td><input type='text' name='subtotal[]' class='form-control inp-tagihan subtotal subtotalke"+nomor+"'  value='"+toNilai(line.harga)*toNilai(line.jumlah)+"' required readonly></td>";
+                            input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+nomor+"'  value='"+toNilai(line.nilai)+"' required readonly></td>";
+                            input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+nomor+"'  value='"+toNilai(line.nilai_ppn)+"' required readonly></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             nomor++;
@@ -900,8 +970,9 @@
                             var line = result.data_dokumen[i];
                             input2 += "<tr class='row-tagihan2'>";
                             input2 += "<td class='no-tagihan2 text-center'>"+nomor+"</td>";
-                            input2 += "<td><input type='file' name='file_dok[]' value='"+line.no_gambar+"' required  class='inp-file_dok'></td>";
-                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input2 += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
+                            input2 += "<td><input type='file' name='file_dok[]'  class='inp-file_dok'></td>";
+                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
                             input2 += "</tr>";
                             nomor++;
                         }
