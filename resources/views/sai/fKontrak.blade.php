@@ -597,7 +597,7 @@
             var input2 = "";
             input2 += "<tr class='row-grid2'>";
             input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
-            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' readonly></td>";
+            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
             input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
             input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input2 += "</tr>";

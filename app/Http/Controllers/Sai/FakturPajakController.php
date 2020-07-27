@@ -70,6 +70,54 @@ class FakturPajakController extends Controller
                 $bln = $explode_tgl[1];
                 $tahun = $explode_tgl[2];
                 $tanggal = $tahun."-".$bln."-".$tgl;
+
+                $fields = [
+                    [
+                        'name' => 'no_fp',
+                        'contents' => $request->no_faktur,
+                    ],
+                    [
+                        'name' => 'tanggal',
+                        'contents' => $tanggal,
+                    ],
+                    [
+                        'name' => 'no_bill',
+                        'contents' => $request->no_tagihan,
+                    ],
+                    [
+                        'name' => 'periode',
+                        'contents' => $request->periode,
+                    ],
+                    [
+                        'name' => 'keterangan',
+                        'contents' => $request->keterangan,
+                    ],
+                ];
+
+                $cek = $request->file_dok;
+                $fields_dok = array();
+                $fields_nama_dok = array();
+                if(!empty($cek)){
+                    if(count($request->file_dok) > 0){
+            
+                        for($i=0;$i<count($request->file_dok);$i++){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_dok[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            $fields_nama_dok[$i] = array(
+                                'name' => 'nama_file[]',
+                                'contents' => $image_org
+                            );
+                        }
+                            $send_data = array_merge($fields,$fields_dok,$fields_nama_dok);
+                        }
+                }
             
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'faktur-pajak',[
@@ -77,13 +125,7 @@ class FakturPajakController extends Controller
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'no_fp' => $request->no_faktur,
-                        'tanggal' => $tanggal,
-                        'no_bill' => $request->no_tagihan,
-                        'periode'=> $request->periode,
-                        'keterangan'=> $request->keterangan,
-                    ]
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -142,20 +184,62 @@ class FakturPajakController extends Controller
                 $bln = $explode_tgl[1];
                 $tahun = $explode_tgl[2];
                 $tanggal = $tahun."-".$bln."-".$tgl;
+
+                $fields = [
+                    [
+                        'name' => 'no_fp',
+                        'contents' => $request->no_faktur,
+                    ],
+                    [
+                        'name' => 'tanggal',
+                        'contents' => $tanggal,
+                    ],
+                    [
+                        'name' => 'no_bill',
+                        'contents' => $request->no_tagihan,
+                    ],
+                    [
+                        'name' => 'periode',
+                        'contents' => $request->periode,
+                    ],
+                    [
+                        'name' => 'keterangan',
+                        'contents' => $request->keterangan,
+                    ],
+                ];
+
+                $cek = $request->file_dok;
+                $fields_dok = array();
+                $fields_nama_dok = array();
+                if(!empty($cek)){
+                    if(count($request->file_dok) > 0){
+            
+                        for($i=0;$i<count($request->file_dok);$i++){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_dok[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            $fields_nama_dok[$i] = array(
+                                'name' => 'nama_file[]',
+                                'contents' => $image_org
+                            );
+                        }
+                    }
+                }
+                $send_data = array_merge($fields,$fields_dok,$fields_nama_dok);
             
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'faktur-pajak?no_fp='.$id,[
+                $response = $client->request('POST', $this->link.'faktur-pajak-ubah?no_fp='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'no_fp' => $request->no_faktur,
-                        'tanggal' => $tanggal,
-                        'no_bill' => $request->no_tagihan,
-                        'periode'=> $request->periode,
-                        'keterangan'=> $request->keterangan,
-                    ]
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();

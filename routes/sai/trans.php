@@ -21,5 +21,5 @@ Route::delete('tagihan/{kode}','Sai\TagihanController@destroy');
 Route::get('faktur-pajak','Sai\FakturPajakController@index');
 Route::get('faktur-pajak-detail/{kode}','Sai\FakturPajakController@show');
 Route::post('faktur-pajak','Sai\FakturPajakController@store');
-Route::put('faktur-pajak-ubah/{kode}','Sai\FakturPajakController@update');
+Route::post('faktur-pajak-ubah/{kode}','Sai\FakturPajakController@update');
 Route::delete('faktur-pajak/{kode}','Sai\FakturPajakController@destroy');

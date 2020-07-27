@@ -63,7 +63,7 @@
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="min-height: 560px;">
+                        <div class="card-body pt-0" style="min-height: auto;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -144,11 +144,12 @@
                                         overflow:unset !important;
                                     }
                                 </style>
-                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-tagihan2" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#ff9500;color:white">
                                         <tr>
                                             <th style="width:10%">No</th>
-                                            <th style="width:80%">Upload File</th>
+                                            <th style="width:40%">Nama Dokumen</th>
+                                            <th style="width:40%">Upload File</th>
                                             <th style="width:10%"></th>
                                         </tr>
                                     </thead>
@@ -268,6 +269,7 @@
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
+        $('#input-grid tbody').empty();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
         $('#no_faktur').attr('readonly',false);
@@ -479,6 +481,30 @@
             showFilter(par,target1,target2);
         });
 
+        $('#form-tambah').on('click', '#add-row', function(){
+            var no=$('#input-grid .row-grid:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-grid'>";
+            input += "<td class='no-grid text-center'>"+no+"</td>";
+            input += "<td><span>-</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='-' readonly></td>";
+            input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input += "</tr>";
+            $('#input-grid tbody').append(input);
+        });
+
+        $('#input-grid').on('click', '.hapus-item', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
@@ -603,8 +629,9 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    $('#input-grid tbody').empty();
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#id').val(id);
                     $('#no_faktur').attr('readonly',true);
                     $('#no_faktur').val(id);
@@ -612,6 +639,21 @@
                     $('#periode').val(result.data[0].periode);
                     $('#tanggal').val(tgl);
                     getTagihan(result.data[0].no_bill);
+                    if(result.data_dokumen.length > 0) {
+                        var no = 1;
+                        var input = "";
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line = result.data_dokumen[i];
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='no-grid text-center'>"+no+"</td>";
+                            input += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
+                            input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-grid tbody').append(input);
+                    }
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
