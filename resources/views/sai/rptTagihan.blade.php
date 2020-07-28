@@ -64,6 +64,20 @@
                         Divre III
                     </th>
                 </tr>
+                <tr>
+                    <th>2.</th>
+                    <th style="text-align: justify">
+                        Sehubungan dengan hal di atas, maka kami mengajukan permohonan pembayaran 
+                        sebesar <b>Rp. 2.200.000,- (Dua Juta Dua Ratus Ribu Rupiah)</b> termasuk PPN
+                        10% dengan perincian sebagai berikut :
+                        <table style="border: 1px solid black;">
+                            <tr>
+                                <th>Keterangan</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
             </table>
         </div>
     </div>

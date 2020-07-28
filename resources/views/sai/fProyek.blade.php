@@ -97,13 +97,13 @@
                             <div class="form-group row">
                                 <label for="tgl_mulai" class="col-3 col-form-label">Tanggal Mulai</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Mulai" id="tgl_mulai" name="tgl_mulai" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row" style="position: relative !important">
                                 <label for="tgl_selesai" class="col-3 col-form-label">Tanggal Selesai</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Selesai" id="tgl_selesai" name="tgl_selesai">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Selesai" id="tgl_selesai" name="tgl_selesai" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -147,6 +147,11 @@
         $('.datepicker').datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            orientation: "bottom" // <-- and add this
         });
 
     $('[data-toggle="tooltip"]').tooltip(); 
