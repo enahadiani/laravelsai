@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Faktur Pajak 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pembayaran 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,10 +36,10 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Faktur</th>
-                                        <th>No Tagihan</th>
-                                        <th>Tanggal</th>
-                                        <th>Periode</th>
+                                        <th>No Pembayaran</th>
+                                        <th>Tangal</th>
+                                        <th>Keterangan</th>
+                                        <th>Kode Customer</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -57,13 +57,13 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Faktur Pajak
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pembayaran
                             <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
                         </div>
-                        <div class="card-body pt-0" style="min-height: auto;">
+                        <div class="card-body pt-0" style="min-height: 560px;">
                             <div class="form-group row" id="row-id">
                                 <div class="col-9">
                                     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -72,31 +72,21 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="no_faktur" class="col-3 col-form-label">No Faktur</label>
-                                <div class="input-group col-4">
-                                    <input class="form-control" type="text" placeholder="No Faktur" id="no_faktur" name="no_faktur">
+                                <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
+                                <div class="col-3">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="no_tagihan" class="col-3 col-form-label">No Tagihan</label>
+                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="no_tagihan" id="no_tagihan" class="form-control" value="" required>
+                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <label id="label_no_tagihan" class="label-kode" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
-                                <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
-                                </div>
-                                <label for="tgl_lahir" class="col-3 col-form-label">Periode</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Periode" id="periode" name="periode" autocomplete="off">
+                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -105,58 +95,123 @@
                                     <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
                                 </div>
                             </div>
-                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
-                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
-                            </div>
-                            <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                <style>
-                                    th{
-                                        vertical-align:middle !important;
-                                    }
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bitem" role="tab" aria-selected="true"><span class="hidden-xs-down">Tagihan</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bupload" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
+                            </ul>
+                            <div class="tab-content tabcontent-border">
+                                <div class="tab-pane active" id="bitem" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
                                             /* #input-jurnal td{
                                                 padding:0 !important;
                                             } */
-                                     #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
-                                        border:0 !important;
-                                        border-radius:0 !important;
-                                    }
-                                    .modal-header .close {
-                                        padding: 1rem;
-                                        margin: -1rem 0 -1rem auto;
-                                    }
-                                    .check-item{
-                                        cursor:pointer;
-                                    }
-                                    .selected{
-                                        cursor:pointer;
-                                        background:#4286f5 !important;
-                                        color:white;
-                                    }
-                                    #input-jurnal td:hover{
-                                        background:#f4d180 !important;
-                                        color:white;
-                                    }
-                                    #input-jurnal td{
-                                        overflow:hidden !important;
-                                    }
-                                    #input-jurnal td:nth-child(4){
-                                        overflow:unset !important;
-                                    }
-                                </style>
-                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#ff9500;color:white">
-                                        <tr>
-                                            <th style="width:10%">No</th>
-                                            <th style="width:40%">Nama Dokumen</th>
-                                            <th style="width:40%">Upload File</th>
-                                            <th style="width:10%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                             </div>
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid1" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:5%">No</th>
+                                                <th style="width:30%">No Tagihan</th>
+                                                <th style="width:30%">No Dokumen</th>
+                                                <th style="width:30%">Nilai</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="bupload" role="tab">
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
+                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row2" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                background:#4286f5 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td:hover{
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td{
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4){
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid2" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#ff9500;color:white">
+                                            <tr>
+                                                <th style="width:10%">No</th>
+                                                <th style="width:40%">Nama Dokumen</th>
+                                                <th style="width:40%">Upload File</th>
+                                                <th style="width:10%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -208,7 +263,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-trans/faktur-pajak') }}",
+            'url': "{{ url('sai-trans/pembayaran') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -234,8 +289,7 @@
             {'targets': 4, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'no_fp' },
-            { data: 'no_bill' },
+            { data: 'no_bayar' },
             { data: 'tanggal', render: function(data,type,row) {
                 var dataDate = new Date(data);
                 var tgl = ("0" + dataDate.getDate()).slice(-2)
@@ -243,7 +297,8 @@
                 var tahun = dataDate.getFullYear();
                 return tgl+"/"+bln+"/"+tahun;
             } },
-            { data: 'periode' },
+            { data: 'keterangan' },
+            { data: 'kode_cust' },
         ],
         dom: 'lBfrtip',
         language: {
@@ -261,11 +316,12 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#input-grid1 tbody').empty();
+        $('#input-grid2 tbody').empty();
         $('#row-id').hide();
-        $('#input-grid tbody').empty();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#no_faktur').attr('readonly',false);
+        $('.kode_ktg').hide();
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -277,7 +333,33 @@
         $('#saku-form').hide();
     });
 
-    function getTagihan(id=null){
+    function getCustomer(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-master/customer') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_cust == id);
+                            if(filter.length > 0) {
+                                $('#kode_cust').val(filter[0].kode_cust);
+                                $('#label_kode_cust').text(filter[0].nama);
+                            } else {
+                                alert('Customer tidak valid');
+                                $('#kode_cust').val('');
+                                $('#label_kode_cust').text('');
+                                $('#kode_cust').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    function getTagihan(id=null,index=null){
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sai-trans/tagihan') }}",
@@ -289,13 +371,13 @@
                             var data = result.daftar;
                             var filter = data.filter(data => data.no_bill == id);
                             if(filter.length > 0) {
-                                $('#no_tagihan').val(filter[0].no_bill);
-                                $('#label_no_tagihan').text(filter[0].no_dokumen);
+                                $('#no_bill'+index).val(filter[0].no_bill);
+                                $('#label-bill-ke-'+index).text(filter[0].no_dokumen);
                             } else {
                                 alert('Tagihan tidak valid');
-                                $('#no_tagihan').val('');
-                                $('#label_no_tagihan').text('');
-                                $('#no_tagihan').focus();
+                                $('#no_bill'+index).val('');
+                                $('#label-bill-ke-'+index).text('');
+                                $('#no_bill'+index).focus();
                             }
                         }
                     }
@@ -303,10 +385,16 @@
             });
         }
 
-    $('#form-tambah').on('change', '#no_tagihan', function(){
+    $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
-        getTagihan(par);
+        getCustomer(par);
     });
+
+    $("#input-grid1").on('change', "input[name='no_bill[]']",function(){
+        var par = $(this).val();
+        var index = $(this).closest('tr').index() + 1;
+        getTagihan(par,index);
+    })
 
         function showFilter(param,target1,target2){
             var par = param;
@@ -316,7 +404,7 @@
             $target2 = target2;
             
             switch(par){
-                case 'no_tagihan': 
+                case 'no_bill[]': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sai-trans/tagihan') }}";
                     var columns = [
@@ -325,6 +413,21 @@
                     ];
                     
                     var judul = "Daftar Tagihan";
+                    var jTarget2 = "val";
+                    var jTarget1 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+                case 'kode_cust': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sai-master/customer') }}";
+                    var columns = [
+                        { data: 'kode_cust' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Customer";
                     var jTarget1 = "val";
                     var jTarget2 = "text";
                     $target = "#"+$target;
@@ -474,24 +577,70 @@
             showFilter(par,target1,target2);
         });
 
+        $('#input-grid1').on('click', '.search-item', function(){
+            var par1 = $(this).closest('tr').find('input').attr('id');
+            var par2 = $(this).closest('tr').find('span').attr('id');
+            var par3 = $(this).closest('tr').find('input').attr('name');
+            var target1 = par3;
+            var target2 = par2;
+            var target3 = par1;
+            showFilter(target1,target2,target3);
+        });
+
         $('#form-tambah').on('click', '#add-row', function(){
-            var no=$('#input-grid .row-grid:last').index();
+            var no=$('#input-grid1 .row-grid:last').index();
             no=no+2;
             var input = "";
             input += "<tr class='row-grid'>";
             input += "<td class='no-grid text-center'>"+no+"</td>";
-            input += "<td><span>-</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='-' readonly></td>";
-            input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='' required>"+
+            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
+            +"</div></td>";
+            input += "<td><span id='label-bill-ke-"+no+"'></span></td>";
+            input += "<td><input type='text' name='nilai[]' class='form-control inp-bill bill billke"+no+"'  value='0' required></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
-            $('#input-grid tbody').append(input);
+            $('#input-grid1 tbody').append(input);
+
+            $('.inp-bill').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                onCleared: function () { self.Value(''); }
+            });
         });
 
-        $('#input-grid').on('click', '.hapus-item', function(){
+        $('#input-grid1').on('click', '.hapus-item', function(){
             $(this).closest('tr').remove();
             no=1;
             $('.row-grid').each(function(){
-                var nom = $(this).closest('tr').find('.no-grid');
+                var nom = $(this).closest('tr').find('.no-grid1');
+                nom.html(no);
+                no++;
+            });
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#form-tambah').on('click', '#add-row2', function(){
+            var no2=$('#input-grid2 .row-grid2:last').index();
+            no2=no2+2;
+            var input2 = "";
+            input2 += "<tr class='row-grid2'>";
+            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
+            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
+            input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input2 += "</tr>";
+            $('#input-grid2 tbody').append(input2);
+        });
+
+        $('#input-grid2').on('click', '.hapus-item2', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid2').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid2');
                 nom.html(no);
                 no++;
             });
@@ -503,10 +652,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-trans/faktur-pajak-ubah') }}/"+id;
+            var url = "{{ url('sai-trans/pembayaran-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-trans/faktur-pajak') }}";
+            var url = "{{ url('sai-trans/pembayaran') }}";
             var pesan = "saved";
         }
 
@@ -574,7 +723,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-trans/faktur-pajak') }}/"+id,
+                    url: "{{ url('sai-trans/kontrak') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -612,41 +761,68 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tgl= $(this).closest('tr').find('td').eq(2).html();
+        var tglM= $(this).closest('tr').find('td').eq(2).html();
+        var tglS= $(this).closest('tr').find('td').eq(3).html();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/faktur-pajak-detail') }}/" + id,
+            url: "{{ url('sai-trans/kontrak') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
+                $('#input-grid1 tbody').empty();
+                $('#input-grid2 tbody').empty();
                 var result= res.data;
                 if(result.status){
-                    $('#input-grid tbody').empty();
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id').val(id);
-                    $('#no_faktur').attr('readonly',true);
-                    $('#no_faktur').val(id);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#keterangan').val(result.data[0].keterangan);
-                    $('#periode').val(result.data[0].periode);
-                    $('#tanggal').val(tgl);
-                    getTagihan(result.data[0].no_bill);
-                    if(result.data_dokumen.length > 0) {
+                    $('#tgl_mulai').val(tglM);
+                    $('#tgl_selesai').val(tglS);
+                    $('#nilai').val(parseFloat(result.data[0].nilai));
+                    getCustomer(result.data[0].kode_cust);
+                    if(result.data_detail.length > 0) {
                         var no = 1;
                         var input = "";
-                        for(var i=0;i<result.data_dokumen.length;i++){
-                            var line = result.data_dokumen[i];
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line = result.data_detail[i];
                             input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid text-center'>"+no+"</td>";
-                            input += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
-                            input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
-                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='"+line.keterangan+"' required='' style='z-index: 1;position: relative;'></td>";
+                            input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
+                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
                         }
-                        $('#input-grid tbody').append(input);
+                        $('#input-grid1 tbody').append(input);
+                        $('.inp-nilai-modul').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            onCleared: function () { self.Value(''); }
+                        });
                     }
+
+                    if(result.data_dokumen.length > 0) {
+                        var no2 = 1;
+                        var input2 = "";
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line = result.data_dokumen[i];
+                            input2 += "<tr class='row-grid2'>";
+                            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
+                            input2 += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
+                            input2 += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "</tr>";
+                            no2++
+                        }
+                        $('#input-grid2 tbody').append(input2);
+                    }
+
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

@@ -23,3 +23,10 @@ Route::get('faktur-pajak-detail/{kode}','Sai\FakturPajakController@show');
 Route::post('faktur-pajak','Sai\FakturPajakController@store');
 Route::post('faktur-pajak-ubah/{kode}','Sai\FakturPajakController@update');
 Route::delete('faktur-pajak/{kode}','Sai\FakturPajakController@destroy');
+
+//Pembayaran
+Route::get('pembayaran','Sai\PembayaranController@index');
+Route::get('pembayaran-detail/{kode}','Sai\PembayaranController@show');
+Route::post('pembayaran','Sai\PembayaranController@store');
+Route::post('pembayaran-ubah/{kode}','Sai\PembayaranController@update');
+Route::delete('pembayaran/{kode}','Sai\PembayaranController@destroy');
