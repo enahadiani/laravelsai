@@ -31,6 +31,9 @@ Route::get('/login', 'Apv\AuthController@login');
 Route::post('/login', 'Apv\AuthController@cek_auth');
 Route::get('/logout', 'Apv\AuthController@logout');
 
+Route::get('/profile', 'Apv\AuthController@getProfile');
+Route::post('/update-password', 'Apv\AuthController@updatePassword');
+
 Route::get('/karyawan', 'Apv\KaryawanController@index');
 Route::post('/karyawan', 'Apv\KaryawanController@store');
 Route::get('/karyawan/{nik}', 'Apv\KaryawanController@show');

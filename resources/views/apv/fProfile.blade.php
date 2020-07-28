@@ -1,24 +1,3 @@
-<?php
- session_start();
- $root_lib=$_SERVER["DOCUMENT_ROOT"];
- if (substr($root_lib,-1)!="/") {
-     $root_lib=$root_lib."/";
- }
- include_once($root_lib.'app/apv/setting.php');
-
-$kode_lokasi=$_SESSION['lokasi'];
-$periode=$_SESSION['periode'];
-$kode_pp=$_SESSION['kodePP'];
-$nik=$_SESSION['userLog'];
-$resource = $_GET["resource"];
-$fullId = $_GET["fullId"];
-
-$path = "http://".$_SERVER["SERVER_NAME"]."/";	
-$poly1 = $path."image/Polygon1.png";
-$poly2 = $path."image/Polygon12.png";
-$group12 = $path."image/Group12.png";
-$group13 = $path."image/Group13.png";
-?>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -172,7 +151,6 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
     color:#0073b7
 }
 </style>
-
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-lg-4 col-xlg-3 col-md-5">
@@ -191,34 +169,40 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
         <div class="col-lg-8 col-xlg-9 col-md-7">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material">
+                    <form class="form-horizontal form-material" id="form-profile">
                         <div class="form-group">
                             <label class="col-md-12">Full Name</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="" class="form-control form-control-line" id="fullname">
+                                <input type="text" placeholder="" class="form-control form-control-line" id="fullname" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">NIK</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="" class="form-control form-control-line" id="nik">
+                                <input type="text" placeholder="" class="form-control form-control-line" id="nik" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Password</label>
+                            <label class="col-md-12">Password Lama</label>
                             <div class="col-md-12">
-                            <input type="password" value="" id="password" class="form-control form-control-line">
+                            <input type="password" value="" id="password_lama" name="password_lama" class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Regional</label>
+                            <label class="col-md-12">Password Baru</label>
                             <div class="col-md-12">
-                            <input type="text" placeholder=""  id="kode_pp" class="form-control form-control-line">
+                            <input type="password" value="" id="password_baru" name="password_baru"  class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">PP</label>
+                            <div class="col-md-12">
+                            <input type="kode_pp" value="" readonly id="kode_pp" class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                            <button class="btn btn-success">Update Profile</button>
+                            <button class="btn btn-success" type="submit">Update Password</button>
                             </div>
                         </div>
                     </form>
@@ -251,31 +235,29 @@ function toJuta(x) {
     return sepNum(nil) + '';
 }
 
-function loadService(index,method,url,param=null){
+function loadService(index,method,url,param={}){
     $.ajax({
         type: method,
         url: url,
         dataType: 'json',
-        data: {'periode':'<?=$periode?>','param':param},
+        data: param,
         success:function(result){    
             if(result.status){
                 switch(index){
                     case 'profile' :
-                    var html = `<img src="<?=$root_upload?>/`+result.data.foto+`" class="img-circle" width="150" />
-                        <h4 class="card-title m-t-10">`+result.data.nama+`</h4>
-                        <h6 class="card-subtitle">`+result.data.nama_jab+`</h6>`;
-
+                    var html = `<img src="https://api.simkug.com/api/apv/storage/`+result.data[0].foto+`" class="img-circle" width="150" />
+                        <h4 class="card-title m-t-10">`+result.data[0].nama+`</h4>`;
                     var html2 =`
-                    <small class="text-muted">Email address </small>
-                    <h6>`+result.data.email+`</h6> <small class="text-muted p-t-30 db">Phone</small>
-                    <h6>`+result.data.no_telp+`</h6>`;
+                    <small class="text-muted"><small class="text-muted p-t-30 db">Phone</small>
+                    <h6>`+result.data[0].no_telp+`</h6>`;
 
                     $('#profile-header').html(html);
                     $('#profile-sub').html(html2);
-                    $('#fullname').val(result.data.nama);
-                    $('#nik').val(result.data.nik);
-                    $('#kode_pp').val(result.data.kode_pp+' - '+result.data.nama_pp);
-                    $('#password').val('');
+                    $('#fullname').val(result.data[0].nama);
+                    $('#nik').val(result.data[0].nik);
+                    $('#kode_pp').val(result.data[0].kode_pp+' - '+result.data[0].nama_pp);
+                    $('#password_lama').val('');
+                    $('#password_baru').val('');
                     break;
 
                 }
@@ -284,8 +266,75 @@ function loadService(index,method,url,param=null){
     });
 }
 function initDash(){
-    loadService('profile','GET','<?=$root_ser?>/Profile.php?fx=getProfile','<?=$kode_lokasi?>|<?=$nik?>'); 
-     
+    loadService('profile','GET',"apv/profile"); 
 }
 initDash();
+
+$('#form-profile').on('submit', function(e){
+    e.preventDefault();
+        var parameter = $('#id').val();
+        var url = "apv/update-password";
+        var pesan = "saved";
+
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status){
+                    // location.reload();
+                    // dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
+                    $('#password_lama').val('');
+                    $('#password_baru').val('');
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv-auth/logout') }}";
+                    })
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
+        
+});
 </script>
