@@ -245,7 +245,13 @@ function loadService(index,method,url,param={}){
             if(result.status){
                 switch(index){
                     case 'profile' :
-                    var html = `<img src="https://api.simkug.com/api/apv/storage/`+result.data[0].foto+`" class="img-circle" width="150" />
+                    if(result.data[0].foto == "-" || result.data[0].foto == ""){
+                        var img= `<img src="{{ asset('asset_elite/images/user.png') }}" class="img-circle" width="150" />
+                        `;
+                    }else{
+                        var img= `<img src="https://api.simkug.com/api/apv/storage/`+result.data[0].foto+`" class="img-circle" width="150" />`;
+                    }
+                    var html = img+`
                         <h4 class="card-title m-t-10">`+result.data[0].nama+`</h4>`;
                     var html2 =`
                     <small class="text-muted"><small class="text-muted p-t-30 db">Phone</small>
