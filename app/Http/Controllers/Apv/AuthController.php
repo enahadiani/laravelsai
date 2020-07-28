@@ -11,7 +11,6 @@ use GuzzleHttp\Exception\BadResponseException;
 class AuthController extends Controller
 {
     public $link = 'https://api.simkug.com/api/apv';
-    public $link2 = 'https://api.simkug.com/api/gl';
 
     public function index()
     {
@@ -123,7 +122,8 @@ class AuthController extends Controller
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
-        $response = $client->request('GET', $this->link2.'/menu/'.$kodemenu,[
+        $success['kode_menu'] = $kodemenu;
+        $response = $client->request('GET', $this->link.'/side-menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -133,6 +133,7 @@ class AuthController extends Controller
         $hasil = "";
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
+            $success['response'] = $response_data;
             
             $data = json_decode($response_data,true);
             $daftar_menu = $data['success']['data'];
