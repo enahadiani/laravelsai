@@ -105,8 +105,18 @@
             border-color:#929090;
         }
         
-        
+        .navbar-dark, .navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-nav .show > .nav-link ,.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover{
+            color:black;
+        }
         .skin-white.topbar{
+            background:white;
+        }
+
+        .item-profile:hover,.item-profile:focus{
+            color:#c8c8c8;
+        }
+
+        .dropdown-item:hover,.dropdown-item:focus{
             background:white;
         }
     </style>
@@ -190,7 +200,7 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="skin-white topbar">
-            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
@@ -216,7 +226,7 @@
                         <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                         <li class="nav-item"> 
                         <h3 style='line-height:50px;'> 
-                        
+
                         {{Session::get('namaLokasi')}}</h3>
                         </li>
                     </ul>
@@ -231,7 +241,7 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated">
                                 <ul>
                                     <li>
                                         <div class="drop-title">Notifications</div>
@@ -260,14 +270,21 @@
                                     <img src="{{ asset('asset_elite/images/'.Session::get('foto')) }}"  alt="user" class="" style="margin-left: 135px;z-index: 2;position: absolute;top: 10px;">
                                 @endif
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                            <div class="dropdown-menu dropdown-menu-right animated" style="width:350px;padding:0px">
                                 <!-- text-->
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
-                                <!-- text-->
-                                <div class="dropdown-divider"></div>
-                                <!-- text-->
-                                <a href="{{url('apv/logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
-                                <!-- text-->
+                                <div class="dropdown-item" style="padding:1.5rem">
+                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                    <img src="{{ asset('asset_elite/images/user.png') }}"  alt="user" class="" style="margin-right: 20px;z-index: 2;position: absolute;width:50px;bottom: 30px;"> 
+                                @else
+                                    <img src="{{ asset('asset_elite/images/'.Session::get('foto')) }}"  alt="user" class="" style="margin-right: 20px;z-index: 2;position: absolute;width:50px;bottom: 30px;">
+                                @endif
+                                    <h4 style="margin-left:70px;margin-bottom:0px;text-transform: uppercase;">{{Session::get('namaUser')}}</h4>
+                                    <h6 style="margin-left:70px">{{Session::get('userLog')}}</h6>
+                                    <span style="margin-left:70px">
+                                        <a href="{{url('apv/logout')}}" class='item-profile' style="color:grey;" ><i class="fa icon-user"></i> My Profile</a>&nbsp;
+                                        <a href="{{url('apv/logout')}}" class='item-profile' style="color:grey;margin-left:10px" ><i class="icon-logout"></i> Logout</a>
+                                    </span>
+                                </div>
                             </div>
                         </li>
                         <!-- ============================================================== -->
