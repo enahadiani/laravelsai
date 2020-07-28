@@ -276,7 +276,11 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;display: inline-block;">
                                 <div class="hidden-md-down text-right pr-3" style="width: 135px;line-height: 18px;"><span style="text-transform: uppercase;"> {{Session::get('namaUser')}} </span></div>
                                 <div class="hidden-md-down text-right pr-3" style="width: 135px;line-height: 12px;"><span class="small" style="font-size: 11px;"> {{Session::get('userLog')}} </span></div>
-                                <img src="http://localhost:8080/laravelsai/public/asset_elite/images/user.png" alt="user" class="" style="margin-left: 135px;z-index: 2;position: absolute;top: 10px;"> 
+                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                    <img src="{{ asset('asset_elite/images/user.png') }}"  alt="user" class="" style="margin-left: 135px;z-index: 2;position: absolute;top: 10px;"> 
+                                @else
+                                    <img src="{{ asset('asset_elite/images/'.Session::get('foto')) }}"  alt="user" class="" style="margin-left: 135px;z-index: 2;position: absolute;top: 10px;">
+                                @endif
                             </a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <!-- text-->

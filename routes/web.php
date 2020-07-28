@@ -19,6 +19,9 @@ Route::get('/', function () {
         case 'dwi.simkug.com' : 
             return redirect('dago-auth/login');
         break;
+        case 'silo.simkug.com' : 
+            return redirect('apv/login');
+        break;
         default : 
             return view('welcome');
         break;
