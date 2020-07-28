@@ -159,7 +159,7 @@ class PembayaranController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'faktur-pajak-detail?no_fp='.$id,
+            $response = $client->request('GET', $this->link.'pembayaran-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -184,11 +184,11 @@ class PembayaranController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'no_faktur' => 'required',
             'tanggal' => 'required',
-            'periode' => 'required',
-            'no_tagihan' => 'required',
+            'kode_cust' => 'required',
             'keterangan' => 'required',
+            'no_bill' => 'required|array',
+            'nilai' => 'required|array',
         ]);
 
         try { 
@@ -200,26 +200,40 @@ class PembayaranController extends Controller
 
                 $fields = [
                     [
-                        'name' => 'no_fp',
-                        'contents' => $request->no_faktur,
-                    ],
-                    [
                         'name' => 'tanggal',
                         'contents' => $tanggal,
                     ],
                     [
-                        'name' => 'no_bill',
-                        'contents' => $request->no_tagihan,
-                    ],
-                    [
-                        'name' => 'periode',
-                        'contents' => $request->periode,
+                        'name' => 'kode_cust',
+                        'contents' => $request->kode_cust,
                     ],
                     [
                         'name' => 'keterangan',
                         'contents' => $request->keterangan,
                     ],
                 ];
+
+                $fields_bill = array();
+                if(count($request->no_bill) > 0){
+                    for($i=0;$i<count($request->no_bill);$i++){
+                            $fields_bill[$i] = array(
+                                'name'     => 'no_bill[]',
+                                'contents' => $request->no_bill[$i],
+                        );
+                    }
+                    $send_data = array_merge($fields,$fields_bill);
+                }
+
+                $fields_nilai = array();
+                if(count($request->nilai) > 0){
+                    for($i=0;$i<count($request->nilai);$i++){
+                            $fields_nilai[$i] = array(
+                                'name'     => 'nilai[]',
+                                'contents' => intval(str_replace('.','', $request->nilai[$i])),
+                        );
+                    }
+                    $send_data = array_merge($send_data,$fields_nilai);
+                }
 
                 $cek = $request->file_dok;
                 $fields_dok = array();
@@ -242,12 +256,11 @@ class PembayaranController extends Controller
                                 'contents' => $image_org
                             );
                         }
-                    }
+                            $send_data = array_merge($send_data,$fields_dok,$fields_nama_dok);
+                        }
                 }
-                $send_data = array_merge($fields,$fields_dok,$fields_nama_dok);
-            
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'faktur-pajak-ubah?no_fp='.$id,[
+                $response = $client->request('POST', $this->link.'pembayaran-ubah?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -273,7 +286,7 @@ class PembayaranController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'faktur-pajak?no_fp='.$id,
+            $response = $client->request('DELETE', $this->link.'pembayaran?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

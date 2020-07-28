@@ -71,6 +71,12 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
+                            <div class="form-group row no-bukti">
+                                <label for="tanggal" class="col-3 col-form-label">No Bukti</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" id="no_bukti" readonly>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
@@ -243,6 +249,7 @@
         var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
+        var tagihan = null;
 
         $.ajaxSetup({
         headers: {
@@ -318,6 +325,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#input-grid1 tbody').empty();
         $('#input-grid2 tbody').empty();
+        $('.no-bukti').hide();
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
@@ -384,6 +392,19 @@
                 }
             });
         }
+
+    function getTagihan2(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sai-trans/tagihan') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var data = result.daftar;
+                tagihan = data;
+            }
+        });
+    }
 
     $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
@@ -723,7 +744,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-trans/kontrak') }}/"+id,
+                    url: "{{ url('sai-trans/pembayaran') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -761,12 +782,12 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tglM= $(this).closest('tr').find('td').eq(2).html();
-        var tglS= $(this).closest('tr').find('td').eq(3).html();
+        var tgl= $(this).closest('tr').find('td').eq(1).html();
+        getTagihan2();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/kontrak') }}/" + id,
+            url: "{{ url('sai-trans/pembayaran-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -776,28 +797,31 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
+                    $('.no-bukti').show();
                     $('#id').val(id);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#no_bukti').val(id);
+                    $('#tanggal').val(tgl);
                     $('#keterangan').val(result.data[0].keterangan);
-                    $('#tgl_mulai').val(tglM);
-                    $('#tgl_selesai').val(tglS);
-                    $('#nilai').val(parseFloat(result.data[0].nilai));
                     getCustomer(result.data[0].kode_cust);
                     if(result.data_detail.length > 0) {
                         var no = 1;
                         var input = "";
                         for(var i=0;i<result.data_detail.length;i++){
                             var line = result.data_detail[i];
+                            var bill = tagihan.filter(data=>data.no_dokumen == line.no_bill);
                             input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
-                            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='"+line.keterangan+"' required='' style='z-index: 1;position: relative;'></td>";
-                            input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
+                            input += "<td class='no-grid text-center'>"+no+"</td>";
+                            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='"+bill[0].no_bill+"' required>"+
+                            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
+                            +"</div></td>";
+                            input += "<td><span id='label-bill-ke-"+no+"'>"+line.no_bill+"</span></td>";
+                            input += "<td><input type='text' name='nilai[]' class='form-control inp-bill bill billke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
                         }
                         $('#input-grid1 tbody').append(input);
-                        $('.inp-nilai-modul').inputmask("numeric", {
+                        $('.inp-bill').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
                             digits: 2,
