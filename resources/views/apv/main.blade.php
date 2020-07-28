@@ -216,6 +216,7 @@
                         <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                         <li class="nav-item"> 
                         <h3 style='line-height:50px;'> 
+                        
                         {{Session::get('namaLokasi')}}</h3>
                         </li>
                     </ul>
