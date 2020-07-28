@@ -118,6 +118,7 @@
 
         .dropdown-item:hover,.dropdown-item:focus{
             background:white;
+            color:unset;
         }
     </style>
     <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
@@ -241,17 +242,30 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated">
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated" style="width:480px">
                                 <ul>
                                     <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center">
+                                        <div class="drop-title">
+                                            <span class="text-left">NOTIFICATIONS</span>
+                                            <span class="text-danger float-right">Mark all as read</span>
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                        <div class="message-center">
+                                        <a href="javascript:void(0)">
+                                            <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
+                                            <div class="mail-contnet" style="width: 65%;">
+                                                <h5>Luanch Admin</h5> <span class="mail-desc">Just see the my new admin!</span> 
+                                            </div>
+                                            <div class="mail-contnet" style="width: 20%;">
+                                                <span class="time text-right">28 Juli 2020</span>
+                                                <span class="time text-right">at 9:30 AM</span> 
+                                            </div>
+                                        </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link text-danger" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </div>
@@ -281,7 +295,7 @@
                                     <h4 style="margin-left:70px;margin-bottom:0px;text-transform: uppercase;">{{Session::get('namaUser')}}</h4>
                                     <h6 style="margin-left:70px">{{Session::get('userLog')}}</h6>
                                     <span style="margin-left:70px">
-                                        <a href="{{url('apv/logout')}}" class='item-profile' style="color:grey;" ><i class="fa icon-user"></i> My Profile</a>&nbsp;
+                                        <a href="javascript:void(0)" class='item-profile' style="color:grey;" ><i class="fa icon-user"></i> My Profile</a>&nbsp;
                                         <a href="{{url('apv/logout')}}" class='item-profile' style="color:grey;margin-left:10px" ><i class="icon-logout"></i> Logout</a>
                                     </span>
                                 </div>
