@@ -381,9 +381,11 @@
                             if(filter.length > 0) {
                                 $('#no_bill'+index).val(filter[0].no_bill);
                                 $('#label-bill-ke-'+index).text(filter[0].no_dokumen);
+                                $('#nilai-bill-ke-'+index).val(parseFloat(filter[0].nilai));
                             } else {
                                 alert('Tagihan tidak valid');
                                 $('#no_bill'+index).val('');
+                                $('#nilai-bill-ke-'+index).val(0);
                                 $('#label-bill-ke-'+index).text('');
                                 $('#no_bill'+index).focus();
                             }
@@ -602,6 +604,8 @@
             var par1 = $(this).closest('tr').find('input').attr('id');
             var par2 = $(this).closest('tr').find('span').attr('id');
             var par3 = $(this).closest('tr').find('input').attr('name');
+            var par4 = $(this).closest('tr').find('input').attr('name');
+            console.log(par1)
             var target1 = par3;
             var target2 = par2;
             var target3 = par1;
@@ -618,7 +622,7 @@
             "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
             +"</div></td>";
             input += "<td><span id='label-bill-ke-"+no+"'></span></td>";
-            input += "<td><input type='text' name='nilai[]' class='form-control inp-bill bill billke"+no+"'  value='0' required></td>";
+            input += "<td><input type='text' name='nilai[]' id='nilai-bill-ke-"+no+"' class='form-control inp-bill bill billke"+no+"'  value='0' required></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-grid1 tbody').append(input);
@@ -808,13 +812,14 @@
                         var input = "";
                         for(var i=0;i<result.data_detail.length;i++){
                             var line = result.data_detail[i];
-                            var bill = tagihan.filter(data=>data.no_dokumen == line.no_bill);
+                            var bill = tagihan.filter(data=>data.no_bill == line.no_bill);
+
                             input += "<tr class='row-grid'>";
                             input += "<td class='no-grid text-center'>"+no+"</td>";
-                            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='"+bill[0].no_bill+"' required>"+
+                            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='"+line.no_bill+"' required>"+
                             "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
                             +"</div></td>";
-                            input += "<td><span id='label-bill-ke-"+no+"'>"+line.no_bill+"</span></td>";
+                            input += "<td><span id='label-bill-ke-"+no+"'>"+bill[0].no_dokumen+"</span></td>";
                             input += "<td><input type='text' name='nilai[]' class='form-control inp-bill bill billke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";

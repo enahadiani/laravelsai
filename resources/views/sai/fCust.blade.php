@@ -119,6 +119,16 @@
                                         <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
                                     </div>
                             </div>
+                            <div class="form-group row ">
+                                <label for="bank" class="col-3 col-form-label">Bank</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
+                                    </div>
+                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
+                                    </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-3 col-form-label">Foto</label>
                                 <div class="input-group col-6">
@@ -373,6 +383,8 @@
                     $('#nama').val(result.data[0].nama);
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#bank').val(result.data[0].bank);
+                    $('#cabang').val(result.data[0].cabang);
                     $('#email').val(result.data[0].email);
                     $('#no_telp').val(result.data[0].no_telp);
                     $('#pic').val(result.data[0].pic);

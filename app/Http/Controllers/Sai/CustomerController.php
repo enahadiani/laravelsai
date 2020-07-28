@@ -64,15 +64,17 @@ class CustomerController extends Controller
             'email' => 'required',
             'no_rek'=>'required',
             'nama_rek'=>'required',
+            'bank'=>'required',
+            'cabang'=>'required',
             'no_telp' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek','file_gambar');
+                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','bank','cabang','nama_rek','file_gambar');
             } else {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek');
+                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek','bank','cabang');
             }
             $req = $request->all();
             $fields = array();
@@ -156,6 +158,8 @@ class CustomerController extends Controller
             'alamat'=>'required',
             'no_rek'=>'required',
             'nama_rek'=>'required',
+            'bank'=>'required',
+            'cabang'=>'required',
             'pic' => 'required',
             'no_telp' => 'required',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
@@ -163,9 +167,9 @@ class CustomerController extends Controller
 
         try { 
             if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','nama_rek','file_gambar');
+                $name = array('kode_cust','pic','nama','email','alamat','no_telp','bank','cabang','no_rek','nama_rek','file_gambar');
             } else {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','nama_rek');
+                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','bank','cabang','nama_rek');
             }
             $req = $request->all();
             $fields = array();

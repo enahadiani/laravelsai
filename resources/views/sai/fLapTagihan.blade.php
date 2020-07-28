@@ -201,6 +201,9 @@
     //     });
     // }
     // getBarang();
+    var xurl = "{{ url('/sai-auth/form')}}/rptTagihan";
+    $('#content-lap').load(xurl);
+
 
     function openNav() {
         var element = $('#mySidepanel');
