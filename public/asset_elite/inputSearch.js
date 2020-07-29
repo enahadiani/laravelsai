@@ -75,7 +75,6 @@
             });
 
             $('#modal-search').keydown(function(e) {
-                e.preventDefault();
                 $('input[type=search]').unbind("keydown");
                 var selectRow = $('.selected').index();
                 var jumRow = $('.selected').parents('table').find('tbody tr').length;
@@ -93,6 +92,7 @@
                 }
                 var tr = searchTable.$('tr.selected');
                 if (e.keyCode == 40){ 
+                    e.preventDefault();
                     //arrow down
                     if(!last){
                         tr.removeClass('selected');
@@ -107,6 +107,8 @@
                     }
                 }
                 if (e.keyCode == 38){ //arrow up
+                    
+                    e.preventDefault();
                     if(!first){
                         
                         tr.removeClass('selected');
@@ -122,6 +124,8 @@
                 }
     
                 if (e.keyCode == 13){
+                    
+                    e.preventDefault();
                     console.log(searchTable.row('.selected').index());
                     var select_data = searchTable.row('.selected').data();
                     if (typeof settings.onItemSelected === "function") {

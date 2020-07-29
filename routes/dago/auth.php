@@ -32,5 +32,9 @@ Route::get('/logout', 'Dago\AuthController@logout');
 Route::get('/profile', 'Dago\AuthController@getProfile');
 Route::post('/update_password', 'Dago\AuthController@updatePassword');
 
+Route::get('/cek', function () {
+   echo config('api.url');
+});
+
 
 

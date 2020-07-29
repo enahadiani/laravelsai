@@ -71,3 +71,6 @@ Route::get('provinsi', 'Toko\PenjualanLangsungController@getProvinsi');
 Route::get('kota', 'Toko\PenjualanLangsungController@getKota');
 Route::get('kecamatan', 'Toko\PenjualanLangsungController@getKecamatan');
 Route::get('service', 'Toko\PenjualanLangsungController@getService');
+
+Route::get('barcode-load', 'Toko\BarcodeController@loadData');
+Route::post('barcode', 'Toko\BarcodeController@store');
