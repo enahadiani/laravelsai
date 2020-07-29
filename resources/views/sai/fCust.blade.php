@@ -300,6 +300,7 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
+        $('#input-grid tbody').empty();
         $('#kode_cust').attr('readonly',false);
         $('#file_gambar').val('');
         $('.custom-file-label').val('');
@@ -684,6 +685,7 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#input-grid tbody').empty();
         getLampiran2();
         $iconLoad.show();
         $.ajax({
