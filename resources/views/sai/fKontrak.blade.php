@@ -59,7 +59,8 @@
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Kontrak
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                             <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
+                            <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -89,6 +90,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="tgl_sepakat" class="col-3 col-form-label">Tanggal Sepakat</label>
+                                <div class="col-3">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal Kesepakatan Kontrak" id="tgl_sepakat" name="tgl_sepakat" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
@@ -107,9 +114,23 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="keterangan" class="col-3 col-form-label">Nilai</label>
-                                <div class="input-group col-4">
-                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai">
+                                <label for="nilai" class="col-3 col-form-label">Nilai</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai" id="nilai" name="nilai" readonly>
+                                </div>
+                                <label for="ppn" class="col-3 col-form-label">Nilai PPN</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="nilai_ppn" name="nilai_ppn" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jenis" class="col-3 col-form-label">Jenis Kontrak</label>
+                                <div class="col-3">
+                                    <select required class='form-control' id="jenis" name="jenis" required>
+                                    <option value=''>--- Pilih Jenis Kontrak---</option>
+                                    <option value='PROYEK'>Proyek</option>
+                                    <option value='MAINTENANCE'>Maintenance</option>
+                                    </select>
                                 </div>
                             </div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -162,8 +183,9 @@
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th style="width:5%">No</th>
-                                                <th style="width:60%">Deskripsi Modul</th>
-                                                <th style="width:30%">Nilai Modul</th>
+                                                <th style="width:40%">Deskripsi Modul</th>
+                                                <th style="width:25%">Nilai Modul</th>
+                                                <th style="width:25%">PPN</th>
                                                 <th style="width:5%"></th>
                                             </tr>
                                         </thead>
@@ -566,6 +588,7 @@
             input += "<td class='no-grid1 text-center'>"+no+"</td>";
             input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='' required='' style='z-index: 1;position: relative;'></td>";
             input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='0' required></td>";
+            input += "<td><input type='text' name='nilai_modul_ppn[]' class='form-control inp-nilai-modul nilai-modul-ppn nilai_modul_ppnke"+no+"'  value='0' required readonly></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-grid1 tbody').append(input);
@@ -588,6 +611,7 @@
                 nom.html(no);
                 no++;
             });
+            hitungTotal();
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
@@ -615,6 +639,24 @@
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
+    function hitungTotal(){
+        var total = 0;
+        $('.row-grid').each(function(){
+            var nilai = $(this).closest('tr').find('.inp-nilai-modul').val();
+            total += +toNilai(nilai);
+        });
+        var ppn = total * (10/100);
+        $('#nilai').val(total);
+        $('#nilai_ppn').val(ppn);
+    }
+
+    $('#input-grid1').on('change', '.inp-nilai-modul', function(e){
+        var nilai = toNilai($(this).val());
+        var ppn = nilai * (10/100);
+        $(this).closest('tr').find('.nilai-modul-ppn').val(ppn); 
+        hitungTotal(); 
+    });
+
     $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         var parameter = $('#id_edit').val();
@@ -637,10 +679,20 @@
             url: url,
             dataType: 'json',
             data: formData,
-            async:false,
+            async:true,
             contentType: false,
             cache: false,
-            processData: false, 
+            processData: false,
+            beforeSend:function(){
+                console.log('beforeSend')
+                $('#btn-simpan').hide();
+                $('#btn-loading').show();
+            }, 
+            complete:function(){
+                console.log('complete')
+                $('#btn-simpan').show();
+                $('#btn-loading').hide();
+            },
             success:function(result){
                 // alert('Input data '+result.message);
                 if(result.data.status){
@@ -671,9 +723,16 @@
                         })
                 }
             },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
+            error: function(xhr, status, error){
+                var err = eval("(" + xhr.responseText + ")");
+                $('#btn-simpan').hide();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terdapat field form yang kosong!',
+                    footer: err.message
+                })
+            },
         });
     });
 
@@ -742,6 +801,12 @@
                 $('#input-grid2 tbody').empty();
                 var result= res.data;
                 if(result.status){
+                    var dataDate = result.data[0].tgl_sepakat.split('-');
+                    var tgl = dataDate[2];
+                    var bln = dataDate[1];
+                    var tahun = dataDate[0]
+                    var tanggal =  tgl+"/"+bln+"/"+tahun;
+
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id').val(id);
@@ -749,7 +814,10 @@
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#tgl_mulai').val(tglM);
                     $('#tgl_selesai').val(tglS);
+                    $('#tgl_sepakat').val(tanggal);
+                    $('#jenis').val(result.data[0].status_kontrak);
                     $('#nilai').val(parseFloat(result.data[0].nilai));
+                    $('#nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     getCustomer(result.data[0].kode_cust);
                     if(result.data_detail.length > 0) {
                         var no = 1;
@@ -760,6 +828,7 @@
                             input += "<td class='no-grid1 text-center'>"+no+"</td>";
                             input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='"+line.keterangan+"' required='' style='z-index: 1;position: relative;'></td>";
                             input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
+                            input += "<td><input type='text' name='nilai_modul_ppn[]' class='form-control inp-nilai-modul nilai-modul-ppn nilai_modul_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
