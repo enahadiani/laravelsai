@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Tagihan 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Tagihan Proyek
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -57,8 +57,9 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Tagihan
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Tagihan Proyek
+                            <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
+                            <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -81,18 +82,6 @@
                                 <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="no_dokumen" id="no_dokumen" class="form-control" value="" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="app_nik" class="col-3 col-form-label">NIK Karyawan</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="app_nik" id="app_nik" class="form-control" value="" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_app_nik" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -144,7 +133,7 @@
                             <div class="form-group row">
                                 <label for="nilai" class="col-3 col-form-label">Nilai Tagihan</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="total_nilai" name="total_nilai">
+                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="total_nilai" name="total_nilai" readonly>
                                 </div>
                                 <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
                                 <div class="input-group col-3">
@@ -402,10 +391,8 @@
         $('.no_tagihan').hide();
         $('#kode_cust').val('');
         $('#no_kontrak').val('');
-        $('#app_nik').val('');
         $('#label_kode_cust').text('');
         $('#label_no_kontrak').text('');
-        $('#label_app_nik').text('');
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -451,7 +438,7 @@
         function getKontrak(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sai-trans/kontrak') }}",
+                url: "{{ url('sai-trans/kontrak/PROYEK') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
@@ -474,32 +461,6 @@
             });
         }
 
-        function getNIK(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sai-master/karyawan') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.nik == id);
-                            if(filter.length > 0) {
-                                $('#app_nik').val(filter[0].nik);
-                                $('#label_app_nik').text(filter[0].nama);
-                            } else {
-                                alert('NIK tidak valid');
-                                $('#app_nik').val('');
-                                $('#label_app_nik').text('');
-                                $('#app_nik').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
     $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
         getCustomer(par);
@@ -510,16 +471,18 @@
         getKontrak(par);
     });
 
-    $('#form-tambah').on('change', '#app_nik', function(){
-        var par = $(this).val();
-        getNIK(par);
-    });
-
-    $('#total_nilai').change(function(){
-        var nominal = $(this).val();
-        var ppn = toNilai(nominal) * 10/100;
-        $('#total_nilai_ppn').val(ppn);
-    });
+    function hitungTotal(){
+        var total = 0;
+        var total_ppn = 0;
+        $('.row-tagihan').each(function(){
+            var nilai = $(this).closest('tr').find('.nilai').val();
+            var ppn = $(this).closest('tr').find('.nilai_ppn').val();
+            total += +toNilai(nilai);
+            total_ppn += +toNilai(ppn);
+        });
+        $('#total_nilai').val(total);
+        $('#total_nilai_ppn').val(total_ppn);
+    }
 
         function showFilter(param,target1,target2){
             var par = param;
@@ -529,24 +492,9 @@
             $target2 = target2;
             
             switch(par){
-                case 'app_nik': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-master/karyawan') }}";
-                    var columns = [
-                        { data: 'nik' },
-                        { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar Karyawan";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
                 case 'no_kontrak': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-trans/kontrak') }}";
+                var toUrl = "{{ url('sai-trans/kontrak/PROYEK') }}";
                     var columns = [
                         { data: 'no_kontrak' },
                         { data: 'no_dokumen' }
@@ -755,6 +703,7 @@
                 nom.html(no);
                 no++;
             });
+            hitungTotal();
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
@@ -766,6 +715,7 @@
             var ppn = sub * 10/100;
             $(this).closest('tr').find('.nilai').val(sub); 
             $(this).closest('tr').find('.nilai_ppn').val(ppn); 
+            hitungTotal();
         });
 
         $('#form-tambah').on('click', '#add-row2', function(){
@@ -814,10 +764,20 @@
             url: url,
             dataType: 'json',
             data: formData,
-            async:false,
+            async:true,
             contentType: false,
             cache: false,
             processData: false, 
+            beforeSend:function(){
+                console.log('beforeSend')
+                $('#btn-simpan').hide();
+                $('#btn-loading').show();
+            }, 
+            complete:function(){
+                console.log('complete')
+                $('#btn-simpan').show();
+                $('#btn-loading').hide();
+            },
             success:function(result){
                 // alert('Input data '+result.message);
                 if(result.data.status){
@@ -934,7 +894,6 @@
                     $('#total_nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     getCustomer(result.data[0].kode_cust);
                     getKontrak(result.data[0].no_kontrak);
-                    getNIK(result.data[0].nik_app);
                     
                     if(result.data_detail.length > 0) {
                         var input = "";

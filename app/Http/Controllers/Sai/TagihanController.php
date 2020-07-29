@@ -62,7 +62,6 @@ class TagihanController extends Controller
             'keterangan' => 'required',
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
-            'app_nik'=>'required',
             'kode_cust' => 'required',
             'no_kontrak' => 'required',
             'bank' => 'required',
@@ -93,7 +92,7 @@ class TagihanController extends Controller
                 ],
                 [
                     'name' => 'nik_app',
-                    'contents' => $request->app_nik,
+                    'contents' => Session::get('userLog'),
                 ],
                 [
                     'name' => 'keterangan',

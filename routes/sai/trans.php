@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+//Helper
+Route::get('kontrak/{status}','Sai\HelperController@getKontrak');
+
 //Kontrak
 Route::get('kontrak','Sai\KontrakController@index');
-Route::get('kontrak/{kode}','Sai\KontrakController@show');
+Route::get('kontrak-detail/{kode}','Sai\KontrakController@show');
 Route::post('kontrak','Sai\KontrakController@store');
 Route::post('kontrak-ubah/{kode}','Sai\KontrakController@update');
 Route::delete('kontrak/{kode}','Sai\KontrakController@destroy');

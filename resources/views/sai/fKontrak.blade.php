@@ -870,7 +870,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/kontrak') }}/" + id,
+            url: "{{ url('sai-trans/kontrak-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
