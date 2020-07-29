@@ -16,7 +16,7 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-master/';
+    // public $link = 'https://api.simkug.com/api/dago-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class JadwalController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jadwal',[
+            $response = $client->request('GET', config('api.url').'dago-master/jadwal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +58,7 @@ class JadwalController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/jadwal-detail?no_paket='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -119,7 +119,7 @@ class JadwalController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jadwal?no_paket='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/jadwal?no_paket='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json',

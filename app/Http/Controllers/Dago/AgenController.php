@@ -15,8 +15,7 @@ class AgenController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
-    public $link = 'https://api.simkug.com/api/dago-master/';
+     */    
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class AgenController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'agen',[
+            $response = $client->request('GET', config('api.url').'dago-master/agen',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,7 +74,7 @@ class AgenController extends Controller
         try {   
                 $tgl_lahir = str_replace('/','-',$request->tgl_lahir);
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'agen',[
+                $response = $client->request('POST', config('api.url').'dago-master/agen',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -115,7 +114,7 @@ class AgenController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'agen?no_agen='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/agen?no_agen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -158,7 +157,7 @@ class AgenController extends Controller
         try {
                 $tgl_lahir = str_replace('/','-',$request->tgl_lahir);
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'agen?no_agen='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/agen?no_agen='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -198,7 +197,7 @@ class AgenController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'agen?no_agen='.$id,
+            $response = $client->request('DELETE', config('api.url').'dago-master/agen?no_agen='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

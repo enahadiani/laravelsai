@@ -16,7 +16,7 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-report/';
+    // public $link = 'https://api.simkug.com/api/dago-report/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class LaporanController extends Controller
     public function getMkuOperasional(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-mku-operasional',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-mku-operasional',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,7 +75,7 @@ class LaporanController extends Controller
     public function getMkuKeuangan(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-mku-keuangan',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-mku-keuangan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -117,7 +117,7 @@ class LaporanController extends Controller
     public function getPaket(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-paket',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-paket',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -159,7 +159,7 @@ class LaporanController extends Controller
     public function getDokumen(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-dokumen',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-dokumen',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -201,7 +201,7 @@ class LaporanController extends Controller
     public function getJamaah(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-jamaah',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-jamaah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -242,7 +242,7 @@ class LaporanController extends Controller
     public function getFormRegistrasi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-form-registrasi',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-form-registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -282,7 +282,7 @@ class LaporanController extends Controller
     public function getRegistrasi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-registrasi',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -323,7 +323,7 @@ class LaporanController extends Controller
     public function getPembayaran(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-pembayaran',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-pembayaran',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -362,7 +362,7 @@ class LaporanController extends Controller
     public function getRekapSaldo(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-rekap-saldo',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-rekap-saldo',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -403,7 +403,7 @@ class LaporanController extends Controller
     public function getKartuPembayaran(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-kartu-pembayaran',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-kartu-pembayaran',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -444,7 +444,7 @@ class LaporanController extends Controller
     public function getDetailSaldo(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-detail-saldo',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-detail-saldo',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -486,7 +486,7 @@ class LaporanController extends Controller
     public function getDetailTagihan(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-detail-tagihan',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-detail-tagihan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -527,7 +527,7 @@ class LaporanController extends Controller
     public function getDetailBayar(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-detail-bayar',[
+            $response = $client->request('GET', config('api.url').'dago-report/lap-detail-bayar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -16,7 +16,7 @@ class JenisHargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-master/';
+    // public $link = 'https://api.simkug.com/api/dago-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class JenisHargaController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga',[
+            $response = $client->request('GET', config('api.url').'dago-master/jenis-harga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,7 +63,7 @@ class JenisHargaController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis-harga',[
+                $response = $client->request('POST', config('api.url').'dago-master/jenis-harga',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -92,7 +92,7 @@ class JenisHargaController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/jenis-harga?kode_harga='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -123,7 +123,7 @@ class JenisHargaController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis-harga?kode_harga='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/jenis-harga?kode_harga='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -152,7 +152,7 @@ class JenisHargaController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis-harga?kode_harga='.$id,
+            $response = $client->request('DELETE', config('api.url').'dago-master/jenis-harga?kode_harga='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

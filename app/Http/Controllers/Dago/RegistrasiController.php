@@ -16,8 +16,8 @@ class RegistrasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-trans/';
-    public $link2 = 'https://api.simkug.com/api/dago-master/';
+    // public $link = 'https://api.simkug.com/api/dago-trans/';
+    // public $link2 = 'https://api.simkug.com/api/dago-master/';
 
     public function joinNum($num){
         // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
@@ -46,7 +46,7 @@ class RegistrasiController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi',[
+            $response = $client->request('GET', config('api.url').'dago-trans/registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -193,7 +193,7 @@ class RegistrasiController extends Controller
             );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'registrasi',[
+            $response = $client->request('POST', config('api.url').'dago-trans/registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -232,7 +232,7 @@ class RegistrasiController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi-detail?no_reg='.$request->no_reg,[
+            $response = $client->request('GET', config('api.url').'dago-trans/registrasi-detail?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -392,7 +392,7 @@ class RegistrasiController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'registrasi',[
+            $response = $client->request('PUT', config('api.url').'dago-trans/registrasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -435,7 +435,7 @@ class RegistrasiController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'registrasi?no_reg='.$request->no_reg,[
+            $response = $client->request('DELETE', config('api.url').'dago-trans/registrasi?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -471,7 +471,7 @@ class RegistrasiController extends Controller
             $client = new Client();
             if(isset($request->no_jadwal)){
                
-                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
+                $response = $client->request('GET', config('api.url').'dago-trans/jadwal-detail?no_paket='.$request->no_paket.'&no_jadwal='.$request->no_jadwal,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -482,7 +482,7 @@ class RegistrasiController extends Controller
                     ]
                 ]);
             }else{
-                $response = $client->request('GET', $this->link.'jadwal-detail?no_paket='.$request->no_paket,[
+                $response = $client->request('GET', config('api.url').'dago-trans/jadwal-detail?no_paket='.$request->no_paket,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -511,7 +511,7 @@ class RegistrasiController extends Controller
     {
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link2.'paket?no_paket='.$no_paket,[
+            $response = $client->request('GET', config('api.url').'dago-master/'.'paket?no_paket='.$no_paket,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -540,7 +540,7 @@ class RegistrasiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'biaya-tambahan',[
+            $response = $client->request('GET', config('api.url').'dago-trans/biaya-tambahan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -567,7 +567,7 @@ class RegistrasiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'biaya-dokumen',[
+            $response = $client->request('GET', config('api.url').'dago-trans/biaya-dokumen',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -595,7 +595,7 @@ class RegistrasiController extends Controller
             $client = new Client();
             if(isset($request->kode_pp)){
                
-                $response = $client->request('GET', $this->link.'pp?kode_pp='.$request->kode_pp,[
+                $response = $client->request('GET', config('api.url').'dago-trans/pp?kode_pp='.$request->kode_pp,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -605,7 +605,7 @@ class RegistrasiController extends Controller
                     ]
                 ]);
             }else{
-                $response = $client->request('GET', $this->link.'pp',[
+                $response = $client->request('GET', config('api.url').'dago-trans/pp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -637,7 +637,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'harga?no_paket='.$request->no_paket.'&jenis_paket='.$request->jenis_paket.'&jenis='.$request->jenis,[
+            $response = $client->request('GET', config('api.url').'dago-trans/harga?no_paket='.$request->no_paket.'&jenis_paket='.$request->jenis_paket.'&jenis='.$request->jenis,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -674,7 +674,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'quota?no_paket='.$request->no_paket.'&jadwal='.$request->jadwal.'&jenis='.$request->jenis,[
+            $response = $client->request('GET', config('api.url').'dago-trans/quota?no_paket='.$request->no_paket.'&jadwal='.$request->jadwal.'&jenis='.$request->jenis,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -710,7 +710,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'harga-room?kode_curr='.$request->kode_curr.'&type_room='.$request->type_room,[
+            $response = $client->request('GET', config('api.url').'dago-trans/harga-room?kode_curr='.$request->kode_curr.'&type_room='.$request->type_room,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -744,7 +744,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'no-marketing?no_agen='.$request->no_agen,[
+            $response = $client->request('GET', config('api.url').'dago-trans/no-marketing?no_agen='.$request->no_agen,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -777,7 +777,7 @@ class RegistrasiController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi-preview?no_reg='.$request->no_reg,[
+            $response = $client->request('GET', config('api.url').'dago-trans/registrasi-preview?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

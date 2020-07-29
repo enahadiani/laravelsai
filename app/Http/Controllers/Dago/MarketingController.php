@@ -16,7 +16,7 @@ class MarketingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-master/';
+    // public $link = 'https://api.simkug.com/api/dago-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class MarketingController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'marketing',[
+            $response = $client->request('GET', config('api.url').'dago-master/marketing',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -64,7 +64,7 @@ class MarketingController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'marketing',[
+                $response = $client->request('POST', config('api.url').'dago-master/marketing',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -94,7 +94,7 @@ class MarketingController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'marketing?no_marketing='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/marketing?no_marketing='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -126,7 +126,7 @@ class MarketingController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'marketing?no_marketing='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/marketing?no_marketing='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -156,7 +156,7 @@ class MarketingController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'marketing?no_marketing='.$id,
+            $response = $client->request('DELETE', config('api.url').'dago-master/marketing?no_marketing='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
