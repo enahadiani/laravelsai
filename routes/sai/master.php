@@ -54,3 +54,10 @@ Route::get('lampiran/{kode}','Sai\LampiranController@show');
 Route::post('lampiran','Sai\LampiranController@store');
 Route::put('lampiran-ubah/{kode}','Sai\LampiranController@update');
 Route::delete('lampiran/{kode}','Sai\LampiranController@destroy');
+
+//Master Modul
+Route::get('modul','Sai\ModulController@index');
+Route::get('modul/{kode}','Sai\ModulController@show');
+Route::post('modul','Sai\ModulController@store');
+Route::put('modul-ubah/{kode}','Sai\ModulController@update');
+Route::delete('modul/{kode}','Sai\ModulController@destroy');
