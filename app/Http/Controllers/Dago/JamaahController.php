@@ -16,7 +16,7 @@ class JamaahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-trans/';
+    // public $link = 'https://api.simkug.com/api/dago-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -38,7 +38,7 @@ class JamaahController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah',[
+            $response = $client->request('GET', config('api.url').'dago-trans/jamaah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -141,7 +141,7 @@ class JamaahController extends Controller
             $fields = array_merge($fields,$fields_data);
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jamaah',[
+            $response = $client->request('POST', config('api.url').'dago-trans/jamaah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -178,7 +178,7 @@ class JamaahController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah-detail?no_peserta='.$request->no_peserta,[
+            $response = $client->request('GET', config('api.url').'dago-trans/jamaah-detail?no_peserta='.$request->no_peserta,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -212,7 +212,7 @@ class JamaahController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jamaah-detail-id?id_peserta='.$request->id_peserta,[
+            $response = $client->request('GET', config('api.url').'dago-trans/jamaah-detail-id?id_peserta='.$request->id_peserta,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -334,7 +334,7 @@ class JamaahController extends Controller
             $fields = array_merge($fields,$fields_data);
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jamaah-ubah',[
+            $response = $client->request('POST', config('api.url').'dago-trans/jamaah-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -374,7 +374,7 @@ class JamaahController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jamaah?no_peserta='.$request->no_peserta,[
+            $response = $client->request('DELETE', config('api.url').'dago-trans/jamaah?no_peserta='.$request->no_peserta,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

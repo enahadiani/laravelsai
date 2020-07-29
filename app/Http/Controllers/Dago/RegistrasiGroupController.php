@@ -16,7 +16,7 @@ class RegistrasiGroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-trans/';
+    // public $link = 'https://api.simkug.com/api/dago-trans/';
 
     public function joinNum($num){
         // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
@@ -44,7 +44,7 @@ class RegistrasiGroupController extends Controller
             
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'registrasi-group?no_reg='.$request->no_reg,[
+            $response = $client->request('GET', config('api.url').'dago-trans/registrasi-group?no_reg='.$request->no_reg,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -107,7 +107,7 @@ class RegistrasiGroupController extends Controller
             );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'registrasi-group',[
+            $response = $client->request('POST', config('api.url').'dago-trans/registrasi-group',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'

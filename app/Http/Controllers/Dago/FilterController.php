@@ -37,7 +37,7 @@ class FilterController extends Controller
     function getFilterPeriode(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-periode',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-periode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,7 +63,7 @@ class FilterController extends Controller
         try{
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'filter-paket',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-paket',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -92,7 +92,7 @@ class FilterController extends Controller
     function getFilterJadwal(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-jadwal',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-jadwal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -121,7 +121,7 @@ class FilterController extends Controller
     function getFilterNoReg(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-noreg',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-noreg',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -152,7 +152,7 @@ class FilterController extends Controller
     function getFilterPeserta(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-peserta',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-peserta',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -183,7 +183,7 @@ class FilterController extends Controller
     function getFilterJK(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-jk',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-jk',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -211,7 +211,7 @@ class FilterController extends Controller
     function getFilterKwitansi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-kwitansi',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter-kwitansi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

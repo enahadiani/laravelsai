@@ -33,7 +33,7 @@ class TypeRoomController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'type-room',[
+            $response = $client->request('GET', config('api.url').'dago-master/type-room',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -66,7 +66,7 @@ class TypeRoomController extends Controller
         try {
                 $harga = str_replace('.','',$request->harga);
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'type-room',[
+                $response = $client->request('POST', config('api.url').'dago-master/type-room',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -97,7 +97,7 @@ class TypeRoomController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'type-room?no_type='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/type-room?no_type='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -131,7 +131,7 @@ class TypeRoomController extends Controller
         try {
                 $harga = str_replace('.','',$request->harga);
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'type-room?no_type='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/type-room?no_type='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -162,7 +162,7 @@ class TypeRoomController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'type-room?no_type='.$id,
+            $response = $client->request('DELETE', config('api.url').'dago-master/type-room?no_type='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

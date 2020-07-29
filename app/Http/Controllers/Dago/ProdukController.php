@@ -16,7 +16,7 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/dago-master/';
+    // public $link = 'https://api.simkug.com/api/dago-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +33,7 @@ class ProdukController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'produk',[
+            $response = $client->request('GET', config('api.url').'dago-master/produk',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -66,7 +66,7 @@ class ProdukController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'produk',[
+                $response = $client->request('POST', config('api.url').'dago-master/produk',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -98,7 +98,7 @@ class ProdukController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'produk?kode_produk='.$id,
+            $response = $client->request('GET', config('api.url').'dago-master/produk?kode_produk='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -132,7 +132,7 @@ class ProdukController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'produk?kode_produk='.$id,[
+                $response = $client->request('PUT', config('api.url').'dago-master/produk?kode_produk='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -164,7 +164,7 @@ class ProdukController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'produk?kode_produk='.$id,
+            $response = $client->request('DELETE', config('api.url').'dago-master/produk?kode_produk='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

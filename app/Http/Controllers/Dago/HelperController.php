@@ -19,7 +19,7 @@
         public function getAkunPdpt() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akun-pendapatan',[
+            $response = $client->request('GET', config('api.url').'dago-master/akun-pendapatan',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -38,7 +38,7 @@
         public function getAkunPiutang() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akun-piutang',[
+            $response = $client->request('GET', config('api.url').'dago-master/akun-piutang',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -57,7 +57,7 @@
         public function getAkunPDD() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akun-pdd',[
+            $response = $client->request('GET', config('api.url').'dago-master/akun-pdd',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
