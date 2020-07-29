@@ -10,7 +10,7 @@
     <meta name="_token" content="{{ csrf_token() }}" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('asset_elite/images/saku.png') }}">
-    <title>SILO | Sistem Logistik</title>
+    <title>SAKU | Sistem Dokumen SAI</title>
     <!-- This page CSS -->
     <!-- Font Awesome CSS -->
     <link href="{{ asset('asset_elite/icons/font-awesome/css/fa-brands.css') }}" rel="stylesheet">
@@ -177,7 +177,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">SILO admin</p>
+            <p class="loader__label">SAKU admin</p>
         </div>
     </div>
     <!-- ============================================================== -->
@@ -199,7 +199,7 @@
                             <img src="{{ asset('asset_elite/images/saku.png') }}" alt="homepage" class="light-logo" width="30px">
                         </b>
                         <span style="display: none;color:black;font-size:25px"> 
-                        SILO</span> 
+                        SAKU</span> 
                     </a>
                 </div>
                 <!-- ============================================================== -->

@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Customer 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Lampiran 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,12 +36,8 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>Kode</th>
+                                        <th>Kode Lampiran</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>PIC</th>
-                                        <th>Email</th>
-                                        <th>No Telp</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -59,9 +55,8 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Customer
-                            <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
-                            <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Lampiran
+                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -74,70 +69,17 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
+                            <div class="form-group row kode-lampiran">
+                                <label for="kode_lampiran" class="col-3 col-form-label">Kode Lampiran</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
+                                    <input class="form-control" type="text" placeholder="Kode Lampiran" id="kode_lampiran">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label for="nama" class="col-3 col-form-label">Nama</label>
                                     <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama">
+                                        <input class="form-control" type="text" placeholder="Nama Lampiran" id="nama" name="nama">
                                     </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="pic" class="col-3 col-form-label">PIC</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="barcode" class="col-3 col-form-label">Email</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Email" id="email" name="email">
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="no_telp" class="col-3 col-form-label">No Telp</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="No Telp" id="no_telp" name="no_telp">
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="no_telp" class="col-3 col-form-label">Alamat</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
-                                    </div>
-                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
-                                    </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="bank" class="col-3 col-form-label">Bank</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
-                                    </div>
-                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
-                                    </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-3 col-form-label">Foto</label>
-                                <div class="input-group col-6">
-                                    <div class="custom-file">
-                                        <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar">
-                                        <label class="custom-file-label" for="file_gambar">Choose file</label>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </form>
@@ -177,13 +119,6 @@
         }
         });
 
-        $('.custom-file-input').on('change',function(){
-            //get the file name
-            var fileName = $(this).val();
-            //replace the "Choose a file" label
-            $(this).next('.custom-file-label').html(fileName);
-        })
-
     $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
@@ -192,12 +127,16 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-master/customer') }}",
+            'url': "{{ url('sai-master/lampiran') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
                 if(json.status){
+                    if(json.daftar.length > 0){
                     return json.daftar;   
+                    }else {
+                    return [];
+                    }   
                 }else{
                     Swal.fire({
                         title: 'Session telah habis',
@@ -211,15 +150,11 @@
             }
         },
         'columnDefs': [
-            {'targets': 6, data: null, 'defaultContent': action_html },
+            {'targets': 2, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_cust' },
+            { data: 'kode_lampiran' },
             { data: 'nama' },
-            { data: 'alamat' },
-            { data: 'pic' },
-            { data: 'email' },
-            { data: 'no_telp' }
         ],
         dom: 'lBfrtip',
         buttons: [
@@ -237,9 +172,7 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#kode_cust').attr('readonly',false);
-        $('#file_gambar').val('');
-        $('.custom-file-label').val('');
+        $('.kode-lampiran').hide();
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -256,10 +189,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-master/customer-ubah') }}/"+id;
+            var url = "{{ url('sai-master/lampiran-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-master/customer') }}";
+            var url = "{{ url('sai-master/lampiran') }}";
             var pesan = "saved";
         }
 
@@ -267,25 +200,16 @@
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
+        
         $.ajax({
             type: 'POST', 
             url: url,
             dataType: 'json',
             data: formData,
-            async:true,
+            async:false,
             contentType: false,
             cache: false,
-            processData: false,
-            beforeSend:function(){
-                console.log('beforeSend')
-                $('#btn-simpan').hide();
-                $('#btn-loading').show();
-            }, 
-            complete:function(){
-                console.log('complete')
-                $('#btn-simpan').show();
-                $('#btn-loading').hide();
-            },
+            processData: false, 
             success:function(result){
                 // alert('Input data '+result.message);
                 if(result.data.status){
@@ -316,16 +240,9 @@
                         })
                 }
             },
-            error: function(xhr, status, error){
-                var err = eval("(" + xhr.responseText + ")");
-                $('#btn-simpan').hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Terdapat field form yang kosong!',
-                    footer: err.message
-                })
-            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
         });
     });
 
@@ -343,7 +260,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-master/customer') }}/"+id,
+                    url: "{{ url('sai-master/lampiran') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -384,28 +301,19 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-master/customer') }}/" + id,
+            url: "{{ url('sai-master/lampiran') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('post');
-                    $('#kode_cust').val(id);
+                    $('#method').val('put');
+                    $('.kode-lampiran').show();
+                    $('#kode_lampiran').val(id);
                     $('#id').val(id);
-                    $('#kode_cust').attr('readonly',true);
-                    $('#file_gambar').val('');
-                    $('.custom-file-label').val('');
+                    $('#kode_lampiran').attr('readonly',true);
                     $('#nama').val(result.data[0].nama);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#email').val(result.data[0].email);
-                    $('#no_telp').val(result.data[0].no_telp);
-                    $('#pic').val(result.data[0].pic);
-                    $('#alamat').val(result.data[0].alamat);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

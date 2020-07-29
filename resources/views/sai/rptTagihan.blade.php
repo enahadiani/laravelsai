@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" style="margin-bottom: 10px;">
             <table>
                 <tr>
                     <th>Bandung, 01 Juli 2020</th>
@@ -55,30 +55,23 @@
                     <th>Dengan hormat,</th>
                 </tr>
             </table>
-            <table>
-                <tr>
-                    <th>1.</th>
-                    <th style="text-align: justify">
-                        Menunjuk Perjanjian Kerja Sama Nomor : 046/54-002/101/III/2017 
-                        tanggal 12 Juni 2015 Perihal Sewa-Menyewa Aplikasi Keuangan Kopegtel 
-                        Divre III
-                    </th>
-                </tr>
-                <tr>
-                    <th>2.</th>
-                    <th style="text-align: justify">
-                        Sehubungan dengan hal di atas, maka kami mengajukan permohonan pembayaran 
-                        sebesar <b>Rp. 2.200.000,- (Dua Juta Dua Ratus Ribu Rupiah)</b> termasuk PPN
-                        10% dengan perincian sebagai berikut :
-                        <table style="border: 1px solid black;">
-                            <tr>
-                                <th>Keterangan</th>
-                                <th>Nilai</th>
-                            </tr>
-                        </table>
-                    </th>
-                </tr>
-            </table>
+        </div>
+        <div class="col-1">1.</div>
+        <div class="col-11" style="text-align: justify; margin-left:-20px;">
+            Menunjuk Perjanjian Kerja Sama Nomor : 046/54-002/101/III/2017 
+            tanggal 12 Juni 2015 Perihal Sewa-Menyewa Aplikasi Keuangan Kopegtel 
+            Divre III
+        </div>
+        <div class="col-1">2.</div>
+        <div class="col-11" style="text-align: justify; margin-left:-20px;">
+            Sehubungan dengan hal di atas, maka kami mengajukan permohonan pembayaran sebesar
+            <b>Rp. 2.200.000,- (Dua Juta Dua Ratus Ribu Rupiah)</b> termasuk PPN 10% dengan perincian 
+            sebagai berikut :
+        </div>
+        <div class="col-1">3.</div>
+        <div class="col-11" style="text-align: justify; margin-left:-20px;">
+            Pembayaran mohon ditransfer ke :
+            
         </div>
     </div>
 </body>

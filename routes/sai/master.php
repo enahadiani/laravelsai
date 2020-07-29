@@ -34,7 +34,7 @@ Route::post('user','Sai\UserController@store');
 Route::put('user-ubah/{kode}','Sai\UserController@update');
 Route::delete('user/{kode}','Sai\UserController@destroy');
 
-//Master User
+//Master Kategori
 Route::get('konten-ktg','Sai\KategoriKontenController@index');
 Route::get('konten-ktg/{kode}','Sai\KategoriKontenController@show');
 Route::post('konten-ktg','Sai\KategoriKontenController@store');
@@ -47,3 +47,10 @@ Route::get('galeri/{kode}','Sai\GaleriController@show');
 Route::post('galeri','Sai\GaleriController@store');
 Route::post('galeri-ubah/{kode}','Sai\GaleriController@update');
 Route::delete('galeri/{kode}','Sai\GaleriController@destroy');
+
+//Master Lampiran
+Route::get('lampiran','Sai\LampiranController@index');
+Route::get('lampiran/{kode}','Sai\LampiranController@show');
+Route::post('lampiran','Sai\LampiranController@store');
+Route::put('lampiran-ubah/{kode}','Sai\LampiranController@update');
+Route::delete('lampiran/{kode}','Sai\LampiranController@destroy');
