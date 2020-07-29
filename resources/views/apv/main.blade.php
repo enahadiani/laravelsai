@@ -295,7 +295,7 @@
                                     <h4 style="margin-left:70px;margin-bottom:0px;text-transform: uppercase;">{{Session::get('namaUser')}}</h4>
                                     <h6 style="margin-left:70px">{{Session::get('userLog')}}</h6>
                                     <span style="margin-left:70px">
-                                        <a href="javascript:void(0)" class='item-profile' style="color:grey;" ><i class="fa icon-user"></i> My Profile</a>&nbsp;
+                                        <a onclick="loadProfile()" href='#' class='item-profile' style="color:grey;" ><i class="fa icon-user"></i> My Profile</a>&nbsp;
                                         <a href="{{url('apv/logout')}}" class='item-profile' style="color:grey;margin-left:10px" ><i class="icon-logout"></i> Logout</a>
                                     </span>
                                 </div>
@@ -392,8 +392,11 @@
                     });
                 }
 
-                loadMenu();
+                function loadProfile(){
+                   loadForm("{{url('apv/form/fProfile')}}");
+                }
 
+                loadMenu();
                 
                 if(form !="" || form != "-"){
                     loadForm("{{ url('/apv/form')}}"+"/"+form)

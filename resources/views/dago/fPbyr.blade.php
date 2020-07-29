@@ -1224,7 +1224,10 @@
                                                             <td>DITERIMA DARI</td>
                                                             <td>: `+line.peserta+`</td>
                                                         </tr>
-
+                                                        <tr>
+                                                            <td>NO TELP</td>
+                                                            <td>: `+line.telp+`</td>
+                                                        </tr>
                                                         <tr>
                                                             <td>PAKET / ROOM</td>
                                                             <td>: `+line.paket+` / `+line.room+`</td>
