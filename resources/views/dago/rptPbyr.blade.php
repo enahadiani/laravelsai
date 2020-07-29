@@ -140,7 +140,10 @@
                                                             <td>DITERIMA DARI</td>
                                                             <td colspan='2'>: `+line.peserta+`</td>
                                                         </tr>
-
+                                                        <tr>
+                                                            <td>NO TELP</td>
+                                                            <td colspan='2'>: `+line.telp+`</td>
+                                                        </tr>
                                                         <tr>
                                                             <td>PAKET / ROOM</td>
                                                             <td colspan='2'>: `+line.paket+` / `+line.room+`</td>
