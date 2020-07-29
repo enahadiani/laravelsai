@@ -59,8 +59,7 @@
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Kontrak
-                             <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
-                            <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                            <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> <span>Simpan</span></button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -734,6 +733,9 @@
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
+        var btnSave = $('#btn-simpan');
+        var btnTextSave = $('#btn-simpan span');
+
         e.preventDefault();
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
@@ -761,13 +763,13 @@
             processData: false,
             beforeSend:function(){
                 console.log('beforeSend')
-                $('#btn-simpan').hide();
-                $('#btn-loading').show();
+                btnSave.attr('disabled', true);
+                btnTextSave.text('Loading..');
             }, 
             complete:function(){
                 console.log('complete')
-                $('#btn-simpan').show();
-                $('#btn-loading').hide();
+                btnSave.attr('disabled', false);
+                btnTextSave.text('Simpan');
             },
             success:function(result){
                 // alert('Input data '+result.message);
@@ -801,7 +803,6 @@
             },
             error: function(xhr, status, error){
                 var err = eval("(" + xhr.responseText + ")");
-                $('#btn-simpan').hide();
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

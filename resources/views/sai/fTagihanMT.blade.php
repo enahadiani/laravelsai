@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body" style="min-height: 560px;">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Pembayaran 
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Tagihan Maintenance 
                             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                         </h4>
                         <hr style="margin-bottom:0">
@@ -36,10 +36,11 @@
                             <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th>No Pembayaran</th>
-                                        <th>Tangal</th>
+                                        <th>No Tagihan</th>
+                                        <th>No Dokumen</th>
                                         <th>Keterangan</th>
-                                        <th>Kode Customer</th>
+                                        <th>Nilai</th>
+                                        <th>Nilai PPN</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -57,8 +58,10 @@
                 <div class="card">
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Pembayaran
+                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Tagihan Maintenance
+                            <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
                             <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> <span>Simpan</span></button>
+                            <button type="button" id="btn-load" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-database"></i> <span>Load Data</span></button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -71,45 +74,63 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                            <div class="form-group row no-bukti">
-                                <label for="tanggal" class="col-3 col-form-label">No Bukti</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" id="no_bukti" readonly>
+                           <div class="form-group row no_tagihan">
+                                <label for="no_tagihan" class="col-3 col-form-label">No Tagihan</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_tagihan" id="no_tagihan" class="form-control" value="" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
+                                <div class="input-group col-3">
+                                    <input type='text' name="no_dokumen" id="no_dokumen" class="form-control" value="" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
+                                 <label for="bank" class="col-3 col-form-label">Bank</label>
                                 <div class="input-group col-3">
-                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
-                                    </div>
+                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
                                 </div>
-                                <div class="col-6">
-                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
+                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
-                                <div class="input-group col-9">
-                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
+                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
+                                </div>
+                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="nilai" class="col-3 col-form-label">Nilai Tagihan</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai Tagihan" id="total_nilai" name="total_nilai" readonly>
+                                </div>
+                                <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
+                                <div class="input-group col-3">
+                                    <input class="form-control currency" type="text" placeholder="Nilai PPN" id="total_nilai_ppn" name="total_nilai_ppn" readonly>
+                                </div>
+                            </div> 
                             <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bitem" role="tab" aria-selected="true"><span class="hidden-xs-down">Tagihan</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bitem" role="tab" aria-selected="true"><span class="hidden-xs-down">Rincian</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bupload" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
                             </ul>
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="bitem" role="tab">
                                     <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                         {{-- <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp; --}}
-                                        <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                        {{-- <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a> --}}
                                     </div>
                                     <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                         <style>
@@ -151,10 +172,12 @@
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th style="width:5%">No</th>
-                                                <th style="width:30%">No Tagihan</th>
-                                                <th style="width:30%">No Dokumen</th>
-                                                <th style="width:30%">Nilai</th>
-                                                <th style="width:5%"></th>
+                                                <th style="width:30%">Customer</th>
+                                                <th style="width:20%">No Kontrak</th>
+                                                <th style="width:15%">Item</th>
+                                                <th style="width:15%">Nilai</th>
+                                                <th style="width:15%">PPN</th>
+                                                {{-- <th style="width:5%"></th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -249,7 +272,6 @@
         var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
-        var tagihan = null;
 
         $.ajaxSetup({
         headers: {
@@ -270,7 +292,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('sai-trans/pembayaran') }}",
+            'url': "{{ url('sai-trans/tagihan-maintain') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -279,7 +301,7 @@
                     return json.daftar;   
                     }else {
                     return [];
-                    }
+                    }   
                 }else{
                     Swal.fire({
                         title: 'Session telah habis',
@@ -293,24 +315,21 @@
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html },
+            {'targets': 5, data: null, 'defaultContent': action_html },
+             {
+                'targets': [4,3],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            }
             ],
         'columns': [
-            { data: 'no_bayar' },
-            { data: 'tanggal', render: function(data,type,row) {
-                var dataDate = new Date(data);
-                var tgl = ("0" + dataDate.getDate()).slice(-2)
-                var bln = ("0" + (dataDate.getMonth() + 1)).slice(-2);
-                var tahun = dataDate.getFullYear();
-                return tgl+"/"+bln+"/"+tahun;
-            } },
+            { data: 'no_bill' },
+            { data: 'no_dokumen' },
             { data: 'keterangan' },
-            { data: 'kode_cust' },
+            { data: 'nilai' },
+            { data: 'nilai_ppn' },
         ],
         dom: 'lBfrtip',
-        language: {
-                "emptyTable": "No data available in table"
-         },
         buttons: [
             // {
             //     text: '<i class="fa fa-filter"></i> Filter',
@@ -323,13 +342,10 @@
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#input-grid1 tbody').empty();
-        $('#input-grid2 tbody').empty();
-        $('.no-bukti').hide();
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('.kode_ktg').hide();
+        $('.no-tagihan').hide();
         $('#method').val('post');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -341,348 +357,106 @@
         $('#saku-form').hide();
     });
 
-    function getCustomer(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sai-master/customer') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.kode_cust == id);
-                            if(filter.length > 0) {
-                                $('#kode_cust').val(filter[0].kode_cust);
-                                $('#label_kode_cust').text(filter[0].nama);
-                            } else {
-                                alert('Customer tidak valid');
-                                $('#kode_cust').val('');
-                                $('#label_kode_cust').text('');
-                                $('#kode_cust').focus();
-                            }
-                        }
-                    }
-                }
-            });
-        }
+    $('#saku-form').on('click', '#btn-load', function(){
+        var btnTextLoad = $('#btn-load span');
+        var btnLoad = $('#btn-load');
+        var btnSave = $('#btn-simpan');
 
-    function getTagihan(id=null,index=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sai-trans/tagihan') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var data = result.daftar;
-                            var filter = data.filter(data => data.no_bill == id);
-                            if(filter.length > 0) {
-                                $('#no_bill'+index).val(filter[0].no_bill);
-                                $('#label-bill-ke-'+index).text(filter[0].no_dokumen);
-                                $('#nilai-bill-ke-'+index).val(parseFloat(filter[0].nilai));
-                            } else {
-                                alert('Tagihan tidak valid');
-                                $('#no_bill'+index).val('');
-                                $('#nilai-bill-ke-'+index).val(0);
-                                $('#label-bill-ke-'+index).text('');
-                                $('#no_bill'+index).focus();
-                            }
-                        }
-                    }
-                }
-            });
-    }
-
-    function getTagihan2(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/tagihan') }}",
+            url: "{{ url('sai-trans/tagihan-maintain-load') }}",
             dataType: 'json',
-            async:false,
-            success:function(result){
-                var data = result.daftar;
-                tagihan = data;
-            }
+            async:true,
+            beforeSend:function(){
+                console.log('beforeSend')
+                btnLoad.attr('disabled', true);
+                btnSave.attr('disabled', true);
+                btnTextLoad.text('Loading..');
+            }, 
+            complete:function(){
+                console.log('complete')
+                btnLoad.attr('disabled', false);
+                btnSave.attr('disabled', false);
+                btnTextLoad.text('Load Data');
+            },
+            success:function(res){
+                var result= res.daftar;
+                if(result.length > 0) {
+                    var no = 1;
+                    var input = "";
+                    for(var i=0;i<result.length;i++){
+                        var line = result[i];
+                        input += "<tr class='row-grid1'>";
+                        input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                        input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
+                        input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
+                        input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
+                        input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
+                        input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
+                        input += "</tr>";
+                        no++;
+                    }
+                    $('#input-grid1 tbody').append(input);
+                    $('.inp-tagihan').inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        onCleared: function () { self.Value(''); }
+                    });
+                }
+            },
+            error: function(xhr, status, error){
+                var err = eval("(" + xhr.responseText + ")");
+                btnTextLoad.text('Load Data');
+                btnSave.attr('disabled', false);
+                btnLoad.attr('disabled', false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan pada server!',
+                    footer: err.message
+                })
+            },
         });
-    }
-
-    $('#form-tambah').on('change', '#kode_cust', function(){
-        var par = $(this).val();
-        getCustomer(par);
     });
 
-    $("#input-grid1").on('change', "input[name='no_bill[]']",function(){
-        var par = $(this).val();
-        var index = $(this).closest('tr').index() + 1;
-        getTagihan(par,index);
-    })
+    $('#form-tambah').on('click', '#add-row2', function(){
+        var no2=$('#input-grid2 .row-grid2:last').index();
+        no2=no2+2;
+        var input2 = "";
+        input2 += "<tr class='row-grid2'>";
+        input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
+        input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
+        input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+        input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        input2 += "</tr>";
+        $('#input-grid2 tbody').append(input2);
+    });
 
-        function showFilter(param,target1,target2){
-            var par = param;
-            var modul = '';
-            var header = [];
-            $target = target1;
-            $target2 = target2;
-            
-            switch(par){
-                case 'no_bill[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-trans/tagihan') }}";
-                    var columns = [
-                        { data: 'no_bill' },
-                        { data: 'no_dokumen' }
-                    ];
-                    
-                    var judul = "Daftar Tagihan";
-                    var jTarget2 = "val";
-                    var jTarget1 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-                case 'kode_cust': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sai-master/customer') }}";
-                    var columns = [
-                        { data: 'kode_cust' },
-                        { data: 'nama' }
-                    ];
-                    
-                    var judul = "Daftar Customer";
-                    var jTarget1 = "val";
-                    var jTarget2 = "text";
-                    $target = "#"+$target;
-                    $target2 = "#"+$target2;
-                    $target3 = "";
-                break;
-            }
-
-            var header_html = '';
-            for(i=0; i<header.length; i++){
-                header_html +=  "<th>"+header[i]+"</th>";
-            }
-            header_html +=  "<th></th>";
-
-            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-            table += "<tbody></tbody></table>";
-
-            $('#modal-search .modal-body').html(table);
-
-            var searchTable = $("#table-search").DataTable({
-                // fixedHeader: true,
-                // "scrollY": "300px",
-                // "processing": true,
-                // "serverSide": true,
-                "ajax": {
-                    "url": toUrl,
-                    "data": {'param':par},
-                    "type": "GET",
-                    "async": false,
-                    "dataSrc" : function(json) {
-                        return json.daftar;
-                    }
-                },
-                "columnDefs": [{
-                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-                }],
-                'columns': columns
-                // "iDisplayLength": 25,
-            });
-
-            // searchTable.$('tr.selected').removeClass('selected');
-            $('#table-search tbody').find('tr:first').addClass('selected');
-            $('#modal-search .modal-title').html(judul);
-            $('#modal-search').modal('show');
-            searchTable.columns.adjust().draw();
-
-            $('#table-search').on('click','.check-item',function(){
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                    $($target).attr('value',kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                console.log($target3);
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('dblclick','tr',function(){
-                console.log('dblclick');
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            });
-
-            $('#table-search tbody').on('click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    searchTable.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            });
-
-            $(document).keydown(function(e) {
-                if (e.keyCode == 40){ //arrow down
-                    var tr = searchTable.$('tr.selected');
-                    tr.removeClass('selected');
-                    tr.next().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-                if (e.keyCode == 38){ //arrow up
-                    
-                    var tr = searchTable.$('tr.selected');
-                    searchTable.$('tr.selected').removeClass('selected');
-                    tr.prev().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-
-                if (e.keyCode == 13){
-                    var kode = $('tr.selected').find('td:nth-child(1)').text();
-                    var nama = $('tr.selected').find('td:nth-child(2)').text();
-                    if(jTarget1 == "val"){
-                        $($target).val(kode);
-                    }else{
-                        $($target).text(kode);
-                    }
-
-                    if(jTarget2 == "val"){
-                        $($target2).val(nama);
-                    }else{
-                        $($target2).text(nama);
-                    }
-                    
-                    if($target3 != ""){
-                        $($target3).text(nama);
-                    }
-                    $('#modal-search').modal('hide');
-                }
-            })
-        }
-
-        $('#form-tambah').on('click', '.search-item2', function(){
-            var par = $(this).closest('.row').find('input').attr('name');
-            var par2 = $(this).closest('.row').find('label.label-kode').attr('id');
-            target1 = par;
-            target2 = par2;
-            showFilter(par,target1,target2);
+    $('#input-grid2').on('click', '.hapus-item2', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-grid2').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid2');
+            nom.html(no);
+            no++;
         });
-
-        $('#input-grid1').on('click', '.search-item', function(){
-            var par1 = $(this).closest('tr').find('input').attr('id');
-            var par2 = $(this).closest('tr').find('span').attr('id');
-            var par3 = $(this).closest('tr').find('input').attr('name');
-            var par4 = $(this).closest('tr').find('input').attr('name');
-            console.log(par1)
-            var target1 = par3;
-            var target2 = par2;
-            var target3 = par1;
-            showFilter(target1,target2,target3);
-        });
-
-        $('#form-tambah').on('click', '#add-row', function(){
-            var no=$('#input-grid1 .row-grid:last').index();
-            no=no+2;
-            var input = "";
-            input += "<tr class='row-grid'>";
-            input += "<td class='no-grid text-center'>"+no+"</td>";
-            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='' required>"+
-            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
-            +"</div></td>";
-            input += "<td><span id='label-bill-ke-"+no+"'></span></td>";
-            input += "<td><input type='text' name='nilai[]' id='nilai-bill-ke-"+no+"' class='form-control inp-bill bill billke"+no+"'  value='0' required></td>";
-            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
-            input += "</tr>";
-            $('#input-grid1 tbody').append(input);
-
-            $('.inp-bill').inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                onCleared: function () { self.Value(''); }
-            });
-        });
-
-        $('#input-grid1').on('click', '.hapus-item', function(){
-            $(this).closest('tr').remove();
-            no=1;
-            $('.row-grid').each(function(){
-                var nom = $(this).closest('tr').find('.no-grid1');
-                nom.html(no);
-                no++;
-            });
-            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-        });
-
-        $('#form-tambah').on('click', '#add-row2', function(){
-            var no2=$('#input-grid2 .row-grid2:last').index();
-            no2=no2+2;
-            var input2 = "";
-            input2 += "<tr class='row-grid2'>";
-            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
-            input2 += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
-            input2 += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
-            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
-            input2 += "</tr>";
-            $('#input-grid2 tbody').append(input2);
-        });
-
-        $('#input-grid2').on('click', '.hapus-item2', function(){
-            $(this).closest('tr').remove();
-            no=1;
-            $('.row-grid2').each(function(){
-                var nom = $(this).closest('tr').find('.no-grid2');
-                nom.html(no);
-                no++;
-            });
-            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
-        var btnSave = $('#btn-simpan');
         var btnTextSave = $('#btn-simpan span');
+        var btnSave = $('#btn-simpan');
         e.preventDefault();
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-trans/pembayaran-ubah') }}/"+id;
+            var url = "{{ url('sai-master/modul-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-trans/pembayaran') }}";
+            var url = "{{ url('sai-master/modul') }}";
             var pesan = "saved";
         }
 
@@ -766,7 +540,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-trans/pembayaran') }}/"+id,
+                    url: "{{ url('sai-master/modul') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -804,72 +578,22 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tgl= $(this).closest('tr').find('td').eq(1).html();
-        getTagihan2();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-trans/pembayaran-detail') }}/" + id,
+            url: "{{ url('sai-master/modul') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
-                $('#input-grid1 tbody').empty();
-                $('#input-grid2 tbody').empty();
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('post');
-                    $('.no-bukti').show();
+                    $('#method').val('put');
+                    $('.kode-modul').show();
+                    $('#kode_modul').val(id);
                     $('#id').val(id);
-                    $('#no_bukti').val(id);
-                    $('#tanggal').val(tgl);
-                    $('#keterangan').val(result.data[0].keterangan);
-                    getCustomer(result.data[0].kode_cust);
-                    if(result.data_detail.length > 0) {
-                        var no = 1;
-                        var input = "";
-                        for(var i=0;i<result.data_detail.length;i++){
-                            var line = result.data_detail[i];
-                            var bill = tagihan.filter(data=>data.no_bill == line.no_bill);
-
-                            input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid text-center'>"+no+"</td>";
-                            input += "<td><div class='input-group'><input type='text' name='no_bill[]' id='no_bill"+no+"' class='form-control' value='"+line.no_bill+"' required>"+
-                            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
-                            +"</div></td>";
-                            input += "<td><span id='label-bill-ke-"+no+"'>"+bill[0].no_dokumen+"</span></td>";
-                            input += "<td><input type='text' name='nilai[]' class='form-control inp-bill bill billke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
-                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-                            no++;
-                        }
-                        $('#input-grid1 tbody').append(input);
-                        $('.inp-bill').inputmask("numeric", {
-                            radixPoint: ",",
-                            groupSeparator: ".",
-                            digits: 2,
-                            autoGroup: true,
-                            rightAlign: true,
-                            onCleared: function () { self.Value(''); }
-                        });
-                    }
-
-                    if(result.data_dokumen.length > 0) {
-                        var no2 = 1;
-                        var input2 = "";
-                        for(var i=0;i<result.data_dokumen.length;i++){
-                            var line = result.data_dokumen[i];
-                            input2 += "<tr class='row-grid2'>";
-                            input2 += "<td class='no-grid2 text-center'>"+no2+"</td>";
-                            input2 += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
-                            input2 += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
-                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
-                            input2 += "</tr>";
-                            no2++
-                        }
-                        $('#input-grid2 tbody').append(input2);
-                    }
-
+                    $('#kode_modul').attr('readonly',true);
+                    $('#nama').val(result.data[0].nama);
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();

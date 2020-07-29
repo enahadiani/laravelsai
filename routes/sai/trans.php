@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 //Helper
 Route::get('kontrak/{status}','Sai\HelperController@getKontrak');
+Route::get('tagihan-maintain-load','Sai\HelperController@getTagihan');
 
 //Kontrak
 Route::get('kontrak','Sai\KontrakController@index');
@@ -33,3 +34,10 @@ Route::get('pembayaran-detail/{kode}','Sai\PembayaranController@show');
 Route::post('pembayaran','Sai\PembayaranController@store');
 Route::post('pembayaran-ubah/{kode}','Sai\PembayaranController@update');
 Route::delete('pembayaran/{kode}','Sai\PembayaranController@destroy');
+
+//Tagihan MT
+Route::get('tagihan-maintain','Sai\TagihanMTController@index');
+Route::get('tagihan-maintain/{kode}','Sai\TagihanMTController@show');
+Route::post('tagihan-maintain','Sai\TagihanMTController@store');
+Route::post('tagihan-maintain-ubah/{kode}','Sai\TagihanMTController@update');
+Route::delete('tagihan-maintain/{kode}','Sai\TagihanMTController@destroy');
