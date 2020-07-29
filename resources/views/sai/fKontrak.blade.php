@@ -183,9 +183,10 @@
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
                                                 <th style="width:5%">No</th>
-                                                <th style="width:40%">Deskripsi Modul</th>
-                                                <th style="width:25%">Nilai Modul</th>
-                                                <th style="width:25%">PPN</th>
+                                                <th style="width:30%">Kode Modul</th>
+                                                <th style="width:30%">Deskripsi Modul</th>
+                                                <th style="width:15%">Nilai Modul</th>
+                                                <th style="width:15%">PPN</th>
                                                 <th style="width:5%"></th>
                                             </tr>
                                         </thead>
@@ -281,6 +282,7 @@
         var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
+        var modul = null;
 
         $.ajaxSetup({
         headers: {
@@ -370,6 +372,7 @@
         $('#input-grid2 tbody').empty();
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#label_kode_cust').text('');
         $('#form-tambah')[0].reset();
         $('.kode_ktg').hide();
         $('#method').val('post');
@@ -409,10 +412,55 @@
             });
         }
 
+        function getModul(id=null,index=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-master/modul') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_modul == id);
+                            if(filter.length > 0) {
+                                $('#deskripsi_modul'+index).val(filter[0].kode_modul);
+                                $('#label-modul-ke-'+index).text(filter[0].nama);
+                            } else {
+                                alert('Modul tidak valid');
+                                $('#deskripsi_modul'+index).val('');
+                                $('#label-modul-ke-'+index).text('');
+                                $('#deskripsi_modul'+index).focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    function getModul2(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sai-master/modul') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                var data = result.daftar;
+                modul = data;
+            }
+        });
+    }
+
     $('#form-tambah').on('change', '#kode_cust', function(){
         var par = $(this).val();
         getCustomer(par);
     });
+
+    $("#input-grid1").on('change', "input[name='deskripsi_modul[]']",function(){
+        var par = $(this).val();
+        var index = $(this).closest('tr').index() + 1;
+        getModul(par,index);
+    })
 
         function showFilter(param,target1,target2){
             var par = param;
@@ -422,6 +470,21 @@
             $target2 = target2;
             
             switch(par){
+                case 'deskripsi_modul[]': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sai-master/modul') }}";
+                    var columns = [
+                        { data: 'kode_modul' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Modul";
+                    var jTarget2 = "text";
+                    var jTarget1 = "val";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
                 case 'kode_cust': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sai-master/customer') }}";
@@ -580,13 +643,26 @@
             showFilter(par,target1,target2);
         });
 
+        $('#input-grid1').on('click', '.search-item', function(){
+            var par1 = $(this).closest('tr').find('input').attr('id');
+            var par2 = $(this).closest('tr').find('span').attr('id');
+            var par3 = $(this).closest('tr').find('input').attr('name');
+            var target1 = par3;
+            var target2 = par1;
+            var target3 = par2;
+            showFilter(target1,target2,target3);
+        });
+
         $('#form-tambah').on('click', '#add-row', function(){
             var no=$('#input-grid1 .row-grid:last').index();
             no=no+2;
             var input = "";
             input += "<tr class='row-grid'>";
             input += "<td class='no-grid1 text-center'>"+no+"</td>";
-            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='' required='' style='z-index: 1;position: relative;'></td>";
+            input += "<td><div class='input-group'><input type='text' name='deskripsi_modul[]' id='deskripsi_modul"+no+"' class='form-control' value='' required>"+
+            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
+            +"</div></td>";
+            input += "<td><span id='label-modul-ke-"+no+"'></span></td>";
             input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='0' required></td>";
             input += "<td><input type='text' name='nilai_modul_ppn[]' class='form-control inp-nilai-modul nilai-modul-ppn nilai_modul_ppnke"+no+"'  value='0' required readonly></td>";
             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
@@ -790,6 +866,7 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         var tglM= $(this).closest('tr').find('td').eq(2).html();
         var tglS= $(this).closest('tr').find('td').eq(3).html();
+        getModul2();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
@@ -824,9 +901,13 @@
                         var input = "";
                         for(var i=0;i<result.data_detail.length;i++){
                             var line = result.data_detail[i];
+                            var mdl = modul.filter(data=>data.kode_modul == line.keterangan);
                             input += "<tr class='row-grid'>";
                             input += "<td class='no-grid1 text-center'>"+no+"</td>";
-                            input += "<td><input type='text' name='deskripsi_modul[]' class='form-control inp-deskripsi_modul deskripsi_modulke"+no+"' value='"+line.keterangan+"' required='' style='z-index: 1;position: relative;'></td>";
+                            input += "<td><div class='input-group'><input type='text' name='deskripsi_modul[]' id='deskripsi_modul"+no+"' class='form-control' value='"+line.keterangan+"' required>"+
+                            "<div class='input-group-append'> <button class='btn btn-info search-item' type='button'><i class='fa fa-search'></i></button></div>"
+                            +"</div></td>";
+                            input += "<td><span id='label-modul-ke-"+no+"'>"+mdl[0].nama+"</span></td>";
                             input += "<td><input type='text' name='nilai_modul[]' class='form-control inp-nilai-modul nilai-modul nilai_modulke"+no+"'  value='"+parseFloat(line.nilai)+"' required></td>";
                             input += "<td><input type='text' name='nilai_modul_ppn[]' class='form-control inp-nilai-modul nilai-modul-ppn nilai_modul_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
                             input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
