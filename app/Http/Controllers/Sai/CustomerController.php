@@ -67,46 +67,97 @@ class CustomerController extends Controller
             'bank'=>'required',
             'cabang'=>'required',
             'no_telp' => 'required',
+            'tanggal'=>'required',
+            'kode_lampiran'=>'required|array',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
-            if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','bank','cabang','nama_rek','file_gambar');
-            } else {
-                $name = array('kode_cust','nama','pic','alamat','email','no_telp','no_rek','nama_rek','bank','cabang');
-            }
-            $req = $request->all();
-            $fields = array();
-            $data = array();
-            for($i=0;$i<count($name);$i++) {
-                if($name[$i] == 'file_gambar') {
-                    $image_path = $request->file('file_gambar')->getPathname();
-                    $image_mime = $request->file('file_gambar')->getmimeType();
-                    $image_org  = $request->file('file_gambar')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );
-                }
-                $data[$i] = $name[$i];
-            }
-                $fields = array_merge($fields,$fields_data);
+            $explode_tgl = explode('/', $request->tanggal);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
 
+            $fields = [
+                [
+                    'name' => 'tgl_tagih',
+                    'contents' => $tanggal,
+                ],
+                [
+                    'name' => 'nama',
+                    'contents' => $request->nama,
+                ],
+                [
+                    'name' => 'email',
+                    'contents' => $request->email,
+                ],
+                [
+                    'name' => 'no_telp',
+                    'contents' => $request->no_telp,
+                ],
+                [
+                    'name' => 'bank',
+                    'contents' => $request->bank,
+                ],
+                [
+                    'name' => 'cabang',
+                    'contents' => $request->cabang,
+                ],
+                [
+                    'name' => 'no_rek',
+                    'contents' => $request->no_rek,
+                ],
+                [
+                    'name' => 'nama_rek',
+                    'contents' => $request->nama_rek,
+                ],
+                [
+                    'name' => 'alamat',
+                    'contents' => $request->alamat,
+                ],
+                [
+                    'name' => 'pic',
+                    'contents' => $request->pic,
+                ],
+                [
+                    'name' => 'kode_cust',
+                    'contents' => $request->kode_cust,
+                ],
+            ];
+
+            $fields_lampiran = array();
+            if(count($request->kode_lampiran) > 0){
+                for($i=0;$i<count($request->kode_lampiran);$i++){
+                    $fields_lampiran[$i] = array(
+                        'name'     => 'kode_lampiran[]',
+                        'contents' => $request->kode_lampiran[$i],
+                    );
+                    }
+                $send_data = array_merge($fields,$fields_lampiran);
+            }
+
+            $cek = $request->file_gambar;
+            if(!empty($cek)){
+                $image_path = $request->file('file_gambar')->getPathname();
+                $image_mime = $request->file('file_gambar')->getmimeType();
+                $image_org  = $request->file('file_gambar')->getClientOriginalName();
+                $fields_data = array(
+                    'name'     => $name[$i],
+                    'filename' => $image_org,
+                    'Mime-Type'=> $image_mime,
+                    'contents' => fopen($image_path, 'r' ),
+                );
+                $send_data = array_merge($send_data,$fields_data);
+            }
+            
                 $client = new Client();
                 $response = $client->request('POST', $this->link.'customer',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'multipart' => $fields
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -154,54 +205,105 @@ class CustomerController extends Controller
        $this->validate($request, [
             'kode_cust' => 'required',
             'nama' => 'required',
-            'email' => 'required',
+            'pic' => 'required',
             'alamat'=>'required',
+            'email' => 'required',
             'no_rek'=>'required',
             'nama_rek'=>'required',
             'bank'=>'required',
             'cabang'=>'required',
-            'pic' => 'required',
             'no_telp' => 'required',
+            'tanggal'=>'required',
+            'kode_lampiran'=>'required|array',
             'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try { 
-            if($request->hasfile('file_gambar')) {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','bank','cabang','no_rek','nama_rek','file_gambar');
-            } else {
-                $name = array('kode_cust','pic','nama','email','alamat','no_telp','no_rek','bank','cabang','nama_rek');
-            }
-            $req = $request->all();
-            $fields = array();
-            $data = array();
-            for($i=0;$i<count($name);$i++) {
-                if($name[$i] == 'file_gambar') {
-                    $image_path = $request->file('file_gambar')->getPathname();
-                    $image_mime = $request->file('file_gambar')->getmimeType();
-                    $image_org  = $request->file('file_gambar')->getClientOriginalName();
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'filename' => $image_org,
-                        'Mime-Type'=> $image_mime,
-                        'contents' => fopen($image_path, 'r' ),
-                    );
-                } else {
-                    $fields_data[$i] = array(
-                        'name'     => $name[$i],
-                        'contents' => $req[$name[$i]],
-                    );
-                }
-                $data[$i] = $name[$i];
-            }
-                $fields = array_merge($fields,$fields_data);
+            $explode_tgl = explode('/', $request->tanggal);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
 
+            $fields = [
+                [
+                    'name' => 'tgl_tagih',
+                    'contents' => $tanggal,
+                ],
+                [
+                    'name' => 'nama',
+                    'contents' => $request->nama,
+                ],
+                [
+                    'name' => 'email',
+                    'contents' => $request->email,
+                ],
+                [
+                    'name' => 'no_telp',
+                    'contents' => $request->no_telp,
+                ],
+                [
+                    'name' => 'bank',
+                    'contents' => $request->bank,
+                ],
+                [
+                    'name' => 'cabang',
+                    'contents' => $request->cabang,
+                ],
+                [
+                    'name' => 'no_rek',
+                    'contents' => $request->no_rek,
+                ],
+                [
+                    'name' => 'nama_rek',
+                    'contents' => $request->nama_rek,
+                ],
+                [
+                    'name' => 'alamat',
+                    'contents' => $request->alamat,
+                ],
+                [
+                    'name' => 'pic',
+                    'contents' => $request->pic,
+                ],
+                [
+                    'name' => 'kode_cust',
+                    'contents' => $request->kode_cust,
+                ],
+            ];
+
+            $fields_lampiran = array();
+            if(count($request->kode_lampiran) > 0){
+                for($i=0;$i<count($request->kode_lampiran);$i++){
+                    $fields_lampiran[$i] = array(
+                        'name'     => 'kode_lampiran[]',
+                        'contents' => $request->kode_lampiran[$i],
+                    );
+                    }
+                $send_data = array_merge($fields,$fields_lampiran);
+            }
+
+            $cek = $request->file_gambar;
+            if(!empty($cek)){
+                $image_path = $request->file('file_gambar')->getPathname();
+                $image_mime = $request->file('file_gambar')->getmimeType();
+                $image_org  = $request->file('file_gambar')->getClientOriginalName();
+                $fields_data = array(
+                    'name'     => $name[$i],
+                    'filename' => $image_org,
+                    'Mime-Type'=> $image_mime,
+                    'contents' => fopen($image_path, 'r' ),
+                );
+                $send_data = array_merge($send_data,$fields_data);
+            }
+            
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'customer-ubah?kode_custk='.$id,[
+                $response = $client->request('POST', $this->link.'customer-ubah?kode_cust='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'multipart' => $fields
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
@@ -216,7 +318,7 @@ class CustomerController extends Controller
                 $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
-            }
+        }
     }
 
     public function destroy($id) {

@@ -393,7 +393,7 @@
                     }
                 }
             });
-        }
+    }
 
     function getTagihan2(){
         $.ajax({
