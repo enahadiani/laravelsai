@@ -344,6 +344,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#input-grid1 tbody').empty();
         $('#form-tambah')[0].reset();
         $('.no-tagihan').hide();
         $('#method').val('post');
