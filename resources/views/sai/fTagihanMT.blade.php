@@ -382,6 +382,7 @@
             success:function(res){
                 var result= res.daftar;
                 if(result.length > 0) {
+                    $('#input-grid1 tbody').empty();
                     var no = 1;
                     var input = "";
                     for(var i=0;i<result.length;i++){
