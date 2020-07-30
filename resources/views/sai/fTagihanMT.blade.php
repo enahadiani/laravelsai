@@ -74,7 +74,7 @@
                                     <input type="hidden" id="id" name="id">
                                 </div>
                             </div>
-                           <div class="form-group row no_tagihan">
+                           <div class="form-group row no-tagihan">
                                 <label for="no_tagihan" class="col-3 col-form-label">No Tagihan</label>
                                 <div class="input-group col-3">
                                     <input type='text' name="no_tagihan" id="no_tagihan" class="form-control" value="" required readonly>
@@ -89,27 +89,41 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal">
+                                    <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                 <label for="bank" class="col-3 col-form-label">Bank</label>
+                            <div class="form-group row kode-cust">
+                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
                                 <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
+                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
-                                <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
+                                <div class="col-6">
+                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="no_rek" class="col-3 col-form-label">No Rek</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek">
+                            <div class="data-customer">
+                                <div class="form-group row">
+                                    <label for="bank" class="col-3 col-form-label">Bank</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" readonly>
+                                    </div>
+                                    <label for="cabang" class="col-3 col-form-label">Cabang</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" readonly>
+                                    </div>
                                 </div>
-                                <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
-                                <div class="input-group col-3">
-                                    <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek">
+                                <div class="form-group row">
+                                    <label for="no_rek" class="col-3 col-form-label">No Rek</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek" readonly>
+                                    </div>
+                                    <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
+                                    <div class="input-group col-3">
+                                        <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -120,6 +134,20 @@
                                 <label for="nilai_ppn" class="col-3 col-form-label">Nilai PPN</label>
                                 <div class="input-group col-3">
                                     <input class="form-control currency" type="text" placeholder="Nilai PPN" id="total_nilai_ppn" name="total_nilai_ppn" readonly>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
+                                <div class="input-group col-9">
+                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jenis" class="col-3 col-form-label">Jenis Kontrak</label>
+                                <div class="col-3">
+                                    <select required class='form-control' id="jenis" name="jenis" readonly>
+                                    <option value='MAINTENANCE' selected>Maintenance</option>
+                                    </select>
                                 </div>
                             </div> 
                             <ul class="nav nav-tabs" role="tablist">
@@ -344,7 +372,10 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('.kode-cust').show();
+        $('#btn-load').show();
         $('#input-grid1 tbody').empty();
+        $('.data-customer').hide();
         $('#form-tambah')[0].reset();
         $('.no-tagihan').hide();
         $('#method').val('post');
@@ -358,70 +389,298 @@
         $('#saku-form').hide();
     });
 
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('.row').find('input').attr('name');
+        var par2 = $(this).closest('.row').find('label.label-kode').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
+    $('#form-tambah').on('change', '#kode_cust', function(){
+        var par = $(this).val();
+        getCustomer(par);
+    });
+
+    
+    function getCustomer(id=null){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-master/customer') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){    
+                    if(result.status){
+                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                            var data = result.daftar;
+                            var filter = data.filter(data => data.kode_cust == id);
+                            if(filter.length > 0) {
+                                $('#kode_cust').val(filter[0].kode_cust);
+                                $('#label_kode_cust').text(filter[0].nama);
+                                $('#bank').val(filter[0].bank);
+                                $('#cabang').val(filter[0].cabang);
+                                $('#no_rek').val(filter[0].no_rek);
+                                $('#nama_rek').val(filter[0].nama_rek);
+                                $('.data-customer').show();
+                            } else {
+                                alert('Customer tidak valid');
+                                $('#kode_cust').val('');
+                                $('#label_kode_cust').text('');
+                                $('#kode_cust').focus();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    function hitungTotal(){
+        var total = 0;
+        var total_ppn = 0;
+        $('.row-grid1').each(function(){
+            var nilai = $(this).closest('tr').find('.nilai').val();
+            var ppn = $(this).closest('tr').find('.nilai_ppn').val();
+            total += +toNilai(nilai);
+            total_ppn += +toNilai(ppn);
+        })
+        $('#total_nilai').val(total);
+        $('#total_nilai_ppn').val(total_ppn);
+    }
+
+            function showFilter(param,target1,target2){
+            var par = param;
+            var modul = '';
+            var header = [];
+            $target = target1;
+            $target2 = target2;
+            
+            switch(par){
+                case 'kode_cust': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sai-master/customer') }}";
+                    var columns = [
+                        { data: 'kode_cust' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Customer";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+            }
+
+            var header_html = '';
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th>"+header[i]+"</th>";
+            }
+            header_html +=  "<th></th>";
+
+            var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
+
+            $('#modal-search .modal-body').html(table);
+
+            var searchTable = $("#table-search").DataTable({
+                // fixedHeader: true,
+                // "scrollY": "300px",
+                // "processing": true,
+                // "serverSide": true,
+                "ajax": {
+                    "url": toUrl,
+                    "data": {'param':par},
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                "columnDefs": [{
+                    "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+                }],
+                'columns': columns
+                // "iDisplayLength": 25,
+            });
+
+            // searchTable.$('tr.selected').removeClass('selected');
+            $('#table-search tbody').find('tr:first').addClass('selected');
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search').on('click','.check-item',function(){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                    $($target).trigger('change');
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('dblclick','tr',function(){
+                console.log('dblclick');
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $(document).keydown(function(e) {
+                if (e.keyCode == 40){ //arrow down
+                    var tr = searchTable.$('tr.selected');
+                    tr.removeClass('selected');
+                    tr.next().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+                if (e.keyCode == 38){ //arrow up
+                    
+                    var tr = searchTable.$('tr.selected');
+                    searchTable.$('tr.selected').removeClass('selected');
+                    tr.prev().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+
+                if (e.keyCode == 13){
+                    var kode = $('tr.selected').find('td:nth-child(1)').text();
+                    var nama = $('tr.selected').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+                    
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            })
+        }
+
     $('#saku-form').on('click', '#btn-load', function(){
         var btnTextLoad = $('#btn-load span');
         var btnLoad = $('#btn-load');
         var btnSave = $('#btn-simpan');
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('sai-trans/tagihan-maintain-load') }}",
-            dataType: 'json',
-            async:true,
-            beforeSend:function(){
-                console.log('beforeSend')
-                btnLoad.attr('disabled', true);
-                btnSave.attr('disabled', true);
-                btnTextLoad.text('Loading..');
-            }, 
-            complete:function(){
-                console.log('complete')
-                btnLoad.attr('disabled', false);
-                btnSave.attr('disabled', false);
-                btnTextLoad.text('Load Data');
-            },
-            success:function(res){
-                var result= res.daftar;
-                if(result.length > 0) {
-                    $('#input-grid1 tbody').empty();
-                    var no = 1;
-                    var input = "";
-                    for(var i=0;i<result.length;i++){
-                        var line = result[i];
-                        input += "<tr class='row-grid1'>";
-                        input += "<td class='no-grid1 text-center'>"+no+"</td>";
-                        input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
-                        input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
-                        input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
-                        input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
-                        input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
-                        input += "</tr>";
-                        no++;
+        var cust   = $('#kode_cust').val();
+        var status = $('#jenis').val();
+        if(cust == '' || status == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Request tidak terpenuhi!',
+                footer: 'Customer harus dipilih dahulu'
+            })
+        }else{            
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sai-trans/tagihan-maintain-load') }}/"+cust+"/"+status,
+                dataType: 'json',
+                async:true,
+                beforeSend:function(){
+                    console.log('beforeSend')
+                    btnLoad.attr('disabled', true);
+                    btnSave.attr('disabled', true);
+                    btnTextLoad.text('Loading..');
+                }, 
+                complete:function(){
+                    console.log('complete')
+                    btnLoad.attr('disabled', false);
+                    btnSave.attr('disabled', false);
+                    btnTextLoad.text('Load Data');
+                },
+                success:function(res){
+                    var result= res.daftar;
+                    if(result.length > 0) {
+                        $('#input-grid1 tbody').empty();
+                        var no = 1;
+                        var input = "";
+                        for(var i=0;i<result.length;i++){
+                            var line = result[i];
+                            input += "<tr class='row-grid1'>";
+                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                            input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
+                            input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-grid1 tbody').append(input);
+                        hitungTotal();
+                        $('.inp-tagihan').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            onCleared: function () { self.Value(''); }
+                        });
                     }
-                    $('#input-grid1 tbody').append(input);
-                    $('.inp-tagihan').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        onCleared: function () { self.Value(''); }
-                    });
-                }
-            },
-            error: function(xhr, status, error){
-                var err = eval("(" + xhr.responseText + ")");
-                btnTextLoad.text('Load Data');
-                btnSave.attr('disabled', false);
-                btnLoad.attr('disabled', false);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Terjadi kesalahan pada server!',
-                    footer: err.message
-                })
-            },
-        });
+                },
+                error: function(xhr, status, error){
+                    var err = eval("(" + xhr.responseText + ")");
+                    btnTextLoad.text('Load Data');
+                    btnSave.attr('disabled', false);
+                    btnLoad.attr('disabled', false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan pada server!',
+                        footer: err.message
+                    })
+                },
+            });
+        }
     });
 
     $('#form-tambah').on('click', '#add-row2', function(){
@@ -455,10 +714,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('sai-master/modul-ubah') }}/"+id;
+            var url = "{{ url('sai-trans/tagihan-maintain-ubah') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('sai-master/modul') }}";
+            var url = "{{ url('sai-trans/tagihan-maintain') }}";
             var pesan = "saved";
         }
 
@@ -542,7 +801,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('sai-master/modul') }}/"+id,
+                    url: "{{ url('sai-trans/tagihan-maintain') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -583,19 +842,79 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sai-master/modul') }}/" + id,
+            url: "{{ url('sai-trans/tagihan-maintain-detail') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    var dataDate = new Date(result.data[0].tanggal);
+                    var tgl = ("0" + dataDate.getDate()).slice(-2)
+                    var bln = ("0" + (dataDate.getMonth() + 1)).slice(-2);
+                    var tahun = dataDate.getFullYear();
+                    var tanggal = tgl+"/"+bln+"/"+tahun;
+
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('.kode-modul').show();
-                    $('#kode_modul').val(id);
+                    $('#method').val('post');
+                    $('.no-tagihan').show();
+                    $('#btn-load').hide();
+                    $('.data-customer').show();
+                    $('.kode-cust').hide();
+                    $('#no_tagihan').val(id);
                     $('#id').val(id);
-                    $('#kode_modul').attr('readonly',true);
-                    $('#nama').val(result.data[0].nama);
+                    $('#no_tagihan').attr('readonly',true);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#tanggal').val(tanggal);
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#bank').val(result.data[0].bank);
+                    $('#cabang').val(result.data[0].cabang);
+                    $('#no_rek').val(result.data[0].no_rek);
+                    $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#total_nilai').val(parseFloat(result.data[0].nilai));
+                    $('#total_nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
+                    
+                    if(result.data_detail.length > 0) {
+                        var input = "";
+                        var no = 1;
+                        for(var i=0;i<result.data_detail.length;i++) {
+                            var line = result.data_detail[i];
+                            input += "<tr class='row-grid1'>";
+                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                            input += "<td><input type='text' name='cust[]' value='"+line.kode_cust+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
+                            input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-grid1 tbody').append(input);
+                        $('.inp-tagihan').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            onCleared: function () { self.Value(''); }
+                        });
+                    }
+
+                    if(result.data_dokumen.length > 0) {
+                        var input2 = "";
+                        var nomor = 1;
+                        for(var i=0;i<result.data_dokumen.length;i++){
+                            var line = result.data_dokumen[i];
+                            input2 += "<tr class='row-tagihan2'>";
+                            input2 += "<td class='no-tagihan2 text-center'>"+nomor+"</td>";
+                            input2 += "<td><span>"+line.no_gambar+"</span><input type='hidden' name='nama_file[]' required  class='inp-file_dok' value='"+line.no_gambar+"' readonly></td>";
+                            input2 += "<td><input type='file' name='file_dok[]'  class='inp-file_dok'></td>";
+                            input2 += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item2' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;<a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='https://api.simkug.com/api/sai-auth/storage/"+line.no_gambar+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
+                            input2 += "</tr>";
+                            nomor++;
+                        }
+                        $('#input-grid2 tbody').html(input2);
+                    }
+                    
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
