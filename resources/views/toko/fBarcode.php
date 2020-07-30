@@ -535,7 +535,7 @@
                                         <tr>
                                             <td colspan='2' ><p>Penerima: `+line.nama_cust+` <br>
                                             `+line.alamat_cust+`<br>
-                                            Kecamatan `+line.kecamatan_cust+`, Kabupaten/Kota `+line.kota_cust+`, `+line.provinsi_cust+`<br>
+                                            Kecamatan `+line.kecamatan_cust+`, Kabupaten/Kota `+line.kota_cust+`, `+line.prop_cust+`<br>
                                             Telp. `+line.kode_cust+`
                                             </p></td>
                                         </tr>

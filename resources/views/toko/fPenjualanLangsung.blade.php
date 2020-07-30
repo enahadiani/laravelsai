@@ -1188,50 +1188,55 @@
         var lama_hari=$('#lama_hari').val();
 
         var nilai_pesan=toNilai($('#nilai_pesan').val());
-            if(nilai_pesan <= 0){
-                alert('Total transaksi tidak valid');
-            }else{
-                var formData = new FormData(this);
-                for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: "{{url('toko-trans/penjualan-langsung')}}",
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(result) {
-                        if(result.data.status){
-                            alert('Input data'+result.data.message);
-                            $('#modal-total_all').text(toRp(total_all));
-                            $('#modal-total_trans').text(toRp(total_trans)); 
-                            $('#modal-diskon').text(toRp(diskon)); 
-                            $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
-                            $('#modal-lama_hari').text(lama_hari);
-                            $('#modal-bayar2').modal('show');
-                        } else if(!result.data.status && result.data.message === "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('/toko-auth/login') }}";
-                            }) 
-                        }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
+        if(nilai_pesan <= 0){
+            alert('Total transaksi tidak valid');
+        }else{
+            var formData = new FormData(this);
+            
+            $("[id^=label]").each(function(e){
+                formData.append($(this).attr('id'),$(this).text());
+            });
+            
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
             }
+            $.ajax({
+                type: 'POST',
+                url: "{{url('toko-trans/penjualan-langsung')}}",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(result) {
+                    if(result.data.status){
+                        alert('Input data'+result.data.message);
+                        $('#modal-total_all').text(toRp(total_all));
+                        $('#modal-total_trans').text(toRp(total_trans)); 
+                        $('#modal-diskon').text(toRp(diskon)); 
+                        $('#modal-nilai_ongkir').text(toRp(nilai_ongkir));
+                        $('#modal-lama_hari').text(lama_hari);
+                        $('#modal-bayar2').modal('show');
+                    } else if(!result.data.status && result.data.message === "Unauthorized"){
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('/toko-auth/login') }}";
+                        }) 
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                }
+            });
+        }
     });
 
     $(document).on("keypress", '#modal-bayar2', function (e) {
