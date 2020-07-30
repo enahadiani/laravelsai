@@ -67,6 +67,9 @@ class KaryawanController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'kode_pp' => 'required',
+            'kode_kota' => 'required',
+            'nama_kota' => 'required',
+            'kode_divisi' => 'required',
             'kode_jab' => 'required',
             'email' => 'required',
             'no_telp' => 'required',
@@ -91,6 +94,18 @@ class KaryawanController extends Controller
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_kota',
+                        'contents' => $request->kode_kota,
+                    ], 
+                    [
+                        'name' => 'nama_kota',
+                        'contents' => $request->nama_kota,
+                    ],
+                    [
+                        'name' => 'kode_divisi',
+                        'contents' => $request->kode_divisi,
                     ],
                     [
                         'name' => 'kode_jab',
@@ -125,6 +140,18 @@ class KaryawanController extends Controller
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_kota',
+                        'contents' => $request->kode_kota,
+                    ], 
+                    [
+                        'name' => 'nama_kota',
+                        'contents' => $request->nama_kota,
+                    ],
+                    [
+                        'name' => 'kode_divisi',
+                        'contents' => $request->kode_divisi,
                     ],
                     [
                         'name' => 'kode_jab',
@@ -224,6 +251,9 @@ class KaryawanController extends Controller
             'nama' => 'required',
             'kode_pp' => 'required',
             'kode_jab' => 'required',
+            'kode_kota' => 'required',
+            'nama_kota' => 'required',
+            'kode_divisi' => 'required',
             'email' => 'required',
             'no_telp' => 'required',
             'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
@@ -247,6 +277,18 @@ class KaryawanController extends Controller
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_kota',
+                        'contents' => $request->kode_kota,
+                    ], 
+                    [
+                        'name' => 'nama_kota',
+                        'contents' => $request->nama_kota,
+                    ],
+                    [
+                        'name' => 'kode_divisi',
+                        'contents' => $request->kode_divisi,
                     ],
                     [
                         'name' => 'kode_jab',
@@ -281,6 +323,18 @@ class KaryawanController extends Controller
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'kode_kota',
+                        'contents' => $request->kode_kota,
+                    ], 
+                    [
+                        'name' => 'nama_kota',
+                        'contents' => $request->nama_kota,
+                    ],
+                    [
+                        'name' => 'kode_divisi',
+                        'contents' => $request->kode_divisi,
                     ],
                     [
                         'name' => 'kode_jab',
