@@ -17,10 +17,11 @@
             }
         }
 
-        public function getTagihan() {
+        public function getTagihan($cust,$status) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link2.'tagihan-maintain-load',[
+            $response = $client->request('GET', $this->link2.'tagihan-maintain-load?kode_cust='.$cust
+            ."&status_kontrak=".$status,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

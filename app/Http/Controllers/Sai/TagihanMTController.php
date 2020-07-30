@@ -62,15 +62,14 @@ class TagihanMTController extends Controller
             'keterangan' => 'required',
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
-            'kode_cust' => 'required',
-            'no_kontrak' => 'required',
             'bank' => 'required',
             'cabang'=> 'required',
             'no_rek'=> 'required',
             'nama_rek'=> 'required',
+            'jenis'=> 'required',
+            'cust'=> 'required|array',
+            'no_kontrak'=> 'required|array',
             'item'=> 'required|array',
-            'harga'=> 'required|array',
-            'jumlah'=> 'required|array',
             'nilai'=> 'required|array',
             'nilai_ppn'=> 'required|array',
         ]);
@@ -107,14 +106,6 @@ class TagihanMTController extends Controller
                     'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
                 ],
                 [
-                    'name' => 'kode_cust',
-                    'contents' => $request->kode_cust,
-                ],
-                [
-                    'name' => 'no_kontrak',
-                    'contents' => $request->no_kontrak,
-                ],
-                [
                     'name' => 'bank',
                     'contents' => $request->bank,
                 ],
@@ -130,8 +121,12 @@ class TagihanMTController extends Controller
                     'name' => 'nama_rek',
                     'contents' => $request->nama_rek,
                 ],
+                [
+                    'name' => 'status_kontrak',
+                    'contents' => $request->jenis,
+                ],
             ];
-
+    
         $fields_item = array();
         if(count($request->item) > 0){
             for($i=0;$i<count($request->item);$i++){
@@ -141,26 +136,6 @@ class TagihanMTController extends Controller
                 );
             }
             $send_data = array_merge($fields,$fields_item);
-        }
-        $fields_jumlah = array();
-        if(count($request->jumlah) > 0){
-            for($i=0;$i<count($request->jumlah);$i++){
-                    $fields_jumlah[$i] = array(
-                        'name'     => 'jumlah[]',
-                        'contents' => intval(str_replace('.','', $request->jumlah[$i])),
-                );
-            }
-            $send_data = array_merge($send_data,$fields_jumlah);
-        }
-        $fields_harga = array();
-        if(count($request->harga) > 0){
-            for($i=0;$i<count($request->harga);$i++){
-                    $fields_harga[$i] = array(
-                        'name'     => 'harga[]',
-                        'contents' => intval(str_replace('.','', $request->harga[$i])),
-                );
-            }
-            $send_data = array_merge($send_data,$fields_harga);
         }
 
         $fields_nilai = array();
@@ -184,6 +159,30 @@ class TagihanMTController extends Controller
             }
             $send_data = array_merge($send_data,$fields_nilai_ppn);
         }
+
+        $fields_cust = array();
+        if(count($request->cust) > 0){
+            for($i=0;$i<count($request->cust);$i++){
+                    $cust[$i] = substr($request->cust[$i],0,5);
+                    $fields_cust[$i] = array(
+                        'name'     => 'kode_cust[]',
+                        'contents' => $cust[$i],
+                );
+            }
+            $send_data = array_merge($send_data,$fields_cust);
+        }
+
+        $fields_kontrak = array();
+        if(count($request->no_kontrak) > 0){
+            for($i=0;$i<count($request->no_kontrak);$i++){
+                    $fields_kontrak[$i] = array(
+                        'name'     => 'no_kontrak[]',
+                        'contents' => $request->no_kontrak[$i],
+                );
+            }
+            $send_data = array_merge($send_data,$fields_kontrak);
+        }
+
         
         $cek = $request->file_dok;
         $fields_dok = array();
@@ -212,7 +211,7 @@ class TagihanMTController extends Controller
         
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan',[
+                $response = $client->request('POST', $this->link.'tagihan-maintain',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -239,7 +238,7 @@ class TagihanMTController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tagihan-detail?no_bukti='.$id,
+            $response = $client->request('GET', $this->link.'tagihan-maintain-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -269,16 +268,14 @@ class TagihanMTController extends Controller
             'keterangan' => 'required',
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
-            'app_nik'=>'required',
-            'kode_cust' => 'required',
-            'no_kontrak' => 'required',
             'bank' => 'required',
             'cabang'=> 'required',
             'no_rek'=> 'required',
             'nama_rek'=> 'required',
+            'jenis'=> 'required',
+            'cust'=> 'required|array',
+            'no_kontrak'=> 'required|array',
             'item'=> 'required|array',
-            'harga'=> 'required|array',
-            'jumlah'=> 'required|array',
             'nilai'=> 'required|array',
             'nilai_ppn'=> 'required|array',
         ]);
@@ -300,7 +297,7 @@ class TagihanMTController extends Controller
                 ],
                 [
                     'name' => 'nik_app',
-                    'contents' => $request->app_nik,
+                    'contents' => Session::get('userLog'),
                 ],
                 [
                     'name' => 'keterangan',
@@ -313,14 +310,6 @@ class TagihanMTController extends Controller
                 [
                     'name' => 'total_nilai_ppn',
                     'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
-                ],
-                [
-                    'name' => 'kode_cust',
-                    'contents' => $request->kode_cust,
-                ],
-                [
-                    'name' => 'no_kontrak',
-                    'contents' => $request->no_kontrak,
                 ],
                 [
                     'name' => 'bank',
@@ -338,8 +327,12 @@ class TagihanMTController extends Controller
                     'name' => 'nama_rek',
                     'contents' => $request->nama_rek,
                 ],
+                [
+                    'name' => 'status_kontrak',
+                    'contents' => $request->jenis,
+                ],
             ];
-
+    
         $fields_item = array();
         if(count($request->item) > 0){
             for($i=0;$i<count($request->item);$i++){
@@ -349,26 +342,6 @@ class TagihanMTController extends Controller
                 );
             }
             $send_data = array_merge($fields,$fields_item);
-        }
-        $fields_jumlah = array();
-        if(count($request->jumlah) > 0){
-            for($i=0;$i<count($request->jumlah);$i++){
-                    $fields_jumlah[$i] = array(
-                        'name'     => 'jumlah[]',
-                        'contents' => intval(str_replace('.','', $request->jumlah[$i])),
-                );
-            }
-            $send_data = array_merge($send_data,$fields_jumlah);
-        }
-        $fields_harga = array();
-        if(count($request->harga) > 0){
-            for($i=0;$i<count($request->harga);$i++){
-                    $fields_harga[$i] = array(
-                        'name'     => 'harga[]',
-                        'contents' => intval(str_replace('.','', $request->harga[$i])),
-                );
-            }
-            $send_data = array_merge($send_data,$fields_harga);
         }
 
         $fields_nilai = array();
@@ -392,6 +365,30 @@ class TagihanMTController extends Controller
             }
             $send_data = array_merge($send_data,$fields_nilai_ppn);
         }
+
+        $fields_cust = array();
+        if(count($request->cust) > 0){
+            for($i=0;$i<count($request->cust);$i++){
+                    $cust[$i] = substr($request->cust[$i],0,5);
+                    $fields_cust[$i] = array(
+                        'name'     => 'kode_cust[]',
+                        'contents' => $cust[$i],
+                );
+            }
+            $send_data = array_merge($send_data,$fields_cust);
+        }
+
+        $fields_kontrak = array();
+        if(count($request->no_kontrak) > 0){
+            for($i=0;$i<count($request->no_kontrak);$i++){
+                    $fields_kontrak[$i] = array(
+                        'name'     => 'no_kontrak[]',
+                        'contents' => $request->no_kontrak[$i],
+                );
+            }
+            $send_data = array_merge($send_data,$fields_kontrak);
+        }
+
         
         $cek = $request->file_dok;
         $fields_dok = array();
@@ -420,7 +417,7 @@ class TagihanMTController extends Controller
         
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan-ubah?no_bukti='.$id,[
+                $response = $client->request('POST', $this->link.'tagihan-maintain-ubah?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -446,7 +443,7 @@ class TagihanMTController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'tagihan?no_bukti='.$id,
+            $response = $client->request('DELETE', $this->link.'tagihan-maintain?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
