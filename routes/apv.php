@@ -71,18 +71,21 @@ Route::post('/kota', 'Apv\KotaController@store');
 Route::get('/kota/{kode_kota}', 'Apv\KotaController@show');
 Route::put('/kota/{kode_kota}','Apv\KotaController@update');
 Route::delete('/kota/{kode_kota}','Apv\KotaController@destroy');
+Route::get('/kota-aju', 'Apv\KotaController@getKotaByNIK');
 
 Route::get('/divisi_all', 'Apv\DivisiController@index');
 Route::post('/divisi', 'Apv\DivisiController@store');
 Route::get('/divisi/{kode_divisi}', 'Apv\DivisiController@show');
 Route::put('/divisi/{kode_divisi}','Apv\DivisiController@update');
 Route::delete('/divisi/{kode_divisi}','Apv\DivisiController@destroy');
+Route::get('/divisi-aju', 'Apv\DivisiController@getDivisiByNIK');
 
 Route::get('juskeb','Apv\JuskebController@index');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
 Route::get('kota','Apv\JuskebController@getKota');
 Route::get('divisi','Apv\JuskebController@getDivisi');
 Route::get('nik_verifikasi','Apv\JuskebController@getNIKVerifikasi');
+Route::get('nik_verifikasi2','Apv\JuskebController@getNIKVerifikasi2');
 Route::get('barang-klp','Apv\JuskebController@getBarangKlp');
 Route::get('generate-dok','Apv\JuskebController@generateDok');
 Route::post('juskeb','Apv\JuskebController@store');

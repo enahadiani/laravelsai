@@ -48,6 +48,25 @@ class KotaController extends Controller
         return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
 
+    public function getKotaByNIK(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'kota-aju',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $res = json_decode($response_data,true);
+            $data = $res["success"]["data"];
+            $kota = $res["success"]["kode_kota"];
+        }
+        return response()->json(['daftar' => $data, 'status'=>true,'kode_kota'=>$kota], 200); 
+    }
+
     /**
      * Store a newly created resource in storage.
      *

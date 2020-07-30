@@ -519,12 +519,12 @@
         });
     }
 
-    function getNIKVer(kode_pp = null){
+    function getNIKVer(kode_kota = null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/nik_verifikasi') }}",
+            url: "{{ url('apv/nik_verifikasi2') }}",
             dataType: 'json',
-            data:{'kode_pp':kode_pp},
+            data:{'kode_kota':kode_kota},
             async:false,
             success:function(res){
                 var result = res.data;    
@@ -537,6 +537,9 @@
                             control.addOption([{text:result.data[i].nik+'-'+result.data[i].nama, value:result.data[i].nik}]);
                         }
                     }
+                    if(res.data.nik_ver !== 'undefined'){
+                        control.setValue(res.data.nik_ver);
+                    }
                 }
             }
         });
@@ -545,20 +548,22 @@
     function getKota(kode_pp){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/kota') }}",
+            url: "{{ url('apv/kota-aju') }}",
             dataType: 'json',
             data:{'kode_pp':kode_pp},
             async:false,
-            success:function(res){
-                var result = res.data;    
+            success:function(result){   
                 var select = $('#kode_kota').selectize();
                 select = select[0];
                 var control = select.selectize;
                 if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        for(i=0;i<result.data.length;i++){
-                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_kota}]);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_kota}]);
                         }
+                    }
+                    if(result.kode_kota !== 'undefined'){
+                        control.setValue(result.kode_kota); 
                     }
                 }
             }
@@ -568,18 +573,17 @@
     function getDivisi(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/divisi') }}",
+            url: "{{ url('apv/divisi-aju') }}",
             dataType: 'json',
             async:false,
-            success:function(res){
-                var result = res.data;    
+            success:function(result){  
                 var select = $('#kode_divisi').selectize();
                 select = select[0];
                 var control = select.selectize;
                 if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        for(i=0;i<result.data.length;i++){
-                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_divisi}]);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_divisi}]);
                         }
                     }
                     if(result.kode_divisi !== 'undefined'){
@@ -625,6 +629,7 @@
         // console.log(pp);
         // console.log(kota);
         generateDok(tanggal,pp,kota);
+        getNIKVer(kota);
     });
 
     var $iconLoad = $('.preloader');
@@ -676,6 +681,11 @@
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('#form-tambah')[0].reset();
+        var pp = $('#kode_pp')[0].selectize.getValue();
+        var kota = $('#kode_kota')[0].selectize.getValue();
+        var tanggal = $('#tanggal').val();
+        generateDok(tanggal,pp,kota);
+        getNIKVer(kota);
         $('#input-grid2 tbody').html('');
         $('#input-dok tbody').html('');
     });

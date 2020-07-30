@@ -48,6 +48,25 @@ class DivisiController extends Controller
         return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
 
+    public function getDivisiByNIK(){
+        $client = new Client();
+        $response = $client->request('GET', $this->link.'divisi-aju',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $res = json_decode($response_data,true);
+            $data = $res["success"]["data"];
+            $divisi = $res["success"]["kode_divisi"];
+        }
+        return response()->json(['daftar' => $data, 'status'=>true,"kode_divisi"=>$divisi], 200); 
+    }
+
     /**
      * Store a newly created resource in storage.
      *

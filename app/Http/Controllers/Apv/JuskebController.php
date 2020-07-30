@@ -778,6 +778,36 @@ class JuskebController extends Controller
         }
     }
 
+    public function getNIKVerifikasi2(Request $request)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'nik_verifikasi2',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'kode_kota' => $request->kode_kota
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
     public function getBarangKlp(Request $request)
     {
         try{

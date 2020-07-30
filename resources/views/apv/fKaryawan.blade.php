@@ -78,6 +78,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="nama" class="col-3 col-form-label">Kota</label>
+                                    <div class="col-3">
+                                        <select class='form-control' id="kode_kota" name="kode_kota">
+                                        <option value=''>--- Pilih Kota ---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="nama" class="col-3 col-form-label">Kode Jabatan</label>
                                     <div class="col-3">
                                         <select class='form-control' id="kode_jab" name="kode_jab">
