@@ -358,26 +358,26 @@ class VerifikasiController extends Controller
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda telah di return";
                     $title = "Return Verifikasi [LaravelSAI]";
                 }
-                $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
-                if($notif["status"]){
-                    $data["success"]["message"] .= " Notif success";
-                }else{
-                    $data["success"]["message"] .= " Notif failed";
-                }
-
-                // $send = array(
-                //     'id_device' => $data['success']['id_device_app'],
-                //     'nik' => $data['success']['nik_device_app'],
-                //     'title' => "Verifikasi Justifikasi kebutuhan [LaravelSAI]",
-                //     'message' => "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda",
-                // );
-                // $fcm = $this->sendFCM($send);
-
-                // if($fcm["status"]){
-                //     $data["success"]["message"] .= " FCM success";
+                // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                // if($notif["status"]){
+                //     $data["success"]["message"] .= " Notif success";
                 // }else{
-                //     $data["success"]["message"] .= " FCM failed";
+                //     $data["success"]["message"] .= " Notif failed";
                 // }
+
+                $send = array(
+                    'id_device' => $data['success']['id_device_app'],
+                    'nik' => $data['success']['nik_device_app'],
+                    'title' => "Verifikasi Justifikasi kebutuhan [LaravelSAI]",
+                    'message' => "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda",
+                );
+                $fcm = $this->sendFCM($send);
+
+                if($fcm["status"]){
+                    $data["success"]["message"] .= " FCM success";
+                }else{
+                    $data["success"]["message"] .= " FCM failed";
+                }
                 return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {
