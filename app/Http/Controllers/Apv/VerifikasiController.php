@@ -373,11 +373,11 @@ class VerifikasiController extends Controller
                 // );
                 // $fcm = $this->sendFCM($send);
 
-                if($fcm["status"]){
-                    $data["success"]["message"] .= " FCM success";
-                }else{
-                    $data["success"]["message"] .= " FCM failed";
-                }
+                // if($fcm["status"]){
+                //     $data["success"]["message"] .= " FCM success";
+                // }else{
+                //     $data["success"]["message"] .= " FCM failed";
+                // }
                 return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {
