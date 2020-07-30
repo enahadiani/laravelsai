@@ -98,232 +98,127 @@
 <!-- END MODAL --> 
 </div>
 <script type="text/javascript">
-function updateDataTableSelectAllCtrl(table){
-   var $table             = table.table().node();
-   var $chkbox_all        = $('tbody input[type="checkbox"]', $table);
-   var $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $table);
-   var chkbox_select_all  = $('thead input[name="select_all"]', $table).get(0);
 
-   // If none of the checkboxes are checked
-   if($chkbox_checked.length === 0){
-      chkbox_select_all.checked = false;
-      if('indeterminate' in chkbox_select_all){
-         chkbox_select_all.indeterminate = false;
-      }
+    function updateDataTableSelectAllCtrl(table)
+    {
+    var $table             = table.table().node();
+    var $chkbox_all        = $('tbody input[type="checkbox"]', $table);
+    var $chkbox_checked    = $('tbody input[type="checkbox"]:checked', $table);
+    var chkbox_select_all  = $('thead input[name="select_all"]', $table).get(0);
 
-   // If all of the checkboxes are checked
-   } else if ($chkbox_checked.length === $chkbox_all.length){
-      chkbox_select_all.checked = true;
-      if('indeterminate' in chkbox_select_all){
-         chkbox_select_all.indeterminate = false;
-      }
+        // If none of the checkboxes are checked
+        if($chkbox_checked.length === 0){
+            chkbox_select_all.checked = false;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = false;
+            }
 
-   // If some of the checkboxes are checked
-   } else {
-      chkbox_select_all.checked = true;
-      if('indeterminate' in chkbox_select_all){
-         chkbox_select_all.indeterminate = true;
-      }
-   }
-}
+        // If all of the checkboxes are checked
+        } else if ($chkbox_checked.length === $chkbox_all.length){
+            chkbox_select_all.checked = true;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = false;
+            }
 
-function getPeriode(){
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('toko-trans/periode-pesan') }}",
-        dataType: 'json',
-        async:false,
-        success:function(result){    
-            if(result.status){
-                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                    var select = $('#periode').selectize();
-                    select = select[0];
-                    var control = select.selectize;
-                    for(i=0;i<result.daftar.length;i++){
-                        control.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
+        // If some of the checkboxes are checked
+        } else {
+            chkbox_select_all.checked = true;
+            if('indeterminate' in chkbox_select_all){
+                chkbox_select_all.indeterminate = true;
+            }
+        }
+    }
+
+    function getPeriode(){
+        $.ajax({
+            type: 'GET',
+            url: "toko-trans/periode",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#periode').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        for(i=0;i<result.data.data.length;i++){
+                            control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                        }
                     }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
-function showFilter(param,target1,target2){
-    var par = param;
-    
-    var modul = '';
-    var header = [];
-    var target1 = target1;
-    var target2 = target2;
-    var target3 = "";
-    var target4 = "";
-    var parameter = {};
-    switch(par){
-        case 'kode_kirim': 
-            header = ['Kode Kirim', 'Nama'];
-            var toUrl = "toko-master/jasa-kirim";
-            var columns = [
-                { data: 'kode_kirim' },
-                { data: 'nama' }
-            ];
-            
-            var judul = "Daftar Jasa Kirim";
-            var jTarget1 = "val";
-            var jTarget2 = "text";
-            target1 = "#"+target1;
-            target2 = "#"+target2;
-            parameter = {'param':par};
-        break;
-    }
-    
-    var header_html = '';
-    for(i=0; i<header.length; i++){
-        header_html +=  "<th>"+header[i]+"</th>";
-    }
-    header_html +=  "<th></th>";
-    
-    var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-    table += "<tbody></tbody></table>";
-    
-    $('#modal-search .modal-body').html(table);
-    
-    var searchTable = $("#table-search").DataTable({
-        // fixedHeader: true,
-        // "scrollY": "300px",
-        // "processing": true,
-        // "serverSide": true,
-        "ajax": {
-            "url": toUrl,
-            "data": parameter,
-            "type": "GET",
-            "async": false,
-            "dataSrc" : function(json) {
-                return json.daftar;
-            }
-        },
-        "columnDefs": [{
-            "targets": header.length, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-        }],
-        'columns': columns
-        // "iDisplayLength": 25,
-    });
-    
-    // searchTable.$('tr.selected').removeClass('selected');
-    console.log(judul);
-    $('#table-search tbody').find('tr:first').addClass('selected');
-    $('#modal-search .modal-title').html(judul);
-    $('#modal-search').modal('show');
-    searchTable.columns.adjust().draw();
-    
-    $('#table-search').on('click','.check-item',function(){
-        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-        if(jTarget1 == "val"){
-            $(target1).val(kode);
-            $(target1).trigger("change");
-        }else{
-            $(target1).text(kode);
+
+    function showFilter(param,target1,target2){
+        var par = param;
+        
+        var modul = '';
+        var header = [];
+        var target1 = target1;
+        var target2 = target2;
+        var target3 = "";
+        var target4 = "";
+        var parameter = {};
+        switch(par){
+            case 'kode_kirim': 
+                header = ['Kode Kirim', 'Nama'];
+                var toUrl = "toko-master/jasa-kirim";
+                var columns = [
+                    { data: 'kode_kirim' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Jasa Kirim";
+                var jTarget1 = "val";
+                var jTarget2 = "text";
+                target1 = "#"+target1;
+                target2 = "#"+target2;
+                parameter = {'param':par};
+            break;
         }
         
-        if(jTarget2 == "val"){
-            $(target2).val(nama);
-            $(target2).trigger("change");
-        }else{
-            $(target2).text(nama);
+        var header_html = '';
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th>"+header[i]+"</th>";
         }
+        header_html +=  "<th></th>";
         
-        if(target3 != ""){
-            
-            var value = $(this).closest('tr').find('td:nth-child(3)').text();
-            if(jTarget3 == "val"){
-                $(target3).val(value);
-                $(target3).trigger("change");
-            }else{
-                $(target3).text(value);
-            }
-        }
-        if(target4 != ""){
-            
-            var value = $(this).closest('tr').find('td:nth-child(4)').text();
-            if(jTarget4 == "val"){
-                $(target4).val(value);
-                $(target4).trigger("change");
-            }else{
-                $(target4).text(value);
-            }
-        }
-        $('#modal-search').modal('hide');
-    });
-    
-    $('#table-search tbody').on('dblclick','tr',function(){
-        console.log('dblclick');
-        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-        if(jTarget1 == "val"){
-            $(target1).val(kode);
-            $(target1).trigger("change");
-        }else{
-            $(target1).text(kode);
-        }
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
         
-        if(jTarget2 == "val"){
-            $(target2).val(nama);
-            $(target2).trigger("change");
-        }else{
-            $(target2).text(nama);
-        }
+        $('#modal-search .modal-body').html(table);
         
-        if(target3 != ""){
-            
-            var value = $(this).closest('tr').find('td:nth-child(3)').text();
-            if(jTarget3 == "val"){
-                $(target3).val(value);
-                $(target3).trigger("change");
-            }else{
-                $(target3).text(value);
-            }
-        }
-        if(target4 != ""){
-            
-            var value = $(this).closest('tr').find('td:nth-child(4)').text();
-            if(jTarget4 == "val"){
-                $(target4).val(value);
-                $(target4).trigger("change");
-            }else{
-                $(target4).text(value);
-            }
-        }
-        $('#modal-search').modal('hide');
-    });
-    
-    $('#table-search tbody').on('click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }
-        else {
-            searchTable.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    });
-    
-    $(document).keydown(function(e) {
-        if (e.keyCode == 40){ //arrow down
-            var tr = searchTable.$('tr.selected');
-            tr.removeClass('selected');
-            tr.next().addClass('selected');
-            // tr = searchTable.$('tr.selected');
-            
-        }
-        if (e.keyCode == 38){ //arrow up
-            
-            var tr = searchTable.$('tr.selected');
-            searchTable.$('tr.selected').removeClass('selected');
-            tr.prev().addClass('selected');
-            // tr = searchTable.$('tr.selected');
-            
-        }
+        var searchTable = $("#table-search").DataTable({
+            // fixedHeader: true,
+            // "scrollY": "300px",
+            // "processing": true,
+            // "serverSide": true,
+            "ajax": {
+                "url": toUrl,
+                "data": parameter,
+                "type": "GET",
+                "async": false,
+                "dataSrc" : function(json) {
+                    return json.daftar;
+                }
+            },
+            "columnDefs": [{
+                "targets": header.length, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            }],
+            'columns': columns
+            // "iDisplayLength": 25,
+        });
         
-        if (e.keyCode == 13){
+        // searchTable.$('tr.selected').removeClass('selected');
+        console.log(judul);
+        $('#table-search tbody').find('tr:first').addClass('selected');
+        $('#modal-search .modal-title').html(judul);
+        $('#modal-search').modal('show');
+        searchTable.columns.adjust().draw();
+        
+        $('#table-search').on('click','.check-item',function(){
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
@@ -361,14 +256,120 @@ function showFilter(param,target1,target2){
                 }
             }
             $('#modal-search').modal('hide');
-        }
-    })
-}
+        });
+        
+        $('#table-search tbody').on('dblclick','tr',function(){
+            console.log('dblclick');
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(jTarget1 == "val"){
+                $(target1).val(kode);
+                $(target1).trigger("change");
+            }else{
+                $(target1).text(kode);
+            }
+            
+            if(jTarget2 == "val"){
+                $(target2).val(nama);
+                $(target2).trigger("change");
+            }else{
+                $(target2).text(nama);
+            }
+            
+            if(target3 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(3)').text();
+                if(jTarget3 == "val"){
+                    $(target3).val(value);
+                    $(target3).trigger("change");
+                }else{
+                    $(target3).text(value);
+                }
+            }
+            if(target4 != ""){
+                
+                var value = $(this).closest('tr').find('td:nth-child(4)').text();
+                if(jTarget4 == "val"){
+                    $(target4).val(value);
+                    $(target4).trigger("change");
+                }else{
+                    $(target4).text(value);
+                }
+            }
+            $('#modal-search').modal('hide');
+        });
+        
+        $('#table-search tbody').on('click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                searchTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+        
+        $(document).keydown(function(e) {
+            if (e.keyCode == 40){ //arrow down
+                var tr = searchTable.$('tr.selected');
+                tr.removeClass('selected');
+                tr.next().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+                
+            }
+            if (e.keyCode == 38){ //arrow up
+                
+                var tr = searchTable.$('tr.selected');
+                searchTable.$('tr.selected').removeClass('selected');
+                tr.prev().addClass('selected');
+                // tr = searchTable.$('tr.selected');
+                
+            }
+            
+            if (e.keyCode == 13){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $(target1).val(kode);
+                    $(target1).trigger("change");
+                }else{
+                    $(target1).text(kode);
+                }
+                
+                if(jTarget2 == "val"){
+                    $(target2).val(nama);
+                    $(target2).trigger("change");
+                }else{
+                    $(target2).text(nama);
+                }
+                
+                if(target3 != ""){
+                    
+                    var value = $(this).closest('tr').find('td:nth-child(3)').text();
+                    if(jTarget3 == "val"){
+                        $(target3).val(value);
+                        $(target3).trigger("change");
+                    }else{
+                        $(target3).text(value);
+                    }
+                }
+                if(target4 != ""){
+                    
+                    var value = $(this).closest('tr').find('td:nth-child(4)').text();
+                    if(jTarget4 == "val"){
+                        $(target4).val(value);
+                        $(target4).trigger("change");
+                    }else{
+                        $(target4).text(value);
+                    }
+                }
+                $('#modal-search').modal('hide');
+            }
+        })
+    }
 
-$(document).ready(function (){
-    $('#periode').selectize();
-    // getPeriode();
-    
+    getPeriode();
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -378,10 +379,6 @@ $(document).ready(function (){
    // Array holding selected row IDs
    var rows_selected = [];
    var table = $('#input-grid').DataTable({
-    //   'ajax': {
-    //      'url': '/lab/articles/jquery-datatables-checkboxes/ids-arrays.txt'
-    //   },
-        // 'data':[],
         'columns': [
             { data: 'action' },
             { data: 'no_pesan' },
@@ -412,11 +409,12 @@ $(document).ready(function (){
         }
     });
 
-    function loadData(){
+    function loadData(periode = null,kode_kirim = null){
         $.ajax({
             type: 'GET',
             url: "toko-trans/barcode-load",
             dataType: 'json',
+            data:{'periode':periode,'kode_kirim':kode_kirim},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -509,6 +507,8 @@ $(document).ready(function (){
             success:function(result){
                 if(result.data.status){
                     // location.reload();
+                    $('#form-tambah')[0].reset();
+                    table.clear().draw();
                     Swal.fire(
                         'Great Job!',
                         'Your data has been saved.',
@@ -534,15 +534,16 @@ $(document).ready(function (){
                                         </tr>
                                         <tr>
                                             <td colspan='2' ><p>Penerima: `+line.nama_cust+` <br>
-                                            `+line.alamat+`<br>
-                                            Kecamatan `+line.kecamatan+`, Kabupaten `+line.kota+`, `+line.provinsi+`<br>
+                                            `+line.alamat_cust+`<br>
+                                            Kecamatan `+line.kecamatan_cust+`, Kabupaten/Kota `+line.kota_cust+`, `+line.provinsi_cust+`<br>
                                             Telp. `+line.kode_cust+`
                                             </p></td>
                                         </tr>
                                         </tr>
-                                            <td colspan='2' ><p>Pengirim: SAI <br>
-                                            BANDUNG <br>
-                                            Telp. 087700096953
+                                            <td colspan='2' ><p>Pengirim: `+line.nama_lokasi+` <br>
+                                            `+line.alamat_lokasi+` <br>
+                                            Kabupaten/Kota `+line.kota_lokasi+`
+                                            Telp. `+line.no_telp_lokasi+`
                                             </p></td>
                                         </tr>
                                         <tr>
@@ -593,7 +594,9 @@ $(document).ready(function (){
     });
 
     $('#form-tambah').on('click', '#loadData', function(){
-        loadData();
+        periode = $('#periode')[0].selectize.getValue();
+        kode_kirim = $('#kode_kirim').val();
+        loadData(periode,kode_kirim);
     });
 
     $('#slide-print').on('click', '#btn-kembali', function(){
@@ -605,5 +608,4 @@ $(document).ready(function (){
         $('#print-area').printThis();
     });
 
-});
 </script>

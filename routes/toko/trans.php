@@ -73,4 +73,5 @@ Route::get('kecamatan', 'Toko\PenjualanLangsungController@getKecamatan');
 Route::get('service', 'Toko\PenjualanLangsungController@getService');
 
 Route::get('barcode-load', 'Toko\BarcodeController@loadData');
+Route::get('periode', 'Toko\BarcodeController@getPeriode');
 Route::post('barcode', 'Toko\BarcodeController@store');
