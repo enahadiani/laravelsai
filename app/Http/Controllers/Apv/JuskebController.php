@@ -105,10 +105,15 @@ class JuskebController extends Controller
                 if(count($data) > 0){
 
                     for($i=0;$i<count($data);$i++){
-                        if($data[$i]['progress'] == "A" || $data[$i]['progress'] == "3" || $data[$i]['progress'] == "F"){
-                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        if($data[$i]['posisi'] == "Finish Pengadaan"){
+                            $color = 'danger';
                         }else{
-                            $data[$i]["action"] = "<a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $color = 'success';
+                        }
+                        if($data[$i]['progress'] == "A" || $data[$i]['progress'] == "3" || $data[$i]['progress'] == "F"){
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        }else{
+                            $data[$i]["action"] = "<a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
                         }
                     }
                 }
@@ -148,7 +153,7 @@ class JuskebController extends Controller
             'ppn'=> 'required|array',
             'grand_total'=> 'required|array',
             'nama_dok'=>'array',
-            'file_dok.*'=>'file|max:3072'
+            'file_dok.*'=>'file|max:10240'
         ]);
             
         try{
@@ -407,7 +412,7 @@ class JuskebController extends Controller
             'ppn'=> 'required|array',
             'grand_total'=> 'required|array',
             'nama_dok'=>'array',
-            'file_dok.*'=>'file|max:3072'
+            'file_dok.*'=>'file|max:10240'
         ]);
             
         try{
