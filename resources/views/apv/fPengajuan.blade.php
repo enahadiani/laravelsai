@@ -944,8 +944,15 @@
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         var html='';
+                        
                         for(var i=0;i<result.data.length;i++){
-                            html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid #03a9f3;border-radius: 50%;background: #03a9f3;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
+                            if(result.data[i].color == 'green'){
+                                var color = '#00c292';
+                            }else{
+                                var color = '#03a9f3';
+                            }
+                            
+                            html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid `+color+`;border-radius: 50%;background: `+color+`;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
                                 </div>
                                 <div class="sl-right">
                                     <div><a href="javascript:void(0)" class="link">`+result.data[i].nama+`</a> <span class="sl-date">`+result.data[i].tanggal+` (`+result.data[i].status+`)</span>
@@ -1124,7 +1131,17 @@
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
+                }, 
+                error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
                 }
+            }
             });   
             $iconLoad.hide();
         }     

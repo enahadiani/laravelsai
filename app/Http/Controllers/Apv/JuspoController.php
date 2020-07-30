@@ -184,7 +184,9 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required'
+            'nilai.*'=> 'required',
+            'nama_dok'=>'array',
+            'file_dok.*'=>'file|max:10240'
         ]);
             
         try{
@@ -498,7 +500,9 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required'
+            'nilai.*'=> 'required',
+            'nama_dok'=>'array',
+            'file_dok.*'=>'file|max:10240'
         ]);
             
         try{
