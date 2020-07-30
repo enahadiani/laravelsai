@@ -196,6 +196,7 @@ class VerifikasiController extends Controller
             'tanggal' => 'required',
             'no_aju' => 'required',
             'kode_pp2' => 'required',
+            'kode_kota' => 'required',
             'status' => 'required',
             'keterangan' => 'required',
             'total' => 'required',
@@ -223,6 +224,10 @@ class VerifikasiController extends Controller
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->kode_pp2,
+                ],
+                [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
                 ],
                 [
                     'name' => 'status',
