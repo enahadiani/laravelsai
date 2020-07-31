@@ -495,7 +495,7 @@
 
     $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
-        var id = $(this).closest('tr').find('td').eq(2).html();
+        var kd = $(this).closest('tr').find('td').eq(2).html();
         printLap(id,kd);
     });
 
