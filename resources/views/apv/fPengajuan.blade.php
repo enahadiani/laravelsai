@@ -599,6 +599,8 @@
         generateDok(tanggal,pp,kota);
     });
 
+    
+
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
     var dataTable = $('#table-data').DataTable({
@@ -720,6 +722,24 @@
             hitungBrg();
         // }
     });
+
+    $('#input-dok').on('change','input[type=file]',function(e){
+        
+        e.preventDefault();
+        var i = $(this).parents('tr').index()+1;
+        var file = $(this)[0].files[0].size;
+        var sizekb = Math.round(file / 1024,2);
+        var sizemb = Math.round(sizekb / 1024,2);
+        if(sizekb > 10240){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
+            });
+            $(this).replaceWith($(this).val('').clone(true));
+        }
+    })
 
     $('#input-grid2').on('keydown', '.inp-qty', function(e){
         if (e.which == 13 || e.which == 9) {
