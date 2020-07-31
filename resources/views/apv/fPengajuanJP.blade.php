@@ -53,7 +53,8 @@
                                                         <th>Regional</th>
                                                         <th>Waktu</th>
                                                         <th>Kegiatan</th>
-                                                        <th>Nilai</th>
+                                                        <th>Nilai Pengadaan</th>
+                                                        <th>Nilai Finish</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -645,7 +646,7 @@
             }
         },
         'columnDefs': [
-            {   'targets': 5, 
+            {   'targets': [5,6], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
@@ -657,6 +658,7 @@
             { data: 'waktu' },
             { data: 'kegiatan' },
             { data: 'nilai' },
+            { data: 'nilai_finish' },
             { data: 'status' },
             { data: 'action' }
         ]
