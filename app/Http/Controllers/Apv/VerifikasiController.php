@@ -399,8 +399,6 @@ class VerifikasiController extends Controller
                     $title = "Return Verifikasi [LaravelSAI]";
                 }
 
-                
-
                 $send = array(
                     'id_device' => $data['success']['id_device_app'],
                     'nik' => $data['success']['nik_device_app'],

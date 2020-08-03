@@ -75,6 +75,42 @@ class JuspoController extends Controller
 
     }
 
+    
+    function sendPusher($data){ 	
+        try {
+            
+            $fields = array(
+                'id' => array($data['id']), 
+                'title' => $data['title'],
+                'message' => $data['message'],
+                'sts_insert' => $data['sts_insert']
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'notif-pusher', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     function sendFCM($data){ 	
         try {
             
@@ -387,13 +423,13 @@ class JuspoController extends Controller
                 if($data['success']['status']){
                     $content = "Pengajuan Justifikasi pengadaan ".$data['success']['no_aju']." Anda berhasil dikirim, menunggu verifikasi";
                     $title = "Justifikasi pengadaan [LaravelSAI]";
-                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
-                    if($notif["status"]){
-                        $data["success"]["message"] .= " Notif success";
-                    }else{
-                        $data["success"]["message"] .= " Notif failed";
-                    }
-
+                    // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // if($notif["status"]){
+                    //     $data["success"]["message"] .= " Notif success";
+                    // }else{
+                    //     $data["success"]["message"] .= " Notif failed";
+                    // }
+                    
                     $send = array(
                         'id_device' => $data['success']['id_device_app'],
                         'nik' => $data['success']['nik_device_app'],
@@ -407,6 +443,21 @@ class JuspoController extends Controller
                     }else{
                         $data["success"]["message"] .= " FCM failed";
                     }
+
+                    $notif = array(
+                        'id' => $data['success']['nik_device_app'],
+                        'title' => "Justifikasi Pengadaan [LaravelSAI]",
+                        'message' => "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." menunggu approval anda",
+                        'sts_insert' => 0
+                    );
+                    $pusher = $this->sendPusher($notif);
+    
+                    if($pusher["status"]){
+                        $data["success"]["message"] .= " Notif success";
+                    }else{
+                        $data["success"]["message"] .= " Notif failed";
+                    }
+
                 }
 
                 return response()->json(['data' => $data['success']], 200);  
@@ -728,6 +779,20 @@ class JuspoController extends Controller
                         $data["success"]["message"] .= " FCM success";
                     }else{
                         $data["success"]["message"] .= " FCM failed";
+                    }
+
+                    $notif = array(
+                        'id' => $data['success']['nik_device_app'],
+                        'title' => "Justifikasi Pengadaan [LaravelSAI]",
+                        'message' => "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." menunggu approval anda",
+                        'sts_insert' => 0
+                    );
+                    $pusher = $this->sendPusher($notif);
+    
+                    if($pusher["status"]){
+                        $data["success"]["message"] .= " Notif success";
+                    }else{
+                        $data["success"]["message"] .= " Notif failed";
                     }
                 }
 
