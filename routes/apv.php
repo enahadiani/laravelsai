@@ -81,6 +81,7 @@ Route::delete('/divisi/{kode_divisi}','Apv\DivisiController@destroy');
 Route::get('/divisi-aju', 'Apv\DivisiController@getDivisiByNIK');
 
 Route::get('juskeb','Apv\JuskebController@index');
+Route::get('juskeb-finish','Apv\JuskebController@getJuskebFinish');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
 Route::get('kota','Apv\JuskebController@getKota');
 Route::get('divisi','Apv\JuskebController@getDivisi');

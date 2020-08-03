@@ -495,8 +495,8 @@
 
     $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
-        var kd = $(this).closest('tr').find('td').eq(2).html();
-        printLap(id,kd);
+        // var kd = $(this).closest('tr').find('td').eq(2).html();
+        printLap(id,'default');
     });
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
@@ -634,7 +634,7 @@
                         'Your data has been saved.'+result.data.message,
                         'success'
                     )
-                    printLap(result.data.no_aju);
+                    printLap(result.data.no_aju,'default');
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
                     Swal.fire({
