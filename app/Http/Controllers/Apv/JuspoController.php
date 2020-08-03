@@ -74,6 +74,44 @@ class JuspoController extends Controller
         }
 
     }
+
+    function sendFCM($data){ 	
+        try {
+            
+            $fields = array(
+                'token' => array($data['id_device']), 
+                'data' => array(
+                    'title' => $data['title'],
+                    'message' => $data['message'],
+                    'nik' => $data['nik']
+                ),
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'notif', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -184,9 +222,7 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required',
-            'nama_dok'=>'array',
-            'file_dok.*'=>'file|max:10240'
+            'nilai.*'=> 'required'
         ]);
             
         try{
@@ -357,7 +393,22 @@ class JuspoController extends Controller
                     }else{
                         $data["success"]["message"] .= " Notif failed";
                     }
+
+                    $send = array(
+                        'id_device' => $data['success']['id_device_app'],
+                        'nik' => $data['success']['nik_device_app'],
+                        'title' => "Justifikasi Pengadaan [LaravelSAI]",
+                        'message' => "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." menunggu approval anda",
+                    );
+                    $fcm = $this->sendFCM($send);
+    
+                    if($fcm["status"]){
+                        $data["success"]["message"] .= " FCM success";
+                    }else{
+                        $data["success"]["message"] .= " FCM failed";
+                    }
                 }
+
                 return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {
@@ -500,9 +551,7 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required',
-            'nama_dok'=>'array',
-            'file_dok.*'=>'file|max:10240'
+            'nilai.*'=> 'required'
         ]);
             
         try{
@@ -662,6 +711,26 @@ class JuspoController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+
+                if($data['success']['status']){
+                    $content = "Pengajuan Justifikasi pengadaan ".$data['success']['no_aju']." Anda berhasil dikirim, menunggu verifikasi";
+                    $title = "Justifikasi pengadaan [LaravelSAI]";
+
+                    $send = array(
+                        'id_device' => $data['success']['id_device_app'],
+                        'nik' => $data['success']['nik_device_app'],
+                        'title' => "Justifikasi Pengadaan [LaravelSAI]",
+                        'message' => "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." menunggu approval anda",
+                    );
+                    $fcm = $this->sendFCM($send);
+    
+                    if($fcm["status"]){
+                        $data["success"]["message"] .= " FCM success";
+                    }else{
+                        $data["success"]["message"] .= " FCM failed";
+                    }
+                }
+
                 return response()->json(['data' => $data["success"]], 200);  
             }
         } catch (BadResponseException $ex) {

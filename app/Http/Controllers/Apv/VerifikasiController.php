@@ -113,6 +113,41 @@ class VerifikasiController extends Controller
 
     }
 
+    function sendPusher($data){ 	
+        try {
+            
+            $fields = array(
+                'id' => array($data['id']), 
+                'title' => $data['title'],
+                'message' => $data['message'],
+                'sts_insert' => $data['sts_insert']
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'notif-pusher', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -196,6 +231,7 @@ class VerifikasiController extends Controller
             'tanggal' => 'required',
             'no_aju' => 'required',
             'kode_pp2' => 'required',
+            'kode_kota' => 'required',
             'status' => 'required',
             'keterangan' => 'required',
             'total' => 'required',
@@ -223,6 +259,10 @@ class VerifikasiController extends Controller
                 [
                     'name' => 'kode_pp',
                     'contents' => $request->kode_pp2,
+                ],
+                [
+                    'name' => 'kode_kota',
+                    'contents' => $request->kode_kota,
                 ],
                 [
                     'name' => 'status',
@@ -358,26 +398,38 @@ class VerifikasiController extends Controller
                     $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda telah di return";
                     $title = "Return Verifikasi [LaravelSAI]";
                 }
-                $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+
+                
+
+                $send = array(
+                    'id_device' => $data['success']['id_device_app'],
+                    'nik' => $data['success']['nik_device_app'],
+                    'title' => "Verifikasi Justifikasi kebutuhan [LaravelSAI]",
+                    'message' => "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda",
+                );
+                $fcm = $this->sendFCM($send);
+
+                if($fcm["status"]){
+                    $data["success"]["message"] .= " FCM success";
+                }else{
+                    $data["success"]["message"] .= " FCM failed";
+                }
+
+                $res = array(
+                    'title' => "Verifikasi Justifikasi kebutuhan [LaravelSAI]",
+                    'message' => "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda",
+                    'id' => $data['success']['nik_device_app'],
+                    'sts_insert' => 1
+                );
+                $notif = $this->sendPusher($res);
+
+                // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
                 if($notif["status"]){
                     $data["success"]["message"] .= " Notif success";
                 }else{
                     $data["success"]["message"] .= " Notif failed";
                 }
-
-                // $send = array(
-                //     'id_device' => $data['success']['id_device_app'],
-                //     'nik' => $data['success']['nik_device_app'],
-                //     'title' => "Verifikasi Justifikasi kebutuhan [LaravelSAI]",
-                //     'message' => "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu approval anda",
-                // );
-                // $fcm = $this->sendFCM($send);
-
-                // if($fcm["status"]){
-                //     $data["success"]["message"] .= " FCM success";
-                // }else{
-                //     $data["success"]["message"] .= " FCM failed";
-                // }
+                
                 return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {

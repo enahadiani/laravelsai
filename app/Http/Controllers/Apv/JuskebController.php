@@ -74,6 +74,41 @@ class JuskebController extends Controller
         }
 
     }
+
+    function sendPusher($data){ 	
+        try {
+            
+            $fields = array(
+                'id' => array($data['id']), 
+                'title' => $data['title'],
+                'message' => $data['message'],
+                'sts_insert' => $data['sts_insert']
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'notif-pusher', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -91,6 +126,46 @@ class JuskebController extends Controller
         try {
             $client = new Client();
             $response = $client->request('GET', $this->link.'juskeb',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"]["data"];
+                if(count($data) > 0){
+
+                    for($i=0;$i<count($data);$i++){
+                        if($data[$i]['posisi'] == "Finish Pengadaan"){
+                            $color = 'danger';
+                        }else{
+                            $color = 'success';
+                        }
+                        if($data[$i]['progress'] == "A" || $data[$i]['progress'] == "3" || $data[$i]['progress'] == "F"){
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        }else{
+                            $data[$i]["action"] = "<a href='#' title='History' class='badge badge-$color' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        }
+                    }
+                }
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getJuskebFinish(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'juskeb-finish',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -320,13 +395,20 @@ class JuskebController extends Controller
                 
                 $data = json_decode($response_data,true);
                 if($data['success']['status']){
-                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda berhasil dikirim, menunggu verifikasi";
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']."  menunggu verifikasi anda";
                     $title = "Justifikasi kebutuhan [LaravelSAI]";
-                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    $res = array(
+                        'title' => $title,
+                        'message' => $content,
+                        'id' => $data['success']['nik_ver'],
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
                     if($notif["status"]){
-                        $data["success"]["message"] .= " Notif success";
+                        $data["success"]["message"] .= " Notif to verifikasi success";
                     }else{
-                        $data["success"]["message"] .= " Notif failed";
+                        $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
                 return response()->json(['data' => $data['success']], 200);  
@@ -578,13 +660,25 @@ class JuskebController extends Controller
                 
                 $data = json_decode($response_data,true);
                 if($data['success']['status']){
-                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." And berhasil dikirim, menunggu verifikasi";
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu verifikasi anda";
                     $title = "Justifikasi kebutuhan [LaravelSAI]";
-                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // if($notif["status"]){
+                    //     $data["success"]["message"] .= " Notif success";
+                    // }else{
+                    //     $data["success"]["message"] .= " Notif failed";
+                    // }
+                    $res = array(
+                        'title' => $title,
+                        'message' => $content,
+                        'id' => $data['success']['nik_ver'],
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
                     if($notif["status"]){
-                        $data["success"]["message"] .= " Notif success";
+                        $data["success"]["message"] .= " Notif to verifikasi success";
                     }else{
-                        $data["success"]["message"] .= " Notif failed";
+                        $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
                 return response()->json(['data' => $data["success"],"cek"=>empty($cek)], 200);  
@@ -666,6 +760,33 @@ class JuskebController extends Controller
         try{
             $client = new Client();
             $response = $client->request('GET', $this->link.'juskeb_preview/'.$no_bukti,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+    public function getPreview2($no_bukti)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET', $this->link.'juskeb_preview2/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

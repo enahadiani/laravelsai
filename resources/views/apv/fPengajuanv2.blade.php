@@ -30,6 +30,7 @@
                                         <th>Kegiatan</th>
                                         <th>Posisi</th>
                                         <th>Nilai</th>
+                                        <th>Nilai Finish</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -358,7 +359,7 @@
     function printAju(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juskeb_preview') }}/"+id,
+            url: "{{ url('apv/juskeb_preview2') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){ 
@@ -658,7 +659,7 @@
         },
         'columnDefs': [
             // {'targets': 7, data: null, 'defaultContent': action_html },
-            {   'targets': 6, 
+            {   'targets': [6,7], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
@@ -671,6 +672,7 @@
             { data: 'kegiatan' },
             { data: 'posisi' },
             { data: 'nilai' },
+            { data: 'nilai_finish' },
             { data: 'action' }
         ]
     });
@@ -813,6 +815,24 @@
             hitungBrg();
         // }
     });
+
+    $('#input-dok').on('change','input[type=file]',function(e){
+        
+        e.preventDefault();
+        var i = $(this).parents('tr').index()+1;
+        var file = $(this)[0].files[0].size;
+        var sizekb = Math.round(file / 1024,2);
+        var sizemb = Math.round(sizekb / 1024,2);
+        if(sizekb > 10240){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
+            });
+            $(this).replaceWith($(this).val('').clone(true));
+        }
+    })
 
     $('#saku-form').on('click', '#add-row-dok', function(){
         var no=$('#input-dok .row-dok:last').index();

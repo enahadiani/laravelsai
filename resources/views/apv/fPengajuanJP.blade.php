@@ -645,7 +645,7 @@
             }
         },
         'columnDefs': [
-            {   'targets': 5, 
+            {   'targets': [5], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
@@ -993,15 +993,14 @@
                             for(var x=0;x<result.data_detail.length;x++){
                                 var line = result.data_detail[x];
                                 input += "<tr class='row-barang'>";
-                                input += "<tr class='row-barang'>";
                                 input += "<td class='no-barang'>"+no+"</td>";
                                 input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
                                 input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-sub currency' readonly value='"+toRp(line.ppn)+"' required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-sub currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -1290,6 +1289,24 @@
         rightAlign: true,
         oncleared: function () { self.Value(''); }
     });
+
+    $('#input-dok').on('change','input[type=file]',function(e){
+        
+        e.preventDefault();
+        var i = $(this).parents('tr').index()+1;
+        var file = $(this)[0].files[0].size;
+        var sizekb = Math.round(file / 1024,2);
+        var sizemb = Math.round(sizekb / 1024,2);
+        if(sizekb > 10240){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
+            });
+            $(this).replaceWith($(this).val('').clone(true));
+        }
+    })
     
     $('#input-grid2').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();

@@ -86,6 +86,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="nama" class="col-3 col-form-label">Divisi</label>
+                                    <div class="col-3">
+                                        <select class='form-control' id="kode_divisi" name="kode_divisi">
+                                        <option value=''>--- Pilih Divisi ---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="nama" class="col-3 col-form-label">Kode Jabatan</label>
                                     <div class="col-3">
                                         <select class='form-control' id="kode_jab" name="kode_jab">
@@ -154,6 +162,29 @@
         });
     }
 
+    function getKota(kode_pp = null){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/kota') }}",
+            dataType: 'json',
+            data:{'kode_pp': kode_pp},
+            async:false,
+            success:function(res){
+                var result= res.data;    
+                if(result.status){
+                    var select = $('#kode_kota').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_kota + ' - ' + result.data[i].nama, value:result.data[i].kode_kota}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function getJab(){
         $.ajax({
             type: 'GET',
@@ -175,9 +206,36 @@
         });
     }
 
-    getPP();
-    getJab();
+    function getDivisi(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/divisi') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    var select = $('#kode_divisi').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            control.addOption([{text:result.data[i].kode_divisi + ' - ' + result.data[i].nama, value:result.data[i].kode_divisi}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
 
+    getPP();
+    // getKota();
+    $('#kode_kota').selectize();
+    getJab();
+    getDivisi();
+    $('#kode_pp').change(function (value){
+        getKota($(this).val());
+    });
     
     $('.custom-file-input').on('change',function(){
         var fileName = $(this).val();
@@ -215,6 +273,8 @@
                     $('#nik').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
+                    $('#kode_divisi')[0].selectize.setValue(result.data[0].kode_divisi);
                     $('#kode_jab')[0].selectize.setValue(result.data[0].kode_jab);
                     $('#email').val(result.data[0].email);
                     $('#no_telp').val(result.data[0].no_telp);
@@ -342,7 +402,11 @@
             var pesan = "saved";
         }
 
+        var tmp = $('#kode_kota option:selected').text();
+        tmp = tmp.split("-");
+        var nama_kota = tmp[1];
         var formData = new FormData(this);
+        formData.append('nama_kota',nama_kota);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]); 
         }
@@ -392,9 +456,9 @@
         });
     });
 
-    $('#nik,#nama,#kode_pp,#kode_jab,#file_gambar').keydown(function(e){
+    $('#nik,#nama,#kode_pp,#kode_kota,#kode_divisi,#kode_jab,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama','kode_pp','kode_jab','file_gambar'];
+        var nxt = ['nik','nama','kode_pp','kode_kota','kode_divisi','kode_jab','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

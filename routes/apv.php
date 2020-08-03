@@ -81,6 +81,7 @@ Route::delete('/divisi/{kode_divisi}','Apv\DivisiController@destroy');
 Route::get('/divisi-aju', 'Apv\DivisiController@getDivisiByNIK');
 
 Route::get('juskeb','Apv\JuskebController@index');
+Route::get('juskeb-finish','Apv\JuskebController@getJuskebFinish');
 Route::get('juskeb/{no_bukti}','Apv\JuskebController@show');
 Route::get('kota','Apv\JuskebController@getKota');
 Route::get('divisi','Apv\JuskebController@getDivisi');
@@ -93,6 +94,7 @@ Route::post('juskeb/{no_bukti}','Apv\JuskebController@update');
 Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
 Route::get('juskeb_history/{no_bukti}','Apv\JuskebController@getHistory');
 Route::get('juskeb_preview/{no_bukti}','Apv\JuskebController@getPreview');
+Route::get('juskeb_preview2/{no_bukti}','Apv\JuskebController@getPreview2');
 
 Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');
@@ -131,6 +133,8 @@ Route::get('dash_databox','Apv\DashboardController@getDataBox');
 Route::get('dash_posisi','Apv\DashboardController@getPosisi');
 Route::post('notif_register','Apv\NotifController@register');
 Route::get('notif_send','Apv\NotifController@sendNotif');
+Route::get('notif','Apv\NotifController@getNotif');
+Route::post('notif-update-status','Apv\NotifController@updateStatusRead');
 
 //Filter Laporan
 Route::get('filter-pp','Apv\FilterController@getFilterPP');
@@ -141,4 +145,6 @@ Route::get('filter-nodokumen','Apv\FilterController@getFilterNoDokumen');
 //Pihak ketiga
 //Laporan
 Route::post('lap-posisi','Apv\LaporanController@getPosisi');
+
+
 
