@@ -3,10 +3,10 @@
 <script type="text/javascript">
 function drawLap(formData){
     saiPost('sai-report/lap-tagihan', null, formData, null, function(res){
+        console.log(res)
         if(res.result.length > 0){
             $('#pagination').html('');
-            var show = $('#show')[0].selectize.getValue();
-            generatePagination('pagination',show,res);
+            generatePagination('pagination',5,res);
            }
     });
 }
@@ -17,7 +17,7 @@ drawLap($formData);
         var data = data;
         console.log(data.length);
         console.log(data);
-        if(data.length > 0){
+        
                
             var mon_html = "<div align='center' id='sai-rpt-table-export-tbl-daftar-pnj'>";
             var arr_tl = [0,0,0,0,0,0,0,0,0];
@@ -66,7 +66,7 @@ drawLap($formData);
             
             mon_html+="</div>"; 
             
-        }
+        
         $('#canvasPreview').html(mon_html);
         $('li.first a ').html("<i class='icon-control-start'></i>");
         $('li.last a ').html("<i class='icon-control-end'></i>");

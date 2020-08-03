@@ -14,11 +14,11 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('sai-auth/login')->with('alert','Session telah habis !');
+            return redirect('tarbak/login')->with('alert','Session telah habis !');
             }
         }
 
-        public function getDataTagihan($customer=null,$tagihan=null) {
+        public function getDataTagihan(Request $request) {
            try{
                 $client = new Client();
                 $response = $client->request('GET', $this->link.'lap-tagihan',[
@@ -27,8 +27,9 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_cust' => $customer,
-                        'no_bill' => $tagihan,
+                        'kode_cust' => $request->kode_cust,
+                        'no_bill' => $request->no_bill,
+                        'no_kontrak' => $request->no_kontrak,
                     ]
                 ]);
 
@@ -43,7 +44,7 @@
                     $res['back']=true;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'sumju'=>$request->sumju,'res'=>$res], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

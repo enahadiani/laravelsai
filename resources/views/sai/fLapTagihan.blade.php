@@ -12,6 +12,7 @@
             margin-top: 60px;
             border:1px solid #e9e9e9;
         }
+        
         .close{
             width:0px;
             right: -30px;
@@ -27,31 +28,30 @@
         {
             width: calc(100% - 100px);
         }
-        td,th{
-            padding:4px !important;
-            vertical-align:middle !important;
-        }
-        .header_laporan,.isi_laporan {
-            border:1px solid #e9ecef !important;
-        }
-        th{
-            text-align:center;
-        }
     </style>
     <div class="row" style="">
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
             <div class="card " id="sai-rpt-filter-box;" style="padding:10px;">
                 <div class="card-body" style="padding: 0px;">
-                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Tagihan</h4>
+                    <h4 class="card-title pl-1"><i class='fas fa-file'></i> Laporan Tagihan Maintenance</h4>
                     <hr>
                     <form id="formFilter">
                         <div class="row" style="margin-left: -5px;">
                             <div class="col-sm-6">
-                                <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>         
+                                <button type="button" id='btn-lanjut' class="btn btn-primary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>          
                             </div>
-                        </div>
-                        <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
-                            <ul id="pagination" class="pagination pagination-sm2"></ul>
+                            <div class='col-sm-3'>
+                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                </div>
+                            </div>
+                            <div class='col-sm-1' style='padding-top: 0'>
+                            </div>
+                            <div class='col-sm-2'>
+                                <button type="button" class="btn btn-info float-right" style="margin-left: 6px;margin-top: 0" id="sai-rpt-print"><i class="fa fa-print"></i></button>
+                                <button type="button" class="btn btn-success float-right" style="margin-left: 6px;margin-top: 0" id="btnExport"><i class="fa fa-file-excel"></i></button>
+                                <button type="button" class="btn btn-primary float-right" style="margin-left: 6px;margin-top: 0" id="btnEmail" alt="Email"><i class="fa far fa-envelope"></i></button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -61,7 +61,7 @@
     <div id='mySidepanel' class='sidepanel close'>
         <h3 style='margin-bottom:20px;position: absolute;'>Filter Laporan</h3>
         <a href='#' id='btn-close'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px' method="POST">
+        <form id="formFilter2" style='margin-top:50px'>
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
@@ -106,19 +106,7 @@
                         </button></div>
                     </div>
                     <div class="card-body table-responsive" id="content-lap" style='height:380px'>
-                        <table id="table-data" class='table table-striped color-table info-table' style='width:100%'>
-                            <thead>
-                                    <tr>
-                                        <th class="header_laporan">No Tagihan</th>
-                                        <th class="header_laporan">No Kontrak</th>
-                                        <th class="header_laporan">Keterangan</th>
-                                        <th class="header_laporan">Nilai</th>
-                                        <th class="header_laporan">Nilai PPN</th>
-                                        <th class="header_laporan"></th>
-                                    </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                        
                     </div>
                 </div>
             </div>
@@ -168,9 +156,8 @@
     <script type="text/javascript">
         var $loadBar = $('#loading-bar');
         var $loadBar2 = $('#loading-bar2');
-        $('#table-data').hide();
 
-    function getCustomer() {
+            function getCustomer() {
         $.ajax({
             type:'GET',
             url:"{{url('sai-master/customer')}}",
@@ -321,8 +308,8 @@
 
     $('.card-body').on('click', '#btn-lanjut', function(e){
         e.preventDefault();
-        getCustomer();
         getTagihanMT();
+        getCustomer();
         getKontrakMT();
         openNav();
     });
@@ -332,64 +319,14 @@
         openNav();
     });
 
-    function getDataTagihanMT(customer, tagihan, kontrak) {
-        $('#table-data').DataTable({
-            // 'processing': true,
-            // 'serverSide': true,
-            // "scrollX": true,
-            'bInfo':false,
-            'bLengthChange':false,
-            'bFilter':false,
-            'bSort':false,
-            'ajax': {
-                'url': "{{ url('sai-report/lap-tagihan') }}/"+customer+"/"+tagihan+"/"+kontrak,
-                'async':false,
-                'type': 'GET',
-                'dataSrc' : function(json) {
-                    if(json.result.status){
-                        if(json.result.data.length > 0){
-                        return json.result.data;   
-                        }else {
-                        return [];
-                        }   
-                    }else{
-                        Swal.fire({
-                            title: 'Session telah habis',
-                            text: 'harap login terlebih dahulu!',
-                            icon: 'error'
-                        }).then(function() {
-                            window.location.href = "{{ url('sai-auth/login') }}";
-                        })
-                        return [];
-                    }
-                }
-            },
-            'columnDefs': [
-                {'targets': 5, data: null, 'defaultContent': "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>" },
-                {
-                    'targets': [4,3],
-                    'className': 'text-right',
-                    'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
-                }
-                ],
-            'columns': [
-                { data: 'no_bill' },
-                { data: 'no_kontrak' },
-                { data: 'keterangan' },
-                { data: 'nilai' },
-                { data: 'nilai_ppn' },
-            ],
-            dom: '<"top"p>',
-        });
-    }
-
+    var $formData = "";
+    
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
-        var customer = $('#kode_cust')[0].selectize.getValue()
-        var tagihan = $('#no_bill')[0].selectize.getValue()
-        var kontrak = $('#no_kontrak')[0].selectize.getValue()
-        getDataTagihanMT(customer,tagihan,kontrak);
-        $('#table-data').show();    
+        $formData = new FormData(this);
+        xurl = "{{ url('/sai-auth/form')}}/rptTagihanMT";
+        $('#content-lap').load(xurl);
         openNav();
+        // drawLapReg(formData);
     });
     </script>
