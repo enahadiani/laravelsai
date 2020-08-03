@@ -358,7 +358,7 @@
     function printAju(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juskeb_preview') }}/"+id,
+            url: "{{ url('apv/juskeb_preview2') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(res){ 

@@ -339,7 +339,22 @@
                 <div class="body-content">
                 </div>
             </section>
+            <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
             <script>
+
+                 // Enable pusher logging - don't include this in production
+                Pusher.logToConsole = true;
+                 
+                var pusher = new Pusher('d428ef5138920b411264', {
+                    cluster: 'ap1'
+                });
+
+                var userNIK = "{{ Session::get('userLog') }}";
+                
+                var channel = pusher.subscribe('saiapv-channel-'+userNIK);
+                channel.bind('saiapv-event', function(data) {
+                    alert(JSON.stringify(data));
+                });
                
                 var form ="{{ Session::get('dash') }}";
                 function loadForm(url){
@@ -373,6 +388,8 @@
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     }
                 });
+
+                
 
                 function loadMenu(){
                     $.ajax({

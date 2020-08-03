@@ -93,6 +93,7 @@ Route::post('juskeb/{no_bukti}','Apv\JuskebController@update');
 Route::delete('juskeb/{no_bukti}','Apv\JuskebController@destroy');
 Route::get('juskeb_history/{no_bukti}','Apv\JuskebController@getHistory');
 Route::get('juskeb_preview/{no_bukti}','Apv\JuskebController@getPreview');
+Route::get('juskeb_preview2/{no_bukti}','Apv\JuskebController@getPreview2');
 
 Route::get('verifikasi','Apv\VerifikasiController@index');
 Route::get('verifikasi/{no_bukti}','Apv\VerifikasiController@show');
@@ -141,4 +142,6 @@ Route::get('filter-nodokumen','Apv\FilterController@getFilterNoDokumen');
 //Pihak ketiga
 //Laporan
 Route::post('lap-posisi','Apv\LaporanController@getPosisi');
+
+
 
