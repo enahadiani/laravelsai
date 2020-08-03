@@ -132,6 +132,7 @@ Route::get('dash_databox','Apv\DashboardController@getDataBox');
 Route::get('dash_posisi','Apv\DashboardController@getPosisi');
 Route::post('notif_register','Apv\NotifController@register');
 Route::get('notif_send','Apv\NotifController@sendNotif');
+Route::get('notif','Apv\NotifController@getNotif');
 
 //Filter Laporan
 Route::get('filter-pp','Apv\FilterController@getFilterPP');

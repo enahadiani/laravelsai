@@ -30,6 +30,7 @@
                                         <th>Kegiatan</th>
                                         <th>Posisi</th>
                                         <th>Nilai</th>
+                                        <th>Nilai Finish</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -658,7 +659,7 @@
         },
         'columnDefs': [
             // {'targets': 7, data: null, 'defaultContent': action_html },
-            {   'targets': 6, 
+            {   'targets': [6,7], 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             }
@@ -671,6 +672,7 @@
             { data: 'kegiatan' },
             { data: 'posisi' },
             { data: 'nilai' },
+            { data: 'nilai_finish' },
             { data: 'action' }
         ]
     });
