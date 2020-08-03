@@ -16,7 +16,7 @@
                 <div class="card" style="min-height:560px">
                     <div class="card-body">
                     <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Histori Justifikasi Kebutuhan 
-                        <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <!-- <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                         </h4>
                         <hr>
                         <div class="table-responsive ">
