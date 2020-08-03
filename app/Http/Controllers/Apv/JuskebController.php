@@ -74,6 +74,41 @@ class JuskebController extends Controller
         }
 
     }
+
+    function sendPusher($data){ 	
+        try {
+            
+            $fields = array(
+                'id' => array($data['id']), 
+                'title' => $data['title'],
+                'message' => $data['message'],
+                'sts_insert' => $data['sts_insert']
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'notif-pusher', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -320,13 +355,20 @@ class JuskebController extends Controller
                 
                 $data = json_decode($response_data,true);
                 if($data['success']['status']){
-                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." Anda berhasil dikirim, menunggu verifikasi";
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']."  menunggu verifikasi anda";
                     $title = "Justifikasi kebutuhan [LaravelSAI]";
-                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    $res = array(
+                        'title' => $title,
+                        'content' => $content,
+                        'id' => $data['success']['nik_ver'],
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
                     if($notif["status"]){
-                        $data["success"]["message"] .= " Notif success";
+                        $data["success"]["message"] .= " Notif to verifikasi success";
                     }else{
-                        $data["success"]["message"] .= " Notif failed";
+                        $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
                 return response()->json(['data' => $data['success']], 200);  

@@ -239,8 +239,8 @@
                         <!-- Comment -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark notif-btn" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
+                                <div class="notify" style="top: -40px;">  <span class="badge badge-danger text-white" style="border-radius: 50%;position: absolute;font-size: 10px;" id="notif-count"></span> </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated" style="width:480px">
                                 <ul id="notif-dropdown">
@@ -355,6 +355,13 @@
                             var notif='';
                             $('.body-notif').remove(); 
                             if(result.data.status){
+                                if(result.data.jumlah == 0){
+                                    
+                                    $('#notif-count').text('');
+                                }else{
+
+                                    $('#notif-count').text(result.data.jumlah);
+                                }
                                 if(result.data.data.length > 0){
                                     for(var i=0;i<result.data.data.length;i++){
                                         var line = result.data.data[i];
@@ -386,6 +393,21 @@
                     });
                 }
                 
+                function updateNotifRead(){
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('apv/notif-update-status') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){    
+                            $('#notif-count').text('');
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
+                }
+
                 var channel = pusher.subscribe('saiapv-channel-'+userNIK);
                 channel.bind('saiapv-event', function(data) {
                     // alert(JSON.stringify(data));
@@ -402,8 +424,6 @@
                     });
 
                 });
-                                
-                
 
                 function loadForm(url){
                     $.ajax({
@@ -517,6 +537,10 @@
                         setHeightReport();
                     }
                     setHeightForm();
+                });
+
+                $('.notif-btn').click(function(){
+                    updateNotifRead();
                 });
             </script>
         </div>

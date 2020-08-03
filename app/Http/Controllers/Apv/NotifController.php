@@ -123,4 +123,31 @@ class NotifController extends Controller
         }
     }
 
+    public function updateStatusRead()
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('PUT', $this->link.'notif-update-status',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json($data, 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json($data, 200);
+        }
+    }
+
 }
