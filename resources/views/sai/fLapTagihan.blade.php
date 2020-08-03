@@ -12,7 +12,6 @@
             margin-top: 60px;
             border:1px solid #e9e9e9;
         }
-        
         .close{
             width:0px;
             right: -30px;
@@ -28,6 +27,16 @@
         {
             width: calc(100% - 100px);
         }
+        td,th{
+            padding:4px !important;
+            vertical-align:middle !important;
+        }
+        .header_laporan,.isi_laporan {
+            border:1px solid #e9ecef !important;
+        }
+        th{
+            text-align:center;
+        }
     </style>
     <div class="row" style="">
         <div style="z-index: 1;position: fixed;right: auto;left: auto;margin-right: 15px;margin-left: 25px;margin-top:15px" class="col-sm-12" id="subFixbar">
@@ -40,26 +49,9 @@
                             <div class="col-sm-6">
                                 <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>         
                             </div>
-                            <div class='col-sm-3'>
-                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
-                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
-                                </div>
-                            </div>
-                            <div class='col-sm-1' style='padding-top: 0'>
-                                <select name="show" id="show" class="form-control" style=''>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="All">All</option>
-                                </select>
-                            </div>
-                            <div class='col-sm-2'>
-                                <button type="button" class="btn btn-info float-right" style="margin-left: 6px;margin-top: 0" id="sai-rpt-print"><i class="fa fa-print"></i></button>
-                                <button type="button" class="btn btn-success float-right" style="margin-left: 6px;margin-top: 0" id="btnExport"><i class="fa fa-file-excel"></i></button>
-                                <button type="button" class="btn btn-primary float-right" style="margin-left: 6px;margin-top: 0" id="btnEmail" alt="Email"><i class="fa far fa-envelope"></i></button>
-                                
-                            </div>
+                        </div>
+                        <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                            <ul id="pagination" class="pagination pagination-sm2"></ul>
                         </div>
                     </form>
                 </div>
@@ -69,13 +61,29 @@
     <div id='mySidepanel' class='sidepanel close'>
         <h3 style='margin-bottom:20px;position: absolute;'>Filter Laporan</h3>
         <a href='#' id='btn-close'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
+        <form id="formFilter2" style='margin-top:50px' method="POST">
         <div class="row" style="margin-left: -5px;">
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_barang">Kode Barang</label>
-                    <select name="kode_barang" id="kode_barang2" class="form-control">
-                    <option value="">Pilih Kode Barang</option>
+                    <label for="kode_cust">Kode Customer</label>
+                    <select name="kode_cust" id="kode_cust" class="form-control">
+                    <option value="">Pilih Kode Customer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="no_bill">Nomor Tagihan</label>
+                    <select name="no_bill" id="no_bill" class="form-control">
+                    <option value="">Pilih Nomor Tagihan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="no_kontrak">Nomor Kontrak</label>
+                    <select name="no_kontrak" id="no_kontrak" class="form-control">
+                    <option value="">Pilih Nomor Kontrak</option>
                     </select>
                 </div>
             </div>
@@ -98,7 +106,19 @@
                         </button></div>
                     </div>
                     <div class="card-body table-responsive" id="content-lap" style='height:380px'>
-                        
+                        <table id="table-data" class='table table-striped color-table info-table' style='width:100%'>
+                            <thead>
+                                    <tr>
+                                        <th class="header_laporan">No Tagihan</th>
+                                        <th class="header_laporan">No Kontrak</th>
+                                        <th class="header_laporan">Keterangan</th>
+                                        <th class="header_laporan">Nilai</th>
+                                        <th class="header_laporan">Nilai PPN</th>
+                                        <th class="header_laporan"></th>
+                                    </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -148,62 +168,142 @@
     <script type="text/javascript">
         var $loadBar = $('#loading-bar');
         var $loadBar2 = $('#loading-bar2');
+        $('#table-data').hide();
 
-    // function getBarang() {
-    //     $.ajax({
-    //         type:'GET',
-    //         url:"{{url('toko-report/filter-barang')}}",
-    //         dataType: 'json',
-    //         async: false,
-    //         success: function(result) {
-    //             if(result.status) {
-    //                 var select = $('#kode_barang').selectize();
-    //                 select = select[0];
-    //                 var control = select.selectize;
-    //                 control.clearOptions();
+    function getCustomer() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('sai-master/customer')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                    var select = $('#kode_cust').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    control.clearOptions();
 
-    //                 var select2 = $('#kode_barang2').selectize();
-    //                 select2 = select2[0];
-    //                 var control2 = select2.selectize;
-    //                 control2.clearOptions();
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_cust}]);
+                        }
+                    }
+                }else if(!result.status && result.daftar.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('sai-auth/login') }}";
+                    })
+                } else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan pada server'
+                })
+            }
+        });
+    }
 
-    //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-    //                     for(i=0;i<result.daftar.length;i++){
-    //                         control.addOption([{text:result.daftar[i].kode_barang+'-'+result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
+    function getTagihanMT() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('sai-trans/tagihan-maintain')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                    var select = $('#no_bill').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    control.clearOptions();
 
-    //                         control2.addOption([{text:result.daftar[i].kode_barang+'-'+result.daftar[i].nama, value:result.daftar[i].kode_barang}]);
-    //                     }
-    //                 }
-    //             }else if(!result.status && result.daftar.message == "Unauthorized"){
-    //                 Swal.fire({
-    //                     title: 'Session telah habis',
-    //                     text: 'harap login terlebih dahulu!',
-    //                     icon: 'error'
-    //                 }).then(function() {
-    //                     window.location.href = "{{ url('toko-auth/login') }}";
-    //                 })
-    //             } else{
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     title: 'Oops...',
-    //                     text: 'Something went wrong!',
-    //                     footer: '<a href>'+result.data.message+'</a>'
-    //                 })
-    //             }
-    //         },
-    //         error: function(error) {
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Oops...',
-    //                 text: 'Terjadi kesalahan pada server'
-    //             })
-    //         }
-    //     });
-    // }
-    // getBarang();
-    var xurl = "{{ url('/sai-auth/form')}}/rptTagihan";
-    $('#content-lap').load(xurl);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_bill, value:result.daftar[i].no_bill}]);
+                        }
+                    }
+                }else if(!result.status && result.daftar.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('sai-auth/login') }}";
+                    })
+                } else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan pada server'
+                })
+            }
+        });
+    }
 
+    function getKontrakMT() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('sai-trans/kontrak')}}/MAINTENANCE",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                    var select = $('#no_kontrak').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    control.clearOptions();
+
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_kontrak, value:result.daftar[i].no_kontrak}]);
+                        }
+                    }
+                }else if(!result.status && result.daftar.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('sai-auth/login') }}";
+                    })
+                } else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan pada server'
+                })
+            }
+        });
+    }
 
     function openNav() {
         var element = $('#mySidepanel');
@@ -221,6 +321,9 @@
 
     $('.card-body').on('click', '#btn-lanjut', function(e){
         e.preventDefault();
+        getCustomer();
+        getTagihanMT();
+        getKontrakMT();
         openNav();
     });
 
@@ -229,14 +332,64 @@
         openNav();
     });
 
-    var $formData = "";
-    $('#show').selectize();
+    function getDataTagihanMT(customer, tagihan, kontrak) {
+        $('#table-data').DataTable({
+            // 'processing': true,
+            // 'serverSide': true,
+            // "scrollX": true,
+            'bInfo':false,
+            'bLengthChange':false,
+            'bFilter':false,
+            'bSort':false,
+            'ajax': {
+                'url': "{{ url('sai-report/lap-tagihan') }}/"+customer+"/"+tagihan+"/"+kontrak,
+                'async':false,
+                'type': 'GET',
+                'dataSrc' : function(json) {
+                    if(json.result.status){
+                        if(json.result.data.length > 0){
+                        return json.result.data;   
+                        }else {
+                        return [];
+                        }   
+                    }else{
+                        Swal.fire({
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('sai-auth/login') }}";
+                        })
+                        return [];
+                    }
+                }
+            },
+            'columnDefs': [
+                {'targets': 5, data: null, 'defaultContent': "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>" },
+                {
+                    'targets': [4,3],
+                    'className': 'text-right',
+                    'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+                }
+                ],
+            'columns': [
+                { data: 'no_bill' },
+                { data: 'no_kontrak' },
+                { data: 'keterangan' },
+                { data: 'nilai' },
+                { data: 'nilai_ppn' },
+            ],
+            dom: '<"top"p>',
+        });
+    }
+
     $('.sidepanel').on('submit', '#formFilter2', function(e){
         e.preventDefault();
-        $formData = new FormData(this);
-        xurl = "{{ url('/sai-auth/form')}}/rptTagihan";
-        $('#content-lap').load(xurl);
+        var customer = $('#kode_cust')[0].selectize.getValue()
+        var tagihan = $('#no_bill')[0].selectize.getValue()
+        var kontrak = $('#no_kontrak')[0].selectize.getValue()
+        getDataTagihanMT(customer,tagihan,kontrak);
+        $('#table-data').show();    
         openNav();
-        // drawLapReg(formData);
     });
     </script>
