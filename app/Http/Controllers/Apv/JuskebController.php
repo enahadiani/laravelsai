@@ -360,7 +360,7 @@ class JuskebController extends Controller
                     // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
                     $res = array(
                         'title' => $title,
-                        'content' => $content,
+                        'message' => $content,
                         'id' => $data['success']['nik_ver'],
                         'sts_insert' => 1
                     );
@@ -620,13 +620,25 @@ class JuskebController extends Controller
                 
                 $data = json_decode($response_data,true);
                 if($data['success']['status']){
-                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." And berhasil dikirim, menunggu verifikasi";
+                    $content = "Pengajuan Justifikasi kebutuhan ".$data['success']['no_aju']." menunggu verifikasi anda";
                     $title = "Justifikasi kebutuhan [LaravelSAI]";
-                    $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // $notif = $this->sendNotif($title,$content,$data['success']['token_players']);
+                    // if($notif["status"]){
+                    //     $data["success"]["message"] .= " Notif success";
+                    // }else{
+                    //     $data["success"]["message"] .= " Notif failed";
+                    // }
+                    $res = array(
+                        'title' => $title,
+                        'message' => $content,
+                        'id' => $data['success']['nik_ver'],
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
                     if($notif["status"]){
-                        $data["success"]["message"] .= " Notif success";
+                        $data["success"]["message"] .= " Notif to verifikasi success";
                     }else{
-                        $data["success"]["message"] .= " Notif failed";
+                        $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
                 return response()->json(['data' => $data["success"],"cek"=>empty($cek)], 200);  

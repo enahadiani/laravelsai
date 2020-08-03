@@ -240,7 +240,7 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark notif-btn" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
-                                <div class="notify" style="top: -40px;">  <span class="badge badge-danger text-white" style="border-radius: 50%;position: absolute;font-size: 10px;" id="notif-count"></span> </div>
+                                <div class="notify" style="top: -40px;">  <span class="badge badge-danger text-white" style="border-radius: 50%;position: absolute;font-size: 10px;min-width: 20px;" id="notif-count"></span> </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated" style="width:480px">
                                 <ul id="notif-dropdown">
