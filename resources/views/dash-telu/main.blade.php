@@ -22,6 +22,30 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <script>
+        var $public_asset = "{{ asset('asset_dore') }}/";
+    </script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/chartjs-plugin-datalabels.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/datatables.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/progressbar.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.barrating.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/select2.full.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/nouislider.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/Sortable.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script>
+        $('div.theme-colors').hide();
+    </script>
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -200,25 +224,9 @@
     </nav>
     <div class="menu">
         <div class="main-menu">
-            <div class="scroll">
-                <ul class="list-unstyled">
-                    <li class="active">
-                        <a href="#dashboard">
-                            <i class="iconsminds-shop-4"></i>
-                            <span>Dashboards</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#menu">
-                            <i class="iconsminds-three-arrow-fork"></i> Menu
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="sub-menu">
-            <div class="scroll">
-                <ul class="list-unstyled" data-link="dashboard">
+                <!-- <ul class="list-unstyled" data-link="dashboard">
                     <li class="active">
                         <a href="Dashboard.Default.html">
                             <i class="simple-icon-rocket"></i> <span class="d-inline-block">Default</span>
@@ -325,40 +333,154 @@
                             </ul>
                         </div>
                     </li>
-                </ul>
-
-            </div>
+                </ul> -->
         </div>
     </div>
 
     <main>
         <div class="container-fluid">
-            
+            <div class=".body-content"></div>
         </div>
     </main>
     <script>
-        var $public_asset = "{{ asset('asset_dore') }}/";
-    </script>
-    <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/chartjs-plugin-datalabels.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/datatables.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/progressbar.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/jquery.barrating.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/select2.full.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/nouislider.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/Sortable.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    var form ="{{ Session::get('dash') }}";
+    function loadForm(url){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-telu/cek_session') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(!result.status){
+                    
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dash-telu/login') }}";
+                    })
+                }else{
+                    
+                    $('.body-content').load(url);
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+    
+    function loadMenu(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-telu/menu') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){  
+                if(result[0].status){
+                    // $('#sidebarnav').html('');
+                    // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
+                    $('.main-menu').html('');
+                    $(result[0].main_menu).appendTo('.main-menu').slideDown();
+                    $('.sub-menu').html('');
+                    $(result[0].sub_menu).appendTo('.sub-menu').slideDown();
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+        // $.ajax({
+        //     type: 'GET',
+        //     url: "{{ url('dash-telu/menu') }}",
+        //     dataType: 'json',
+        //     async:false,
+        //     success:function(result){
+        //         if(result[0].status){
+        //             // $('#sidebarnav').html('');
+        //             // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
+        //             $('.main-menu').html('');
+        //             $(result[0].main_menu).appendTo('.main-menu').slideDown();
+                    
+        //         }
+        //     },
+        //     fail: function(xhr, textStatus, errorThrown){
+        //         alert('request failed:'+textStatus);
+        //     }
+        // });
+        // loadForm("{{ url('dash-telu/form')}}/login");
+    }
+    
+    loadMenu();
+    
+    // if(form !="" || form != "-"){
+    //     loadForm("{{ url('dash-telu/form')}}/"+form)
+    // }
+    
+    $('.sidebar-nav').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = "{{ url('dash-telu/form')}}/"+form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            // alert('Form dilock!');
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
+    $(document).ready(function(){
+        setTimeout(function(){
+            alert('Session token telah habis, silahkan login kembali');
+            window.location.href = "{{url('dash-telu/logout')}}";
+        }, 1000 * 60 * 60);
+        
+        var form ="{{ Session::get('dash') }}";
+        if(form !="" || form != "-"){
+            loadForm("{{ url('dash-telu/form') }}/"+form);
+        }
+    });
+    
+    function setHeightReport(){
+        var header = $('.topbar').height();
+        var subheader = $('#subFixbar').height();
+        var content = window.innerHeight;
+        var tinggi = content-header-subheader-50;
+        $('#content-lap').css('height',tinggi);
+    }
+    
+    function setHeightForm(){
+        var header = $('.topbar').height();
+        var content = window.innerHeight;
+        var tinggi = content-header-40;
+        var title = 66;
+        var body = tinggi-title;
+        if($('#saku-form').length > 0){
+            
+            $('#saku-form').css('height',tinggi);
+            $('.title-form').css('height',title);
+            $('.body-form').css('height',body);
+        }
+        if($('#saku-datatable').length > 0){
+            $('#saku-datatable .card').css('min-height',tinggi);
+        }
+    }
+    
+    $( window ).resize(function() {
+        if($('#content-lap').length > 0){
+            setHeightReport();
+        }
+        setHeightForm();
+    });
     </script>
 </body>
 </html>

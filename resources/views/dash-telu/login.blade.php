@@ -13,6 +13,16 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
+    <script>
+        var $public_asset = "{{ asset('asset_dore') }}/";
+    </script>
+    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script>
+        $('div.theme-colors').hide();
+    </script>
 </head>
 
 <body class="background show-spinner no-footer">
@@ -37,15 +47,15 @@
                                 <span class="logo-single"></span>
                             </a>
                             <h6 class="mb-4">Login</h6>
-                            <form method="POST" action="{{ url('dash-telu/login') }}">
+                            <form method="POST" action="{{ url('dash-telu/login') }}" id="form-login">
                                 @csrf
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="nik"/>
+                                    <input class="form-control" name="nik" id="username"/>
                                     <span>NIK</span>
                                 </label>
 
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" />
+                                    <input class="form-control" type="password" name="password" placeholder="" id="password" />
                                     <span>Password</span>
                                 </label>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -60,7 +70,31 @@
         </div>
     </main>
     <script>
-        var $public_asset = "{{ asset('asset_dore') }}/";
+        $(document).ready(function() {
+            $('#username,#password').keydown(function(e){
+                
+                var code = (e.keyCode ? e.keyCode : e.which);
+                var nxt = ['username','password'];
+                if (code == 13 || code == 40) {
+                    e.preventDefault();
+                    var idx = nxt.indexOf(e.target.id);
+                    idx++;
+                    if(idx == 2){
+                        $('#form-login').submit();
+                    }else{
+                        
+                        $('#'+nxt[idx]).focus();
+                    }
+                }else if(code == 38){
+                    e.preventDefault();
+                    var idx = nxt.indexOf(e.target.id);
+                    idx--;
+                    if(idx != -1){ 
+                        $('#'+nxt[idx]).focus();
+                    }
+                }
+            });
+        });
     </script>
     @if (Session::has('alert'))
         <script>
@@ -68,13 +102,7 @@
         </script>
         
     @endif
-    <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
-    </script>
+    
 </body>
 
 </html>

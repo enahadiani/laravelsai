@@ -12,12 +12,61 @@ Route::get('/form/{id}', function ($id) {
 });
 
 
+Route::get('/cek_session', 'DashTelu\AuthController@cek_session');
 Route::get('/', 'DashTelu\AuthController@index');
 Route::get('/login', 'DashTelu\AuthController@login');
 Route::post('/login', 'DashTelu\AuthController@cek_auth');
 Route::get('/logout', 'DashTelu\AuthController@logout');
-// Route::get('/menu', 'Telu\AuthController@getMenu');
+Route::get('/menu', 'DashTelu\AuthController@getMenu');
+Route::get('/tes',function(){
+    $menu = array(
+        'calendar' => array(
+           'text'   => 'Calendar',
+           'rights' => 'user'
+        ),
+        'customers' => array(
+           'text'   => 'Customers',
+           'rights' => 'user',
+           'sub' => array(
+              'create-new' => array(
+                 'text'   => 'Create new customer',
+                 'rights' => 'user'
+              ),
+              'show-customers' => array(
+                 'text'   => 'Show all customers',
+                 'rights' => 'user'
+              )
+           )
+        )
+    );
 
+    function buildMenu($menu_array, $is_sub=FALSE) {
+
+        $attr = (!$is_sub) ? ' id="menu"' : ' class="submenu"';
+        $menu = "<ul".$attr.">";
+     
+        foreach($menu_array as $id => $properties) {
+           foreach($properties as $key => $val) {
+              if(is_array($val)) {
+                 $sub = buildMenu($val, TRUE);
+              }
+              else {
+                 $sub = NULL;
+                 $$key = $val;
+              }
+           }
+           if(!isset($url)) {
+              $url = $id;
+           }
+           $menu .= "<li><a href=".$url.">".$text."</a>".$sub."</li>";
+           unset($url, $text, $sub);
+        }
+     
+        return $menu . "</ul>";
+     }
+     
+     echo $output = buildMenu($menu);
+})
 // //Dashboard
 // //Home
 // Route::get('/getPencapaianYoY/{periode}','Telu\DashboardController@getPencapaianYoY');
