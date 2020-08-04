@@ -42,10 +42,7 @@
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
-    </script>
+    
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -465,6 +462,10 @@
         }
         setHeightForm();
     });
+    </script>
+    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script>
+        $('div.theme-colors').hide();
     </script>
 </body>
 </html>
