@@ -412,7 +412,7 @@
                             total+=+result.data_detail[i].grand_total;
                             det +=`<tr>
                                 <td>`+no+`</td>
-                                <td>`+result.data_detail[i].barang_klp+`</td>
+                                <td>`+result.data_detail[i].nama_klp+`</td>
                                 <td>`+result.data_detail[i].barang+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].harga)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].jumlah)+`</td>
@@ -1159,7 +1159,9 @@
     });
 
     $('#saku-datatable').on('click','#btn-print',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+        // var id = $(this).closest('tr').find('td').eq(0).html();
+        var dt = dataTable.row($(this).parents('tr')).data();
+        var id= dt.id;
         printAju(id);
     });
 
