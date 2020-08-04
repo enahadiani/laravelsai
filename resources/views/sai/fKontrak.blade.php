@@ -93,6 +93,10 @@
                                 <div class="col-3">
                                     <input class="form-control datepicker" type="text" placeholder="Tanggal Kesepakatan Kontrak" id="tgl_sepakat" name="tgl_sepakat" autocomplete="off">
                                 </div>
+                                <label for="due_date" class="col-3 col-form-label">Due Date</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Due Date" id="due_date" name="due_date" autocomplete="off">
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
@@ -894,6 +898,7 @@
                     $('#tgl_selesai').val(tglS);
                     $('#tgl_sepakat').val(tanggal);
                     $('#jenis').val(result.data[0].status_kontrak);
+                    $('#due_date').val(result.data[0].due_date);
                     $('#nilai').val(parseFloat(result.data[0].nilai));
                     $('#nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     getCustomer(result.data[0].kode_cust);

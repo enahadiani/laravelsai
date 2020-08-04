@@ -37,7 +37,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res;
+                    $data = $res['data'];
                 }
 
                 if(isset($request->back)){

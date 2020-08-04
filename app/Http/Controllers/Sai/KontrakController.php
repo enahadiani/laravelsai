@@ -62,6 +62,7 @@ class KontrakController extends Controller
             'tgl_selesai' => 'required',
             'tgl_sepakat' => 'required',
             'kode_cust' => 'required',
+            'due_date' => 'required',
             'keterangan' => 'required',
             'nilai' => 'required',
             'nilai_ppn' => 'required',
@@ -110,6 +111,10 @@ class KontrakController extends Controller
                     [
                         'name' => 'kode_cust',
                         'contents' => $request->kode_cust,
+                    ],
+                    [
+                        'name' => 'due_date',
+                        'contents' => $request->due_date,
                     ],
                     [
                         'name' => 'keterangan',
@@ -244,6 +249,7 @@ class KontrakController extends Controller
             'tgl_sepakat' => 'required',
             'kode_cust' => 'required',
             'keterangan' => 'required',
+            'due_date' => 'required',
             'nilai' => 'required',
             'nilai_ppn' => 'required',
             'nilai' => 'required',
@@ -292,6 +298,10 @@ class KontrakController extends Controller
                     [
                         'name' => 'kode_cust',
                         'contents' => $request->kode_cust,
+                    ],
+                    [
+                        'name' => 'due_date',
+                        'contents' => $request->due_date,
                     ],
                     [
                         'name' => 'status_kontrak',

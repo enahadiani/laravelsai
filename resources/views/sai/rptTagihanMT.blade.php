@@ -17,12 +17,10 @@ drawLap($formData);
         var data = data;
         console.log(data.length);
         console.log(data);
-        
-               
+        if(data.length>0){
             var mon_html = "<div align='center' id='sai-rpt-table-export-tbl-daftar-pnj'>";
             var arr_tl = [0,0,0,0,0,0,0,0,0];
             var x=1;
-            
             mon_html+=`
             <table class='table no-border'>
                 <tbody>
@@ -44,17 +42,41 @@ drawLap($formData);
                             <table class='table table-striped color-table info-table'>
                                 <thead>
                                     <tr>
+                                        <th class="header_laporan">No</th>
                                         <th class="header_laporan">No Tagihan</th>
                                         <th class="header_laporan">No Kontrak</th>
                                         <th class="header_laporan">Keterangan</th>
                                         <th class="header_laporan" align="right">Nilai</th>
                                         <th class="header_laporan" align="right">Nilai PPN</th>
-                                        <th class="header_laporan" align="center"></th>
+                                        <th class="header_laporan" align="center">Print</th>
                                     </tr>
                                 </thead>
                                 <tbody>`;
-                            
-                                ` </tbody>
+                                var det = '';
+                                if(isNaN(from)){
+                                    var no=1;
+                                }else{
+                                    var no=from+1;
+                                }
+                                for (var x=0;x<data.length;x++)
+                                {
+                                    var line2 = data[x];
+                                    
+                                    det+=`<tr>
+                                        <td align='center' class='isi_laporan'>`+no+`</td>
+                                        <td  class='isi_laporan'>`+line2.no_bill+`</td>
+                                        <td class='isi_laporan'>`+line2.no_kontrak+`</td>
+                                        <td class='isi_laporan'>`+line2.keterangan+`</td>
+                                        <td align='right' class='isi_laporan'>`+sepNum(line2.nilai)+`</td>
+                                        <td align='right' class='isi_laporan'>`+sepNum(line2.nilai_ppn)+`</td>
+                                        <td class='isi_laporan' style='margin:auto;display:block;'>`+"<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>"+`</td>
+                                    </tr>`;	
+                                    no++;
+                                    
+                                    
+                                }
+                                mon_html+=det+
+                                `</tbody>
                             </table>
                             </div>
                         </td>
@@ -62,11 +84,9 @@ drawLap($formData);
                 </tbody>
             </table><br>
             <div style="page-break-after:always"></div>
-            `;
-            
+            `;   
             mon_html+="</div>"; 
-            
-        
+        }
         $('#canvasPreview').html(mon_html);
         $('li.first a ').html("<i class='icon-control-start'></i>");
         $('li.last a ').html("<i class='icon-control-end'></i>");
