@@ -66,7 +66,9 @@ Route::get('/tes',function(){
      }
      
      echo $output = buildMenu($menu);
-})
+
+
+});
 // //Dashboard
 // //Home
 // Route::get('/getPencapaianYoY/{periode}','Telu\DashboardController@getPencapaianYoY');

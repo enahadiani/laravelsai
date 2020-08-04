@@ -339,7 +339,7 @@
 
     <main>
         <div class="container-fluid">
-            <div class=".body-content"></div>
+            <div class="body-content"></div>
         </div>
     </main>
     <script>
@@ -391,40 +391,24 @@
                     $(result[0].main_menu).appendTo('.main-menu').slideDown();
                     $('.sub-menu').html('');
                     $(result[0].sub_menu).appendTo('.sub-menu').slideDown();
+                    for(var i=0;i < result[0].kode_menu.length;i++){
+                        $('#'+result[0].kode_menu[i]).html(result[0].subdata[result[0].kode_menu[i]]);
+                    }
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             }
         });
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{ url('dash-telu/menu') }}",
-        //     dataType: 'json',
-        //     async:false,
-        //     success:function(result){
-        //         if(result[0].status){
-        //             // $('#sidebarnav').html('');
-        //             // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
-        //             $('.main-menu').html('');
-        //             $(result[0].main_menu).appendTo('.main-menu').slideDown();
-                    
-        //         }
-        //     },
-        //     fail: function(xhr, textStatus, errorThrown){
-        //         alert('request failed:'+textStatus);
-        //     }
-        // });
-        // loadForm("{{ url('dash-telu/form')}}/login");
     }
     
     loadMenu();
     
-    // if(form !="" || form != "-"){
-    //     loadForm("{{ url('dash-telu/form')}}/"+form)
-    // }
+    if(form !="" || form != "-"){
+        loadForm("{{ url('dash-telu/form')}}/"+form)
+    }
     
-    $('.sidebar-nav').on('click','.a_link',function(e){
+    $('.menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         var url = "{{ url('dash-telu/form')}}/"+form;
