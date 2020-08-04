@@ -317,7 +317,7 @@
                             total+=+result.data_detail[i].grand_total;
                             det +=`<tr>
                                 <td>`+no+`</td>
-                                <td>`+result.data_detail[i].barang_klp+`</td>
+                                <td>`+result.data_detail[i].nama_klp+`</td>
                                 <td>`+result.data_detail[i].barang+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].harga)+`</td>
                                 <td class='text-right'>`+toRp(result.data_detail[i].jumlah)+`</td>

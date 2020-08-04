@@ -65,6 +65,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapRtrwRoutes();
 
         $this->mapSaiRoutes();
+        
+        $this->mapDashTeluRoutes();
+
         //
     }
 
@@ -111,6 +114,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/telu.php'));
+    }
+
+    protected function mapDashTeluRoutes()
+    {
+        Route::prefix('dash-telu')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash_telu.php'));
     }
 
     protected function mapTarbakRoutes()
