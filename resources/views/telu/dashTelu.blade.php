@@ -11,9 +11,6 @@ $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
 <style>
-    /* html,body{
-        background:white;
-    } */
     .page-wrapper{
         background:white;
     }

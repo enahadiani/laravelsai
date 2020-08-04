@@ -53,7 +53,7 @@ $nik     = Session::get('userLog');
 
 <div class="container-fluid mt-3">
     <div class="row" >
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Pendapatan</h5>
                 <div class="card-body pt-0">
@@ -64,17 +64,17 @@ $nik     = Session::get('userLog');
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6" style="background:#ad1d3e;color:white;height:50px;text-align:center">
+                        <div class="col-md-6 col-sm-12 mb-4" style="background:#ad1d3e;color:white;height:50px;text-align:center">
                             <h5 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h5>
                         </div>
-                        <div class="col-6" style="background:#4c4c4c;color:white;height:50px;text-align:center">
+                        <div class="col-md-6 col-sm-12 mb-4" style="background:#4c4c4c;color:white;height:50px;text-align:center">
                             <h5 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span></h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
                 <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>

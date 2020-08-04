@@ -57,12 +57,12 @@ $thnLalu = substr($tahunLalu,2,2);
 
 <div class="container-fluid mt-3">
     <div class="row" >
-        <div class="col-12 text-right">
+        <div class="col-12 mb-4 text-right">
             <button class='btn btn-red btn-sm' id='btnBack'>Back</button>
         </div>
     </div>
     <div class="row mt-2" >
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <div class="card">
                 <h5>Beban Pendapatan per Fakultas</h5>
                 <div class="card-body pt-0">
@@ -71,7 +71,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-4">
             <div class="card">
                 <h5>Beban per Tahun untuk Fakultas</h5>
                 <div class="card-body pt-0">
@@ -80,7 +80,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 </div>
             </div>
         </div>  
-        <div class="col-12 mb-5">
+        <div class="col-12 mb-4 mb-5">
             <div class="card" style="background:#f5f5f5;border-radius:15px">
                 <h5 class="mt-2">Beban <span class='tahunIni'></span></h5>
                 <div class="card-body pt-0">

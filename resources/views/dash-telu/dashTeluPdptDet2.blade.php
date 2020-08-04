@@ -62,7 +62,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>
     </div>
     <div class="row mt-2" >
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5>Pendapatan per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h5>
                 <div class="card-body pt-0">
@@ -71,7 +71,7 @@ $thnLalu = substr($tahunLalu,2,2);
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card" style="background:#f5f5f5;border-radius:15px">
                 <h5 class="mt-2">Pendapatan <span class='tahunPilih'></span></h5>
                 <div class="card-body pt-0">

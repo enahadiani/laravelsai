@@ -59,7 +59,7 @@ $thnLalu = substr($tahunLalu,2,2)
 
 <div class="container-fluid mt-3">
     <div class="row" >
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5>Pencapaian YoY</h5>
                 <div class="card-body">
@@ -79,7 +79,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5>RKA vs Realisais YTD</h5>
                 <div class="card-body">
@@ -89,7 +89,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
     <div class="row" >
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5>Growth RKA</h5>
                 <div class="card-body pt-0">
@@ -105,7 +105,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h5>Growth Realisasi</h5>
                 <div class="card-body pt-0">

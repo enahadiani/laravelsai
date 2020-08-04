@@ -22,12 +22,13 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
+    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
     <style>
         .logo{
             background:url("{{ asset('img/tu.jpg') }}");
             background-size:110px;
         }
-
         .logo-mobile{
             background:url("{{ asset('img/logo-telu.png') }}") no-repeat;
             background-size:30px;
@@ -39,8 +40,6 @@
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/chartjs-plugin-datalabels.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/datatables.min.js') }}"></script>
