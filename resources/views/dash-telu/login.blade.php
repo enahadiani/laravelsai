@@ -59,16 +59,22 @@
             </div>
         </div>
     </main>
-    
+    <script>
+        var $public_asset = "{{ asset('asset_dore') }}/";
+    </script>
     @if (Session::has('alert'))
         <script>
             alert("{{Session::get('alert')}}")
         </script>
+        
     @endif
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script>
+        $('div.theme-colors').hide();
+    </script>
 </body>
 
 </html>

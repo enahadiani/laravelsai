@@ -193,7 +193,7 @@
                     <a class="dropdown-item" href="#">Features</a>
                     <a class="dropdown-item" href="#">History</a>
                     <a class="dropdown-item" href="#">Support</a>
-                    <a class="dropdown-item" href="#">Sign out</a>
+                    <a class="dropdown-item" href="{{ url('dash-telu/logout') }}">Sign out</a>
                 </div>
             </div>
         </div>
@@ -336,7 +336,9 @@
             
         </div>
     </main>
-
+    <script>
+        var $public_asset = "{{ asset('asset_dore') }}/";
+    </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>

@@ -11,12 +11,11 @@ Route::get('/form/{id}', function ($id) {
     }
 });
 
-// Route::get('/', function(){
-//     return view('dash-telu.main');
-// });
-Route::get('/login', 'Telu\AuthController@login');
-Route::post('/login', 'Telu\AuthController@cek_auth');
-Route::get('/logout', 'Telu\AuthController@logout');
+
+Route::get('/', 'DashTelu\AuthController@index');
+Route::get('/login', 'DashTelu\AuthController@login');
+Route::post('/login', 'DashTelu\AuthController@cek_auth');
+Route::get('/logout', 'DashTelu\AuthController@logout');
 // Route::get('/menu', 'Telu\AuthController@getMenu');
 
 // //Dashboard
