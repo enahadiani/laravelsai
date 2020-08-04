@@ -375,6 +375,7 @@
         $('#input-grid2 tbody').empty();
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#kode_cust').val('');
         $('#label_kode_cust').text('');
         $('#form-tambah')[0].reset();
         $('.kode_ktg').hide();
