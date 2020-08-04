@@ -696,11 +696,11 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    var dataDate = result.data[0].tgl_tagih.split('-');
-                    var tgl = dataDate[2];
-                    var bln = dataDate[1];
-                    var tahun = dataDate[0]
-                    var tanggal =  tgl+"/"+bln+"/"+tahun;
+                    // var dataDate = result.data[0].tgl_tagih.split('-');
+                    // var tgl = dataDate[2];
+                    // var bln = dataDate[1];
+                    // var tahun = dataDate[0]
+                    // var tanggal =  tgl+"/"+bln+"/"+tahun;
 
                     $('#id_edit').val('edit');
                     $('#method').val('post');

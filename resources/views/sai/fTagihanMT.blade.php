@@ -81,49 +81,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="no_dokumen" id="no_dokumen" class="form-control" value="" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
                                     <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group row kode-cust">
-                                <label for="kode_cust" class="col-3 col-form-label">Kode Customer</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_cust" id="kode_cust" class="form-control" value="">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-info search-item2" type="button"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_cust" class="label-kode" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="data-customer">
-                                <div class="form-group row">
-                                    <label for="bank" class="col-3 col-form-label">Bank</label>
-                                    <div class="input-group col-3">
-                                        <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" readonly>
-                                    </div>
-                                    <label for="cabang" class="col-3 col-form-label">Cabang</label>
-                                    <div class="input-group col-3">
-                                        <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="no_rek" class="col-3 col-form-label">No Rek</label>
-                                    <div class="input-group col-3">
-                                        <input class="form-control" type="text" placeholder="No Rek" id="no_rek" name="no_rek" readonly>
-                                    </div>
-                                    <label for="nama_rek" class="col-3 col-form-label">Nama Rek</label>
-                                    <div class="input-group col-3">
-                                        <input class="form-control" type="text" placeholder="Nama Rek" id="nama_rek" name="nama_rek" readonly>
-                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -199,13 +159,13 @@
                                         <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid1" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                         <thead style="background:#ff9500;color:white">
                                             <tr>
-                                                <th style="width:5%">No</th>
+                                                <th style="width:5%"></th>
                                                 <th style="width:30%">Customer</th>
                                                 <th style="width:20%">No Kontrak</th>
                                                 <th style="width:15%">Item</th>
                                                 <th style="width:15%">Nilai</th>
                                                 <th style="width:15%">PPN</th>
-                                                {{-- <th style="width:5%"></th> --}}
+                                                <th style="width:5%">Due Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
