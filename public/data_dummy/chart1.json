@@ -1,0 +1,56 @@
+{
+    "cols":
+        [
+            {"id":"","label":"Year","pattern":"","type":"string"},
+            {"id":"","label":"TOTAL PENDAPATAN OPR & NON OPR","pattern":"","type":"number"},
+            {"id":"","label":"TOTAL BEBAN OPR DAN NON OPR","pattern":"","type":"number"},
+            {"id":"","label":"SISA HASIL USAHA","pattern":"","type":"number"}
+        ],
+    "rows":
+        [
+            {"c":[
+                {"v":"15","f":null},
+                {"v":148.073942046,"f":null},
+                {"v":151.872383634,"f":null},
+                {"v":-3.798441588,"f":null}
+                ]
+            },
+            {"c":[
+                {"v":"16","f":null},
+                {"v":175.071176897,"f":null},
+                {"v":176.80406211,"f":null},
+                {"v":-1.732885213,"f":null}
+                ]
+            },
+            {
+              "c":[
+                {"v":"17","f":null},
+                {"v":199.553260091,"f":null},
+                {"v":183.456615657,"f":null},
+                {"v":16.096644434,"f":null}
+                ]
+            },
+            {"c":[
+                {"v":"18","f":null},
+                {"v":229.500986193,"f":null},
+                {"v":215.32159824,"f":null},
+                {"v":14.179387953,"f":null}
+                ]
+            },
+            {"c":[
+                {"v":"19","f":null},
+                {"v":0,"f":null},
+                {"v":0,"f":null},
+                {"v":0,"f":null}
+                ]
+            },
+            {"c":
+                [
+                {"v":"20","f":null},
+                {"v":0,"f":null},
+                {"v":0,"f":null},
+                {"v":0,"f":null}
+                ]
+            }
+        ]
+}

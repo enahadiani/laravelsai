@@ -64,7 +64,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row mt-2" >
         <div class="col-12 mb-4">
             <div class="card">
-                <h5>Beban Pendapatan per Fakultas</h5>
+                <h5 class="pt-3">Beban Pendapatan per Fakultas</h5>
                 <div class="card-body pt-0">
                     <div id='pertumbuhan' style='height:300px'>
                     </div>
@@ -73,7 +73,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>
         <div class="col-12 mb-4">
             <div class="card">
-                <h5>Beban per Tahun untuk Fakultas</h5>
+                <h5 class="pt-3">Beban per Tahun untuk Fakultas</h5>
                 <div class="card-body pt-0">
                     <div id='pdptFak' style='height:300px'>
                     </div>
@@ -241,7 +241,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
                                             click: function() {  
                                                 $kd2 = this.options.tahun;
                                                 $kd3 = this.options.kode_bidang;
-                                                var url = "{{ url('/telu/form/dashTeluBebanDet2') }}";
+                                                var url = "{{ url('/dash-telu/form/dashTeluBebanDet2') }}";
                                                 loadForm(url)
                                             }
                                         }

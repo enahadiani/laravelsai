@@ -46,4 +46,11 @@ Route::get('/getDetailBeban/{periode}/{kodeNeraca}','DashTelu\DashboardControlle
 Route::get('/getBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}','DashTelu\DashboardController@getBebanJurusan');
 Route::get('/getDataBebanJurusan/{periode}/{kodeNeraca}/{kodeBidang}/{tahun}','DashTelu\DashboardController@getDataBebanJurusan');
 
+
+//BudgetComitee
+Route::get('/rka','DashTelu\DashboardController@getBCRKA');
+Route::get('/growth-rka','DashTelu\DashboardController@getBCGrowthRKA');
+Route::get('/tuition','DashTelu\DashboardController@getBCTuition');
+Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
+
 ?>

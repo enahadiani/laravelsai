@@ -16,14 +16,14 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2" id="trend1">
                    
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2" id="trend2">
                    
                 </div>
             </div>
@@ -32,19 +32,20 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2" id="trend3">
                    
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2" id="trend4">
                    
                 </div>
             </div>
         </div>
     </div>
+
 <script>
 function sepNum(x){
     if(!isNaN(x)){
@@ -115,5 +116,81 @@ function singkatNilai(num){
         return num;
     }
 }
+
+
+function getBCRKA(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/rka') }}",
+        dataType:"JSON",
+        success: function(result){
+            Highcharts.chart('trend1', {
+                chart: {
+                        type: 'line'
+                    },
+                title: {
+                        text: null
+                        },
+                        credits:{
+                            enabled:false
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return singkatNilai(this.value);
+                                }
+                            },
+                        },
+                        xAxis: {
+                                categories:result.data.ctg
+                        },
+                        plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+'</b>';
+                                        }
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: result.data.series
+            });
+        }
+    })
+}
+
+getBCRKA();
+
+</script>
+<!--Load the AJAX API-->
+<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+<script type="text/javascript">
+
+// Load the Visualization API and the piechart package.
+// google.charts.load('current', {'packages':['corechart']});
+
+// // Set a callback to run when the Google Visualization API is loaded.
+// google.charts.setOnLoadCallback(drawChart);
+
+// function drawChart() {
+//     var jsonData = $.ajax({
+//         url: "{{ url('/dash-telu/rka') }}",
+//         dataType: "json",
+//         async: false
+//     }).responseText;
+    
+//     // Create our data table out of JSON data loaded from server.
+//     var data = new google.visualization.DataTable(jsonData);
+    
+//     // Instantiate and draw our chart, passing in some options.
+//     var chart = new google.visualization.LineChart(document.getElementById('trend1'));
+//     chart.draw(data, {width: 400, height: 240});
+// }
 
 </script>

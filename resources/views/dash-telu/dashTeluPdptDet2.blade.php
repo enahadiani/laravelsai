@@ -64,7 +64,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row mt-2" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5>Pendapatan per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h5>
+                <h5 class="pt-3">Pendapatan per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h5>
                 <div class="card-body pt-0">
                     <div id='pdptJur' style='height:350px'>
                     </div>
@@ -153,13 +153,13 @@ function singkatNilai(num){
 function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
+        url:"{{ url('/dash-telu/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
         dataType:"JSON",
         statusCode:{
             500: function(response){
                 alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                "{{url('dash-telu/logout')}}"
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success:function(result){
@@ -182,7 +182,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
 function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPendapatanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
+        url:"{{ url('/dash-telu/getPendapatanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptJur', {
@@ -248,7 +248,7 @@ $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 
 $('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/telu/form/dashTeluPdptDet') }}";
+    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
     loadForm(url);
 })
 </script>

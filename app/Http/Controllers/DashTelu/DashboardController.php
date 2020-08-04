@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Http\Controllers\Telu;
+    namespace App\Http\Controllers\DashTelu;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
@@ -155,11 +155,11 @@
         {
             $client = new Client();
             $response = $client->request('GET',$this->link.'/pdptFakultas/'.$periode.'/'.$kodeNeraca,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-        ]);
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
@@ -364,6 +364,18 @@
             $data = $data["success"];
             }
             return response()->json(['data' => $data], 200);
+        }
+
+        public function getBCRKA()
+        {
+            $string = file_get_contents(url('/data_dummy/chartBCRKA.json'));
+            echo $string;
+        }
+
+        public function getBCGrowthRKA()
+        {
+            $string = file_get_contents(url('/data_dummy/chartBCRKA.json'));
+            echo $string;
         }
 
     }

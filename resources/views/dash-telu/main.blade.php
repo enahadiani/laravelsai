@@ -26,8 +26,8 @@
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
     <style>
         .logo{
-            background:url("{{ asset('img/tu.jpg') }}");
-            background-size:110px;
+            background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
+            background-size:95px;
         }
         .logo-mobile{
             background:url("{{ asset('img/logo-telu.png') }}") no-repeat;

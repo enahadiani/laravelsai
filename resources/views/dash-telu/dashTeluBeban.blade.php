@@ -55,7 +55,7 @@ $nik     = Session::get('userLog');
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Beban</h5>
+                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Beban</h5>
                 <div class="card-body pt-0">
                     <div id='komposisi' style='height:350px'>
                     </div>
@@ -76,7 +76,7 @@ $nik     = Session::get('userLog');
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
+                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
                 <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
                 <div class="card-body pt-0">
                     <div id='rkaVSreal' style='height:350px'></div>
@@ -212,7 +212,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                         events: {
                                             click: function() {  
                                                 $kd= this.options.key;
-                                                var url = "{{ url('/telu/form/dashTeluBebanDet') }}";
+                                                var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
                                                 loadForm(url)
                                             }
                                         }

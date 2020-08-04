@@ -55,7 +55,7 @@ $nik     = Session::get('userLog');
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Pendapatan</h5>
+                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Pendapatan</h5>
                 <div class="card-body pt-0">
                     <div id='komposisi' style='height:350px'>
                     </div>
@@ -76,7 +76,7 @@ $nik     = Session::get('userLog');
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
+                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
                 <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
                 <div class="card-body pt-0">
                     <div id='rkaVSreal' style='height:350px'></div>
@@ -160,13 +160,13 @@ function singkatNilai(num){
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPresentaseRkaRealisasiPendapatan') }}/"+periode,
+        url:"{{ url('/dash-telu/getPresentaseRkaRealisasiPendapatan') }}/"+periode,
         dataType:"JSON",
         statusCode:{
             500: function(response){
                 alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                "{{url('dash-telu/logout')}}"
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success: function(result){
@@ -212,7 +212,7 @@ function getPresentaseRkaRealisasi(periode=null){
                                         events: {
                                             click: function() {  
                                                 $kd= this.options.key;
-                                                var url = "{{ url('/telu/form/dashTeluPdptDet') }}";
+                                                var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
                                                 loadForm(url)
                                             }
                                         }
@@ -238,7 +238,7 @@ function getPresentaseRkaRealisasi(periode=null){
 function getOprNonOpr(periode=null){
     $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getOprNonOprPendapatan') }}/"+periode,
+    url:"{{ url('/dash-telu/getOprNonOprPendapatan') }}/"+periode,
     dataType:"JSON",
     success:function(result){
         $('#opr').text(sepNum(result.data.opr)+'%');
@@ -250,7 +250,7 @@ function getOprNonOpr(periode=null){
 function getKomposisiPendapatan(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getKomposisiPendapatan') }}/"+periode,
+    url:"{{ url('/dash-telu/getKomposisiPendapatan') }}/"+periode,
     dataType:"JSON",
     success: function(result){
             Highcharts.chart('komposisi', {

@@ -292,9 +292,9 @@
                     </ul>
                 </div>";
                 
-                $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
-                $menu = json_decode($str, true);
-                $allmenu = $menu['allmenu'];
+                // $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
+                // $menu = json_decode($str, true);
+                // $allmenu = $menu['allmenu'];
                     
 
                 // $output = $this->buildMenu($allmenu);

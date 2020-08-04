@@ -64,7 +64,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row mt-2" >
         <div class="col-12 mb-4">
             <div class="card">
-                <h5>Pertumbuhan Pendapatan per Fakultas</h5>
+                <h5 class="pt-3">Pertumbuhan Pendapatan per Fakultas</h5>
                 <div class="card-body pt-0">
                     <div id='pertumbuhan' style='height:300px'>
                     </div>
@@ -73,7 +73,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>
         <div class="col-12 mb-4">
             <div class="card">
-                <h5>Pendapatan per Tahun untuk Fakultas</h5>
+                 <h5 class="pt-3">Pendapatan per Tahun untuk Fakultas</h5>
                 <div class="card-body pt-0">
                     <div id='pdptFak' style='height:300px'>
                     </div>
@@ -82,7 +82,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>  
         <div class="col-12 mb-4 mb-5">
             <div class="card" style="background:#f5f5f5;border-radius:15px">
-                <h5 class="mt-2">Pendapatan <span class='tahunIni'></span></h5>
+                <h5 class="pt-3" class="mt-2">Pendapatan <span class='tahunIni'></span></h5>
                 <div class="card-body pt-0">
                     <table class='no-border' id='tablePend' style="width:100%">
                         <thead>
@@ -163,13 +163,13 @@ function singkatNilai(num){
 function getDetailPendapatan(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         statusCode:{
             500: function(response){
                 alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                "{{url('dash-telu/logout')}}"
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success:function(result){
@@ -193,7 +193,7 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
 function getPendapatanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptFak', {
@@ -241,7 +241,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
                                             click: function() {  
                                                 $kd2 = this.options.tahun;
                                                 $kd3 = this.options.kode_bidang;
-                                                var url = "{{ url('/telu/form/dashTeluPdptDet2') }}";
+                                                var url = "{{ url('/dash-telu/form/dashTeluPdptDet2') }}";
                                                 loadForm(url)
                                             }
                                         }
@@ -257,7 +257,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('pertumbuhan', {
@@ -308,7 +308,7 @@ $('.tahunIni').text("{{ $thnIni }}");
 $('.thnIni').text("{{ $thnIni }}");
 
 $('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/telu/form/dashTeluPdpt') }}";
+    var url = "{{ url('/dash-telu/form/dashTeluPdpt') }}";
     loadForm(url);
 })
 
