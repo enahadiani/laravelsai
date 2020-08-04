@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
@@ -22,6 +22,18 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <style>
+        .logo{
+            background:url("{{ asset('img/tu.jpg') }}");
+            background-size:110px;
+        }
+
+        .logo-mobile{
+            background:url("{{ asset('img/logo-telu.png') }}") no-repeat;
+            background-size:30px;
+            width:30px;
+        }
+    </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
@@ -93,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="position-relative d-none d-sm-inline-block">
+                <!-- <div class="position-relative d-none d-sm-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="simple-icon-grid"></i>
@@ -130,16 +142,16 @@
                         </a>
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="simple-icon-bell"></i>
-                        <span class="count">3</span>
+                        <!-- <span class="count"></span> -->
                     </button>
                     <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
-                        <div class="scroll">
+                        <!-- <div class="scroll">
                             <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                 <a href="#">
                                     <img src="{{ asset('asset_dore/img/profiles/l-2.jpg') }}" alt="Notification Image"
@@ -189,7 +201,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -203,9 +215,13 @@
             <div class="user d-inline-block">
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <span class="name">Sarah Kortney</span>
+                    <span class="name">{{ Session::get('namaUser') }}</span>
                     <span>
-                        <img alt="Profile Picture" src="{{ asset('asset_dore/img/profiles/l-1.jpg') }}" />
+                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    @else
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/'.Session::get('foto')) }}" />
+                    @endif
                     </span>
                 </button>
 
@@ -382,8 +398,6 @@
             async:false,
             success:function(result){  
                 if(result[0].status){
-                    // $('#sidebarnav').html('');
-                    // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
                     $('.main-menu').html('');
                     $(result[0].main_menu).appendTo('.main-menu').slideDown();
                     $('.sub-menu').html('');

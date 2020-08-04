@@ -19,6 +19,40 @@
             else{
                 return view('dash-telu.main');
             }            
+        }         
+
+        function buildMenu($menu_array, $is_sub=FALSE) {
+
+            $attr = (!$is_sub) ? ' data-link="menu" class="list-unstyled " ' : ' class="list-unstyled submenu inner-level-menu"';
+            $menu = "<ul".$attr.">";
+        
+            foreach($menu_array as $id => $properties) {
+            foreach($properties as $key => $val) {
+                if(is_array($val)) {
+                    if(count($val) > 0){
+                        $sub = $this->buildMenu($val, TRUE);
+                    }
+                }
+                else {
+                    $sub = NULL;
+                    $$key = $val;
+                }
+            }
+            if(!isset($url)) {
+                $url = $id;
+            }
+            if($sub != NULL){
+
+                $menu .= "<li><a href='#' data-href='".$kode_form."' data-toggle='collapse' data-target='#collapse".$kode_menu."' aria-expanded='true'
+                aria-controls='collapse".$kode_menu."' class='rotate-arrow-icon'><i class='".$icon."'></i> <span class='d-inline-block'>".$nama."</span></a>
+                <div id='collapse".$kode_menu."' class='collapse show' data-parent='#".$kode_menu."'>".$sub."</div></li>";
+            }else{
+                $menu .= "<li><a href='#' data-href='".$kode_form."' class='a_link'><i class='".$icon."'></i> <span class='d-inline-block'>".$nama."</span></a>".$sub."</li>";
+            }
+            unset($url, $nama, $sub);
+            }
+        
+            return $menu . "</ul>";
         }
 
         public function cek_session()
@@ -258,7 +292,15 @@
                     </ul>
                 </div>";
                 
+                $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
+                $menu = json_decode($str, true);
+                $allmenu = $menu['allmenu'];
+                    
+
+                // $output = $this->buildMenu($allmenu);
+
                 $submenu .="</div>";
+
                     
                 $success['status'] = true;
                 $success['main_menu'] = $main;
