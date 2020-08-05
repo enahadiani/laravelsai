@@ -16,6 +16,9 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
+                <h5 class="text-center mt-4">TERND PDPT, BEBAN, SHU, BEBAN SDM
+                    2014-2020 (RKA)
+                </h5>
                 <div class="card-body p-2" id="trend1">
                    
                 </div>
@@ -23,6 +26,9 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
+                <h5 class="text-center mt-4">TERND GROWTH PDPT, BEBAN, SHU, BEBAN SDM
+                2014-2020 (RKA)
+                </h5>
                 <div class="card-body p-2" id="trend2">
                    
                 </div>
@@ -32,6 +38,9 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
+                <h5 class="text-center mt-4">TREND TUITION FEE - NON TUITION FEE
+                2014 - 2020 (RKA)
+                </h5>
                 <div class="card-body p-2" id="trend3">
                    
                 </div>
@@ -39,6 +48,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
+                <h5 class="text-center mt-4">TREND GROWTH TUITION FEE - NON TUITION FEE
+                </h5>
                 <div class="card-body p-2" id="trend4">
                    
                 </div>
@@ -164,7 +175,161 @@ function getBCRKA(){
     })
 }
 
+function getBCGrowthRKA(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/growth-rka') }}",
+        dataType:"JSON",
+        success: function(result){
+            Highcharts.chart('trend2', {
+                chart: {
+                        type: 'line'
+                    },
+                title: {
+                        text: null
+                        },
+                        credits:{
+                            enabled:false
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return singkatNilai(this.value);
+                                }
+                            },
+                        },
+                        xAxis: {
+                                categories:result.data.ctg
+                        },
+                        plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+'</b>';
+                                        }
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: result.data.series
+            });
+        }
+    })
+}
+
+function getBCTuition(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/tuition') }}",
+        dataType:"JSON",
+        success:function(result){
+            Highcharts.chart('trend3', { 
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    // footerFormat: '</table>',
+                    // shared: true,
+                    // useHTML: true
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNum(this.y)+'</b>';
+                        }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                        },
+                    labels: {
+                        formatter: function () {
+                        return singkatNilai(this.value);
+                            }
+                        },
+                },
+                xAxis: {
+                    // accessibility: {
+                    //     rangeDescription: 'Range: 14 to 20'
+                    // }
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                            series: {
+                                    dataLabels: {
+                                    enabled: true,
+                                    formatter: function () {
+                                return '<b>'+sepNum(this.y)+'</b>';
+                            }
+                        }
+                    }
+                 },
+
+                series: result.data.series
+
+        });
+
+        }
+    })
+}
+
+
+function getBCGrowthTuition(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/growth-tuition') }}",
+        dataType:"JSON",
+        success: function(result){
+            Highcharts.chart('trend4', {
+                chart: {
+                        type: 'line'
+                    },
+                title: {
+                        text: null
+                        },
+                        credits:{
+                            enabled:false
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return singkatNilai(this.value);
+                                }
+                            },
+                        },
+                        xAxis: {
+                                categories:result.data.ctg
+                        },
+                        plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+'</b>';
+                                        }
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: result.data.series
+            });
+        }
+    })
+}
 getBCRKA();
+getBCGrowthRKA();
+getBCTuition();
+getBCGrowthTuition();
 
 </script>
 <!--Load the AJAX API-->

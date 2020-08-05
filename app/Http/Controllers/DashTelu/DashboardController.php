@@ -368,14 +368,82 @@
 
         public function getBCRKA()
         {
-            $string = file_get_contents(url('/data_dummy/chartBCRKA.json'));
-            echo $string;
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/rka',
+                [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
         }
 
         public function getBCGrowthRKA()
         {
-            $string = file_get_contents(url('/data_dummy/chartBCRKA.json'));
-            echo $string;
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/growth-rka',
+                [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getBCTuition()
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/tuition',
+                [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
+        }
+
+        public function getBCGrowthTuition()
+        {
+            $client = new Client();
+            $response = $client->request('GET',$this->link.'/growth-tuition',
+                [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200);
         }
 
     }
