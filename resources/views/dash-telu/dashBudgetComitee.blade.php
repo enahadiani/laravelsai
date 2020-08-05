@@ -11,7 +11,11 @@ $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
 <style>
-    
+    .card{
+        border-radius: 0 !important;
+        box-shadow: none;
+        border: 1px solid #f0f0f0;
+    }
 </style>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
@@ -58,6 +62,8 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 
 <script>
+    $('body').addClass('dash-contents');
+    $('html').addClass('dash-contents');
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
