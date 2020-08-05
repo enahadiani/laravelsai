@@ -225,10 +225,7 @@
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    <a class="dropdown-item" href="#">Features</a>
-                    <a class="dropdown-item" href="#">History</a>
-                    <a class="dropdown-item" href="#">Support</a>
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
                     <a class="dropdown-item" href="{{ url('dash-telu/logout') }}">Sign out</a>
                 </div>
             </div>
@@ -387,6 +384,10 @@
                 alert('request failed:'+textStatus);
             }
         });
+    }
+
+    function loadProfile(){
+        loadForm("{{url('dash-telu/form/fProfile')}}");
     }
     
     function loadMenu(){

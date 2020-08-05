@@ -53,4 +53,8 @@ Route::get('/growth-rka','DashTelu\DashboardController@getBCGrowthRKA');
 Route::get('/tuition','DashTelu\DashboardController@getBCTuition');
 Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 
+
+Route::get('/profile', 'DashTelu\AuthController@getProfile');
+Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
+
 ?>

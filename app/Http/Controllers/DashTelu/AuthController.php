@@ -100,8 +100,10 @@
                         $data2 = json_decode($response_data2,true);
                         $res = $data2['user'];
                         if(count($res) > 0){
+                            $tmp = explode("_",$res[0]["path_view"]);
+                            $dash = $tmp[2];
                             Session::put('isLoggedIn',TRUE);
-                            Session::put('dash','dashTelu');
+                            Session::put('dash',$dash);
                             Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                             Session::put('userLog',$res[0]["nik"]);
                             Session::put('namaUser',$res[0]["nama"]);
@@ -315,6 +317,31 @@
                     
             return response()->json([$success], 200);     
          }
+
+         public function getProfile(){
+            try {
+                $client = new Client();
+                $response = $client->request('GET', $this->link.'/profile',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["user"];
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
 
     }
 
