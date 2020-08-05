@@ -101,7 +101,7 @@ function loadStyle(href, callback) {
 
 
   /* Default Theme Color, Border Radius and  Direction */
-  var theme = "dore.light.bluenavy.min.css";
+  var theme = $theme;
   var direction = "ltr";
   var radius = "rounded";
 

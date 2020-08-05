@@ -24,6 +24,7 @@
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
+        var $theme = "dore.light.redruby.min.css";
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>

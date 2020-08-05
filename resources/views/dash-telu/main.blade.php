@@ -483,8 +483,8 @@
         }
         setHeightForm();
     });
-    var theme = "dore.light.redruby.min.css";
-    localStorage.setItem("dore-theme-color", theme);
+    var $theme = "dore.light.redruby.min.css";
+    // localStorage.setItem("dore-theme-color", theme);
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
