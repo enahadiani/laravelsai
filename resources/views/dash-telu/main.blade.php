@@ -27,7 +27,11 @@
     <style>
         .logo{
             background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
-            background-size:95px;
+            background-size: 150px;
+            background-position-x: center;
+            background-position-y: center;
+            width:160px;
+            height:45px;
         }
         .logo-mobile{
             background:url("{{ asset('img/logo-telu.png') }}") no-repeat;

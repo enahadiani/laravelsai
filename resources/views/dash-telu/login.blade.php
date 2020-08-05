@@ -15,8 +15,13 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <style>
         .logo-single{
-            background:url("{{ asset('img/tu.jpg') }}");
-            background-size:110px;
+            background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
+            background-size: 150px;
+            background-position-x: center;
+            background-position-y: center;
+            width:160px;
+            height:45px;
+            margin-bottom:30px;
         }
     </style>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
@@ -40,9 +45,6 @@
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card">
                         <div class="position-relative image-side ">
-
-                            <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
-
                             <p class="white mb-0">
                                 Please use your credentials to login.
                                 <br>If you are not a member, please
