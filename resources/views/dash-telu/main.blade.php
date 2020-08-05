@@ -421,6 +421,8 @@
     $('.menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
+        $('.sub-menu li').removeClass('active');
+        $(this).parents('li').addClass('active');
         var url = "{{ url('dash-telu/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){
@@ -430,6 +432,12 @@
             loadForm(url);
             
         }
+    });
+
+    $('.main-menu li').click(function(){
+        console.log('click-menu');
+        $('.main-menu li').removeClass('active');
+        $(this).addClass('active');
     });
 
     $(document).ready(function(){
@@ -475,6 +483,8 @@
         }
         setHeightForm();
     });
+    var theme = "dore.light.redruby.min.css";
+    localStorage.setItem("dore-theme-color", theme);
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
