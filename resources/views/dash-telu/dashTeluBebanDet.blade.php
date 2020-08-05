@@ -163,13 +163,11 @@ function singkatNilai(num){
 function getDetailBeban(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success:function(result){
@@ -193,8 +191,13 @@ function getDetailBeban(periode=null,kodeNeraca=null){
 function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -257,8 +260,13 @@ function getBebanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {

@@ -26,6 +26,15 @@
     <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+        body {
+            font-family: 'Roboto', sans-serif !important;
+        }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select{
+            font-family: 'Roboto', sans-serif !important;
+        }
         .logo{
             background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
             background-size: 150px;
@@ -86,12 +95,12 @@
                 </svg>
             </a>
 
-            <div class="search" data-search-path="Pages.Search.html?q=">
+            <!-- <div class="search" data-search-path="Pages.Search.html?q=">
                 <input placeholder="Search...">
                 <span class="search-icon">
                     <i class="simple-icon-magnifier"></i>
                 </span>
-            </div>
+            </div> -->
         </div>
 
 
@@ -506,13 +515,14 @@
             success:function(result){    
                 if(!result.status){
                     
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('dash-telu/login') }}";
-                    })
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                    //     window.location.href = "{{ url('dash-telu/login') }}";
+                    // })
+                    window.location.href = "{{ url('dash-telu/login') }}";
                 }else{
                     
                     $('.body-content').load(url);

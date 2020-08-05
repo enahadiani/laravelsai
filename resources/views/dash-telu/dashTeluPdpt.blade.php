@@ -52,6 +52,9 @@ $nik     = Session::get('userLog');
 </style>
 
 <div class="container-fluid mt-3">
+    <div class="row">
+        <h1 class="ml-3">Pendapatan</h1>
+    </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
@@ -164,8 +167,6 @@ function getPresentaseRkaRealisasi(periode=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                alert('Expired token, please re-login')
-                "{{url('dash-telu/logout')}}"
                 window.location="{{url('/dash-telu/login')}}";
             }
         },
@@ -240,6 +241,11 @@ function getOprNonOpr(periode=null){
     type:"GET",
     url:"{{ url('/dash-telu/getOprNonOprPendapatan') }}/"+periode,
     dataType:"JSON",
+    statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
     success:function(result){
         $('#opr').text(sepNum(result.data.opr)+'%');
         $('#nonopr').text(sepNum(result.data.nonopr)+'%');
@@ -252,6 +258,11 @@ $.ajax({
     type:"GET",
     url:"{{ url('/dash-telu/getKomposisiPendapatan') }}/"+periode,
     dataType:"JSON",
+    statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
     success: function(result){
             Highcharts.chart('komposisi', {
                chart: {

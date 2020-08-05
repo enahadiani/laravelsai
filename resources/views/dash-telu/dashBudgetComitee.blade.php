@@ -17,12 +17,15 @@ $thnLalu = substr($tahunLalu,2,2)
         border: 1px solid #f0f0f0;
     }
 </style>
+    <div class="row">
+        <h1 class="ml-3">Budget Commitee</h1>
+    </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="text-center mt-4">TERND PDPT, BEBAN, SHU, BEBAN SDM
+                <h6 class="ml-3 mt-4">Trend PDPT, Beban, SHU, Beban SDM
                     2014-2020 (RKA)
-                </h5>
+                </h6>
                 <div class="card-body p-2" id="trend1">
                    
                 </div>
@@ -30,9 +33,9 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="text-center mt-4">TERND GROWTH PDPT, BEBAN, SHU, BEBAN SDM
+                <h6 class="ml-3 mt-4">Trend Growth PDPT, Beban, SHU, Beban SDM
                 2014-2020 (RKA)
-                </h5>
+                </h6>
                 <div class="card-body p-2" id="trend2">
                    
                 </div>
@@ -42,9 +45,9 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="text-center mt-4">TREND TUITION FEE - NON TUITION FEE
+                <h6 class="ml-3 mt-4">Trend Tuition Fee - Non Tuition Fee
                 2014 - 2020 (RKA)
-                </h5>
+                </h6>
                 <div class="card-body p-2" id="trend3">
                    
                 </div>
@@ -52,8 +55,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="text-center mt-4">TREND GROWTH TUITION FEE - NON TUITION FEE
-                </h5>
+                <h6 class="ml-3 mt-4">Trend Growth Tuition Fee - NON Tuition Fee
+                </h6>
                 <div class="card-body p-2" id="trend4">
                    
                 </div>
@@ -140,6 +143,11 @@ function getBCRKA(){
         type:"GET",
         url:"{{ url('/dash-telu/rka') }}",
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('trend1', {
                 chart: {
@@ -186,6 +194,11 @@ function getBCGrowthRKA(){
         type:"GET",
         url:"{{ url('/dash-telu/growth-rka') }}",
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('trend2', {
                 chart: {
@@ -232,6 +245,11 @@ function getBCTuition(){
         type:"GET",
         url:"{{ url('/dash-telu/tuition') }}",
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('trend3', { 
                 title: {
@@ -292,6 +310,11 @@ function getBCGrowthTuition(){
         type:"GET",
         url:"{{ url('/dash-telu/growth-tuition') }}",
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('trend4', {
                 chart: {

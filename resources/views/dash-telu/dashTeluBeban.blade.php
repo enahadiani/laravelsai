@@ -52,6 +52,9 @@ $nik     = Session::get('userLog');
 </style>
 
 <div class="container-fluid mt-3">
+    <div class="row">
+        <h1 class="ml-3">Beban</h1>
+    </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
@@ -160,13 +163,11 @@ function singkatNilai(num){
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
+        url:"{{ url('/dash-telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success: function(result){
@@ -238,8 +239,13 @@ function getPresentaseRkaRealisasi(periode=null){
 function getOprNonOpr(periode=null){
     $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getOprNonOprBeban') }}/"+periode,
+    url:"{{ url('/dash-telu/getOprNonOprBeban') }}/"+periode,
     dataType:"JSON",
+    statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
     success:function(result){
         $('#opr').text(sepNum(result.data.opr)+'%');
         $('#nonopr').text(sepNum(result.data.nonopr)+'%');
@@ -250,8 +256,13 @@ function getOprNonOpr(periode=null){
 function getKomposisiBeban(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/telu/getKomposisiBeban') }}/"+periode,
+    url:"{{ url('/dash-telu/getKomposisiBeban') }}/"+periode,
     dataType:"JSON",
+    statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
     success: function(result){
             Highcharts.chart('komposisi', {
                chart: {

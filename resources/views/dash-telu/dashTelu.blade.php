@@ -58,6 +58,10 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
 
 <div class="container-fluid mt-3">
+    
+    <div class="row">
+    <h1 class="ml-3">RKA Tahunan</h1>
+    </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
@@ -198,13 +202,11 @@ function singkatNilai(num){
 function getPencapaianYoY(periode=null) {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getPencapaianYoY') }}/"+periode,
+        url:"{{ url('/dash-telu/getPencapaianYoY') }}/"+periode,
         dataType: "JSON",
         statusCode:{
             500: function(response){
-                alert('Expired token, please re-login')
-                "{{url('telu/logout')}}"
-                window.location="{{url('/telu/login')}}";
+                window.location="{{url('/dash-telu/login')}}";
             }
         },
         success: function(result){
@@ -212,7 +214,8 @@ function getPencapaianYoY(periode=null) {
             var nama = ['Pendapatan','Beban','SHU','OR'];
             for(var i=0;i<result.data.data.length;i++){
             var line = result.data.data[i];
-            if(line.kode_neraca == 'OR'){
+            if(line.kode_neraca == 'OR')
+            {
                 html+=`<tr>
                 <td style='font-weight:bold'>`+nama[i]+`%</td>
                 <td class='text-right'>`+sepNum(line.n1)+`%</td>
@@ -238,8 +241,13 @@ function getPencapaianYoY(periode=null) {
 function getGrowthReal(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getGrowthReal') }}/"+periode,
+        url:"{{ url('/dash-telu/getGrowthReal') }}/"+periode,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('growthReal', {
                 chart: {
@@ -307,8 +315,13 @@ function getGrowthReal(periode=null){
 function getGrowthRKA(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getGrowthRka') }}/"+periode,
+        url:"{{ url('/dash-telu/getGrowthRka') }}/"+periode,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('growthRKA', { 
                 title: {
@@ -374,8 +387,13 @@ function getGrowthRKA(periode=null){
 function getRkaVsReal(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu/getRkaVsReal') }}/"+periode,
+        url:"{{ url('/dash-telu/getRkaVsReal') }}/"+periode,
         dataType: "JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
 
             Highcharts.chart('rkaVSreal', {

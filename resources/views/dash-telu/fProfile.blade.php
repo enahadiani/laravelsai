@@ -241,6 +241,11 @@ function loadService(index,method,url,param={}){
         type: method,
         url: url,
         dataType: 'json',
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         data: param,
         success:function(result){    
             if(result.status){
@@ -315,13 +320,13 @@ $('#form-profile').on('submit', function(e){
                     $('#password_baru').val('');
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('dash-telu/logout') }}";
-                    })
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                    // })
+                    window.location.href = "{{ url('dash-telu/login') }}";
                 }
                 else{
                     Swal.fire({

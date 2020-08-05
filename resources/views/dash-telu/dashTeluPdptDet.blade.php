@@ -167,6 +167,11 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
+        statusCode:{
+            500: function(response){
                 alert('Expired token, please re-login')
                 "{{url('dash-telu/logout')}}"
                 window.location="{{url('/dash-telu/login')}}";
@@ -195,6 +200,11 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -259,6 +269,11 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {

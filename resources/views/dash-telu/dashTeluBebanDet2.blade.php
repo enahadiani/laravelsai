@@ -157,6 +157,11 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
         dataType:"JSON",
         statusCode:{
             500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
+        statusCode:{
+            500: function(response){
                 alert('Expired token, please re-login')
                 "{{url('dash-telu/logout')}}"
                 window.location="{{url('/dash-telu/login')}}";
@@ -184,6 +189,11 @@ function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         type:"GET",
         url:"{{ url('/dash-telu/getBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
         dataType:"JSON",
+        statusCode:{
+            500: function(response){
+                window.location="{{url('/dash-telu/login')}}";
+            }
+        },
         success:function(result){
             Highcharts.chart('pdptJur', {
                 chart: {
