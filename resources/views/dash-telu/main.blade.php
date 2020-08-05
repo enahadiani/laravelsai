@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+    
+    <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
 
@@ -57,6 +58,7 @@
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     
 </head>
 
@@ -150,7 +152,7 @@
                 <div class="position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell"></i>
+                        <i class="simple-icon-bell icon-notif"></i>
                         <!-- <span class="count"></span> -->
                     </button>
                     <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
@@ -355,14 +357,146 @@
             <div class="body-content"></div>
         </div>
     </main>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
     
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+    
+    var pusher = new Pusher('d428ef5138920b411264', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function showNotification(placementFrom, placementAlign, type,title,message) {
+      $.notify(
+        {
+          title: title,
+          message: message,
+          target: "_blank"
+        },
+        {
+          element: "body",
+          position: null,
+          type: type,
+          allow_dismiss: true,
+          newest_on_top: false,
+          showProgressbar: false,
+          placement: {
+            from: placementFrom,
+            align: placementAlign
+          },
+          offset: 20,
+          spacing: 10,
+          z_index: 1031,
+          delay: 4000,
+          timer: 2000,
+          url_target: "_blank",
+          mouse_over: null,
+          animate: {
+            enter: "animated fadeInDown",
+            exit: "animated fadeOutUp"
+          },
+          onShow: null,
+          onShown: null,
+          onClose: null,
+          onClosed: null,
+          icon_type: "class",
+          template:
+            '<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">' +
+            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+            '<span data-notify="icon"></span> ' +
+            '<span data-notify="title">{1}</span> ' +
+            '<span data-notify="message">{2}</span>' +
+            '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+            "</div>" +
+            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+            "</div>"
+        }
+      );
+    }
+
     var form ="{{ Session::get('dash') }}";
+    var userNIK = "{{ Session::get('userLog') }}";
+    function getNotif(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-telu/notif') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var notif='';
+                $('#notificationDropdown').html(''); 
+                
+                if(result.data.status){
+                    if(result.data.jumlah == 0){
+                        // return false;
+                    }else{
+                        $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
+                    }
+                    notif = `<div class="scroll">
+                            `;
+                    if(result.data.data.length > 0){
+                        for(var i=0;i<result.data.data.length;i++){
+                            var line = result.data.data[i];
+                            notif+=`<div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                <a href="#">
+                                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Notification Image"
+                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+                                </a>
+                                <div class="pl-3">
+                                    <a href="#">
+                                        <p class="font-weight-medium mb-1">`+line.pesan+`</p>
+                                        <p class="text-muted mb-0 text-small">`+line.tgl+` - `+line.jam+`</p>
+                                    </a>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                    notif += `</div>`;
+                    $('#notificationDropdown').append(notif);
+                    
+                }else{
+                    $('#notificationDropdown').html(''); 
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+    
+    function updateNotifRead(){
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dash-telu/notif-update-status') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                $('.count').remove();
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+    
+    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
+    channel.bind('saitelu-event', function(data) {
+        // alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        getNotif();
+        showNotification("top", "left", "primary",data.title,data.message);
+        
+    });
+
     function loadForm(url){
         $.ajax({
             type: 'GET',
@@ -418,6 +552,7 @@
     }
     
     loadMenu();
+    getNotif();
     
     if(form !="" || form != "-"){
         loadForm("{{ url('dash-telu/form')}}/"+form)
@@ -487,6 +622,11 @@
             setHeightReport();
         }
         setHeightForm();
+    });
+
+    
+    $('#notificationButton').click(function(){
+        updateNotifRead();
     });
     var $theme = "dore.light.redruby.min.css";
     // localStorage.setItem("dore-theme-color", theme);
