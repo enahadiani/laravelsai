@@ -237,8 +237,6 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary"
-                        data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>

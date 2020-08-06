@@ -111,8 +111,7 @@ $nik     = Session::get('userLog');
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary"
-                    data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                     <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
