@@ -169,8 +169,8 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         <p class="text-muted text-small mb-2">Location</p>
                         <p class="mb-3" id="lokasi"></p>
                         
-                        <p class="text-muted text-small mb-2">Responsibilities</p>
-                        <p class="mb-3" id="jabatan">
+                        <p class="text-muted text-small mb-2">PP</p>
+                        <p class="mb-3" id="pp">
                         </p>
                         <p class="text-muted text-small mb-2">Contact</p>
                         <div class="social-icons">
@@ -266,11 +266,8 @@ function loadService(index,method,url,param={}){
 
                     $('#fullname').val(result.data[0].nama);
                     $('#nik').val(result.data[0].nik);
-                    var jabatan = `<a href="#">
-                        <span
-                        class="badge badge-pill badge-outline-theme-2 mb-1">`+result.data[0].jabatan+`</span>
-                        </a>`;
-                    $('#jabatan').html(jabatan);
+                    var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
+                    $('#pp').html(pp);
                     $('#lokasi').html(result.data[0].kode_lokasi+' - '+result.data[0].nmlok);
                     $('#password_lama').val('');
                     $('#password_baru').val('');

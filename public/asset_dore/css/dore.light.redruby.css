@@ -54,6 +54,7 @@ Table of Contents
 */
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
+@import 'https://code.highcharts.com/css/highcharts.css';
 /* 01.Base */
 html {
   width: 100%;
@@ -75,7 +76,33 @@ html {
   --theme-color-6-10: rgba(246, 150, 130, 0.1);
   --primary-color: #3a3a3a;
   --foreground-color: white;
-  --separator-color: #d7d7d7; }
+  --separator-color: #d7d7d7; 
+  --background-color: #ffffff;
+	--text-color: #292b2c;
+	--hilight-color: #0275d8;
+}
+
+.highcharts-background {
+  fill: var(--background-color);
+}
+.highcharts-container text {
+  fill: var(--text-color);
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+  fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+  stroke: var(--text-color);
+  stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+  fill: var(--background-color);
+}
+.highcharts-column-series rect.highcharts-point {
+  stroke: var(--background-color);
+}
 
 body {
   font-family: "Nunito", sans-serif;
@@ -7621,6 +7648,9 @@ footer.page-footer {
   padding-left: 1rem;
   padding-right: 1rem; }
   
-.dash-contents{
-  background: white !important; 
+html.dash-contents{
+  background: white !important;
+}
+body.dash-contents{
+  background: white !important;
 }

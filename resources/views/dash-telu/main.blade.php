@@ -35,6 +35,10 @@
         h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select{
             font-family: 'Roboto', sans-serif !important;
         }
+        .highcharts-root {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
         .logo{
             background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
             background-size: 150px;
