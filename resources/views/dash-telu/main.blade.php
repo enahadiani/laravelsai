@@ -554,6 +554,8 @@
                         loadForm("{{ url('dash-telu/form')}}/"+form);
                         return false;
                     }
+                }else{
+                    alert('Error: Form tidak ditemukan!');
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
