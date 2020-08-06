@@ -58,16 +58,13 @@ class TagihanMTController extends Controller
     public function store(Request $request) {
         $this->validate($request, [
             'tanggal' => 'required',
-            'no_dokumen' => 'required',
             'keterangan' => 'required',
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
-            'bank' => 'required',
-            'cabang'=> 'required',
-            'no_rek'=> 'required',
-            'nama_rek'=> 'required',
             'jenis'=> 'required',
             'cust'=> 'required|array',
+            'no_dokumen'=> 'required|array',
+            'due_date'=> 'required|array',
             'no_kontrak'=> 'required|array',
             'item'=> 'required|array',
             'nilai'=> 'required|array',
@@ -86,10 +83,6 @@ class TagihanMTController extends Controller
                     'contents' => $tanggal,
                 ],
                 [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
-                ],
-                [
                     'name' => 'nik_app',
                     'contents' => Session::get('userLog'),
                 ],
@@ -106,18 +99,6 @@ class TagihanMTController extends Controller
                     'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
                 ],
                 [
-                    'name' => 'bank',
-                    'contents' => $request->bank,
-                ],
-                [
-                    'name' => 'cabang',
-                    'contents' => $request->cabang,
-                ],
-                [
-                    'name' => 'no_rek',
-                    'contents' => $request->no_rek,
-                ],
-                [
                     'name' => 'nama_rek',
                     'contents' => $request->nama_rek,
                 ],
@@ -127,62 +108,61 @@ class TagihanMTController extends Controller
                 ],
             ];
     
-        $fields_item = array();
-        if(count($request->item) > 0){
-            for($i=0;$i<count($request->item);$i++){
-                    $fields_item[$i] = array(
-                        'name'     => 'item[]',
-                        'contents' => $request->item[$i],
-                );
-            }
-            $send_data = array_merge($fields,$fields_item);
-        }
+            $explode_tgl = explode('/', $request->tanggal);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
 
-        $fields_nilai = array();
-        if(count($request->nilai) > 0){
-            for($i=0;$i<count($request->nilai);$i++){
-                    $fields_nilai[$i] = array(
-                        'name'     => 'nilai[]',
-                        'contents' => intval(str_replace('.','', $request->nilai[$i])),
-                );
+            $fields = [
+                    [
+                        'name' => 'tanggal',
+                        'contents' => $tanggal,
+                    ],
+                    [
+                        'name' => 'nik_app',
+                        'contents' => Session::get('userLog'),
+                    ],
+                    [
+                        'name' => 'keterangan',
+                        'contents' => $request->keterangan,
+                    ],
+                    [
+                        'name' => 'total_nilai',
+                        'contents' => intval(str_replace('.','', $request->total_nilai)),
+                    ],
+                    [
+                        'name' => 'total_nilai_ppn',
+                        'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
+                    ],
+                    [
+                        'name' => 'status_kontrak',
+                        'contents' => $request->jenis,
+                    ],
+                ];
+        
+        if(count($request->generate) > 0){
+            for($i=0;$i<count($request->generate);$i++){
+                $cek[$i] = $request->generate[$i];
+                if($cek[$i] == 'true') {
+                    $explode_due = explode('/', $request->due_date[$i]);
+                    $tgl_due = $explode_due[0];
+                    $bln_due = $explode_due[1];
+                    $tahun_due = $explode_due[2];
+                    $tanggal_due = $tahun_due."-".$bln_due."-".$tgl_due;
+                    
+                    $field_generate[$i] = array('name'=>'generate[]','contents'=>$request->generate[$i]);
+                    $field_dokumen[$i] = array('name'=>'no_dokumen[]','contents'=>$request->no_dokumen[$i]);
+                    $field_cust[$i] = array('name'=>'kode_cust[]','contents'=>substr($request->cust[$i],0,5));
+                    $field_kontrak[$i] = array('name'=>'no_kontrak[]','contents'=>$request->no_kontrak[$i]);
+                    $field_item[$i] = array('name'=>'item[]','contents'=>$request->item[$i]);
+                    $field_nilai[$i] = array('name'=>'nilai[]','contents'=>intval(str_replace('.','', $request->nilai[$i])));
+                    $field_ppn[$i] = array('name'=>'nilai_ppn[]','contents'=>intval(str_replace('.','', $request->nilai_ppn[$i])));
+                    $field_date[$i] = array('name'=>'due_date[]','contents'=>$tanggal_due);
+                }
             }
-            $send_data = array_merge($send_data,$fields_nilai);
+            $send_data = array_merge($fields,$field_generate,$field_dokumen,$field_cust,$field_kontrak,$field_item,$field_nilai,$field_ppn,$field_date);
         }
-
-        $fields_nilai_ppn = array();
-        if(count($request->nilai_ppn) > 0){
-            for($i=0;$i<count($request->nilai_ppn);$i++){
-                    $fields_nilai_ppn[$i] = array(
-                        'name'     => 'nilai_ppn[]',
-                        'contents' => intval(str_replace('.','', $request->nilai_ppn[$i])),
-                );
-            }
-            $send_data = array_merge($send_data,$fields_nilai_ppn);
-        }
-
-        $fields_cust = array();
-        if(count($request->cust) > 0){
-            for($i=0;$i<count($request->cust);$i++){
-                    $cust[$i] = substr($request->cust[$i],0,5);
-                    $fields_cust[$i] = array(
-                        'name'     => 'kode_cust[]',
-                        'contents' => $cust[$i],
-                );
-            }
-            $send_data = array_merge($send_data,$fields_cust);
-        }
-
-        $fields_kontrak = array();
-        if(count($request->no_kontrak) > 0){
-            for($i=0;$i<count($request->no_kontrak);$i++){
-                    $fields_kontrak[$i] = array(
-                        'name'     => 'no_kontrak[]',
-                        'contents' => $request->no_kontrak[$i],
-                );
-            }
-            $send_data = array_merge($send_data,$fields_kontrak);
-        }
-
         
         $cek = $request->file_dok;
         $fields_dok = array();
@@ -210,20 +190,21 @@ class TagihanMTController extends Controller
         }
         
         try { 
-                $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan-maintain',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'multipart' => $send_data
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+            var_dump($send_data);
+            // $client = new Client();
+            // $response = $client->request('POST', $this->link.'tagihan-maintain',[
+            //     'headers' => [
+            //         'Authorization' => 'Bearer '.Session::get('token'),
+            //         'Accept'     => 'application/json',
+            //     ],
+            //     'multipart' => $send_data
+            // ]);
+            // if ($response->getStatusCode() == 200) { // 200 OK
+            //     $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            //     $data = json_decode($response_data,true);
+            //     return response()->json(['data' => $data], 200);  
+            // }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
@@ -264,129 +245,137 @@ class TagihanMTController extends Controller
     public function update(Request $request, $id) {
        $this->validate($request, [
             'tanggal' => 'required',
-            'no_dokumen' => 'required',
             'keterangan' => 'required',
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
-            'bank' => 'required',
-            'cabang'=> 'required',
-            'no_rek'=> 'required',
-            'nama_rek'=> 'required',
             'jenis'=> 'required',
             'cust'=> 'required|array',
+            'no_dokumen'=> 'required|array',
+            'due_date'=> 'required|array',
             'no_kontrak'=> 'required|array',
             'item'=> 'required|array',
             'nilai'=> 'required|array',
             'nilai_ppn'=> 'required|array',
         ]);
 
-        $explode_tgl = explode('/', $request->tanggal);
-        $tgl = $explode_tgl[0];
-        $bln = $explode_tgl[1];
-        $tahun = $explode_tgl[2];
-        $tanggal = $tahun."-".$bln."-".$tgl;
+        if($request->generate == TRUE) {
+            $explode_tgl = explode('/', $request->tanggal);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
 
-        $fields = [
-                [
-                    'name' => 'tanggal',
-                    'contents' => $tanggal,
-                ],
-                [
-                    'name' => 'no_dokumen',
-                    'contents' => $request->no_dokumen,
-                ],
-                [
-                    'name' => 'nik_app',
-                    'contents' => Session::get('userLog'),
-                ],
-                [
-                    'name' => 'keterangan',
-                    'contents' => $request->keterangan,
-                ],
-                [
-                    'name' => 'total_nilai',
-                    'contents' => intval(str_replace('.','', $request->total_nilai)),
-                ],
-                [
-                    'name' => 'total_nilai_ppn',
-                    'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
-                ],
-                [
-                    'name' => 'bank',
-                    'contents' => $request->bank,
-                ],
-                [
-                    'name' => 'cabang',
-                    'contents' => $request->cabang,
-                ],
-                [
-                    'name' => 'no_rek',
-                    'contents' => $request->no_rek,
-                ],
-                [
-                    'name' => 'nama_rek',
-                    'contents' => $request->nama_rek,
-                ],
-                [
-                    'name' => 'status_kontrak',
-                    'contents' => $request->jenis,
-                ],
-            ];
-    
-        $fields_item = array();
-        if(count($request->item) > 0){
-            for($i=0;$i<count($request->item);$i++){
-                    $fields_item[$i] = array(
-                        'name'     => 'item[]',
-                        'contents' => $request->item[$i],
-                );
+            $fields = [
+                    [
+                        'name' => 'tanggal',
+                        'contents' => $tanggal,
+                    ],
+                    [
+                        'name' => 'nik_app',
+                        'contents' => Session::get('userLog'),
+                    ],
+                    [
+                        'name' => 'keterangan',
+                        'contents' => $request->keterangan,
+                    ],
+                    [
+                        'name' => 'total_nilai',
+                        'contents' => intval(str_replace('.','', $request->total_nilai)),
+                    ],
+                    [
+                        'name' => 'total_nilai_ppn',
+                        'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
+                    ],
+                    [
+                        'name' => 'status_kontrak',
+                        'contents' => $request->jenis,
+                    ],
+                ];
+        
+            $fields_item = array();
+            if(count($request->item) > 0){
+                for($i=0;$i<count($request->item);$i++){
+                        $fields_item[$i] = array(
+                            'name'     => 'item[]',
+                            'contents' => $request->item[$i],
+                    );
+                }
+                $send_data = array_merge($fields,$fields_item);
             }
-            $send_data = array_merge($fields,$fields_item);
-        }
 
-        $fields_nilai = array();
-        if(count($request->nilai) > 0){
-            for($i=0;$i<count($request->nilai);$i++){
-                    $fields_nilai[$i] = array(
-                        'name'     => 'nilai[]',
-                        'contents' => intval(str_replace('.','', $request->nilai[$i])),
-                );
+            $fields_nilai = array();
+            if(count($request->nilai) > 0){
+                for($i=0;$i<count($request->nilai);$i++){
+                        $fields_nilai[$i] = array(
+                            'name'     => 'nilai[]',
+                            'contents' => intval(str_replace('.','', $request->nilai[$i])),
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_nilai);
             }
-            $send_data = array_merge($send_data,$fields_nilai);
-        }
 
-        $fields_nilai_ppn = array();
-        if(count($request->nilai_ppn) > 0){
-            for($i=0;$i<count($request->nilai_ppn);$i++){
-                    $fields_nilai_ppn[$i] = array(
-                        'name'     => 'nilai_ppn[]',
-                        'contents' => intval(str_replace('.','', $request->nilai_ppn[$i])),
-                );
+            $fields_nilai_ppn = array();
+            if(count($request->nilai_ppn) > 0){
+                for($i=0;$i<count($request->nilai_ppn);$i++){
+                        $fields_nilai_ppn[$i] = array(
+                            'name'     => 'nilai_ppn[]',
+                            'contents' => intval(str_replace('.','', $request->nilai_ppn[$i])),
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_nilai_ppn);
             }
-            $send_data = array_merge($send_data,$fields_nilai_ppn);
-        }
 
-        $fields_cust = array();
-        if(count($request->cust) > 0){
-            for($i=0;$i<count($request->cust);$i++){
-                    $cust[$i] = substr($request->cust[$i],0,5);
-                    $fields_cust[$i] = array(
-                        'name'     => 'kode_cust[]',
-                        'contents' => $cust[$i],
-                );
+            $fields_cust = array();
+            if(count($request->cust) > 0){
+                for($i=0;$i<count($request->cust);$i++){
+                        $cust[$i] = substr($request->cust[$i],0,5);
+                        $fields_cust[$i] = array(
+                            'name'     => 'kode_cust[]',
+                            'contents' => $cust[$i],
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_cust);
             }
-            $send_data = array_merge($send_data,$fields_cust);
-        }
 
-        $fields_kontrak = array();
-        if(count($request->no_kontrak) > 0){
-            for($i=0;$i<count($request->no_kontrak);$i++){
-                    $fields_kontrak[$i] = array(
-                        'name'     => 'no_kontrak[]',
-                        'contents' => $request->no_kontrak[$i],
-                );
+            $fields_kontrak = array();
+            if(count($request->no_kontrak) > 0){
+                for($i=0;$i<count($request->no_kontrak);$i++){
+                        $fields_kontrak[$i] = array(
+                            'name'     => 'no_kontrak[]',
+                            'contents' => $request->no_kontrak[$i],
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_kontrak);
             }
-            $send_data = array_merge($send_data,$fields_kontrak);
+
+            $fields_dokumen = array();
+            if(count($request->no_dokumen) > 0){
+                for($i=0;$i<count($request->no_dokumen);$i++){
+                        $fields_dokumen[$i] = array(
+                            'name'     => 'no_dokumen[]',
+                            'contents' => $request->no_dokumen[$i],
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_dokumen);
+            }
+
+            $fields_date = array();
+            if(count($request->due_date) > 0){
+                for($i=0;$i<count($request->due_date);$i++){
+                        $explode_due = explode('/', $request->due_date[$i]);
+                        $tgl_due = $explode_due[0];
+                        $bln_due = $explode_due[1];
+                        $tahun_due = $explode_due[2];
+                        $tanggal_due = $tahun_due."-".$bln_due."-".$tgl_due;
+                        $fields_date[$i] = array(
+                            'name'     => 'due_date[]',
+                            'contents' => $tanggal_due,
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_date);
+            }
+        }else{
+            return;
         }
 
         
