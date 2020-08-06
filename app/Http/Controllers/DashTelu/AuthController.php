@@ -19,6 +19,40 @@
             else{
                 return view('dash-telu.main');
             }            
+        }         
+
+        function buildMenu($menu_array, $is_sub=FALSE) {
+
+            $attr = (!$is_sub) ? ' data-link="menu" class="list-unstyled " ' : ' class="list-unstyled submenu inner-level-menu"';
+            $menu = "<ul".$attr.">";
+        
+            foreach($menu_array as $id => $properties) {
+            foreach($properties as $key => $val) {
+                if(is_array($val)) {
+                    if(count($val) > 0){
+                        $sub = $this->buildMenu($val, TRUE);
+                    }
+                }
+                else {
+                    $sub = NULL;
+                    $$key = $val;
+                }
+            }
+            if(!isset($url)) {
+                $url = $id;
+            }
+            if($sub != NULL){
+
+                $menu .= "<li><a href='#' data-href='".$kode_form."' data-toggle='collapse' data-target='#collapse".$kode_menu."' aria-expanded='true'
+                aria-controls='collapse".$kode_menu."' class='rotate-arrow-icon'><i class='".$icon."'></i> <span class='d-inline-block'>".$nama."</span></a>
+                <div id='collapse".$kode_menu."' class='collapse show' data-parent='#".$kode_menu."'>".$sub."</div></li>";
+            }else{
+                $menu .= "<li><a href='#' data-href='".$kode_form."' class='a_link'><i class='".$icon."'></i> <span class='d-inline-block'>".$nama."</span></a>".$sub."</li>";
+            }
+            unset($url, $nama, $sub);
+            }
+        
+            return $menu . "</ul>";
         }
 
         public function cek_session()
@@ -66,8 +100,10 @@
                         $data2 = json_decode($response_data2,true);
                         $res = $data2['user'];
                         if(count($res) > 0){
+                            $tmp = explode("_",$res[0]["path_view"]);
+                            $dash = $tmp[2];
                             Session::put('isLoggedIn',TRUE);
-                            Session::put('dash','dashTelu');
+                            Session::put('dash',$dash);
                             Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
                             Session::put('userLog',$res[0]["nik"]);
                             Session::put('namaUser',$res[0]["nama"]);
@@ -130,10 +166,11 @@
                 $main = "<div class='scroll'>
                 <ul class='list-unstyled'>";
                 $submenu = "<div class='scroll'>";
+                $pre_prt = 1;
+                $parent_array = array();
+                $hasil = "";
+                $kode = array(); 
                 if(count($main_menu) > 0){
-                    $pre_prt = 1;
-                    $parent_array = array();
-                    $hasil = "";
                     for($i=0; $i<count($main_menu); $i++){
                         $forms = str_replace("_","/", $main_menu[$i]['form']);
                         $this_lv = $main_menu[$i]['level_menu']; 
@@ -145,16 +182,40 @@
                         }
                         
                         if($this_lv == 0){
+                            if(!ISSET($main_menu[$i-1]['level_menu'])){
+                                $prev_lv2 = 0; 
+                            }else{
+                                $prev_lv2 = $main_menu[$i-1]['level_menu'];
+                            }
+                    
+                            if(!ISSET($main_menu[$i+1]['level_menu'])){
+                                $next_lv2 = $main_menu[$i]['level_menu'];
+                            }else{
+                                $next_lv2 = $main_menu[$i+1]['level_menu']; //t1 nv=1
+                            }
                             $level_nol = 'sub'.$main_menu[$i]['kode_menu'];
                             $sub[$level_nol] = "";
-                            $main .=" 
-                            <li>
-                                    <a href='#main".$main_menu[$i]['kode_menu']."'>
-                                    <i class='".$main_menu[$i]['icon']."'></i>
-                                        <span>".$main_menu[$i]['nama']."</span>
-                                    </a>
-                            </li>";
-                            $submenu .= "<ul class='list-unstyled' data-link='main".$main_menu[$i]['kode_menu']."' id='sub".$main_menu[$i]['kode_menu']."'></ul>";
+                            array_push($kode,$level_nol);
+                            if($next_lv2 > 0){
+                                $main .=" 
+                                <li>
+                                        <a href='#main".$main_menu[$i]['kode_menu']."'>
+                                        <i class='".$main_menu[$i]['icon']."'></i>
+                                            <span>".$main_menu[$i]['nama']."</span>
+                                        </a>
+                                </li>";
+
+                                $submenu .= "<ul class='list-unstyled' data-link='main".$main_menu[$i]['kode_menu']."' id='sub".$main_menu[$i]['kode_menu']."'></ul>";
+                            }else{
+                                $main .=" 
+                                <li>
+                                        <a href='#' data-href='$this_link' class='a_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i>
+                                            <span>".$main_menu[$i]['nama']."</span>
+                                        </a>
+                                </li>";
+                                $submenu .="";
+                            }
                         }else{
                             if(!ISSET($main_menu[$i-1]['level_menu'])){
                                 $prev_lv = 1; 
@@ -233,12 +294,21 @@
                     </ul>
                 </div>";
                 
+                // $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
+                // $menu = json_decode($str, true);
+                // $allmenu = $menu['allmenu'];
+                    
+
+                // $output = $this->buildMenu($allmenu);
+
                 $submenu .="</div>";
+
                     
                 $success['status'] = true;
                 $success['main_menu'] = $main;
                 $success['sub_menu'] = $submenu;
-                $success['sub'] = $sub;
+                $success['subdata'] = $sub;
+                $success['kode_menu'] = $kode;
         
             }else{
                 $success['status'] = true;
@@ -247,6 +317,31 @@
                     
             return response()->json([$success], 200);     
          }
+
+         public function getProfile(){
+            try {
+                $client = new Client();
+                $response = $client->request('GET', $this->link.'/profile',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["user"];
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
 
     }
 

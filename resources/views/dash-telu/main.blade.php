@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+    
+    <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
 
@@ -22,13 +23,37 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
+    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+
+        body {
+            font-family: 'Roboto', sans-serif !important;
+        }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select{
+            font-family: 'Roboto', sans-serif !important;
+        }
+        .logo{
+            background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
+            background-size: 150px;
+            background-position-x: center;
+            background-position-y: center;
+            width:160px;
+            height:45px;
+        }
+        .logo-mobile{
+            background:url("{{ asset('img/logo-telu.png') }}") no-repeat;
+            background-size:30px;
+            width:30px;
+        }
+    </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/chartjs-plugin-datalabels.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/datatables.min.js') }}"></script>
@@ -42,10 +67,8 @@
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
-    </script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -72,12 +95,12 @@
                 </svg>
             </a>
 
-            <div class="search" data-search-path="Pages.Search.html?q=">
+            <!-- <div class="search" data-search-path="Pages.Search.html?q=">
                 <input placeholder="Search...">
                 <span class="search-icon">
                     <i class="simple-icon-magnifier"></i>
                 </span>
-            </div>
+            </div> -->
         </div>
 
 
@@ -96,7 +119,7 @@
                     </div>
                 </div>
 
-                <div class="position-relative d-none d-sm-inline-block">
+                <!-- <div class="position-relative d-none d-sm-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="simple-icon-grid"></i>
@@ -133,16 +156,16 @@
                         </a>
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell"></i>
-                        <span class="count">3</span>
+                        <i class="simple-icon-bell icon-notif"></i>
+                        <!-- <span class="count"></span> -->
                     </button>
                     <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
-                        <div class="scroll">
+                        <!-- <div class="scroll">
                             <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                 <a href="#">
                                     <img src="{{ asset('asset_dore/img/profiles/l-2.jpg') }}" alt="Notification Image"
@@ -192,7 +215,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -206,17 +229,18 @@
             <div class="user d-inline-block">
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <span class="name">Sarah Kortney</span>
+                    <span class="name">{{ Session::get('namaUser') }}</span>
                     <span>
-                        <img alt="Profile Picture" src="{{ asset('asset_dore/img/profiles/l-1.jpg') }}" />
+                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    @else
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/'.Session::get('foto')) }}" />
+                    @endif
                     </span>
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    <a class="dropdown-item" href="#">Features</a>
-                    <a class="dropdown-item" href="#">History</a>
-                    <a class="dropdown-item" href="#">Support</a>
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
                     <a class="dropdown-item" href="{{ url('dash-telu/logout') }}">Sign out</a>
                 </div>
             </div>
@@ -339,17 +363,149 @@
 
     <main>
         <div class="container-fluid">
-            <div class=".body-content"></div>
+            <div class="body-content"></div>
         </div>
     </main>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
     
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+    
+    var pusher = new Pusher('d428ef5138920b411264', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function showNotification(placementFrom, placementAlign, type,title,message) {
+      $.notify(
+        {
+          title: title,
+          message: message,
+          target: "_blank"
+        },
+        {
+          element: "body",
+          position: null,
+          type: type,
+          allow_dismiss: true,
+          newest_on_top: false,
+          showProgressbar: false,
+          placement: {
+            from: placementFrom,
+            align: placementAlign
+          },
+          offset: 20,
+          spacing: 10,
+          z_index: 1031,
+          delay: 4000,
+          timer: 2000,
+          url_target: "_blank",
+          mouse_over: null,
+          animate: {
+            enter: "animated fadeInDown",
+            exit: "animated fadeOutUp"
+          },
+          onShow: null,
+          onShown: null,
+          onClose: null,
+          onClosed: null,
+          icon_type: "class",
+          template:
+            '<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">' +
+            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+            '<span data-notify="icon"></span> ' +
+            '<span data-notify="title">{1}</span> ' +
+            '<span data-notify="message">{2}</span>' +
+            '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+            "</div>" +
+            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+            "</div>"
+        }
+      );
+    }
+
     var form ="{{ Session::get('dash') }}";
+    var userNIK = "{{ Session::get('userLog') }}";
+    function getNotif(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-telu/notif') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var notif='';
+                $('#notificationDropdown').html(''); 
+                
+                if(result.data.status){
+                    if(result.data.jumlah == 0){
+                        // return false;
+                    }else{
+                        $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
+                    }
+                    notif = `<div class="scroll">
+                            `;
+                    if(result.data.data.length > 0){
+                        for(var i=0;i<result.data.data.length;i++){
+                            var line = result.data.data[i];
+                            notif+=`<div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                <a href="#">
+                                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Notification Image"
+                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
+                                </a>
+                                <div class="pl-3">
+                                    <a href="#">
+                                        <p class="font-weight-medium mb-1">`+line.pesan+`</p>
+                                        <p class="text-muted mb-0 text-small">`+line.tgl+` - `+line.jam+`</p>
+                                    </a>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                    notif += `</div>`;
+                    $('#notificationDropdown').append(notif);
+                    
+                }else{
+                    $('#notificationDropdown').html(''); 
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+    
+    function updateNotifRead(){
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dash-telu/notif-update-status') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                $('.count').remove();
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+    
+    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
+    channel.bind('saitelu-event', function(data) {
+        // alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        getNotif();
+        showNotification("top", "left", "primary",data.title,data.message);
+        
+    });
+
     function loadForm(url){
         $.ajax({
             type: 'GET',
@@ -359,13 +515,14 @@
             success:function(result){    
                 if(!result.status){
                     
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('dash-telu/login') }}";
-                    })
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                    //     window.location.href = "{{ url('dash-telu/login') }}";
+                    // })
+                    window.location.href = "{{ url('dash-telu/login') }}";
                 }else{
                     
                     $('.body-content').load(url);
@@ -376,6 +533,10 @@
             }
         });
     }
+
+    function loadProfile(){
+        loadForm("{{url('dash-telu/form/fProfile')}}");
+    }
     
     function loadMenu(){
         $.ajax({
@@ -385,48 +546,33 @@
             async:false,
             success:function(result){  
                 if(result[0].status){
-                    // $('#sidebarnav').html('');
-                    // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
                     $('.main-menu').html('');
                     $(result[0].main_menu).appendTo('.main-menu').slideDown();
                     $('.sub-menu').html('');
                     $(result[0].sub_menu).appendTo('.sub-menu').slideDown();
+                    for(var i=0;i < result[0].kode_menu.length;i++){
+                        $('#'+result[0].kode_menu[i]).html(result[0].subdata[result[0].kode_menu[i]]);
+                    }
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             }
         });
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{ url('dash-telu/menu') }}",
-        //     dataType: 'json',
-        //     async:false,
-        //     success:function(result){
-        //         if(result[0].status){
-        //             // $('#sidebarnav').html('');
-        //             // $(result[0].hasil).appendTo('#sidebarnav').slideDown();
-        //             $('.main-menu').html('');
-        //             $(result[0].main_menu).appendTo('.main-menu').slideDown();
-                    
-        //         }
-        //     },
-        //     fail: function(xhr, textStatus, errorThrown){
-        //         alert('request failed:'+textStatus);
-        //     }
-        // });
-        // loadForm("{{ url('dash-telu/form')}}/login");
     }
     
     loadMenu();
+    getNotif();
     
-    // if(form !="" || form != "-"){
-    //     loadForm("{{ url('dash-telu/form')}}/"+form)
-    // }
+    if(form !="" || form != "-"){
+        loadForm("{{ url('dash-telu/form')}}/"+form)
+    }
     
-    $('.sidebar-nav').on('click','.a_link',function(e){
+    $('.menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
+        $('.sub-menu li').removeClass('active');
+        $(this).parents('li').addClass('active');
         var url = "{{ url('dash-telu/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){
@@ -436,6 +582,12 @@
             loadForm(url);
             
         }
+    });
+
+    $('.main-menu li').click(function(){
+        console.log('click-menu');
+        $('.main-menu li').removeClass('active');
+        $(this).addClass('active');
     });
 
     $(document).ready(function(){
@@ -481,6 +633,17 @@
         }
         setHeightForm();
     });
+
+    
+    $('#notificationButton').click(function(){
+        updateNotifRead();
+    });
+    var $theme = "dore.light.redruby.min.css";
+    // localStorage.setItem("dore-theme-color", theme);
+    </script>
+    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+    <script>
+        $('div.theme-colors').hide();
     </script>
 </body>
 </html>

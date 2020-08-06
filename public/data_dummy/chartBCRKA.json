@@ -1,0 +1,177 @@
+{
+    "data": {
+        "ctg": [
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020"
+        ],
+        "series": [
+            {
+                "name": "Pendapatan",
+                "data": [
+                    {
+                        "y": 248.04,
+                        "kode_neraca": "411",
+                        "tahun": "2014"
+                    },
+                    {
+                        "y": 292.13,
+                        "kode_neraca": "411",
+                        "tahun": "2015"
+                    },
+                    {
+                        "y": 355.15,
+                        "kode_neraca": "411",
+                        "tahun": "2016"
+                    },
+                    {
+                        "y": 415.52,
+                        "kode_neraca": "411",
+                        "tahun": "2017"
+                    },
+                    {
+                        "y": 473.90,
+                        "kode_neraca": "411",
+                        "tahun": "2018"
+                    },
+                    {
+                        "y": 522.37,
+                        "kode_neraca": "411",
+                        "tahun": "2019"
+                    },
+                    {
+                        "y": 543.28,
+                        "kode_neraca": "411",
+                        "tahun": "2020"
+                    }
+                ]
+            },
+            {
+                "name": "Beban",
+                "data": [
+                    {
+                        "y": 220.04,
+                        "kode_neraca": "511",
+                        "tahun": "2014"
+                    },
+                    {
+                        "y": 238.40,
+                        "kode_neraca": "511",
+                        "tahun": "2015"
+                    },
+                    {
+                        "y": 290.79,
+                        "kode_neraca": "511",
+                        "tahun": "2016"
+                    },
+                    {
+                        "y": 320.30,
+                        "kode_neraca": "511",
+                        "tahun": "2017"
+                    },
+                    {
+                        "y": 377.72,
+                        "kode_neraca": "511",
+                        "tahun": "2018"
+                    },
+                    {
+                        "y": 417.38,
+                        "kode_neraca": "511",
+                        "tahun": "2019"
+                    },
+                    {
+                        "y": 435.63,
+                        "kode_neraca": "511",
+                        "tahun": "2020"
+                    }
+                ]
+            },
+            {
+                "name": "SDM",
+                "data": [
+                    {
+                        "y": 107.65,
+                        "kode_neraca": "412",
+                        "tahun": "2014"
+                    },
+                    {
+                        "y": 126.76,
+                        "kode_neraca": "412",
+                        "tahun": "2015"
+                    },
+                    {
+                        "y": 150.95,
+                        "kode_neraca": "412",
+                        "tahun": "2016"
+                    },
+                    {
+                        "y": 168.89,
+                        "kode_neraca": "412",
+                        "tahun": "2017"
+                    },
+                    {
+                        "y": 203.44,
+                        "kode_neraca": "412",
+                        "tahun": "2018"
+                    },
+                    {
+                        "y": 222.52,
+                        "kode_neraca": "412",
+                        "tahun": "2019"
+                    },
+                    {
+                        "y": 240.68,
+                        "kode_neraca": "412",
+                        "tahun": "2020"
+                    }
+                ]
+            },
+            {
+                "name": "SHU",
+                "data": [
+                    {
+                        "y": 28.01,
+                        "kode_neraca": "611",
+                        "tahun": "2014"
+                    },
+                    {
+                        "y": 53.73,
+                        "kode_neraca": "611",
+                        "tahun": "2015"
+                    },
+                    {
+                        "y": 64.36,
+                        "kode_neraca": "611",
+                        "tahun": "2016"
+                    },
+                    {
+                        "y": 95.22,
+                        "kode_neraca": "611",
+                        "tahun": "2017"
+                    },
+                    {
+                        "y": 96.18,
+                        "kode_neraca": "611",
+                        "tahun": "2018"
+                    },
+                    {
+                        "y": 104.98,
+                        "kode_neraca": "611",
+                        "tahun": "2019"
+                    },
+                    {
+                        "y": 107.65,
+                        "kode_neraca": "611",
+                        "tahun": "2020"
+                    }
+                ]
+            }
+        ],
+        "status": true,
+        "message": "Success!"
+    }
+}
