@@ -5,10 +5,15 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
-        return redirect('dash-telu/login')->with('alert','Session telah habis !');
+        // return redirect('dash-telu/login');
+        return view('dash-telu.sesi');
     }else{
         return view('dash-telu.'.$id);
     }
+});
+
+Route::get('/sesi-habis', function () {
+    return view('dash-telu.sesi');
 });
 
 

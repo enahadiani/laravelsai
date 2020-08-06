@@ -192,14 +192,7 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
-        statusCode:{
-            500: function(response){
-                alert('Expired token, please re-login')
-                "{{url('dash-telu/logout')}}"
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
@@ -227,7 +220,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
@@ -296,7 +289,7 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success: function(result){

@@ -236,7 +236,7 @@ function getPencapaianYoY(periode=null) {
         dataType: "JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success: function(result){
@@ -275,7 +275,7 @@ function getGrowthReal(periode=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
@@ -349,7 +349,7 @@ function getGrowthRKA(periode=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
@@ -421,7 +421,7 @@ function getRkaVsReal(periode=null){
         dataType: "JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success: function(result){

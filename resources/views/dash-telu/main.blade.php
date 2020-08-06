@@ -526,15 +526,7 @@
             async:false,
             success:function(result){    
                 if(!result.status){
-                    
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                    //     window.location.href = "{{ url('dash-telu/login') }}";
-                    // })
-                    window.location.href = "{{ url('dash-telu/login') }}";
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
                 }else{
                     
                     $('.body-content').load(url);
@@ -643,8 +635,8 @@
 
     $(document).ready(function(){
         setTimeout(function(){
-            alert('Session token telah habis, silahkan login kembali');
-            window.location.href = "{{url('dash-telu/logout')}}";
+            // alert('Session token telah habis, silahkan login kembali');
+            window.location.href = "{{url('dash-telu/sesi-habis')}}";
         }, 1000 * 60 * 60);
         
         var form ="{{ Session::get('dash') }}";

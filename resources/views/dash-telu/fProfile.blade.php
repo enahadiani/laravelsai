@@ -274,7 +274,7 @@ function loadService(index,method,url,param={}){
         dataType: 'json',
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         data: param,
@@ -341,7 +341,7 @@ $('#form-profile').on('submit', function(e){
                     $('#password_baru').val('');
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-telu/login') }}";
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
                 }
                 else{
                    alert(result.data.message);
@@ -387,7 +387,7 @@ $('#formPhoto').on('submit', function(e){
                     loadForm("{{url('dash-telu/form/fProfile')}}");
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-telu/login') }}";
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
                 }
                 else{
                     alert(result.data.message);

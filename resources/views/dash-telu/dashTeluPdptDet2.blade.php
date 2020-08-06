@@ -182,7 +182,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
@@ -209,7 +209,7 @@ function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
         dataType:"JSON",
         statusCode:{
             500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
+                window.location="{{url('/dash-telu/sesi-habis')}}";
             }
         },
         success:function(result){
