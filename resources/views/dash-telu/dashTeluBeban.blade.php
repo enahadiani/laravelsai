@@ -53,7 +53,20 @@ $nik     = Session::get('userLog');
 
 <div class="container-fluid mt-3">
     <div class="row">
-        <h1 class="ml-3">Beban</h1>
+        <div class="col-12">
+            <h1>Beban</h1>
+            <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
+            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
+            <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+            <ol class="breadcrumb pt-0">
+            <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Beban</li>
+            </ol>
+            </nav>
+            <div class="separator mb-5"></div>
+        </div>
     </div>
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
@@ -83,6 +96,32 @@ $nik     = Session::get('userLog');
                 <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
                 <div class="card-body pt-0">
                     <div id='rkaVSreal' style='height:350px'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Periode</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary"
+                    data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>

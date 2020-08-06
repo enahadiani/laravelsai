@@ -383,7 +383,7 @@
             try {
 
                 if($request->hasfile('foto')){
-                    
+
                     $image_path = $request->file('foto')->getPathname();
                     $image_mime = $request->file('foto')->getmimeType();
                     $image_org  = $request->file('foto')->getClientOriginalName();
@@ -411,6 +411,9 @@
                     
                     $data = json_decode($response_data,true);
                     $data = $data;
+                    if($data["status"]){
+                        Session::put('foto',$data["foto"]);
+                    }
                 }
                 return response()->json(['data' => $data, 'status'=>true], 200); 
     

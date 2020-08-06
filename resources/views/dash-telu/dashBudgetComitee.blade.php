@@ -19,7 +19,7 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
     <div class="row">
         <div class="col-12">
-            <h1>Budget Comitee</h1>
+            <h1>Budget Commitee</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
             data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
             <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
@@ -89,30 +89,8 @@ $thnLalu = substr($tahunLalu,2,2)
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>Title</label>
+                            <label>Periode</label>
                             <input type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label>Details</label>
-                            <textarea placeholder="" class="form-control" rows="2"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select class="form-control">
-                                <option label="&nbsp;">&nbsp;</option>
-                                <option value="Flexbox">Flexbox</option>
-                                <option value="Sass">Sass</option>
-                                <option value="React">React</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input"
-                                id="customCheck1">
-                                <label class="custom-control-label"
-                                for="customCheck1">Completed</label>
-                            </div>
                         </div>
                     </form>
                 </div>
