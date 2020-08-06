@@ -54,6 +54,17 @@
         {
             background:url("{{ asset('asset_elite/icons/eye.svg') }}");
         }
+        #span-password
+        {
+           position: absolute;
+           cursor: text;
+           font-size: 90%;
+           opacity: 1;top: -0.4em;left: 0.75rem;z-index: 3;line-height: 1;padding: 0 1px
+        }
+        #btn-eye
+        {
+            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('asset_dore/img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 30px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
+        }
         
     </style>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
@@ -89,9 +100,9 @@
                                     <span>NIK</span>
                                 </label>
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" id="password" />
-                                    <span id="eye"></span>
-                                    <span>Password</span>
+                                    <input class="form-control" type="password" name="password" placeholder="" id="password">
+                                    <span id="span-password">Password</span>
+                                    <span id="btn-eye"><i class="icon-eye"></i></span>
                                 </label>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <a href="#">Lupa password?</a>
@@ -147,6 +158,18 @@
                 }
             });
             $('body').addClass('dash-contents');
+
+            $('#btn-eye').click(function(){
+                console.log('click');
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/eye.svg') }} )";
+                } else {
+                    x.type = "password";
+                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/hide.svg') }} )";
+                }
+            });
         });
     </script>
     @if (Session::has('alert'))
