@@ -121,6 +121,13 @@
                             Session::put('periode',$data2["periode"][0]["periode"]);
                             // Session::put('periode','201905');
                             Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
+                            if($res[0]['flag_menu'] == 1 OR $res[0]['flag_menu'] == ""){
+                                Session::put('menu','menu-default');
+                            }else if($res[0]['flag_menu'] == 2) {
+                                Session::put('menu','menu-main-hidden');
+                            }else{
+                                Session::put('menu','menu-default');
+                            }
                         }
                     }
                     
@@ -197,8 +204,13 @@
                             $sub[$level_nol] = "";
                             array_push($kode,$level_nol);
                             if($next_lv2 > 0){
+                                if(Session::get('menu') == "menu-main-hidden"){
+                                    $active = "active";
+                                }else{
+                                    $active = "";
+                                }
                                 $main .=" 
-                                <li class=''>
+                                <li class='$active'>
                                         <a href='#main".$main_menu[$i]['kode_menu']."'>
                                         <i class='".$main_menu[$i]['icon']."'></i>
                                             <span>".$main_menu[$i]['nama']."</span>
