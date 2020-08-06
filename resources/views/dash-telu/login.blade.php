@@ -50,10 +50,6 @@
                 padding: 0;
             }
         }
-        #eye
-        {
-            background:url("{{ asset('asset_elite/icons/eye.svg') }}");
-        }
         #span-password
         {
            position: absolute;
@@ -63,7 +59,7 @@
         }
         #btn-eye
         {
-            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('asset_dore/img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
+            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
         }
         
     </style>
@@ -164,10 +160,10 @@
                 var x = document.getElementById("password");
                 if (x.type === "password") {
                     x.type = "text";
-                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/eye.svg') }} )";
+                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('img/password.svg') }} )";
                 } else {
                     x.type = "password";
-                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/hide.svg') }} )";
+                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('img/hide.svg') }} )";
                 }
             });
         });
