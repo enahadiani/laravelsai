@@ -108,7 +108,7 @@
 
             <form action="#">
                 <div class="search" >
-                    <input type="text" placeholder="Search..." id="cari" name="cari" />
+                    <input type="text" placeholder="Search..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
                     <span class="search-icon cari-form">
                         <i class="simple-icon-magnifier"></i>
                     </span>
@@ -539,6 +539,31 @@
         });
     }
 
+    var $dtForm = new Array();
+    function getFormList() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('dash-telu/search-form-list2')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                   
+                    for(i=0;i<result.data.length;i++){
+                        $dtForm[i] = {nama:result.data[i].nama};  
+                    }
+
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            }
+        });
+    }
+
+    getFormList();
+
     function searchForm(cari){
         $.ajax({
             type: 'POST',
@@ -621,8 +646,8 @@
         $(this).addClass('active');
     });
 
-    $('#cari').change(function(){
-        var cari = $(this).val();
+    $('.cari-form').click(function(){
+        var cari = $('#cari').val();
         searchForm(cari);
     });
 
@@ -637,12 +662,28 @@
     });
 
     $('#cari').typeahead({
-        source: function (query, process) {
-            return $.get("{{ url('dash-telu/search-form-list') }}", { query: query }, function (data) {
-                return process(data.success.data.nama);
-            });
+        source: function (cari, result) {
+            result($.map($dtForm, function (item) {
+                return item.nama;
+            }));
         }
     });
+    // $('#cari').typeahead({
+    //     source: function (cari, result) {
+    //         $.ajax({
+    //             url: "{{ url('dash-telu/search-form-list') }}",
+    //             data: {cari:cari},            
+    //             dataType: "json",
+    //             type: "GET",
+    //             success: function (data) {
+    //                 result($.map(data.data, function (item) {
+    //                     return item.nama;
+    //                     console.log(item.nama);
+    //                 }));
+    //             }
+    //         });
+    //     }
+    // });
 
     $(document).ready(function(){
         setTimeout(function(){

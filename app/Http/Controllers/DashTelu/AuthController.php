@@ -468,9 +468,6 @@
         }
 
         public function searchFormList(Request $request){
-            $this->validate($request,[
-                'query' => 'required',
-            ]);
             try {
                 $client = new Client();
                 $response = $client->request('GET', $this->link.'/search-form-list',[
@@ -478,8 +475,8 @@
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'query' => $request->query,
+                    'query' => [
+                        'cari' => $request->cari,
                     ]
                 ]);
     
@@ -489,7 +486,32 @@
                     $data = json_decode($response_data,true);
                     $data = $data;
                 }
-                return response()->json(['data' => $data, 'status'=>true], 200); 
+                return response()->json($data["success"], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function searchFormList2(Request $request){
+            try {
+                $client = new Client();
+                $response = $client->request('GET', $this->link.'/search-form-list',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json($data["success"], 200); 
     
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

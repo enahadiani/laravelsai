@@ -67,6 +67,7 @@ Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
 Route::post('search-form','DashTelu\AuthController@searchForm');
 Route::get('search-form-list','DashTelu\AuthController@searchFormList');
+Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
 
 
 ?>
