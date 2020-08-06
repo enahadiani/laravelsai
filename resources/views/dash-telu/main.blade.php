@@ -99,12 +99,14 @@
                 </svg>
             </a>
 
-            <!-- <div class="search" data-search-path="Pages.Search.html?q=">
-                <input placeholder="Search...">
-                <span class="search-icon">
-                    <i class="simple-icon-magnifier"></i>
-                </span>
-            </div> -->
+            <form action="#">
+                <div class="search" >
+                    <input type="text" placeholder="Search..." id="cari" name="cari" />
+                    <span class="search-icon cari-form">
+                        <i class="simple-icon-magnifier"></i>
+                    </span>
+                </div>
+            </form>
         </div>
 
 
@@ -538,6 +540,30 @@
         });
     }
 
+    function searchForm(cari){
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dash-telu/search-form') }}",
+            dataType: 'json',
+            data:{'cari':cari},
+            async:false,
+            success:function(result){  
+                if(result.data.success.status){
+                    if(result.data.success.data.length > 0){
+                        var tmp = result.data.success.data[0].form;
+                        tmp = tmp.split("_");
+                        var form = tmp[2];
+                        loadForm("{{ url('dash-telu/form')}}/"+form);
+                        return false;
+                    }
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+    }
+
     function loadProfile(){
         loadForm("{{url('dash-telu/form/fProfile')}}");
     }
@@ -592,6 +618,21 @@
         console.log('click-menu');
         $('.main-menu li').removeClass('active');
         $(this).addClass('active');
+    });
+
+    $('#cari').change(function(){
+        var cari = $(this).val();
+        searchForm(cari);
+    });
+
+    $('#cari').keydown(function(e){
+        // console.log(e.which);
+        
+        var cari = $('#cari').val();
+        if(e.which == 13){
+            e.preventDefault();
+            searchForm(cari);
+        }
     });
 
     $(document).ready(function(){

@@ -60,6 +60,7 @@ Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
+Route::post('search-form','DashTelu\AuthController@searchForm');
 
 
 ?>

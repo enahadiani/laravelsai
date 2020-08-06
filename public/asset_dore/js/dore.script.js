@@ -424,7 +424,8 @@ $.dore = function (element, options) {
       var searchPath = $(".search").data("searchPath");
       if (inputVal != "") {
         $(".search input").val("");
-        window.location.href = searchPath + inputVal;
+        // window.location.href = searchPath + inputVal;
+        
       }
     }
 
