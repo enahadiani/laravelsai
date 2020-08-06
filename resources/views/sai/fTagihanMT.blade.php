@@ -59,9 +59,8 @@
                     <form id="form-tambah" style=''>
                         <div class="card-body pb-0">
                             <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Data Tagihan Maintenance
-                            <button id="btn-loading" class="btn btn-success ml-2"  style="float:right; display:none;" disabled><i class="fa fa-save"></i> Loading</button>
                             <button type="submit" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> <span>Simpan</span></button>
-                            <button type="button" id="btn-load" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-database"></i> <span>Load Data</span></button>
+                            <button type="button" id="btn-load" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-database"></i> <span>Gen Data</span></button>
                             <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                             </h4>
                             <hr>
@@ -156,21 +155,24 @@
                                                 overflow:unset !important;
                                             }
                                         </style>
+                                        <div style="table-responsive">
                                         <table class="table table-striped table-bordered table-condensed gridexample" id="input-grid1" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                        <thead style="background:#ff9500;color:white">
+                                            <thead style="background:#ff9500;color:white">
                                             <tr>
-                                                <th style="width:5%"></th>
-                                                <th style="width:30%">Customer</th>
-                                                <th style="width:20%">No Kontrak</th>
-                                                <th style="width:15%">Item</th>
-                                                <th style="width:15%">Nilai</th>
-                                                <th style="width:15%">PPN</th>
-                                                <th style="width:5%">Due Date</th>
+                                                <th style="width: 3%;"></th>
+                                                <th>No Dokumen</th>
+                                                <th>Customer</th>
+                                                <th>No Kontrak</th>
+                                                <th>Item</th>
+                                                <th style="width: 10%;">Nilai</th>
+                                                <th style="width: 10%;">PPN</th>
+                                                <th>Due Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="bupload" role="tab">
@@ -566,23 +568,23 @@
             })
         }
 
+    $('#input-grid1').on('click', '.checkbox-generate', function(){
+        var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
+        var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
+        if($('#'+checkbox).is(':checked')) {
+            $('#'+input).val(true);
+        }else{
+            $('#'+input).val(false);
+        }
+    });
+
     $('#saku-form').on('click', '#btn-load', function(){
         var btnTextLoad = $('#btn-load span');
         var btnLoad = $('#btn-load');
-        var btnSave = $('#btn-simpan');
-        var cust   = $('#kode_cust').val();
-        var status = $('#jenis').val();
-        if(cust == '' || status == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Request tidak terpenuhi!',
-                footer: 'Customer harus dipilih dahulu'
-            })
-        }else{            
+        var btnSave = $('#btn-simpan');     
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sai-trans/tagihan-maintain-load') }}/"+cust+"/"+status,
+                url: "{{ url('sai-trans/tagihan-maintain-load') }}",
                 dataType: 'json',
                 async:true,
                 beforeSend:function(){
@@ -595,7 +597,7 @@
                     console.log('complete')
                     btnLoad.attr('disabled', false);
                     btnSave.attr('disabled', false);
-                    btnTextLoad.text('Load Data');
+                    btnTextLoad.text('Gen Data');
                 },
                 success:function(res){
                     var result= res.daftar;
@@ -605,13 +607,18 @@
                         var input = "";
                         for(var i=0;i<result.length;i++){
                             var line = result[i];
+                            var tanggal = line.tgl_duedate;
+                            var split = tanggal.split(/[- :]/);
+                            var due = split[2]+"/"+split[1]+"/"+split[0];
                             input += "<tr class='row-grid1'>";
-                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
+                            input += "<td><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                            input += "<td><input type='text' name='no_dokumen[]' value='"+line.no_dokumen+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
                             input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
+                            input += "<td><input type='text' name='due_date[]' value='"+due+"' class='form-control' readonly></td>";
                             input += "</tr>";
                             no++;
                         }
@@ -640,7 +647,6 @@
                     })
                 },
             });
-        }
     });
 
     $('#form-tambah').on('click', '#add-row2', function(){
@@ -682,69 +688,81 @@
         }
 
         var formData = new FormData(this);
+        var gen = [];
         for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
+            console.log(pair[0]+ ', '+ pair[1]);
+            if(pair[0] == 'generate[]' && pair[1] == 'true'){
+                gen.push(pair[0]);
+            } 
         }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:true,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            beforeSend:function(){
-                console.log('beforeSend')
-                btnSave.attr('disabled', true);
-                btnTextSave.text('Loading..');
-            }, 
-            complete:function(){
-                console.log('complete')
-                btnSave.attr('disabled', false);
-                btnTextSave.text('Simpan');
-            },
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-                        $('#saku-datatable').show();
-                        $('#saku-form').hide();
-                 
-                }else if(!result.data.status && result.data.message === "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('/sai-auth/login') }}";
-                    }) 
-                }else{
+        if(gen.length === 0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Terjadi kesalahan',
+                footer: 'Mohon untuk menceklis minimal satu dokumen'
+            })
+        }else{
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:true,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                beforeSend:function(){
+                    console.log('beforeSend')
+                    btnSave.attr('disabled', true);
+                    btnTextSave.text('Loading..');
+                }, 
+                complete:function(){
+                    console.log('complete')
+                    btnSave.attr('disabled', false);
+                    btnTextSave.text('Simpan');
+                },
+                success:function(result){
+                    // alert('Input data '+result.message);
+                    if(result.data.status){
+                        // location.reload();
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Great Job!',
+                            'Your data has been '+pesan,
+                            'success'
+                            )
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
+                    
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                }
-            },
-            error: function(xhr, status, error){
-                var err = eval("(" + xhr.responseText + ")");
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Terdapat field form yang kosong!',
-                    footer: err.message
-                })
-            },
-        });
+                            title: 'Session telah habis',
+                            text: 'harap login terlebih dahulu!',
+                            icon: 'error'
+                        }).then(function() {
+                            window.location.href = "{{ url('/sai-auth/login') }}";
+                        }) 
+                    }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                    }
+                },
+                error: function(xhr, status, error){
+                    var err = eval("(" + xhr.responseText + ")");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terdapat field form yang kosong!',
+                        footer: err.message
+                    })
+                },
+            });
+        }
     });
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
