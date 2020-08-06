@@ -57,14 +57,6 @@ $nik     = Session::get('userLog');
             <h1>Pendapatan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
             data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
-            <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-            <ol class="breadcrumb pt-0">
-            <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Pendapatan</li>
-            </ol>
-            </nav>
             <div class="separator mb-5"></div>
         </div>
     </div>

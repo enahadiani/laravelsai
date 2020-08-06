@@ -19,17 +19,9 @@ $thnLalu = substr($tahunLalu,2,2)
 </style>
     <div class="row">
         <div class="col-12">
-            <h1>Budget Commitee</h1>
+            <h1>Pertumbuhan Laba Rugi Tahunan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
             data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
-            <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-            <ol class="breadcrumb pt-0">
-            <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Budget Commitee</li>
-            </ol>
-            </nav>
             <div class="separator mb-5"></div>
         </div>
     </div>
