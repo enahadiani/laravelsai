@@ -23,8 +23,6 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
-    <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
-    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -57,6 +55,9 @@
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
+    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/fullcalendar.min.js') }}"></script>
@@ -632,6 +633,14 @@
         if(e.which == 13){
             e.preventDefault();
             searchForm(cari);
+        }
+    });
+
+    $('#cari').typeahead({
+        source: function (query, process) {
+            return $.get("{{ url('dash-telu/search-form-list') }}", { query: query }, function (data) {
+                return process(data.success.data.nama);
+            });
         }
     });
 
