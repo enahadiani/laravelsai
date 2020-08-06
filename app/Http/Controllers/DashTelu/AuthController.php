@@ -14,7 +14,7 @@
         public function index()
         {
             if(!Session::get('login')){
-                return redirect('dash-telu/login')->with('alert','Kamu harus login dulu');
+                return redirect('dash-telu/login');
             }
             else{
                 return view('dash-telu.main');
@@ -198,7 +198,7 @@
                             array_push($kode,$level_nol);
                             if($next_lv2 > 0){
                                 $main .=" 
-                                <li>
+                                <li class='active'>
                                         <a href='#main".$main_menu[$i]['kode_menu']."'>
                                         <i class='".$main_menu[$i]['icon']."'></i>
                                             <span>".$main_menu[$i]['nama']."</span>
@@ -333,6 +333,84 @@
                     
                     $data = json_decode($response_data,true);
                     $data = $data["user"];
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function updatePassword(Request $request){
+            $this->validate($request,[
+                'password_lama' => 'required',
+                'password_baru' => 'required',
+            ]);
+            try {
+                $client = new Client();
+                $response = $client->request('POST', $this->link.'/update-password',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'form_params' => [
+                        'password_lama' => $request->password_lama,
+                        'password_baru' => $request->password_baru,
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function updatePhoto(Request $request){
+            $this->validate($request,[
+                'foto' => 'required|image|mimes:jpeg,png,jpg'
+            ]);
+            try {
+
+                if($request->hasfile('foto')){
+                    
+                    $image_path = $request->file('foto')->getPathname();
+                    $image_mime = $request->file('foto')->getmimeType();
+                    $image_org  = $request->file('foto')->getClientOriginalName();
+                    $fields = [
+                        [
+                            'name'     => 'foto',
+                            'filename' => $image_org,
+                            'Mime-Type'=> $image_mime,
+                            'contents' => fopen( $image_path, 'r' ),
+                        ]
+                    ];
+                    
+                }
+                $client = new Client();
+                $response = $client->request('POST', $this->link.'/update-foto',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'multipart' => $fields
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
                 }
                 return response()->json(['data' => $data, 'status'=>true], 200); 
     

@@ -56,6 +56,7 @@ Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 
 Route::get('/profile', 'DashTelu\AuthController@getProfile');
 Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
+Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');

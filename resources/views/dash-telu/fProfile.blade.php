@@ -162,6 +162,12 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                     
                 </a>
                 <div class="card mb-4">
+                    <div class="position-absolute card-top-buttons">
+                        <button class="btn btn-primary icon-button " id="editPhoto" data-toggle="modal"
+                        data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo">
+                        <i class="simple-icon-pencil"></i>
+                        </button>
+                    </div>
                     <div class="card-body">
                         <div class="text-center pt-4">
                         <p class="list-item-heading pt-2" id="nama"></p>
@@ -185,6 +191,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
             </div>
             <div class="col-12 col-lg-7 col-xl-8 col-right">
                 <div class="card mb-4">
+                   
                     <div class="card-body">
                             <form>
                                 <div class="form-group">
@@ -212,6 +219,32 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
         </div>
     </div>
 </div>
+<div class="modal fade modal-right" id="modalPhoto" tabindex="-1" role="dialog"
+    aria-labelledby="modalPhoto" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Foto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formPhoto">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Foto</label>
+                            <input type="file" name ="foto" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary"
+                        data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 <script>
 
 function sepNum(x){
@@ -257,7 +290,7 @@ function loadService(index,method,url,param={}){
                         `;
                     }else{
                         var img= `
-                        <img alt="Profile" src="https://api.simkug.com/api/dash-telu/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
+                        <img alt="Profile" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
                         `;
                     }
                     $('#foto').html(img);
@@ -304,34 +337,16 @@ $('#form-profile').on('submit', function(e){
             cache: false,
             processData: false, 
             success:function(result){
-                // alert('Input data '+result.message);
                 if(result.data.status){
-                    // location.reload();
-                    // dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
+                    alert('Update password '+result.message);   
                     $('#password_lama').val('');
                     $('#password_baru').val('');
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                    // })
                     window.location.href = "{{ url('dash-telu/login') }}";
                 }
                 else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
+                   alert(result.data.message);
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
@@ -339,12 +354,53 @@ $('#form-profile').on('submit', function(e){
             },
             error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status==422){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+jqXHR.responseText+'</a>'
-                    })
+                   alert(jqXHR.responseText);
+                }
+            }
+        });
+        
+});
+
+$('#formPhoto').on('submit', function(e){
+    e.preventDefault();
+        var parameter = $('#id').val();
+        var url = "dash-telu/update-foto";
+        var pesan = "saved";
+
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                if(result.data.status){
+                    alert('Update foto sukses!');
+                    $('#modalPhoto').modal('hide');
+                    $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/ypt/storage/'+result.data.foto+'">');
+                    loadForm("{{url('dash-telu/form/fProfile')}}");
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    window.location.href = "{{ url('dash-telu/login') }}";
+                }
+                else{
+                    alert(result.data.message);
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    alert(jqXHR.responseText);
                 }
             }
         });

@@ -75,7 +75,7 @@
     
 </head>
 
-<body id="app-container" class="menu-default show-spinner">
+<body id="app-container" class="menu-main-hidden show-spinner">
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">
@@ -234,11 +234,11 @@
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="name">{{ Session::get('namaUser') }}</span>
-                    <span>
+                    <span id="foto-profile">
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
                     @else
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/'.Session::get('foto')) }}" />
+                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/ypt/storage/'.Session::get('foto') }}" />
                     @endif
                     </span>
                 </button>
