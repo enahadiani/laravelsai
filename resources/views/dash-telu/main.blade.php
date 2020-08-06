@@ -75,7 +75,7 @@
     
 </head>
 
-<body id="app-container" class="menu-main-hidden show-spinner">
+<body id="app-container" class="menu-default show-spinner">
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">

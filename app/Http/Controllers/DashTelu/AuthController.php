@@ -198,7 +198,7 @@
                             array_push($kode,$level_nol);
                             if($next_lv2 > 0){
                                 $main .=" 
-                                <li class='active'>
+                                <li class=''>
                                         <a href='#main".$main_menu[$i]['kode_menu']."'>
                                         <i class='".$main_menu[$i]['icon']."'></i>
                                             <span>".$main_menu[$i]['nama']."</span>
