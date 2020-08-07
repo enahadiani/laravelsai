@@ -155,65 +155,115 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
     <div class="col-12">
         <div class="row">
             <div class="col-12 mb-5">
-                <img class="social-header card-img" style="height:100px" src="{{ asset('asset_dore/img/login/balloon-lg.jpg') }}" />
+                <div style="margin-right: 1rem;top: 130px;" class="position-absolute card-top-buttons">
+                    <button id="editBackground" data-toggle="modal" data-backdrop="static" data-target="#modalBackground" alt="Edit Background" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;">
+                    <i class="simple-icon-pencil"></i>&nbsp;
+                    Ubah background</button>
+                </div>
+                <img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-left">
                 <a href="#" class="lightbox" id="foto">
-                    
                 </a>
                 <div class="card mb-4">
-                    <div class="position-absolute card-top-buttons">
-                        <button class="btn btn-primary icon-button " id="editPhoto" data-toggle="modal"
-                        data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo">
-                        <i class="simple-icon-pencil"></i>
-                        </button>
-                    </div>
                     <div class="card-body">
-                        <div class="text-center pt-4">
-                        <p class="list-item-heading pt-2" id="nama"></p>
+                        <div class="pt-5">
+                        <h5 style="font-weight: bold;">Keamanan Akun</h5>
                         </div>
-                        <p class="text-muted text-small mb-2">Location</p>
-                        <p class="mb-3" id="lokasi"></p>
-                        
-                        <p class="text-muted text-small mb-2">PP</p>
-                        <p class="mb-3" id="pp">
-                        </p>
-                        <p class="text-muted text-small mb-2">Contact</p>
-                        <div class="social-icons">
-                            <ul class="list-unstyled list-inline">
-                                <li class="list-inline-item">
-                                <a href="#" id="notelp" style="font-size:14px"></a>
-                                </li>
-                            </ul>
+                        <div class="d-flex flex-row" style="margin-top:2rem">
+                            <div class="w-30">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#">Username</a>
+                                    </li>
+                                    <li class="mb-1 pb-2" >
+                                    <a href="#">Password</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="w-70">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#" class="nama"></a>
+                                    </li>
+                                    <li class="mb-1 pb-2">
+                                    <a href="#" id="password"></a>
+                                    <button id="editPassword" data-toggle="modal" data-backdrop="static" data-target="#modalPassword" alt="Edit Password" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;position: absolute;right: 15px;">
+                                    <i class="simple-icon-pencil"></i>&nbsp;
+                                    </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-lg-7 col-xl-8 col-right">
                 <div class="card mb-4">
-                   
                     <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="fullname">Full Name</label>
-                                    <input type="text" class="form-control" id="fullname" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nik">NIK</label>
-                                    <input type="text" class="form-control" id="nik" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password_lama">Password Lama</label>
-                                    <input type="password" class="form-control" id="password_lama">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password_baru">Password Baru</label>
-                                    <input type="password" class="form-control" id="password_baru">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary mb-0">Update Password</button>
-                            </form>
-                    <div>
+                        <h5 style="font-weight: bold;">Profile Pekerjaan</h5>
+                        <div class="d-flex flex-row" style="margin-top:2rem">
+                            <div class="w-30">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#">NIK</a>
+                                    </li>
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#">Jabatan</a>
+                                    </li>
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#">Nama</a>
+                                    </li>
+                                    <li class="mb-1 pb-2" >
+                                    <a href="#">PP</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="w-70">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#" id="nik" ></a>
+                                    </li>
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#" id="jabatan"></a>
+                                    </li>
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#" class="nama"></a>
+                                    </li>
+                                    <li class="mb-1 pb-2" >
+                                    <a href="#" id="pp"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="font-weight: bold;">Info Kontak</h5>
+                        <div class="d-flex flex-row" style="margin-top:2rem">
+                            <div class="w-30">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#">Email</a>
+                                    </li>
+                                    <li class="mb-1 pb-2" >
+                                    <a href="#">Telepon</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="w-70">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
+                                    <a href="#" id="email"></a>
+                                    </li>
+                                    <li class="mb-1 pb-2">
+                                    <a href="#" id="no_telp"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,6 +317,17 @@ function toJuta(x) {
     return sepNum(nil) + '';
 }
 
+function typePass(str){
+    var count = str.length;
+    var text = "";
+    if(count > 0){
+        for(var i=0;i<count;i++){
+            text+="•";
+        }
+    }
+    return text;
+}
+
 function loadService(index,method,url,param={}){
     $.ajax({
         type: method,
@@ -284,24 +345,32 @@ function loadService(index,method,url,param={}){
                     case 'profile' :
                     if(result.data[0].foto == "-" || result.data[0].foto == "" || result.data[0].foto == undefined){
                         var img= `
+                        <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
+                            <button id="editPhoto" data-toggle="modal" data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
+                            <i class="simple-icon-camera"></i>
+                            </button>
+                        </div>
                         <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
                         `;
                     }else{
                         var img= `
+                        <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
+                            <button id="editPhoto" data-toggle="modal" data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
+                            <i class="simple-icon-camera"></i>
+                            </button>
+                        </div>
                         <img alt="Profile" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
                         `;
                     }
                     $('#foto').html(img);
-                    $('#nama').html(result.data[0].nama);
-                    $('#notelp').html(`<i class="simple-icon-phone"></i> : `+result.data[0].no_telp);
-
-                    $('#fullname').val(result.data[0].nama);
-                    $('#nik').val(result.data[0].nik);
+                    $('.nama').html(result.data[0].nama);
+                    $('#nik').html(result.data[0].nik);
+                    $('#no_telp').html(result.data[0].no_telp);
+                    $('#email').html(result.data[0].email);
                     var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
                     $('#pp').html(pp);
-                    $('#lokasi').html(result.data[0].kode_lokasi+' - '+result.data[0].nmlok);
-                    $('#password_lama').val('');
-                    $('#password_baru').val('');
+                    $('#jabatan').html(result.data[0].jabatan);
+                    $('#password').html(typePass(result.data[0].password));
                     break;
 
                 }
