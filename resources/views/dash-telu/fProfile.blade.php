@@ -242,10 +242,12 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 <div class="row" id="editpage-profile" style="display:none">
     <div class="col-12">
         <div class="row">
-            <div class="col-12 col-lg-12 col-xl-12 col-left">
-                <div class="card mb-4">
+            <div class="col-12 col-lg-7 col-xl-8 col-left">
+            </div>
+            <div class="col-12 col-lg-5 col-xl-4 col-right">
+                <div class="card mb-4" style="box-shadow:none;border-radius: 8px;border: 1px solid #dadce0;box-sizing: border-box;">
                     <div class="card-body">
-                        <form id="form-ubahPass" class="tooltip-right-bottom col-sm-12 col-md-4" novalidate="novalidate">
+                        <form id="form-ubahPass" class="tooltip-right-bottom" novalidate="novalidate">
                             <h5 class="mb-4">Ubah Password</h5>
                             <div class="form-group has-float-label">
                                 <input class="form-control" type="password" name="password_lama" required="">
