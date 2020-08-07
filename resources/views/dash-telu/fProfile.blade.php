@@ -151,16 +151,16 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
     color:#0073b7
 }
 </style>
-<div class="row">
+<div class="row" id="page-profile">
     <div class="col-12">
-        <div class="row">
+        <div class="row" >
             <div class="col-12 mb-5">
                 <div style="margin-right: 1rem;top: 130px;" class="position-absolute card-top-buttons">
-                    <button id="editBackground" data-toggle="modal" data-backdrop="static" data-target="#modalBackground" alt="Edit Background" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;">
+                    <button id="editBackground" alt="Edit Background" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;">
                     <i class="simple-icon-pencil"></i>&nbsp;
                     Ubah background</button>
                 </div>
-                <img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />
+                <div id="foto-background"></div>
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-left">
                 <a href="#" class="lightbox" id="foto">
@@ -188,7 +188,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                                     </li>
                                     <li class="mb-1 pb-2">
                                     <a href="#" id="password"></a>
-                                    <button id="editPassword" data-toggle="modal" data-backdrop="static" data-target="#modalPassword" alt="Edit Password" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;position: absolute;right: 15px;">
+                                    <button id="editPassword" alt="Edit Password" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;position: absolute;right: 15px;">
                                     <i class="simple-icon-pencil"></i>&nbsp;
                                     </button>
                                     </li>
@@ -269,6 +269,39 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
         </div>
     </div>
 </div>
+
+<div class="row" id="editpage-profile" style="display:none">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xl-12 col-left">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="form-ubahPass" class="tooltip-right-bottom col-sm-12 col-md-4" novalidate="novalidate">
+                            <h5 class="mb-4">Ubah Password</h5>
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="password" name="password_lama" required="">
+                                <span>Password Lama</span>
+                            </div>
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="password" name="password_baru" required="">
+                                <span>Password Baru</span>
+                            </div>
+                            <div class="form-group has-float-label">
+                                <input class="form-control" type="password" name="password_confirm" required="">
+                                <span>Konfirmasi Password Baru</span>
+                            </div>
+                            <div class="form-group text-right">
+                                <button type="button" class="btn btn-outline-primary" id="btn-cancel">Cancel</button>
+                                <button class="btn btn-primary" type="submit">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade modal-right" id="modalPhoto" tabindex="-1" role="dialog"
     aria-labelledby="modalPhoto" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -284,6 +317,8 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         <div class="form-group">
                             <label>Foto</label>
                             <input type="file" name ="foto" class="form-control" placeholder="">
+                            
+                            <input type="hidden" id="id_foto" class="form-control" placeholder="" value="foto">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -346,7 +381,7 @@ function loadService(index,method,url,param={}){
                     if(result.data[0].foto == "-" || result.data[0].foto == "" || result.data[0].foto == undefined){
                         var img= `
                         <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
-                            <button id="editPhoto" data-toggle="modal" data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
+                            <button id="editPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
                             <i class="simple-icon-camera"></i>
                             </button>
                         </div>
@@ -355,14 +390,24 @@ function loadService(index,method,url,param={}){
                     }else{
                         var img= `
                         <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
-                            <button id="editPhoto" data-toggle="modal" data-backdrop="static" data-target="#modalPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
+                            <button id="editPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
                             <i class="simple-icon-camera"></i>
                             </button>
                         </div>
                         <img alt="Profile" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
                         `;
                     }
+
+                    if(result.data[0].background == "-" || result.data[0].background == "" || result.data[0].background == undefined){
+
+                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />`;
+                    }else{
+                        
+                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].background+`" />`;
+                    }
+
                     $('#foto').html(img);
+                    $('#foto-background').html(background);
                     $('.nama').html(result.data[0].nama);
                     $('#nik').html(result.data[0].nik);
                     $('#no_telp').html(result.data[0].no_telp);
@@ -383,7 +428,7 @@ function initDash(){
 }
 initDash();
 
-$('#form-profile').on('submit', function(e){
+$('#form-ubahPass').on('submit', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
         var url = "dash-telu/update-password";
@@ -405,9 +450,14 @@ $('#form-profile').on('submit', function(e){
             processData: false, 
             success:function(result){
                 if(result.data.status){
-                    alert('Update password '+result.message);   
+                    alert(result.data.message);   
                     $('#password_lama').val('');
                     $('#password_baru').val('');
+                    $('#password_confirm').val('');
+                    // $('#page-profile').show();
+                    // $('#editpage-profile').hide();
+                    loadProfile();
+
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
                     window.location.href = "{{ url('dash-telu/sesi-habis') }}";
@@ -422,6 +472,8 @@ $('#form-profile').on('submit', function(e){
             error: function(jqXHR, textStatus, errorThrown) {       
                 if(jqXHR.status==422){
                    alert(jqXHR.responseText);
+                }else{
+                   alert(jqXHR.responseText);
                 }
             }
         });
@@ -430,8 +482,14 @@ $('#form-profile').on('submit', function(e){
 
 $('#formPhoto').on('submit', function(e){
     e.preventDefault();
-        var parameter = $('#id').val();
-        var url = "dash-telu/update-foto";
+        var parameter = $('#id_foto').val();
+
+        if(parameter == "foto"){
+            var url = "dash-telu/update-foto";
+        }else{
+            
+            var url = "dash-telu/update-background";
+        }
         var pesan = "saved";
 
         var formData = new FormData(this);
@@ -452,7 +510,10 @@ $('#formPhoto').on('submit', function(e){
                 if(result.data.status){
                     alert('Update foto sukses!');
                     $('#modalPhoto').modal('hide');
-                    $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/ypt/storage/'+result.data.foto+'">');
+                    if(parameter == "foto"){
+
+                        $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/ypt/storage/'+result.data.foto+'">');
+                    }
                     loadForm("{{url('dash-telu/form/fProfile')}}");
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -472,5 +533,31 @@ $('#formPhoto').on('submit', function(e){
             }
         });
         
+});
+
+$('#editPassword').click(function(){
+    $('#page-profile').hide();
+    $('#editpage-profile').show();
+});
+
+$('#btn-cancel').click(function(){
+    $('#page-profile').show();
+    $('#editpage-profile').hide();
+});
+
+$('#foto').on('click','#editPhoto',function(e){
+    e.preventDefault();
+    console.log('click');
+    // $('#page-profile').hide();
+    // $('#editpage-profile').show();
+    $('#id_foto').val('foto');
+    $('#modalPhoto').modal('show');
+});
+
+$('#editBackground').click(function(){
+    // $('#page-profile').hide();
+    // $('#editpage-profile').show();
+    $('#id_foto').val('background');
+    $('#modalPhoto').modal('show');
 });
 </script>
