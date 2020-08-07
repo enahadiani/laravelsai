@@ -1,7 +1,7 @@
 <?php 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Http\Request;
 
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
@@ -14,6 +14,16 @@ Route::get('/form/{id}', function ($id) {
 
 Route::get('/sesi-habis', function () {
     return view('dash-telu.sesi');
+});
+
+Route::get('tess',function(Request $request){
+    $data = $request->session()->all();
+    dump($data);
+    if(Session::has('_previous')){
+        echo "sudah pernah login";
+    }else{
+        echo "belum sama sekali";
+    }
 });
 
 

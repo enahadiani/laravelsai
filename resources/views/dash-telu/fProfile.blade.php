@@ -307,7 +307,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Foto</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -551,6 +551,7 @@ $('#foto').on('click','#editPhoto',function(e){
     // $('#page-profile').hide();
     // $('#editpage-profile').show();
     $('#id_foto').val('foto');
+    $('.modal-title').html("Edit Foto");
     $('#modalPhoto').modal('show');
 });
 
@@ -558,6 +559,7 @@ $('#editBackground').click(function(){
     // $('#page-profile').hide();
     // $('#editpage-profile').show();
     $('#id_foto').val('background');
+    $('.modal-title').html("Edit Background");
     $('#modalPhoto').modal('show');
 });
 </script>
