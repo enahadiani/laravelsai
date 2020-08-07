@@ -190,21 +190,20 @@ class TagihanMTController extends Controller
         }
         
         try { 
-            var_dump($send_data);
-            // $client = new Client();
-            // $response = $client->request('POST', $this->link.'tagihan-maintain',[
-            //     'headers' => [
-            //         'Authorization' => 'Bearer '.Session::get('token'),
-            //         'Accept'     => 'application/json',
-            //     ],
-            //     'multipart' => $send_data
-            // ]);
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST', $this->link.'tagihan-maintain',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $send_data
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data], 200);  
-            // }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

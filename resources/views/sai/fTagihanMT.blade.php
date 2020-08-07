@@ -826,6 +826,7 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    $('#btn-load').hide();
                     var dataDate = new Date(result.data[0].tanggal);
                     var tgl = ("0" + dataDate.getDate()).slice(-2)
                     var bln = ("0" + (dataDate.getMonth() + 1)).slice(-2);
@@ -856,13 +857,18 @@
                         var no = 1;
                         for(var i=0;i<result.data_detail.length;i++) {
                             var line = result.data_detail[i];
+                            var tanggal = line.tgl_duedate;
+                            var split = tanggal.split(/[- :]/);
+                            var due = split[2]+"/"+split[1]+"/"+split[0];
                             input += "<tr class='row-grid1'>";
-                            input += "<td class='no-grid1 text-center'>"+no+"</td>";
-                            input += "<td><input type='text' name='cust[]' value='"+line.kode_cust+"' class='form-control' readonly></td>";
+                            input += "<td><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                            input += "<td><input type='text' name='no_dokumen[]' value='"+line.no_dokumen+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
                             input += "<td><input type='text' name='nilai_ppn[]' class='form-control inp-tagihan nilai_ppn nilai_ppnke"+no+"'  value='"+parseFloat(line.nilai_ppn)+"' required readonly></td>";
+                            input += "<td><input type='text' name='due_date[]' value='"+due+"' class='form-control' readonly></td>";
                             input += "</tr>";
                             no++;
                         }

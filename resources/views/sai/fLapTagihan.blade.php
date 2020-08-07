@@ -157,7 +157,10 @@
         var $loadBar = $('#loading-bar');
         var $loadBar2 = $('#loading-bar2');
 
-            function getCustomer() {
+        xurl = "{{ url('/sai-auth/form')}}/rptTagihanMT";
+        $('#content-lap').load(xurl);
+
+    function getCustomer() {
         $.ajax({
             type:'GET',
             url:"{{url('sai-master/customer')}}",
