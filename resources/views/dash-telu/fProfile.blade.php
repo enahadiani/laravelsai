@@ -150,6 +150,9 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 .judulBox:hover{
     color:#0073b7
 }
+.table-profile td,.table-profile th{
+    padding: 0.75em 0px ;
+}
 </style>
 <div class="row" id="page-profile">
     <div class="col-12">
@@ -170,31 +173,21 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                         <div class="pt-5">
                         <h5 style="font-weight: bold;">Keamanan Akun</h5>
                         </div>
-                        <div class="d-flex flex-row" style="margin-top:2rem">
-                            <div class="w-30">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#">Username</a>
-                                    </li>
-                                    <li class="mb-1 pb-2" >
-                                    <a href="#">Password</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="w-70">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#" class="nama"></a>
-                                    </li>
-                                    <li class="mb-1 pb-2">
-                                    <a href="#" id="password"></a>
-                                    <button id="editPassword" alt="Edit Password" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;position: absolute;right: 15px;">
+                        <table class="table table-profile">
+                            <tbody>
+                                <tr>
+                                    <td style="border-top: none;width:30%" >Username</td>
+                                    <td style="border-top: none;width:70%" class="nama" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%">Password</td>
+                                    <td id="password" style="width:60%"></td>
+                                    <td classs="text-right" style="width:10%"><button id="editPassword" alt="Edit Password" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;">
                                     <i class="simple-icon-pencil"></i>&nbsp;
-                                    </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                                    </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -202,67 +195,43 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 style="font-weight: bold;">Profile Pekerjaan</h5>
-                        <div class="d-flex flex-row" style="margin-top:2rem">
-                            <div class="w-30">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#">NIK</a>
-                                    </li>
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#">Jabatan</a>
-                                    </li>
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#">Nama</a>
-                                    </li>
-                                    <li class="mb-1 pb-2" >
-                                    <a href="#">PP</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="w-70">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#" id="nik" ></a>
-                                    </li>
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#" id="jabatan"></a>
-                                    </li>
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#" class="nama"></a>
-                                    </li>
-                                    <li class="mb-1 pb-2" >
-                                    <a href="#" id="pp"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <table class="table table-profile">
+                            <tbody>
+                                <tr>
+                                    <td style="border-top: none;width:30%" >NIK</td>
+                                    <td style="border-top: none;width:70%" id="nik" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Jabatan</td>
+                                    <td style="width:70%" id="jabatan" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Nama</td>
+                                    <td style="width:70%" class="nama" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >PP</td>
+                                    <td style="width:70%" id="pp" colspan="2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 style="font-weight: bold;">Info Kontak</h5>
-                        <div class="d-flex flex-row" style="margin-top:2rem">
-                            <div class="w-30">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#">Email</a>
-                                    </li>
-                                    <li class="mb-1 pb-2" >
-                                    <a href="#">Telepon</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="w-70">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-1 pb-2" style="border-bottom: 1px solid #e8e8e8">
-                                    <a href="#" id="email"></a>
-                                    </li>
-                                    <li class="mb-1 pb-2">
-                                    <a href="#" id="no_telp"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <table class="table table-profile">
+                            <tbody>
+                                <tr>
+                                    <td style="border-top: none;width:30%" >Email</td>
+                                    <td style="border-top: none;width:70%" id="email" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Telpon</td>
+                                    <td style="width:70%" id="no_telp" colspan="2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
