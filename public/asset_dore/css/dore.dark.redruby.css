@@ -3407,8 +3407,13 @@ div.error {
   .typeahead.dropdown-menu .dropdown-item {
     padding: 0.5rem 0.75rem !important; }
   .typeahead.dropdown-menu .active a {
+    background-color: #1b1919;
+    color: #8f8f8f; 
+  }
+  .typeahead.dropdown-menu .active a:hover {
     background-color: #913a47;
-    color: #d0d0d0; }
+    color: #d0d0d0; 
+  }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;
