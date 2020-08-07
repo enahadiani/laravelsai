@@ -1,4 +1,4 @@
-<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PrintArea/2.4.1/jquery.PrintArea.min.js" integrity="sha512-mPA/BA22QPGx1iuaMpZdSsXVsHUTr9OisxHDtdsYj73eDGWG2bTSTLTUOb4TG40JvUyjoTcLF+2srfRchwbodg==" crossorigin="anonymous"></script>
 <style>
     td,th{
         padding:4px !important;
@@ -9,6 +9,14 @@
     }
     th{
         text-align:center;
+    }
+    #print-area{
+        display: none;
+    }
+    @media print{
+        #print-area{
+            display: block;
+        }
     }
 </style>
 <div id='sai-rpt-table-export-tbl-daftar-pnj'>
@@ -33,7 +41,7 @@
                     <td class='isi_laporan'>Perihal Sewa-Menyewa Aplikasi Keuangan</td>
                     <td class='isi_laporan' style="text-align: right;">2.000.000</td>
                     <td class='isi_laporan' style="text-align: right;">200.000</td>
-                    <td class='isi_laporan' style='text-align:center;'><a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a></td>
+                    <td class='isi_laporan' style='text-align:center;'><a href='#' title='Preview' class='badge badge-info btn-print'><i class='fas fa-print'></i></a></td>
                 </tr>
                 <tr>
                     <td class='isi_laporan' style="text-align: center;">2</td>
@@ -42,9 +50,40 @@
                     <td class='isi_laporan'>Perihal Sewa-Menyewa Aplikasi Dashboard</td>
                     <td class='isi_laporan' style="text-align: right;">3.000.000</td>
                     <td class='isi_laporan' style="text-align: right;">300.000</td>
-                    <td class='isi_laporan' style='text-align:center;'><a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a></td>
+                    <td class='isi_laporan' style='text-align:center;'><a href='#' title='Preview' class='badge badge-info btn-print'><i class='fas fa-print'></i></a></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<div id="print-area">
+    <div style="margin-top: 120px;">
+        <p style="font-size: 16px;">Bandung, 01 Juli 2020</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nomor</td>
+                    <td>:</td>
+                    <td>001/SAI-01/202008</td>
+                </tr>
+                <tr>
+                    <td>Perihal</td>
+                    <td>:</td>
+                    <td>Permohonan Pembayaran</td>
+                </tr>
+                <tr>
+                    <td>Lampiran</td>
+                    <td>:</td>
+                    <td>1 (satu) bundel</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+$('.btn-print').on('click', function(){
+    $('#print-area').printArea();
+})
+</script>
