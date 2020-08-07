@@ -58,8 +58,8 @@
 </div>
 
 <div id="print-area">
-    <div style="margin-top: 120px;">
-        <p style="font-size: 16px;">Bandung, 01 Juli 2020</p>
+    <div style="margin-top: 120px; margin-left:100px;">
+        <p style="font-size: 16px; margin-left:6px;">Bandung, 01 Juli 2020</p>
         <table>
             <tbody>
                 <tr>
@@ -79,6 +79,22 @@
                 </tr>
             </tbody>
         </table>
+        <br/>
+        <br/>
+        <p style="font-size: 16px; margin-left:6px;">Kepada Yth,</p>
+        <p style="font-size: 16px; margin-left:6px; margin-top:-20px !important;"><b>KOPERASI PEGAWAI TELKOM DIVRE III</b></p>
+        <p style="font-size: 16px; margin-left:6px; margin-top:-20px !important;"><b>c.q. Manager Keuangan</b></p>
+        <p style="font-size: 16px; margin-left:6px; margin-top:-20px !important;">Jl. Supratman Nno. 62</p>
+        <p style="font-size: 16px; margin-left:6px; margin-top:-20px !important;">Bandung</p>
+        <br/>
+        <p style="font-size: 16px; margin-left:6px;">Dengan hormat,</p>
+        <div>
+            <div style="font-size: 16px; margin-left:6px;">1.
+            <p style="font-size: 16px; margin-left:40px; display:inline; text-align: justify;">
+                Menunjuk Perjanjian Kerja Sama Nomor : 99-KTR2008.0001 tanggal 12 Juni 2015 perihal Sewa-Menyewa Aplikasi Keuangan.
+            </p>
+            </div>
+        </div>
     </div>
 </div>
 
