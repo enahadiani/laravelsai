@@ -744,6 +744,12 @@
     });
     var $theme = "dore.light.redruby.min.css";
     // localStorage.setItem("dore-theme-color", theme);
+
+    // $('.typeahead.dropdown-menu').on('click','.dropdown-item',function(e){
+    //     e.preventDefault();
+    //     console.log('click');
+    //     var cari = $(this).text();
+    // })
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>

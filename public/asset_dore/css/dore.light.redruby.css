@@ -3401,14 +3401,17 @@ div.error {
     color: #fff;  */
     background-color: #f8f8f8;
     color: #3a3a3a;
+    border-radius: 0.75rem;
   }
   .typeahead.dropdown-menu .active a:hover {
     color: #900604;
     background: rgb(224, 223, 223); 
+    border-radius: 0.75rem;
   }
   .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
     color: #900604;
     background: rgb(197, 196, 196); 
+    border-radius: 0.75rem;
   }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
