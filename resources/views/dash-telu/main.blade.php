@@ -577,6 +577,15 @@
                         var tmp = result.data.success.data[0].form;
                         tmp = tmp.split("_");
                         var form = tmp[2];
+                        //add Class active in li level 1;
+                        $('.sub-menu li').removeClass('active');
+                        $("[data-href="+form+"]").first().parents("li").addClass("active");
+                        
+                        //add Class active in li level 0;
+                        var target = $("[data-href="+form+"]").parents("li").parents("ul").last().attr("data-link");
+                        $('.main-menu li').removeClass('active');
+                        $('a[href="#'+target+'"]').parents("li").addClass("active");
+
                         loadForm("{{ url('dash-telu/form')}}/"+form);
                         return false;
                     }
