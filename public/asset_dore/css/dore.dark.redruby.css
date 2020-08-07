@@ -3414,6 +3414,10 @@ div.error {
     background-color: #913a47;
     color: #d0d0d0; 
   }
+  .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
+    color: #913a47;
+    background: #2c2a2a; 
+  }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;

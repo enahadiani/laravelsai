@@ -3406,6 +3406,10 @@ div.error {
     background-color: #900604;
     color: #fff; 
   }
+  .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
+    color: #900604;
+    background: rgb(224, 223, 223); 
+  }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;
