@@ -719,7 +719,7 @@
                 gen.push(pair[0]);
             } 
         }
-        if(gen.length === 0){
+        if(gen.length === 0 && id == ''){
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -868,6 +868,7 @@
                     $('#no_tagihan').val(id);
                     $('#id').val(id);
                     $('#no_tagihan').attr('readonly',true);
+                    $('#periode').attr('readonly',true);
                     $('#tanggal').val(tanggal);
                     $('#keterangan').val(result.data[0].keterangan);
                     $('#periode').val(result.data[0].periode);
@@ -885,7 +886,7 @@
                             input += "<tr class='row-grid1 active'>";
                             input += "<td>"+no+"</td>";
                             input += "<td><input type='text' name='no_dokumen[]' value='"+line.no_dokumen+"' class='form-control' readonly></td>";
-                            input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
+                            input += "<td><input type='text' name='cust[]' value='"+line.kode_cust+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='item[]' value='"+line.item+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='nilai[]' class='form-control inp-tagihan nilai nilaike"+no+"'  value='"+parseFloat(line.nilai)+"' required readonly></td>";
@@ -895,7 +896,6 @@
                             no++;
                         }
                         $('#input-grid1 tbody').append(input);
-                        hitungTotal();
                         $('.inp-tagihan').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
