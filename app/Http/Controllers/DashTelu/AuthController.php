@@ -260,7 +260,7 @@
                                 ";
                                 
                             }
-                            // Sintaks Menu Level 0 dan beranak
+                            // Sintaks Menu Level 1 dan beranak
                             else if($this_lv == 1 AND $next_lv > 1){
                                 $sub[$level_nol] .="
                                 <li>
