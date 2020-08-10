@@ -62,6 +62,7 @@ class TagihanMTController extends Controller
             'total_nilai' => 'required',
             'total_nilai_ppn' => 'required',
             'jenis'=> 'required',
+            'periode'=> 'required',
             'cust'=> 'required|array',
             'no_dokumen'=> 'required|array',
             'due_date'=> 'required|array',
@@ -70,43 +71,6 @@ class TagihanMTController extends Controller
             'nilai'=> 'required|array',
             'nilai_ppn'=> 'required|array',
         ]);
-
-        $explode_tgl = explode('/', $request->tanggal);
-        $tgl = $explode_tgl[0];
-        $bln = $explode_tgl[1];
-        $tahun = $explode_tgl[2];
-        $tanggal = $tahun."-".$bln."-".$tgl;
-
-        $fields = [
-                [
-                    'name' => 'tanggal',
-                    'contents' => $tanggal,
-                ],
-                [
-                    'name' => 'nik_app',
-                    'contents' => Session::get('userLog'),
-                ],
-                [
-                    'name' => 'keterangan',
-                    'contents' => $request->keterangan,
-                ],
-                [
-                    'name' => 'total_nilai',
-                    'contents' => intval(str_replace('.','', $request->total_nilai)),
-                ],
-                [
-                    'name' => 'total_nilai_ppn',
-                    'contents' => intval(str_replace('.','', $request->total_nilai_ppn)),
-                ],
-                [
-                    'name' => 'nama_rek',
-                    'contents' => $request->nama_rek,
-                ],
-                [
-                    'name' => 'status_kontrak',
-                    'contents' => $request->jenis,
-                ],
-            ];
     
             $explode_tgl = explode('/', $request->tanggal);
             $tgl = $explode_tgl[0];
@@ -126,6 +90,10 @@ class TagihanMTController extends Controller
                     [
                         'name' => 'keterangan',
                         'contents' => $request->keterangan,
+                    ],
+                    [
+                        'name' => 'periode',
+                        'contents' => $request->periode,
                     ],
                     [
                         'name' => 'total_nilai',

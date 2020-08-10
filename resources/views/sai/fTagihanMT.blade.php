@@ -341,6 +341,7 @@
         $('.kode-cust').show();
         $('#btn-load').show();
         $('#input-grid1 tbody').empty();
+        $('#input-grid2 tbody').empty();
         $('.data-customer').hide();
         $('#form-tambah')[0].reset();
         $('.no-tagihan').hide();
@@ -403,7 +404,7 @@
     function hitungTotal(){
         var total = 0;
         var total_ppn = 0;
-        $('.row-grid1').each(function(){
+        $('.generate').each(function(){
             var nilai = $(this).closest('tr').find('.nilai').val();
             var ppn = $(this).closest('tr').find('.nilai_ppn').val();
             total += +toNilai(nilai);
@@ -575,11 +576,19 @@
     $('#input-grid1').on('click', '.checkbox-generate', function(){
         var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
         var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
+        var row = $(this).closest('tr');
+        if(row.hasClass('generate')){
+            row.removeClass('generate');
+        }else{
+            row.addClass('generate');
+        }
+        
         if($('#'+checkbox).is(':checked')) {
             $('#'+input).val(true);
         }else{
             $('#'+input).val(false);
         }
+        hitungTotal();
     });
 
     $('#saku-form').on('click', '#btn-load', function(){
@@ -624,7 +633,7 @@
                             var tanggal = line.tgl_duedate;
                             var split = tanggal.split(/[- :]/);
                             var due = split[2]+"/"+split[1]+"/"+split[0];
-                            input += "<tr class='row-grid1'>";
+                            input += "<tr class='row-grid1 row-"+no+"'>";
                             input += "<td><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
                             input += "<td><input type='text' name='no_dokumen[]' value='"+line.no_dokumen+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
@@ -637,7 +646,7 @@
                             no++;
                         }
                         $('#input-grid1 tbody').append(input);
-                        hitungTotal();
+                        // hitungTotal();
                         $('.inp-tagihan').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
@@ -841,6 +850,8 @@
             success:function(res){
                 var result= res.data;
                 if(result.status){
+                    $('#input-grid1 tbody').empty();
+                    $('#input-grid2 tbody').empty();
                     $('#btn-load').hide();
                     var dataDate = new Date(result.data[0].tanggal);
                     var tgl = ("0" + dataDate.getDate()).slice(-2)
@@ -857,13 +868,9 @@
                     $('#no_tagihan').val(id);
                     $('#id').val(id);
                     $('#no_tagihan').attr('readonly',true);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#tanggal').val(tanggal);
                     $('#keterangan').val(result.data[0].keterangan);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#periode').val(result.data[0].periode);
                     $('#total_nilai').val(parseFloat(result.data[0].nilai));
                     $('#total_nilai_ppn').val(parseFloat(result.data[0].nilai_ppn));
                     
@@ -872,11 +879,11 @@
                         var no = 1;
                         for(var i=0;i<result.data_detail.length;i++) {
                             var line = result.data_detail[i];
-                            var tanggal = line.tgl_duedate;
+                            var tanggal = line.due_date;
                             var split = tanggal.split(/[- :]/);
                             var due = split[2]+"/"+split[1]+"/"+split[0];
-                            input += "<tr class='row-grid1'>";
-                            input += "<td><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                            input += "<tr class='row-grid1 active'>";
+                            input += "<td>"+no+"</td>";
                             input += "<td><input type='text' name='no_dokumen[]' value='"+line.no_dokumen+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='cust[]' value='"+line.cust+"' class='form-control' readonly></td>";
                             input += "<td><input type='text' name='no_kontrak[]' value='"+line.no_kontrak+"' class='form-control' readonly></td>";
@@ -888,6 +895,7 @@
                             no++;
                         }
                         $('#input-grid1 tbody').append(input);
+                        hitungTotal();
                         $('.inp-tagihan').inputmask("numeric", {
                             radixPoint: ",",
                             groupSeparator: ".",
