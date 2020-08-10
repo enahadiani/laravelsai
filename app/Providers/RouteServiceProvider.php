@@ -67,6 +67,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSaiRoutes();
         
         $this->mapDashTeluRoutes();
+        
+        $this->mapEsakuRoutes();
 
         //
     }
@@ -254,4 +256,34 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/sai/report.php'));
    
     }
+
+    protected function mapEsakuRoutes()
+    {
+        Route::prefix('esaku-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/esaku/auth.php'));
+
+        Route::prefix('esaku-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/esaku/dash.php'));
+    
+        Route::prefix('esaku-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/esaku/master.php'));
+    
+        Route::prefix('esaku-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/esaku/trans.php'));
+    
+        Route::prefix('esaku-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/esaku/report.php'));
+   
+    }
+
 }
