@@ -153,7 +153,7 @@ $nik     = Session::get('userLog');
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
                     </div>
                 </form>
             </div>
