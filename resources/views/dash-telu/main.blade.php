@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
+    
+    <!-- Selectize -->
+    <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -74,6 +77,8 @@
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    
+    <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     
 </head>
 

@@ -16,17 +16,6 @@ Route::get('/sesi-habis', function () {
     return view('dash-telu.sesi');
 });
 
-Route::get('tess',function(Request $request){
-    $data = $request->session()->all();
-    dump($data);
-    if(Session::has('_previous')){
-        echo "sudah pernah login";
-    }else{
-        echo "belum sama sekali";
-    }
-});
-
-
 Route::get('/cek_session', 'DashTelu\AuthController@cek_session');
 Route::get('/', 'DashTelu\AuthController@index');
 Route::get('/login', 'DashTelu\AuthController@login');
@@ -79,6 +68,7 @@ Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
 Route::post('search-form','DashTelu\AuthController@searchForm');
 Route::get('search-form-list','DashTelu\AuthController@searchFormList');
 Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
+Route::get('periode','DashTelu\DashboardController@getPeriode');
 
 
 ?>

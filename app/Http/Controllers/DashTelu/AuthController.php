@@ -158,7 +158,7 @@
         public function logout()
         {
             Session::flush();
-            return redirect('dash-telu/login');
+            return redirect('dash-telu/login')->with('status','logout');
         }
 
         public function getMenu(){

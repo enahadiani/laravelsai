@@ -62,7 +62,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-12">
             <h1>RKA Tahunan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
+            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter &nbsp;&nbsp;<i class="simple-icon-equalizer" style="transform-style: ;"></i></a>
             
             <div class="separator mb-5"></div>
         </div>
@@ -135,24 +135,26 @@ $thnLalu = substr($tahunLalu,2,2)
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Filter</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                <form id="form-filter">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
                             <label>Periode</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <select class="form-control" data-width="100%" name="periode" id="periode">
+                                <option value='#'>--Pilih Periode--</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -229,41 +231,87 @@ function singkatNilai(num){
     }
 }
 
-function getPencapaianYoY(periode=null) {
+function getPeriode(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/periode') }}",
+        dataType: "JSON",
+        success: function(result){
+            var select = $('#periode').selectize();
+            select = select[0];
+            var control = select.selectize;
+            if(result.data.status){
+                if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                    for(i=0;i<result.data.data.length;i++){
+                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                    }
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+getPeriode();
+function getPencapaianYoY(periode=null)
+{
     $.ajax({
         type:"GET",
         url:"{{ url('/dash-telu/getPencapaianYoY') }}/"+periode,
         dataType: "JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success: function(result){
             var html='';
             var nama = ['Pendapatan','Beban','SHU','OR'];
-            for(var i=0;i<result.data.data.length;i++){
-            var line = result.data.data[i];
-            if(line.kode_neraca == 'OR')
+            for(var i=0;i<result.data.data.length;i++)
             {
-                html+=`<tr>
-                <td style='font-weight:bold'>`+nama[i]+`%</td>
-                <td class='text-right'>`+sepNum(line.n1)+`%</td>
-                <td class='text-right'>`+sepNum(line.n2)+`%</td>
-                <td class='text-right'>`+sepNum(line.n3)+`%</td>
-                <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
-                </tr>`;    
-            }else{
-                html+=`<tr>
-                <td style='font-weight:bold'>`+nama[i]+`</td>
-                <td class='text-right'>`+toMilyar(line.n1)+`</td>
-                <td class='text-right'>`+toMilyar(line.n2)+`</td>
-                <td class='text-right'>`+toMilyar(line.n3)+`</td>
-                <td class='text-right' style='color: #4CD964;font-weight:bold'>`+sepNum(line.capai)+`%</td>
-                </tr>`;
-                            }
+            var line = result.data.data[i];
+                if(line.kode_neraca == 'OR')
+                {
+                    html+=`<tr>
+                    <td style='font-weight:bold'>`+nama[i]+`%</td>
+                    <td class='text-right'>`+sepNum(line.n1)+`%</td>
+                    <td class='text-right'>`+sepNum(line.n2)+`%</td>
+                    <td class='text-right'>`+sepNum(line.n3)+`%</td>
+                    <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
+                    </tr>`;    
+                }
+                else{
+                    html+=`<tr>
+                    <td style='font-weight:bold'>`+nama[i]+`</td>
+                    <td class='text-right'>`+toMilyar(line.n1)+`</td>
+                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
+                    <td class='text-right'>`+toMilyar(line.n3)+`</td>
+                    <td class='text-right' style='color: #4CD964;font-weight:bold'>`+sepNum(line.capai)+`%</td>
+                    </tr>`;
+                                
+                }
             }
             $('#pencapaian tbody').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     });
 }
@@ -273,71 +321,66 @@ function getGrowthReal(periode=null){
         type:"GET",
         url:"{{ url('/dash-telu/getGrowthReal') }}/"+periode,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success:function(result){
             Highcharts.chart('growthReal', {
                 chart: {
-                        type: 'spline'
+                    type: 'spline'
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                yAxis: {
+                    title: {
+                        text: ''
                     },
-                        title: {
-                            text: null
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
                     },
-                        credits:{
-                            enabled:false
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    spline: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+toMilyar(this.y)+'</b>';
+                            }
                         },
-                        yAxis: {
-                            title: {
-                                text: ''
-                                },
-                                labels: {
-                                    formatter: function () {
-                                        return singkatNilai(this.value);
-                                    }
-                                },
+                        enableMouseTracking: false
+                    },
+                    column: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+toMilyar(this.y)+'</b>';
+                            }
                         },
-                        xAxis: {
-                                // accessibility: {
-                                //     rangeDescription: 'Range: 14 to 20'
-                                // }
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                // series: {
-                                //     label: {
-                                //         connectorAllowed: false
-                                //     },
-                                //     marker:{
-                                //             enabled:false
-                                //     }
-                                //     // pointStart: 14
-                                // },
-                                spline: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+toMilyar(this.y)+'</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                        },
-
-                            series: result.data.series,
-
-                            // responsive: {
-                            //     rules: [{
-                            //         condition: {
-                            //             maxWidth: 500
-                            //         }
-                            //     }]
-                            // }
-
+                        enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -356,12 +399,6 @@ function getGrowthRKA(periode=null){
                     enabled:false
                 },
                 tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // shared: true,
-                    // useHTML: true
                     formatter: function () {
                         return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
                         }
@@ -372,14 +409,11 @@ function getGrowthRKA(periode=null){
                         },
                     labels: {
                         formatter: function () {
-                        return singkatNilai(this.value);
-                            }
-                        },
+                            return singkatNilai(this.value);
+                        }
+                    },
                 },
                 xAxis: {
-                    // accessibility: {
-                    //     rangeDescription: 'Range: 14 to 20'
-                    // }
                     categories:result.data.ctg
                 },
                 plotOptions: {
@@ -394,14 +428,6 @@ function getGrowthRKA(periode=null){
                  },
 
                 series: result.data.series
-
-                            // responsive: {
-                            //     rules: [{
-                            //         condition: {
-                            //             maxWidth: 500
-                            //         }
-                            //     }]
-                            // }
 
             });
 
@@ -430,67 +456,46 @@ function getRkaVsReal(periode=null){
         success: function(result){
 
             Highcharts.chart('rkaVSreal', {
-                 chart: {
-                            type: 'column',
-                            renderTo: 'rkaVSreal'
-                        },
-                            title: {
-                            text: null
-                        },
-                            credits:{
-                            enabled:false
-                        },
-                            legend:{
-                            enabled:false
-                         },
-                            xAxis: {
-                                // categories: [
-                                //     'Pendapatan',
-                                //     'Beban',
-                                //     'SHU'
-                                // ],
-                                categories: result.data.ctg,
-                                crosshair: true
-                            },
-                            yAxis: {
-                                title: {
-                                    text: ''
-                                },
-                                labels: {
-                                    formatter: function () {
-                                        return singkatNilai(this.value);
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                                // footerFormat: '</table>',
-                                // shared: true,
-                                // useHTML: true
-                                formatter: function () {
-                                    return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
-                                }
-                            },
-                            plotOptions: {
-                                column: {
-                                    pointPadding: 0.2,
-                                    borderWidth: 0
-                                }
-                            },
-                            // series: [{
-                            //     name: 'RKA',
-                            //     color:'#ad1d3e',
-                            //     data: [49.9, 71.5, 106.4]
-
-                            // }, {
-                            //     name: 'Realisasi',
-                            //     color:'#4c4c4c',
-                            //     data: [83.6, 78.8, 98.5]
-
-                            // }]
-                            series : result.data.series
+                chart: {
+                    type: 'column',
+                    renderTo: 'rkaVSreal'
+                },
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                legend:{
+                    enabled:false
+                },
+                xAxis: {
+                    categories: result.data.ctg,
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    }
+                },
+                tooltip: {
+                    
+                    formatter: function () {
+                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series : result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -513,4 +518,26 @@ getPencapaianYoY("{{$periode}}");
 getRkaVsReal("{{$periode}}");
 getGrowthRKA("{{$periode}}");
 getGrowthReal("{{$periode}}");
+
+$('#form-filter').submit(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    getPencapaianYoY(periode);
+    getRkaVsReal(periode);
+    getGrowthRKA(periode);
+    getGrowthReal(periode);
+    var tahun = parseInt(periode.substr(0,4));
+    var tahunLalu = tahun-1;
+    $('.thnLalu').text(tahunLalu);
+    $('.thnIni').text(tahun);
+    $('#modalFilter').modal('hide');
+});
+
+
+
+$('#btn-reset').click(function(e){
+    e.preventDefault();
+    $('#periode')[0].selectize.setValue('');
+    
+});
 </script>

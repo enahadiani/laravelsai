@@ -21,7 +21,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-12">
             <h1>Pertumbuhan Laba Rugi Tahunan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
+            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter &nbsp;&nbsp;<i class="simple-icon-equalizer" style="transform-style: ;"></i></a>
             <div class="separator mb-5"></div>
         </div>
     </div>

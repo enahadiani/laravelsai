@@ -163,7 +163,13 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 }
 .btn-eye
 {
-    top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;
+    top: 0px !important;;
+    right: 10px !important;;
+    left: unset !important;;
+    width: 40px;
+    height: 40px;
+    background: url("{{ asset('img/hide.svg') }}") no-repeat;
+    background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;
     cursor: pointer !important;
 }
 </style>

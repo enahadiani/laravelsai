@@ -56,7 +56,7 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h1>Pendapatan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
+            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter &nbsp;&nbsp;<i class="simple-icon-equalizer" style="transform-style: ;"></i></a>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -96,24 +96,26 @@ $nik     = Session::get('userLog');
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Filter</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                <form id="form-filter">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
                             <label>Periode</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <select class="form-control" data-width="100%" name="periode" id="periode">
+                                <option value='#'>--Pilih Periode--</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -189,6 +191,42 @@ function singkatNilai(num){
         return num;
     }
 }
+
+
+function getPeriode(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/periode') }}",
+        dataType: "JSON",
+        success: function(result){
+            var select = $('#periode').selectize();
+            select = select[0];
+            var control = select.selectize;
+            if(result.data.status){
+                if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                    for(i=0;i<result.data.data.length;i++){
+                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                    }
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+getPeriode();
 
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
@@ -367,4 +405,22 @@ $.ajax({
 getKomposisiPendapatan("{{$periode}}");
 getOprNonOpr("{{$periode}}");
 getPresentaseRkaRealisasi("{{$periode}}");
+
+$('#form-filter').submit(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    getKomposisiPendapatan(periode);
+    getOprNonOpr(periode);
+    getPresentaseRkaRealisasi(periode);
+    var tahun = parseInt(periode.substr(0,4));
+    var tahunLalu = tahun-1;
+    $('.thnLalu').text(tahunLalu);
+    $('.thnIni').text(tahun);
+    $('#modalFilter').modal('hide');
+});
+
+$('#btn-reset').click(function(e){
+    e.preventDefault();
+    $('#periode')[0].selectize.setValue('');
+});
 </script>
