@@ -570,7 +570,7 @@ $('#formPhoto').on('submit', function(e){
                     $('#modalPhoto').modal('hide');
                     if(parameter == "foto"){
 
-                        $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/ypt/storage/'+result.data.foto+'">');
+                        $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/toko-auth/storage/'+result.data.foto+'">');
                     }
                     loadForm("{{url('esaku-auth/form/fProfile')}}");
                 }

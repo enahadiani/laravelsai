@@ -44,4 +44,16 @@ Route::post('/login', 'Esaku\AuthController@cek_auth');
 Route::get('/logout', 'Esaku\AuthController@logout');
 
 
+Route::get('/profile', 'Esaku\AuthController@getProfile');
+Route::post('/update-password', 'Esaku\AuthController@updatePassword');
+Route::post('/update-foto', 'Esaku\AuthController@updatePhoto');
+Route::post('/update-background', 'Esaku\AuthController@updateBackground');
+
+Route::get('notif','Esaku\NotifController@getNotif');
+Route::post('notif-update-status','Esaku\NotifController@updateStatusRead');
+Route::post('search-form','Esaku\AuthController@searchForm');
+Route::get('search-form-list','Esaku\AuthController@searchFormList');
+Route::get('search-form-list2','Esaku\AuthController@searchFormList2');
+
+
 
