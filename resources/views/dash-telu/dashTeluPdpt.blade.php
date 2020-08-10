@@ -56,7 +56,7 @@ $nik     = Session::get('userLog');
         <div class="col-12">
             <h1>Pendapatan</h1>
             <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter &nbsp;&nbsp;<i class="simple-icon-equalizer" style="transform-style: ;"></i></a>
+            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
     </div>
