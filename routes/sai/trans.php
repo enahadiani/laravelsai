@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 //Helper
 Route::get('kontrak/{status}','Sai\HelperController@getKontrak');
-Route::get('tagihan-maintain-load','Sai\HelperController@getTagihan');
+Route::get('tagihan-maintain-load/{periode}','Sai\HelperController@getTagihan');
 
 //Kontrak
 Route::get('kontrak','Sai\KontrakController@index');

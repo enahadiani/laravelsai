@@ -17,10 +17,10 @@
             }
         }
 
-        public function getTagihan() {
+        public function getTagihan($periode) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link2.'tagihan-maintain-load',[
+            $response = $client->request('GET', $this->link2.'tagihan-maintain-load?periode='.$periode.'&status=MAINTENANCE',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
