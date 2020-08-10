@@ -68,7 +68,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row">
         <div class="col-12">
             <h1>Pertumbuhan Laba Rugi Tahunan</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -121,7 +121,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="modal-content">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
-                        <h5 class="modal-title pl-0">Filter</h5>
+                        <h6 class="modal-title pl-0">Filter</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

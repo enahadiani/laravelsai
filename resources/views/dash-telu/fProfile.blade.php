@@ -338,7 +338,7 @@ input.form-control{
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header pb-0" style="border:none">
-                    <h5 class="modal-title pl-0"></h5>
+                    <h6 class="modal-title pl-0"></h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
