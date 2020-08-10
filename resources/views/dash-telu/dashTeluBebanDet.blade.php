@@ -190,11 +190,6 @@ function getDetailBeban(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -209,6 +204,19 @@ function getDetailBeban(periode=null,kodeNeraca=null){
                             
                 }
             $('#tablePend tbody').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -218,11 +226,6 @@ function getBebanFak(periode=null, kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -278,6 +281,19 @@ function getBebanFak(periode=null, kodeNeraca=null){
                             },
                             series: result.data.series
             })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -287,11 +303,6 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
@@ -329,6 +340,19 @@ function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
                             },
                             series: result.data.series
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }

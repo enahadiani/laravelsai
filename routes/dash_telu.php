@@ -1,7 +1,7 @@
 <?php 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Http\Request;
 
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
@@ -15,7 +15,6 @@ Route::get('/form/{id}', function ($id) {
 Route::get('/sesi-habis', function () {
     return view('dash-telu.sesi');
 });
-
 
 Route::get('/cek_session', 'DashTelu\AuthController@cek_session');
 Route::get('/', 'DashTelu\AuthController@index');
@@ -62,12 +61,14 @@ Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 Route::get('/profile', 'DashTelu\AuthController@getProfile');
 Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
 Route::post('/update-foto', 'DashTelu\AuthController@updatePhoto');
+Route::post('/update-background', 'DashTelu\AuthController@updateBackground');
 
 Route::get('notif','DashTelu\NotifController@getNotif');
 Route::post('notif-update-status','DashTelu\NotifController@updateStatusRead');
 Route::post('search-form','DashTelu\AuthController@searchForm');
 Route::get('search-form-list','DashTelu\AuthController@searchFormList');
 Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
+Route::get('periode','DashTelu\DashboardController@getPeriode');
 
 
 ?>

@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
+    
+    <!-- Selectize -->
+    <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -73,6 +77,8 @@
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    
+    <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     
 </head>
 
@@ -491,6 +497,19 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -506,6 +525,19 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -535,6 +567,19 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -558,6 +603,19 @@
                 } else{
                     alert(result.message);
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -595,6 +653,19 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -622,6 +693,19 @@
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
             }
         });
     }
@@ -696,7 +780,6 @@
 
     $(document).ready(function(){
         setTimeout(function(){
-            // alert('Session token telah habis, silahkan login kembali');
             window.location.href = "{{url('dash-telu/sesi-habis')}}";
         }, 1000 * 60 * 60);
         
@@ -738,6 +821,13 @@
         setHeightForm();
     });
 
+    $('.typeahead').on('click','a.dropdown-item',function(e){
+    e.preventDefault();
+        console.log('tes');
+        
+        // var cari = $(this).text();
+        // searchForm(cari);
+    });
     
     $('#notificationButton').click(function(){
         updateNotifRead();

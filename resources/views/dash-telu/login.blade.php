@@ -66,6 +66,7 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $theme = "dore.light.redruby.min.css";
@@ -88,9 +89,18 @@
                                 <span class="logo-single"></span>
                             </a>
                             <h6 class="mb-0">Masuk</h6>
-                            <h6 class="mb-4">Selamat Datang Kembali</h6>
+                            <h6 class="mb-4">Selamat Datang
+                            @if(Session::has('pesan'))
+                            Kembali
+                            @endif
+                            </h6>
                             <form method="POST" action="{{ url('dash-telu/login') }}" id="form-login">
                                 @csrf
+                                @if(Session::has('alert'))
+                                <div class="alert alert-danger rounded" role="alert">
+                                    {{ Session::get('alert') }}
+                                </div>
+                                @endif
                                 <label class="form-group has-float-label mb-4">
                                     <input class="form-control" name="nik" id="username"/>
                                     <span>NIK</span>
@@ -129,6 +139,54 @@
         </footer>
     </main>
     <script>
+        function showNotification(placementFrom, placementAlign, type,title,message) {
+            $.notify(
+                {
+                title: title,
+                message: message,
+                target: "_blank"
+                },
+                {
+                element: "body",
+                position: null,
+                type: type,
+                allow_dismiss: true,
+                newest_on_top: false,
+                showProgressbar: false,
+                placement: {
+                    from: placementFrom,
+                    align: placementAlign
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+                delay: 4000,
+                timer: 2000,
+                url_target: "_blank",
+                mouse_over: null,
+                animate: {
+                    enter: "animated fadeInDown",
+                    exit: "animated fadeOutUp"
+                },
+                onShow: null,
+                onShown: null,
+                onClose: null,
+                onClosed: null,
+                icon_type: "class",
+                template:
+                    '<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                    '<span data-notify="icon"></span> ' +
+                    '<span data-notify="title">{1}</span> ' +
+                    '<span data-notify="message">{2}</span>' +
+                    '<div class="progress" data-notify="progressbar">' +
+                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                    "</div>" +
+                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                    "</div>"
+                }
+            );
+            }
         $(document).ready(function() {
             $('#username,#password').keydown(function(e){
                 
@@ -168,9 +226,11 @@
             });
         });
     </script>
-    @if (Session::has('alert'))
+    @if (Session::has('status'))
         <script>
-            alert("{{Session::get('alert')}}")
+            // alert("{{Session::get('alert')}}")
+            
+            showNotification("top", "center", "success",'Logout','Anda telah berhasil logout.');
         </script>
         
     @endif

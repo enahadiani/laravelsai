@@ -190,11 +190,6 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success:function(result){
             var html='';
             for(var i=0;i<result.data.data.length;i++){
@@ -209,6 +204,19 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
                             
                 }
             $('#tablePend tbody').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -218,11 +226,6 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success:function(result){
             Highcharts.chart('pdptFak', {
                 chart: {
@@ -278,6 +281,19 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
                             },
                             series: result.data.series
             })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -287,11 +303,6 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
         type:"GET",
         url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('pertumbuhan', {
                 chart: {
@@ -329,6 +340,19 @@ function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
                             },
                             series: result.data.series
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }

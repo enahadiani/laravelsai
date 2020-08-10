@@ -49,14 +49,61 @@ $nik     = Session::get('userLog');
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+    
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
+    }
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
+    }
+    #modalFilter
+    {
+        top:90px
+    }
+
+    @media (max-width: 1439px) {
+        #modalFilter
+        {
+            top:90px
+        }
+    }
+    @media (max-width: 1199px) {
+        #modalFilter
+        {
+            top:80px
+        }
+    }
+    @media (max-width: 767px) {
+        #modalFilter
+        {
+            top:70px
+        }   
+    }
+    @media (max-width: 575px) {
+        #modalFilter
+        {
+            top:70px
+        }
+    }
+    
+    /* .modal-backdrop.show
+    {
+        opacity:0;
+    }
+    .modal-content{
+        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
+    } */
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
             <h1>Beban</h1>
-            <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;">Filter</a>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -92,27 +139,57 @@ $nik     = Session::get('userLog');
             </div>
         </div>
     </div>
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    <!-- <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Filter</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h5 class="modal-title pl-0">Filter</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
                         <div class="form-group">
                             <label>Periode</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <select class="form-control" data-width="100%" name="periode" id="periode">
+                                <option value='#'>Pilih Periode</option>
+                            </select>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+    <div class="app-menu">
+        <div class="p-4 h-100">
+            <div class="scroll ps">
+                <h5 class="modal-title pl-0" style="position:absolute">Filter</h5>
+                <button type="button" class="close" id="btn-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <form id="form-filter" style="margin-top:50px">
+                    <div class="form-group" style="margin-bottom:30px">
+                        <label>Periode</label>
+                        <select class="form-control" data-width="100%" name="periode" id="periode">
+                        <option value='#'>Pilih Periode</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right ml-2">Tampilkan</button>
+                    <button type="button" class="btn btn-outline-primary float-right" id="btn-reset">Reset</button>
+                </form>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,16 +267,46 @@ function singkatNilai(num){
     }
 }
 
+function getPeriode(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/periode') }}",
+        dataType: "JSON",
+        success: function(result){
+            var select = $('#periode').selectize();
+            select = select[0];
+            var control = select.selectize;
+            if(result.data.status){
+                if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                    for(i=0;i<result.data.data.length;i++){
+                        control.addOption([{text:result.data.data[i].periode, value:result.data.data[i].periode}]);
+                    }
+                }
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+getPeriode();
+
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/dash-telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('rkaVSreal', {
                             chart: {
@@ -261,25 +368,46 @@ function getPresentaseRkaRealisasi(periode=null){
                                 color:'#ad1d3e',
                                 data: result.data.data
                             }]
-                        });
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }  
     });
 }
 
 function getOprNonOpr(periode=null){
     $.ajax({
-    type:"GET",
-    url:"{{ url('/dash-telu/getOprNonOprBeban') }}/"+periode,
-    dataType:"JSON",
-    statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
+        type:"GET",
+        url:"{{ url('/dash-telu/getOprNonOprBeban') }}/"+periode,
+        dataType:"JSON",
+        success:function(result){
+            $('#opr').text(sepNum(result.data.opr)+'%');
+            $('#nonopr').text(sepNum(result.data.nonopr)+'%');
         },
-    success:function(result){
-        $('#opr').text(sepNum(result.data.opr)+'%');
-        $('#nonopr').text(sepNum(result.data.nonopr)+'%');
-      } 
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        } 
     })
 }
 
@@ -288,11 +416,6 @@ $.ajax({
     type:"GET",
     url:"{{ url('/dash-telu/getKomposisiBeban') }}/"+periode,
     dataType:"JSON",
-    statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
     success: function(result){
             Highcharts.chart('komposisi', {
                chart: {
@@ -335,6 +458,19 @@ $.ajax({
                                 data: result.data.data
                             }]
         });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {       
+        if(jqXHR.status == 422){
+            var msg = jqXHR.responseText;
+        }else if(jqXHR.status == 500) {
+            var msg = "Internal server error";
+        }else if(jqXHR.status == 401){
+            var msg = "Unauthorized";
+            window.location="{{ url('/dash-telu/sesi-habis') }}";
+        }else if(jqXHR.status == 405){
+            var msg = "Route not valid. Page not found";
+        }
+        
     }
 });
 
@@ -343,4 +479,39 @@ $.ajax({
 getKomposisiBeban("{{$periode}}");
 getOprNonOpr("{{$periode}}");
 getPresentaseRkaRealisasi("{{$periode}}");
+
+$('#form-filter').submit(function(e){
+    e.preventDefault();
+    var periode = $('#periode')[0].selectize.getValue();
+    getKomposisiBeban(periode);
+    getOprNonOpr(periode);
+    getPresentaseRkaRealisasi(periode);
+    var tahun = parseInt(periode.substr(0,4));
+    var tahunLalu = tahun-1;
+    $('.thnLalu').text(tahunLalu);
+    $('.thnIni').text(tahun);
+    $('#modalFilter').modal('hide');
+    // $('.app-menu').hide();
+});
+
+$('#btn-reset').click(function(e){
+    e.preventDefault();
+    $('#periode')[0].selectize.setValue('');
+});
+
+// $('.app-menu').hide();
+   
+$('#btn-filter').click(function(){
+    // $('.app-menu').show();
+    
+    $('#modalFilter').modal('show');
+});
+
+$("#btn-close").on("click", function (event) {
+    event.preventDefault();
+    // $('.app-menu').hide();
+    
+    $('#modalFilter').modal('hide');
+});
+    
 </script>
