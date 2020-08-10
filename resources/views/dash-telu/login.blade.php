@@ -230,7 +230,7 @@
         <script>
             // alert("{{Session::get('alert')}}")
             
-            showNotification("top", "center", "primary",'Logout','Anda telah berhasil logout.');
+            showNotification("top", "center", "success",'Logout','Anda telah berhasil logout.');
         </script>
         
     @endif

@@ -55,13 +55,24 @@ $thnLalu = substr($tahunLalu,2,2)
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+    
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
+    }
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
+    }
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
             <h1>RKA Tahunan</h1>
-            <a class="btn btn-primary" href="#" id="btn-filter" data-toggle="modal"
+            <a class="btn btn-outline-light" href="#" id="btn-filter" data-toggle="modal"
             data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
