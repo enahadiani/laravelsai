@@ -60,7 +60,7 @@ $nik     = Session::get('userLog');
         background-color: white;
         border-color: white !important;
     }
-    #modalFilter
+    /* #modalFilter
     {
         top:90px
     }
@@ -88,7 +88,7 @@ $nik     = Session::get('userLog');
         {
             top:70px
         }
-    }
+    } */
     
     /* .modal-backdrop.show
     {
