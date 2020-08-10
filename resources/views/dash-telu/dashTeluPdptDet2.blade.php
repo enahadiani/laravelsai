@@ -9,17 +9,20 @@ $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2);    
 @endphp
 <style>
-    .page-wrapper{
-        background:white;
-    }
     .card{
-        border:none;
-        box-shadow:none;
+        border-radius: 0 !important;
+        box-shadow: none;
+        border: 1px solid #f0f0f0;
     }
-    h5{
-        font-weight:bold;
-        color:#ad1d3e;
-        padding-left:20px;
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
+    }
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
     }
     td,th{
         padding:4px !important;
@@ -64,7 +67,7 @@ $thnLalu = substr($tahunLalu,2,2);
     <div class="row mt-2" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="pt-3">Pendapatan per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h5>
+                <h6 class="ml-3 mt-4">Pendapatan per tahun tiap Jurusan Fakultas <span class='nama_fakultas'></span></h6>
                 <div class="card-body pt-0">
                     <div id='pdptJur' style='height:350px'>
                     </div>
@@ -73,7 +76,7 @@ $thnLalu = substr($tahunLalu,2,2);
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card" style="background:#f5f5f5;border-radius:15px">
-                <h5 class="mt-2">Pendapatan <span class='tahunPilih'></span></h5>
+                <h6 class="mt-2">Pendapatan <span class='tahunPilih'></span></h6>
                 <div class="card-body pt-0">
                     <table class='no-border' id='tablePend' style="width:100%">
                         <thead>
@@ -96,7 +99,7 @@ $thnLalu = substr($tahunLalu,2,2);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Filter</h5>
+                    <h6 class="modal-title">Filter</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
