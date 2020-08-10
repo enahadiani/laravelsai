@@ -153,6 +153,19 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 .table-profile td,.table-profile th{
     padding: 0.75em 0px ;
 }
+
+.span-password
+{
+    position: absolute;
+    cursor: text;
+    font-size: 90%;
+    opacity: 1;top: -0.4em;left: 0.75rem;z-index: 3;line-height: 1;padding: 0 1px
+}
+.btn-eye
+{
+    top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;
+    cursor: pointer !important;
+}
 </style>
 <div class="row" id="page-profile">
     <div class="col-12">
@@ -242,32 +255,38 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
 <div class="row" id="editpage-profile" style="display:none">
     <div class="col-12">
         <div class="row">
-            <div class="col-12 col-lg-7 col-xl-8 col-left">
+            <div class="col-12 col-lg-6 col-xl-7 col-left text-center">
+                <img src="{{ asset('/img/Processing-bro.png') }}" width="400px">
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-right">
                 <div class="card mb-4" style="box-shadow:none;border-radius: 8px;border: 1px solid #dadce0;box-sizing: border-box;">
                     <div class="card-body">
                         <form id="form-ubahPass" class="tooltip-right-bottom" novalidate="novalidate">
                             <h5 class="mb-4">Ubah Password</h5>
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="password" name="password_lama" required="">
-                                <span>Password Lama</span>
-                            </div>
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="password" name="password_baru" required="">
-                                <span>Password Baru</span>
-                            </div>
-                            <div class="form-group has-float-label">
-                                <input class="form-control" type="password" name="password_confirm" required="">
-                                <span>Konfirmasi Password Baru</span>
-                            </div>
+                            <label class="form-group has-float-label mb-4">
+                                <input class="form-control" type="password" name="password_lama" placeholder="" id="password_lama">
+                                <span class="span-password">Password Lama</span>
+                                <span class="btn-eye"><i class="icon-eye"></i></span>
+                            </label>
+                            <label class="form-group has-float-label mb-4">
+                                <input class="form-control" type="password" name="password_baru" placeholder="" id="password_baru">
+                                <span class="span-password">Password Baru</span>
+                                <span class="btn-eye"><i class="icon-eye"></i></span>
+                            </label>
+                            <label class="form-group has-float-label mb-4">
+                                <input class="form-control" type="password" name="password_confirm" placeholder="" id="password_confirm">
+                                <span class="span-password">Konfirmasi Password Baru</span>
+                                <span class="btn-eye"><i class="icon-eye"></i></span>
+                            </label>
                             <div class="form-group text-right">
-                                <button type="button" class="btn btn-outline-primary" id="btn-cancel">Cancel</button>
+                                <button type="button" class="btn btn-outline-primary" id="btn-cancel">Batal</button>
                                 <button class="btn btn-primary" type="submit">Simpan</button>
                             </div>
                         </form>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-lg-1 col-xl-1 col-right">
             </div>
         </div>
     </div>
@@ -406,6 +425,19 @@ function initDash(){
     loadService('profile','GET',"dash-telu/profile"); 
 }
 initDash();
+
+$('.btn-eye').click(function(){
+    console.log('click');
+    var x = $(this).closest('label').find('input');
+    if (x.attr('type') === "password") {
+        x.attr('type','text');
+        $(this).css('background-image',"url( {{ asset('img/password.svg') }} )");
+    } else {
+        
+        x.attr('type','password');
+        $(this).css('background-image',"url( {{ asset('img/hide.svg') }} )");
+    }
+});
 
 $('#form-ubahPass').on('submit', function(e){
     e.preventDefault();

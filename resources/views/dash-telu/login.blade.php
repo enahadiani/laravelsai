@@ -95,6 +95,11 @@
                             </h6>
                             <form method="POST" action="{{ url('dash-telu/login') }}" id="form-login">
                                 @csrf
+                                @if(Session::has('alert'))
+                                <div class="alert alert-danger rounded" role="alert">
+                                    {{ Session::get('alert') }}
+                                </div>
+                                @endif
                                 <label class="form-group has-float-label mb-4">
                                     <input class="form-control" name="nik" id="username"/>
                                     <span>NIK</span>
@@ -172,12 +177,12 @@
             });
         });
     </script>
-    @if (Session::has('alert'))
+    <!-- @if (Session::has('alert'))
         <script>
             alert("{{Session::get('alert')}}")
         </script>
         
-    @endif
+    @endif -->
     
 </body>
 
