@@ -102,11 +102,11 @@
                                 </div>
                                 @endif
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="nik" id="username"/>
+                                    <input class="form-control" name="nik" id="username" required/>
                                     <span>NIK</span>
                                 </label>
                                 <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" id="password">
+                                    <input class="form-control" type="password" name="password" placeholder="" id="password" required>
                                     <span id="span-password">Password</span>
                                     <span id="btn-eye"><i class="icon-eye"></i></span>
                                 </label>

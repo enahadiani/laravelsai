@@ -717,11 +717,11 @@
         loadForm("{{ url('esaku-auth/form')}}/"+form)
     }
     
-    $('.menu').on('click','.a_link',function(e){
+    $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         $('.sub-menu li').removeClass('active');
-        $(this).parents('li').addClass('active');
+        $(this).closest('li').addClass('active');
         var url = "{{ url('esaku-auth/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){

@@ -118,14 +118,14 @@ $nik     = Session::get('userLog');
                 <div class="card-body pt-0">
                     <div id='komposisi' style='height:350px'>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6 col-sm-12 mb-4" style="background:#ad1d3e;color:white;height:50px;text-align:center">
                             <h6 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h6>
                         </div>
                         <div class="col-md-6 col-sm-12 mb-4" style="background:#4c4c4c;color:white;height:50px;text-align:center">
                             <h6 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span></h6>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -486,14 +486,14 @@ $.ajax({
 }
 
 getKomposisiPendapatan("{{$periode}}");
-getOprNonOpr("{{$periode}}");
+// getOprNonOpr("{{$periode}}");
 getPresentaseRkaRealisasi("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
     getKomposisiPendapatan(periode);
-    getOprNonOpr(periode);
+    // getOprNonOpr(periode);
     getPresentaseRkaRealisasi(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
