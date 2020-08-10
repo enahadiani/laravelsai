@@ -143,23 +143,27 @@ class TagihanMTController extends Controller
         
         if(count($request->generate) > 0){
             for($i=0;$i<count($request->generate);$i++){
-                $cek[$i] = $request->generate[$i];
-                if($cek[$i] == 'true') {
-                    $explode_due = explode('/', $request->due_date[$i]);
-                    $tgl_due = $explode_due[0];
-                    $bln_due = $explode_due[1];
-                    $tahun_due = $explode_due[2];
-                    $tanggal_due = $tahun_due."-".$bln_due."-".$tgl_due;
-                    
-                    $field_generate[$i] = array('name'=>'generate[]','contents'=>$request->generate[$i]);
-                    $field_dokumen[$i] = array('name'=>'no_dokumen[]','contents'=>$request->no_dokumen[$i]);
-                    $field_cust[$i] = array('name'=>'kode_cust[]','contents'=>substr($request->cust[$i],0,5));
-                    $field_kontrak[$i] = array('name'=>'no_kontrak[]','contents'=>$request->no_kontrak[$i]);
-                    $field_item[$i] = array('name'=>'item[]','contents'=>$request->item[$i]);
-                    $field_nilai[$i] = array('name'=>'nilai[]','contents'=>intval(str_replace('.','', $request->nilai[$i])));
-                    $field_ppn[$i] = array('name'=>'nilai_ppn[]','contents'=>intval(str_replace('.','', $request->nilai_ppn[$i])));
-                    $field_date[$i] = array('name'=>'due_date[]','contents'=>$tanggal_due);
+                $explode_due = explode('/', $request->due_date[$i]);
+                $tgl_due = $explode_due[0];
+                $bln_due = $explode_due[1];
+                $tahun_due = $explode_due[2];
+                $tanggal_due = $tahun_due."-".$bln_due."-".$tgl_due;
+
+                if($request->generate[$i] == 'true'){
+                    $status = '1';
+                }else {
+                    $status = '0';
                 }
+                    
+                $field_generate[$i] = array('name'=>'status[]','contents'=>$status);
+                $field_dokumen[$i] = array('name'=>'no_dokumen[]','contents'=>$request->no_dokumen[$i]);
+                $field_cust[$i] = array('name'=>'kode_cust[]','contents'=>substr($request->cust[$i],0,5));
+                $field_kontrak[$i] = array('name'=>'no_kontrak[]','contents'=>$request->no_kontrak[$i]);
+                $field_item[$i] = array('name'=>'item[]','contents'=>$request->item[$i]);
+                $field_nilai[$i] = array('name'=>'nilai[]','contents'=>intval(str_replace('.','', $request->nilai[$i])));
+                $field_ppn[$i] = array('name'=>'nilai_ppn[]','contents'=>intval(str_replace('.','', $request->nilai_ppn[$i])));
+                $field_date[$i] = array('name'=>'due_date[]','contents'=>$tanggal_due);
+                
             }
             $send_data = array_merge($fields,$field_generate,$field_dokumen,$field_cust,$field_kontrak,$field_item,$field_nilai,$field_ppn,$field_date);
         }

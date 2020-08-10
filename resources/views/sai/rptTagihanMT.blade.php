@@ -88,13 +88,18 @@
         <p style="font-size: 16px; margin-left:6px; margin-top:-20px !important;">Bandung</p>
         <br/>
         <p style="font-size: 16px; margin-left:6px;">Dengan hormat,</p>
-        <div>
-            <div style="font-size: 16px; margin-left:6px;">1.
-            <p style="font-size: 16px; margin-left:40px; display:inline; text-align: justify;">
-                Menunjuk Perjanjian Kerja Sama Nomor : 99-KTR2008.0001 tanggal 12 Juni 2015 perihal Sewa-Menyewa Aplikasi Keuangan.
-            </p>
-            </div>
-        </div>
+        <ul style="margin-left: -30px; list-style-type: none;">
+            <li>1. 
+                <div style="display: inline; text-align: justify; margin-left: 20px;"> 
+                    Menunjuk Perjanjian Kerja Sama Nomor : 99-KTR2008.0001 tanggal 12 Agustus 2020
+                    perihal Sewa-Menyewa Aplikasi Keuangan
+                </div>
+            </li>
+            <li>2.</li>
+            <li>3.</li>
+            <li>4.</li>
+            <li>5.</li>
+        </ul>
     </div>
 </div>
 

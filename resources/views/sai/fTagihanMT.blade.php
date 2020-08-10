@@ -84,6 +84,10 @@
                                 <div class="col-3">
                                     <input class="form-control datepicker" type="text" placeholder="Tanggal" id="tanggal" name="tanggal" autocomplete="off">
                                 </div>
+                                <label for="periode" class="col-3 col-form-label">Periode</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Periode" id="periode" name="periode" autocomplete="off">
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nilai" class="col-3 col-form-label">Nilai Tagihan</label>
@@ -582,9 +586,19 @@
         var btnTextLoad = $('#btn-load span');
         var btnLoad = $('#btn-load');
         var btnSave = $('#btn-simpan');     
+        var periode = $('#periode').val();
+        if(periode == ''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Terjadi kesalahan!',
+                footer: 'Mohon mengisi periode terlebih dahulu'
+            })
+        }
+        else{
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sai-trans/tagihan-maintain-load') }}",
+                url: "{{ url('sai-trans/tagihan-maintain-load') }}/"+periode,
                 dataType: 'json',
                 async:true,
                 beforeSend:function(){
@@ -647,6 +661,7 @@
                     })
                 },
             });
+        }
     });
 
     $('#form-tambah').on('click', '#add-row2', function(){
