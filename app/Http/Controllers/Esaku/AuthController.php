@@ -227,7 +227,7 @@ class AuthController extends Controller
                                 <li>
                                 <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
                                     aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>Menu Types</span>
+                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                 </a>
                                 <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
                                     <ul class='list-unstyled inner-level-menu'>
@@ -238,7 +238,7 @@ class AuthController extends Controller
                                 <li>
                                 <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
                                     aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>Menu Types</span>
+                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                 </a>
                                 <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
                                     <ul class='list-unstyled inner-level-menu'>";
