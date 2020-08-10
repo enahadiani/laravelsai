@@ -11,27 +11,20 @@ $thnLalu = substr($tahunLalu,2,2)
 @endphp
 
 <style>
-    .page-wrapper{
-        background:white;
-    }
     .card{
-        border:none;
-        box-shadow:none;
+        border-radius: 0 !important;
+        box-shadow: none;
+        border: 1px solid #f0f0f0;
     }
-    h5{
-        font-weight:bold;
-        color:#ad1d3e;
-        padding-left:20px;
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
     }
-    td,th{
-        padding:8px !important;
-    }
-    .btn-red{
-        padding: 2px 20px;
-        border-radius: 15px; 
-        background:#ad1d3e;
-        color:white;
-        border-color: #ad1d3e;
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
     }
 
     /* NAV TABS */
@@ -56,17 +49,7 @@ $thnLalu = substr($tahunLalu,2,2)
         padding: 0px 10px 0px 0px;
     }
     
-    .btn-outline-light:hover {
-        color: #131113;
-        background-color: #ececec;
-        border-color: #ececec;
-    }
-    .btn-outline-light {
-        color: #131113;
-        background-color: white;
-        border-color: white !important;
-    }
-    #modalFilter
+    /* #modalFilter
     {
         top:90px
     }
@@ -94,7 +77,7 @@ $thnLalu = substr($tahunLalu,2,2)
         {
             top:70px
         }
-    }
+    } */
     /* .modal-backdrop.show
     {
         opacity:0;
@@ -115,7 +98,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h5 class="pt-3">Pencapaian YoY</h5>
+                <h6 class="ml-3 mt-4">Pencapaian YoY</h6>
                 <div class="card-body">
                     <table class='table' id='pencapaian'>
                         <thead>
@@ -135,9 +118,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h5 class="pt-3">RKA vs Realisais YTD</h5>
-                <div class="card-body">
-                    <div id='rkaVSreal' style='height:200px'></div>
+                 <h6 class="ml-3 mt-4">RKA vs Realisais YTD</h6>
+                <div class="card-body" id='rkaVSreal' style='height:300px'>
                 </div>
             </div>
         </div>
@@ -145,7 +127,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h5 class="pt-3">Growth RKA</h5>
+                 <h6 class="ml-3 mt-4">Growth RKA</h6>
                 <div class="card-body pt-0">
                     <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
@@ -161,7 +143,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h5 class="pt-3">Growth Realisasi</h5>
+                 <h6 class="ml-3 mt-4">Growth Realisasi</h6>
                 <div class="card-body pt-0">
                     <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
@@ -206,7 +188,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <!-- <div class="app-menu">
         <div class="p-4 h-100">
             <div class="scroll ps">
-                <h5 class="modal-title pl-0" style="position:absolute">Filter</h5>
+                <h6 class="modal-title pl-0" style="position:absolute">Filter</h6>
                 <button type="button" class="close" id="btn-close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

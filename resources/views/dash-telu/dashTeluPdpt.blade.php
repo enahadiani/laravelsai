@@ -5,18 +5,21 @@ $kode_pp = Session::get('kodePP');
 $nik     = Session::get('userLog');
 @endphp
 <style>
-    .page-wrapper{
-        background:white;
+   .card{
+        border-radius: 0 !important;
+        box-shadow: none;
+        border: 1px solid #f0f0f0;
     }
-    .card{
-        border:none;
-        box-shadow:none;
+    .btn-outline-light:hover {
+        color: #131113;
+        background-color: #ececec;
+        border-color: #ececec;
     }
-    /* h5{
-        font-weight:bold;
-        color:#ad1d3e;
-        padding-left:20px;
-    } */
+    .btn-outline-light {
+        color: #131113;
+        background-color: white;
+        border-color: white !important;
+    }
     td,th{
         padding:4px !important;
     }
@@ -61,7 +64,7 @@ $nik     = Session::get('userLog');
         border-color: white !important;
     }
 
-    #modalFilter
+    /* #modalFilter
     {
         top:90px
     }
@@ -89,7 +92,7 @@ $nik     = Session::get('userLog');
         {
             top:70px
         }
-    }
+    } */
     
     /* .modal-backdrop.show
     {
@@ -111,28 +114,24 @@ $nik     = Session::get('userLog');
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Komposisi Pendapatan</h5>
+                <h6 class="ml-3 mt-4" >Komposisi Pendapatan</h6>
                 <div class="card-body pt-0">
                     <div id='komposisi' style='height:350px'>
                     </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6 col-sm-12 mb-4" style="background:#ad1d3e;color:white;height:50px;text-align:center">
-                            <h5 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h5>
+                            <h6 style='margin: 15px auto;'>Operasional : <span id='opr'></span></h6>
                         </div>
                         <div class="col-md-6 col-sm-12 mb-4" style="background:#4c4c4c;color:white;height:50px;text-align:center">
-                            <h5 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span></h5>
+                            <h6 style='margin: 15px auto;'>Non Operasional : <span id='nonopr'></span></h6>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h5 class="pt-3" style='font-weight:bold;color:#ad1d3e;padding-left:20px;'>Presentase RKA VS Realisasi</h5>
+                <h6 class="ml-3 mt-4" >Presentase RKA VS Realisasi</h6>
                 <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p>
                 <div class="card-body pt-0">
                     <div id='rkaVSreal' style='height:350px'></div>
@@ -170,7 +169,7 @@ $nik     = Session::get('userLog');
     <!-- <div class="app-menu">
         <div class="p-4 h-100">
             <div class="scroll ps">
-                <h5 class="modal-title pl-0" style="position:absolute">Filter</h5>
+                <h6 class="modal-title pl-0" style="position:absolute">Filter</h6>
                 <button type="button" class="close" id="btn-close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -311,66 +310,66 @@ function getPresentaseRkaRealisasi(periode=null){
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('rkaVSreal', {
-                            chart: {
-                                type: 'bar'
-                            },
-                            title: {
-                                text:  null
-                            },
-                            xAxis: {
-                                categories: result.data.category,
-                                title: {
-                                    text: null
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text:  null
+                },
+                xAxis: {
+                    categories: result.data.category,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.point.name+':<b>'+sepNum(this.y)+'</b> %';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return sepNum(this.y,2,",",".")+' %';
+                            }
+                        },
+                        cursor: 'pointer',
+                        //point
+                        point: {
+                            events: {
+                                click: function() {  
+                                    $kd= this.options.key;
+                                    var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
+                                    loadForm(url)
                                 }
-                            },
-                            yAxis: {
-                                min: 0,
-                                title: {
-                                    text: '',
-                                    align: 'high'
-                                },
-                                labels: {
-                                    overflow: 'justify'
-                                }
-                            },
-                            tooltip: {
-                                formatter: function () {
-                                    return this.point.name+':<b>'+sepNum(this.y)+'</b> %';
-                                }
-                            },
-                            plotOptions: {
-                                bar: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return sepNum(this.y,2,",",".")+' %';
-                                        }
-                                    },
-                                    cursor: 'pointer',
-                                    //point
-                                    point: {
-                                        events: {
-                                            click: function() {  
-                                                $kd= this.options.key;
-                                                var url = "{{ url('/dash-telu/form/dashTeluPdptDet') }}";
-                                                loadForm(url)
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            legend: {
-                            enabled:false
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [{
-                                name: null,
-                                color:'#ad1d3e',
-                                data: result.data.data
-                            }]
-                        });
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: null,
+                    color:'#ad1d3e',
+                    data: result.data.data
+                }]
+            });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -419,46 +418,54 @@ $.ajax({
     url:"{{ url('/dash-telu/getKomposisiPendapatan') }}/"+periode,
     dataType:"JSON",
     success: function(result){
-            Highcharts.chart('komposisi', {
-               chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
+        Highcharts.chart('komposisi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: null
+            },
+            credits:{
+                enabled:false
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        // distance:-30,
+                        
+                        alignTo: 'plotEdges',
+                        formatter: function () {
+                            return Highcharts.numberFormat(this.percentage,2,",",".")+' %';
+                        }
                     },
-                        title: {
-                            text: null
-                        },
-                        credits:{
-                            enabled:false
-                        },
-                        tooltip: {
-                            pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-                        },
-                        accessibility: {
-                            point: {
-                                valueSuffix: '%'
-                            }
-                        },
-                        plotOptions: {
-                            pie: {
-                                allowPointSelect: true,
-                                cursor: 'pointer',
-                                dataLabels: {
-                                    enabled: true,
-                                    // distance:-30,
-                                    formatter: function () {
-                                        return Highcharts.numberFormat(this.percentage,2,",",".")+' %';
-                                    }
-                                    },
-                                    showInLegend: true
-                                }
-                            },
-                        series: [{
-                                name: 'Pendapatan',
-                                colorByPoint: true,
-                                data: result.data.data
-                            }]
+                    size:'110%',
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Pendapatan',
+                colorByPoint: true,
+                data: result.data.data
+            }],
+            legend: {
+                itemStyle: {
+                    fontSize:'8px'
+                }
+            }
         });
     },
     error: function(jqXHR, textStatus, errorThrown) {       
@@ -479,14 +486,14 @@ $.ajax({
 }
 
 getKomposisiPendapatan("{{$periode}}");
-getOprNonOpr("{{$periode}}");
+// getOprNonOpr("{{$periode}}");
 getPresentaseRkaRealisasi("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
     getKomposisiPendapatan(periode);
-    getOprNonOpr(periode);
+    // getOprNonOpr(periode);
     getPresentaseRkaRealisasi(periode);
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;

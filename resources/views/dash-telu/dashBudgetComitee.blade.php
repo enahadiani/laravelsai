@@ -26,7 +26,7 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: white;
         border-color: white !important;
     }
-    #modalFilter
+    /* #modalFilter
     {
         top:90px
     }
@@ -54,7 +54,7 @@ $thnLalu = substr($tahunLalu,2,2)
         {
             top:70px
         }
-    }
+    } */
 
     
     /* .modal-backdrop.show
