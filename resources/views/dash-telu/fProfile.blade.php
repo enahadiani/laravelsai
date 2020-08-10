@@ -172,6 +172,41 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
     background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;
     cursor: pointer !important;
 }
+
+input.form-control{
+    border-radius:10px !important;
+
+}
+
+#modalPhoto
+{
+    top:90px
+}
+
+@media (max-width: 1439px) {
+    #modalPhoto
+    {
+        top:90px
+    }
+}
+@media (max-width: 1199px) {
+    #modalPhoto
+    {
+        top:80px
+    }
+}
+@media (max-width: 767px) {
+    #modalPhoto
+    {
+        top:70px
+    }   
+}
+@media (max-width: 575px) {
+    #modalPhoto
+    {
+        top:70px
+    }
+}
 </style>
 <div class="row" id="page-profile">
     <div class="col-12">
@@ -302,14 +337,14 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
     aria-labelledby="modalPhoto" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
+                <div class="modal-header pb-0" style="border:none">
+                    <h5 class="modal-title pl-0"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formPhoto">
-                    <div class="modal-body">
+                <form id="formPhoto" >
+                    <div class="modal-body" style="border:none">
                         <div class="form-group">
                             <label>Foto</label>
                             <input type="file" name ="foto" class="form-control" placeholder="">
@@ -317,7 +352,7 @@ box-shadow: 1px 2px 2px 2px #e6e0e0e6;
                             <input type="hidden" id="id_foto" class="form-control" placeholder="" value="foto">
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="border:none">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>

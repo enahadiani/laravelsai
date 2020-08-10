@@ -66,6 +66,35 @@ $thnLalu = substr($tahunLalu,2,2)
         background-color: white;
         border-color: white !important;
     }
+    #modalFilter
+    {
+        top:90px
+    }
+
+    @media (max-width: 1439px) {
+        #modalFilter
+        {
+            top:90px
+        }
+    }
+    @media (max-width: 1199px) {
+        #modalFilter
+        {
+            top:80px
+        }
+    }
+    @media (max-width: 767px) {
+        #modalFilter
+        {
+            top:70px
+        }   
+    }
+    @media (max-width: 575px) {
+        #modalFilter
+        {
+            top:70px
+        }
+    }
 </style>
 
 <div class="container-fluid mt-3">
@@ -146,21 +175,21 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form id="form-filter">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Filter</h5>
+                    <div class="modal-header pb-0" style="border:none">
+                        <h5 class="modal-title pl-0">Filter</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="border:none">
                         <div class="form-group">
                             <label>Periode</label>
                             <select class="form-control" data-width="100%" name="periode" id="periode">
-                                <option value='#'>--Pilih Periode--</option>
+                                <option value='#'>Pilih Periode</option>
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
