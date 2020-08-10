@@ -57,6 +57,9 @@ Route::get('/growth-rka','DashTelu\DashboardController@getBCGrowthRKA');
 Route::get('/tuition','DashTelu\DashboardController@getBCTuition');
 Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 
+Route::get('/komponen-investasi','DashTelu\DashboardController@komponenInvestasi');
+Route::get('/rka-real-investasi','DashTelu\DashboardController@rkaVSRealInvestasi');
+
 
 Route::get('/profile', 'DashTelu\AuthController@getProfile');
 Route::post('/update-password', 'DashTelu\AuthController@updatePassword');
