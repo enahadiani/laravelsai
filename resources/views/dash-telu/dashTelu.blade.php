@@ -95,14 +95,20 @@ $thnLalu = substr($tahunLalu,2,2)
             top:70px
         }
     }
+    /* .modal-backdrop.show
+    {
+        opacity:0;
+    }
+    .modal-content{
+        box-shadow: 0 1px 15px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);;
+    } */
 </style>
 
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
             <h1>RKA Tahunan</h1>
-            <a class="btn btn-outline-light" href="#" id="btn-filter" data-toggle="modal"
-            data-backdrop="static" data-target="#modalFilter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -197,6 +203,34 @@ $thnLalu = substr($tahunLalu,2,2)
             </div>
         </div>
     </div>
+    <!-- <div class="app-menu">
+        <div class="p-4 h-100">
+            <div class="scroll ps">
+                <h5 class="modal-title pl-0" style="position:absolute">Filter</h5>
+                <button type="button" class="close" id="btn-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <form id="form-filter" style="margin-top:50px">
+                    <div class="form-group" style="margin-bottom:30px">
+                        <label>Periode</label>
+                        <select class="form-control" data-width="100%" name="periode" id="periode">
+                        <option value='#'>Pilih Periode</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right ml-2">Tampilkan</button>
+                    <button type="button" class="btn btn-outline-primary float-right" id="btn-reset">Reset</button>
+                </form>
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                    <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;">
+                    </div>
+                </div>
+                <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                    <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </div>
 <script>
 
@@ -570,13 +604,38 @@ $('#form-filter').submit(function(e){
     $('.thnLalu').text(tahunLalu);
     $('.thnIni').text(tahun);
     $('#modalFilter').modal('hide');
+    // $('.app-menu').hide();
+    if ($(".app-menu").hasClass("shown")) {
+        $(".app-menu").removeClass("shown");
+      } else {
+        $(".app-menu").addClass("shown");
+      }
 });
-
-
 
 $('#btn-reset').click(function(e){
     e.preventDefault();
     $('#periode')[0].selectize.setValue('');
     
+});
+   
+$('#btn-filter').click(function(){
+    // if ($(".app-menu").hasClass("shown")) {
+    //     $(".app-menu").removeClass("shown");
+    // } else {
+    //     $(".app-menu").addClass("shown");
+    // }
+    
+    $('#modalFilter').modal('show');
+});
+
+$("#btn-close").on("click", function (event) {
+    event.preventDefault();
+    
+    $('#modalFilter').modal('hide');
+    // if ($(".app-menu").hasClass("shown")) {
+    //     $(".app-menu").removeClass("shown");
+    //   } else {
+    //     $(".app-menu").addClass("shown");
+    //   }
 });
 </script>
