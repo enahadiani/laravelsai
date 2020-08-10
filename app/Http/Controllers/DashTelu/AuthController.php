@@ -85,6 +85,7 @@
                 $response_data = $response->getBody()->getContents();
                 $data = json_decode($response_data,true);
                 if($data["message"] == "success"){
+                    Session::forget('pesan');
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
                     $response2 = $client->request('GET', $this->link.'/profile',[

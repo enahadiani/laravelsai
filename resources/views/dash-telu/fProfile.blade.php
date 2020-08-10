@@ -339,11 +339,6 @@ function loadService(index,method,url,param={}){
         type: method,
         url: url,
         dataType: 'json',
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         data: param,
         success:function(result){    
             if(result.status){
@@ -391,6 +386,19 @@ function loadService(index,method,url,param={}){
 
                 }
             }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     });
 }
@@ -441,11 +449,17 @@ $('#form-ubahPass').on('submit', function(e){
                 alert('request failed:'+textStatus);
             },
             error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
-                   alert(jqXHR.responseText);
-                }else{
-                   alert(jqXHR.responseText);
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
                 }
+                
             }
         });
         

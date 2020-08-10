@@ -347,11 +347,6 @@ function getGrowthRKA(periode=null){
         type:"GET",
         url:"{{ url('/dash-telu/getGrowthRka') }}/"+periode,
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success:function(result){
             Highcharts.chart('growthRKA', { 
                 title: {
@@ -408,8 +403,21 @@ function getGrowthRKA(periode=null){
                             //     }]
                             // }
 
-        });
+            });
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -419,11 +427,6 @@ function getRkaVsReal(periode=null){
         type:"GET",
         url:"{{ url('/dash-telu/getRkaVsReal') }}/"+periode,
         dataType: "JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/sesi-habis')}}";
-            }
-        },
         success: function(result){
 
             Highcharts.chart('rkaVSreal', {
@@ -488,8 +491,20 @@ function getRkaVsReal(periode=null){
 
                             // }]
                             series : result.data.series
-        });
-
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     });
 }

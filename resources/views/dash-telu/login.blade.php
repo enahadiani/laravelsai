@@ -88,7 +88,11 @@
                                 <span class="logo-single"></span>
                             </a>
                             <h6 class="mb-0">Masuk</h6>
-                            <h6 class="mb-4">Selamat Datang Kembali</h6>
+                            <h6 class="mb-4">Selamat Datang
+                            @if(Session::has('pesan'))
+                            Kembali
+                            @endif
+                            </h6>
                             <form method="POST" action="{{ url('dash-telu/login') }}" id="form-login">
                                 @csrf
                                 <label class="form-group has-float-label mb-4">

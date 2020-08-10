@@ -94,8 +94,8 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
 <script>
-    $('body').addClass('dash-contents');
-    $('html').addClass('dash-contents');
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -172,11 +172,6 @@ function getBCRKA(){
         type:"GET",
         url:"{{ url('/dash-telu/rka') }}",
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('trend1', {
                 chart: {
@@ -214,6 +209,19 @@ function getBCRKA(){
                             },
                             series: result.data.series
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -223,11 +231,6 @@ function getBCGrowthRKA(){
         type:"GET",
         url:"{{ url('/dash-telu/growth-rka') }}",
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('trend2', {
                 chart: {
@@ -265,6 +268,19 @@ function getBCGrowthRKA(){
                             },
                             series: result.data.series
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -274,11 +290,6 @@ function getBCTuition(){
         type:"GET",
         url:"{{ url('/dash-telu/tuition') }}",
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success:function(result){
             Highcharts.chart('trend3', { 
                 title: {
@@ -327,8 +338,21 @@ function getBCTuition(){
 
                 series: result.data.series
 
-        });
+            });
 
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }
@@ -339,11 +363,6 @@ function getBCGrowthTuition(){
         type:"GET",
         url:"{{ url('/dash-telu/growth-tuition') }}",
         dataType:"JSON",
-        statusCode:{
-            500: function(response){
-                window.location="{{url('/dash-telu/login')}}";
-            }
-        },
         success: function(result){
             Highcharts.chart('trend4', {
                 chart: {
@@ -381,6 +400,19 @@ function getBCGrowthTuition(){
                             },
                             series: result.data.series
             });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
         }
     })
 }

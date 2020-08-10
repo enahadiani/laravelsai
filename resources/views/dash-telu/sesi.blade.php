@@ -1,3 +1,6 @@
+@php
+Session::put('pesan','Kembali');
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
