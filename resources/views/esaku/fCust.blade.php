@@ -12,25 +12,26 @@
     </style>
     <div class="row header-datatable">
         <div class="col-12">
-            <h1>Data Vendor</h1>
+            <h1>Data Customer</h1>
             <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
             <div class="separator mb-5"></div>
         </div>
     </div>
-    <div class="row mb-3" id="saku-datatable">
+    <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body" style="min-height: 560px !important;">                    
-                    <table id="table-data" class="" style='width:100%'>
+                <div class="card-body" style="min-height: 560px !important;">
+                    <table id="table-data" style='width:100%'>
                         <thead>
                             <tr>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Aksi</th>
-                        </tr>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
+
                         </tbody>
                     </table>
                 </div>
@@ -39,88 +40,64 @@
     </div>
     <div class="row header-form" style="display:none;">
         <div class="col-12">
-            <h1>Form Data Vendor</h1>
+            <h1>Form Data Customer</h1>
             <button type="button" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
             <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
             <div class="separator mb-5"></div>
         </div>
     </div>
     <div class="row" id="saku-form" style="display:none;">
-        <div class="col-12">
+        <div class="col-sm-12">
             <div class="card pt-3" style="min-height: 560px !important;">
-                <form id="form-tambah">
+                <form id="form-tambah" style=''>
                     <div class="card-body pt-0">
                         <div class="form-group row" id="row-id">
-                            <div class="col-9">
+                            <div class="col-md-9 col-sm-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_vendor" class="col-md-3 col-sm-3 col-form-label">Kode</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Kode Vendor" id="kode_vendor" name="kode_vendor">
+                            <div class="form-group row ">
+                                <label for="kode_cust" class="col-md-3 col-sm-3 col-form-label">Kode</label>
+                                <div class="col-md-3 col-sm-3">
+                                    <input class="form-control" type="text" placeholder="Kode Customer" id="kode_cust" name="kode_cust">
+                                </div>
+                                <label for="nama" class="col-md-3 col-sm-3 col-form-label">Nama</label>
+                                <div class="col-md-3 col-sm-3">
+                                    <input class="form-control" type="text" placeholder="Nama Customer" id="nama" name="nama">
+                                </div>
                             </div>
-                            <label for="nama" class="col-md-3 col-sm-3 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nama Vendor" id="nama" name="nama">
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-3 col-sm-3">
                                 <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
                             </div>
                             <label for="no_fax" class="col-md-3 col-sm-3 col-form-label">No Fax</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-3 col-sm-3">
                                 <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-md-3 col-sm-3 col-form-label">Email</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-3 col-sm-3">
                                 <input class="form-control" type="email" placeholder="Email" id="email" name="email">
                             </div>
                             <label for="npwp" class="col-md-3 col-sm-3 col-form-label">NPWP</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="NPWP Vendor" id="npwp" name="npwp">
+                            <div class="col-md-3 col-sm-3">
+                                <input class="form-control" type="text" placeholder="NPWP Customer" id="npwp" name="npwp">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="pic" class="col-md-3 col-sm-3 col-form-label">PIC</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-3 col-sm-3">
                                 <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                            </div>
-                            <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp PIC</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nomor Telepon PIC" id="no_pictel" name="no_pictel">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="bank" class="col-md-3 col-sm-3 col-form-label">Bank</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
-                            </div>
-                            <label for="cabang" class="col-md-3 col-sm-3 col-form-label">Cabang</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="no_rek" class="col-md-3 col-sm-3 col-form-label">No. Rekening</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek">
-                            </div>
-                            <label for="nama_rek" class="col-md-3 col-sm-3 col-form-label">Nama Rekening</label>
-                            <div class="col-md-3 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="alamat" class="col-md-3 col-sm-3 col-form-label">Alamat</label>
                             <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Alamat Vendor" id="alamat" name="alamat">
+                                 <input class="form-control" type="text" placeholder="Alamat Customer" id="alamat" name="alamat">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -130,21 +107,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
-                            <div class="input-group col-md-3 col-sm-9">
-                                <input type='text' name="akun_hutang" id="akun_hutang" class="form-control" value="" required>
+                            <label for="akun_piutang" class="col-md-3 col-sm-3 col-form-label">Akun Piutang</label>
+                            <div class="input-group col-md-3 col-sm-3">
+                                <input type='text' name="akun_piutang" id="akun_piutang" class="form-control" value="" required>
                                     <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
                             </div>
                             <div class="col-md-6 col-sm-9">
-                                <label id="label_akun_hutang" style="margin-top: 10px;"></label>
+                                <label id="label_akun_piutang" style="margin-top: 10px;"></label>
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> 
             </div>
         </div>
     </div> 
-     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,71 +139,72 @@
     <!-- END MODAL -->
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+
     <script>
         // var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
-
+        
         $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
         });
-
+        
         function getAkun(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/vendor-akun') }}",
+                url: "{{ url('esaku-master/cust-akun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#akun_hutang').val(result.daftar[0].kode_akun);
-                            $('#label_akun_hutang').text(result.daftar[0].nama);
+                            $('#akun_piutang').val(result.daftar[0].kode_akun);
+                            $('#label_akun_piutang').text(result.daftar[0].nama);
                         }else{
                             alert('Kode Akun tidak valid');
-                            $('#akun_hutang').val('');
-                            $('#akun_hutang').focus();
+                            $('#akun_piutang').val('');
+                            $('#akun_piutang').focus();
                         }
                     }
                 }
             });
         }
-
+        
         function getLabelAkun(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/vendor-akun') }}",
+                url: "{{ url('esaku-master/cust-akun') }}",
                 dataType: 'json',
                 async:false,
                 success:function(result){    
                     if(result.status){
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                             for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_akun === no){
-                                $('#label_akun_hutang').text(result.daftar[i].nama);
+                                if(result.daftar[i].kode_akun === no){
+                                    $('#label_akun_piutang').text(result.daftar[i].nama);
                                 break;
-                              }
                             }
-                        }else{
-                            alert('Kode Akun tidak valid');
-                            $('#akun_hutang').val('');
-                            $('#akun_hutang').focus();
                         }
+                    }else{
+                        alert('Kode Akun tidak valid');
+                        $('#akun_piutang').val('');
+                        $('#akun_piutang').focus();
                     }
                 }
-            });
+            }
+        });
     }
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
-    
+
     var dataTable = $("#table-data").DataTable({
         sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
         'ajax': {
-            'url': "{{ url('esaku-master/vendor') }}",
+            'url': "{{ url('esaku-master/cust') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -248,7 +226,7 @@
             {'targets': 3, data: null, 'defaultContent': action_html },
             ],
         'columns': [
-            { data: 'kode_vendor' },
+            { data: 'kode_cust' },
             { data: 'nama' },
             { data: 'alamat' },
         ],
@@ -277,9 +255,9 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
-        $('#method').val('post');
-        $('#kode_vendor').attr('readonly', false);
-        $('#label_akun_hutang').text('');
+        $('#method').val('post');  
+        $('#kode_cust').attr('readonly', false);
+        $('#label_akun_piutang').text('');
         $('#saku-datatable').hide();
         $('.header-datatable').hide();
         $('.header-form').show();
@@ -287,18 +265,20 @@
         // $('#form-tambah #add-row').click();
     });
 
-     $('.header-form').on('click', '#btn-kembali', function(){
-        $('.header-datatable').show();
+    $('.header-form').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
-        $('#saku-form').hide();
+        $('.header-datatable').show();
         $('.header-form').hide();
+        $('#saku-form').hide();
     });
 
     $('#form-tambah').on('click', '.search-item2', function(){
+        console.log(this);
         var par = $(this).closest('div').find('input').attr('name');
         var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
+        console.log({target1,target2})
         showFilter(par,target1,target2);
     });
 
@@ -310,9 +290,9 @@
         $target2 = target2;
         
         switch(par){
-        case 'akun_hutang': 
+        case 'akun_piutang': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('esaku-master/vendor-akun') }}";
+            var toUrl = "{{ url('esaku-master/cust-akun') }}";
                 var columns = [
                     { data: 'kode_akun' },
                     { data: 'nama' }
@@ -333,7 +313,7 @@
         }
         header_html +=  "<th></th>";
 
-        var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
 
         $('#modal-search .modal-body').html(table);
@@ -373,7 +353,6 @@
                 lengthMenu: "Items Per Page _MENU_"
             },
         });
-
 
         // searchTable.$('tr.selected').removeClass('selected');
         $('#table-search tbody').find('tr:first').addClass('selected');
@@ -476,7 +455,7 @@
         })
     }
 
-    $('#form-tambah').on('change', '#akun_hutang', function(){
+    $('#form-tambah').on('change', '#akun_piutang', function(){
         var par = $(this).val();
         getAkun(par);
     });
@@ -492,10 +471,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('esaku-master/vendor') }}/"+id;
+            var url = "{{ url('esaku-master/cust') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('esaku-master/vendor') }}";
+            var url = "{{ url('esaku-master/cust') }}";
             var pesan = "saved";
         }
 
@@ -525,14 +504,18 @@
                     //     )
                     alert(result.data.message);
                     $('#saku-datatable').show();
-                    $('#saku-form').hide();
                     $('.header-datatable').show();
+                    $('#saku-form').hide();
                     $('.header-form').hide();
                  
                 }else if(!result.data.status && result.data.message === "Unauthorized"){
-                   
-                    window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-                    
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                    // }) 
                 }else{
                         // Swal.fire({
                         //     icon: 'error',
@@ -540,8 +523,7 @@
                         //     text: 'Something went wrong!',
                         //     footer: '<a href>'+result.data.message+'</a>'
                         // })
-                        
-                    alert(result.data.message);
+                        alert(result.data.message);
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
@@ -562,11 +544,10 @@
         // confirmButtonText: 'Yes, delete it!'
         // }).then((result) => {
         //     if (result.value) {
-            if(confirm("Anda yakin ini menghapus data ini?")){
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('esaku-master/vendor') }}/"+id,
+                    url: "{{ url('esaku-master/cust') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -597,7 +578,6 @@
                         }
                     }
                 });
-            }
                 
         //     }else{
         //         return false;
@@ -607,10 +587,11 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        var marketing= $(this).closest('tr').find('td').eq(4).html();
         // $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/cust') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -618,8 +599,8 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_vendor').attr('readonly', true);
-                    $('#kode_vendor').val(id);
+                    $('#kode_cust').attr('readonly', true);
+                    $('#kode_cust').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     $('#alamat').val(result.data[0].alamat);
@@ -627,20 +608,14 @@
                     $('#email').val(result.data[0].email);
                     $('#npwp').val(result.data[0].npwp);
                     $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
                     $('#no_tel').val(result.data[0].no_tel);
                     $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);
-                    $('#akun_hutang').val(result.data[0].akun_hutang);
-                    getLabelAkun(result.data[0].akun_hutang);
-                    $('#row-id').show();;
-                    
+                    $('#akun_piutang').val(result.data[0].akun_piutang);
+                    getLabelAkun(result.data[0].akun_piutang);
+                    $('#row-id').show();
                     $('#saku-datatable').hide();
-                    $('#saku-form').show();
                     $('.header-datatable').hide();
+                    $('#saku-form').show();
                     $('.header-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -649,9 +624,8 @@
                     //     text: 'harap login terlebih dahulu!',
                     //     icon: 'error'
                     // }).then(function() {
-                    //     window.location.href = "{{ url('saku/login') }}";
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     // })
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
