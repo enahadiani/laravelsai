@@ -43,10 +43,10 @@
 
         .logo{
             background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
-            background-size: 150px;
+            background-size: 120px;
             background-position-x: center;
             background-position-y: center;
-            width:150px;
+            width:120px;
             height:45px;
         }
         .logo-mobile{

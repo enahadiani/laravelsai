@@ -28,11 +28,11 @@ Route::put('cust/{id}', 'Toko\CustomerController@update');
 Route::delete('cust/{id}', 'Toko\CustomerController@delete');
 
 // Data Vendor //
-Route::get('vendor', 'Toko\VendorController@index');
-Route::get('vendor/{id}', 'Toko\VendorController@getData');
-Route::post('vendor', 'Toko\VendorController@store');
-Route::put('vendor/{id}', 'Toko\VendorController@update');
-Route::delete('vendor/{id}', 'Toko\VendorController@delete');
+Route::get('vendor', 'Esaku\VendorController@index');
+Route::get('vendor/{id}', 'Esaku\VendorController@getData');
+Route::post('vendor', 'Esaku\VendorController@store');
+Route::put('vendor/{id}', 'Esaku\VendorController@update');
+Route::delete('vendor/{id}', 'Esaku\VendorController@delete');
 
 // Data Gudang //
 Route::get('gudang', 'Toko\GudangController@index');
