@@ -9,6 +9,10 @@
         .form-group{
             margin-bottom:5px !important;
         }
+        .form-control[readonly]:focus {
+            background-color: #e9ecef;
+            opacity: 1;
+        }
     </style>
     <div class="row header-datatable">
         <div class="col-12">
@@ -131,9 +135,9 @@
                         </div>
                         <div class="form-group row">
                             <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
-                            <div class="input-group col-md-3 col-sm-9">
-                                <input type='text' name="akun_hutang" id="akun_hutang" class="form-control" value="" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                            <div class="col-md-3 col-sm-9">
+                                 <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" >
+                                 <span class="show-list"><i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i></span>
                             </div>
                             <div class="col-md-6 col-sm-9">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
@@ -169,7 +173,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body table-responsive" style="height:350px">
                     <table id="table-delete" class="table no-border">
                         <tbody>
                         </tbody>
@@ -242,6 +246,26 @@
     }
 
     $('[data-toggle="tooltip"]').tooltip(); 
+    // $('.modal-body.ps').
+
+    // Initialize the plugin
+    const demo = document.querySelector('.modal-body.table-responsive');
+    const ps = new PerfectScrollbar(demo);
+
+    // Handle size change
+    document.querySelector('.modal-body.table-responsive').addEventListener('click', () => {
+
+        // Get updated values
+        width = document.querySelector('#width').value;
+        height = document.querySelector('#height').value;
+        
+        // Set demo sizes
+        demo.style.width = `${width}px`;
+        demo.style.height = `${height}px`;
+        
+        // Update Perfect Scrollbar
+        ps.update();
+    });
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
@@ -255,13 +279,7 @@
                 if(json.status){
                     return json.daftar;   
                 }else{
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     return [];
                 }
             }
@@ -540,12 +558,11 @@
                 if(result.data.status){
                     // location.reload();
                     dataTable.ajax.reload();
-                    // Swal.fire(
-                    //     'Great Job!',
-                    //     'Your data has been '+pesan,
-                    //     'success'
-                    //     )
-                    alert(result.data.message);
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+pesan,
+                        'success'
+                        )
                     $('#saku-datatable').show();
                     $('#saku-form').hide();
                     $('.header-datatable').show();
@@ -556,14 +573,12 @@
                     window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                     
                 }else{
-                        // Swal.fire({
-                        //     icon: 'error',
-                        //     title: 'Oops...',
-                        //     text: 'Something went wrong!',
-                        //     footer: '<a href>'+result.data.message+'</a>'
-                        // })
-                        
-                    alert(result.data.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
@@ -587,29 +602,23 @@
                         'Your data has been deleted.',
                         'success'
                     );
+                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Vendor ('+id+') berhasil dihapus ');
                     $('#modal-delete-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
                         footer: '<a href>'+result.data.message+'</a>'
-                    })
-                    // alert(result.data.message);
+                    });
                 }
             }
         });
-        
     }
 
     $('.modal-footer').on('click','#btn-ya',function(e){
@@ -690,13 +699,6 @@
 
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                    //     window.location.href = "{{ url('saku/login') }}";
-                    // })
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
@@ -743,13 +745,6 @@
                     $('.header-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                    //     window.location.href = "{{ url('saku/login') }}";
-                    // })
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
