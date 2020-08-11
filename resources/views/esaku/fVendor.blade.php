@@ -10,6 +10,14 @@
             background-color: #e9ecef;
             opacity: 1;
         }
+        
+        input.error{
+            border:1px solid #dc3545;
+        }
+        label.error{
+            color:#dc3545;
+            margin:0;
+        }
     </style>
     <div class="row header-datatable">
         <div class="col-12">
@@ -208,8 +216,6 @@
                 var id = element.attr("id");
                 $("label[for="+id+"]").append("<br/>");
                 $("label[for="+id+"]").append(error);
-                $("input.error").css('border','1px solid #dc3545');
-                $("label.error").css('color','#dc3545');
                 // if (element.attr("class").indexOf("custom-control") != -1) {
                 //     error.insertAfter(element.parent());
                 // } else {
