@@ -13,7 +13,7 @@
     <div class="row header-datatable">
         <div class="col-12">
             <h1>Data Vendor</h1>
-            <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+            <button type="button" id="btn-tambah" class="btn btn-primary ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="row header-form" style="display:none;">
         <div class="col-12">
             <h1>Form Data Vendor</h1>
-            <button type="button" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+            <button type="button" id="btn-simpan" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
             <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
             <div class="separator mb-5"></div>
         </div>
@@ -160,6 +160,28 @@
         </div>
     </div>
     <!-- END MODAL -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Apakah anda yakin ingin menghapus data vendor (<span id="modal-delete-id"></span>) ?</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="table-delete" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-lg" data-dismiss="modal" style="margin: 0 auto;">Tidak</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="btn-ya" style="margin: 0 auto;">Ya</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script>
@@ -551,58 +573,135 @@
         $('#btn-simpan').html("Simpan").removeAttr('disabled');
     });
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        // Swal.fire({
-        // title: 'Are you sure?',
-        // text: "You won't be able to revert this!",
-        // icon: 'warning',
-        // showCancelButton: true,
-        // confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        // confirmButtonText: 'Yes, delete it!'
-        // }).then((result) => {
-        //     if (result.value) {
-            if(confirm("Anda yakin ini menghapus data ini?")){
-                var id = $(this).closest('tr').find('td').eq(0).html();
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('esaku-master/vendor') }}/"+id,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            // Swal.fire(
-                            //     'Deleted!',
-                            //     'Your data has been deleted.',
-                            //     'success'
-                            // )
-                            alert(result.data.message);
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            // Swal.fire({
-                            //     title: 'Session telah habis',
-                            //     text: 'harap login terlebih dahulu!',
-                            //     icon: 'error'
-                            // }).then(function() {
-                                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            // })
-                        }else{
-                            // Swal.fire({
-                            // icon: 'error',
-                            // title: 'Oops...',
-                            // text: 'Something went wrong!',
-                            // footer: '<a href>'+result.data.message+'</a>'
-                            // })
-                            alert(result.data.message);
-                        }
-                    }
-                });
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-master/vendor') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your data has been deleted.',
+                        'success'
+                    );
+                    $('#modal-delete-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-delete').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                    // alert(result.data.message);
+                }
             }
+        });
+        
+    }
+
+    $('.modal-footer').on('click','#btn-ya',function(e){
+        e.preventDefault();
+        var id = $('#modal-delete-id').text();
+        hapusData(id);
+    })
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-master/vendor') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                var html = '';
                 
-        //     }else{
-        //         return false;
-        //     }
-        // })
+                $('#table-delete tbody').html(html);
+                if(result.status){
+                    html +=`<tr>
+                        <td style='border:none'>Kode Vendor</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Vendor</td>
+                        <td>`+result.data[0].nama+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Telp</td>
+                        <td>`+result.data[0].no_tel+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Fax</td>
+                        <td>`+result.data[0].no_fax+`</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>`+result.data[0].email+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Telp PIC</td>
+                        <td>`+result.data[0].no_pictel+`</td>
+                    </tr>
+                    <tr>
+                        <td>Bank</td>
+                        <td>`+result.data[0].bank+`</td>
+                    </tr>
+                    <tr>
+                        <td>Cabang</td>
+                        <td>`+result.data[0].cabang+`</td>
+                    </tr>
+                    <tr>
+                        <td>No Rekening</td>
+                        <td>`+result.data[0].no_rek+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Rekening</td>
+                        <td>`+result.data[0].nama_rek+`</td>
+                    </tr>
+                    <tr>
+                        <td>Alamat</td>
+                        <td>`+result.data[0].alamat+`</td>
+                    </tr>
+                    <tr>
+                        <td>Alamat NPWP</td>
+                        <td>`+result.data[0].alamat2+`</td>
+                    </tr>
+                    <tr>
+                        <td>Akun Hutang</td>
+                        <td>`+result.data[0].akun_hutang+`</td>
+                    </tr>
+                    `;
+                    $('#table-delete tbody').html(html);
+                    $('#modal-delete-id').text(id);
+                    $('#modal-delete').modal('show');
+
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                    //     window.location.href = "{{ url('saku/login') }}";
+                    // })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
