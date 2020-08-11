@@ -168,20 +168,25 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">Apakah anda yakin ingin menghapus data vendor (<span id="modal-delete-id"></span>) ?</h6>
+                    <h6 class="modal-title">Hapus Data Vendor <span id="modal-delete-nama"></span><span id="modal-delete-id" style="display:none"></span> </h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body table-responsive" style="height:350px">
-                    <table id="table-delete" class="table no-border">
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="modal-body" >
+                    <p class="mb-0">- Semua informasi tentang data vendor ini akan terhapus dari database</p>
+                    <p class="mb-4">- Data vendor ini akan terhapus permanen dalam 24 jam</p>
+                    <span style="z-index: 200;position: absolute;top: 85px;left: 40px;background: white;padding: 0 10px;">Meninjau Data Vendor</span>
+                    <div id="content-delete" class="table-responsive py-2 px-2" style="height:200px;border: 1px solid #d7d7d7;">
+                        <table id="table-delete" class="table no-border">
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-lg" data-dismiss="modal" style="margin: 0 auto;">Tidak</button>
-                    <button type="button" class="btn btn-primary btn-lg" id="btn-ya" style="margin: 0 auto;">Ya</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" >Hapus Data Vendor</button>
                 </div>
             </div>
         </div>
@@ -249,23 +254,23 @@
     // $('.modal-body.ps').
 
     // Initialize the plugin
-    const demo = document.querySelector('.modal-body.table-responsive');
-    const ps = new PerfectScrollbar(demo);
+    var scroll = document.querySelector('#content-delete');
+    var psscroll = new PerfectScrollbar(scroll);
 
-    // Handle size change
-    document.querySelector('.modal-body.table-responsive').addEventListener('click', () => {
+    // // Handle size change
+    // document.querySelector('#content-delete').addEventListener('click', () => {
 
-        // Get updated values
-        width = document.querySelector('#width').value;
-        height = document.querySelector('#height').value;
+    //     // Get updated values
+    //     width = document.querySelector('#width').value;
+    //     height = document.querySelector('#height').value;
         
-        // Set demo sizes
-        demo.style.width = `${width}px`;
-        demo.style.height = `${height}px`;
+    //     // Set scroll sizes
+    //     scroll.style.width = `${width}px`;
+    //     scroll.style.height = `${height}px`;
         
-        // Update Perfect Scrollbar
-        ps.update();
-    });
+    //     // Update Perfect Scrollbar
+    //     psscroll.update();
+    // });
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
