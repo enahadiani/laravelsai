@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
@@ -316,7 +315,7 @@
         </div>
 
 
-        <a class="navbar-logo" href="Dashboard.Default.html">
+        <a class="navbar-logo" href="#">
             <span class="logo d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
@@ -954,10 +953,12 @@
                 return item.nama;
             }));
         },
-        itemLink: function (item) {
-            console.log('select');
+        afterSelect: function (item) {
+            console.log('cek');
+            searchForm(item);
         }
     });
+
     // $('#cari').typeahead({
     //     source: function (cari, result) {
     //         $.ajax({
@@ -975,16 +976,9 @@
     //     }
     // });
 
-    $(document).ready(function(){
-        setTimeout(function(){
-            window.location.href = "{{url('esaku-auth/sesi-habis')}}";
-        }, 1000 * 60 * 60);
-        
-        var form ="{{ Session::get('dash') }}";
-        if(form !="" || form != "-"){
-            loadForm("{{ url('esaku-auth/form') }}/"+form);
-        }
-    });
+    // $(document).ready(function(){
+       
+    // });
     
     function setHeightReport(){
         var header = $('.topbar').height();
@@ -1012,6 +1006,15 @@
         //     $('#saku-datatable .card').css('min-height',tinggi);
         // }
     }
+
+    setTimeout(function(){
+        window.location.href = "{{url('esaku-auth/sesi-habis')}}";
+    }, 1000 * 60 * 60);
+    
+    var form ="{{ Session::get('dash') }}";
+    if(form !="" || form != "-"){
+        loadForm("{{ url('esaku-auth/form') }}/"+form);
+    }
     
     $( window ).resize(function() {
         if($('#content-lap').length > 0){
@@ -1019,26 +1022,12 @@
         }
         setHeightForm();
     });
-
-    $('.typeahead').on('click','a.dropdown-item',function(e){
-    e.preventDefault();
-        console.log('tes');
-        
-        // var cari = $(this).text();
-        // searchForm(cari);
-    });
     
     $('#notificationButton').click(function(){
         updateNotifRead();
     });
     var $theme = "dore.light.redruby.min.css";
-    // localStorage.setItem("dore-theme-color", theme);
-
-    // $('.typeahead.dropdown-menu').on('click','.dropdown-item',function(e){
-    //     e.preventDefault();
-    //     console.log('click');
-    //     var cari = $(this).text();
-    // })
+ 
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
