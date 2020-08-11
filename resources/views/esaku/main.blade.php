@@ -76,9 +76,9 @@
     <script src="{{ asset('asset_dore/js/vendor/Sortable.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     

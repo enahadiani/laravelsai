@@ -6,9 +6,6 @@
         .search-item2{
             cursor:pointer;
         }
-        .form-group{
-            margin-bottom:5px !important;
-        }
         .form-control[readonly]:focus {
             background-color: #e9ecef;
             opacity: 1;
@@ -41,10 +38,11 @@
             </div>
         </div>
     </div>
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
     <div class="row header-form" style="display:none;">
         <div class="col-12">
             <h1>Form Data Vendor</h1>
-            <button type="button" id="btn-simpan" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+            <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
             <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
             <div class="separator mb-5"></div>
         </div>
@@ -52,91 +50,91 @@
     <div class="row" id="saku-form" style="display:none;">
         <div class="col-12">
             <div class="card pt-3" style="min-height: 560px !important;">
-                <form id="form-tambah">
                     <div class="card-body pt-0">
-                        <div class="form-group row" id="row-id">
+                        <div class="form-group row position-relative error-l-50" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row ">
+                        <div class="form-group row position-relative error-l-50 ">
                             <label for="kode_vendor" class="col-md-3 col-sm-3 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Kode Vendor" id="kode_vendor" name="kode_vendor">
+                                <input class="form-control" type="text" placeholder="Kode Vendor" id="kode_vendor" name="kode_vendor" required>
+                                
                             </div>
                             <label for="nama" class="col-md-3 col-sm-3 col-form-label">Nama</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nama Vendor" id="nama" name="nama">
+                                <input class="form-control" type="text" placeholder="Nama Vendor" id="nama" name="nama" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel">
+                                <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel" required>
                             </div>
                             <label for="no_fax" class="col-md-3 col-sm-3 col-form-label">No Fax</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax">
+                                <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="email" class="col-md-3 col-sm-3 col-form-label">Email</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="email" placeholder="Email" id="email" name="email">
+                                <input class="form-control" type="email" placeholder="Email" id="email" name="email" required>
                             </div>
                             <label for="npwp" class="col-md-3 col-sm-3 col-form-label">NPWP</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="NPWP Vendor" id="npwp" name="npwp">
+                                <input class="form-control" type="text" placeholder="NPWP Vendor" id="npwp" name="npwp" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="pic" class="col-md-3 col-sm-3 col-form-label">PIC</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
+                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>
                             </div>
                             <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp PIC</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Nomor Telepon PIC" id="no_pictel" name="no_pictel">
+                                <input class="form-control" type="text" placeholder="Nomor Telepon PIC" id="no_pictel" name="no_pictel" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="bank" class="col-md-3 col-sm-3 col-form-label">Bank</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank">
+                                <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" required>
                             </div>
                             <label for="cabang" class="col-md-3 col-sm-3 col-form-label">Cabang</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang">
+                                <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="no_rek" class="col-md-3 col-sm-3 col-form-label">No. Rekening</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek">
+                                <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek" required>
                             </div>
                             <label for="nama_rek" class="col-md-3 col-sm-3 col-form-label">Nama Rekening</label>
                             <div class="col-md-3 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek">
+                                 <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="alamat" class="col-md-3 col-sm-3 col-form-label">Alamat</label>
                             <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Alamat Vendor" id="alamat" name="alamat">
+                                 <input class="form-control" type="text" placeholder="Alamat Vendor" id="alamat" name="alamat" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="alamat2" class="col-md-3 col-sm-3 col-form-label">Alamat NPWP</label>
                             <div class="col-md-9 col-sm-9">
-                                 <input class="form-control" type="text" placeholder="Alamat NPWP" id="alamat2" name="alamat2">
+                                 <input class="form-control" type="text" placeholder="Alamat NPWP" id="alamat2" name="alamat2" required>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row position-relative error-l-50">
                             <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
                             <div class="col-md-3 col-sm-9">
-                                 <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" >
+                                 <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
                                  <span class="show-list"><i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i></span>
                             </div>
                             <div class="col-md-6 col-sm-9">
@@ -144,10 +142,10 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div> 
+        </div> 
+    </form>
      <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
@@ -177,7 +175,7 @@
                     <p class="mb-0">- Semua informasi tentang data vendor ini akan terhapus dari database</p>
                     <p class="mb-4">- Data vendor ini akan terhapus permanen dalam 24 jam</p>
                     <span style="z-index: 200;position: absolute;top: 85px;left: 40px;background: white;padding: 0 10px;">Meninjau Data Vendor</span>
-                    <div id="content-delete" class="table-responsive py-2 px-2" style="height:200px;border: 1px solid #d7d7d7;">
+                    <div id="content-delete" class="table-responsive py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
                         <table id="table-delete" class="table no-border">
                             <tbody>
                             </tbody>
@@ -193,16 +191,41 @@
     </div>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+    
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     <script>
         // var $iconLoad = $('.preloader');
         var $target = "";
         var $target2 = "";
+        $.validator.setDefaults({
+            ignore: [],
+            errorElement: "label",
+            submitHandler: function () {
+                alert("submitted!");
+            },
+            errorPlacement: function (error, element) {
+                var id = element.attr("id");
+                $("label[for="+id+"]").append("<br/>");
+                $("label[for="+id+"]").append(error);
+                $("input.error").css('border','1px solid #dc3545');
+                $("label.error").css('color','#dc3545');
+                // if (element.attr("class").indexOf("custom-control") != -1) {
+                //     error.insertAfter(element.parent());
+                // } else {
+                //     error.insertAfter(element);
+                // }
+            }
+        });
+        $('#form-tambah').validate();
 
         $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
         });
+
+
 
         function getAkun(id=null){
             $.ajax({
@@ -251,26 +274,10 @@
     }
 
     $('[data-toggle="tooltip"]').tooltip(); 
-    // $('.modal-body.ps').
 
     // Initialize the plugin
     var scroll = document.querySelector('#content-delete');
     var psscroll = new PerfectScrollbar(scroll);
-
-    // // Handle size change
-    // document.querySelector('#content-delete').addEventListener('click', () => {
-
-    //     // Get updated values
-    //     width = document.querySelector('#width').value;
-    //     height = document.querySelector('#height').value;
-        
-    //     // Set scroll sizes
-    //     scroll.style.width = `${width}px`;
-    //     scroll.style.height = `${height}px`;
-        
-    //     // Update Perfect Scrollbar
-    //     psscroll.update();
-    // });
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
