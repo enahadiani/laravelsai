@@ -18,6 +18,14 @@
             color:#dc3545;
             margin:0;
         }
+        #table-data_paginate
+        {
+            margin-top:0 !important;
+        }
+        #table-data_paginate ul
+        {
+            float:right;
+        }
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -286,7 +294,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-master/vendor') }}",
             'async':false,
@@ -301,8 +309,8 @@
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html },
-            ],
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'dt-center' },
+        ],
         'columns': [
             { data: 'kode_vendor' },
             { data: 'nama' },
