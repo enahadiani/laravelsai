@@ -29,6 +29,19 @@
         {
             float:right;
         }
+
+        .form-body 
+        {
+            position: relative;
+            overflow: auto;
+        }
+
+        #content-delete
+        {
+            position: relative;
+            overflow: auto;
+        }
+        
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -65,7 +78,7 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <div class="card-body pt-3 form-body table-responsive">
+                    <div class="card-body pt-3 form-body">
                         <div class="form-group row position-relative error-l-50" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -156,26 +169,6 @@
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
-                            <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
-                            <div class="col-md-3 col-sm-9">
-                                 <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
-                            </div>
-                            <div class="col-md-6 col-sm-9">
-                                <label id="label_akun_hutang" style="margin-top: 10px;"></label>
-                            </div>
-                        </div>
-                        <div class="form-group row position-relative error-l-50">
-                            <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
-                            <div class="col-md-3 col-sm-9">
-                                 <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
-                            </div>
-                            <div class="col-md-6 col-sm-9">
-                                <label id="label_akun_hutang" style="margin-top: 10px;"></label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -210,7 +203,7 @@
                     <p class="mb-0">- Semua informasi tentang data vendor ini akan terhapus dari database</p>
                     <p class="mb-4">- Data vendor ini akan terhapus permanen dalam 24 jam</p>
                     <span style="z-index: 200;position: absolute;top: 85px;left: 40px;background: white;padding: 0 10px;">Meninjau Data Vendor</span>
-                    <div id="content-delete" class="table-responsive py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
+                    <div id="content-delete" class="py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
                         <table id="table-delete" class="table no-border">
                             <tbody>
                             </tbody>
@@ -388,6 +381,7 @@
         var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
+        console.log('click');
         showFilter(par,target1,target2);
     });
 
@@ -794,6 +788,35 @@
                 // $iconLoad.hide();
             }
         });
+    });
+
+    $('#kode_vendor,#nama,#no_tel,#no_fax,#email,#npwp,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat,#alamat2,#akun_hutang').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_vendor','nama','no_tel','no_fax','email','npwp','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat','alamat2','akun_hutang'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            if(idx == 15){
+                var akun = $('#akun_hutang').val();
+                getAkun(akun);
+            }else{
+                $('#'+nxt[idx]).focus();
+            }
+            // if(idx == 2 || idx == 3){
+            //     $('#'+nxt[idx])[0].selectize.focus();
+            // }else{
+                
+                // $('#'+nxt[idx]).focus();
+            // }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
     });
 
     </script>
