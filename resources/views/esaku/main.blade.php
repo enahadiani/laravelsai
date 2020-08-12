@@ -55,6 +55,74 @@
             background-size:30px;
             width:30px;
         }
+        .navbar{
+            height:70px;
+            padding:0;
+        }
+        @media (max-width: 1439px) {
+            .navbar {
+            height: 70px; } }
+        @media (max-width: 1199px) {
+            .navbar {
+            height: 70px;
+            padding: 12px 0; } }
+        @media (max-width: 767px) {
+            .navbar {
+            height: 70px; } }
+        .menu{
+            padding-top:70px;
+            height: calc(100% - 70px);
+        }
+        .menu .main-menu {
+            height: calc(100% - 70px);
+        }
+
+        @media (max-width: 1439px) {
+        .menu .main-menu {
+            height: calc(100% - 70px); } }
+        @media (max-width: 1199px) {
+        .menu .main-menu {
+            height: calc(100% - 70px); } }
+        @media (max-width: 767px) {
+        .menu .main-menu {
+            height: calc(100% - 70px); } }
+        .menu .sub-menu {
+            
+            height: calc(100% - 70px);
+        }
+
+        @media (max-width: 1439px) {
+        .menu .sub-menu {
+            height: calc(100% - 70px); } 
+        }
+        @media (max-width: 1199px) {
+        .menu .sub-menu {
+            height: calc(100% - 70px); } }
+        @media (max-width: 767px) {
+        .menu .sub-menu {
+            height: calc(100% - 70px); } }
+        @media (max-width: 1439px) {
+            .menu {
+            padding-top: 70px;
+            height: calc(100% - 70px); } }
+        @media (max-width: 1199px) {
+            .menu {
+            padding-top: 70px;
+            height: calc(100% - 70px); } }
+        @media (max-width: 767px) {
+            .menu {
+            padding-top: 70px;
+            height: calc(100% - 70px); } }
+
+        @media (max-width: 1439px) {
+            main {
+            margin-top: 110px; } }
+        @media (max-width: 1199px) {
+            main {
+            margin-top: 110px; } }
+        @media (max-width: 767px) {
+            main {
+            margin-top: 110px; } }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
