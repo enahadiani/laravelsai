@@ -10,11 +10,31 @@
 
         public $link = 'https://api.simkug.com/api/sai-master/';
         public $link2 = 'https://api.simkug.com/api/sai-trans/';
+        public $link3 = 'https://api.simkug.com/api/sai-report/';
 
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
             }
+        }
+
+        public function getPeriode() {
+
+            $client = new Client();
+            $response = $client->request('GET', $this->link3.'filter-periode',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
         public function getTagihan($periode) {

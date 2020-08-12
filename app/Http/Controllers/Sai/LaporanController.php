@@ -28,8 +28,7 @@
                     ],
                     'query' => [
                         'kode_cust' => $request->kode_cust,
-                        'no_bill' => $request->no_bill,
-                        'no_kontrak' => $request->no_kontrak,
+                        'periode' => $request->periode,
                     ]
                 ]);
 

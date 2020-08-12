@@ -73,20 +73,28 @@
             </div>
             <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
+                    <label for="periode">Periode</label>
+                    <select name="periode" id="periode" class="form-control">
+                    <option value="">Pilih Periode</option>
+                    </select>
+                </div>
+            </div>
+            {{-- <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
                     <label for="no_bill">Nomor Tagihan</label>
                     <select name="no_bill" id="no_bill" class="form-control">
                     <option value="">Pilih Nomor Tagihan</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-sm-12">
+            </div> --}}
+            {{-- <div class="col-sm-12">
                 <div class="form-group" style='margin-bottom:0'>
                     <label for="no_kontrak">Nomor Kontrak</label>
                     <select name="no_kontrak" id="no_kontrak" class="form-control">
                     <option value="">Pilih Nomor Kontrak</option>
                     </select>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -157,8 +165,8 @@
         var $loadBar = $('#loading-bar');
         var $loadBar2 = $('#loading-bar2');
 
-        xurl = "{{ url('/sai-auth/form')}}/rptTagihanMT";
-        $('#content-lap').load(xurl);
+        // xurl = "{{ url('/sai-auth/form')}}/rptTagihanMT";
+        // $('#content-lap').load(xurl);
 
     function getCustomer() {
         $.ajax({
@@ -205,22 +213,22 @@
         });
     }
 
-    function getTagihanMT() {
+    function getPeriode() {
         $.ajax({
             type:'GET',
-            url:"{{url('sai-trans/tagihan-maintain')}}",
+            url:"{{url('sai-report/periode')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
                 if(result.status) {
-                    var select = $('#no_bill').selectize();
+                    var select = $('#periode').selectize();
                     select = select[0];
                     var control = select.selectize;
                     control.clearOptions();
 
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_bill, value:result.daftar[i].no_bill}]);
+                            control.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
                         }
                     }
                 }else if(!result.status && result.daftar.message == "Unauthorized"){
@@ -250,50 +258,95 @@
         });
     }
 
-    function getKontrakMT() {
-        $.ajax({
-            type:'GET',
-            url:"{{url('sai-trans/kontrak')}}/MAINTENANCE",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if(result.status) {
-                    var select = $('#no_kontrak').selectize();
-                    select = select[0];
-                    var control = select.selectize;
-                    control.clearOptions();
+    // function getTagihanMT() {
+    //     $.ajax({
+    //         type:'GET',
+    //         url:"{{url('sai-trans/tagihan-maintain')}}",
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             if(result.status) {
+    //                 var select = $('#no_bill').selectize();
+    //                 select = select[0];
+    //                 var control = select.selectize;
+    //                 control.clearOptions();
 
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_kontrak, value:result.daftar[i].no_kontrak}]);
-                        }
-                    }
-                }else if(!result.status && result.daftar.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('sai-auth/login') }}";
-                    })
-                } else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
-                }
-            },
-            error: function(error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Terjadi kesalahan pada server'
-                })
-            }
-        });
-    }
+    //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+    //                     for(i=0;i<result.daftar.length;i++){
+    //                         control.addOption([{text:result.daftar[i].no_bill, value:result.daftar[i].no_bill}]);
+    //                     }
+    //                 }
+    //             }else if(!result.status && result.daftar.message == "Unauthorized"){
+    //                 Swal.fire({
+    //                     title: 'Session telah habis',
+    //                     text: 'harap login terlebih dahulu!',
+    //                     icon: 'error'
+    //                 }).then(function() {
+    //                     window.location.href = "{{ url('sai-auth/login') }}";
+    //                 })
+    //             } else{
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops...',
+    //                     text: 'Something went wrong!',
+    //                     footer: '<a href>'+result.data.message+'</a>'
+    //                 })
+    //             }
+    //         },
+    //         error: function(error) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Terjadi kesalahan pada server'
+    //             })
+    //         }
+    //     });
+    // }
+
+    // function getKontrakMT() {
+    //     $.ajax({
+    //         type:'GET',
+    //         url:"{{url('sai-trans/kontrak')}}/MAINTENANCE",
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             if(result.status) {
+    //                 var select = $('#no_kontrak').selectize();
+    //                 select = select[0];
+    //                 var control = select.selectize;
+    //                 control.clearOptions();
+
+    //                 if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+    //                     for(i=0;i<result.daftar.length;i++){
+    //                         control.addOption([{text:result.daftar[i].no_kontrak, value:result.daftar[i].no_kontrak}]);
+    //                     }
+    //                 }
+    //             }else if(!result.status && result.daftar.message == "Unauthorized"){
+    //                 Swal.fire({
+    //                     title: 'Session telah habis',
+    //                     text: 'harap login terlebih dahulu!',
+    //                     icon: 'error'
+    //                 }).then(function() {
+    //                     window.location.href = "{{ url('sai-auth/login') }}";
+    //                 })
+    //             } else{
+    //                 Swal.fire({
+    //                     icon: 'error',
+    //                     title: 'Oops...',
+    //                     text: 'Something went wrong!',
+    //                     footer: '<a href>'+result.data.message+'</a>'
+    //                 })
+    //             }
+    //         },
+    //         error: function(error) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Terjadi kesalahan pada server'
+    //             })
+    //         }
+    //     });
+    // }
 
     function openNav() {
         var element = $('#mySidepanel');
@@ -311,9 +364,10 @@
 
     $('.card-body').on('click', '#btn-lanjut', function(e){
         e.preventDefault();
-        getTagihanMT();
+        // getTagihanMT();
+        getPeriode();
         getCustomer();
-        getKontrakMT();
+        // getKontrakMT();
         openNav();
     });
 
