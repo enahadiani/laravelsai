@@ -44,11 +44,11 @@
 
         .logo{
             background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
-            background-size: 120px;
+            background-size: 100px;
             background-position-x: center;
             background-position-y: center;
-            width:120px;
-            height:45px;
+            width:100px;
+            height:35px;
         }
         .logo-mobile{
             background:url("{{ asset('asset_elite/images/sai_icon/logo.png') }}") no-repeat;
@@ -56,73 +56,73 @@
             width:30px;
         }
         .navbar{
-            height:70px;
+            height:60px;
             padding:0;
         }
         @media (max-width: 1439px) {
             .navbar {
-            height: 70px; } }
+            height: 60px; } }
         @media (max-width: 1199px) {
             .navbar {
-            height: 70px;
+            height: 60px;
             padding: 12px 0; } }
         @media (max-width: 767px) {
             .navbar {
-            height: 70px; } }
+            height: 60px; } }
         .menu{
-            padding-top:70px;
-            height: calc(100% - 70px);
+            padding-top:60px;
+            height: calc(100% - 60px);
         }
         .menu .main-menu {
-            height: calc(100% - 70px);
+            height: calc(100% - 60px);
         }
 
         @media (max-width: 1439px) {
         .menu .main-menu {
-            height: calc(100% - 70px); } }
+            height: calc(100% - 60px); } }
         @media (max-width: 1199px) {
         .menu .main-menu {
-            height: calc(100% - 70px); } }
+            height: calc(100% - 60px); } }
         @media (max-width: 767px) {
         .menu .main-menu {
-            height: calc(100% - 70px); } }
+            height: calc(100% - 60px); } }
         .menu .sub-menu {
             
-            height: calc(100% - 70px);
+            height: calc(100% - 60px);
         }
 
         @media (max-width: 1439px) {
         .menu .sub-menu {
-            height: calc(100% - 70px); } 
+            height: calc(100% - 60px); } 
         }
         @media (max-width: 1199px) {
         .menu .sub-menu {
-            height: calc(100% - 70px); } }
+            height: calc(100% - 60px); } }
         @media (max-width: 767px) {
         .menu .sub-menu {
-            height: calc(100% - 70px); } }
+            height: calc(100% - 60px); } }
         @media (max-width: 1439px) {
             .menu {
-            padding-top: 70px;
-            height: calc(100% - 70px); } }
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
         @media (max-width: 1199px) {
             .menu {
-            padding-top: 70px;
-            height: calc(100% - 70px); } }
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
         @media (max-width: 767px) {
             .menu {
-            padding-top: 70px;
-            height: calc(100% - 70px); } }
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
 
         @media (max-width: 1439px) {
             main {
-            margin-top: 110px; } }
+            margin-top: 100px; } }
         @media (max-width: 1199px) {
             main {
-            margin-top: 110px; } }
+            margin-top: 100px; } }
         @media (max-width: 767px) {
             main {
-            margin-top: 110px; } }
+            margin-top: 100px; } }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -829,6 +829,9 @@
             result($.map($dtForm, function (item) {
                 return item.nama;
             }));
+        },
+        itemLink: function (item) {
+            console.log('select');
         }
     });
     // $('#cari').typeahead({
