@@ -238,6 +238,7 @@
                 type: 'GET',
                 url: "{{ url('esaku-master/vendor-akun') }}",
                 dataType: 'json',
+                data:{'kode_akun':id},
                 async:false,
                 success:function(result){    
                     if(result.status){
@@ -247,6 +248,7 @@
                         }else{
                             alert('Kode Akun tidak valid');
                             $('#akun_hutang').val('');
+                            $('#label_akun_hutang').html('');
                             $('#akun_hutang').focus();
                         }
                     }
@@ -259,6 +261,7 @@
                 type: 'GET',
                 url: "{{ url('esaku-master/vendor-akun') }}",
                 dataType: 'json',
+                data:{'kode_akun':no},
                 async:false,
                 success:function(result){    
                     if(result.status){
@@ -271,6 +274,7 @@
                             }
                         }else{
                             alert('Kode Akun tidak valid');
+                            $('#label_akun_hutang').html('');
                             $('#akun_hutang').val('');
                             $('#akun_hutang').focus();
                         }
@@ -335,6 +339,7 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
         $('#method').val('post');
         $('#kode_vendor').attr('readonly', false);
         $('#label_akun_hutang').text('');
