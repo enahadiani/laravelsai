@@ -19,18 +19,16 @@
             margin:0;
         }
     </style>
-    <div class="row header-datatable">
-        <div class="col-12">
-            <h1>Data Vendor</h1>
-            <button type="button" id="btn-tambah" class="btn btn-primary ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-            <div class="separator mb-5"></div>
-        </div>
-    </div>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body" style="min-height: 560px !important;">                    
-                    <table id="table-data" class="" style='width:100%'>
+                <div class="card-body pb-3" style="padding-top:1rem;">
+                    <h5 style="position:absolute;top: 25px;">Data Vendor</h5>
+                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body" style="min-height: 560px !important;padding-top:1rem;">                    
+                    <table id="table-data" style='width:100%'>
                         <thead>
                             <tr>
                             <th>Kode</th>
@@ -47,18 +45,16 @@
         </div>
     </div>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <div class="row header-form" style="display:none;">
-        <div class="col-12">
-            <h1 id="judul-form"></h1>
-            <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-            <div class="separator mb-5"></div>
-        </div>
-    </div>
-    <div class="row" id="saku-form" style="display:none;">
-        <div class="col-12">
-            <div class="card pt-3" style="min-height: 560px !important;">
-                    <div class="card-body pt-0">
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-12">
+                <div class="card" style="min-height: 560px !important;">
+                    <div class="card-body" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                    </div>
+                    <div class="separator mb-2"></div>
+                    <div class="card-body pt-3">
                         <div class="form-group row position-relative error-l-50" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -143,7 +139,7 @@
                             <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
                             <div class="col-md-3 col-sm-9">
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
-                                 <span class="show-list"><i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i></span>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
                             </div>
                             <div class="col-md-6 col-sm-9">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
@@ -333,7 +329,7 @@
         },
     });
 
-    $('.header-datatable').on('click', '#btn-tambah', function(){
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#judul-form').html('Tambah Data Vendor');
@@ -343,17 +339,13 @@
         $('#kode_vendor').attr('readonly', false);
         $('#label_akun_hutang').text('');
         $('#saku-datatable').hide();
-        $('.header-datatable').hide();
-        $('.header-form').show();
         $('#saku-form').show();
         // $('#form-tambah #add-row').click();
     });
 
-     $('.header-form').on('click', '#btn-kembali', function(){
-        $('.header-datatable').show();
+     $('#saku-form').on('click', '#btn-kembali', function(){
         $('#saku-datatable').show();
         $('#saku-form').hide();
-        $('.header-form').hide();
     });
 
     $('#form-tambah').on('click', '.search-item2', function(){
@@ -587,8 +579,6 @@
                         )
                     $('#saku-datatable').show();
                     $('#saku-form').hide();
-                    $('.header-datatable').show();
-                    $('.header-form').hide();
                  
                 }else if(!result.data.status && result.data.message === "Unauthorized"){
                    
@@ -759,13 +749,9 @@
                     $('#no_rek').val(result.data[0].no_rek);
                     $('#nama_rek').val(result.data[0].nama_rek);
                     $('#akun_hutang').val(result.data[0].akun_hutang);
-                    getLabelAkun(result.data[0].akun_hutang);
-                    $('#row-id').show();;
-                    
+                    getLabelAkun(result.data[0].akun_hutang);                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    $('.header-datatable').hide();
-                    $('.header-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
