@@ -114,7 +114,7 @@
             padding-top: 60px;
             height: calc(100% - 60px); } }
 
-        @media (max-width: 1439px) {
+        /* @media (max-width: 1439px) {
             main {
             margin-top: 100px; } }
         @media (max-width: 1199px) {
@@ -122,7 +122,110 @@
             margin-top: 100px; } }
         @media (max-width: 767px) {
             main {
-            margin-top: 100px; } }
+            margin-top: 100px; } } */
+
+        main {
+        margin-left: 390px;
+        margin-top: 90px;
+        margin-right: 30px;
+        margin-bottom: 40px; }
+        main.default-transition {
+            transition: margin-left 300ms; }
+        main .container-fluid {
+            padding-left: 0;
+            padding-right: 0; }
+        @media (max-width: 1439px) {
+            main {
+            margin-left: 390px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 30px; } }
+        @media (max-width: 1199px) {
+            main {
+            margin-left: 370px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 20px; } }
+        @media (max-width: 767px) {
+            main {
+            margin-left: 15px !important;
+            margin-right: 15px !important;
+            margin-top: 90px !important;
+            margin-bottom: 0; } }
+        @media (max-width: 575px) {
+            main {
+            margin-bottom: 0; } }
+        
+        #app-container.sub-hidden main,
+        #app-container.menu-sub-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 140px; 
+        }
+        
+        #app-container.main-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        #app-container.menu-main-hidden main 
+        {
+            margin-left: 270px; 
+        }
+        
+        #app-container.menu-main-hidden.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        @media (max-width: 1439px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+        
+        @media (max-width: 1199px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -199,7 +302,25 @@
         </a>
 
         <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
+            <div class="user d-inline-block mr-3">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">{{ Session::get('namaUser') }}</span>
+                    <span id="foto-profile">
+                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    @else
+                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
+                    @endif
+                    </span>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
+                    <a class="dropdown-item" href="{{ url('esaku-auth/logout') }}">Sign out</a>
+                </div>
+            </div>
+            <div class="header-icons d-inline-block align-middle mr-4">
                 <div class="d-none d-md-inline-block align-text-bottom mr-3">
                     <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
                          data-toggle="tooltip" data-placement="left" title="Dark Mode">
@@ -315,24 +436,7 @@
 
             </div>
 
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">{{ Session::get('namaUser') }}</span>
-                    <span id="foto-profile">
-                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
-                    @else
-                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
-                    @endif
-                    </span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
-                    <a class="dropdown-item" href="{{ url('esaku-auth/logout') }}">Sign out</a>
-                </div>
-            </div>
+            
         </div>
     </nav>
     <div class="menu">
