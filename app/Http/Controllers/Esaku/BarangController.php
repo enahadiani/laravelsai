@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Toko;
+namespace App\Http\Controllers\Esaku;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;

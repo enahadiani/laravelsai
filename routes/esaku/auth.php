@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
-        return redirect('esaku-auth/login')->with('alert','Session telah habis !');
+        return redirect('esaku-auth/login');
     }else{
         return view('esaku.'.$id);
     }

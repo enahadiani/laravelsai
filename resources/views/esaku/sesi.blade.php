@@ -92,50 +92,10 @@ Session::put('pesan','Kembali');
     </main>
     <script>
         $(document).ready(function() {
-            $('#username,#password').keydown(function(e){
-                
-                var code = (e.keyCode ? e.keyCode : e.which);
-                var nxt = ['username','password'];
-                if (code == 13 || code == 40) {
-                    e.preventDefault();
-                    var idx = nxt.indexOf(e.target.id);
-                    idx++;
-                    if(idx == 2){
-                        $('#form-login').submit();
-                    }else{
-                        
-                        $('#'+nxt[idx]).focus();
-                    }
-                }else if(code == 38){
-                    e.preventDefault();
-                    var idx = nxt.indexOf(e.target.id);
-                    idx--;
-                    if(idx != -1){ 
-                        $('#'+nxt[idx]).focus();
-                    }
-                }
-            });
+            
             $('body').addClass('dash-contents');
-
-            $('#btn-eye').click(function(){
-                console.log('click');
-                var x = document.getElementById("password");
-                if (x.type === "password") {
-                    x.type = "text";
-                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/eye.svg') }} )";
-                } else {
-                    x.type = "password";
-                    document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('asset_dore/img/hide.svg') }} )";
-                }
-            });
         });
     </script>
-    @if (Session::has('alert'))
-        <script>
-            alert("{{Session::get('alert')}}")
-        </script>
-        
-    @endif
     
 </body>
 

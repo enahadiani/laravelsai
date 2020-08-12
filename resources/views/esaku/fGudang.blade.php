@@ -13,7 +13,7 @@
     <div class="row header-datatable">
         <div class="col-12">
             <h1>Data Gudang</h1>
-            <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+            <button type="button" id="btn-tambah" class="btn btn-primary ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
             <div class="separator mb-5"></div>
         </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="row header-form" style="display:none;">
         <div class="col-12">
             <h1>Form Data Gudang</h1>
-            <button type="button" id="btn-simpan" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+            <button type="button" id="btn-simpan" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
             <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
             <div class="separator mb-5"></div>
         </div>
@@ -88,9 +88,9 @@
                         </div>
                         <div class="form-group row">
                             <label for="pic" class="col-md-3 col-sm-3 col-form-label">Penanggung Jawab</label>
-                            <div class="input-group col-md-3 col-sm-9">
-                                <input type='text' name="pic" id="pic" class="form-control" value="" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                            <div class="col-md-3 col-sm-9">
+                                 <input class="form-control" type="text"  id="pic" name="pic" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
                             </div>
                             <div class="col-6">
                                 <label id="label_pic" style="margin-top: 10px;"></label>
@@ -98,9 +98,9 @@
                         </div>
                         <div class="form-group row">
                             <label for="kode_pp" class="col-md-3 col-sm-3 col-form-label">PP/Unit</label>
-                            <div class="input-group col-md-3 col-sm-9">
-                                <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                            <div class="col-md-3 col-sm-9">
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
                             </div>
                             <div class="col-md-6 col-sm-9">
                                 <label id="label_kode_pp" style="margin-top: 10px;"></label>
@@ -144,19 +144,26 @@
         function getNIK(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/gudang-nik') }}",
+                url: "{{ url('esaku-master/karyawan-detail') }}/"+id,
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(res){  
+                    var result = res.data;
                     if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#pic').val(result.daftar[0].nik);
-                            $('#label_pic').text(result.daftar[0].nama);
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            $('#pic').val(result.data[0].nik);
+                            $('#label_pic').text(result.data[0].nama);
                         }else{
+                            $('#label_pic').text('');
                             alert('PIC tidak valid');
                             $('#pic').val('');
                             $('#pic').focus();
                         }
+                    }else{
+                        $('#label_pic').text('');
+                        alert('PIC tidak valid');
+                        $('#pic').val('');
+                        $('#pic').focus();
                     }
                 }
             });
@@ -165,23 +172,25 @@
         function getLabelNIK(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/gudang-nik') }}",
+                url: "{{ url('esaku-master/karyawan-detail') }}/"+no,
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(res){    
+                    var result = res.data;
                     if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].nik === no){
-                                $('#label_pic').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            $('#label_pic').text(result.data[0].nama);
                         }else{
+                            $('#label_pic').text('');
                             alert('PIC tidak valid');
                             $('#pic').val('');
                             $('#pic').focus();
                         }
+                    }else{
+                        $('#label_pic').text('');
+                        alert('PIC tidak valid');
+                        $('#pic').val('');
+                        $('#pic').focus();
                     }
                 }
             });
@@ -190,19 +199,28 @@
         function getPP(id=null){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/gudang-pp') }}",
+                url: "{{ url('esaku-master/unit') }}/"+id,
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(res){   
+                    var result = res.data;
                     if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_pp').val(result.daftar[0].kode_pp);
-                            $('#label_kode_pp').text(result.daftar[0].nama);
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            $('#kode_pp').val(result.data[0].kode_pp);
+                            $('#label_kode_pp').text(result.data[0].nama);
                         }else{
+                            
+                            $('#label_kode_pp').text('');
                             alert('PP tidak valid');
                             $('#kode_pp').val('');
                             $('#kode_pp').focus();
                         }
+                    }else{
+                        
+                        $('#label_kode_pp').text('');
+                        alert('PP tidak valid');
+                        $('#kode_pp').val('');
+                        $('#kode_pp').focus();
                     }
                 }
             });
@@ -211,23 +229,26 @@
         function getLabelPP(no){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/gudang-pp') }}",
+                url: "{{ url('esaku-master/unit') }}/"+no,
                 dataType: 'json',
                 async:false,
-                success:function(result){    
+                success:function(res){  
+                    var result = res.data;
                     if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_pp === no){
-                                $('#label_kode_pp').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
+                        if(typeof result.data !== 'undefined' && result.data.length>0){
+                            $('#label_kode_pp').text(result.data[0].nama);
                         }else{
+                            
+                            $('#label_kode_pp').text('');
                             alert('PP tidak valid');
                             $('#kode_pp').val('');
                             $('#kode_pp').focus();
                         }
+                    }else{
+                        $('#label_kode_pp').text('');
+                        alert('PP tidak valid');
+                        $('#kode_pp').val('');
+                        $('#kode_pp').focus();
                     }
                 }
             });

@@ -1,9 +1,10 @@
 <?php
-    namespace App\Http\Controllers\Toko;
+    namespace App\Http\Controllers\Esaku;
 
     use App\Http\Controllers\Controller;
     use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Session;
+    use Illuminate\Http\Request;
     use GuzzleHttp\Exception\BadResponseException;
 
     class HelperController extends Controller {
@@ -13,7 +14,7 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('tarbak/login')->with('alert','Session telah habis !');
+            return redirect('esaku-auth/login');
             }
         }
 
@@ -438,14 +439,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getAkunVend() {
+        public function getAkunVend(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET', $this->link.'vendor-akun',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun' => $request->kode_akun
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
