@@ -666,7 +666,7 @@
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Terjadi kesalahan pada server!',
-                        footer: err.message
+                        footer: 'Data tagihan sudah di generate semua di periode ini!'
                     })
                 },
             });
