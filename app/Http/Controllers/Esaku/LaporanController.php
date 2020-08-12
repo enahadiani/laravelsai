@@ -1,5 +1,5 @@
 <?php
-    namespace App\Http\Controllers\Toko;
+    namespace App\Http\Controllers\Esaku;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('tarbak/login')->with('alert','Session telah habis !');
+            return redirect('esaku-auth/login');
             }
         }
 

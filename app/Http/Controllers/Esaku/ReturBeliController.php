@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Toko;
+namespace App\Http\Controllers\Esaku;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +20,7 @@ class ReturBeliController extends Controller
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('toko-auth/login')->with('alert','Session telah habis !');
+            return redirect('esaku-auth/login');
         }
     }
 

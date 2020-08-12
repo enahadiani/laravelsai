@@ -49,7 +49,7 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
     <div class="row header-form" style="display:none;">
         <div class="col-12">
-            <h1>Form Data Vendor</h1>
+            <h1 id="judul-form"></h1>
             <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
             <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
             <div class="separator mb-5"></div>
@@ -231,8 +231,6 @@
             }
         });
 
-
-
         function getAkun(id=null){
             $.ajax({
                 type: 'GET',
@@ -338,6 +336,7 @@
     $('.header-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Vendor');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
@@ -732,6 +731,7 @@
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
+        $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-master/vendor') }}/" + id,
