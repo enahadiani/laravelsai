@@ -228,7 +228,7 @@
         var $target = "";
         var $target2 = "";
         jQuery.extend(jQuery.validator.messages, {
-            required: "Harus diisi",
+            required: "Wajib diisi",
             remote: "Perbaiki field ini",
             email: "Harap isi alamat email yang valid",
             url: "Harap isi url yang valid",

@@ -953,10 +953,10 @@
                 return item.nama;
             }));
         },
-        afterSelect: function (item) {
-            console.log('cek');
-            searchForm(item);
-        }
+        // afterSelect: function (item) {
+        //     console.log('cek');
+        //     // searchForm(item);
+        // }
     });
 
     // $('#cari').typeahead({
