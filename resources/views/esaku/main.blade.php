@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
@@ -114,7 +113,7 @@
             padding-top: 60px;
             height: calc(100% - 60px); } }
 
-        @media (max-width: 1439px) {
+        /* @media (max-width: 1439px) {
             main {
             margin-top: 100px; } }
         @media (max-width: 1199px) {
@@ -122,7 +121,130 @@
             margin-top: 100px; } }
         @media (max-width: 767px) {
             main {
-            margin-top: 100px; } }
+            margin-top: 100px; } } */
+
+        main {
+        margin-left: 390px;
+        margin-top: 90px;
+        margin-right: 30px;
+        margin-bottom: 40px; }
+        main.default-transition {
+            transition: margin-left 300ms; }
+        main .container-fluid {
+            padding-left: 0;
+            padding-right: 0; }
+        @media (max-width: 1439px) {
+            main {
+            margin-left: 390px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 30px; } }
+        @media (max-width: 1199px) {
+            main {
+            margin-left: 370px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 20px; } }
+        @media (max-width: 767px) {
+            main {
+            margin-left: 15px !important;
+            margin-right: 15px !important;
+            margin-top: 90px !important;
+            margin-bottom: 0; } }
+        @media (max-width: 575px) {
+            main {
+            margin-bottom: 0; } }
+        
+        #app-container.sub-hidden main,
+        #app-container.menu-sub-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 140px; 
+        }
+        
+        #app-container.main-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        #app-container.menu-main-hidden main 
+        {
+            margin-left: 270px; 
+        }
+        
+        #app-container.menu-main-hidden.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        @media (max-width: 1439px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+        
+        @media (max-width: 1199px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+
+        body {
+        min-height: calc(100% - 90px);
+        position: relative;
+        padding-bottom: 0px; }
+        @media (max-width: 1439px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 1199px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 767px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 575px) {
+            body {
+            padding-bottom: 0px; } }
+        body.no-footer {
+            padding-bottom: initial; 
+        }
+
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -193,13 +315,31 @@
         </div>
 
 
-        <a class="navbar-logo" href="Dashboard.Default.html">
+        <a class="navbar-logo" href="#">
             <span class="logo d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
 
         <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
+            <div class="user d-inline-block mr-3">
+                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">{{ Session::get('namaUser') }}</span>
+                    <span id="foto-profile">
+                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    @else
+                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
+                    @endif
+                    </span>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right mt-3">
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
+                    <a class="dropdown-item" href="{{ url('esaku-auth/logout') }}">Sign out</a>
+                </div>
+            </div>
+            <div class="header-icons d-inline-block align-middle mr-4">
                 <div class="d-none d-md-inline-block align-text-bottom mr-3">
                     <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
                          data-toggle="tooltip" data-placement="left" title="Dark Mode">
@@ -315,24 +455,7 @@
 
             </div>
 
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">{{ Session::get('namaUser') }}</span>
-                    <span id="foto-profile">
-                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
-                    @else
-                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
-                    @endif
-                    </span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
-                    <a class="dropdown-item" href="{{ url('esaku-auth/logout') }}">Sign out</a>
-                </div>
-            </div>
+            
         </div>
     </nav>
     <div class="menu">
@@ -830,10 +953,12 @@
                 return item.nama;
             }));
         },
-        itemLink: function (item) {
-            console.log('select');
+        afterSelect: function (item) {
+            console.log('cek');
+            searchForm(item);
         }
     });
+
     // $('#cari').typeahead({
     //     source: function (cari, result) {
     //         $.ajax({
@@ -851,16 +976,9 @@
     //     }
     // });
 
-    $(document).ready(function(){
-        setTimeout(function(){
-            window.location.href = "{{url('esaku-auth/sesi-habis')}}";
-        }, 1000 * 60 * 60);
-        
-        var form ="{{ Session::get('dash') }}";
-        if(form !="" || form != "-"){
-            loadForm("{{ url('esaku-auth/form') }}/"+form);
-        }
-    });
+    // $(document).ready(function(){
+       
+    // });
     
     function setHeightReport(){
         var header = $('.topbar').height();
@@ -871,20 +989,31 @@
     }
     
     function setHeightForm(){
-        var header = $('.topbar').height();
+        var header = 70;
         var content = window.innerHeight;
-        var tinggi = content-header-40;
-        var title = 66;
-        var body = tinggi-title;
+        // var tinggi = content-header-40;
+        var title = 69;
+        // var body = tinggi-title;
+        var height = content-header-title-40;
+    
         if($('#saku-form').length > 0){
             
-            $('#saku-form').css('height',tinggi);
-            $('.title-form').css('height',title);
-            $('.body-form').css('height',body);
+            // $('#saku-form').css('height',tinggi);
+            // $('.title-form').css('height',title);
+            $('.form-body').css('height',height);
         }
-        if($('#saku-datatable').length > 0){
-            $('#saku-datatable .card').css('min-height',tinggi);
-        }
+        // if($('#saku-datatable').length > 0){
+        //     $('#saku-datatable .card').css('min-height',tinggi);
+        // }
+    }
+
+    setTimeout(function(){
+        window.location.href = "{{url('esaku-auth/sesi-habis')}}";
+    }, 1000 * 60 * 60);
+    
+    var form ="{{ Session::get('dash') }}";
+    if(form !="" || form != "-"){
+        loadForm("{{ url('esaku-auth/form') }}/"+form);
     }
     
     $( window ).resize(function() {
@@ -893,26 +1022,12 @@
         }
         setHeightForm();
     });
-
-    $('.typeahead').on('click','a.dropdown-item',function(e){
-    e.preventDefault();
-        console.log('tes');
-        
-        // var cari = $(this).text();
-        // searchForm(cari);
-    });
     
     $('#notificationButton').click(function(){
         updateNotifRead();
     });
     var $theme = "dore.light.redruby.min.css";
-    // localStorage.setItem("dore-theme-color", theme);
-
-    // $('.typeahead.dropdown-menu').on('click','.dropdown-item',function(e){
-    //     e.preventDefault();
-    //     console.log('click');
-    //     var cari = $(this).text();
-    // })
+ 
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>

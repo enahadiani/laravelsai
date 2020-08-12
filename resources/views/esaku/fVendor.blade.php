@@ -22,10 +22,26 @@
         {
             margin-top:0 !important;
         }
+        div.dataTables_wrapper div.dataTables_paginate {
+            margin-top: 0 !important;
+        }
         #table-data_paginate ul
         {
             float:right;
         }
+
+        .form-body 
+        {
+            position: relative;
+            overflow: auto;
+        }
+
+        #content-delete
+        {
+            position: relative;
+            overflow: auto;
+        }
+        
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -55,14 +71,14 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
-                <div class="card" style="min-height: 560px !important;">
-                    <div class="card-body" style="padding-top:1rem;padding-bottom:1rem;">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <div class="card-body pt-3">
+                    <div class="card-body pt-3 form-body">
                         <div class="form-group row position-relative error-l-50" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -187,7 +203,7 @@
                     <p class="mb-0">- Semua informasi tentang data vendor ini akan terhapus dari database</p>
                     <p class="mb-4">- Data vendor ini akan terhapus permanen dalam 24 jam</p>
                     <span style="z-index: 200;position: absolute;top: 85px;left: 40px;background: white;padding: 0 10px;">Meninjau Data Vendor</span>
-                    <div id="content-delete" class="table-responsive py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
+                    <div id="content-delete" class="py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
                         <table id="table-delete" class="table no-border">
                             <tbody>
                             </tbody>
@@ -208,8 +224,28 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     <script>
         // var $iconLoad = $('.preloader');
+        setHeightForm();
         var $target = "";
         var $target2 = "";
+        jQuery.extend(jQuery.validator.messages, {
+            required: "Harus diisi",
+            remote: "Perbaiki field ini",
+            email: "Harap isi alamat email yang valid",
+            url: "Harap isi url yang valid",
+            date: "Harap isi tanggal yang valid",
+            dateISO: "Harap isi tanggal (ISO) yang valid.",
+            number: "Harap isi dengan angka yang valid",
+            digits: "Harap isi hanya digits.",
+            creditcard: "Harap isi dengan nomor kartu kredit yang valid.",
+            equalTo: "Harap isi dengan nilai yang sama lagi",
+            accept: "Harap isi sesuai esktensi yang ditentukan",
+            maxlength: jQuery.validator.format("Harap isi tidak lebih dari {0} karakter."),
+            minlength: jQuery.validator.format("Harap isi minimal {0} karakter."),
+            rangelength: jQuery.validator.format("Harap isi antara {0} dan {1} karakter."),
+            range: jQuery.validator.format("Harap isi dengan nilai antara {0} dan {1}."),
+            max: jQuery.validator.format("Harap isi dengan nilai kurang dari sama dengan {0}."),
+            min: jQuery.validator.format("Harap isi dengan nilai lebih besar atau sama dengan {0}.")
+        });
         $.validator.setDefaults({
             ignore: [],
             errorElement: "label",
@@ -291,6 +327,9 @@
     var scroll = document.querySelector('#content-delete');
     var psscroll = new PerfectScrollbar(scroll);
 
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
@@ -361,6 +400,7 @@
         var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
+        console.log('click');
         showFilter(par,target1,target2);
     });
 
@@ -401,7 +441,7 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
                 "data": {'param':par},
@@ -767,6 +807,35 @@
                 // $iconLoad.hide();
             }
         });
+    });
+
+    $('#kode_vendor,#nama,#no_tel,#no_fax,#email,#npwp,#pic,#no_pictel,#bank,#cabang,#no_rek,#nama_rek,#alamat,#alamat2,#akun_hutang').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_vendor','nama','no_tel','no_fax','email','npwp','pic','no_pictel','bank','cabang','no_rek','nama_rek','alamat','alamat2','akun_hutang'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            if(idx == 15){
+                var akun = $('#akun_hutang').val();
+                getAkun(akun);
+            }else{
+                $('#'+nxt[idx]).focus();
+            }
+            // if(idx == 2 || idx == 3){
+            //     $('#'+nxt[idx])[0].selectize.focus();
+            // }else{
+                
+                // $('#'+nxt[idx]).focus();
+            // }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
     });
 
     </script>
