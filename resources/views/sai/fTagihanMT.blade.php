@@ -658,6 +658,7 @@
                     }
                 },
                 error: function(xhr, status, error){
+                    $('#input-grid1 tbody').empty();
                     var err = eval("(" + xhr.responseText + ")");
                     btnTextLoad.text('Load Data');
                     btnSave.attr('disabled', false);
