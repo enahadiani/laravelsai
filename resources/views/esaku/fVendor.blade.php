@@ -22,6 +22,9 @@
         {
             margin-top:0 !important;
         }
+        div.dataTables_wrapper div.dataTables_paginate {
+            margin-top: 0 !important;
+        }
         #table-data_paginate ul
         {
             float:right;
@@ -55,14 +58,14 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
-                <div class="card" style="min-height: 560px !important;">
-                    <div class="card-body" style="padding-top:1rem;padding-bottom:1rem;">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <div class="card-body pt-3">
+                    <div class="card-body pt-3 form-body table-responsive">
                         <div class="form-group row position-relative error-l-50" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -208,6 +211,7 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     <script>
         // var $iconLoad = $('.preloader');
+        setHeightForm();
         var $target = "";
         var $target2 = "";
         $.validator.setDefaults({
@@ -290,6 +294,9 @@
     // Initialize the plugin
     var scroll = document.querySelector('#content-delete');
     var psscroll = new PerfectScrollbar(scroll);
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
@@ -401,7 +408,7 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
                 "data": {'param':par},

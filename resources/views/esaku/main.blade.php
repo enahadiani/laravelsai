@@ -225,6 +225,26 @@
             } 
         }
 
+        body {
+        min-height: calc(100% - 90px);
+        position: relative;
+        padding-bottom: 0px; }
+        @media (max-width: 1439px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 1199px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 767px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 575px) {
+            body {
+            padding-bottom: 0px; } }
+        body.no-footer {
+            padding-bottom: initial; 
+        }
+
 
     </style>
     <script>
@@ -975,20 +995,22 @@
     }
     
     function setHeightForm(){
-        var header = $('.topbar').height();
+        var header = 70;
         var content = window.innerHeight;
-        var tinggi = content-header-40;
-        var title = 66;
-        var body = tinggi-title;
+        // var tinggi = content-header-40;
+        var title = 69;
+        // var body = tinggi-title;
+        var height = content-header-title-40;
+    
         if($('#saku-form').length > 0){
             
-            $('#saku-form').css('height',tinggi);
-            $('.title-form').css('height',title);
-            $('.body-form').css('height',body);
+            // $('#saku-form').css('height',tinggi);
+            // $('.title-form').css('height',title);
+            $('.form-body').css('height',height);
         }
-        if($('#saku-datatable').length > 0){
-            $('#saku-datatable .card').css('min-height',tinggi);
-        }
+        // if($('#saku-datatable').length > 0){
+        //     $('#saku-datatable .card').css('min-height',tinggi);
+        // }
     }
     
     $( window ).resize(function() {
