@@ -111,11 +111,11 @@
                             </div>
                             <div class="form-group row">
                                 <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal</label>
-                                <div class="col-md-2 col-sm-2">
+                                <div class="col-md-3 col-sm-9">
                                     <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
                                     <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
-                                <div class="col-md-3 col-sm-9">
+                                <div class="col-md-2 col-sm-9">
                                 </div>
                                 <label for="jenis" class="col-md-2 col-sm-2 col-form-label">Jenis</label>
                                 <div class="col-md-3 col-sm-9">
@@ -130,10 +130,10 @@
                             </div>
                             <div class="form-group row">
                                 <label for="no_dokumen" class="col-md-2 col-sm-2 col-form-label">No Dokumen</label>
-                                <div class="col-md-4 col-sm-9">
+                                <div class="col-md-3 col-sm-9">
                                     <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
                                 </div>
-                                <div class="col-md-1 col-sm-9">
+                                <div class="col-md-2 col-sm-9">
                                 </div>
                                 <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
                                 <div class="col-md-3 col-sm-9">
@@ -142,10 +142,10 @@
                             </div>
                             <div class="form-group row">
                                 <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Deskripsi</label>
-                                <div class="col-md-4 col-sm-9">
+                                <div class="col-md-3 col-sm-9">
                                     <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi" required>
                                 </div>
-                                <div class="col-md-1 col-sm-9">
+                                <div class="col-md-2 col-sm-9">
                                 </div>
                                 <label for="total_kredit" class="col-md-2 col-sm-2 col-form-label">Total Kredit</label>
                                 <div class="col-md-3 col-sm-9">
@@ -154,11 +154,11 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="nik_periksa" class="col-md-2 col-sm-2 col-form-label">NIK Periksa</label>
-                                <div class="col-md-2 col-sm-9 pr-0" >
+                                <div class="col-md-3 col-sm-9 pr-0" >
                                     <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
                                     <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 10px;"></i>
                                 </div>
-                                <div class="col-md-4 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
+                                <div class="col-md-3 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                     <label id="label_nik_periksa" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
