@@ -86,7 +86,7 @@
                         <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                             <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                             <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                         </div>
                         <div class="separator mb-2"></div>
                         <div class="card-body pt-3 form-body">
@@ -518,6 +518,7 @@
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('esaku-trans/akun') }}";
                 var columns = [
+                    { data: null },
                     { data: 'kode_akun' },
                     { data: 'nama' }
                 ];
@@ -532,6 +533,7 @@
                 header = ['Kode PP', 'Nama'];
                 var toUrl = "{{ url('esaku-trans/pp') }}";
                 var columns = [
+                    { data: null },
                     { data: 'kode_pp' },
                     { data: 'nama' }
                 ];
@@ -547,6 +549,7 @@
                 header = ['NIK', 'Nama'];
             var toUrl = "{{ url('esaku-trans/nikperiksa') }}";
                 var columns = [
+                    { data: null },
                     { data: 'nik' },
                     { data: 'nama' }
                 ];
@@ -572,7 +575,7 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            sDom: '<"row view-filter"<"col-sm-12"<"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
                 "data": {'param':par},
@@ -583,7 +586,7 @@
                 }
             },
             columnDefs: [{
-                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='simple-icon-check'></i></a>"
+                "targets": 0, "data": null, "defaultContent": "<a class='check-item'><i class='simple-icon-check'></i></a>"
             }],
             columns: columns,
             drawCallback: function () {
@@ -614,8 +617,8 @@
         searchTable.columns.adjust().draw();
 
         $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            var kode = $(this).closest('tr').find('td:nth-child(2)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(3)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
             }else{
@@ -637,8 +640,8 @@
 
         $('#table-search tbody').on('dblclick','tr',function(){
             console.log('dblclick');
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            var kode = $(this).closest('tr').find('td:nth-child(2)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(3)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
             }else{
@@ -759,6 +762,19 @@
                 return false;
             }
         })
+    });
+
+    $.validator.setDefaults({
+        ignore: [],
+        errorElement: "label",
+        submitHandler: function () {
+            // alert("submitted!");
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
     });
 
     $('#saku-form').on('submit', '#form-tambah', function(e){
