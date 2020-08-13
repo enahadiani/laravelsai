@@ -80,7 +80,8 @@ Session::put('pesan','Kembali');
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card" style="box-shadow:none">
                         <div class="form-side text-center px-0">
-                            <img src="{{ asset('img/sesi-habis2.png') }}" style="width:200px">
+                            <a href="https://stories.freepik.com/security" target="_blank" title="Illustration by Freepik Stories"><img src="{{ asset('img/Safe-pana.png') }}" style="width:200px">
+                            </a>
                             <h2 class="mt-3"><b>Sesi kamu sudah berakhir</b></h2>
                             <p class="mt-3" style="font-size:12px">Maaf demi keamanan data kamu jika tidak ada aktivitas selama 1 jam <br> maka sistem akan keluar secara otomatis. Jangan khawatir kamu bisa masuk kembali. </p>
                             <a type="button" href="{{ url('esaku-auth/login') }}" class="btn mt-3" style="border: 1px solid #000;width: 200px;">Masuk</a>

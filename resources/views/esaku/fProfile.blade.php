@@ -297,7 +297,7 @@ input.form-control{
     <div class="col-12">
         <div class="row">
             <div class="col-12 col-lg-6 col-xl-7 col-left text-center">
-                <img src="{{ asset('/img/Processing-bro.png') }}" width="400px">
+            <a href="https://stories.freepik.com/web" title="Illustration by Freepik Stories" target="_blank"><img src="{{ asset('/img/Version-control-bro.png') }}" width="400px"></a>
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-right">
                 <div class="card mb-4" style="box-shadow:none;border-radius: 8px;border: 1px solid #dadce0;box-sizing: border-box;">

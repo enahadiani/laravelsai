@@ -77,14 +77,14 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
-                        <div class="form-group row position-relative error-l-50" id="row-id">
+                        <div class="form-group row " id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50 ">
+                        <div class="form-group row  ">
                             <label for="kode_vendor" class="col-md-3 col-sm-3 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="text" placeholder="Kode Vendor" id="kode_vendor" name="kode_vendor" required>
@@ -95,7 +95,7 @@
                                 <input class="form-control" type="text" placeholder="Nama Vendor" id="nama" name="nama" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="no_tel" class="col-md-3 col-sm-3 col-form-label">No Telp</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="text" placeholder="Nomor Telepon" id="no_tel" name="no_tel" required>
@@ -105,7 +105,7 @@
                                 <input class="form-control" type="text" placeholder="Nomor Fax" id="no_fax" name="no_fax" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="email" class="col-md-3 col-sm-3 col-form-label">Email</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="email" placeholder="Email" id="email" name="email" required>
@@ -115,7 +115,7 @@
                                 <input class="form-control" type="text" placeholder="NPWP Vendor" id="npwp" name="npwp" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="pic" class="col-md-3 col-sm-3 col-form-label">PIC</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>
@@ -125,7 +125,7 @@
                                 <input class="form-control" type="text" placeholder="Nomor Telepon PIC" id="no_pictel" name="no_pictel" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="bank" class="col-md-3 col-sm-3 col-form-label">Bank</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="text" placeholder="Bank" id="bank" name="bank" required>
@@ -135,7 +135,7 @@
                                 <input class="form-control" type="text" placeholder="Cabang" id="cabang" name="cabang" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="no_rek" class="col-md-3 col-sm-3 col-form-label">No. Rekening</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="number" placeholder="No Rekening" id="no_rek" name="no_rek" required>
@@ -145,19 +145,19 @@
                                  <input class="form-control" type="text" placeholder="Nama Rekening" id="nama_rek" name="nama_rek" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="alamat" class="col-md-3 col-sm-3 col-form-label">Alamat</label>
                             <div class="col-md-9 col-sm-9">
                                  <input class="form-control" type="text" placeholder="Alamat Vendor" id="alamat" name="alamat" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="alamat2" class="col-md-3 col-sm-3 col-form-label">Alamat NPWP</label>
                             <div class="col-md-9 col-sm-9">
                                  <input class="form-control" type="text" placeholder="Alamat NPWP" id="alamat2" name="alamat2" required>
                             </div>
                         </div>
-                        <div class="form-group row position-relative error-l-50">
+                        <div class="form-group row ">
                             <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
                             <div class="col-md-3 col-sm-9 pr-0" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>

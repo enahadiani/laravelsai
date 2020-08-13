@@ -277,7 +277,7 @@
 @if(Session::get('menu') != "")
 <body id="app-container" class="{{ Session::get('menu') }} show-spinner">
 @else
-<body id="app-container" class="menu-default show-spinner">
+<body id="app-container" class="menu-default show-spinner" >
 @endif
 
 
@@ -580,6 +580,9 @@
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+    window.onbeforeunload = function(e) {
+        return 'Dialog text here.';
+    };
     
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -830,7 +833,8 @@
                         var form = tmp[2];
                         //add Class active in li level 1;
                         $('.sub-menu li').removeClass('active');
-                        $("[data-href="+form+"]").first().parents("li").addClass("active");
+                        $("[data-href="+form+"]").closest("li").addClass("active");
+                        // $("[data-href="+form+"]").first().parents("li").addClass("active");
                         
                         //add Class active in li level 0;
                         var target = $("[data-href="+form+"]").parents("li").parents("ul").last().attr("data-link");
