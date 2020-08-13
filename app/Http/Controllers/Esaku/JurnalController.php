@@ -37,6 +37,11 @@ class JurnalController extends Controller
         return $num;
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     public function index(){
         try { 
             $client = new Client();
@@ -181,7 +186,7 @@ class JurnalController extends Controller
             $fields['jurnal'][0] =
                   array (
                     'no_dokumen' => $request->no_dokumen,
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                     'jenis' => $request->jenis,
                     'deskripsi' => $request->deskripsi,
                     'total_debet' => $this->joinNum($request->total_debet),
@@ -338,7 +343,7 @@ class JurnalController extends Controller
                   array (
                     'no_bukti' => $request->no_bukti,
                     'no_dokumen' => $request->no_dokumen,
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => $this->reverseDate($request->tanggal,'/','-'),
                     'jenis' => $request->jenis,
                     'deskripsi' => $request->deskripsi,
                     'total_debet' => $this->joinNum($request->total_debet),

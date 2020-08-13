@@ -62,12 +62,12 @@
                             <table id="table-data" class="" style='width:100%'>
                                 <thead>
                                     <tr>
-                                        <th style="width:10%">No Bukti</th>
+                                        <th style="width:15%">No Bukti</th>
                                         <th style="width:10%">Tanggal</th>
                                         <th style="width:15%">No Dokumen</th>
                                         <th style="width:35%">Deskripsi</th>
                                         <th style="width:15%">Nilai</th>
-                                        <th style="width:15%">Action</th>
+                                        <th style="width:10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -256,6 +256,15 @@
         }
     });
 
+    function reverseDate2(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        if(typeof newseparator === 'undefined'){newseparator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
@@ -283,7 +292,7 @@
     getPeriode();
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
         sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -818,14 +827,23 @@
                     if(result.data.status){
                         // location.reload();
                         dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#method').val('post');
+                        $('#judul-form').html('Tambah Data Jurnal');
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('#id').val('');
+                        $('#input-jurnal tbody').html('');
+                        $('[id^=label]').html('');
+                            
                         Swal.fire(
                             'Great Job!',
                             'Your data has been saved',
                             'success'
                             )
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
-                            
+                            // $('#saku-datatable').show();
+                            // $('#saku-form').hide();
+
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){
                         Swal.fire({
@@ -1465,7 +1483,7 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(result.jurnal[0].tanggal);
+                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
                     $('#deskripsi').val(result.jurnal[0].deskripsi);
                     $('#nik_periksa').val(result.jurnal[0].nik_periksa);
                     $('#no_dokumen').val(result.jurnal[0].no_dokumen);

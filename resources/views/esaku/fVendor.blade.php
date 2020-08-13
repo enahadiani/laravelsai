@@ -288,7 +288,7 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
         sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -602,8 +602,18 @@
                         'Your data has been '+pesan,
                         'success'
                         )
-                    $('#saku-datatable').show();
-                    $('#saku-form').hide();
+
+                    // $('#saku-datatable').show();
+                    // $('#saku-form').hide();
+                    $('#row-id').hide();
+                    $('#form-tambah')[0].reset();
+                    $('#form-tambah').validate().resetForm();
+                    $('#akun_hutang').val('');
+                    $('[id^=label]').html('');
+                    $('#id_edit').val('');
+                    $('#judul-form').html('Tambah Data Vendor');
+                    $('#method').val('post');
+                    $('#kode_vendor').attr('readonly', false);
                  
                 }else if(!result.data.status && result.data.message === "Unauthorized"){
                    
