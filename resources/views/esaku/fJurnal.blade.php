@@ -55,11 +55,17 @@
         #table-search tbody tr:hover
         {
             background:#E8E8E8 !important;
+            cursor:pointer;
         }
 
         #table-search tbody tr.selected
         {
             background:#E8E8E8 !important;
+        }
+
+        #table-search_filter label, #table-search_filter input
+        {
+            width:100%;
         }
     </style>
         <div class="row" id="saku-datatable">
@@ -239,7 +245,7 @@
                     <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                    <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih akun</p>  
+                    <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih <span id="memilih"></span></p>  
                 </div>
                 <div class="modal-body">
                     
@@ -544,6 +550,7 @@
                     { data: 'nama' }
                 ];
                 var judul = "Daftar Akun";
+                var pilih = "akun";
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
@@ -560,6 +567,7 @@
                 
                 var judul = "Daftar PP";
                 var jTarget1 = "val";
+                var pilih = "pp";
                 var jTarget2 = "val";
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
@@ -575,6 +583,7 @@
                 
                 var judul = "Daftar Karyawan";
                 var jTarget1 = "val";
+                var pilih = "karyawan";
                 var jTarget2 = "text";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
@@ -593,7 +602,7 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
                 "data": {'param':par},
@@ -631,6 +640,7 @@
         // searchTable.$('tr.selected').removeClass('selected');
         // $('#table-search tbody').find('tr:first').addClass('selected');
         $('#modal-search .modal-title').html(judul);
+        $('#memilih').html(pilih);
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
 
