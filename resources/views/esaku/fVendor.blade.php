@@ -40,6 +40,20 @@
             overflow: auto;
         }
         
+        #table-search
+        {
+            border-collapse:collapse !important;
+        }
+        
+        #table-search tbody tr:hover
+        {
+            background:#E8E8E8 !important;
+        }
+
+        #table-search tbody tr.selected
+        {
+            background:#E8E8E8 !important;
+        }
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -374,7 +388,6 @@
             header = ['Kode', 'Nama'];
             var toUrl = "{{ url('esaku-master/vendor-akun') }}";
                 var columns = [
-                    { data: null },
                     { data: 'kode_akun' },
                     { data: 'nama' }
                 ];
@@ -388,11 +401,10 @@
             break;
         }
 
-        var header_html = '<th></th>';
+        var header_html = '';
         for(i=0; i<header.length; i++){
             header_html +=  "<th>"+header[i]+"</th>";
         }
-        header_html +=  "";
 
         var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
@@ -410,9 +422,9 @@
                     return json.daftar;
                 }
             },
-            columnDefs: [{
-                "targets": 0, "data": null, "defaultContent": "<a class='check-item'><i class='simple-icon-check' style='font-size:18px'></i></a>"
-            }],
+            // columnDefs: [{
+            //     "targets": 0, "data": null, "defaultContent": "<a class='check-item'><i class='simple-icon-check' style='font-size:18px'></i></a>"
+            // }],
             columns: columns,
             drawCallback: function () {
                 $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -437,14 +449,14 @@
 
 
         // searchTable.$('tr.selected').removeClass('selected');
-        $('#table-search tbody').find('tr:first').addClass('selected');
+        // $('#table-search tbody').find('tr:first').addClass('selected');
         $('#modal-search .modal-title').html(judul);
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
 
         $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(2)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(3)').text();
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
                 $($target).attr('value',kode);
@@ -467,8 +479,8 @@
 
         $('#table-search tbody').on('dblclick','tr',function(){
             console.log('dblclick');
-            var kode = $(this).closest('tr').find('td:nth-child(2)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(3)').text();
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
                 $($target).val(kode);
             }else{
@@ -515,8 +527,8 @@
             }
 
             if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(2)').text();
-                var nama = $('tr.selected').find('td:nth-child(3)').text();
+                var kode = $('tr.selected').find('td:nth-child(1)').text();
+                var nama = $('tr.selected').find('td:nth-child(2)').text();
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                 }else{
