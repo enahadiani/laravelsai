@@ -60,7 +60,9 @@ class CustomerController extends Controller
             'kode_cust' => 'required',
             'nama' => 'required',
             'pic' => 'required',
+            'jabatan_pic' => 'required',
             'alamat'=>'required',
+            'provinsi'=>'required',
             'email' => 'required',
             'no_rek'=>'required',
             'nama_rek'=>'required',
@@ -117,8 +119,16 @@ class CustomerController extends Controller
                     'contents' => $request->alamat,
                 ],
                 [
+                    'name' => 'provinsi',
+                    'contents' => $request->provinsi,
+                ],
+                [
                     'name' => 'pic',
                     'contents' => $request->pic,
+                ],
+                [
+                    'name' => 'jabatan_pic',
+                    'contents' => $request->jabatan_pic,
                 ],
                 [
                     'name' => 'kode_cust',
@@ -206,6 +216,8 @@ class CustomerController extends Controller
             'kode_cust' => 'required',
             'nama' => 'required',
             'pic' => 'required',
+            'jabatan_pic' => 'required',
+            'provinsi' => 'required',
             'alamat'=>'required',
             'email' => 'required',
             'no_rek'=>'required',
@@ -263,8 +275,16 @@ class CustomerController extends Controller
                     'contents' => $request->alamat,
                 ],
                 [
+                    'name' => 'provinsi',
+                    'contents' => $request->provinsi,
+                ],
+                [
                     'name' => 'pic',
                     'contents' => $request->pic,
+                ],
+                [
+                    'name' => 'jabatan_pic',
+                    'contents' => $request->jabatan_pic,
                 ],
                 [
                     'name' => 'kode_cust',

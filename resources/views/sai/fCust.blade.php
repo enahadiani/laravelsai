@@ -87,9 +87,15 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="pic" class="col-3 col-form-label">PIC</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
-                                    </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="jabatan_pic" class="col-3 col-form-label">Jabatan PIC</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="Jabatan PIC" id="jabatan_pic" name="jabatan_pic">
+                                </div>
                             </div>
                             <div class="form-group row ">
                                 <label for="barcode" class="col-3 col-form-label">Email</label>
@@ -107,6 +113,12 @@
                                 <label for="no_telp" class="col-3 col-form-label">Alamat</label>
                                     <div class="col-9">
                                         <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat">
+                                    </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label for="provinsi" class="col-3 col-form-label">Provinsi</label>
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" placeholder="Provinsi" id="provinsi" name="provinsi">
                                     </div>
                             </div>
                             <div class="form-group row ">
@@ -718,7 +730,9 @@
                     $('#no_telp').val(result.data[0].no_telp);
                     $('#tanggal').val(tanggal);
                     $('#pic').val(result.data[0].pic);
+                    $('#jabatan_pic').val(result.data[0].jabatan_pic);
                     $('#alamat').val(result.data[0].alamat);
+                    $('#provinsi').val(result.data[0].provinsi);
                     if(result.data_lampiran.length > 0) {
                         var no = 1;
                         var input = "";
