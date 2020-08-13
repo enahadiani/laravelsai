@@ -42,6 +42,11 @@
         .hidden{
             display:none;
         }
+
+        .datetime-reset-button {
+            margin-right: 20px !important;
+            margin-top: 3px !important;
+        }
         
     </style>
         <div class="row" id="saku-datatable">
@@ -94,7 +99,8 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal</label>
                                 <div class="col-md-2 col-sm-2">
-                                    <input class='form-control' type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}">
+                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-3 col-sm-9">
                                 </div>
@@ -137,7 +143,7 @@
                                 <label for="nik_periksa" class="col-md-2 col-sm-2 col-form-label">NIK Periksa</label>
                                 <div class="col-md-2 col-sm-9 pr-0" >
                                     <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
+                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 10px;"></i>
                                 </div>
                                 <div class="col-md-4 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                     <label id="label_nik_periksa" style="margin-top: 10px;"></label>
@@ -238,6 +244,15 @@
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $("input.datepicker").datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
         }
     });
 
@@ -387,11 +402,11 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#nik_periksa').val(result.daftar[0].nik);
-                         $('#label_nik').text(result.daftar[0].nama);
+                         $('#label_nik_periksa').text(result.daftar[0].nama);
                     }else{
                         alert('NIK tidak valid');
                         $('#nik_periksa').val('');
-                        $('#label_nik').text('');
+                        $('#label_nik_periksa').text('');
                         $('#nik_periksa').focus();
                     }
                 }
@@ -1270,7 +1285,7 @@
     $('#form-tambah').on('click', '.search-item2', function(){
 
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').find('label').attr('id');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
