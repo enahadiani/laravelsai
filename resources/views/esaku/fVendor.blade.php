@@ -172,7 +172,7 @@
             </div>
         </div> 
     </form>
-     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header pb-0">
@@ -215,52 +215,12 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
-    
-    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
         // var $iconLoad = $('.preloader');
         setHeightForm();
         var $target = "";
         var $target2 = "";
-        jQuery.extend(jQuery.validator.messages, {
-            required: "Wajib diisi",
-            remote: "Perbaiki field ini",
-            email: "Harap isi alamat email yang valid",
-            url: "Harap isi url yang valid",
-            date: "Harap isi tanggal yang valid",
-            dateISO: "Harap isi tanggal (ISO) yang valid.",
-            number: "Harap isi dengan angka yang valid",
-            digits: "Harap isi hanya digits.",
-            creditcard: "Harap isi dengan nomor kartu kredit yang valid.",
-            equalTo: "Harap isi dengan nilai yang sama lagi",
-            accept: "Harap isi sesuai esktensi yang ditentukan",
-            maxlength: jQuery.validator.format("Harap isi tidak lebih dari {0} karakter."),
-            minlength: jQuery.validator.format("Harap isi minimal {0} karakter."),
-            rangelength: jQuery.validator.format("Harap isi antara {0} dan {1} karakter."),
-            range: jQuery.validator.format("Harap isi dengan nilai antara {0} dan {1}."),
-            max: jQuery.validator.format("Harap isi dengan nilai kurang dari sama dengan {0}."),
-            min: jQuery.validator.format("Harap isi dengan nilai lebih besar atau sama dengan {0}.")
-        });
-        $.validator.setDefaults({
-            ignore: [],
-            errorElement: "label",
-            submitHandler: function () {
-                alert("submitted!");
-            },
-            errorPlacement: function (error, element) {
-                var id = element.attr("id");
-                $("label[for="+id+"]").append("<br/>");
-                $("label[for="+id+"]").append(error);
-                // if (element.attr("class").indexOf("custom-control") != -1) {
-                //     error.insertAfter(element.parent());
-                // } else {
-                //     error.insertAfter(element);
-                // }
-            }
-        });
         $('#form-tambah').validate();
 
         $.ajaxSetup({

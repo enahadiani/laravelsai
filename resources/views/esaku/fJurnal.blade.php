@@ -39,6 +39,9 @@
             position: relative;
             overflow: auto;
         }
+        .hidden{
+            display:none;
+        }
         
     </style>
         <div class="row" id="saku-datatable">
@@ -141,9 +144,8 @@
                                 </div>
                             </div>
                             <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
-                                <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
-                                <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                                <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
+                                <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
                             </div>
                             <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                 <style>
@@ -170,7 +172,7 @@
                                         background:#4286f5 !important;
                                         color:white;
                                     }
-                                    #input-jurnal td:hover
+                                    #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
                                     {
                                         background:#f4d180 !important;
                                         color:white;
@@ -185,8 +187,8 @@
                                         overflow:unset !important;
                                     }
                                 </style>
-                                <table class="table table-striped table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                <thead style="background:#ff9500;color:white">
+                                <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <thead style="background:#F8F8F8">
                                     <tr>
                                         <th style="width:3%">No</th>
                                         <th style="width:9%">Kode Akun</th>
@@ -214,11 +216,11 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div style="display: block;" class="modal-header pb-0">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button>
+                    <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih akun</p>  
                 </div>
                 <div class="modal-body">
                     
@@ -227,8 +229,7 @@
         </div>
     </div>
     <!-- END MODAL -->
-        
-
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -242,20 +243,6 @@
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
-
-    function openFilter() {
-        var element = $('#mySidepanel');
-        
-        var x = $('#mySidepanel').attr('class');
-        var y = x.split(' ');
-        if(y[1] == 'close'){
-            element.removeClass('close');
-            element.addClass('open');
-        }else{
-            element.removeClass('open');
-            element.addClass('close');
-        }
-    }
 
     function getPeriode(){
         $.ajax({
@@ -279,8 +266,6 @@
     }
 
     getPeriode();
-
-    
     $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
@@ -333,28 +318,6 @@
             searchPlaceholder: "Search...",
             lengthMenu: "Items Per Page _MENU_"
         },
-    });
-
-    $('.sidepanel').on('submit', '#formFilter2', function(e){
-        e.preventDefault();
-        var periode= $('#periode2')[0].selectize.getValue();
-        var tahun = periode.substr(0,4);
-        var bulan = periode.substr(5,2);
-        if(bulan.length > 1){
-            bulan = bulan;
-        }else{
-            bulan = "0"+bulan;
-        }
-        var per = tahun+'-'+bulan;
-        // var val = $.fn.dataTable.util.escapeRegex(
-        //     per
-        // );
-        dataTable.search( per ? per : '', true, false).draw();
-    });
- 
-    $('.sidepanel').on('click', '#btnClose', function(e){
-        e.preventDefault();
-        openFilter();
     });
 
     function getPP(id,target1,target2,jenis){
@@ -594,11 +557,8 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            // fixedHeader: true,
-            // "scrollY": "300px",
-            // "processing": true,
-            // "serverSide": true,
-            "ajax": {
+            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            ajax: {
                 "url": toUrl,
                 "data": {'param':par},
                 "type": "GET",
@@ -607,11 +567,29 @@
                     return json.daftar;
                 }
             },
-            "columnDefs": [{
-                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
+            columnDefs: [{
+                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='simple-icon-check'></i></a>"
             }],
-            'columns': columns
-            // "iDisplayLength": 25,
+            columns: columns,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
+
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_"
+            },
         });
 
         // searchTable.$('tr.selected').removeClass('selected');
@@ -984,7 +962,9 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
+        $('#judul-form').html('Tambah Data Jurnal');
         $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#input-jurnal tbody').html('');
         $('#saku-datatable').hide();
@@ -998,14 +978,15 @@
         var input = "";
         input += "<tr class='row-jurnal'>";
         input += "<td class='no-jurnal text-center'>"+no+"</td>";
-        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                                    
+        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
         input += "<td><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
-        input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-jurnal tbody').append(input);
         $('.dcke'+no).selectize({
@@ -1078,14 +1059,14 @@
             var input = "";
             input += "<tr class='row-jurnal'>";
             input += "<td class='no-jurnal text-center'>"+no+"</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+            input += "<td ><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
             input += "<td><span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
             input += "<td><span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-jurnal tbody').append(input);
             $('.dcke'+no).selectize({
@@ -1437,6 +1418,9 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#judul-form').html('Edit Data Jurnal');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
@@ -1464,14 +1448,14 @@
                             var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
-                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
                             no++;

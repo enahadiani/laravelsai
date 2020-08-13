@@ -16,7 +16,7 @@ class JurnalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/esaku-trans';
+    public $link = 'https://api.simkug.com/api/toko-trans';
 
     public function __contruct(){
         if(!Session::get('login')){

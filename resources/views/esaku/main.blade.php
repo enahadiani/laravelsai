@@ -271,6 +271,11 @@
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
+    
+    <script src="{{ asset('asset_elite/sai.js') }}"></script>
+    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     
 </head>
 
