@@ -777,7 +777,7 @@
         }
     });
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
+    $('#form-tambah').submit(function(e){
     e.preventDefault();
         var formData = new FormData(this);
         for(var pair of formData.entries()) {
