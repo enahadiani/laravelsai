@@ -43,7 +43,7 @@ drawLap($formData);
                                 <thead>
                                     <tr>
                                         <th class="header_laporan">No</th>
-                                        <th class="header_laporan">No Tagihan</th>
+                                        <th class="header_laporan">No Dokumen</th>
                                         <th class="header_laporan">Customer</th>
                                         <th class="header_laporan">Keterangan</th>
                                         <th class="header_laporan" align="right">Nilai</th>
@@ -64,7 +64,7 @@ drawLap($formData);
                                     
                                     det+=`<tr>
                                         <td align='center' class='isi_laporan'>`+no+`</td>
-                                        <td  class='isi_laporan'>`+line2.no_bill+`</td>
+                                        <td  class='isi_laporan'>`+line2.no_dokumen+`</td>
                                         <td class='isi_laporan'>`+line2.cust+`</td>
                                         <td class='isi_laporan'>`+line2.keterangan_kontrak+`</td>
                                         <td align='right' class='isi_laporan'>`+sepNum(line2.nilai_kontrak)+`</td>
