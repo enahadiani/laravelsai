@@ -169,8 +169,8 @@
                                     }
                                     .selected{
                                         cursor:pointer;
-                                        background:#4286f5 !important;
-                                        color:white;
+                                        /* background:#4286f5 !important; */
+                                        /* color:white; */
                                     }
                                     #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
                                     {
@@ -323,7 +323,7 @@
     function getPP(id,target1,target2,jenis){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku/pp') }}/"+id,
+            url: "{{ url('/esaku-trans/pp') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -380,7 +380,7 @@
     function getNIKPeriksa(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku/nikperiksa') }}/"+id,
+            url: "{{ url('/esaku-trans/nikperiksa') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -411,7 +411,7 @@
     function getAkun(id,target1,target2,target3,jenis){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku/masakun') }}/"+id,
+            url: "{{ url('/esaku-master/masakun') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -501,7 +501,7 @@
         switch(par){
             case 'kode_akun[]': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('esaku/akun') }}";
+                var toUrl = "{{ url('esaku-trans/akun') }}";
                 var columns = [
                     { data: 'kode_akun' },
                     { data: 'nama' }
@@ -515,7 +515,7 @@
             break;
             case 'kode_pp[]': 
                 header = ['Kode PP', 'Nama'];
-                var toUrl = "{{ url('esaku/pp') }}";
+                var toUrl = "{{ url('esaku-trans/pp') }}";
                 var columns = [
                     { data: 'kode_pp' },
                     { data: 'nama' }
@@ -530,7 +530,7 @@
             break;
             case 'nik_periksa': 
                 header = ['NIK', 'Nama'];
-            var toUrl = "{{ url('esaku/nikperiksa') }}";
+            var toUrl = "{{ url('esaku-trans/nikperiksa') }}";
                 var columns = [
                     { data: 'nik' },
                     { data: 'nama' }
@@ -551,7 +551,7 @@
         }
         header_html +=  "<th></th>";
 
-        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
 
         $('#modal-search .modal-body').html(table);

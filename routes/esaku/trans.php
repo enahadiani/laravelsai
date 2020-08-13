@@ -81,7 +81,7 @@ Route::post('/jurnal', 'Esaku\JurnalController@store');
 Route::get('/jurnal/{id}', 'Esaku\JurnalController@show');
 Route::put('/jurnal/{id}','Esaku\JurnalController@update');
 Route::delete('/jurnal/{id}','Esaku\JurnalController@destroy');
-Route::get('/pp-list', 'Esaku\JurnalController@getPP');
+Route::get('/pp', 'Esaku\JurnalController@getPP');
 Route::get('/akun', 'Esaku\JurnalController@getAkun');
 Route::get('/nikperiksa', 'Esaku\JurnalController@getNIKPeriksa');
 Route::get('/nikperiksa/{nik}', 'Esaku\JurnalController@getNIKPeriksaByNIK');

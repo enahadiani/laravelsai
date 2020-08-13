@@ -16,7 +16,7 @@ class JurnalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans';
+    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -64,7 +64,7 @@ class JurnalController extends Controller
     public function getPP(){
         try { 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp',[
+            $response = $client->request('GET', $this->link.'pp-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -131,7 +131,7 @@ class JurnalController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res, 'status'=>false], 200);
         } 
     }
     
