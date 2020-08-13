@@ -18,14 +18,12 @@
             color:#dc3545;
             margin:0;
         }
-        #table-data_paginate
+        #table-data_paginate,#table-search_paginate
         {
             margin-top:0 !important;
         }
-        div.dataTables_wrapper div.dataTables_paginate {
-            margin-top: 0 !important;
-        }
-        #table-data_paginate ul
+
+        #table-data_paginate ul,#table-search_paginate ul
         {
             float:right;
         }
@@ -161,11 +159,11 @@
                         </div>
                         <div class="form-group row position-relative error-l-50">
                             <label for="akun_hutang" class="col-md-3 col-sm-3 col-form-label">Akun Utang</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-3 col-sm-9 pr-0" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
                             </div>
-                            <div class="col-md-6 col-sm-9">
+                            <div class="col-md-4 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
                             </div>
                         </div>
@@ -177,11 +175,11 @@
      <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div style="display: block;" class="modal-header pb-0">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button>
+                    <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih akun</p>  
                 </div>
                 <div class="modal-body">
                     
@@ -228,7 +226,7 @@
         var $target = "";
         var $target2 = "";
         jQuery.extend(jQuery.validator.messages, {
-            required: "Harus diisi",
+            required: "Wajib diisi",
             remote: "Perbaiki field ini",
             email: "Harap isi alamat email yang valid",
             url: "Harap isi url yang valid",
@@ -333,7 +331,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-master/vendor') }}",
             'async':false,
@@ -441,7 +439,7 @@
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             ajax: {
                 "url": toUrl,
                 "data": {'param':par},
@@ -769,6 +767,7 @@
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
