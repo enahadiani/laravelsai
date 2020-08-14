@@ -1188,7 +1188,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-body printableArea">
-                                    <h3 class='text-left'><b>KUITANSI</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
+                                    <h3 class='text-left'><b>TANDA TERIMA</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12">
