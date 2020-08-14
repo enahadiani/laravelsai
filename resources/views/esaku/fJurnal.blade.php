@@ -180,7 +180,7 @@
                                     <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
                                     <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 10px;"></i>
                                 </div>
-                                <div class="col-md-3 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
+                                <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                     <label id="label_nik_periksa" style="margin-top: 10px;"></label>
                                 </div>
                             </div>

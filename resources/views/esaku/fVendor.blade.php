@@ -211,7 +211,7 @@
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
                             </div>
-                            <div class="col-md-4 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
+                            <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
                             </div>
                         </div>
@@ -326,6 +326,7 @@
             });
         }
 
+    
     var $dtVendor = new Array();
 
     function getVendorAkun() {
@@ -362,6 +363,7 @@
             }
         });
     }
+
 
     getVendorAkun();
 
@@ -420,6 +422,8 @@
         },
     });
 
+    
+    $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $('#akun_hutang').typeahead({
         source: function (cari, result) {
