@@ -926,6 +926,7 @@
                             }
                         }
 
+
                         if (res.data.data_bayar.length){
                             var line4 = res.data.data_bayar[0];							
                             if (line4 != undefined){										
@@ -934,13 +935,14 @@
                                 $('#kode_akun').trigger('change');					
                             }
                         }
+
                         var html='';
                         if (res.data.detail_biaya.length){
                             var no=1;
                             for(var i=0;i< res.data.detail_biaya.length;i++){
                                 var line3 = res.data.detail_biaya[i];		
                                 
-                                var trbyr = parseFloat(line3.nilai)-parseFloat(line3.saldo);							
+                                var trbyr = parseFloat(line3.byr);							
                                 html+=`<tr class='row-biaya'>
                                     <td class='no-biaya'>`+no+`</td>
                                     <td>`+line3.kode_biaya+`<input type='hidden' name='kode_biaya[]' class='form-control inp-kode_biaya' value='`+line3.kode_biaya+`'></td>
@@ -1020,9 +1022,19 @@
                             }
                             $('#table-his tbody').html(html);
                         }
-                        var saldo = hargapaket - bayarPaket;
-                        var saldot = parseFloat(res.data.totTambah) - bayarTambah - diskon;						 
-                        var saldom = parseFloat(res.data.totDok) - bayarDok;		
+
+                        if (res.data.detail_bayar_lain.length){
+                            var line2 = res.data.detail_bayar_lain[0];							
+                            if (line2 != undefined){										
+                                var bayarTambah_lain = parseFloat(line2.tambahan);
+                                var bayarPaket_lain = parseFloat(line2.paket);
+                                var bayarDok_lain = parseFloat(line2.dokumen);					
+                            }
+                        }
+
+                        var saldo = hargapaket - bayarPaket_lain;
+                        var saldot = parseFloat(res.data.totTambah) - bayarTambah_lain - diskon;						 
+                        var saldom = parseFloat(res.data.totDok) - bayarDok_lain;		
                         $('#saldo_paket').val(format_number(saldo));
                         $('#saldo_biaya').val(format_number(saldot));
                         $('#saldo_dok').val(format_number(saldom));          
@@ -1108,7 +1120,7 @@
                         'Your data has been saved.'+result.data.message,
                         'success'
                     )
-                    printPbyr(result.data.no_kwitansi);
+                    printPbyr(result.data.no_terima);
                     
                 }else{
                     Swal.fire({
