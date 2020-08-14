@@ -585,10 +585,6 @@
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-    window.onbeforeunload = function(e) {
-        return 'Dialog text here.';
-    };
-    
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     
