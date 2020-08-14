@@ -341,6 +341,46 @@
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
+    var $dtNIK = new Array();
+
+    function getDtNIK() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('esaku-trans/nikperiksa') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                   
+                    for(i=0;i<result.daftar.length;i++){
+                        $dtNIK[i] = {nik:result.daftar[i].nik};  
+                    }
+
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getDtNIK();
+
+
     getPeriode();
     $('[data-toggle="tooltip"]').tooltip(); 
 
@@ -432,7 +472,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('esaku/login') }}";
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     })
                 }
                 else{
@@ -465,7 +505,7 @@
                          $('#nik_periksa').val(result.daftar[0].nik);
                          $('#label_nik_periksa').text(result.daftar[0].nama);
                     }else{
-                        alert('NIK tidak valid');
+                        // alert('NIK tidak valid');
                         $('#nik_periksa').val('');
                         $('#label_nik_periksa').text('');
                         $('#nik_periksa').focus();
@@ -477,7 +517,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('esaku/login') }}";
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     })
                 }
             }
@@ -524,7 +564,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('esaku/login') }}";
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     })
                 }
                 else{
@@ -772,6 +812,16 @@
         })
     }
 
+    $('#nik_periksa').typeahead({
+        source: function (cari, result) {
+            result($.map($dtNIK, function (item) {
+                return item.nik;
+            }));
+        },
+        afterSelect: function (item) {
+            // console.log('cek');
+        }
+    });
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         
@@ -806,7 +856,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('esaku/login') }}";
+                                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                             })
                         }
                         else{
@@ -894,7 +944,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('esaku/login') }}";
+                                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                             })
                         }
                         else{
@@ -1629,7 +1679,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('esaku/login') }}";
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     })
                 }
                 $iconLoad.hide();

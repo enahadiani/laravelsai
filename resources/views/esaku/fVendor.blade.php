@@ -289,7 +289,7 @@
                             $('#akun_hutang').val(result.daftar[0].kode_akun);
                             $('#label_akun_hutang').text(result.daftar[0].nama);
                         }else{
-                            alert('Kode Akun tidak valid');
+                            // alert('Kode Akun tidak valid');
                             $('#akun_hutang').val('');
                             $('#label_akun_hutang').html('');
                             $('#akun_hutang').focus();
@@ -325,6 +325,45 @@
                 }
             });
         }
+
+    var $dtVendor = new Array();
+
+    function getVendorAkun() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('esaku-master/vendor-akun') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                   
+                    for(i=0;i<result.daftar.length;i++){
+                        $dtVendor[i] = {kode_akun:result.daftar[i].kode_akun};  
+                    }
+
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getVendorAkun();
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
@@ -380,7 +419,18 @@
             lengthMenu: "Items Per Page _MENU_"
         },
     });
-    
+
+
+    $('#akun_hutang').typeahead({
+        source: function (cari, result) {
+            result($.map($dtVendor, function (item) {
+                return item.kode_akun;
+            }));
+        },
+        afterSelect: function (item) {
+            // console.log('cek');
+        }
+    });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
@@ -859,6 +909,26 @@
             if(idx != -1){ 
                 $('#'+nxt[idx]).focus();
             }
+        }
+    });
+
+    $('#cari').keydown(function(e){
+        var cari = $('#cari').val();
+        if(e.which == 13){
+            e.preventDefault();
+            searchForm(cari);
+        }
+    });
+
+    $('#cari').typeahead({
+        source: function (cari, result) {
+            result($.map($dtForm, function (item) {
+                return item.nama;
+            }));
+        },
+        afterSelect: function (item) {
+            console.log('cek');
+            searchForm(item);
         }
     });
 
