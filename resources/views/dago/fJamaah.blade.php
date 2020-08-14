@@ -790,7 +790,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Something went wrong!',
+                        text: 'Terjadi kesalahan!',
                         footer: '<a href>'+result.data.message+'</a>'
                     })
                 }
@@ -799,7 +799,7 @@
                 alert('request failed:'+textStatus);
             },
             error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
+                if(jqXHR.status==400){
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
