@@ -147,8 +147,11 @@
             { data: 'no_marketing' },
             { data: 'nama' },
             { data: 'flag_aktif', render: function(data,type,row){  
-                var flag = data.split('.');
-                return flag[1];
+                if(data == '1'){
+                    return 'Aktif'
+                }else{
+                    return 'Tidak Aktif'
+                }
             }},
         ],
         dom: 'lBfrtip',
