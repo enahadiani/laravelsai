@@ -275,6 +275,12 @@
         }
     });
 
+    function format_number(x){
+        var num = parseFloat(x).toFixed(0);
+        num = sepNumX(num);
+        return num;
+    }
+
     function reverseDate2(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
         if(typeof newseparator === 'undefined'){newseparator = '-'}
@@ -366,7 +372,7 @@
     function getPP(id,target1,target2,jenis){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-trans/pp') }}/"+id,
+            url: "{{ url('/esaku-master/unit') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -454,7 +460,7 @@
     function getAkun(id,target1,target2,target3,jenis){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-master/masakun') }}/"+id,
+            url: "{{ url('/esaku-master/masakun-detail') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -792,105 +798,99 @@
         })
     });
 
-    $.validator.setDefaults({
+    $('#form-tambah').validate({
         ignore: [],
         errorElement: "label",
-        submitHandler: function () {
-            // alert("submitted!");
+        submitHandler: function (form) {
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            var total_d = $('#total_debet').val();
+            var total_k = $('#total_kredit').val();
+            var jumdet = $('#input-jurnal tr').length;
+
+            var param = $('#id').val();
+            var id = $('#no_bukti').val();
+            // $iconLoad.show();
+            if(param == "edit"){
+                var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
+            }else{
+                var url = "{{ url('/esaku-trans/jurnal') }}";
+            }
+
+            if(total_d != total_k){
+                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
+            }else if( total_d <= 0 || total_k <= 0){
+                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
+            }else if(jumdet <= 1){
+                alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
+            }else{
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        // alert('Input data '+result.message);
+                        if(result.data.status){
+                            // location.reload();
+                            dataTable.ajax.reload();                            
+                            Swal.fire(
+                                'Great Job!',
+                                'Your data has been saved',
+                                'success'
+                                )
+                                // $('#saku-datatable').show();
+                                // $('#saku-form').hide();
+                                $('#form-tambah')[0].reset();
+                                $('#form-tambah').validate().resetForm();
+                                $('#row-id').hide();
+                                $('#method').val('post');
+                                $('#judul-form').html('Tambah Data Jurnal');
+                                $('#id').val('');
+                                $('#input-jurnal tbody').html('');
+                                $('[id^=label]').html('');
+                                
+
+                        }
+                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                            Swal.fire({
+                                title: 'Session telah habis',
+                                text: 'harap login terlebih dahulu!',
+                                icon: 'error'
+                            }).then(function() {
+                                window.location.href = "{{ url('esaku/login') }}";
+                            })
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                        $iconLoad.hide();
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+            }
+
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
         }
-    });
-
-    $('#form-tambah').submit(function(e){
-    e.preventDefault();
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        var total_d = $('#total_debet').val();
-        var total_k = $('#total_kredit').val();
-        var jumdet = $('#input-jurnal tr').length;
-
-        var param = $('#id').val();
-        var id = $('#no_bukti').val();
-        $iconLoad.show();
-        if(param == "edit"){
-            var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
-        }else{
-            var url = "{{ url('/esaku-trans/jurnal') }}";
-        }
-
-        if(total_d != total_k){
-            alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-        }else if( total_d <= 0 || total_k <= 0){
-            alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-        }else if(jumdet <= 1){
-            alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
-        }else{
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                dataType: 'json',
-                data: formData,
-                async:false,
-                contentType: false,
-                cache: false,
-                processData: false, 
-                success:function(result){
-                    // alert('Input data '+result.message);
-                    if(result.data.status){
-                        // location.reload();
-                        dataTable.ajax.reload();
-                        $('#row-id').hide();
-                        $('#method').val('post');
-                        $('#judul-form').html('Tambah Data Jurnal');
-                        $('#form-tambah')[0].reset();
-                        $('#form-tambah').validate().resetForm();
-                        $('#id').val('');
-                        $('#input-jurnal tbody').html('');
-                        $('[id^=label]').html('');
-                            
-                        Swal.fire(
-                            'Great Job!',
-                            'Your data has been saved',
-                            'success'
-                            )
-                            // $('#saku-datatable').show();
-                            // $('#saku-form').hide();
-
-                    }
-                    else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        Swal.fire({
-                            title: 'Session telah habis',
-                            text: 'harap login terlebih dahulu!',
-                            icon: 'error'
-                        }).then(function() {
-                            window.location.href = "{{ url('esaku/login') }}";
-                        })
-                    }
-                    else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                    }
-                    $iconLoad.hide();
-                },
-                fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:'+textStatus);
-                }
-            });
-        }
-        
-        $iconLoad.hide();
-        
     });
 
     $('#kode_pp,#nama,#initial,#kode_bidang,#kode_ba,#kode_pc,#kota,#flag_aktif ').keydown(function(e){
@@ -1521,7 +1521,7 @@
                             input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+toRp2(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";

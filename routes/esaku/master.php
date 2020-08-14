@@ -113,7 +113,7 @@ Route::delete('menu/{kd_menu}/{kd_klp}', 'Esaku\SettingMenuController@delete');
 
 // Data Akun //
 Route::get('masakun', 'Esaku\MasakunController@index');
-Route::get('masakun-detail/{id}', 'Esaku\MasakunController@getData');
+Route::get('masakun-detail/{id}', 'Esaku\MasakunController@show');
 Route::post('masakun', 'Esaku\MasakunController@store');
 Route::put('masakun/{id}', 'Esaku\MasakunController@update');
 Route::delete('masakun/{id}', 'Esaku\MasakunController@delete');

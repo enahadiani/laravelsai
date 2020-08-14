@@ -253,7 +253,6 @@
         setHeightForm();
         var $target = "";
         var $target2 = "";
-        $('#form-tambah').validate();
         
         $.ajaxSetup({
             headers: {
@@ -572,97 +571,87 @@
         getAkun(par);
     });
 
-    $('#btn-simpan').click(function(e){
-        e.preventDefault();
-        $(this).text("Please Wait...").attr('disabled', 'disabled');
-        $('#form-tambah').submit();
-    });
-
-    $.validator.setDefaults({
+    // $('#btn-simpan').click(function(e){
+    //     e.preventDefault();
+    //     $(this).text("Please Wait...").attr('disabled', 'disabled');
+    //     $('#form-tambah').submit();
+    // });
+    
+    $('#form-tambah').validate({
         ignore: [],
         errorElement: "label",
-        submitHandler: function () {
-            // alert("submitted!");
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#id').val();
+            if(parameter == "edit"){
+                var url = "{{ url('esaku-master/vendor') }}/"+id;
+                var pesan = "updated";
+            }else{
+                var url = "{{ url('esaku-master/vendor') }}";
+                var pesan = "saved";
+            }
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    // alert('Input data '+result.message);
+                    if(result.data.status){
+                        // location.reload();
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Great Job!',
+                            'Your data has been '+pesan,
+                            'success'
+                            )
+
+                        // $('#saku-datatable').show();
+                        // $('#saku-form').hide();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('#akun_hutang').val('');
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Vendor');
+                        $('#method').val('post');
+                        $('#kode_vendor').attr('readonly', false);
+                    
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
         },
         errorPlacement: function (error, element) {
             var id = element.attr("id");
             $("label[for="+id+"]").append("<br/>");
             $("label[for="+id+"]").append(error);
-            // if (element.attr("class").indexOf("custom-control") != -1) {
-            //     error.insertAfter(element.parent());
-            // } else {
-            //     error.insertAfter(element);
-            // }
         }
-    });
-
-    $('#form-tambah').submit(function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var id = $('#id').val();
-        if(parameter == "edit"){
-            var url = "{{ url('esaku-master/vendor') }}/"+id;
-            var pesan = "updated";
-        }else{
-            var url = "{{ url('esaku-master/vendor') }}";
-            var pesan = "saved";
-        }
-
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-
-                    // $('#saku-datatable').show();
-                    // $('#saku-form').hide();
-                    $('#row-id').hide();
-                    $('#form-tambah')[0].reset();
-                    $('#form-tambah').validate().resetForm();
-                    $('#akun_hutang').val('');
-                    $('[id^=label]').html('');
-                    $('#id_edit').val('');
-                    $('#judul-form').html('Tambah Data Vendor');
-                    $('#method').val('post');
-                    $('#kode_vendor').attr('readonly', false);
-                 
-                }else if(!result.data.status && result.data.message === "Unauthorized"){
-                   
-                    window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
-                    
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
-                }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
-        });
-        $('#btn-simpan').html("Simpan").removeAttr('disabled');
     });
 
     function hapusData(id){
