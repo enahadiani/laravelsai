@@ -342,7 +342,8 @@
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     var $dtNIK = new Array();
-
+    var $dtPP = new Array();
+    var $dtAkun = new Array();
     function getDtNIK() {
         $.ajax({
             type:'GET',
@@ -378,10 +379,81 @@
         });
     }
 
+    function getDtPP() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('esaku-trans/pp') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                   
+                    for(i=0;i<result.daftar.length;i++){
+                        $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                    }
+
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    function getDtAkun() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('esaku-trans/akun') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                if(result.status) {
+                   
+                    for(i=0;i<result.daftar.length;i++){
+                        $dtAkun[i] = {kode_akun:result.daftar[i].kode_akun};  
+                    }
+
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
     getDtNIK();
+    getDtPP();
+    getDtAkun();
 
-
-    getPeriode();
+    // getPeriode();
     $('[data-toggle="tooltip"]').tooltip(); 
 
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -486,8 +558,8 @@
                         $('.'+target2).val('');
                         $('.td'+target2).text('');
                         $('.'+target1).focus();
+                        alert('Kode PP tidak valid');   
                     }
-                    alert('Kode PP tidak valid');
                 }
             }
         });
@@ -579,8 +651,8 @@
                         $('.'+target2).val('');
                         $('.td'+target2).text('');
                         $('.'+target1).focus();
+                        alert('Kode akun tidak valid');
                     }
-                    alert('Kode akun tidak valid');
                 }
             }
         });
@@ -816,6 +888,28 @@
         source: function (cari, result) {
             result($.map($dtNIK, function (item) {
                 return item.nik;
+            }));
+        },
+        afterSelect: function (item) {
+            // console.log('cek');
+        }
+    });
+
+    $('.inp-kode').typeahead({
+        source: function (cari, result) {
+            result($.map($dtAkun, function (item) {
+                return item.kode_akun;
+            }));
+        },
+        afterSelect: function (item) {
+            // console.log('cek');
+        }
+    });
+
+    $('.inp-pp').typeahead({
+        source: function (cari, result) {
+            result($.map($dtPP, function (item) {
+                return item.kode_pp;
             }));
         },
         afterSelect: function (item) {
