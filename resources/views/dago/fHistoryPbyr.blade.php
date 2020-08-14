@@ -966,7 +966,7 @@
 
                                         if(line3.kode_biaya == "PAKET" || line3.kode_biaya == "ROOM"){
                                             html+=`
-                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number2(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number2(line3.byr_e)+`' ></td>`;
+                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number3(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number3(line3.byr_e)+`' ></td>`;
                                         }else{
                                             html+=`
                                             <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number(line3.byr_e)+`' ></td>`;
@@ -1229,7 +1229,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-body printableArea">
-                                    <h3 class='text-left'><b>KUITANSI</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
+                                    <h3 class='text-left'><b>TANDA TERIMA</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12">

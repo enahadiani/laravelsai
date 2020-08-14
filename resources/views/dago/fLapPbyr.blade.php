@@ -244,7 +244,7 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].no_kwitansi + ' - ' + result.daftar[i].no_reg, value:result.daftar[i].no_kwitansi}]);
+                            control.addOption([{text:result.daftar[i].no_kb + ' - ' + result.daftar[i].no_reg, value:result.daftar[i].no_kb}]);
                         }
                     }
                 }

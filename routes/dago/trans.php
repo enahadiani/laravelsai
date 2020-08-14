@@ -52,6 +52,11 @@ Route::get('pembayaran-rekbank','Dago\PembayaranController@getRekBank');
 Route::get('pembayaran-preview','Dago\PembayaranController@getPreview');
 Route::get('pembayaran-kurs','Dago\PembayaranController@getKurs');
 
+//Pembayaran
+Route::get('verifikasi','Dago\VerifikasiController@index');
+Route::get('verifikasi-edit','Dago\VerifikasiController@edit');
+Route::put('verifikasi','Dago\VerifikasiController@update');
+
 //UploadDok
 Route::get('upload-dok','Dago\UploadDokController@index');
 Route::get('upload-dok-detail','Dago\UploadDokController@show');
