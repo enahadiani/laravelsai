@@ -73,10 +73,10 @@
                     <table id="table-data" style='width:100%'>
                         <thead>
                             <tr>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Aksi</th>
+                            <th width="20%">Kode</th>
+                            <th width="30%">Nama</th>
+                            <th width="38%">Alamat</th>
+                            <th width="12%" class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -213,7 +213,7 @@
                     </button>
                     <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih akun</p>  
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="padding-top:15px">
                     
                 </div>
             </div>
@@ -319,10 +319,10 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
 
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        sDom: '<"row view-filter mb-4"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-master/vendor') }}",
             'async':false,
@@ -337,7 +337,7 @@
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'dt-center' },
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         'columns': [
             { data: 'kode_vendor' },
@@ -364,6 +364,7 @@
             lengthMenu: "Items Per Page _MENU_"
         },
     });
+    
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
@@ -376,7 +377,6 @@
         $('#label_akun_hutang').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        // $('#form-tambah #add-row').click();
     });
 
      $('#saku-form').on('click', '#btn-kembali', function(){
@@ -419,8 +419,9 @@
         }
 
         var header_html = '';
+        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
-            header_html +=  "<th>"+header[i]+"</th>";
+            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
 
         var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";

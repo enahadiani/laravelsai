@@ -86,7 +86,7 @@
                                         <th style="width:15%">No Dokumen</th>
                                         <th style="width:35%">Deskripsi</th>
                                         <th style="width:15%">Nilai</th>
-                                        <th style="width:10%">Action</th>
+                                        <th style="width:10%" class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,67 +168,75 @@
                                     <label id="label_nik_periksa" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
-                            <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
-                                <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
-                            </div>
-                            <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                <style>
-                                    th{
-                                        vertical-align:middle !important;
-                                    }
-                                    /* #input-jurnal td{
-                                        padding:0 !important;
-                                    } */
-                                    #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label
-                                    {
-                                        border:0 !important;
-                                        border-radius:0 !important;
-                                    }
-                                    .modal-header .close {
-                                        padding: 1rem;
-                                        margin: -1rem 0 -1rem auto;
-                                    }
-                                    .check-item{
-                                        cursor:pointer;
-                                    }
-                                    .selected{
-                                        cursor:pointer;
-                                        /* background:#4286f5 !important; */
-                                        /* color:white; */
-                                    }
-                                    #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                    {
-                                        background:#f4d180 !important;
-                                        color:white;
-                                    }
-                                    #input-jurnal td
-                                    {
-                                        overflow:hidden !important;
-                                    }
+                            <ul class="nav nav-tabs col-12 " role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                            </ul>
+                            <div class="tab-content tabcontent-border col-12 p-0">
+                                <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
-                                    #input-jurnal td:nth-child(4)
-                                    {
-                                        overflow:unset !important;
-                                    }
-                                </style>
-                                <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                <thead style="background:#F8F8F8">
-                                    <tr>
-                                        <th style="width:3%">No</th>
-                                        <th style="width:9%">Kode Akun</th>
-                                        <th style="max-width:18%">Nama Akun</th>
-                                        <th style="width:5%">DC</th>
-                                        <th style="max-width:20%">Keterangan</th>
-                                        <th style="width:10%">Nilai</th>
-                                        <th style="width:7">Kode PP</th>
-                                        <th style="width:13">Nama PP</th>
-                                        <th style="width:5%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                </table>
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                        <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
+                                        <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                        <style>
+                                            th{
+                                                vertical-align:middle !important;
+                                            }
+                                            /* #input-jurnal td{
+                                                padding:0 !important;
+                                            } */
+                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label
+                                            {
+                                                border:0 !important;
+                                                border-radius:0 !important;
+                                            }
+                                            .modal-header .close {
+                                                padding: 1rem;
+                                                margin: -1rem 0 -1rem auto;
+                                            }
+                                            .check-item{
+                                                cursor:pointer;
+                                            }
+                                            .selected{
+                                                cursor:pointer;
+                                                /* background:#4286f5 !important; */
+                                                /* color:white; */
+                                            }
+                                            #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                            {
+                                                background:#f4d180 !important;
+                                                color:white;
+                                            }
+                                            #input-jurnal td
+                                            {
+                                                overflow:hidden !important;
+                                            }
+
+                                            #input-jurnal td:nth-child(4)
+                                            {
+                                                overflow:unset !important;
+                                            }
+                                        </style>
+                                        <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:9%">Kode Akun</th>
+                                                <th style="max-width:18%">Nama Akun</th>
+                                                <th style="width:5%">DC</th>
+                                                <th style="max-width:20%">Keterangan</th>
+                                                <th style="width:10%">Nilai</th>
+                                                <th style="width:7">Kode PP</th>
+                                                <th style="width:13">Nama PP</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -247,7 +255,7 @@
                     </button>
                     <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih <span id="memilih"></span></p>  
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="padding-top:15px">
                     
                 </div>
             </div>
@@ -317,7 +325,7 @@
     getPeriode();
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
         sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -339,7 +347,7 @@
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
-            {'targets': 5, data: null, 'defaultContent': action_html }
+            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
             ],
         'columns': [
             { data: 'no_bukti' },
@@ -598,8 +606,9 @@
         }
 
         var header_html = '';
+        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
-            header_html +=  "<th>"+header[i]+"</th>";
+            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
 
         var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
@@ -1027,6 +1036,41 @@
 
     $('.selectize').selectize();
 
+    function addRowDef(){
+        var no=$('#input-jurnal .row-jurnal:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-jurnal'>";
+        input += "<td class='no-jurnal text-center'>"+no+"</td>";
+                                    
+        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
+        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "</tr>";
+        $('#input-jurnal tbody').append(input);
+        $('.dcke'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tddcke'+no).text(value);
+                hitungTotal();
+            }
+        });
+        $('.selectize-control.dcke'+no).addClass('hidden');
+        $('.nilke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+    }
+
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
@@ -1037,7 +1081,8 @@
         $('#input-jurnal tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        // $('#form-tambah #add-row').click();
+        addRowDef();
+        addRowDef();
     });
 
     $('#form-tambah').on('click', '#add-row', function(){
@@ -1047,12 +1092,12 @@
         input += "<tr class='row-jurnal'>";
         input += "<td class='no-jurnal text-center'>"+no+"</td>";
                                     
-        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
         input += "<td><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
@@ -1127,12 +1172,12 @@
             var input = "";
             input += "<tr class='row-jurnal'>";
             input += "<td class='no-jurnal text-center'>"+no+"</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td ><span class='td-kode tdakunke"+no+"'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nama tdnmakunke"+no+"'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
             input += "<td><span class='td-dc tddcke"+no+"'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
             input += "<td><span class='td-ket tdketke"+no+"'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-pp tdppke"+no+"'>"+kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nama_pp tdnmppke"+no+"'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
@@ -1517,12 +1562,12 @@
                             var line =result.detail[i];
                             input += "<tr class='row-jurnal'>";
                             input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
                             input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
