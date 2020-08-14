@@ -67,6 +67,22 @@
         {
             width:100%;
         }
+
+        .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; }
+
+        .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 25px; }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; }
+
+        .dataTables_wrapper .paginate_button.page-item {
+        padding-left: 5px;
+        padding-right: 5px; }
     </style>
         <div class="row" id="saku-datatable">
             <div class="col-12">
@@ -264,6 +280,7 @@
     <!-- END MODAL -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+    
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
@@ -321,6 +338,8 @@
             }
         });
     }
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
 
     getPeriode();
     $('[data-toggle="tooltip"]').tooltip(); 

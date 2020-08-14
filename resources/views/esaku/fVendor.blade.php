@@ -60,6 +60,22 @@
         {
             width:100%;
         }
+
+        .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; }
+
+        .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 25px; }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; }
+
+        .dataTables_wrapper .paginate_button.page-item {
+        padding-left: 5px;
+        padding-right: 5px; }
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
