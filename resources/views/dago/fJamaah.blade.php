@@ -7,6 +7,7 @@
                     <div class="card-body">
                         <h4 class="card-title" style="font-size:16px">Data Jamaah 
                         <button type="button" id="btn-jamaah-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                        <button type="button" id="btn-jamaah-singkat-tambah" class="btn btn-primary ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah Jamaah Singkat</button>
                         </h4>
                         <hr style="margin-bottom:0px;margin-top:25px">
                         <div class="table-responsive ">
@@ -258,6 +259,74 @@
                 </div>
             </div>
         </div>
+                <div class="row" id="form-tambah-jamaah-singkat" style="display:none;">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form" id="form-tambah-singkat">
+                            <h4 class="card-title mb-2" style="font-size:16px">Form Data Jamaah Singkat
+                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save-singkat"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-jamaah-kembali-singkat" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                            </h4>
+                            <hr style="margin-bottom:0px;margin-top:25px">
+                            <div class="form-group row" id="row-id-singkat">
+                                <div class="col-9">
+                                    <input class="form-control" type="text" id="id_singkat" name="id" readonly hidden>
+                                </div>
+                            </div>
+                            <div class="form-group row mt-3">
+                                <label for="id_peserta" class="col-3 col-form-label">No KTP</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Masukkan No KTP Jamaah" id="id_peserta_singkat" name="id_peserta" required minlength="16" maxlength="16">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Nama</label>
+                                <div class="col-4">
+                                    <input class="form-control" type="text" placeholder="Masukkan Nama Jamaah" id="nama_singkat" name="nama" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="telp" class="col-3 col-form-label">No Telp</label>
+                                <div class="col-4">
+                                    <input class="form-control" type="text" placeholder="No Telepon Jamaah" id="telp_singkat" name="telp">
+                                </div>
+                            </div>
+                            <div id="singkat-data" style="display: none;">
+                                <input class="form-control" type="hidden" name="no_peserta" readonly>
+                                <input type="hidden" name="tempat" value="-">
+                                <input type="hidden" name="tgl_lahir" value="{{date('d/m/Y')}}">
+                                <input type="hidden" name="email" value="dummy@gmail.com">
+                                <input type="hidden" name="jk" value="Laki-laki">
+                                <input type="hidden" name="status" value="Belum Menikah">
+                                <input type="hidden" name="alamat" value="-">
+                                <input type="hidden" name="ayah" value="-">
+                                <input type="hidden" name="ibu" value="-">
+                                <input type="hidden" name="pekerjaan" value="-">
+                                <input type="hidden" name="pendidikan" value="-">
+                                <input type="hidden" name="bank" value="-">
+                                <input type="hidden" name="norek" value="-">
+                                <input type="hidden" name="cabang" value="-">
+                                <input type="hidden" name="norek" value="-">
+                                <input type="hidden" name="hp" value="-">
+                                <input type="hidden" name="kode_pos" value="-">
+                                <input type="hidden" name="namarek" value="-">
+                                <input type="hidden" name="nopass" value="-">
+                                <input type="hidden" name="issued" value="{{date('d/m/Y')}}">
+                                <input type="hidden" name="ex_pass" value="{{date('d/m/Y')}}">
+                                <input type="hidden" name="kantor_mig" value="-">
+                                <input type="hidden" name="ec_telp" value="-">
+                                <input type="hidden" name="ec_hp" value="-">
+                                <input type="hidden" name="kantor_mig" value="-">
+                                <input type="hidden" name="sp" value="Belum Pernah">
+                                <input type="hidden" name="th_haji" value="-">
+                                <input type="hidden" name="th_umroh" value="-">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>           
     <script>
     function reverseDateNew(date_str, separator, newseparator){
@@ -308,6 +377,7 @@
     $('#jk').selectize();    
     $('#status').selectize();    
     $('#sp').selectize();
+
     $('#saku-datatable').on('click', '#btn-jamaah-tambah', function(){
         $('#row-id').hide();
         $('#form-tambah')[0].reset();
@@ -315,6 +385,15 @@
         $('.preview').html('');
         $('#saku-datatable').hide();
         $('#form-tambah-jamaah').show();
+    });
+
+    $('#saku-datatable').on('click', '#btn-jamaah-singkat-tambah', function(){
+        $('#row-id-singkat').hide();
+        $('#form-tambah-singkat')[0].reset();
+        $('#id_singkat').val('');
+        $('#saku-datatable').hide();
+        $('#form-tambah-jamaah-singkat').show();
+        $('#form-tambah-jamaah').hide();
     });
 
     $('.custom-file-input').on('change',function(){
@@ -483,6 +562,13 @@
     $('#form-tambah-jamaah').on('click', '#btn-jamaah-kembali', function(){
         $('#saku-datatable').show();
         $('#form-tambah-jamaah').hide();
+        $('#form-tambah-jamaah-singkat').hide();
+    });
+
+    $('#form-tambah-jamaah-singkat').on('click', '#btn-jamaah-kembali-singkat', function(){
+        $('#saku-datatable').show();
+        $('#form-tambah-jamaah').hide();
+        $('#form-tambah-jamaah-singkat').hide();
     });
 
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
@@ -659,6 +745,70 @@
             }
         });
         
+    });
+
+    $('#form-tambah-jamaah-singkat').on('submit', '#form-tambah-singkat', function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('dago-trans/jamaah') }}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                // alert('Input data '+result.message);
+                if(result.data.status == "SUCCESS"){
+                    // location.reload();
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Great Job!',
+                        'Your data has been '+result.data.message,
+                        'success'
+                        )
+                        $('#saku-datatable').show();
+                        $('#form-tambah-jamaah').hide();
+                        $('#form-tambah-jamaah-singkat').hide();
+                        
+                }
+                else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    })
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+jqXHR.responseText+'</a>'
+                    })
+                }
+            }
+        });
     });
 
     $('#id_peserta,#nama,#tempat,#tgl_lahir,#jk,#status,#pendidikan,#ibu,#alamat,#kode_pos,#telp,#hp,#email,#pekerjaan,#bank,#norek,#cabang,#namarek,#nopass,#issued,#ex_pass,#kantor_mig,#ec_telp,#ec_hp,#sp,#th_haji,#th_umroh,#foto').keydown(function(e){
