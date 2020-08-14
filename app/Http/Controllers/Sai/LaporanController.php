@@ -18,6 +18,35 @@
             }
         }
 
+        public function getTagihanDetail($no_dokumen, $kode_cust) {
+            $dokumen = str_replace('.','/',$no_dokumen);
+            try {
+                $client = new Client();
+                $response = $client->request('GET', $this->link.'lap-tagihan-detail',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_cust' => $kode_cust,
+                        'dokumen' => $dokumen,
+                    ]
+                ]);
+
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res;
+                }
+                return response()->json(['data' => $data, 'status'=>true], 200); 
+            } catch (BadResponseException $e) {
+                $response = $e->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            }
+        }
+
         public function getDataTagihan(Request $request) {
            try{
                 $client = new Client();

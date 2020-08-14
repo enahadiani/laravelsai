@@ -39,7 +39,7 @@ drawLap($formData);
                             }
                             </style>
                             <div class="table-responsive">
-                            <table class='table table-striped color-table info-table'>
+                            <table class='table table-striped color-table info-table table-tagihan'>
                                 <thead>
                                     <tr>
                                         <th class="header_laporan">No</th>
@@ -64,12 +64,12 @@ drawLap($formData);
                                     
                                     det+=`<tr>
                                         <td align='center' class='isi_laporan'>`+no+`</td>
-                                        <td  class='isi_laporan'>`+line2.no_dokumen+`</td>
-                                        <td class='isi_laporan'>`+line2.cust+`</td>
+                                        <td  class='isi_laporan dokumen'>`+line2.no_dokumen+`</td>
+                                        <td class='isi_laporan customer'>`+line2.cust+`</td>
                                         <td class='isi_laporan'>`+line2.keterangan_kontrak+`</td>
                                         <td align='right' class='isi_laporan'>`+sepNum(line2.nilai_kontrak)+`</td>
                                         <td align='right' class='isi_laporan'>`+sepNum(line2.nilai_ppn_kontrak)+`</td>
-                                        <td class='isi_laporan' style='margin:auto;display:block;'>`+"<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>"+`</td>
+                                        <td class='isi_laporan' style='margin:auto;display:block;'>`+"<a href='#' title='Preview' class='badge badge-info btn-print' id='btn-print'><i class='fas fa-print'></i></a>"+`</td>
                                     </tr>`;	
                                     no++;   
                                 }
@@ -92,4 +92,25 @@ drawLap($formData);
         $('li.next a ').html("<i class='icon-arrow-right'></i>");
         $('#pagination').append(`<li class="page-item all"><a href="#" class="page-link"><i class="far fa-list-alt"></i></a></li>`);
     }
+
+    $('.table-tagihan').on('click', '.btn-print', function(){
+        var dokumen = $(this).closest('tr').find('.dokumen').text();
+        var customer = $(this).closest('tr').find('.customer').text();
+        var customerSplit = customer.split('-');
+        var kode_cust = customerSplit[0];
+        var no_dokumen = dokumen.replace(/\//g,'.');
+        console.log(no_dokumen);
+
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sai-report/cetak-tagihan-maintenance') }}/"+no_dokumen+"/"+kode_cust,
+            dataType: 'json',
+            async:false,
+            success: function(result){
+                console.log(result);
+            }
+        });
+
+    });
+
 </script>
