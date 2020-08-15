@@ -93,6 +93,9 @@
                                                         <th>Tanggal</th>
                                                         <th>Paket</th>
                                                         <th>Jadwal</th>
+                                                        <th>Nilai Paket</th>
+                                                        <th>Bayar Paket</th>
+                                                        <th>Saldo Paket</th>
                                                         <th>Action</th>
                                                         <th>Status</th>
                                                     </tr>
@@ -449,17 +452,25 @@
             { data: 'tgl_input' },
             { data: 'nama_paket' },
             { data: 'tgl_berangkat' },
+            { data: 'nilai_paket' },
+            { data: 'bayar_paket' },
+            { data: 'saldo_paket' },
             { data: 'action' },
             { data: 'status' }
         ],
-        "columnDefs": [ {
-            "targets": 6,
+        "columnDefs": [
+        {'targets': [6,7,8],
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+        }, 
+        {
+            "targets": 9,
             "data": null,
             "render": function ( data, type, row, meta ) {
                 return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
             }
         },{
-            "targets": 7,
+            "targets": 10,
             "data": null,
             "render": function ( data, type, row, meta ) {
                 if(row.status == "-"){
@@ -907,7 +918,7 @@
         }
     });
 
-    $('#saku-form').on('click','#btn-print',function(e){
+    $('#saku-datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         printPbyr(id);
     });
@@ -1039,7 +1050,7 @@
                         }
                         $('#table-his tbody').html(html);
                     }
-                    $('#web_datatable').hide();
+                    $('#saku-datatable').hide();
                     $('#saku-form').show();
                 } 
               }
@@ -1336,7 +1347,7 @@
                         <br><DIV style='page-break-after:always'></DIV>`;
                         $('#print-area').html(html);
                         $('#slide-print').show();
-                        $('#saku-datatable').hide();
+                        $('#web_datatable').hide();
                         $('#saku-form').hide();
                     }
                 }
