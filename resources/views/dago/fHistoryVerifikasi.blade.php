@@ -91,6 +91,7 @@
                                                     <th>NIK Ver</th>
                                                     <th>No Kuitansi</th>
                                                     <th>No Terima</th>
+                                                    <th>No Reg</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -195,7 +196,8 @@
             { data: 'keterangan' },
             { data: 'nik_ver' },
             { data: 'no_kwitansi' },
-            { data: 'no_tt' }
+            { data: 'no_tt' },
+            { data: 'no_reg' }
         ]
     });
 

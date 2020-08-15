@@ -364,6 +364,23 @@
         return num;
     }
 
+    function sepNum2(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(2);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
+    function format_number3(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum2(num);
+        return num;
+    }
+
     
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
@@ -426,7 +443,12 @@
                     if("{{ Session::get('userStatus') }}" == "U"){
                         return "";
                     }else{
-                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                        if(row.flag_ver == 0){
+                            return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        }else{
+
+                            return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;";
+                        }
                     }
                 }
             }
@@ -881,7 +903,7 @@
         $('#web_datatable').show();
     });
 
-    $('#saku-form').on('click','#btn-print',function(e){
+    $('#web_datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         printPbyr(id);
     });
@@ -1376,7 +1398,7 @@
                         <br><DIV style='page-break-after:always'></DIV>`;
                         $('#print-area').html(html);
                         $('#slide-print').show();
-                        $('#saku-datatable').hide();
+                        $('#web_datatable').hide();
                         $('#saku-form').hide();
                     }
                 }
