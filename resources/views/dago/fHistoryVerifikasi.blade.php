@@ -110,10 +110,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row" style="display:none">
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 0" id="btnPreview"><i class="far fa-list-alt"></i> Preview</button>
+                                <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>
+                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                </div>
+                            </div>
+                            <div class='col-sm-1' style='padding-top: 0'>
+                                <select name="show" id="show" class="form-control" style=''>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="All">All</option>
+                                </select>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px;padding:10px;font-size:12pt !important'>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -139,6 +158,7 @@
     <!-- END MODAL --> 
 </div>
 <script>
+    $('#show').selectize();
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -198,7 +218,83 @@
             { data: 'no_kwitansi' },
             { data: 'no_tt' },
             { data: 'no_reg' }
+        ],
+        "columnDefs": [
+            {
+                "targets": 4,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-kuitansi' data-no_kwitansi='"+row.no_kwitansi+"'>"+row.no_kwitansi+"</a>";
+                }
+            },
+            {
+                "targets": 5,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-terima' data-no_kwitansi='"+row.no_tt+"'>"+row.no_tt+"</a>";
+                }
+            },
+            {
+                "targets": 6,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-reg' data-no_reg='"+row.no_reg+"'>"+row.no_reg+"</a>";
+                }
+            }
         ]
     });
+
+    var $formData = new FormData(); 
+    $('#saiweb_container').on('click', '.lap-kuitansi', function(){
+        // getset value
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+        var kode = $(this).data('no_kwitansi');
+        $formData.append("no_kwitansi", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptPbyr";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    });  
+
+    $('#saiweb_container').on('click', '.lap-terima', function(){
+        
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+
+        var kode = $(this).data('no_kwitansi');
+        $formData.append("no_kwitansi", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptTerima";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    });  
+
+    $('#saiweb_container').on('click', '.lap-reg', function(){
+        
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+
+        var kode = $(this).data('no_reg');
+        $formData.append("no_reg", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    });  
+
+    $('#slide-print').on('click', '#btn-kembali', function(){
+        $('#web_datatable').show();
+        $('#slide-print').hide();
+    });   
+
+    $('#slide-print').on('click','#btn-print',function(e){
+        e.preventDefault();
+        $('#print-area').printThis();
+    });
+   
 
 </script>

@@ -62,7 +62,7 @@
     }
 
     function drawLap(formData){
-       saiPost('dago-report/lap-pembayaran', null, formData, null, function(res){
+       saiPost('dago-report/lap-terima', null, formData, null, function(res){
            if(res.result.length > 0){
                 $('#pagination').html('');
                 var show = $('#show')[0].selectize.getValue();
