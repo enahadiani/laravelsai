@@ -52,10 +52,17 @@ Route::get('pembayaran-rekbank','Dago\PembayaranController@getRekBank');
 Route::get('pembayaran-preview','Dago\PembayaranController@getPreview');
 Route::get('pembayaran-kurs','Dago\PembayaranController@getKurs');
 
-//Pembayaran
+//Non Cash
+Route::get('noncash','Dago\NonCashController@getRegistrasi');
+Route::post('noncash','Dago\NonCashController@store');
+Route::get('noncash-detail','Dago\NonCashController@show');
+Route::get('noncash-rekbank','Dago\NonCashController@getRekBank');
+
+//Verifikasi
 Route::get('verifikasi','Dago\VerifikasiController@index');
 Route::get('verifikasi-edit','Dago\VerifikasiController@edit');
 Route::put('verifikasi','Dago\VerifikasiController@update');
+Route::get('verifikasi-histori','Dago\VerifikasiController@histori');
 
 //UploadDok
 Route::get('upload-dok','Dago\UploadDokController@index');

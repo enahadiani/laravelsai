@@ -122,6 +122,7 @@ class VerifikasiController extends Controller
             'akun_tambah' => 'required',
             'akun_dokumen' => 'required',
             'paket' => 'required',
+            'jenis' => 'required',
             'tgl_berangkat' => 'required|date_format:Y-m-d',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
             'total_bayar' => 'required',
@@ -166,6 +167,7 @@ class VerifikasiController extends Controller
                 'akun_tambah' => $request->akun_tambah,
                 'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
+                'jenis' => $request->jenis,
                 'tgl_berangkat' => $request->tgl_berangkat,
                 'status_bayar' => $request->status_bayar,
                 'total_bayar' => $this->joinNum($request->total_bayar),
@@ -199,6 +201,31 @@ class VerifikasiController extends Controller
         }
 
         
+    }
+
+    public function histori(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-trans/verifikasi-histori',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        }
     }
 
 }

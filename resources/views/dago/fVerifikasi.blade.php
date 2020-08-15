@@ -123,6 +123,7 @@
                                 <div class="col-9">
                                 <input class="form-control" type="hidden" id="method" name="_method" value="put">
                                 <input class="form-control" type="hidden" id="id_edit" name="id">
+                                <input class="form-control" type="hidden" id="jenis" name="jenis">
                                 </div>
                                 <div class="col-3">
                                 <input class="form-control" type="hidden" id="no_bukti" name="no_bukti" required >
@@ -363,6 +364,22 @@
         return num;
     }
 
+    function sepNum2(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(2);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
+    function format_number3(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum2(num);
+        return num;
+    }
     
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
@@ -392,13 +409,13 @@
                     return json.daftar;   
                 }else{
                     
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                    //     window.location.href = "{{ url('dago-auth/login') }}";
-                    // })
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('dago-auth/login') }}";
+                    })
                     return [];
                 }  
             }
@@ -598,10 +615,15 @@
         })
     }
 
-    function getRekBank(kode_akun){
+    function getRekBank(kode_akun,jenis){
+        if(jenis == 'NONCASH'){
+            var url = "{{ url('dago-trans/noncash-rekbank') }}";
+        }else{
+            var url = "{{ url('dago-trans/pembayaran-rekbank') }}";
+        }
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
+            url: url,
             dataType: 'json',
             data:{'kode_akun':kode_akun},
             async:false,
@@ -765,8 +787,9 @@
     });
 
     $('#form-tambah').on('change', '#kode_akun', function(){
-        var par = $(this).val();
-        getRekBank(par);
+        var par = $(this).val(); 
+        var jenis = $('#jenis').val();
+        getRekBank(par,jenis);
     });
 
     $('#form-tambah').on('click', '#konversi_btn', function(){
@@ -900,6 +923,7 @@
                     if(res.data.data_jamaah.length > 0 ){
                         var line = res.data.data_jamaah[0];
                         $('#id_edit').val('edit');
+                        $('#jenis').val(line.jenis);
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);

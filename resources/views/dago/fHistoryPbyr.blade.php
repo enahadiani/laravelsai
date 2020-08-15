@@ -123,6 +123,7 @@
                                 <div class="col-9">
                                 <input class="form-control" type="hidden" id="method" name="_method" value="put">
                                 <input class="form-control" type="hidden" id="id_edit" name="id">
+                                <input class="form-control" type="hidden" id="jenis" name="jenis">
                                 </div>
                                 <div class="col-3">
                                 <input class="form-control" type="hidden" id="no_bukti" name="no_bukti" required >
@@ -136,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_akun" class="col-3 col-form-label">Rekening Kas Bank</label>
+                                <label for="kode_akun" class="col-3 col-form-label"></label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
@@ -597,10 +598,15 @@
         })
     }
 
-    function getRekBank(kode_akun){
+    function getRekBank(kode_akun,jenis){
+        if(jenis == 'NONCASH'){
+            var url = "{{ url('dago-trans/noncash-rekbank') }}";
+        }else{
+            var url = "{{ url('dago-trans/pembayaran-rekbank') }}";
+        }
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
+            url: url,
             dataType: 'json',
             data:{'kode_akun':kode_akun},
             async:false,
@@ -765,7 +771,9 @@
 
     $('#form-tambah').on('change', '#kode_akun', function(){
         var par = $(this).val();
-        getRekBank(par);
+        var jenis = $('#jenis').val();
+        console.log(jenis);
+        getRekBank(par,jenis);
     });
 
     $('#form-tambah').on('click', '#konversi_btn', function(){
@@ -899,6 +907,7 @@
                     if(res.data.data_jamaah.length > 0 ){
                         var line = res.data.data_jamaah[0];
                         $('#id_edit').val('edit');
+                        $('#jenis').val(line.jenis);
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);
