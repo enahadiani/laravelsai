@@ -59,6 +59,48 @@ class FilterController extends Controller
         } 
     }
 
+    function getFilterPeriodeBayar(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter-periode-bayar',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            $periode = Session::get('periode');
+            if($periode != ""){
+                $periode = $periode;
+            }else{
+                $periode = date('Ym');
+            }
+            $tahun = substr($periode,0,4);
+            $bulan = substr($periode,5,2);
+            if(strlen($bulan) == 1){
+                $bulan = "0".$bulan;
+            }else{
+                $bulan = $bulan;
+            }
+            $tgl_awal = date($tahun.'-'.$bulan.'-01');
+            $tgl_akhir = $this->lastOfMonth($tahun,$bulan);
+            return response()->json(['daftar' => $data, 'status'=>true,'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'periode'=>$periode,'periodeAktif'=>Session::get('periode'),'message'=>'success'], 200); 
+
+            // return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res, 'status'=>false], 200);
+        } 
+    }
+
     function getFilterPaket(Request $request){
         try{
             $client = new Client();

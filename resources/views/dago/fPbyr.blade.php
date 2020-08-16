@@ -348,6 +348,24 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row" style="display:none">
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 0" id="btnPreview"><i class="far fa-list-alt"></i> Preview</button>
+                                <button type="button" id='btn-lanjut' class="btn btn-secondary" style="margin-left: 6px;margin-top: 0"><i class="fa fa-filter"></i> Filter</button>
+                                <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                    <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                </div>
+                            </div>
+                            <div class='col-sm-1' style='padding-top: 0'>
+                                <select name="show" id="show" class="form-control" style=''>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="All">All</option>
+                                </select>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px;padding:10px;font-size:12pt !important'>
@@ -377,6 +395,7 @@
 </div>
 <script>
     
+    $('#show').selectize();
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
             var ket_curr = " rupiah";
@@ -459,27 +478,34 @@
             { data: 'status' }
         ],
         "columnDefs": [
-        {'targets': [6,7,8],
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
-        }, 
-        {
-            "targets": 9,
-            "data": null,
-            "render": function ( data, type, row, meta ) {
-                return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
-            }
-        },{
-            "targets": 10,
-            "data": null,
-            "render": function ( data, type, row, meta ) {
-                if(row.status == "-"){
-                    return "";
-                }else{
-                    return "<a href='#' title='Sudah Lunas' class='badge badge-success' ><i class='fas fa-check'></i> Lunas</a>";
+            {
+                "targets": 0,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-kartu' data-no_reg='"+row.no_reg+"'>"+row.no_reg+"</a>";
                 }
-            }
-        }]
+            },
+            {'targets': [6,7,8],
+                    'className': 'text-right',
+                    'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            }, 
+            {
+                "targets": 9,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
+                }
+            },{
+                "targets": 10,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.status == "-"){
+                        return "";
+                    }else{
+                        return "<a href='#' title='Sudah Lunas' class='badge badge-success' ><i class='fas fa-check'></i> Lunas</a>";
+                    }
+                }
+            }]
     });
 
     function showFilter(param,target1,target2){
@@ -1388,6 +1414,21 @@
         //     }
         // }
     });
+
+    var $formData = new FormData(); 
+    $('#saiweb_container').on('click', '.lap-kartu', function(){
+        
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+
+        var kode = $(this).data('no_reg');
+        $formData.append("no_reg", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyr";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    }); 
 
        
 </script>

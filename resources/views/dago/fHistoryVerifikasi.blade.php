@@ -92,6 +92,7 @@
                                                     <th>No Kuitansi</th>
                                                     <th>No Terima</th>
                                                     <th>No Reg</th>
+                                                    <th>No Jurnal</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -240,6 +241,13 @@
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-reg' data-no_reg='"+row.no_reg+"'>"+row.no_reg+"</a>";
                 }
+            },
+            {
+                "targets": 7,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-jurnal' data-no_bukti='"+row.no_kb+"'>"+row.no_kb+"</a>";
+                }
             }
         ]
     });
@@ -281,6 +289,20 @@
         var kode = $(this).data('no_reg');
         $formData.append("no_reg", kode);
         xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    }); 
+
+    $('#saiweb_container').on('click', '.lap-jurnal', function(){
+        
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+
+        var kode = $(this).data('no_bukti');
+        $formData.append("no_bukti", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptJuPbyr";
         $('#print-area').load(xurl);
         $('#slide-print').show();
         $('#web_datatable').hide();
