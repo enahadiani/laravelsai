@@ -16,7 +16,6 @@ class LokasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class LokasiController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lokasi',[
+            $response = $client->request('GET',  config('api.url').'rtrw/lokasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class LokasiController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lokasi-detail?kode_lokasi='.$id,
+            $response = $client->request('GET',  config('api.url').'rtrw/lokasi-detail?kode_lokasi='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -84,7 +83,7 @@ class LokasiController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'lokasi?kode_lokasi='.$id,
+            $response = $client->request('DELETE',  config('api.url').'rtrw/lokasi?kode_lokasi='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -194,7 +193,7 @@ class LokasiController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'lokasi',[
+                $response = $client->request('POST',  config('api.url').'rtrw/lokasi',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -303,7 +302,7 @@ class LokasiController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'lokasi-ubah?kode_lokasi='.$id,[
+                $response = $client->request('POST',  config('api.url').'rtrw/lokasi-ubah?kode_lokasi='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

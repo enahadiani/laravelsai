@@ -16,8 +16,6 @@ class PostingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/gl/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -46,7 +44,7 @@ class PostingController extends Controller
     public function getModul(){
         try { 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'modul2',[
+            $response = $client->request('GET',  config('api.url').'gl/modul2',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -113,7 +111,7 @@ class PostingController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'posting',[
+            $response = $client->request('POST',  config('api.url').'gl/posting',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -175,7 +173,7 @@ class PostingController extends Controller
             $fields = $detail;
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'loadData',[
+            $response = $client->request('POST',  config('api.url').'gl/loadData',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

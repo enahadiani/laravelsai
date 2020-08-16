@@ -10,8 +10,6 @@
 
     class KalenderAkademikController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
                 return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kalender_akad_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/kalender_akad_all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,7 +54,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'kalender_akad',[
+                $response = $client->request('POST',  config('api.url').'sekolah/kalender_akad',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -84,7 +82,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('GET', $this->link.'kalender_akad?kode_sem='.$kode_sem
+                $response = $client->request('GET',  config('api.url').'sekolah/kalender_akad?kode_sem='.$kode_sem
                 ."&kode_ta=".$kode_ta."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
@@ -113,7 +111,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('DELETE', $this->link.'kalender_akad?kode_sem='.$kode_sem.
+                $response = $client->request('DELETE',  config('api.url').'sekolah/kalender_akad?kode_sem='.$kode_sem.
                 '&kode_ta='.$kode_ta."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
@@ -158,7 +156,7 @@
                   );
         
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'kalender_akad',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/kalender_akad',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'

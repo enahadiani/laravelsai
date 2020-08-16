@@ -45,7 +45,7 @@ class JurnalController extends Controller
     public function index(){
         try { 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurnal',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -69,7 +69,7 @@ class JurnalController extends Controller
     public function getPP(){
         try { 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp-list',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/pp-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -94,7 +94,7 @@ class JurnalController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akun',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -119,7 +119,7 @@ class JurnalController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'nikperiksa',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/nikperiksa',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -196,7 +196,7 @@ class JurnalController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jurnal',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -230,7 +230,7 @@ class JurnalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurnal/'.$id,[
+            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -258,7 +258,7 @@ class JurnalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurnal-periode',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal-periode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -353,7 +353,7 @@ class JurnalController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'jurnal',[
+            $response = $client->request('PUT',  config('api.url').'toko-trans/jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -388,7 +388,7 @@ class JurnalController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jurnal/'.$id,[
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/jurnal/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -416,7 +416,7 @@ class JurnalController extends Controller
     public function getNIKPeriksaByNIK($nik){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'nikperiksa/'.$nik,[
+            $response = $client->request('GET',  config('api.url').'toko-trans/nikperiksa/'.$nik,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

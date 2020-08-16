@@ -10,8 +10,6 @@
 
     class LaporanController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/toko-report/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function getKartu(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap_kartu',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap_kartu',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -60,7 +58,7 @@
         public function getSaldo(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap_saldo',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap_saldo',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -99,7 +97,7 @@
         public function getPenjualanHarian(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-penjualan-harian',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan-harian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -138,7 +136,7 @@
         public function getReturBeli(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-retur-beli',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-retur-beli',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -177,7 +175,7 @@
         public function getBarang(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-barang',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-barang',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -214,7 +212,7 @@
         public function getClosing(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-closing',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-closing',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -253,7 +251,7 @@
         public function getPembelian(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-pembelian',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-pembelian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -292,7 +290,7 @@
         public function getPenjualan(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-penjualan',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

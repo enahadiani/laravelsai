@@ -16,7 +16,6 @@ class GaleriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class GaleriController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'galeri',[
+            $response = $client->request('GET',  config('api.url').'sai-master/galeri',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -94,7 +93,7 @@ class GaleriController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'galeri',[
+                $response = $client->request('POST',  config('api.url').'sai-master/galeri',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -120,7 +119,7 @@ class GaleriController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'galeri?id='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-master/galeri?id='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -182,7 +181,7 @@ class GaleriController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'galeri-ubah?id='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-master/galeri-ubah?id='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -208,7 +207,7 @@ class GaleriController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'galeri?id='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-master/galeri?id='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

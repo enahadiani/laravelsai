@@ -16,7 +16,6 @@ class BarcodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class BarcodeController extends Controller
     public function loadData(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barcode-load',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/barcode-load',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -73,7 +72,7 @@ class BarcodeController extends Controller
             );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'barcode',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/barcode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -103,7 +102,7 @@ class BarcodeController extends Controller
             
             $client = new Client();
             
-            $response = $client->request('GET', $this->link.'periode',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/periode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

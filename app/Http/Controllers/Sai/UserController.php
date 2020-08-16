@@ -33,7 +33,7 @@ class UserController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'user',[
+            $response = $client->request('GET',  config('api.url').'sai-master/user',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -68,7 +68,7 @@ class UserController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'user',[
+                $response = $client->request('POST',  config('api.url').'sai-master/user',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -102,7 +102,7 @@ class UserController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'user-detail?nik='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-master/user-detail?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -138,7 +138,7 @@ class UserController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'user?nik='.$id,[
+                $response = $client->request('PUT',  config('api.url').'sai-master/user?nik='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -172,7 +172,7 @@ class UserController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'user?nik='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-master/user?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

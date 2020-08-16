@@ -16,7 +16,6 @@ class KelompokBarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class KelompokBarangController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang-klp',[
+            $response = $client->request('GET',  config('api.url').'toko-master/barang-klp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -66,7 +65,7 @@ class KelompokBarangController extends Controller
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'barang-klp',[
+                $response = $client->request('POST',  config('api.url').'toko-master/barang-klp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -98,7 +97,7 @@ class KelompokBarangController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang-klp?kode_klp='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/barang-klp?kode_klp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -132,7 +131,7 @@ class KelompokBarangController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'barang-klp?kode_klp='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-master/barang-klp?kode_klp='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -164,7 +163,7 @@ class KelompokBarangController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'barang-klp?kode_klp='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/barang-klp?kode_klp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

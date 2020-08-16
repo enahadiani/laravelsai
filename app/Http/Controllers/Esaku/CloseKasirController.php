@@ -16,7 +16,6 @@ class CloseKasirController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class CloseKasirController extends Controller
     public function indexNew(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'close-kasir-new',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/close-kasir-new',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class CloseKasirController extends Controller
     public function indexFinish(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'close-kasir-finish',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/close-kasir-finish',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -83,7 +82,7 @@ class CloseKasirController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'close-kasir-detail?no_open='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-trans/close-kasir-detail?no_open='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -125,7 +124,7 @@ class CloseKasirController extends Controller
                 );
                 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'close-kasir',[
+                $response = $client->request('POST',  config('api.url').'toko-trans/close-kasir',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json',

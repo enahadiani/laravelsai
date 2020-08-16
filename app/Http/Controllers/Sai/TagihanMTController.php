@@ -33,7 +33,7 @@ class TagihanMTController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tagihan-maintain',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/tagihan-maintain',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -163,7 +163,7 @@ class TagihanMTController extends Controller
         
         try { 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'tagihan-maintain',[
+            $response = $client->request('POST',  config('api.url').'sai-trans/tagihan-maintain',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -190,7 +190,7 @@ class TagihanMTController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tagihan-maintain-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-trans/tagihan-maintain-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -321,7 +321,7 @@ class TagihanMTController extends Controller
         
         try { 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'tagihan-maintain-ubah?no_bukti='.$id,[
+            $response = $client->request('POST',  config('api.url').'sai-trans/tagihan-maintain-ubah?no_bukti='.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -347,7 +347,7 @@ class TagihanMTController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'tagihan-maintain?no_bukti='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-trans/tagihan-maintain?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

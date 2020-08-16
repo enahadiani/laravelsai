@@ -15,8 +15,6 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/lapsaku/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/lapsaku/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -34,7 +32,7 @@ class LaporanController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_report_jurnal',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -72,7 +70,7 @@ class LaporanController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_report_jurnal_form',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_jurnal_form',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -112,7 +110,7 @@ class LaporanController extends Controller
 
             $client = new Client();
     
-            $response = $client->request('GET', $this->link.'gl_report_buku_besar',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_buku_besar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -186,7 +184,7 @@ class LaporanController extends Controller
                 'kode_fs' => $kode_fs
             ];
     
-            $response = $client->request('GET', $this->link.'gl_report_neraca_lajur',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_neraca_lajur',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -224,7 +222,7 @@ class LaporanController extends Controller
             }else{
                 $kode_fs = $request->kode_fs;
             }
-            $response = $client->request('GET', $this->link.'gl_report_neraca',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_neraca',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -259,7 +257,7 @@ class LaporanController extends Controller
             }else{
                 $kode_fs = $request->kode_fs;
             }
-            $response = $client->request('GET', $this->link.'gl_report_laba_rugi',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_report_laba_rugi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

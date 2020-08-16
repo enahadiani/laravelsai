@@ -16,7 +16,6 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -34,7 +33,7 @@ class DashboardController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'dash_databox',[
+            $response = $client->request('GET',  config('api.url').'apv/dash_databox',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -62,7 +61,7 @@ class DashboardController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'dash_posisi',[
+            $response = $client->request('GET',  config('api.url').'apv/dash_posisi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

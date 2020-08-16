@@ -16,7 +16,6 @@ class JuspoApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -86,7 +85,7 @@ class JuspoApprovalController extends Controller
             );
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'notif-pusher', [
+            $response = $client->request('POST',  config('api.url').'apv/notif-pusher', [
                 'headers' => [
                     'Authorization' =>  'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json; charset=utf-8'
@@ -126,7 +125,7 @@ class JuspoApprovalController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juspo_app',[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_app',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -151,7 +150,7 @@ class JuspoApprovalController extends Controller
     public function getPengajuan(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juspo_app_aju',[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_app_aju',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -192,7 +191,7 @@ class JuspoApprovalController extends Controller
         try{
            
             $client = new Client();
-            $response = $client->request('POST', $this->link.'juspo_app',[
+            $response = $client->request('POST',  config('api.url').'apv/juspo_app',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -278,7 +277,7 @@ class JuspoApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juspo_app/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_app/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -305,7 +304,7 @@ class JuspoApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juspo_app_status',[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_app_status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -332,7 +331,7 @@ class JuspoApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juspo_app_preview/'.$no_bukti.'/'.$id,[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_app_preview/'.$no_bukti.'/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

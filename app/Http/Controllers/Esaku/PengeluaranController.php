@@ -16,7 +16,6 @@ class PengeluaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class PengeluaranController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kbdual?jenis=PENGELUARAN',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/kbdual?jenis=PENGELUARAN',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -59,7 +58,7 @@ class PengeluaranController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kbdual-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-trans/kbdual-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -91,7 +90,7 @@ class PengeluaranController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'kbdual',[
+                $response = $client->request('POST',  config('api.url').'toko-trans/kbdual',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -129,7 +128,7 @@ class PengeluaranController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'kbdual?no_bukti='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-trans/kbdual?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -161,7 +160,7 @@ class PengeluaranController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'kbdual?no_bukti='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/kbdual?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

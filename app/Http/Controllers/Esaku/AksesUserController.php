@@ -16,7 +16,6 @@ class AksesUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class AksesUserController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akses-user',[
+            $response = $client->request('GET',  config('api.url').'toko-master/akses-user',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -68,7 +67,7 @@ class AksesUserController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'akses-user',[
+                $response = $client->request('POST',  config('api.url').'toko-master/akses-user',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -102,7 +101,7 @@ class AksesUserController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'akses-user-detail?nik='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/akses-user-detail?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -138,7 +137,7 @@ class AksesUserController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'akses-user?nik='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-master/akses-user?nik='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -172,7 +171,7 @@ class AksesUserController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'akses-user?nik='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/akses-user?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

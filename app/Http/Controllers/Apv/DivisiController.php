@@ -16,7 +16,6 @@ class DivisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -32,7 +31,7 @@ class DivisiController extends Controller
 
     public function index(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'divisi_all',[
+        $response = $client->request('GET',  config('api.url').'apv/divisi_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -50,7 +49,7 @@ class DivisiController extends Controller
 
     public function getDivisiByNIK(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'divisi-aju',[
+        $response = $client->request('GET',  config('api.url').'apv/divisi-aju',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -83,7 +82,7 @@ class DivisiController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'divisi',[
+            $response = $client->request('POST',  config('api.url').'apv/divisi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -122,7 +121,7 @@ class DivisiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'divisi/'.$kode_divisi,[
+            $response = $client->request('GET',  config('api.url').'apv/divisi/'.$kode_divisi,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -173,7 +172,7 @@ class DivisiController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'divisi/'.$kode_divisi,[
+            $response = $client->request('PUT',  config('api.url').'apv/divisi/'.$kode_divisi,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -211,7 +210,7 @@ class DivisiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'divisi/'.$kode_divisi,[
+            $response = $client->request('DELETE',  config('api.url').'apv/divisi/'.$kode_divisi,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

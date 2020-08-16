@@ -16,7 +16,6 @@ class HakaksesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -32,7 +31,7 @@ class HakaksesController extends Controller
 
     public function index(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'hakakses',[
+        $response = $client->request('GET',  config('api.url').'apv/hakakses',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -69,7 +68,7 @@ class HakaksesController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'hakakses',[
+            $response = $client->request('POST',  config('api.url').'apv/hakakses',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -114,7 +113,7 @@ class HakaksesController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'hakakses/'.$nik,[
+            $response = $client->request('GET',  config('api.url').'apv/hakakses/'.$nik,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -172,7 +171,7 @@ class HakaksesController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'hakakses/'.$nik,[
+            $response = $client->request('PUT',  config('api.url').'apv/hakakses/'.$nik,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -216,7 +215,7 @@ class HakaksesController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'hakakses/'.$nik,[
+            $response = $client->request('DELETE',  config('api.url').'apv/hakakses/'.$nik,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -244,7 +243,7 @@ class HakaksesController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'menu',[
+            $response = $client->request('GET',  config('api.url').'apv/menu',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -272,7 +271,7 @@ class HakaksesController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'form',[
+            $response = $client->request('GET',  config('api.url').'apv/form',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

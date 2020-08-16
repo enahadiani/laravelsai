@@ -16,8 +16,6 @@ class PpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/gl/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -34,7 +32,7 @@ class PpController extends Controller
     public function index(){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp',[
+            $response = $client->request('GET',  config('api.url').'gl/pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -71,7 +69,7 @@ class PpController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('POST', $this->link.'pp',[
+            $response = $client->request('POST',  config('api.url').'gl/pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -112,7 +110,7 @@ class PpController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp/'.$id,[
+            $response = $client->request('GET',  config('api.url').'gl/pp/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -168,7 +166,7 @@ class PpController extends Controller
 
             $client = new Client();
     
-            $response = $client->request('PUT', $this->link.'pp/'.$id,[
+            $response = $client->request('PUT',  config('api.url').'gl/pp/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -210,7 +208,7 @@ class PpController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'pp/'.$id,[
+            $response = $client->request('DELETE',  config('api.url').'gl/pp/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

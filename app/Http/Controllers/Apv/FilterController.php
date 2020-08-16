@@ -15,7 +15,6 @@ class FilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -37,7 +36,7 @@ class FilterController extends Controller
     function getFilterPP(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-pp',[
+            $response = $client->request('GET',  config('api.url').'apv/filter-pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,7 +62,7 @@ class FilterController extends Controller
         try{
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'filter-kota',[
+            $response = $client->request('GET',  config('api.url').'apv/filter-kota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -92,7 +91,7 @@ class FilterController extends Controller
     function getFilterNoBukti(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-nobukti',[
+            $response = $client->request('GET',  config('api.url').'apv/filter-nobukti',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -121,7 +120,7 @@ class FilterController extends Controller
     function getFilterNoDokumen(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'filter-nodokumen',[
+            $response = $client->request('GET',  config('api.url').'apv/filter-nodokumen',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

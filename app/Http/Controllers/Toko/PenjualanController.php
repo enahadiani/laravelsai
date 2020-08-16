@@ -16,7 +16,6 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class PenjualanController extends Controller
     public function getNoOpen(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'penjualan-open',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/penjualan-open',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class PenjualanController extends Controller
     public function cekBonus($kd_barang, $tanggal, $jumlah, $harga) {
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'penjualan-bonus?tanggal='.$tanggal.
+            $response = $client->request('GET',  config('api.url').'toko-trans/penjualan-bonus?tanggal='.$tanggal.
             '&kode_barang='.$kd_barang.'&jumlah='.$jumlah.'&harga='.$harga,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -121,7 +120,7 @@ class PenjualanController extends Controller
         );
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'penjualan',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/penjualan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'

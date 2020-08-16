@@ -16,7 +16,6 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class CustomerController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'customer',[
+            $response = $client->request('GET',  config('api.url').'sai-master/customer',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -162,7 +161,7 @@ class CustomerController extends Controller
             }
             
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'customer',[
+                $response = $client->request('POST',  config('api.url').'sai-master/customer',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -188,7 +187,7 @@ class CustomerController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'customer?kode_cust='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-master/customer?kode_cust='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -318,7 +317,7 @@ class CustomerController extends Controller
             }
             
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'customer-ubah?kode_cust='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-master/customer-ubah?kode_cust='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -344,7 +343,7 @@ class CustomerController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'customer?kode_cust='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-master/customer?kode_cust='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -10,8 +10,6 @@
 
     class JurusanController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurusan_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jurusan_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -40,7 +38,7 @@
         public function getDataJurusan()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurusan_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jurusan_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -66,7 +64,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jurusan',[
+                $response = $client->request('POST',  config('api.url').'sekolah/jurusan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -99,7 +97,7 @@
         public function getJurusan($kode_jur,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jurusan?kode_jur='.$kode_jur."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/jurusan?kode_jur='.$kode_jur."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -132,7 +130,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jurusan?kode_jur='.$kode_jur,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/jurusan?kode_jur='.$kode_jur,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -161,7 +159,7 @@
         public function delete($kode_jur,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jurusan?kode_jur='.$kode_jur.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/jurusan?kode_jur='.$kode_jur.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

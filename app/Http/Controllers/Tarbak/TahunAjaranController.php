@@ -10,8 +10,6 @@
 
     class TahunAjaranController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tahun_ajaran_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/tahun_ajaran_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -40,7 +38,7 @@
         public function getDataTahunAjaran()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tahun_ajaran_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/tahun_ajaran_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -69,7 +67,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tahun_ajaran',[
+                $response = $client->request('POST',  config('api.url').'sekolah/tahun_ajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -106,7 +104,7 @@
         try{
             $client = new Client();
             $kode_ta = $kode_ta1."/".$kode_ta2;
-            $response = $client->request('GET', $this->link.'tahun_ajaran?kode_ta='.$kode_ta."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/tahun_ajaran?kode_ta='.$kode_ta."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -143,7 +141,7 @@
             try {
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('PUT', $this->link.'tahun_ajaran?kode_ta='.$kode_ta,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/tahun_ajaran?kode_ta='.$kode_ta,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -176,7 +174,7 @@
             try{
             $client = new Client();
             $kode_ta = $kode_ta1."/".$kode_ta2;
-            $response = $client->request('DELETE', $this->link.'tahun_ajaran?kode_ta='.$kode_ta.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/tahun_ajaran?kode_ta='.$kode_ta.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

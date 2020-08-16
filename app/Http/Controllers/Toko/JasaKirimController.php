@@ -16,7 +16,6 @@ class JasaKirimController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class JasaKirimController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jasa-kirim',[
+            $response = $client->request('GET',  config('api.url').'toko-master/jasa-kirim',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -72,7 +71,7 @@ class JasaKirimController extends Controller
 
         try {   
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jasa-kirim',[
+            $response = $client->request('POST',  config('api.url').'toko-master/jasa-kirim',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -110,7 +109,7 @@ class JasaKirimController extends Controller
     public function getData(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jasa-kirim',
+            $response = $client->request('GET',  config('api.url').'toko-master/jasa-kirim',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -153,7 +152,7 @@ class JasaKirimController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'jasa-kirim',[
+            $response = $client->request('PUT',  config('api.url').'toko-master/jasa-kirim',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -191,7 +190,7 @@ class JasaKirimController extends Controller
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jasa-kirim',
+            $response = $client->request('DELETE',  config('api.url').'toko-master/jasa-kirim',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

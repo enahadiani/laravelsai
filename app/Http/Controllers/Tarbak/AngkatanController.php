@@ -10,8 +10,6 @@
 
     class AngkatanController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'angkatan_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/angkatan_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -49,7 +47,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'angkatan',[
+                $response = $client->request('POST',  config('api.url').'sekolah/angkatan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -85,7 +83,7 @@
             try{
             $client = new Client();
             $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('GET', $this->link.'angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -121,7 +119,7 @@
             try {
                 $client = new Client();
                 $kode_akt = $kode_akt1."/".$kode_akt2;
-                $response = $client->request('PUT', $this->link.'angkatan?kode_akt='.$kode_akt,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -153,7 +151,7 @@
             try{
             $client = new Client();
             $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('DELETE', $this->link.'angkatan?kode_akt='.$kode_akt.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

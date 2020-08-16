@@ -10,7 +10,6 @@
 
     class JadwalHarianController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -22,7 +21,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('GET', $this->link.'jadwal_load?kode_pp='.$kode_pp
+                $response = $client->request('GET',  config('api.url').'sekolah/jadwal_load?kode_pp='.$kode_pp
                 ."&kode_ta=".$kode_ta."&kode_kelas=".$kode_kelas."&nik_guru=".$nik
                 ."&kode_matpel=".$kode_matpel,
                 [
@@ -51,7 +50,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jadwal_harian_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jadwal_harian_all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -102,7 +101,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jadwal_harian',[
+                $response = $client->request('POST',  config('api.url').'sekolah/jadwal_harian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -130,7 +129,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('DELETE', $this->link.'jadwal_harian?kode_pp='.$kode_pp.
+                $response = $client->request('DELETE',  config('api.url').'sekolah/jadwal_harian?kode_pp='.$kode_pp.
                 '&kode_ta='.$kode_ta."&kode_kelas=".$kode_kelas."&nik_guru=".$nik."&kode_matpel=".$kode_matpel,
                 [
                     'headers' => [
@@ -191,7 +190,7 @@
         //           );
     
         //         $client = new Client();
-        //         $response = $client->request('PUT', $this->link.'jadwal_harian',[
+        //         $response = $client->request('PUT',  config('api.url').'sekolah/jadwal_harian',[
         //             'headers' => [
         //                 'Authorization' => 'Bearer '.Session::get('token'),
         //                 'Content-Type'     => 'application/json'

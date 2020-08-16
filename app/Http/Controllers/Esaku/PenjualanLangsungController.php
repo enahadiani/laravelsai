@@ -16,7 +16,6 @@ class PenjualanLangsungController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -40,7 +39,7 @@ class PenjualanLangsungController extends Controller
     public function cekBonus($kd_barang, $tanggal, $jumlah, $harga) {
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'penjualan-langsung-bonus?tanggal='.$tanggal.
+            $response = $client->request('GET',  config('api.url').'toko-trans/penjualan-langsung-bonus?tanggal='.$tanggal.
             '&kode_barang='.$kd_barang.'&jumlah='.$jumlah.'&harga='.$harga,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -129,7 +128,7 @@ class PenjualanLangsungController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'penjualan-langsung',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/penjualan-langsung',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -162,7 +161,7 @@ class PenjualanLangsungController extends Controller
 
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'provinsi',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/provinsi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -207,7 +206,7 @@ class PenjualanLangsungController extends Controller
 
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'kota',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/kota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -256,7 +255,7 @@ class PenjualanLangsungController extends Controller
 
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'kecamatan',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/kecamatan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -291,7 +290,7 @@ class PenjualanLangsungController extends Controller
 
             $client = new Client();
 
-            $response = $client->request('GET', $this->link.'nilai-ongkir',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/nilai-ongkir',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

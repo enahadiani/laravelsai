@@ -9,8 +9,6 @@
 
     class PPController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -20,7 +18,7 @@
         public function getPP() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pp',[
+            $response = $client->request('GET',  config('api.url').'sekolah/pp',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

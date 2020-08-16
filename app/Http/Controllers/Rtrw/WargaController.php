@@ -16,7 +16,6 @@ class WargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -45,7 +44,7 @@ class WargaController extends Controller
         );
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'upload-warga',[
+            $response = $client->request('POST',  config('api.url').'rtrw/upload-warga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json',
@@ -72,7 +71,7 @@ class WargaController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'warga-list',[
+            $response = $client->request('GET',  config('api.url').'rtrw/warga-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -194,7 +193,7 @@ class WargaController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'warga',[
+            $response = $client->request('POST',  config('api.url').'rtrw/warga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -220,7 +219,7 @@ class WargaController extends Controller
     public function show($no_bukti) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'warga-detail?no_bukti='.$no_bukti,
+            $response = $client->request('GET',  config('api.url').'rtrw/warga-detail?no_bukti='.$no_bukti,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -351,7 +350,7 @@ class WargaController extends Controller
             }
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'warga-ubah',[
+            $response = $client->request('POST',  config('api.url').'rtrw/warga-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -379,7 +378,7 @@ class WargaController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'warga',[
+            $response = $client->request('DELETE',  config('api.url').'rtrw/warga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -15,8 +15,6 @@ class FilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/lapsaku/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/lapsaku/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -38,7 +36,7 @@ class FilterController extends Controller
     function getGlFilterLokasi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_filter_lokasi',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_lokasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -64,7 +62,7 @@ class FilterController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_filter_periode',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_periode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -116,7 +114,7 @@ class FilterController extends Controller
                 'periode' => $request->periode
             ];
     
-            $response = $client->request('GET', $this->link.'gl_filter_modul',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_modul',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -160,7 +158,7 @@ class FilterController extends Controller
                 'modul' => $modul
             ];
     
-            $response = $client->request('GET', $this->link.'gl_filter_bukti',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_bukti',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -185,7 +183,7 @@ class FilterController extends Controller
     function getGlFilterAkun(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_filter_akun',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -209,7 +207,7 @@ class FilterController extends Controller
     function getGlFilterFs(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'gl_filter_fs',[
+            $response = $client->request('GET',  config('api.url').'lapsaku/gl_filter_fs',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -16,7 +16,6 @@ class FakturPajakController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class FakturPajakController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'faktur-pajak',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/faktur-pajak',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -120,7 +119,7 @@ class FakturPajakController extends Controller
                 }
             
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'faktur-pajak',[
+                $response = $client->request('POST',  config('api.url').'sai-trans/faktur-pajak',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -146,7 +145,7 @@ class FakturPajakController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'faktur-pajak-detail?no_fp='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-trans/faktur-pajak-detail?no_fp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -234,7 +233,7 @@ class FakturPajakController extends Controller
                 $send_data = array_merge($fields,$fields_dok,$fields_nama_dok);
             
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'faktur-pajak-ubah?no_fp='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-trans/faktur-pajak-ubah?no_fp='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -260,7 +259,7 @@ class FakturPajakController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'faktur-pajak?no_fp='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-trans/faktur-pajak?no_fp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

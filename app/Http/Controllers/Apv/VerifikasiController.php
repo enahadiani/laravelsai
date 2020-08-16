@@ -16,7 +16,6 @@ class VerifikasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -89,7 +88,7 @@ class VerifikasiController extends Controller
             );
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'notif', [
+            $response = $client->request('POST',  config('api.url').'apv/notif', [
                 'headers' => [
                     'Authorization' =>  'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json; charset=utf-8'
@@ -124,7 +123,7 @@ class VerifikasiController extends Controller
             );
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'notif-pusher', [
+            $response = $client->request('POST',  config('api.url').'apv/notif-pusher', [
                 'headers' => [
                     'Authorization' =>  'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json; charset=utf-8'
@@ -165,7 +164,7 @@ class VerifikasiController extends Controller
         try {
             $client = new Client();
             $kode_pp = Session::get('kodePP');
-            $response = $client->request('GET', $this->link.'verifikasi?kode_pp='.$kode_pp,[
+            $response = $client->request('GET',  config('api.url').'apv/verifikasi?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -194,7 +193,7 @@ class VerifikasiController extends Controller
         try {
             $client = new Client();
             $kode_pp = Session::get('kodePP');
-            $response = $client->request('GET', $this->link.'verifikasi_history?kode_pp='.$kode_pp,[
+            $response = $client->request('GET',  config('api.url').'apv/verifikasi_history?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -378,7 +377,7 @@ class VerifikasiController extends Controller
             }
                 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'verifikasi',[
+            $response = $client->request('POST',  config('api.url').'apv/verifikasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -449,7 +448,7 @@ class VerifikasiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'verifikasi/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/verifikasi/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -476,7 +475,7 @@ class VerifikasiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'verifikasi_status',[
+            $response = $client->request('GET',  config('api.url').'apv/verifikasi_status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -503,7 +502,7 @@ class VerifikasiController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'verifikasi_preview/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/verifikasi_preview/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

@@ -16,7 +16,6 @@ class ProyekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class ProyekController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'proyek',[
+            $response = $client->request('GET',  config('api.url').'sai-master/proyek',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -78,7 +77,7 @@ class ProyekController extends Controller
             $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'proyek',[
+                $response = $client->request('POST',  config('api.url').'sai-master/proyek',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -110,7 +109,7 @@ class ProyekController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'proyek?no_proyek='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-master/proyek?no_proyek='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -156,7 +155,7 @@ class ProyekController extends Controller
             $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'proyek-ubah?no_proyek='.$id,[
+                $response = $client->request('PUT',  config('api.url').'sai-master/proyek-ubah?no_proyek='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -188,7 +187,7 @@ class ProyekController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'proyek?no_proyek='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-master/proyek?no_proyek='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

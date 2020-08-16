@@ -16,7 +16,6 @@ class LampiranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class LampiranController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lampiran',[
+            $response = $client->request('GET',  config('api.url').'sai-master/lampiran',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -62,7 +61,7 @@ class LampiranController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'lampiran',[
+                $response = $client->request('POST',  config('api.url').'sai-master/lampiran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -90,7 +89,7 @@ class LampiranController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lampiran?kode_lampiran='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-master/lampiran?kode_lampiran='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -120,7 +119,7 @@ class LampiranController extends Controller
 
         try { 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'lampiran?kode_lampiran='.$id,[
+                $response = $client->request('PUT',  config('api.url').'sai-master/lampiran?kode_lampiran='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -148,7 +147,7 @@ class LampiranController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'lampiran?kode_lampiran='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-master/lampiran?kode_lampiran='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

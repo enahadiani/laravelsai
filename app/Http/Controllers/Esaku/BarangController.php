@@ -16,7 +16,6 @@ class BarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class BarangController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang',[
+            $response = $client->request('GET',  config('api.url').'toko-master/barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -174,7 +173,7 @@ class BarangController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'barang',[
+                $response = $client->request('POST',  config('api.url').'toko-master/barang',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -200,7 +199,7 @@ class BarangController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang?kode_barang='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/barang?kode_barang='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -342,7 +341,7 @@ class BarangController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'barang-ubah?kode_barang='.$id,[
+                $response = $client->request('POST',  config('api.url').'toko-master/barang-ubah?kode_barang='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -368,7 +367,7 @@ class BarangController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'barang?kode_barang='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/barang?kode_barang='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

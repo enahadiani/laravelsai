@@ -9,7 +9,6 @@
 
     class GuruController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -20,7 +19,7 @@
         public function getNIKGuru($kode_pp) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'guru_nik?kode_pp='.$kode_pp,[
+            $response = $client->request('GET',  config('api.url').'sekolah/guru_nik?kode_pp='.$kode_pp,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

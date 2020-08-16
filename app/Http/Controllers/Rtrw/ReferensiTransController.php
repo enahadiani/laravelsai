@@ -16,7 +16,6 @@ class ReferensiTransController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class ReferensiTransController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans',[
+            $response = $client->request('GET',  config('api.url').'rtrw/reftrans',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class ReferensiTransController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans-detail?kode_ref='.$id,
+            $response = $client->request('GET',  config('api.url').'rtrw/reftrans-detail?kode_ref='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -92,7 +91,7 @@ class ReferensiTransController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'reftrans',[
+                $response = $client->request('POST',  config('api.url').'rtrw/reftrans',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -133,7 +132,7 @@ class ReferensiTransController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'reftrans?kode_ref='.$id,[
+                $response = $client->request('PUT',  config('api.url').'rtrw/reftrans?kode_ref='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -165,7 +164,7 @@ class ReferensiTransController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'reftrans?kode_ref='.$id,
+            $response = $client->request('DELETE',  config('api.url').'rtrw/reftrans?kode_ref='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

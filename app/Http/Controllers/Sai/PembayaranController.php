@@ -16,7 +16,6 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class PembayaranController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembayaran',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/pembayaran',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -133,7 +132,7 @@ class PembayaranController extends Controller
                         }
                 }
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'pembayaran',[
+                $response = $client->request('POST',  config('api.url').'sai-trans/pembayaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -159,7 +158,7 @@ class PembayaranController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembayaran-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-trans/pembayaran-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -260,7 +259,7 @@ class PembayaranController extends Controller
                         }
                 }
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'pembayaran-ubah?no_bukti='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-trans/pembayaran-ubah?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -286,7 +285,7 @@ class PembayaranController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'pembayaran?no_bukti='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-trans/pembayaran?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
