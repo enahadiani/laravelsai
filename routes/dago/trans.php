@@ -19,6 +19,7 @@ Route::get('jamaah-detail', 'Dago\JamaahController@show');
 Route::get('jamaah-detail-id', 'Dago\JamaahController@showById');
 Route::post('jamaah-ubah','Dago\JamaahController@update');
 Route::delete('jamaah','Dago\JamaahController@destroy');
+Route::get('cek-ktp', 'Dago\HelperController@cekKtp');
 
 Route::get('registrasi', 'Dago\RegistrasiController@index');
 Route::post('registrasi','Dago\RegistrasiController@store');
@@ -70,7 +71,3 @@ Route::put('pembayaran-group','Dago\PembayaranGroupController@update');
 Route::delete('pembayaran-group','Dago\PembayaranGroupController@destroy');
 Route::delete('pembayaran-group-det','Dago\PembayaranGroupController@destroyDetTmp');
 Route::get('jamaah-group','Dago\PembayaranGroupController@getJamaahGroup');
-
-
-
-

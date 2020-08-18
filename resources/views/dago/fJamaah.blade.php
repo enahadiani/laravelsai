@@ -571,6 +571,20 @@
         $('#form-tambah-jamaah-singkat').hide();
     });
 
+    $('#form-tambah-jamaah-singkat').on('change', '#id_peserta_singkat', function(){
+        $.ajax({
+            type:'GET',
+            url:"{{ url('dago-trans/cek-ktp') }}",
+            dataType: 'json',
+            async:false,
+            data:{'no_ktp':$(this).val()},
+            success: function(result){
+                console.log(result)
+            }
+
+        });
+    });
+
     var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
     var dataTable = $('#table-data').DataTable({
         // 'processing': true,
