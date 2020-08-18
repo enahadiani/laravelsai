@@ -242,6 +242,16 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="brkt_dgn" class="col-3 col-form-label">Berangkat Dengan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn">
+                                </div>
+                                <label for="hubungan" class="col-3 col-form-label">Hubungan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-3 col-form-label">Foto</label>
                                 <div class="input-group col-9">
                                     <div class="custom-file">
@@ -304,6 +314,8 @@
                                 <input type="hidden" name="status" value="Belum Menikah">
                                 <input type="hidden" name="alamat" value="-">
                                 <input type="hidden" name="ayah" value="-">
+                                <input type="hidden" name="brkt_dgn" value="-">
+                                <input type="hidden" name="hubungan" value="-">
                                 <input type="hidden" name="ibu" value="-">
                                 <input type="hidden" name="pekerjaan" value="-">
                                 <input type="hidden" name="pendidikan" value="-">
