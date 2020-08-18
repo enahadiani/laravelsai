@@ -276,8 +276,11 @@
                             </div>
                             <div class="form-group row mt-3">
                                 <label for="id_peserta" class="col-3 col-form-label">No KTP</label>
-                                <div class="col-3">
+                                <div class="col-4">
                                     <input class="form-control" type="text" placeholder="Masukkan No KTP Jamaah" id="id_peserta_singkat" name="id_peserta" required minlength="16" maxlength="16">
+                                    <div class="error-message" style="display: none;">
+                                        <p id="message-error" style="color: red; margin-bottom:0; padding-bottom:0;"></p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -574,12 +577,12 @@
     $('#form-tambah-jamaah-singkat').on('change', '#id_peserta_singkat', function(){
         $.ajax({
             type:'GET',
-            url:"{{ url('dago-trans/cek-ktp') }}",
+            url:"{{ url('dago-trans/cek-ktp') }}/" + $(this).val(),
             dataType: 'json',
             async:false,
-            data:{'no_ktp':$(this).val()},
             success: function(result){
-                console.log(result)
+                $('.error-message').show();
+                $('#message-error').text(result.data.message)
             }
 
         });

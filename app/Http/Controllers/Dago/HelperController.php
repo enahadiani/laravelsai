@@ -16,23 +16,29 @@
             }
         }
 
-        public function cekKtp(Request $request) {
-            $ktp = $request->no_ktp;
-            $client = new Client();
-            $response = $client->request('GET', config('api.url').'dago-master/cek-ktp/'.$ktp,[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
+        public function cekKtp($ktp) {
+            try {
+                $client = new Client();
+                $response = $client->request('GET', config('api.url').'dago-trans/cek-ktp?no_ktp='.$ktp,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+                ]);
 
-            if ($response->getStatusCode() == 422) { // 422 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data;
+                if ($response->getStatusCode() == 200) { // 422 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data, 'status' => true], 200);
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
             }
-            return response()->json(['data' => $data['data'], 'status' => true], 422);
         }
 
         public function getAkunPdpt() {

@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('cek-ktp/{ktp}', 'Dago\HelperController@cekKtp');
+
 Route::get('jamaah', 'Dago\JamaahController@index');
 Route::post('jamaah', 'Dago\JamaahController@store');
 Route::get('jamaah-detail', 'Dago\JamaahController@show');
 Route::get('jamaah-detail-id', 'Dago\JamaahController@showById');
 Route::post('jamaah-ubah','Dago\JamaahController@update');
 Route::delete('jamaah','Dago\JamaahController@destroy');
-Route::get('cek-ktp', 'Dago\HelperController@cekKtp');
 
 Route::get('registrasi', 'Dago\RegistrasiController@index');
 Route::post('registrasi','Dago\RegistrasiController@store');
