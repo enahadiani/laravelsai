@@ -980,6 +980,25 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
+
+                        var input = '';
+                        var no =1;
+                        $('#input-histori tbody').html('');
+                        if(result.data_histori.length > 0){
+                            for(var x=0;x<result.data_histori.length;x++){
+                                var line = result.data_histori[x];
+                                input += `<tr class='row-his'>
+                                    <td>`+no+`</td>
+                                    <td>`+line.nik+`</td>
+                                    <td>`+line.nama+`</td>
+                                    <td>`+line.status+`</td>
+                                    <td>`+line.keterangan+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                        }
+                        
+                        $('#input-histori tbody').html(input);
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
