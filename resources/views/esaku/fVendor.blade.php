@@ -223,13 +223,12 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
-                <div style="display: block;" class="modal-header pb-0">
-                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;margin-bottom:10px"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                    <p style="margin-top: 25px;font-size: 12px;">Klik dua kali untuk memilih akun</p>  
                 </div>
-                <div class="modal-body" style="padding-top:15px">
+                <div class="modal-body" style="">
                     
                 </div>
             </div>
@@ -565,27 +564,27 @@
             $('#modal-search').modal('hide');
         });
 
-        $('#table-search tbody').on('dblclick','tr',function(){
-            console.log('dblclick');
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-            }else{
-                $($target).text(kode);
-            }
+        // $('#table-search tbody').on('dblclick','tr',function(){
+        //     console.log('dblclick');
+        //     var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+        //     var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+        //     if(jTarget1 == "val"){
+        //         $($target).val(kode);
+        //     }else{
+        //         $($target).text(kode);
+        //     }
 
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
+        //     if(jTarget2 == "val"){
+        //         $($target2).val(nama);
+        //     }else{
+        //         $($target2).text(nama);
+        //     }
 
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            $('#modal-search').modal('hide');
-        });
+        //     if($target3 != ""){
+        //         $($target3).text(nama);
+        //     }
+        //     $('#modal-search').modal('hide');
+        // });
 
         $('#table-search tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
@@ -594,6 +593,26 @@
             else {
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
             }
         });
 
