@@ -748,7 +748,7 @@
                     <hr>`;
                     $('.profiletimeline').html(html);
                     $('#slide-history').show();
-                    $('#saku-datatabletable').hide();
+                    $('#saku-datatable').hide();
                     $('#saku-form').hide();
                 
                 }

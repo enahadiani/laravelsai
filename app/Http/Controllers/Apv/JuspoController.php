@@ -257,7 +257,9 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required'
+            'nilai.*'=> 'required',
+            'status' => 'required',
+            'keterangan' => 'required'
         ]);
             
         try{
@@ -301,6 +303,14 @@ class JuspoController extends Controller
                 [
                     'name' => 'total_barang',
                     'contents' => $this->joinNum($request->total),
+                ],
+                [
+                    'name' => 'status',
+                    'contents' => $request->status,
+                ],
+                [
+                    'name' => 'keterangan',
+                    'contents' => $request->keterangan,
                 ]
             ];
 
@@ -601,7 +611,9 @@ class JuspoController extends Controller
             'barang.*'=> 'required',
             'harga.*'=> 'required',
             'qty.*'=> 'required',
-            'nilai.*'=> 'required'
+            'nilai.*'=> 'required',
+            'status' => 'required',
+            'keterangan' => 'required'
         ]);
             
         try{
@@ -645,6 +657,14 @@ class JuspoController extends Controller
                 [
                     'name' => 'total_barang',
                     'contents' => $this->joinNum($request->total),
+                ],
+                [
+                    'name' => 'status',
+                    'contents' => $request->status,
+                ],
+                [
+                    'name' => 'keterangan',
+                    'contents' => $request->keterangan,
                 ]
             ];
 
