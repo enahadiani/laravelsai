@@ -581,8 +581,14 @@
             dataType: 'json',
             async:false,
             success: function(result){
-                $('.error-message').show();
-                $('#message-error').text(result.data.message)
+                var status = result.data.status;
+                if(status === "FAILED"){
+                    $('.error-message').show();
+                    $('#message-error').text(result.data.message)
+                }else {
+                    $('.error-message').hide();
+                    $('#message-error').text('')    
+                }
             }
 
         });
