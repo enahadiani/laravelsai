@@ -49,7 +49,20 @@
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
                                 <div class="p-4">
-                                    
+                                    <div class='col-sm-2' style='padding-top: 0'>
+                                        <select name="show" id="show" class="form-control" style=''>
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                            <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +72,7 @@
         </div>
         <div class="row mt-2" id="saku-report">
             <div class="col-12">
-                <div class="card" >
-                   
+                <div class="card" style="min-height:200px">
                 </div>
             </div>
         </div>
