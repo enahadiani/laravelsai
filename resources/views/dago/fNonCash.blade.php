@@ -377,6 +377,7 @@
 </div>
 <script>
     
+    $('#show').selectize();
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
             var ket_curr = " rupiah";
