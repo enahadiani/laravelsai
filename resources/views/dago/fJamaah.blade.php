@@ -456,6 +456,8 @@
                     $('#sp')[0].selectize.setValue(result.data.data[0].sp); 
                     $('#th_haji').val(result.data.data[0].th_haji);
                     $('#th_umroh').val(result.data.data[0].th_umroh);
+                    $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
+                    $('#hubungan').val(result.data.data[0].hubungan);
                     $('#pendidikan').val(result.data.data[0].pendidikan);
                     var html = "<img style='width:120px' src='"+result.data.data[0].foto+"'>";
                     $('.preview').html(html);

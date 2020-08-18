@@ -144,6 +144,18 @@
                                     <label id="label_no_peserta" style="margin-top: 10px;"></label>
                                 </div>
                             </div>
+                            <div id="data-jamaah" style="display: none">
+                                <div class="form-group row">
+                                    <label for="brkt_dgn" class="col-3 col-form-label">Berangkat Dengan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn" readonly>
+                                </div>
+                                <label for="hubungan" class="col-3 col-form-label">Hubungan</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan" readonly>
+                                </div>
+                            </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="paket" class="col-3 col-form-label">Paket</label>
                                 <div class="input-group col-3">
@@ -239,7 +251,7 @@
                                     <input class="form-control" type="text" id="referal" name="referal" >
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="brkt_dgn" class="col-3 col-form-label">Berangkat dengan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" id="brkt_dgn" name="brkt_dgn" >
@@ -248,7 +260,7 @@
                                 <div class="col-3">
                                     <input class="form-control" type="text" id="hubungan" name="hubungan" >
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label for="ukuran_pakaian" class="col-3 col-form-label">Ukuran Pakaian</label>
                                 <div class="col-3">
@@ -854,13 +866,20 @@
             success:function(result){    
                 if(result.data.status == "SUCCESS"){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        console.log(result.data.data[0]);
                          $('#no_peserta').val(result.data.data[0].no_peserta);
                          $('#label_no_peserta').text(result.data.data[0].nama);
+                         $('#data-jamaah').show();
+                         $('#brkt_dgn').val(result.data.data[0].brkt_dgn);
+                         $('#hubungan').val(result.data.data[0].hubungan);
                     }else{
                         alert('No Peserta tidak valid');
                         $('#no_peserta').val('');
                         $('#label_no_peserta').text('');
                         $('#no_peserta').focus();
+                        $('#data-jamaah').hide();
+                        $('#brkt_dgn').val('');
+                        $('#hubungan').val('');
                     }
                 }
                 else if(result.data.status != "SUCCESS" && result.data.message == 'Unauthorized'){
@@ -2762,4 +2781,3 @@
     });
 
     </script>
-    
