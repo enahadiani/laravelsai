@@ -459,27 +459,35 @@
             { data: 'status' }
         ],
         "columnDefs": [
-        {'targets': [6,7,8],
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
-        }, 
-        {
-            "targets": 9,
-            "data": null,
-            "render": function ( data, type, row, meta ) {
-                return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
-            }
-        },{
-            "targets": 10,
-            "data": null,
-            "render": function ( data, type, row, meta ) {
-                if(row.status == "-"){
-                    return "";
-                }else{
-                    return "<a href='#' title='Sudah Lunas' class='badge badge-success' ><i class='fas fa-check'></i> Lunas</a>";
+            {
+                "targets": 0,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='lap-kartu' data-no_reg='"+row.no_reg+"'>"+row.no_reg+"</a>";
+                }
+            },
+            {'targets': [6,7,8],
+                    'className': 'text-right',
+                    'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
+            }, 
+            {
+                "targets": 9,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Edit' class='badge badge-info web_datatable_bayar' ><i class='fas fa-pencil-alt'></i>&nbsp; Bayar</a>";
+                }
+            },{
+                "targets": 10,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    if(row.status == "-"){
+                        return "";
+                    }else{
+                        return "<a href='#' title='Sudah Lunas' class='badge badge-success' ><i class='fas fa-check'></i> Lunas</a>";
+                    }
                 }
             }
-        }]
+        ]
     });
 
     function showFilter(param,target1,target2){
@@ -1050,7 +1058,7 @@
                         }
                         $('#table-his tbody').html(html);
                     }
-                    $('#saku-datatable').hide();
+                    $('#web_datatable').hide();
                     $('#saku-form').show();
                 } 
               }
@@ -1388,6 +1396,21 @@
         //     }
         // }
     });
+
+    var $formData = new FormData(); 
+    $('#saiweb_container').on('click', '.lap-kartu', function(){
+        
+        $formData.forEach(function(val, key, fD){
+            $formData.delete(key);
+        });
+
+        var kode = $(this).data('no_reg');
+        $formData.append("no_reg", kode);
+        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyr";
+        $('#print-area').load(xurl);
+        $('#slide-print').show();
+        $('#web_datatable').hide();
+    }); 
 
        
 </script>
