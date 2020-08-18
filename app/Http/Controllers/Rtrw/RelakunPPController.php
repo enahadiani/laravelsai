@@ -16,7 +16,6 @@ class RelakunPPController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class RelakunPPController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'relakun-pp',[
+            $response = $client->request('GET',  config('api.url').'rtrw/relakun-pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class RelakunPPController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'relakun-pp-detail?kode_pp='.$id,
+            $response = $client->request('GET',  config('api.url').'rtrw/relakun-pp-detail?kode_pp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -89,7 +88,7 @@ class RelakunPPController extends Controller
         $fields = array('kode_akun'=>$request->kode_akun,'kode_pp'=>$request->kode_pp);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'relakun-pp',[
+                $response = $client->request('POST',  config('api.url').'rtrw/relakun-pp',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json',
@@ -120,7 +119,7 @@ class RelakunPPController extends Controller
         $fields = array('kode_akun'=>$request->kode_akun,'kode_pp'=>$request->kode_pp);
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'relakun-pp?kode_pp='.$id,[
+                $response = $client->request('PUT',  config('api.url').'rtrw/relakun-pp?kode_pp='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json',
@@ -146,7 +145,7 @@ class RelakunPPController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'relakun-pp?kode_pp='.$id,
+            $response = $client->request('DELETE',  config('api.url').'rtrw/relakun-pp?kode_pp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -16,7 +16,6 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class PembelianController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembelian',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/pembelian',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class PembelianController extends Controller
     public function getBarang(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembelian-barang',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/pembelian-barang',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -125,7 +124,7 @@ class PembelianController extends Controller
             'sub_barang'=> $data_sub
         );
             $client = new Client();
-            $response = $client->request('POST', $this->link.'pembelian',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/pembelian',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -149,7 +148,7 @@ class PembelianController extends Controller
         try{
             $id = $id1."/".$id2."/".$id3;
             $client = new Client();
-            $response = $client->request('GET', $this->link.'pembelian-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-trans/pembelian-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -218,7 +217,7 @@ class PembelianController extends Controller
         );
             $client = new Client();
             $no_bukti = $id1."/".$id2."/".$id3;
-            $response = $client->request('PUT', $this->link.'pembelian?no_bukti='.$no_bukti,[
+            $response = $client->request('PUT',  config('api.url').'toko-trans/pembelian?no_bukti='.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -242,7 +241,7 @@ class PembelianController extends Controller
         try{
             $id = $id1."/".$id2."/".$id3;
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'pembelian?no_bukti='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-trans/pembelian?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

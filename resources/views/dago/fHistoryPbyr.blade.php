@@ -123,6 +123,7 @@
                                 <div class="col-9">
                                 <input class="form-control" type="hidden" id="method" name="_method" value="put">
                                 <input class="form-control" type="hidden" id="id_edit" name="id">
+                                <input class="form-control" type="hidden" id="jenis" name="jenis">
                                 </div>
                                 <div class="col-3">
                                 <input class="form-control" type="hidden" id="no_bukti" name="no_bukti" required >
@@ -136,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_akun" class="col-3 col-form-label">Rekening Kas Bank</label>
+                                <label for="kode_akun" class="col-3 col-form-label"></label>
                                 <div class="input-group col-3">
                                     <input type='text' name="kode_akun" id="kode_akun" class="form-control" value="" required>
                                         <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
@@ -363,6 +364,23 @@
         return num;
     }
 
+    function sepNum2(x){
+        if (typeof x === 'undefined' || !x) { 
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(2);
+            var parts = x.toString().split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }
+
+    function format_number3(x){
+        var num = parseFloat(x).toFixed(2);
+        num = sepNum2(num);
+        return num;
+    }
+
     
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
@@ -425,7 +443,12 @@
                     if("{{ Session::get('userStatus') }}" == "U"){
                         return "";
                     }else{
-                        return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                        if(row.flag_ver == 0){
+                            return "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                        }else{
+
+                            return "<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>&nbsp;";
+                        }
                     }
                 }
             }
@@ -597,10 +620,15 @@
         })
     }
 
-    function getRekBank(kode_akun){
+    function getRekBank(kode_akun,jenis){
+        if(jenis == 'NONCASH'){
+            var url = "{{ url('dago-trans/noncash-rekbank') }}";
+        }else{
+            var url = "{{ url('dago-trans/pembayaran-rekbank') }}";
+        }
         $.ajax({
             type: 'GET',
-            url: "{{ url('dago-trans/pembayaran-rekbank') }}",
+            url: url,
             dataType: 'json',
             data:{'kode_akun':kode_akun},
             async:false,
@@ -765,7 +793,9 @@
 
     $('#form-tambah').on('change', '#kode_akun', function(){
         var par = $(this).val();
-        getRekBank(par);
+        var jenis = $('#jenis').val();
+        console.log(jenis);
+        getRekBank(par,jenis);
     });
 
     $('#form-tambah').on('click', '#konversi_btn', function(){
@@ -873,7 +903,7 @@
         $('#web_datatable').show();
     });
 
-    $('#saku-form').on('click','#btn-print',function(e){
+    $('#web_datatable').on('click','#btn-print',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
         printPbyr(id);
     });
@@ -899,10 +929,12 @@
                     if(res.data.data_jamaah.length > 0 ){
                         var line = res.data.data_jamaah[0];
                         $('#id_edit').val('edit');
+                        $('#jenis').val(line.jenis);
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);
                         $('#tgl_berangkat').val(line.tgl_berangkat);	
+                        $('#status_bayar')[0].selectize.setValue(line.status_bayar);
                         $('#kode_curr').val(line.kode_curr);
                         $('#kode_curr').trigger('change');
                         $('#paket').val(line.paket);
@@ -966,7 +998,7 @@
 
                                         if(line3.kode_biaya == "PAKET" || line3.kode_biaya == "ROOM"){
                                             html+=`
-                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number2(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number2(line3.byr_e)+`' ></td>`;
+                                            <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number3(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number3(line3.byr_e)+`' ></td>`;
                                         }else{
                                             html+=`
                                             <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>`+format_number(line3.byr_e)+`</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='`+format_number(line3.byr_e)+`' ></td>`;
@@ -1229,7 +1261,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card card-body printableArea">
-                                    <h3 class='text-left'><b>KUITANSI</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
+                                    <h3 class='text-left'><b>TANDA TERIMA</b> <span class="pull-right">#`+line.no_kwitansi+`</span></h3>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -1366,7 +1398,7 @@
                         <br><DIV style='page-break-after:always'></DIV>`;
                         $('#print-area').html(html);
                         $('#slide-print').show();
-                        $('#saku-datatable').hide();
+                        $('#web_datatable').hide();
                         $('#saku-form').hide();
                     }
                 }

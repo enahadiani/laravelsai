@@ -33,7 +33,7 @@ class SatuanBarangController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang-satuan',[
+            $response = $client->request('GET',  config('api.url').'toko-master/barang-satuan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,7 +63,7 @@ class SatuanBarangController extends Controller
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'barang-satuan',[
+                $response = $client->request('POST',  config('api.url').'toko-master/barang-satuan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -92,7 +92,7 @@ class SatuanBarangController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang-satuan?kode_satuan='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/barang-satuan?kode_satuan='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -123,7 +123,7 @@ class SatuanBarangController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'barang-satuan?kode_satuan='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-master/barang-satuan?kode_satuan='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -152,7 +152,7 @@ class SatuanBarangController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'barang-satuan?kode_satuan='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/barang-satuan?kode_satuan='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

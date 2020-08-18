@@ -16,7 +16,6 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-dash/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class DashboardController extends Controller
     public function getTopSelling($periode){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'top-selling?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'toko-dash/top-selling?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class DashboardController extends Controller
     public function getSellingCtg($periode){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'ctg-selling?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'toko-dash/ctg-selling?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -83,7 +82,7 @@ class DashboardController extends Controller
     public function getDataBox($periode){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'data-box?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'toko-dash/data-box?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -108,7 +107,7 @@ class DashboardController extends Controller
     public function getTopVendor($periode){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'top-vendor?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'toko-dash/top-vendor?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

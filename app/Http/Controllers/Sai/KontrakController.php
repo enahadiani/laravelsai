@@ -16,7 +16,6 @@ class KontrakController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class KontrakController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kontrak',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/kontrak',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -192,7 +191,7 @@ class KontrakController extends Controller
                         }
                 }
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'kontrak',[
+                $response = $client->request('POST',  config('api.url').'sai-trans/kontrak',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -218,7 +217,7 @@ class KontrakController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kontrak-detail?no_kontrak='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-trans/kontrak-detail?no_kontrak='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -379,7 +378,7 @@ class KontrakController extends Controller
                         }
                 }
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'kontrak-ubah?no_kontrak='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-trans/kontrak-ubah?no_kontrak='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -405,7 +404,7 @@ class KontrakController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'kontrak?no_kontrak='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-trans/kontrak?no_kontrak='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

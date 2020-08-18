@@ -10,7 +10,6 @@
 
     class AuthController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah';
         
         public function index()
         {
@@ -31,7 +30,7 @@
         {
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/login',[
+            $response = $client->request('POST',  config('api.url').'sekolah/login',[
                 'form_params' => [
                     'nik' => $request->input('nik'),
                     'password' => $request->input('password')
@@ -43,7 +42,7 @@
                 if($data["message"] == "success"){
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
-                    $response2 = $client->request('GET', $this->link.'/profile',[
+                    $response2 = $client->request('GET',  config('api.url').'sekolah/profile',[
                         'headers' => [
                             'Authorization' => 'Bearer '.$data["token"],
                             'Accept'     => 'application/json',
@@ -106,7 +105,7 @@
         public function getMenu(){
             $client = new Client();
             $kodemenu = Session::get('kodeMenu');
-            $response = $client->request('GET', $this->link.'/menu/'.$kodemenu,[
+            $response = $client->request('GET',  config('api.url').'sekolah/menu/'.$kodemenu,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

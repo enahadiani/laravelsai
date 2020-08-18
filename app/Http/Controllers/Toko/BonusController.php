@@ -16,7 +16,6 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class BonusController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'bonus',[
+            $response = $client->request('GET',  config('api.url').'toko-master/bonus',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -79,7 +78,7 @@ class BonusController extends Controller
                 $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'bonus',[
+                $response = $client->request('POST',  config('api.url').'toko-master/bonus',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -112,7 +111,7 @@ class BonusController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'bonus?kode_barang='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/bonus?kode_barang='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -159,7 +158,7 @@ class BonusController extends Controller
                 $tanggal_selesai = $tahun_selesai."-".$bln_selesai."-".$tgl_selesai;
 
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'bonus?kode_barang='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-master/bonus?kode_barang='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -192,7 +191,7 @@ class BonusController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'bonus?kode_barang='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/bonus?kode_barang='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

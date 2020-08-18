@@ -16,7 +16,6 @@ class NotifController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/ypt/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -28,7 +27,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'notif-pusher',[
+            $response = $client->request('GET',  config('api.url').'ypt/notif-pusher',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -55,7 +54,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'notif-update-status',[
+            $response = $client->request('PUT',  config('api.url').'ypt/notif-update-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

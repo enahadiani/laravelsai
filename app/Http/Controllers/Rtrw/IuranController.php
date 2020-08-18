@@ -16,7 +16,6 @@ class IuranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -42,7 +41,7 @@ class IuranController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'generate-iuran',[
+                $response = $client->request('POST',  config('api.url').'rtrw/generate-iuran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

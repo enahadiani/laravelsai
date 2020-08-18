@@ -8,7 +8,6 @@
 
     class HelperController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/rtrw/';
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -19,7 +18,7 @@
         public function getTahun() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'setting-saldo-tahun',[
+            $response = $client->request('GET',  config('api.url').'rtrw/setting-saldo-tahun',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -38,7 +37,7 @@
         public function getJenisIuran() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis-iuran',[
+            $response = $client->request('GET',  config('api.url').'rtrw/jenis-iuran',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -57,7 +56,7 @@
         public function getCurr() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun-curr',[
+            $response = $client->request('GET',  config('api.url').'rtrw/masakun-curr',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -76,7 +75,7 @@
         public function getModul() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun-modul',[
+            $response = $client->request('GET',  config('api.url').'rtrw/masakun-modul',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -95,7 +94,7 @@
         public function getRef($jenis) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'reftrans-kode?jenis='.$jenis,[
+            $response = $client->request('GET',  config('api.url').'rtrw/reftrans-kode?jenis='.$jenis,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

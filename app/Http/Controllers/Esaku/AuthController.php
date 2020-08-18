@@ -10,7 +10,6 @@ use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController extends Controller
 {
-    public $link = 'https://api.simkug.com/api/toko-auth';
 
     public function index()
     {
@@ -39,7 +38,7 @@ class AuthController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/login',[
+            $response = $client->request('POST',  config('api.url').'toko-auth/login',[
                 'form_params' => [
                     'nik' => $request->input('nik'),
                     'password' => $request->input('password')
@@ -51,7 +50,7 @@ class AuthController extends Controller
                 if($data["message"] == "success"){
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
-                    $response2 = $client->request('GET', $this->link.'/profile',[
+                    $response2 = $client->request('GET',  config('api.url').'toko-auth/profile',[
                         'headers' => [
                             'Authorization' => 'Bearer '.$data["token"],
                             'Accept'     => 'application/json',
@@ -125,7 +124,7 @@ class AuthController extends Controller
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
-        $response = $client->request('GET', $this->link.'/menu/'.$kodemenu,[
+        $response = $client->request('GET',  config('api.url').'toko-auth/menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -300,7 +299,7 @@ class AuthController extends Controller
     public function getProfile(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'/profile',[
+            $response = $client->request('GET',  config('api.url').'toko-auth/profile',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -329,7 +328,7 @@ class AuthController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/update-password',[
+            $response = $client->request('POST',  config('api.url').'toko-auth/update-password',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -377,7 +376,7 @@ class AuthController extends Controller
                 
             }
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/update-foto',[
+            $response = $client->request('POST',  config('api.url').'toko-auth/update-foto',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -425,7 +424,7 @@ class AuthController extends Controller
                 
             }
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/update-background',[
+            $response = $client->request('POST',  config('api.url').'toko-auth/update-background',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -454,7 +453,7 @@ class AuthController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/search-form',[
+            $response = $client->request('POST',  config('api.url').'toko-auth/search-form',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -482,7 +481,7 @@ class AuthController extends Controller
     public function searchFormList(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'/search-form-list',[
+            $response = $client->request('GET',  config('api.url').'toko-auth/search-form-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -510,7 +509,7 @@ class AuthController extends Controller
     public function searchFormList2(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'/search-form-list',[
+            $response = $client->request('GET',  config('api.url').'toko-auth/search-form-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

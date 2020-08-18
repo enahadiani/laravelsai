@@ -16,7 +16,6 @@ class KaryawanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class KaryawanController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'karyawan',[
+            $response = $client->request('GET',  config('api.url').'apv/karyawan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -170,7 +169,7 @@ class KaryawanController extends Controller
 
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'karyawan',[
+            $response = $client->request('POST',  config('api.url').'apv/karyawan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -203,7 +202,7 @@ class KaryawanController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'karyawan/'.$id,[
+            $response = $client->request('GET',  config('api.url').'apv/karyawan/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -352,7 +351,7 @@ class KaryawanController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'karyawan/'.$nik,[
+            $response = $client->request('POST',  config('api.url').'apv/karyawan/'.$nik,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -387,7 +386,7 @@ class KaryawanController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'karyawan/'.$id,[
+            $response = $client->request('DELETE',  config('api.url').'apv/karyawan/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

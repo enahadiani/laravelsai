@@ -16,7 +16,6 @@ class JabatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -32,7 +31,7 @@ class JabatanController extends Controller
 
     public function index(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'jabatan',[
+        $response = $client->request('GET',  config('api.url').'apv/jabatan',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -64,7 +63,7 @@ class JabatanController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'jabatan',[
+            $response = $client->request('POST',  config('api.url').'apv/jabatan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -103,7 +102,7 @@ class JabatanController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jabatan/'.$kode_jab,[
+            $response = $client->request('GET',  config('api.url').'apv/jabatan/'.$kode_jab,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -156,7 +155,7 @@ class JabatanController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'jabatan/'.$kode_jab,[
+            $response = $client->request('PUT',  config('api.url').'apv/jabatan/'.$kode_jab,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -195,7 +194,7 @@ class JabatanController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jabatan/'.$kode_jab,[
+            $response = $client->request('DELETE',  config('api.url').'apv/jabatan/'.$kode_jab,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

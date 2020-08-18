@@ -10,7 +10,6 @@
 
     class LaporanController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sai-report/';
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -22,7 +21,7 @@
             $dokumen = str_replace('.','/',$no_dokumen);
             try {
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-tagihan-detail',[
+                $response = $client->request('GET',  config('api.url').'sai-report/lap-tagihan-detail',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -50,7 +49,7 @@
         public function getDataTagihan(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'lap-tagihan',[
+                $response = $client->request('GET',  config('api.url').'sai-report/lap-tagihan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

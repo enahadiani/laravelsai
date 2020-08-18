@@ -16,8 +16,6 @@ class MasakunController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/gl/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -35,7 +33,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun',[
+            $response = $client->request('GET',  config('api.url').'gl/masakun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -60,7 +58,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'currency',[
+            $response = $client->request('GET',  config('api.url').'gl/currency',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -84,7 +82,7 @@ class MasakunController extends Controller
     public function getModul(){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'modul',[
+            $response = $client->request('GET',  config('api.url').'gl/modul',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -110,7 +108,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'flag_akun',[
+            $response = $client->request('GET',  config('api.url').'gl/flag_akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -135,7 +133,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'flag_akun/'.$kode_flag,[
+            $response = $client->request('GET',  config('api.url').'gl/flag_akun/'.$kode_flag,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -161,7 +159,7 @@ class MasakunController extends Controller
     public function getNeraca($kode_fs){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'neraca/'.$kode_fs,[
+            $response = $client->request('GET',  config('api.url').'gl/neraca/'.$kode_fs,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -186,7 +184,7 @@ class MasakunController extends Controller
     public function getNeracaPerKode($kode_fs,$kode_neraca){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'neraca/'.$kode_fs.'/'.$kode_neraca,[
+            $response = $client->request('GET',  config('api.url').'gl/neraca/'.$kode_fs.'/'.$kode_neraca,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -214,7 +212,7 @@ class MasakunController extends Controller
         try{
             
             $client = new Client();
-            $response = $client->request('GET', $this->link.'fsgar',[
+            $response = $client->request('GET',  config('api.url').'gl/fsgar',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -239,7 +237,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'neracagar/'.$kode_fs,[
+            $response = $client->request('GET',  config('api.url').'gl/neracagar/'.$kode_fs,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -325,7 +323,7 @@ class MasakunController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('POST', $this->link.'masakun',[
+            $response = $client->request('POST',  config('api.url').'gl/masakun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -359,7 +357,7 @@ class MasakunController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun/'.$id,[
+            $response = $client->request('GET',  config('api.url').'gl/masakun/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -460,7 +458,7 @@ class MasakunController extends Controller
                   );
     
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'masakun/'.$kode_akun,[
+            $response = $client->request('PUT',  config('api.url').'gl/masakun/'.$kode_akun,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'
@@ -495,7 +493,7 @@ class MasakunController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'masakun/'.$id,[
+            $response = $client->request('DELETE',  config('api.url').'gl/masakun/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

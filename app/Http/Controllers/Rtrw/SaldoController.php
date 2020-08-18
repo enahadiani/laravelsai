@@ -16,7 +16,6 @@ class SaldoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class SaldoController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'setting-saldo-awal',[
+            $response = $client->request('GET',  config('api.url').'rtrw/setting-saldo-awal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class SaldoController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'masakun-detail?kode_akun='.$id,
+            $response = $client->request('GET',  config('api.url').'rtrw/masakun-detail?kode_akun='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -90,7 +89,7 @@ class SaldoController extends Controller
         ]);
         try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'setting-saldo-awal',[
+                $response = $client->request('POST',  config('api.url').'rtrw/setting-saldo-awal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -160,7 +159,7 @@ class SaldoController extends Controller
     public function destroy($id,$pp,$periode) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'setting-saldo-awal?kode_akun='.$id.'&kode_pp='.$pp.'&periode='.$periode,
+            $response = $client->request('DELETE',  config('api.url').'rtrw/setting-saldo-awal?kode_akun='.$id.'&kode_pp='.$pp.'&periode='.$periode,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

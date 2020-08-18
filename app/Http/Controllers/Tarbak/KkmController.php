@@ -10,8 +10,6 @@
 
     class KkmController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
                 return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kkm_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/kkm_all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -61,7 +59,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'kkm',[
+                $response = $client->request('POST',  config('api.url').'sekolah/kkm',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -88,7 +86,7 @@
         public function getKkm($kode_kkm,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'kkm?kode_kkm='.$kode_kkm."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/kkm?kode_kkm='.$kode_kkm."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -115,7 +113,7 @@
         public function delete($kode_kkm,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE', $this->link.'kkm?kode_kkm='.$kode_kkm.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/kkm?kode_kkm='.$kode_kkm.'&kode_pp='.$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -164,7 +162,7 @@
                 );
         
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'kkm',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/kkm',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'

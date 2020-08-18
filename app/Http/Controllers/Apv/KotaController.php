@@ -16,7 +16,6 @@ class KotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -32,7 +31,7 @@ class KotaController extends Controller
 
     public function index(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'kota_all',[
+        $response = $client->request('GET',  config('api.url').'apv/kota_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -50,7 +49,7 @@ class KotaController extends Controller
 
     public function getKotaByNIK(){
         $client = new Client();
-        $response = $client->request('GET', $this->link.'kota-aju',[
+        $response = $client->request('GET',  config('api.url').'apv/kota-aju',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -84,7 +83,7 @@ class KotaController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'kota',[
+            $response = $client->request('POST',  config('api.url').'apv/kota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -124,7 +123,7 @@ class KotaController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kota/'.$kode_kota,[
+            $response = $client->request('GET',  config('api.url').'apv/kota/'.$kode_kota,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -176,7 +175,7 @@ class KotaController extends Controller
 
         try{
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'kota/'.$kode_kota,[
+            $response = $client->request('PUT',  config('api.url').'apv/kota/'.$kode_kota,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -215,7 +214,7 @@ class KotaController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'kota/'.$kode_kota,[
+            $response = $client->request('DELETE',  config('api.url').'apv/kota/'.$kode_kota,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

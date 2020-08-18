@@ -9,8 +9,6 @@
 
     class TingkatanController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -20,7 +18,7 @@
         public function getTingkatan() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tingkat',[
+            $response = $client->request('GET',  config('api.url').'sekolah/tingkat',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

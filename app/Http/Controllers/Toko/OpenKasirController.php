@@ -16,7 +16,6 @@ class OpenKasirController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class OpenKasirController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'open-kasir',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/open-kasir',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -63,7 +62,7 @@ class OpenKasirController extends Controller
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'open-kasir',[
+                $response = $client->request('POST',  config('api.url').'toko-trans/open-kasir',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -98,7 +97,7 @@ class OpenKasirController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'barang-satuan?kode_satuan='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-trans/barang-satuan?kode_satuan='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

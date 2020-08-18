@@ -10,8 +10,6 @@
 
     class JadwalUjianController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
                 return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jadwal_ujian_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jadwal_ujian_all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,7 +54,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'guru_matpel',[
+                $response = $client->request('POST',  config('api.url').'sekolah/guru_matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -83,7 +81,7 @@
         public function getGuruMatpel($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET', $this->link.'guru_matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/guru_matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -110,7 +108,7 @@
         public function delete($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE', $this->link.'guru_matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/guru_matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -154,7 +152,7 @@
                   );
         
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'guru_matpel',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/guru_matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'

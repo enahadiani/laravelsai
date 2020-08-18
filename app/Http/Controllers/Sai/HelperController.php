@@ -8,10 +8,6 @@
 
     class HelperController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sai-master/';
-        public $link2 = 'https://api.simkug.com/api/sai-trans/';
-        public $link3 = 'https://api.simkug.com/api/sai-report/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +17,7 @@
         public function getPeriode() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link3.'filter-periode',[
+            $response = $client->request('GET',  config('api.url').'sai-report/filter-periode',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -40,7 +36,7 @@
         public function getTagihan($periode) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link2.'tagihan-maintain-load?periode='.$periode.'&status=MAINTENANCE',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/tagihan-maintain-load?periode='.$periode.'&status=MAINTENANCE',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -59,7 +55,7 @@
         public function getKontrak($status) {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link2.'kontrak?status='.$status,[
+            $response = $client->request('GET',  config('api.url').'sai-trans/kontrak?status='.$status,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -78,7 +74,7 @@
         public function getMenu() {
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'user-menu',[
+            $response = $client->request('GET',  config('api.url').'sai-master/user-menu',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

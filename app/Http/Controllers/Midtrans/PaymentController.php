@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     /**
      * Show the form for creating a new resource.
@@ -21,7 +20,7 @@ class PaymentController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'sai-midtrans',[
+            $response = $client->request('GET',  config('api.url').'rtrw/sai-midtrans',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

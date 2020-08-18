@@ -16,7 +16,6 @@ class ReturBeliController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class ReturBeliController extends Controller
     public function getNew(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'retur-beli-new',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/retur-beli-new',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -58,7 +57,7 @@ class ReturBeliController extends Controller
     public function getFinish(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'retur-beli-finish',[
+            $response = $client->request('GET',  config('api.url').'toko-trans/retur-beli-finish',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -84,7 +83,7 @@ class ReturBeliController extends Controller
         try {
             $id = $id1."/".$id2."/".$id3;
             $client = new Client();
-            $response = $client->request('GET', $this->link.'retur-beli-barang?no_bukti='.$id,[
+            $response = $client->request('GET',  config('api.url').'toko-trans/retur-beli-barang?no_bukti='.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -110,7 +109,7 @@ class ReturBeliController extends Controller
         try{
             $id = $id1."/".$id2."/".$id3;
             $client = new Client();
-            $response = $client->request('GET', $this->link.'retur-beli-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-trans/retur-beli-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -186,7 +185,7 @@ class ReturBeliController extends Controller
             'subtotal'=> $data_sub
         );
             $client = new Client();
-            $response = $client->request('POST', $this->link.'retur-beli',[
+            $response = $client->request('POST',  config('api.url').'toko-trans/retur-beli',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'

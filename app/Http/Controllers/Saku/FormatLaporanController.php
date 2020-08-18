@@ -16,8 +16,6 @@ class FormatLaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/gl/';
-    // public $link = 'http://localhost:8080/lumenapi/public/api/gl/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -56,7 +54,7 @@ class FormatLaporanController extends Controller
             
         try{
             $client = new Client();
-            $response = $client->request('POST', $this->link.'format-laporan',[
+            $response = $client->request('POST',  config('api.url').'gl/format-laporan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -107,7 +105,7 @@ class FormatLaporanController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul,[
+            $response = $client->request('GET',  config('api.url').'gl/format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -204,7 +202,7 @@ class FormatLaporanController extends Controller
             
             $client = new Client();
     
-            $response = $client->request('PUT', $this->link.'format-laporan',[
+            $response = $client->request('PUT',  config('api.url').'gl/format-laporan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -259,7 +257,7 @@ class FormatLaporanController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('DELETE', $this->link.'format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul.'&kode_neraca='.$request->kode_neraca,[
+            $response = $client->request('DELETE',  config('api.url').'gl/format-laporan?kode_fs='.$request->kode_fs.'&modul='.$request->modul.'&kode_neraca='.$request->kode_neraca,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -294,7 +292,7 @@ class FormatLaporanController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('GET', $this->link.'format-laporan-versi',[
+            $response = $client->request('GET',  config('api.url').'gl/format-laporan-versi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -329,7 +327,7 @@ class FormatLaporanController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('GET', $this->link.'format-laporan-tipe?kode_menu='.$request->kode_menu,[
+            $response = $client->request('GET',  config('api.url').'gl/format-laporan-tipe?kode_menu='.$request->kode_menu,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -368,7 +366,7 @@ class FormatLaporanController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('GET', $this->link.'format-laporan-relakun?kode_neraca='.$request->kode_neraca.'&modul='.$request->modul,[
+            $response = $client->request('GET',  config('api.url').'gl/format-laporan-relakun?kode_neraca='.$request->kode_neraca.'&modul='.$request->modul,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -420,7 +418,7 @@ class FormatLaporanController extends Controller
         }
         try{
             $client = new Client();
-            $response = $client->request('POST', $this->link.'format-laporan-relasi',[
+            $response = $client->request('POST',  config('api.url').'gl/format-laporan-relasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -475,7 +473,7 @@ class FormatLaporanController extends Controller
             ];
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'format-laporan-move',[
+            $response = $client->request('POST',  config('api.url').'gl/format-laporan-move',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json'

@@ -16,7 +16,6 @@ class BlokController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -44,7 +43,7 @@ class BlokController extends Controller
                     'kode_pp' => $request->kode_pp
                 ];
             }
-            $response = $client->request('GET', $this->link.'blok',[
+            $response = $client->request('GET',  config('api.url').'rtrw/blok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,7 +74,7 @@ class BlokController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'blok',[
+            $response = $client->request('POST',  config('api.url').'rtrw/blok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -104,7 +103,7 @@ class BlokController extends Controller
     public function show($blok) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'blok?blok='.$blok,
+            $response = $client->request('GET',  config('api.url').'rtrw/blok?blok='.$blok,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -137,7 +136,7 @@ class BlokController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'blok',[
+            $response = $client->request('PUT',  config('api.url').'rtrw/blok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -166,7 +165,7 @@ class BlokController extends Controller
     public function destroy($blok) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'blok',
+            $response = $client->request('DELETE',  config('api.url').'rtrw/blok',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

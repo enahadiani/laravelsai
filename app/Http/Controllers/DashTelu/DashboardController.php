@@ -10,7 +10,6 @@
 
     class DashboardController extends Controller
     {
-        public $link = 'https://api.simkug.com/api/ypt';
 
         public function __contruct() {
             if(!Session::get('login')) {
@@ -23,7 +22,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/pencapaianYoY/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/pencapaianYoY/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -49,7 +48,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/rkaVSReal/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/rkaVSReal/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -75,7 +74,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/growthRKA/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/growthRKA/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -101,7 +100,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/growthReal/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/growthReal/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -127,7 +126,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/komposisiPdpt/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/komposisiPdpt/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -153,7 +152,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/totalPdpt/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/totalPdpt/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -178,7 +177,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/rkaVSRealPdpt/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/rkaVSRealPdpt/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -204,7 +203,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/pdptFakultas/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt/pdptFakultas/'.$periode.'/'.$kodeNeraca,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -230,7 +229,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/detailPdpt/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt/detailPdpt/'.$periode.'/'.$kodeNeraca,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -257,7 +256,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/pdptJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
+                $response = $client->request('GET', config('api.url').'ypt/pdptJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -284,7 +283,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/detailPdptJurusan/'.$periode.'/'.$kodeNeraca.
+                $response = $client->request('GET', config('api.url').'ypt/detailPdptJurusan/'.$periode.'/'.$kodeNeraca.
                 '/'.$kodeBidang.'/'.$tahun,
                 [
                     'headers' => [
@@ -312,7 +311,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/komposisiBeban/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/komposisiBeban/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -338,7 +337,7 @@
             try{
                 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/totalBeban/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/totalBeban/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -364,7 +363,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/rkaVSRealBeban/'.$periode,[
+                $response = $client->request('GET', config('api.url').'ypt/rkaVSRealBeban/'.$periode,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -390,7 +389,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/bebanFakultas/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt/bebanFakultas/'.$periode.'/'.$kodeNeraca,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -416,7 +415,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/detailBeban/'.$periode.'/'.$kodeNeraca,[
+                $response = $client->request('GET', config('api.url').'ypt/detailBeban/'.$periode.'/'.$kodeNeraca,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -442,7 +441,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/bebanJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
+                $response = $client->request('GET', config('api.url').'ypt/bebanJurusan/'.$periode.'/'.$kodeNeraca.'/'.$kodeBidang,
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -469,7 +468,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/detailBebanJurusan/'.$periode.'/'.$kodeNeraca.
+                $response = $client->request('GET', config('api.url').'ypt/detailBebanJurusan/'.$periode.'/'.$kodeNeraca.
                 '/'.$kodeBidang.'/'.$tahun,
                 [
                     'headers' => [
@@ -496,7 +495,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/rka',
+                $response = $client->request('GET', config('api.url').'ypt/rka',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -522,7 +521,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/growth-rka',
+                $response = $client->request('GET', config('api.url').'ypt/growth-rka',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -549,7 +548,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/tuition',
+                $response = $client->request('GET', config('api.url').'ypt/tuition',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -575,7 +574,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/growth-tuition',
+                $response = $client->request('GET', config('api.url').'ypt/growth-tuition',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -603,7 +602,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/periode',
+                $response = $client->request('GET', config('api.url').'ypt/periode',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -629,7 +628,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/komponen-investasi',
+                $response = $client->request('GET', config('api.url').'ypt/komponen-investasi',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -656,7 +655,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',$this->link.'/rka-real-investasi',
+                $response = $client->request('GET', config('api.url').'ypt/rka-real-investasi',
                     [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

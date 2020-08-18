@@ -19,7 +19,6 @@ class DonasiController extends Controller
      * @var \Illuminate\Http\Request
      */
     protected $request;
-    public $link = 'https://api.simkug.com/api/midtrans/';
 
     public function __construct(Request $request)
     {
@@ -47,7 +46,7 @@ class DonasiController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET', $this->link.'donasi',[
+            $response = $client->request('GET',  config('api.url').'midtrans/donasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -94,7 +93,7 @@ class DonasiController extends Controller
             
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'donasi-kode',[
+            $response = $client->request('GET',  config('api.url').'midtrans/donasi-kode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -130,7 +129,7 @@ class DonasiController extends Controller
             ];
             $snapToken = Veritrans_Snap::getSnapToken($payload);
 
-            $response = $client->request('POST', $this->link.'donasi',[
+            $response = $client->request('POST',  config('api.url').'midtrans/donasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -237,7 +236,7 @@ class DonasiController extends Controller
         }
 
         $client = new Client();
-        $response = $client->request('PUT', $this->link.'donasi/'.$orderId.'/'.$sts_bayar,[]);
+        $response = $client->request('PUT',  config('api.url').'midtrans/donasi/'.$orderId.'/'.$sts_bayar,[]);
 
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();

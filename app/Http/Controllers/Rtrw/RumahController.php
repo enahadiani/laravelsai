@@ -16,7 +16,6 @@ class RumahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -40,7 +39,7 @@ class RumahController extends Controller
             }else{
                 $query = [];
             }
-            $response = $client->request('GET', $this->link.'rumah',[
+            $response = $client->request('GET',  config('api.url').'rtrw/rumah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -74,7 +73,7 @@ class RumahController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'rumah',[
+            $response = $client->request('POST',  config('api.url').'rtrw/rumah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -106,7 +105,7 @@ class RumahController extends Controller
     public function show($kode_rumah) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'rumah?kode_rumah='.$kode_rumah,
+            $response = $client->request('GET',  config('api.url').'rtrw/rumah?kode_rumah='.$kode_rumah,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -142,7 +141,7 @@ class RumahController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('PUT', $this->link.'rumah',[
+            $response = $client->request('PUT',  config('api.url').'rtrw/rumah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -174,7 +173,7 @@ class RumahController extends Controller
     public function destroy($kode_rumah) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'rumah',
+            $response = $client->request('DELETE',  config('api.url').'rtrw/rumah',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

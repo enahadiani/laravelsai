@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/login',[
+            $response = $client->request('POST',  config('api.url').'apv/login',[
                 'form_params' => [
                     'nik' => $request->input('nik'),
                     'password' => $request->input('password')
@@ -52,7 +52,7 @@ class AuthController extends Controller
                 if($data["message"] == "success"){
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
-                    $response2 = $client->request('GET', $this->link.'/profile',[
+                    $response2 = $client->request('GET',  config('api.url').'apv/profile',[
                         'headers' => [
                             'Authorization' => 'Bearer '.$data["token"],
                             'Accept'     => 'application/json',
@@ -123,7 +123,7 @@ class AuthController extends Controller
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
         $success['kode_menu'] = $kodemenu;
-        $response = $client->request('GET', $this->link.'/side-menu/'.$kodemenu,[
+        $response = $client->request('GET',  config('api.url').'apv/side-menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -253,7 +253,7 @@ class AuthController extends Controller
     public function getProfile(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'/profile',[
+            $response = $client->request('GET',  config('api.url').'apv/profile',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -282,7 +282,7 @@ class AuthController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('POST', $this->link.'/update-password',[
+            $response = $client->request('POST',  config('api.url').'apv/update-password',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

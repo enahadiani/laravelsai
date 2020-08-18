@@ -16,7 +16,6 @@ class SatpamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/rtrw/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class SatpamController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'satpam',[
+            $response = $client->request('GET',  config('api.url').'rtrw/satpam',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -150,7 +149,7 @@ class SatpamController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'satpam',[
+            $response = $client->request('POST',  config('api.url').'rtrw/satpam',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -183,7 +182,7 @@ class SatpamController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'satpam',[
+            $response = $client->request('GET',  config('api.url').'rtrw/satpam',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -317,7 +316,7 @@ class SatpamController extends Controller
             }
 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'satpam-ubah',[
+            $response = $client->request('POST',  config('api.url').'rtrw/satpam-ubah',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -352,7 +351,7 @@ class SatpamController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'satpam',[
+            $response = $client->request('DELETE',  config('api.url').'rtrw/satpam',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

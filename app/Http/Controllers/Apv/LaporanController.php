@@ -16,7 +16,6 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class LaporanController extends Controller
     public function getPosisi(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'lap-posisi',[
+            $response = $client->request('GET',  config('api.url').'apv/lap-posisi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

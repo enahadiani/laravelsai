@@ -16,7 +16,6 @@ class KaryawanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/toko-master/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class KaryawanController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'karyawan',[
+            $response = $client->request('GET',  config('api.url').'toko-master/karyawan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -105,7 +104,7 @@ class KaryawanController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'karyawan',[
+                $response = $client->request('POST',  config('api.url').'toko-master/karyawan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -131,7 +130,7 @@ class KaryawanController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'karyawan-detail?nik='.$id,
+            $response = $client->request('GET',  config('api.url').'toko-master/karyawan-detail?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -204,7 +203,7 @@ class KaryawanController extends Controller
                 $fields = array_merge($fields,$fields_data);
 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'karyawan-ubah?nik='.$id,[
+                $response = $client->request('POST',  config('api.url').'toko-master/karyawan-ubah?nik='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -230,7 +229,7 @@ class KaryawanController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'karyawan?nik='.$id,
+            $response = $client->request('DELETE',  config('api.url').'toko-master/karyawan?nik='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

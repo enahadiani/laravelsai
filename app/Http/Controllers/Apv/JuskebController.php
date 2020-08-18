@@ -16,7 +16,6 @@ class JuskebController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/apv/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -86,7 +85,7 @@ class JuskebController extends Controller
             );
             
             $client = new Client();
-            $response = $client->request('POST', $this->link.'notif-pusher', [
+            $response = $client->request('POST',  config('api.url').'apv/notif-pusher', [
                 'headers' => [
                     'Authorization' =>  'Bearer '.Session::get('token'),
                     'Content-Type'     => 'application/json; charset=utf-8'
@@ -125,7 +124,7 @@ class JuskebController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb',[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -165,7 +164,7 @@ class JuskebController extends Controller
     public function getJuskebFinish(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb-finish',[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb-finish',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -382,7 +381,7 @@ class JuskebController extends Controller
             }
                 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'juskeb',[
+            $response = $client->request('POST',  config('api.url').'apv/juskeb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -432,7 +431,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -647,7 +646,7 @@ class JuskebController extends Controller
             }
                 
             $client = new Client();
-            $response = $client->request('POST', $this->link.'juskeb/'.$no_bukti,[
+            $response = $client->request('POST',  config('api.url').'apv/juskeb/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -704,7 +703,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'juskeb/'.$no_bukti,[
+            $response = $client->request('DELETE',  config('api.url').'apv/juskeb/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -732,7 +731,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb_history/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb_history/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -759,7 +758,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb_preview/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb_preview/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -786,7 +785,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'juskeb_preview2/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juskeb_preview2/'.$no_bukti,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -816,7 +815,7 @@ class JuskebController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'kota',[
+            $response = $client->request('GET',  config('api.url').'apv/kota',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -846,7 +845,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'divisi',[
+            $response = $client->request('GET',  config('api.url').'apv/divisi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -873,7 +872,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'nik_verifikasi',[
+            $response = $client->request('GET',  config('api.url').'apv/nik_verifikasi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -903,7 +902,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'nik_verifikasi2',[
+            $response = $client->request('GET',  config('api.url').'apv/nik_verifikasi2',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -933,7 +932,7 @@ class JuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'barang-klp',[
+            $response = $client->request('GET',  config('api.url').'apv/barang-klp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -965,7 +964,7 @@ class JuskebController extends Controller
         ]);
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'generate-dok',[
+            $response = $client->request('GET',  config('api.url').'apv/generate-dok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

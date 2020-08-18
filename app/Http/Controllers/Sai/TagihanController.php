@@ -16,7 +16,6 @@ class TagihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public $link = 'https://api.simkug.com/api/sai-trans/';
 
     public function __contruct(){
         if(!Session::get('login')){
@@ -33,7 +32,7 @@ class TagihanController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tagihan',[
+            $response = $client->request('GET',  config('api.url').'sai-trans/tagihan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -212,7 +211,7 @@ class TagihanController extends Controller
         
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan',[
+                $response = $client->request('POST',  config('api.url').'sai-trans/tagihan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -239,7 +238,7 @@ class TagihanController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'tagihan-detail?no_bukti='.$id,
+            $response = $client->request('GET',  config('api.url').'sai-trans/tagihan-detail?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -420,7 +419,7 @@ class TagihanController extends Controller
         
         try { 
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'tagihan-ubah?no_bukti='.$id,[
+                $response = $client->request('POST',  config('api.url').'sai-trans/tagihan-ubah?no_bukti='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -446,7 +445,7 @@ class TagihanController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'tagihan?no_bukti='.$id,
+            $response = $client->request('DELETE',  config('api.url').'sai-trans/tagihan?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

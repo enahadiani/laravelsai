@@ -124,6 +124,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Status</label>
+                                <div class="col-3">
+                                    <select class='form-control' id="status" name="status" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nama" class="col-3 col-form-label">Keterangan</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
                                 <div class="col-3">
                                     <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
@@ -392,6 +405,28 @@
             async:false,
             success:function(res){
                 $('#no_dokumen').val(res.no_dokumen);
+            }
+        });
+    }
+
+    function getStatus(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/juspo_app_status') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                var select = $('#status').selectize();
+                select = select[0];
+                var control = select.selectize;
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].status + ' - ' + result.daftar[i].nama, value:result.daftar[i].status}]);
+                        }
+                        control.setValue('2');
+                    }
+                }
             }
         });
     }
@@ -719,7 +754,7 @@
         });
     }
 
-
+    getStatus();
     $('#saku-datatable').on('click', '#btn-aju-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');
@@ -945,6 +980,25 @@
                             rightAlign: true,
                             oncleared: function () { self.Value(''); }
                         });
+
+                        var input = '';
+                        var no =1;
+                        $('#input-histori tbody').html('');
+                        if(result.data_histori.length > 0){
+                            for(var x=0;x<result.data_histori.length;x++){
+                                var line = result.data_histori[x];
+                                input += `<tr class='row-his'>
+                                    <td>`+no+`</td>
+                                    <td>`+line.nik+`</td>
+                                    <td>`+line.nama+`</td>
+                                    <td>`+line.status+`</td>
+                                    <td>`+line.keterangan+`</td>
+                                </tr>`;
+                                no++;
+                            }
+                        }
+                        
+                        $('#input-histori tbody').html(input);
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
@@ -1150,7 +1204,7 @@
                     <hr>`;
                     $('.profiletimeline').html(html);
                     $('#slide-history').show();
-                    $('#saku-datatabletable').hide();
+                    $('#saku-datatable').hide();
                     $('#saku-form').hide();
                 
                 }

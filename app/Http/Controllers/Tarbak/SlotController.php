@@ -10,7 +10,6 @@
 
     class SlotController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -21,7 +20,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'slot_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/slot_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -49,7 +48,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'slot',[
+                $response = $client->request('POST',  config('api.url').'sekolah/slot',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -84,7 +83,7 @@
         public function getSLot($kode_slot,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'slot?kode_slot='.$kode_slot."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/slot?kode_slot='.$kode_slot."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -119,7 +118,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'slot?kode_slot='.$kode_slot,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/slot?kode_slot='.$kode_slot,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -150,7 +149,7 @@
         public function delete($kode_slot,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'slot?kode_slot='.$kode_slot.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/slot?kode_slot='.$kode_slot.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -10,8 +10,6 @@
 
     class JenisPenilaianController extends Controller {
 
-        public $link = 'https://api.simkug.com/api/sekolah/';
-
         public function __contruct() {
             if(!Session::get('login')){
             return redirect('tarbak/login')->with('alert','Session telah habis !');
@@ -21,7 +19,7 @@
         public function index()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis_nilai_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -40,7 +38,7 @@
         public function getJenisUjian()
         {
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis_nilai_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -67,7 +65,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST', $this->link.'jenis_nilai',[
+                $response = $client->request('POST',  config('api.url').'sekolah/jenis_nilai',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -101,7 +99,7 @@
         public function getJenisPenilaian($kode_jenis,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET', $this->link.'jenis_nilai?kode_jenis='.$kode_jenis."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -135,7 +133,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT', $this->link.'jenis_nilai?kode_jenis='.$kode_jenis,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -165,7 +163,7 @@
         public function delete($kode_jenis,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE', $this->link.'jenis_nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
