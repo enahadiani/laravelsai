@@ -326,54 +326,6 @@
 
         getPeriode();
 
-        // $('#table-filter').on('change', '.sai-rpt-filter-type', function(){
-        //     var val = $(this).val();
-        //     var from =  $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from');
-        //     var to =  $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to');
-        //     if(val == 'all'){
-        //         // from.hide();
-        //         // to.hide();
-        //         if(from.hasClass('selectize')){
-                    
-        //             $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from.single').hide();
-
-        //         }else{
-        //             from.hide();
-        //         }
-        //         if(to.hasClass('selectize')){
-                    
-        //             $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to.single').hide();
-                    
-        //         }else{
-        //             to.hide();
-        //         }
-        //     }else if(val == 'exact'){
-        //         if(from.hasClass('selectize')){
-        //             // from.show();
-        //             $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from.single').show();
-                    
-        //         }else{
-        //             from.show();
-        //         }
-        //         to.hide();
-        //     }else{
-        //         if(from.hasClass('selectize')){
-                    
-        //             $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from.single').show();
-                    
-
-        //         }else{
-        //             from.show();
-        //         }
-        //         if(to.hasClass('selectize')){
-        //             $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to.single').show();
-                    
-        //         }else{
-        //             to.show();
-        //         }
-        //     }
-        // });
-
         $('#table-filter tbody').on('click', 'tr', function(){
             if ( $(this).hasClass('selected-row') ) {
                 $(this).removeClass('selected-row');
@@ -394,8 +346,7 @@
 
 
         $('#table-filter').on('click', 'td', function(){
-            var idx = $(this).index();
-            var jenis = $(this).closest("tr").find("p.jenis").text();
+           
             //cari aktif td
             var aktif = $('td.aktif');
             if(aktif != undefined){
@@ -446,6 +397,10 @@
                 }
             }
 
+            //index saat diklik
+            var idx = $(this).index();
+            var jenis = $(this).closest("tr").find("p.jenis").text();
+
             if(jenis == "select"){
 
                 var type = $(this).closest("tr").find("td:eq(1)").find(".sai-rpt-filter-type option:selected").text();
@@ -476,36 +431,66 @@
                 if($(this).hasClass('aktif')){
                     return false;            
                 }else{
-                    $(this).addClass('aktif');                    
                     if(idx == 1){
+                        $(this).addClass('aktif'); 
                         $(this).closest("tr").find(".td-type").addClass("hidden");
                         $(this).closest("tr").find(".sai-rpt-filter-type.selectize-control").removeClass("hidden");
                         $(this).closest("tr").find(".sai-rpt-filter-type")[0].selectize.focus()
-                    }
+                    }               
+                    
                     if(jenis == "select"){
+                        if(type == "All"){
+                            return false;
+                        }else if(type == "="){
+                            $(this).addClass('aktif'); 
 
-                        if(idx == 2){
-                            $(this).closest("tr").find(".td-from").addClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
+                            if(idx == 2){
+                                $(this).closest("tr").find(".td-from").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
+                            }
+                        }else if(type == "Range"){
+                            
+                            $(this).addClass('aktif'); 
+                            if(idx == 2){
+                                $(this).closest("tr").find(".td-from").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
+                            }
+                            if(idx == 3){
+                                $(this).closest("tr").find(".td-to").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-to.selectize-control").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.focus()
+                            }
                         }
-                        if(idx == 3){
-                            $(this).closest("tr").find(".td-to").addClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-to.selectize-control").removeClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.focus()
-                        }
+
                     }else{
-                        if(idx == 2){
-                            $(this).closest("tr").find(".td-from").addClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
-                        }
+                        if(type == "All"){
+                            return false;
+                        }else if(type == "="){
+                            $(this).addClass('aktif'); 
 
-                        if(idx == 3){
-                            $(this).closest("tr").find(".td-to").addClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-to").removeClass("hidden");
-                            $(this).closest("tr").find(".sai-rpt-filter-to input").focus();
+                            if(idx == 2){
+                                $(this).closest("tr").find(".td-from").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
+                            }
+                        }else if(type == "Range"){
+                            
+                            $(this).addClass('aktif'); 
+                            if(idx == 2){
+                                $(this).closest("tr").find(".td-from").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
+                            }
+
+                            if(idx == 3){
+                                $(this).closest("tr").find(".td-to").addClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-to").removeClass("hidden");
+                                $(this).closest("tr").find(".sai-rpt-filter-to input").focus();
+                            }
                         }
+                        
                     }
                 }
             }
