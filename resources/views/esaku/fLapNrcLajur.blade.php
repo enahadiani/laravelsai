@@ -326,6 +326,49 @@
 
         getPeriode();
 
+        $('#table-filter').on('change', '.sai-rpt-filter-type', function(){
+  
+            var type = $(this).closest('.sai-rpt-filter-entry-row').find(".sai-rpt-filter-type option:selected").text();
+            var jenis =  $(this).closest('.sai-rpt-filter-entry-row').find('.jenis').text();
+            if(jenis == "select"){
+                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from option:selected").text();
+                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to option:selected").text();
+               
+                if(type == 'All'){
+                    from = "";
+                    to = "";
+                }else if(type == '='){
+                    from = from;
+                    to = "";
+                }else if(type == 'Range'){
+                    from = from;
+                    to = to;
+                }
+                $(this).closest("tr").find(".td-from").text(from);
+                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.setValue(from);
+                $(this).closest("tr").find(".td-to").text(to);
+                $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.setValue(to);
+            }else{
+                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from input").val();
+                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to input").val();
+                if(type == 'All'){
+                    from = "";
+                    to = "";
+                }else if(type == '='){
+                    from = from;
+                    to = "";
+                }else if(type == 'Range'){
+                    from = from;
+                    to = to;
+                }
+                $(this).closest("tr").find(".td-from").text(from);
+                $(this).closest("tr").find(".sai-rpt-filter-from input").val(from);
+                $(this).closest("tr").find(".td-to").text(to);
+                $(this).closest("tr").find(".sai-rpt-filter-to input").val(to);
+            }
+            
+        });
+
         $('#table-filter tbody').on('click', 'tr', function(){
             if ( $(this).hasClass('selected-row') ) {
                 $(this).removeClass('selected-row');
