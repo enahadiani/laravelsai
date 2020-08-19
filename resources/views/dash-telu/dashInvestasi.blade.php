@@ -130,6 +130,15 @@ $nik     = Session::get('userLog');
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
+                <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
+                <div class="card-body pt-0">
+                    <div id='rkaVSreal2' style='height:350px'></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -432,9 +441,64 @@ $.ajax({
 
 }
 
+function getRKARealInvestasi2(periode=null) {
+    Highcharts.chart('rkaVSreal2', {
+        title: {
+            text: null
+        },
+        xAxis:{
+            categories: ['GEDUNG DAN BANGUNAN','SARANA PENDIDIKAN','Sarpen CELOE','Sarpen Telu','INVENTARIS KANTOR','SERTIFIKASI PENDIDIKAN','AKREDITASI DALAM','ALAT PENGOLAH DATA','ALAT CATUT DAYA']
+        },
+        credits:{
+            enabled:false
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+        },
+        plotOptions: {
+        area: {
+            marker: {
+                pointStart: 5,
+                enabled: false,
+                symbol: 'circle',
+                states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+        },
+        column: {
+            stacking: 'percent'
+        }
+        },
+        series:[
+            {
+                type:'area',
+                name:'RKA',
+                color:'#0004FF',
+                data: [150,200,250,300,350,270,170,220,210]
+            },
+            {
+                type:'column',
+                name:'Real',
+                color: '#FF8F01',
+                data: [5,9,7,6,5,3,8,8.5,9]
+            },
+            {
+                type:'column',
+                name:'On Progres',
+                color:'#A5A5A5 ',
+                data: [2,5,4,5,7,5,6,7.5,6]
+            }
+        ]
+    });
+}
+
 getKomponenInvestasi("{{$periode}}");
 // getOprNonOpr("{{$periode}}");
 getRKARealInvestasi("{{$periode}}");
+getRKARealInvestasi2("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
