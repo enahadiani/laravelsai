@@ -224,6 +224,15 @@
                                                 background:#f4d180 !important;
                                                 color:white;
                                             }
+                                            #input-jurnal input:hover,
+                                            #input-jurnal .selectize-input:hover,
+                                            {
+                                                width:inherit;
+                                            }
+                                            #input-jurnal ul.typeahead.dropdown-menu
+                                            {
+                                                max-width:150px !important;
+                                            }
                                             #input-jurnal td
                                             {
                                                 overflow:hidden !important;
@@ -238,13 +247,13 @@
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%">No</th>
-                                                <th style="width:9%">Kode Akun</th>
-                                                <th style="max-width:18%">Nama Akun</th>
+                                                <th style="width:10%">Kode Akun</th>
+                                                <th style="width:18%">Nama Akun</th>
                                                 <th style="width:5%">DC</th>
-                                                <th style="max-width:20%">Keterangan</th>
-                                                <th style="width:10%">Nilai</th>
+                                                <th style="width:20%">Keterangan</th>
+                                                <th style="width:15%">Nilai</th>
                                                 <th style="width:7">Kode PP</th>
-                                                <th style="width:13">Nama PP</th>
+                                                <th style="width:17">Nama PP</th>
                                                 <th style="width:5%"></th>
                                             </tr>
                                         </thead>
@@ -1596,7 +1605,7 @@
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
         if(e.which == 40){
-            var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+            var noidx =  $(this).closest('tr').find('.no-jurnal').html();
             target1 = "akunke"+noidx;
             target2 = "nmakunke"+noidx;
             target3 = "dcke"+noidx;
@@ -1607,7 +1616,7 @@
 
     $('#input-jurnal').on('change', '.inp-kode', function(e){
         e.preventDefault();
-        var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+        var noidx =  $(this).parents('tr').find('.no-jurnal').html();
         target1 = "akunke"+noidx;
         target2 = "nmakunke"+noidx;
         target3 = "dcke"+noidx;
@@ -1685,7 +1694,7 @@
     $('#input-jurnal').on('keydown', '.inp-pp', function(e){
         if(e.which == 40){
             e.preventDefault();
-            var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+            var noidx =  $(this).closest('tr').find('.no-jurnal').html();
             target1 = "ppke"+noidx;
             target2 = "nmppke"+noidx;
             showFilter("kode_pp[]",target1,target2);
@@ -1694,7 +1703,7 @@
 
     $('#input-jurnal').on('change', '.inp-pp', function(e){
         e.preventDefault();
-        var noidx =  $(this).closest('tr').find('.no_jurnal').html();
+        var noidx =  $(this).closest('tr').find('.no-jurnal').html();
         target1 = "ppke"+noidx;
         target2 = "nmppke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
