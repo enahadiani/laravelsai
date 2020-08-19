@@ -235,7 +235,7 @@
                                             }
                                             #input-jurnal ul.typeahead.dropdown-menu
                                             {
-                                                max-width:150px !important;
+                                                width:max-content !important;
                                             }
                                             #input-jurnal td
                                             {
@@ -366,7 +366,7 @@
                 if(result.status) {
                    
                     for(i=0;i<result.daftar.length;i++){
-                        $dtNIK[i] = {nik:result.daftar[i].nik};  
+                        $dtNIK[i] = {id:result.daftar[i].nik,name:result.daftar[i].nama};  
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
@@ -401,7 +401,7 @@
                 if(result.status) {
                    
                     for(i=0;i<result.daftar.length;i++){
-                        $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
@@ -436,7 +436,7 @@
                 if(result.status) {
                    
                     for(i=0;i<result.daftar.length;i++){
-                        $dtAkun[i] = {kode_akun:result.daftar[i].kode_akun};  
+                        $dtAkun[i] = {id:result.daftar[i].kode_akun,name:result.daftar[i].nama};  
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
@@ -521,15 +521,19 @@
     });
 
     function getPP(id,target1,target2,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-master/unit') }}/"+id,
+            url: "{{ url('/esaku-master/unit') }}/"+kode,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
                             $('.'+target2).val(result.data.data[0].nama);
                             $('.td'+target2).text(result.data.data[0].nama);
                         }else{
@@ -578,9 +582,11 @@
     }
 
     function getNIKPeriksa(id){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-trans/nikperiksa') }}/"+id,
+            url: "{{ url('/esaku-trans/nikperiksa') }}/"+kode,
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -609,15 +615,20 @@
     }
 
     function getAkun(id,target1,target2,target3,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/esaku-master/masakun-detail') }}/"+id,
+            url: "{{ url('/esaku-master/masakun-detail') }}/"+kode,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+
                             $('.'+target2).val(result.data.data[0].nama);
                             $('.td'+target2).text(result.data.data[0].nama);
                             // $('.'+target3)[0].selectize.focus();
@@ -917,13 +928,22 @@
     }
 
     $('#nik_periksa').typeahead({
-        source: function (cari, result) {
-            result($.map($dtNIK, function (item) {
-                return item.nik;
-            }));
+        // source: function (cari, result) {
+        //     result($.map($dtNIK, function (item) {
+        //         return item.nik;
+        //     }));
+        // },
+        source:$dtNIK,
+        fitToElement:true,
+        displayText:function(item){
+            return item.id+' - '+item.name;
         },
+        autoSelect:false,
+        changeInputOnSelect:false,
+        changeInputOnMove:false,
+        selectOnBlur:false,
         afterSelect: function (item) {
-            // console.log('cek');
+            console.log(item.id);
         }
     });
 
@@ -1243,18 +1263,42 @@
             oncleared: function () { self.Value(''); }
         });
         $('#akunkode'+no).typeahead({
-            source: function (cari, result) {
-                result($.map($dtAkun, function (item) {
-                    return item.kode_akun;
-                }));
+            // source: function (cari, result) {
+            //     result($.map($dtAkun, function (item) {
+            //         return item.kode_akun;
+            //     }));
+            // }
+            source:$dtAkun,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
             }
         });
 
         $('#ppkode'+no).typeahead({
-            source: function (cari, result) {
-                result($.map($dtPP, function (item) {
-                    return item.kode_pp;
-                }));
+            // source: function (cari, result) {
+            //     result($.map($dtPP, function (item) {
+            //         return item.kode_pp;
+            //     }));
+            // }
+            source:$dtPP,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
             }
         });
     }
@@ -1314,18 +1358,42 @@
         $('#input-jurnal tbody tr:last').find(".inp-kode").focus();
 
         $('#akunkode'+no).typeahead({
-            source: function (cari, result) {
-                result($.map($dtAkun, function (item) {
-                    return item.kode_akun;
-                }));
+            // source: function (cari, result) {
+            //     result($.map($dtAkun, function (item) {
+            //         return item.kode_akun;
+            //     }));
+            // }
+            source:$dtAkun,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
             }
         });
 
         $('#ppkode'+no).typeahead({
-            source: function (cari, result) {
-                result($.map($dtPP, function (item) {
-                    return item.kode_pp;
-                }));
+            // source: function (cari, result) {
+            //     result($.map($dtPP, function (item) {
+            //         return item.kode_pp;
+            //     }));
+            // }
+            source:$dtPP,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
             }
         });
 
@@ -1790,18 +1858,42 @@
                                 }
                             });
                             $('#akunkode'+no).typeahead({
-                                source: function (cari, result) {
-                                    result($.map($dtAkun, function (item) {
-                                        return item.kode_akun;
-                                    }));
+                                // source: function (cari, result) {
+                                //     result($.map($dtAkun, function (item) {
+                                //         return item.kode_akun;
+                                //     }));
+                                // }
+                                source:$dtAkun,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
                                 }
                             });
 
                             $('#ppkode'+no).typeahead({
-                                source: function (cari, result) {
-                                    result($.map($dtPP, function (item) {
-                                        return item.kode_pp;
-                                    }));
+                                // source: function (cari, result) {
+                                //     result($.map($dtPP, function (item) {
+                                //         return item.kode_pp;
+                                //     }));
+                                // }
+                                source:$dtPP,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
                                 }
                             });
                             $('.dcke'+no)[0].selectize.setValue(line.dc);
