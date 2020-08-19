@@ -114,6 +114,16 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4">Trend Growth PDPT, Beban, SHU, Beban SDM
+                2014-2020 (RKA)
+                </h6>
+                <div class="card-body p-2" id="trend21">
+                   
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -310,6 +320,7 @@ function getBCGrowthRKA(){
         url:"{{ url('/dash-telu/growth-rka') }}",
         dataType:"JSON",
         success: function(result){
+            console.log(result)
             Highcharts.chart('trend2', {
                 chart: {
                         type: 'line'
@@ -499,7 +510,38 @@ getBCGrowthRKA();
 getBCTuition();
 getBCGrowthTuition();
 // $('.app-menu').hide();
+google.charts.load('current', {packages: ['corechart','line']});
+google.charts.setOnLoadCallback(drawGoogleChart);
+function drawGoogleChart() {
+    var data = new google.visualization.arrayToDataTable([
+        ['Periode', 'Pendapatan', 'Beban', 'SDM', 'SHU'],
+        ['2015', 44.08, 18.36, 19.11, 25.72],
+        ['2016', 63.03, 52.4, 24.2, 10.63],
+        ['2017', 60.37, 29.51, 17.93, 30.86],
+        ['2018', 53.38, 57.42, 34.56, 0.97],
+        ['2019', 48.46, 39.66, 19.08, 8.8],
+        ['2020', 20.92, 18.25, 18.16, 2.67],
+    ]);
 
+    var options = {
+        legend: { position: 'bottom', alignment:'center' ,maxLines: 4 },
+        chart: {
+          title: null,
+          subtitle: null
+        },
+        height: 500,
+        width: 540,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+    }
+
+    var chart = new google.visualization.LineChart(document.getElementById('trend21'));
+
+    chart.draw(data, options);
+}
    
 $('#btn-filter').click(function(){
     // console.log('ok');
