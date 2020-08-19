@@ -452,9 +452,6 @@ function getRKARealInvestasi2(periode=null) {
         credits:{
             enabled:false
         },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-        },
         plotOptions: {
         area: {
             marker: {
