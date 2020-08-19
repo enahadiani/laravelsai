@@ -2,6 +2,24 @@
         td,th{
             padding:8px !important;
         }
+        .border-right-0{
+            border-right:0;
+        }
+        .border-left-0{
+            border-left:0;
+        }
+        .search-item{
+            font-size:18px;
+            cursor:pointer;
+        }
+        #table-filter td:not(:nth-child(1))
+        {
+            padding:0 !important;
+        }
+        .selectize-input{
+            border-radius:0;
+            height:38.4px !important;
+        }
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -17,7 +35,7 @@
                             <div class="collapse show" id="collapseFilter">
                                 <div class="px-4 pb-4 pt-0">
                                     <h6>Filter</h6>
-                                    <table class="table no-border table-bordered" width="100%">
+                                    <table class="table no-border table-bordered" id="table-filter" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="text-center" width="30%">Judul</th>
@@ -27,17 +45,39 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr class="sai-rpt-filter-entry-row">
                                                 <td>Periode</td>
-                                                <td class="text-center">=</td>
-                                                <td>202008</td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <select name='periode[]' class='form-control sai-rpt-filter-type selectize' required><option value='all'>All</option><option value='exact' selected>=</option><option value='range'>Range</option></select>
+                                                </td>
+                                                <td>
+                                                    <select name='periode[]' id="periode_form" class='form-control sai-rpt-filter-from selectize' value='' required><option value='202008' selected>202008</option></select>
+                                                </td>
+                                                <td>
+                                                    <select name='periode[]' id="periode_to" class='form-control sai-rpt-filter-to selectize' value='' required><option value='202008'>202008</option></select>
+                                                </td>
                                             </tr>
-                                            <tr>
+                                            <tr class="sai-rpt-filter-entry-row">
                                                 <td>Kode Akun</td>
-                                                <td class="text-center">All</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize' required><option value='all' selected>All</option><option value='exact'>=</option><option value='range'>Range</option></select>
+                                                </td>
+                                                <td>                                                
+                                                    <div class="input-group sai-rpt-filter-from" style="display:none">
+                                                        <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun_from">
+                                                        <div class="input-group-append border-left-0">
+                                                        <i class="simple-icon-magnifier input-group-text search-item"></i>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group sai-rpt-filter-to" style="display:none">
+                                                        <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun_to">
+                                                        <div class="input-group-append border-left-0">
+                                                        <i class="simple-icon-magnifier input-group-text search-item"></i>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -101,5 +141,40 @@
             $('#collapsePaging').show();
             $('#btn-filter').addClass("btn-primary");
             $('#btn-filter').removeClass("btn-light");
+        });
+
+        $('.selectize').selectize();
+
+        $('#table-filter').on('change', '.sai-rpt-filter-type', function(){
+            var val = $(this).val();
+            var from =  $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from');
+            var to =  $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to');
+            if(val == 'all'){
+                from.hide();
+                to.hide();
+            }else if(val == 'exact'){
+                if(from.hasClass('selectize')){
+                    from.show();
+                    $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from.selectized').hide();
+                }else{
+                    from.show();
+                }
+                to.hide();
+            }else{
+                if(from.hasClass('selectize')){
+                    
+                    from.show();
+                    $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from.selectized').hide();
+
+                }else{
+                    from.show();
+                }
+                if(to.hasClass('selectize')){
+                    to.show();
+                    $(this).closest('.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to.selectized').hide();
+                }else{
+                    to.show();
+                }
+            }
         });
     </script>
