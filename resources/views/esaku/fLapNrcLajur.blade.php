@@ -396,6 +396,56 @@
         $('#table-filter').on('click', 'td', function(){
             var idx = $(this).index();
             var jenis = $(this).closest("tr").find("p.jenis").text();
+            //cari aktif td
+            var aktif = $('td.aktif');
+            if(aktif != undefined){
+                var jenis_aktif = $('td.aktif').closest('tr').find('.jenis').text();
+                var idx_aktif = $('td.aktif').index();
+                if(jenis_aktif == "select"){
+                    switch(idx_aktif){
+                        case 1 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-type option:selected").text();
+                            $('td.aktif').find('.sai-rpt-filter-type.selectize-control').addClass('hidden');
+                            $('td.aktif').find('.td-type').text(isi);
+                            $('td.aktif').find('.td-type').removeClass('hidden');
+                        break;
+                        case 2 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-from option:selected").text();
+                            $('td.aktif').find('.sai-rpt-filter-from.selectize-control').addClass('hidden');
+                            $('td.aktif').find('.td-from').text(isi);
+                            $('td.aktif').find('.td-from').removeClass('hidden');
+                        break;
+                        case 3 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-to option:selected").text();
+                            $('td.aktif').find('.sai-rpt-filter-to.selectize-control').addClass('hidden');
+                            $('td.aktif').find('.td-to').text(isi);
+                            $('td.aktif').find('.td-to').removeClass('hidden');
+                        break;
+                    }
+                }else{
+                    switch(idx_aktif){
+                        case 1 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-type option:selected").text();
+                            $('td.aktif').find('.sai-rpt-filter-type.selectize-control').addClass('hidden');
+                            $('td.aktif').find('.td-type').text(isi);
+                            $('td.aktif').find('.td-type').removeClass('hidden');
+                        break;
+                        case 2 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-from input").val();
+                            $('td.aktif').find('.sai-rpt-filter-from').addClass('hidden');
+                            $('td.aktif').find('.td-from').text(isi);
+                            $('td.aktif').find('.td-from').removeClass('hidden');
+                        break;
+                        case 3 :
+                            var isi = $('td.aktif').find(".sai-rpt-filter-to input").val();
+                            $('td.aktif').find('.sai-rpt-filter-to').addClass('hidden');
+                            $('td.aktif').find('.td-to').text(isi);
+                            $('td.aktif').find('.td-to').removeClass('hidden');
+                        break;
+                    }
+                }
+            }
+
             if(jenis == "select"){
 
                 var type = $(this).closest("tr").find("td:eq(1)").find(".sai-rpt-filter-type option:selected").text();
@@ -419,62 +469,42 @@
                 $(this).closest("tr").find(".sai-rpt-filter-to input").val(to);
             }
 
+            $('#table-filter td').removeClass('aktif'); 
             if(idx == 0){
-                $('#table-filter td').removeClass('aktif');
                 return false;
             }else{
                 if($(this).hasClass('aktif')){
                     return false;            
                 }else{
-                    $('#table-filter td').removeClass('aktif');
-                    $(this).addClass('aktif');
-            
-                    
+                    $(this).addClass('aktif');                    
                     if(idx == 1){
                         $(this).closest("tr").find(".td-type").addClass("hidden");
                         $(this).closest("tr").find(".sai-rpt-filter-type.selectize-control").removeClass("hidden");
                         $(this).closest("tr").find(".sai-rpt-filter-type")[0].selectize.focus()
-                    }else{
-                        $(this).closest("tr").find(".sai-rpt-filter-type.selectize-control").addClass("hidden");
-                        $(this).closest("tr").find(".td-type").removeClass("hidden");
                     }
-
                     if(jenis == "select"){
 
                         if(idx == 2){
                             $(this).closest("tr").find(".td-from").addClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
-                        }else{
-                            $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").addClass("hidden");
-                            $(this).closest("tr").find(".td-from").removeClass("hidden");
                         }
-
                         if(idx == 3){
                             $(this).closest("tr").find(".td-to").addClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-to.selectize-control").removeClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.focus()
-                        }else{
-                            $(this).closest("tr").find(".sai-rpt-filter-to.selectize-control").addClass("hidden");
-                            $(this).closest("tr").find(".td-to").removeClass("hidden");
                         }
                     }else{
                         if(idx == 2){
                             $(this).closest("tr").find(".td-from").addClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
-                        }else{
-                            $(this).closest("tr").find(".sai-rpt-filter-from").addClass("hidden");
-                            $(this).closest("tr").find(".td-from").removeClass("hidden");
                         }
 
                         if(idx == 3){
                             $(this).closest("tr").find(".td-to").addClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-to").removeClass("hidden");
                             $(this).closest("tr").find(".sai-rpt-filter-to input").focus();
-                        }else{
-                            $(this).closest("tr").find(".sai-rpt-filter-to").addClass("hidden");
-                            $(this).closest("tr").find(".td-to").removeClass("hidden");
                         }
                     }
                 }
