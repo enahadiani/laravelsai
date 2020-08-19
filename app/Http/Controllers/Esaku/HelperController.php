@@ -15,6 +15,26 @@
             }
         }
 
+        
+        public function getFilterAkun() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-report/filter-akun',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
         public function getRefPindahBuku() {
 
             $client = new Client();
