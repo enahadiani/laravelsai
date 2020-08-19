@@ -514,13 +514,13 @@ google.charts.load('current', {packages: ['corechart','line']});
 google.charts.setOnLoadCallback(drawGoogleChart);
 function drawGoogleChart() {
     var data = new google.visualization.arrayToDataTable([
-        ['Periode', 'Pendapatan', 'Beban', 'SDM', 'SHU'],
-        ['2015', 44.08, 18.36, 19.11, 25.72],
-        ['2016', 63.03, 52.4, 24.2, 10.63],
-        ['2017', 60.37, 29.51, 17.93, 30.86],
-        ['2018', 53.38, 57.42, 34.56, 0.97],
-        ['2019', 48.46, 39.66, 19.08, 8.8],
-        ['2020', 20.92, 18.25, 18.16, 2.67],
+        ['Periode', 'Pendapatan',{ role: 'annotation'}, 'Beban', { role: 'annotation'},'SDM', { role: 'annotation'},'SHU',{ role: 'annotation'}],
+        ['2015', 44.08, '44.08', 18.36, '18.36', 19.11, '19.11',25.72, '25.72'],
+        ['2016', 63.03, '63.03', 52.4, '52.4', 24.2, '24.2', 10.63, '10.63'],
+        ['2017', 60.37, '63.37', 29.51, '29.51', 17.93, '17.93',30.86, '30.86'],
+        ['2018', 53.38, '53.38', 57.42, '57.42', 34.56, '34.5', 0.97, '0.97'],
+        ['2019', 48.46, '48.46', 39.66, '39.66', 19.08, '19.08', 8.8, '8.8'],
+        ['2020', 20.92, '20.92', 18.25, '18.25', 18.16, '18.16', 2.67, '2.67'],
     ]);
 
     var options = {
@@ -531,6 +531,7 @@ function drawGoogleChart() {
         },
         height: 500,
         width: 540,
+        chartArea: {'width': '90%', 'height': '90%'},
         axes: {
           x: {
             0: {side: 'top'}
