@@ -461,6 +461,7 @@ function getRKARealInvestasi2(periode=null) {
                 pointStart: 5,
                 enabled: false,
                 symbol: 'circle',
+                radius: 2,
                 states: {
                         hover: {
                             enabled: true
