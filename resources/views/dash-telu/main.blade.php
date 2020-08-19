@@ -80,6 +80,7 @@
     
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 @if(Session::get('menu') != "")

@@ -139,6 +139,15 @@ $nik     = Session::get('userLog');
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
+                <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
+                <div class="card-body pt-0">
+                    <div id='rkaVSreal3' style='height:350px'></div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -196,6 +205,61 @@ $nik     = Session::get('userLog');
         </div>
     </div> -->
 </div>
+ <script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    var darkMode = localStorage.getItem('dore-theme-color');
+    var color = '';
+    var colorText = '';
+    function drawChart() {
+        console.log(darkMode);
+        if(darkMode == 'dore.dark.redruby.min.css'){
+            color = '#404040';
+            colorText = '#FFFFFF';
+        }else if(darkMode == 'dore.light.redruby.min.css'){
+            color = 'transparent';
+            colorText = '#000000';
+        }
+        console.log(color)
+        console.log(colorText)
+        var data = new google.visualization.arrayToDataTable([
+            ['Categories', 'Real', 'On Progres', 'RKA'],
+            ['GEDUNG DAN PEMBANGUNAN', 80, 20, 150],
+            ['SARANA PENDIDIKAN', 70, 60, 200],
+            ['Sarpen CELOE', 70, 90, 250],
+            ['Sarpen Telu', 60, 75, 300],
+            ['INVENTARIS KANTOR', 80, 90, 350],
+            ['SERTIFIKASI PENDIDIKAN', 90, 80, 270],
+            ['AKREDITASI DALAM', 50, 60, 170],
+            ['ALAT PENGOLAH DATA', 60, 55, 220],
+            ['ALAT CATUT DAYA', 80, 70, 210],
+        ]);
+
+        var options = {
+            legend: { position: 'bottom', alignment:'center' ,maxLines: 3,  textStyle: {color: colorText} },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+            backgroundColor: { fill: color },
+            hAxis: {
+                textStyle:{color: colorText}
+            },
+            vAxis:{
+                textStyle:{color: colorText}
+            },
+            seriesType: 'bars',
+            series: {
+                0:{color:'#FF8F01'},
+                1:{color:'#A5A5A5'},
+                2:{color:'#0004FF', type:'area'}
+            }
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('rkaVSreal3'));
+        chart.draw(data, options);
+    }
+ </script>
+
 <script>
 var $kd = "";
 function sepNum(x){
