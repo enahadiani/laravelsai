@@ -249,7 +249,12 @@
                                                     <tr>
                                                         <td valign="top" align="center">KEU/DWI/FORM/001</td>
                                                         <td align="center">Rev 0.0</td>
-                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(8,2)+` `+getNamaBulan(line.tgl_bayar.substr(5,2))+` `+line.tgl_bayar.substr(0,4)+`</td>
+                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(0,2)+` `+getNamaBulan(line.tgl_bayar.substr(3,2))+` `+line.tgl_bayar.substr(6,4)+`</td>
+                                                    </tr>
+                                                    <tr><td colspan='3'>&nbsp;</td>
+                                                        </tr>
+                                                    <tr>
+                                                    <td colspan='3' style='font-size:12px;'><i>Catatan: Tanda terima ini bukan kwitansi pembayaran, pembayaran dianggap sah setelah mendapat kwitansi yang ditanda tangani dan diberi cap Finance</i></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
