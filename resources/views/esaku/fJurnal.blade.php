@@ -83,6 +83,10 @@
         .dataTables_wrapper .paginate_button.page-item {
         padding-left: 5px;
         padding-right: 5px; }
+        .p2x{
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+        }
     </style>
         <div class="row" id="saku-datatable">
             <div class="col-12">
@@ -221,7 +225,7 @@
                                             }
                                             #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
                                             {
-                                                background:#f4d180 !important;
+                                                background: var(--theme-color-6) !important;
                                                 color:white;
                                             }
                                             #input-jurnal input:hover,
@@ -529,8 +533,8 @@
                             $('.'+target2).val(result.data.data[0].nama);
                             $('.td'+target2).text(result.data.data[0].nama);
                         }else{
-                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
 
                             $('.'+target1).closest('tr').find('.search-pp').hide();
                             $('.'+target1).val(id);
@@ -620,8 +624,8 @@
                             $('.td'+target3).text('D');
                         }else{
 
-                            $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
 
                             $('.'+target1).closest('tr').find('.search-akun').hide();
                             $('.'+target1).val(id);
@@ -1114,8 +1118,8 @@
                     getAkun(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
-                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("p2x py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
 
@@ -1127,8 +1131,8 @@
                 case 2:
                     var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
                     if(isi == 'D' || isi == 'C'){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("p2x py-0 aktif");
                         $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
                         $(this).parents("tr").find(nxt2[idx]).text(isi);
                         $(this).parents("tr").find(".selectize-control").hide();
@@ -1144,8 +1148,8 @@
                     break;
                 case 3:
                     if($.trim($(this).val()).length){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("p2x py-0 aktif");
                         $(this).closest('tr').find(nxt[idx]).val(isi);
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
@@ -1160,8 +1164,8 @@
                     break;
                 case 4:
                     if(isi != "" && isi != 0){
-                        $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("p2x py-0 aktif");
                         $(this).closest('tr').find(nxt[idx]).val(isi);
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
@@ -1184,8 +1188,8 @@
                     getPP(kode,target1,target2,'tab');
                     break;
                 case 6:
-                    $("#input-jurnal td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("p2x py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
@@ -1302,8 +1306,8 @@
             rightAlign: true,
             oncleared: function () { self.Value(''); }
         });
-        $('#input-jurnal td').removeClass('px-0 py-0 aktif');
-        $('#input-jurnal tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        $('#input-jurnal td').removeClass('p2x py-0 aktif');
+        $('#input-jurnal tbody tr:last').find("td:eq(1)").addClass('p2x py-0 aktif');
         $('#input-jurnal tbody tr:last').find(".inp-kode").show();
         $('#input-jurnal tbody tr:last').find(".td-kode").hide();
         $('#input-jurnal tbody tr:last').find(".search-akun").show();
@@ -1409,11 +1413,11 @@
         if(idx == 0){
             return false;
         }else{
-            if($(this).hasClass('px-0 py-0 aktif')){
+            if($(this).hasClass('p2x py-0 aktif')){
                 return false;            
             }else{
-                $('#input-jurnal td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
+                $('#input-jurnal td').removeClass('p2x py-0 aktif');
+                $(this).addClass('p2x py-0 aktif');
         
                 var kode_akun = $(this).parents("tr").find(".inp-kode").val();
                 var nama_akun = $(this).parents("tr").find(".inp-nama").val();
