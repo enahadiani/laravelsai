@@ -1337,32 +1337,47 @@
                                                                 </tr>`;
                                                     }
                                                     html+=` 
-                                                        <tr>
+                                                    <tr>
                                                             <td>DIINPUT OLEH </td>
-                                                            <td>: `+line.nik_user+` </td>
+                                                            <td colspan='2'>: `+line.nik_user+` </td>
                                                         </tr>
-                                                        <tr><td>&nbsp;</td>
+                                                        <tr><td colspan='3'>&nbsp;</td>
                                                         </tr>
                                                         <tr>
                                                             <td>&nbsp;</td>
                                                             <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
                                                         </tr>
                                                     <tr>
-                                                        <td align="left"></td>
-                                                        <td align="center">Customer,</td>
+                                                        <td align="center" style="width:30%">Customer</td>
+                                                        <td align="center" style="width:30%"></td>
+                                                        <td align="center" style="width:40%">Keuangan</td>
                                                     </tr>
                                                     <tr>
+                                                        <td style="">&nbsp;</td>
                                                         <td style="">&nbsp;</td>
                                                         <td style="">&nbsp;</td>
                                                     </tr>
                                                     <tr>
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
                                                     </tr>
-                                                        <tr>
-                                                            <td valign="top" align="left"></td>
-                                                            <td align="center">(`+line.peserta+`)</td>
+                                                    <tr>
+                                                        <td valign="top" align="center">`+line.peserta+`</td>
+                                                        <td>&nbsp;</td>
+                                                        <td align="center">-------------------------</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td valign="top" align="center">KEU/DWI/FORM/001</td>
+                                                        <td align="center">Rev 0.0</td>
+                                                        <td align="center">Tanggal `+line.tgl_bayar.substr(0,2)+` `+getNamaBulan(line.tgl_bayar.substr(3,2))+` `+line.tgl_bayar.substr(6,4)+`</td>
+                                                    </tr>
+                                                    <tr><td colspan='3'>&nbsp;</td>
+                                                        </tr>
+                                                    <tr>
+                                                            <td colspan='3' style='font-size:12px;'><i>Catatan: Tanda terima ini bukan kwitansi pembayaran, pembayaran dianggap sah setelah mendapat kwitansi yang ditanda tangani dan diberi cap Finance</i></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
