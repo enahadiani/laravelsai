@@ -51,6 +51,28 @@ function sepNumX(x){
     }
 }
 
+function namaPeriode(periode){
+    var bulan = periode.substr(4,2);
+    var tahun = periode.substr(0,4);
+    switch (bulan){
+        case 1 : case '1' : case '01': bulan = "Januari"; break;
+        case 2 : case '2' : case '02': bulan = "Februari"; break;
+        case 3 : case '3' : case '03': bulan = "Maret"; break;
+        case 4 : case '4' : case '04': bulan = "April"; break;
+        case 5 : case '5' : case '05': bulan = "Mei"; break;
+        case 6 : case '6' : case '06': bulan = "Juni"; break;
+        case 7 : case '7' : case '07': bulan = "Juli"; break;
+        case 8 : case '8' : case '08': bulan = "Agustus"; break;
+        case 9 : case '9' : case '09': bulan = "September"; break;
+        case 10 : case '10' : case '10': bulan = "Oktober"; break;
+        case 11 : case '11' : case '11': bulan = "November"; break;
+        case 12 : case '12' : case '12': bulan = "Desember"; break;
+        default: bulan = null;
+    }
+
+    return bulan+' '+tahun;
+}
+
 function sepNum(x,prefix=null){
     if (typeof x === 'undefined' || !x) { 
         return 0;
