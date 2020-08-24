@@ -96,6 +96,29 @@
             margin-bottom:10px
         }
 
+        .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; }
+
+        .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 25px; }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; }
+
+        .dataTables_wrapper .paginate_button.page-item {
+        padding-left: 5px;
+        padding-right: 5px; }
+
+        ul.pagination .pagination-sm{
+            float:right !important;
+        }
+        #table-search_paginate
+        {
+            margin-top:0;
+        }
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -142,7 +165,7 @@
                                             <p class="kunci" hidden>akun</p>
                                             <label for="kode_akun" class="col-md-3 col-sm-12 col-form-label">Akun</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option><option value='in'>In</option></select>
+                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -239,6 +262,8 @@
         }
 
         var $aktif = "";
+        
+        $.fn.DataTable.ext.pager.numbers_length = 5;
 
         $('#show').selectize();
 
@@ -288,6 +313,7 @@
                         { data: 'kode_akun' },
                         { data: 'nama' }
                     ];
+                    header_pilih = ['Kode', 'Nama','Action'];
                     var judul = "Daftar Akun <span class='modal-subtitle'></span>";
                     var pilih = "akun";
                     $target = $target;
@@ -323,8 +349,27 @@
             table += "<tbody></tbody></table>";
             }
             else if(type == "in"){
-                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-                table += "<tbody></tbody></table><button class='btn btn-primary float-right' id='btn-ok'>OK</button>";
+                var headerpilih_html = '';
+                var width = ["25%","70%","5%"];
+                for(i=0; i<header_pilih.length; i++){
+                    headerpilih_html +=  "<th style='width:"+width[i]+"'>"+header_pilih[i]+"</th>";
+                }
+
+                var table = `<ul class="nav nav-tabs col-12 " role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
+                </ul>
+                <div class="tab-content tabcontent-border col-12 p-0">
+                    <div class="tab-pane active" id="list" role="tabpanel">
+                        <table class='' width='100%' id='table-search'><thead><tr>`+header_html+`</tr></thead>
+                        <tbody></tbody></table>
+                    </div>
+                    <div class="tab-pane" id="terpilih" role="tabpanel">
+                        <table class='' width='100%' id='table-search2'><thead><tr>`+headerpilih_html+`</tr></thead>
+                        <tbody></tbody></table>
+                    </div>
+                </div>
+                <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
             }
             else{
                 var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
@@ -413,6 +458,34 @@
                     cancelConfirmKeysOnEmpty: true,
                     confirmKeys: [13]
                 });
+            }else if(type == "in"){
+                var searchTable2 = $("#table-search2").DataTable({
+                    sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                    columns: columns,
+                    drawCallback: function () {
+                        $($(".dataTables_wrapper .pagination li:first-of-type"))
+                            .find("a")
+                            .addClass("prev");
+                        $($(".dataTables_wrapper .pagination li:last-of-type"))
+                            .find("a")
+                            .addClass("next");
+
+                        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                    },
+                    language: {
+                        paginate: {
+                            previous: "<i class='simple-icon-arrow-left'></i>",
+                            next: "<i class='simple-icon-arrow-right'></i>"
+                        },
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search...",
+                        lengthMenu: "Items Per Page _MENU_"
+                    },
+                    "columnDefs": [{
+                        "targets": 2, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
+                    }]
+                });
+                searchTable2.columns.adjust().draw();
             }
 
             $('#table-search tbody').on('click', 'tr', function () {
@@ -447,7 +520,10 @@
                     else if (type == "in"){
                         $(this).addClass('selected');
                         var datain = searchTable.rows('.selected').data();
-                        console.log(datain.length);
+                        searchTable2.clear().draw();
+                        if(typeof datain !== 'undefined' && datain.length>0){
+                            searchTable2.rows.add(datain).draw(false);
+                        }
                     }
                     else{
                         
@@ -472,32 +548,42 @@
             });
 
             $('#table-search2 tbody').on('click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    
-                    searchTable.$('tr.selected').removeClass('selected');
-                    searchTable2.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
+                if(type == "range"){
 
-                    var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                    if(display == "kodename"){
-                        $($target).val(kode+' - '+nama);
-                    }else if(display == "name"){
-                        $($target).val(nama);
-                    }else{   
-                        $($target).val(kode);
+                    if ( $(this).hasClass('selected') ) {
+                        $(this).removeClass('selected');
                     }
-
-                    field["to"] = kode;
-                    field["toname"] = nama;   
-                    console.log(field);      
-                    
-                    $('#rentang-tag').tagsinput('add', kode);           
-                    $('#modal-search').modal('hide');
+                    else {
+                        
+                        searchTable.$('tr.selected').removeClass('selected');
+                        searchTable2.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+    
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                        if(display == "kodename"){
+                            $($target).val(kode+' - '+nama);
+                        }else if(display == "name"){
+                            $($target).val(nama);
+                        }else{   
+                            $($target).val(kode);
+                        }
+    
+                        field["to"] = kode;
+                        field["toname"] = nama;   
+                        console.log(field);      
+                        
+                        $('#rentang-tag').tagsinput('add', kode);           
+                        $('#modal-search').modal('hide');
+                    }
                 }
+            });
+
+            $('#table-search2 tbody').on('click', '.hapus-item', function () {
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                searchTable2.row( $(this).parents('tr') ).remove().draw();
+                console.log(kode);
+                searchTable.row().search(kode).deselect();
             });
 
             $('#modal-search').on('click','#btn-ok',function(){
