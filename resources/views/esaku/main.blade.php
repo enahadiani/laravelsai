@@ -274,6 +274,8 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     
+    
+    <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     

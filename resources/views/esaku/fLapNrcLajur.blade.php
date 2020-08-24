@@ -9,23 +9,22 @@
             border-left:0;
         }
         .search-item{
-            font-size:18px;
+            /* font-size:18px; */
             cursor:pointer;
         }
-        #table-filter td:not(:nth-child(1))
-        {
-            padding:0 !important;
-        }
         .selectize-input{
-            border-radius:0;
+            /* border-radius:0; */
             height:38.4px !important;
         }
         .hidden{
             display:none;
         }
-        #table-filter td, #table-filter th
-        {
-            vertical-align:middle !important;
+        .form-control[readonly] {
+            background-color: #e9ecef !important;
+            opacity: 1;
+        }
+        .input-group-append >.input-group-text{
+            background-color: #e9ecef !important;
         }
     </style>
         <div class="row" id="saku-filter">
@@ -41,67 +40,70 @@
                         <div class="col-12 col-sm-12">
                             <div class="collapse show" id="collapseFilter">
                                 <div class="px-4 pb-4 pt-0">
-                                    <h6>Filter</h6>
-                                    <table class="table no-border table-bordered table-striped" id="table-filter" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" width="30%">Judul</th>
-                                                <th class="text-center" width="10%">Jenis</th>
-                                                <th class="text-center" width="30%">Rentang Awal</th>
-                                                <th class="text-center" width="30%">Rentang Akhir</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="sai-rpt-filter-entry-row">
-                                                <td>Periode<p class="jenis" hidden>select</p></td>
-                                                <td class="text-center">
-                                                    <span class="td-type">=</span>
-                                                    <select name='periode[]' class='form-control sai-rpt-filter-type selectize hidden'><option value='All'>All</option><option value='=' selected>=</option><option value='Range'>Range</option></select>
-                                                </td>
-                                                <td>
-                                                    <span class="td-from"></span>
-                                                    <select name='periode[]' id="periode_from" class='form-control sai-rpt-filter-from hidden' value=''></select>
-                                                </td>
-                                                <td>
-                                                    <span class="td-to"></span>
-                                                    <select name='periode[]' id="periode_to" class='form-control sai-rpt-filter-to hidden' value=''></select>
-                                                </td>
-                                            </tr>
-                                            <tr class="sai-rpt-filter-entry-row">
-                                                <td>Kode Akun<p class="jenis" hidden>input</p></td>
-                                                <td class="text-center">
-                                                    <span class="td-type">All</span>
-                                                    <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize hidden'><option value='All' selected>All</option><option value='='>=</option><option value='Range'>Range</option></select>
-                                                </td>
-                                                <td>      
-                                                    <span class="td-from"></span>                                          
-                                                    <div class="input-group sai-rpt-filter-from hidden" >
-                                                        <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun_from">
-                                                        <div class="input-group-append border-left-0">
-                                                        <i class="simple-icon-magnifier input-group-text search-item"></i>
-                                                        </div>
+                                    <form id="form-filter">
+                                        <h6>Filter</h6>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>periode</p>
+                                            <label for="periode" class="col-md-3 col-sm-12 col-form-label">Periode</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='All'>Semua</option><option value='=' selected>Sama dengan</option><option value='Range'>Rentang</option></select>
+                                            </div>
+                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_from" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <span class="td-to"></span>
-                                                    <div class="input-group sai-rpt-filter-to hidden" >
-                                                        <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun_to">
-                                                        <div class="input-group-append border-left-0">
-                                                        <i class="simple-icon-magnifier input-group-text search-item"></i>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="button" >Tampilkan</button>
-                                    <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>akun</p>
+                                            <label for="kode_akun" class="col-md-3 col-sm-12 col-form-label">Akun</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option></select>
+                                            </div>
+                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun_from" readonly value="Menampilkan semua akun">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun_to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
+                                        <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
-                                <div class="p-4">
+                                <div class="p-4 row">
                                     <div class='col-sm-2' style='padding-top: 0'>
                                         <select name="show" id="show" class="form-control" style=''>
                                             <option value="10">10</option>
@@ -111,8 +113,8 @@
                                             <option value="All">All</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-10">
-                                        <div id="pager" style='padding-top: 0px;position: absolute;top: 0;right: 0;'>
+                                    <div class="col-sm-10 text-center">
+                                        <div id="pager">
                                             <ul id="pagination" class="pagination pagination-sm2"></ul>
                                         </div>
                                     </div>
@@ -125,7 +127,8 @@
         </div>
         <div class="row mt-2" id="saku-report">
             <div class="col-12">
-                <div class="card" style="min-height:200px">
+                <div class="card px-2 py-2" style="min-height:200px">
+
                 </div>
             </div>
         </div>
@@ -150,6 +153,24 @@
 
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+        var periode = {
+            type : "=",
+            from : "{{ date('Ym') }}",
+            fromname : namaPeriode("{{ date('Ym') }}"),
+            to : "",
+            toname : "",
+        }
+        var akun = {
+            type : "All",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+
+        $('#show').selectize();
+
+        $('#periode_from').val(namaPeriode("{{ date('Ym') }}"));
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();
@@ -181,6 +202,10 @@
             var modul = '';
             var header = [];
             $target = target1;
+            var tmp = $target.attr('id');
+            tmp = tmp.split("_");
+            target2 = tmp[1];
+            target3 = tmp[1]+'name';
             
             switch(par){
                 case 'kode_akun[]': 
@@ -192,8 +217,24 @@
                     ];
                     var judul = "Daftar Akun";
                     var pilih = "akun";
-                    var jTarget1 = "val";
                     $target = $target;
+                    $target2 = target2;
+                    var display = "kodename";
+                    var field = eval("akun");
+                break;
+                case 'periode[]': 
+                    header = ['Periode', 'Nama'];
+                    var toUrl = "{{ url('esaku-report/filter-periode-keu') }}";
+                    var columns = [
+                        { data: 'periode' },
+                        { data: 'nama' }
+                    ];
+                    var judul = "Daftar Periode";
+                    var pilih = "periode";
+                    $target = $target;
+                    $target2 = target2;
+                    var field = eval("periode");
+                    var display = "name";
                 break;
             }
 
@@ -241,10 +282,7 @@
                 },
             });
 
-            // searchTable.$('tr.selected').removeClass('selected');
-            // $('#table-search tbody').find('tr:first').addClass('selected');
             $('#modal-search .modal-title').html(judul);
-            // $('#memilih').html(pilih);
             $('#modal-search').modal('show');
             searchTable.columns.adjust().draw();
 
@@ -257,286 +295,107 @@
                     $(this).addClass('selected');
 
                     var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                    if(jTarget1 == "val"){
+                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                    if(display == "kodename"){
+                        $($target).val(kode+' - '+nama);
+                    }else if(display == "name"){
+                        $($target).val(nama);
+                    }else{   
                         $($target).val(kode);
-                    }else{
-                        $($target).text(kode);
                     }
+
+                    field[target2] = kode;
+                    field[target3] = nama;
+
                     $('#modal-search').modal('hide');
-                }
-            });
-
-            $(document).keydown(function(e) {
-                if (e.keyCode == 40){ //arrow down
-                    var tr = searchTable.$('tr.selected');
-                    tr.removeClass('selected');
-                    tr.next().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-                if (e.keyCode == 38){ //arrow up
-                    
-                    var tr = searchTable.$('tr.selected');
-                    searchTable.$('tr.selected').removeClass('selected');
-                    tr.prev().addClass('selected');
-                    // tr = searchTable.$('tr.selected');
-
-                }
-
-                if (e.keyCode == 13){
-                    var kode = $('tr.selected').find('td:nth-child(1)').text();
-                    if(jTarget1 == "val"){
-                        $($target).val(kode);
-                    }else{
-                        $($target).text(kode);
-                    }
-                    $('#modal-search').modal('hide');
-                }
-            })
-        }
-        
-        function getPeriode(){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('esaku-report/filter-periode') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    var select = $('#periode_from').selectize();
-                    select = select[0];
-                    var control = select.selectize;
-                    control.clearOptions();
-                    
-                    var select2 = $('#periode_to').selectize();
-                    select2 = select2[0];
-                    var control2 = select2.selectize;
-                    control2.clearOptions();
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-
-                            for(i=0;i<result.daftar.length;i++){
-                                control.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
-                                control2.addOption([{text:result.daftar[i].periode, value:result.daftar[i].periode}]);
-                            }
-                        }
-                    }
                 }
             });
         }
+        
 
-        getPeriode();
+        $('#form-filter').on('change', '.sai-rpt-filter-type', function(){
+            console.log('change');
+            var type = $(this).val();
+            var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
+            var field = eval(kunci);
+            switch(type){
+                case "All":
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
+                    
+                    field.type = "All";
+                    field.from = "";
+                    field.to = "";
+                    field.fromname = "";
+                    field.toname = "";
+                break;
+                case "=":
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
+                    field.type = "=";
+                    field.from = field.from;
+                    field.to = "";
+                    field.fromname = field.fromname;
+                    field.toname = "";
+                break;
+                case "Range":
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
+                    if(kunci == "periode"){
 
-        $('#table-filter').on('change', '.sai-rpt-filter-type', function(){
-  
-            var type = $(this).closest('.sai-rpt-filter-entry-row').find(".sai-rpt-filter-type option:selected").text();
-            var jenis =  $(this).closest('.sai-rpt-filter-entry-row').find('.jenis').text();
-            if(jenis == "select"){
-                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from option:selected").text();
-                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to option:selected").text();
-               
-                if(type == 'All'){
-                    from = "";
-                    to = "";
-                }else if(type == '='){
-                    from = from;
-                    to = "";
-                }else if(type == 'Range'){
-                    from = from;
-                    to = to;
-                }
-                $(this).closest("tr").find(".td-from").text(from);
-                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.setValue(from);
-                $(this).closest("tr").find(".td-to").text(to);
-                $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.setValue(to);
-            }else{
-                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from input").val();
-                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to input").val();
-                if(type == 'All'){
-                    from = "";
-                    to = "";
-                }else if(type == '='){
-                    from = from;
-                    to = "";
-                }else if(type == 'Range'){
-                    from = from;
-                    to = to;
-                }
-                $(this).closest("tr").find(".td-from").text(from);
-                $(this).closest("tr").find(".sai-rpt-filter-from input").val(from);
-                $(this).closest("tr").find(".td-to").text(to);
-                $(this).closest("tr").find(".sai-rpt-filter-to input").val(to);
+                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
+                    }else if(kunci == "akun"){
+                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from+' - '+field.fromname);
+                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to+' - '+field.toname);
+                    }
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').removeClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').removeClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
+                    field.type = "Range";
+                    field.from = field.from;
+                    field.to = field.to;
+                    field.fromname =  field.fromname ;
+                    field.toname =  field.toname ;
+                break;
             }
+           
+        });
+
+        $('#form-filter').on('click', '.search-item', function(){
+            var par = $(this).closest('.input-group').find('input').attr('name');
+            var target1 = $(this).closest('.input-group').find('input');
             
-        });
-
-        $('#table-filter tbody').on('click', 'tr', function(){
-            if ( $(this).hasClass('selected-row') ) {
-                $(this).removeClass('selected-row');
-            }
-            else {
-                $('#table-filter tbody tr').removeClass('selected-row');
-                $(this).addClass('selected-row');
-            }
-        });
-
-        $('#table-filter').on('click', '.search-item', function(){
-
-            var par = $(this).closest('td').find('input').attr('name');
-            var target1 = $(this).closest('td').find('input');
-
             showFilter(par,target1);
         });
 
-
-        $('#table-filter').on('click', 'td', function(){
-           
-            //cari aktif td
-            var aktif = $('td.aktif');
-            if(aktif != undefined){
-                var jenis_aktif = $('td.aktif').closest('tr').find('.jenis').text();
-                var idx_aktif = $('td.aktif').index();
-                if(jenis_aktif == "select"){
-                    switch(idx_aktif){
-                        case 1 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-type option:selected").text();
-                            $('td.aktif').find('.sai-rpt-filter-type.selectize-control').addClass('hidden');
-                            $('td.aktif').find('.td-type').text(isi);
-                            $('td.aktif').find('.td-type').removeClass('hidden');
-                        break;
-                        case 2 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-from option:selected").text();
-                            $('td.aktif').find('.sai-rpt-filter-from.selectize-control').addClass('hidden');
-                            $('td.aktif').find('.td-from').text(isi);
-                            $('td.aktif').find('.td-from').removeClass('hidden');
-                        break;
-                        case 3 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-to option:selected").text();
-                            $('td.aktif').find('.sai-rpt-filter-to.selectize-control').addClass('hidden');
-                            $('td.aktif').find('.td-to').text(isi);
-                            $('td.aktif').find('.td-to').removeClass('hidden');
-                        break;
-                    }
-                }else{
-                    switch(idx_aktif){
-                        case 1 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-type option:selected").text();
-                            $('td.aktif').find('.sai-rpt-filter-type.selectize-control').addClass('hidden');
-                            $('td.aktif').find('.td-type').text(isi);
-                            $('td.aktif').find('.td-type').removeClass('hidden');
-                        break;
-                        case 2 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-from input").val();
-                            $('td.aktif').find('.sai-rpt-filter-from').addClass('hidden');
-                            $('td.aktif').find('.td-from').text(isi);
-                            $('td.aktif').find('.td-from').removeClass('hidden');
-                        break;
-                        case 3 :
-                            var isi = $('td.aktif').find(".sai-rpt-filter-to input").val();
-                            $('td.aktif').find('.sai-rpt-filter-to').addClass('hidden');
-                            $('td.aktif').find('.td-to').text(isi);
-                            $('td.aktif').find('.td-to').removeClass('hidden');
-                        break;
-                    }
-                }
+        var $formData = "";
+        $('#form-filter').submit(function(e){
+            e.preventDefault();
+            $formData = new FormData();
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.append("kode_akun[]",akun.type);
+            $formData.append("kode_akun[]",akun.from);
+            $formData.append("kode_akun[]",akun.to);
+            for(var pair of $formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
             }
-
-            //index saat diklik
-            var idx = $(this).index();
-            var jenis = $(this).closest("tr").find("p.jenis").text();
-
-            if(jenis == "select"){
-
-                var type = $(this).closest("tr").find("td:eq(1)").find(".sai-rpt-filter-type option:selected").text();
-                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from option:selected").text();
-                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to option:selected").text();
-                $(this).closest("tr").find(".td-type").text(type);
-                $(this).closest("tr").find(".sai-rpt-filter-type")[0].selectize.setValue(type);
-                $(this).closest("tr").find(".td-from").text(from);
-                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.setValue(from);
-                $(this).closest("tr").find(".td-to").text(to);
-                $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.setValue(to);
-            }else{
-                var type = $(this).closest("tr").find("td:eq(1)").find(".sai-rpt-filter-type option:selected").text();
-                var from = $(this).closest("tr").find("td:eq(2)").find(".sai-rpt-filter-from input").val();
-                var to = $(this).closest("tr").find("td:eq(3)").find(".sai-rpt-filter-to input").val();
-                $(this).closest("tr").find(".td-type").text(type);
-                $(this).closest("tr").find(".sai-rpt-filter-type")[0].selectize.setValue(type);
-                $(this).closest("tr").find(".td-from").text(from);
-                $(this).closest("tr").find(".sai-rpt-filter-from input").val(from);
-                $(this).closest("tr").find(".td-to").text(to);
-                $(this).closest("tr").find(".sai-rpt-filter-to input").val(to);
-            }
-
-            $('#table-filter td').removeClass('aktif'); 
-            if(idx == 0){
-                return false;
-            }else{
-                if($(this).hasClass('aktif')){
-                    return false;            
-                }else{
-                    if(idx == 1){
-                        $(this).addClass('aktif'); 
-                        $(this).closest("tr").find(".td-type").addClass("hidden");
-                        $(this).closest("tr").find(".sai-rpt-filter-type.selectize-control").removeClass("hidden");
-                        $(this).closest("tr").find(".sai-rpt-filter-type")[0].selectize.focus()
-                    }               
-                    
-                    if(jenis == "select"){
-                        if(type == "All"){
-                            return false;
-                        }else if(type == "="){
-                            $(this).addClass('aktif'); 
-
-                            if(idx == 2){
-                                $(this).closest("tr").find(".td-from").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
-                            }
-                        }else if(type == "Range"){
-                            
-                            $(this).addClass('aktif'); 
-                            if(idx == 2){
-                                $(this).closest("tr").find(".td-from").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from.selectize-control").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from")[0].selectize.focus()
-                            }
-                            if(idx == 3){
-                                $(this).closest("tr").find(".td-to").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-to.selectize-control").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-to")[0].selectize.focus()
-                            }
-                        }
-
-                    }else{
-                        if(type == "All"){
-                            return false;
-                        }else if(type == "="){
-                            $(this).addClass('aktif'); 
-
-                            if(idx == 2){
-                                $(this).closest("tr").find(".td-from").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
-                            }
-                        }else if(type == "Range"){
-                            
-                            $(this).addClass('aktif'); 
-                            if(idx == 2){
-                                $(this).closest("tr").find(".td-from").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-from input").focus();
-                            }
-
-                            if(idx == 3){
-                                $(this).closest("tr").find(".td-to").addClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-to").removeClass("hidden");
-                                $(this).closest("tr").find(".sai-rpt-filter-to input").focus();
-                            }
-                        }
-                        
-                    }
-                }
-            }
+            xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
+            console.log(xurl);
+            $('#saku-report .card').load(xurl);
         });
 
     </script>
