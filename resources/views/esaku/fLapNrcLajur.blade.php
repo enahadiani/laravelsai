@@ -456,7 +456,9 @@
                 $('#table-search2_wrapper').addClass('hidden');
                 $("#rentang-tag").tagsinput({
                     cancelConfirmKeysOnEmpty: true,
-                    confirmKeys: [13]
+                    confirmKeys: [13],
+                    itemValue: 'id',
+                    itemText: 'text'
                 });
             }else if(type == "in"){
                 var searchTable2 = $("#table-search2").DataTable({
@@ -515,7 +517,13 @@
                         $('#table-search_wrapper').addClass('hidden');
                         $('#table-search2_wrapper').removeClass('hidden');
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
-                        $('#rentang-tag').tagsinput('add', kode);
+                        $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
+                        $('#rentang-tag').on('itemRemoved', function(event) {
+                            console.log('item removed : '+event.item);
+                            $('#table-search_wrapper').removeClass('hidden');
+                            $('#table-search2_wrapper').addClass('hidden');
+                            $('#modal-search .modal-subtitle').html('[Rentang Awal]');
+                        }); 
                     }
                     else if (type == "in"){
                         $(this).addClass('selected');
@@ -573,7 +581,7 @@
                         field["toname"] = nama;   
                         console.log(field);      
                         
-                        $('#rentang-tag').tagsinput('add', kode);           
+                        $('#rentang-tag').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
                         $('#modal-search').modal('hide');
                     }
                 }
