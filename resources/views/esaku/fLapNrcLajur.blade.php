@@ -92,6 +92,10 @@
             background: transparent; 
         }
 
+        .bootstrap-tagsinput{
+            margin-bottom:10px
+        }
+
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -314,7 +318,7 @@
             }
 
             if(type == "range"){
-                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+                var table = "<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag'><table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table>";
             }
@@ -405,6 +409,10 @@
                 searchTable2.columns.adjust().draw();
                 
                 $('#table-search2_wrapper').addClass('hidden');
+                $("#rentang-tag").tagsinput({
+                    cancelConfirmKeysOnEmpty: true,
+                    confirmKeys: [13]
+                });
             }
 
             $('#table-search tbody').on('click', 'tr', function () {
@@ -434,6 +442,7 @@
                         $('#table-search_wrapper').addClass('hidden');
                         $('#table-search2_wrapper').removeClass('hidden');
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
+                        $('#rentang-tag').tagsinput('add', kode);
                     }
                     else if (type == "in"){
                         $(this).addClass('selected');
@@ -484,7 +493,9 @@
 
                     field["to"] = kode;
                     field["toname"] = nama;   
-                    console.log(field);                 
+                    console.log(field);      
+                    
+                    $('#rentang-tag').tagsinput('add', kode);           
                     $('#modal-search').modal('hide');
                 }
             });
