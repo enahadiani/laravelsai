@@ -126,7 +126,15 @@
                     <div class="card-body pt-4 pb-2 px-4">
                         <h5 style="position:absolute;top: 25px;">Laporan Neraca Lajur</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
-                        <button type="button" id="btn-export" class="btn btn-light" style="float:right;width:110px">Export</button>
+                        <button id="btn-export" type="button" class="btn btn-light dropdown-toggle float-right"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btn-export">
+                            <a class="dropdown-item" href="#" id="sai-rpt-print">Print</a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
+                        </div>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="row">
@@ -243,6 +251,43 @@
         </div>
     </div>
     <!-- END MODAL -->
+
+    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id='formEmail'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title'>Kirim Email</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        </button>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group row'>
+                            <label for="modal-email" class="col-3 col-form-label">Email</label>
+                            <div class="col-9">
+                                <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
+                            </div>
+                        </div>
+                        <div class='form-group row'>
+                            <label for="modal-nama" class="col-3 col-form-label">Nama</label>
+                            <div class="col-9">
+                                <input type='text' class='form-control' maxlength='100' name='nama' id='modal-nama' required >
+                            </div>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                        </button>
+                        <button type='submit' id='email-submit' class='btn btn-primary'>Kirim</button> 
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        <!-- /.modal-content -->
+        </div>
+    </div>
 
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
@@ -748,6 +793,55 @@
             xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
             console.log(xurl);
             $('#saku-report .card').load(xurl);
+        });
+
+        $('#sai-rpt-print').click(function(){
+            $('#saku-report .card').printThis();
+        });
+
+        $("#sai-rpt-excel").click(function(e) {
+            e.preventDefault();
+            $('#saku-report .card').tblToExcel();
+        });
+
+        
+        $("#sai-rpt-email").click(function(e) {
+            e.preventDefault();
+            $('#formEmail')[0].reset();
+            $('#modalEmail').modal('show');
+        });
+
+        $('#modalEmail').on('submit','#formEmail',function(e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            var html= $('#canvasPreview').html();
+            formData.append('html', html);
+            $loadBar2.show();
+            $.ajax({
+                type: 'POST',
+                url: "saku/gl_send_jurnal_form",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    alert(result.message);
+                    if(result.status){
+                        $('#modalEmail').modal('hide');
+                    }
+                    $loadBar2.hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            
         });
 
     </script>
