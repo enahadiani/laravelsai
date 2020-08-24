@@ -38,8 +38,7 @@
             cursor:pointer;
         }
 
-        #table-search tbody tr.selected,
-        #table-search2 tbody tr.selected,
+        #table-search tr.selected
         {
             background:#E8E8E8 !important;
         }
@@ -139,7 +138,7 @@
                                             <p class="kunci" hidden>akun</p>
                                             <label for="kode_akun" class="col-md-3 col-sm-12 col-form-label">Akun</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option></select>
+                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option><option value='in'>In</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -318,7 +317,12 @@
                 var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table>";
-            }else{
+            }
+            else if(type == "in"){
+                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+                table += "<tbody></tbody></table><button class='btn btn-primary float-right' id='btn-ok'>OK</button>";
+            }
+            else{
                 var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
                 table += "<tbody></tbody></table>";
             }
@@ -404,13 +408,14 @@
             }
 
             $('#table-search tbody').on('click', 'tr', function () {
+                
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                 }
                 else {
-                    searchTable.$('tr.selected').removeClass('selected');
-                    
                     if(type == "range"){
+                        
+                        searchTable.$('tr.selected').removeClass('selected');
                         searchTable2.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
     
@@ -429,7 +434,15 @@
                         $('#table-search_wrapper').addClass('hidden');
                         $('#table-search2_wrapper').removeClass('hidden');
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
-                    }else{
+                    }
+                    else if (type == "in"){
+                        $(this).addClass('selected');
+                        var datain = searchTable.rows('.selected').data();
+                        console.log(datain.length);
+                    }
+                    else{
+                        
+                        searchTable.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
 
                         var kode = $(this).closest('tr').find('td:nth-child(1)').text();
@@ -475,6 +488,24 @@
                     $('#modal-search').modal('hide');
                 }
             });
+
+            $('#modal-search').on('click','#btn-ok',function(){
+                var datain = searchTable.cells('.selected',0).data();
+                console.log(datain.length);
+                var kode = '';
+                var nama = '';
+                for(var i=0;i<datain.length;i++){
+                    if(i == 0){
+                        kode +=datain[i];
+                    }else{
+                        kode +=','+datain[i];
+                    }
+                }   
+                $($target).val(kode);
+                field[target2] = kode;
+                field[target3] = kode;
+                $('#modal-search').modal('hide');
+            });
         }
         
 
@@ -510,7 +541,6 @@
                     $aktif = "";
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
-                    console.log(par,target);
                     showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
@@ -533,7 +563,6 @@
                     $aktif = $(this);
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
-                    console.log(par,target);
                     showFilter(par,target,"range");
                     $('#modal-search').on('hide.bs.modal', function (e) {
                         if($aktif != ""){
@@ -560,6 +589,30 @@
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
                         }
+                    });
+                    
+                break;
+                case "in":
+                    
+                    $aktif = '';
+                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
+                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
+                    showFilter(par,target,"in");
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
+                    
+                    field.type = "in";
+                    field.from = "";
+                    field.to = "";
+                    field.fromname = "";
+                    field.toname = "";
+                    $('#modal-search').on('hide.bs.modal', function (e) {
+                        //
                     });
                     
                 break;
