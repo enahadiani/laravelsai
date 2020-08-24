@@ -335,9 +335,9 @@
                     field.toname = "";
                 break;
                 case "=":
-                    var par = kunci+'[]'; 
-                    var target = $('#'+kunci+'_from');
-                    showFilter(par,target);
+                    // var par = kunci+'[]'; 
+                    // var target = $('#'+kunci+'_from');
+                    // showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
@@ -352,9 +352,9 @@
                     field.toname = "";
                 break;
                 case "Range":
-                    var par = kunci+'[]'; 
-                    var target = $('#'+kunci+'_from');
-                    showFilter(par,target);
+                    // var par = kunci+'[]'; 
+                    // var target = $('#'+kunci+'_from');
+                    // showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
                     if(kunci == "periode"){
