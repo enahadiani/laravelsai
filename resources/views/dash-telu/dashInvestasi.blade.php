@@ -139,7 +139,7 @@ $nik     = Session::get('userLog');
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12 mb-4">
+        {{-- <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
                 <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
@@ -147,7 +147,7 @@ $nik     = Session::get('userLog');
                     <div id='rkaVSreal3' style='height:350px'></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
@@ -205,7 +205,7 @@ $nik     = Session::get('userLog');
         </div>
     </div> -->
 </div>
- <script type="text/javascript">
+ {{-- <script type="text/javascript">
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -258,7 +258,7 @@ $nik     = Session::get('userLog');
         var chart = new google.visualization.ComboChart(document.getElementById('rkaVSreal3'));
         chart.draw(data, options);
     }
- </script>
+ </script> --}}
 
 <script>
 var $kd = "";
