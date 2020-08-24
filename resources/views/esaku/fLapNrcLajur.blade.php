@@ -208,7 +208,8 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'kode_akun[]': 
+                case 'kode_akun[]':
+                case 'akun[]': 
                     header = ['Kode', 'Nama'];
                     var toUrl = "{{ url('esaku-report/filter-akun') }}";
                     var columns = [
@@ -335,9 +336,10 @@
                     field.toname = "";
                 break;
                 case "=":
-                    // var par = kunci+'[]'; 
-                    // var target = $('#'+kunci+'_from');
-                    // showFilter(par,target);
+                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
+                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
+                    console.log(par,target);
+                    showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
@@ -352,9 +354,10 @@
                     field.toname = "";
                 break;
                 case "Range":
-                    // var par = kunci+'[]'; 
-                    // var target = $('#'+kunci+'_from');
-                    // showFilter(par,target);
+                    var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
+                    var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
+                    console.log(par,target);
+                    showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
                     if(kunci == "periode"){
