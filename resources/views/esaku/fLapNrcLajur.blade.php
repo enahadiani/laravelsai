@@ -199,6 +199,8 @@
             toname : "",
         }
 
+        var $aktif = "";
+
         $('#show').selectize();
 
         $('#periode_from').val(namaPeriode("{{ date('Ym') }}"));
@@ -227,7 +229,7 @@
 
         $('.selectize').selectize();
 
-        function showFilter(param,target1){
+        function showFilter(param,target1,type = null){
             var par = param;
 
             var modul = '';
@@ -247,7 +249,7 @@
                         { data: 'kode_akun' },
                         { data: 'nama' }
                     ];
-                    var judul = "Daftar Akun";
+                    var judul = "Daftar Akun <span class='modal-subtitle'></span>";
                     var pilih = "akun";
                     $target = $target;
                     $target2 = target2;
@@ -261,7 +263,7 @@
                         { data: 'periode' },
                         { data: 'nama' }
                     ];
-                    var judul = "Daftar Periode";
+                    var judul = "Daftar Periode <span class='modal-subtitle'></span>";
                     var pilih = "periode";
                     $target = $target;
                     $target2 = target2;
@@ -276,8 +278,15 @@
                 header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
             }
 
-            var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            if(type == "range"){
+                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table>";
+            }else{
+                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+                table += "<tbody></tbody></table>";
+            }
+
 
             $('#modal-search .modal-body').html(table);
 
@@ -318,12 +327,100 @@
             $('#modal-search').modal('show');
             searchTable.columns.adjust().draw();
 
+            if(type == "range"){
+                var searchTable2 = $("#table-search2").DataTable({
+                    sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                    ajax: {
+                        "url": toUrl,
+                        "data": {'param':par},
+                        "type": "GET",
+                        "async": false,
+                        "dataSrc" : function(json) {
+                            return json.daftar;
+                        }
+                    },
+                    columns: columns,
+                    drawCallback: function () {
+                        $($(".dataTables_wrapper .pagination li:first-of-type"))
+                            .find("a")
+                            .addClass("prev");
+                        $($(".dataTables_wrapper .pagination li:last-of-type"))
+                            .find("a")
+                            .addClass("next");
+
+                        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                    },
+                    language: {
+                        paginate: {
+                            previous: "<i class='simple-icon-arrow-left'></i>",
+                            next: "<i class='simple-icon-arrow-right'></i>"
+                        },
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search...",
+                        lengthMenu: "Items Per Page _MENU_"
+                    },
+                });
+
+                $('#modal-search .modal-subtitle').html('[Rentang Awal]');
+                searchTable2.columns.adjust().draw();
+                
+                $('#table-search2_wrapper').addClass('hidden');
+            }
+
             $('#table-search tbody').on('click', 'tr', function () {
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                 }
                 else {
                     searchTable.$('tr.selected').removeClass('selected');
+                    
+                    if(type == "range"){
+                        searchTable2.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+    
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                        if(display == "kodename"){
+                            $($target).val(kode+' - '+nama);
+                        }else if(display == "name"){
+                            $($target).val(nama);
+                        }else{   
+                            $($target).val(kode);
+                        }
+                        field["from"] = kode;
+                        field["fromname"] = nama;
+                        
+                        $('#table-search_wrapper').addClass('hidden');
+                        $('#table-search2_wrapper').removeClass('hidden');
+                        $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
+                    }else{
+                        $(this).addClass('selected');
+
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                        if(display == "kodename"){
+                            $($target).val(kode+' - '+nama);
+                        }else if(display == "name"){
+                            $($target).val(nama);
+                        }else{   
+                            $($target).val(kode);
+                        }
+                        field[target2] = kode;
+                        field[target3] = nama;
+                        $('#modal-search').modal('hide');
+                    }
+
+                }
+            });
+
+            $('#table-search2 tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    
+                    searchTable.$('tr.selected').removeClass('selected');
+                    searchTable2.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
 
                     var kode = $(this).closest('tr').find('td:nth-child(1)').text();
@@ -336,9 +433,9 @@
                         $($target).val(kode);
                     }
 
-                    field[target2] = kode;
-                    field[target3] = nama;
-
+                    field["to"] = kode;
+                    field["toname"] = nama;   
+                    console.log(field);                 
                     $('#modal-search').modal('hide');
                 }
             });
@@ -352,6 +449,8 @@
             var field = eval(kunci);
             switch(type){
                 case "All":
+                    
+                    $aktif = '';
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
@@ -365,8 +464,14 @@
                     field.to = "";
                     field.fromname = "";
                     field.toname = "";
+                    $('#modal-search').on('hide.bs.modal', function (e) {
+                        //
+                    });
+                    
                 break;
                 case "=":
+                    
+                    $aktif = "";
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     console.log(par,target);
@@ -383,31 +488,44 @@
                     field.to = "";
                     field.fromname = field.fromname;
                     field.toname = "";
+                    $('#modal-search').on('hide.bs.modal', function (e) {
+                        //
+                    });
                 break;
                 case "Range":
+                    
+                    $aktif = $(this);
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     console.log(par,target);
-                    showFilter(par,target);
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
-                    if(kunci == "periode"){
+                    showFilter(par,target,"range");
+                    $('#modal-search').on('hide.bs.modal', function (e) {
+                        if($aktif != ""){
 
-                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
-                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
-                    }else if(kunci == "akun"){
-                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from+' - '+field.fromname);
-                        $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to+' - '+field.toname);
-                    }
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').removeClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').removeClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
-                    field.type = "Range";
-                    field.from = field.from;
-                    field.to = field.to;
-                    field.fromname =  field.fromname ;
-                    field.toname =  field.toname ;
+                            field.type = "Range";
+                            field.from = field.from;
+                            field.to = field.to;
+                            field.fromname =  field.fromname ;
+                            field.toname =  field.toname ;
+                            console.log('close');
+        
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
+                            if(kunci == "periode"){
+        
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
+                            }else if(kunci == "akun"){
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from+' - '+field.fromname);
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to+' - '+field.toname);
+                            }
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').removeClass('hidden');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').removeClass('hidden');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
+                        }
+                    });
+                    
                 break;
             }
            
