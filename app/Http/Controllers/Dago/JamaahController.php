@@ -290,6 +290,8 @@ class JamaahController extends Controller
             'sp' => 'required',
             'th_haji' => 'required',
             'th_umroh' => 'required',
+            'brkt_dgn' => 'required',
+            'hubungan' => 'required',
             'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048',
             'pendidikan' => 'required'
         ]);
