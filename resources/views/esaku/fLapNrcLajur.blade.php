@@ -26,6 +26,37 @@
         .input-group-append >.input-group-text{
             background-color: #e9ecef !important;
         }
+  
+    .page-item.next .page-link, .page-item.all .page-link {
+      background: #900604;
+      color: #fff;
+      border: 1px solid #900604; }
+    .page-item.prev .page-link {
+      background: #900604;
+      border: 1px solid #900604;
+      color: #fff; }
+    .page-item.first .page-link, .page-item.last .page-link {
+      background: transparent;
+      color: #900604;
+      border: 1px solid #900604;
+      border-radius: 30px; }
+      .page-item.first .page-link:hover, .page-item.last .page-link:hover {
+        background: #900604;
+        color: white;
+        border: 1px solid #900604; }
+    .page-item .page-link:hover {
+      background-color: transparent;
+      border-color: #c20805;
+      color: #900604; }
+  .page-item.active .page-link {
+    background: transparent;
+    border: 1px solid #900604;
+    color: #900604; }
+  .page-item.disabled .page-link {
+    border-color: #d7d7d7;
+    color: #d7d7d7;
+    background: transparent; }
+
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -115,7 +146,7 @@
                                     </div>
                                     <div class="col-sm-10 text-center">
                                         <div id="pager">
-                                            <ul id="pagination" class="pagination pagination-sm2"></ul>
+                                            <ul id="pagination" class="pagination pagination-sm2 float-right"></ul>
                                         </div>
                                     </div>
                                 </div>

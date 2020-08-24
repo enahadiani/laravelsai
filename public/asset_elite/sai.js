@@ -341,6 +341,47 @@ function generatePagination(id_pagination,recPerPage,data){
     }
 }
 
+function generatePaginationDore(id_pagination,recPerPage,data){
+    if(recPerPage != "All"){
+
+        var $pagination = $('#'+id_pagination),
+            totalRecords = data.result.length,
+            records = data.result,
+            recPerPage = parseInt(recPerPage),
+            page = 1,
+            totalPages = Math.ceil(totalRecords / recPerPage);
+
+        if($pagination.data("twbs-pagination")){
+            $pagination.twbsPagination('destroy');
+        }
+
+        $pagination.twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 3,
+            prev: '<i class="simple-icon-arrow-left"></i>',
+            next: '<i class="simple-icon-arrow-right"></i>',
+            first: '',
+            last: '',
+            onPageClick: function (event, page) {
+                displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+                endRec = (displayRecordsIndex) + recPerPage;
+                console.log(displayRecordsIndex + 's.d'+ endRec);
+                displayRecords = records.slice(displayRecordsIndex, endRec);
+                
+                if(!isNaN(displayRecordsIndex)){
+                    drawRptPage(displayRecords,data,displayRecordsIndex,endRec);
+                }else{
+                    drawRptPage(data.result,data);
+                }
+
+            }
+        });
+
+    }else{
+        drawRptPage(data.result,data);
+    }
+}
+
 
 
 function ajaxPost(insert_url, cancel_url, formData, clear){
