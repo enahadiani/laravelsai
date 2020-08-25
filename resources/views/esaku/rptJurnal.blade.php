@@ -74,7 +74,7 @@
                     <td align='center' class='istyle17 bold' style='font-size:18px'>BUKTI JURNAL</td>
                 </tr>
                 <tr>
-                    <td><table width='100%' class='table table-bordered color-table info-table'>
+                    <td><table width='100%' class='table table-bordered'>
                     <thead>
                     <tr>
                         <td width='30' class='bold'>NO</td>

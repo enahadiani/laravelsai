@@ -63,7 +63,7 @@
                     <td height='23' colspan='7' class='header_laporan' align='right'>Saldo Awal </td>
                     <td class='header_laporan' align='right'>`+sepNum(line.so_awal)+`</td>
                 </tr>
-                <tr bgcolor='#4286f5' style='color:white'>
+                <tr bgcolor='' style=''>
                     <td width='80' height='23' class='header_laporan' align='center'>No Bukti</td>
                     <td width='80' height='23' class='header_laporan' align='center'>No Dokumen</td>
                     <td width='60' class='header_laporan' align='center'>Tanggal</td>
