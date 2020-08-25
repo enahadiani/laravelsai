@@ -147,7 +147,7 @@
                                             <p class="kunci" hidden>periode</p>
                                             <label for="periode" class="col-md-3 col-sm-12 col-form-label">Periode</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='All'>Semua</option><option value='=' selected>Sama dengan</option><option value='Range'>Rentang</option></select>
+                                                <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='all'>Semua</option><option value='=' selected>Sama dengan</option><option value='range'>Rentang</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -173,7 +173,7 @@
                                             <p class="kunci" hidden>akun</p>
                                             <label for="kode_akun" class="col-md-3 col-sm-12 col-form-label">Akun</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='All' selected>Semua</option><option value='='>Sama dengan</option><option value='Range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -211,7 +211,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
-                                            <option value="All">All</option>
+                                            <option value="all">all</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-10 text-center">
@@ -252,7 +252,7 @@
     </div>
     <!-- END MODAL -->
 
-    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id='formEmail'>
@@ -299,7 +299,7 @@
             toname : "",
         }
         var akun = {
-            type : "All",
+            type : "all",
             from : "",
             fromname : "",
             to : "",
@@ -365,6 +365,7 @@
                     $target2 = target2;
                     var display = "kodename";
                     var field = eval("akun");
+                    var kunci = "kode_akun";
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
@@ -379,6 +380,7 @@
                     $target2 = target2;
                     var field = eval("periode");
                     var display = "name";
+                    var kunci = "periode";
                 break;
             }
 
@@ -564,7 +566,18 @@
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
                         $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
                         $('#rentang-tag').on('itemRemoved', function(event) {
-                            console.log('item removed : '+event.item);
+                            console.log('item removed : '+event.item.id);
+                            console.log('kode_akun='+event.item.id);
+                            var rowIndexes = [];
+                            searchTable.rows( function ( idx, data, node ) {             
+                                if(data[kunci] === kode){
+                                    rowIndexes.push(idx);                  
+                                }
+                                return false;
+                            }); 
+                            console.log(rowIndexes);
+                            searchTable.row(rowIndexes).deselect();
+
                             $('#table-search_wrapper').removeClass('hidden');
                             $('#table-search2_wrapper').addClass('hidden');
                             $('#modal-search .modal-subtitle').html('[Rentang Awal]');
@@ -635,8 +648,16 @@
             $('#table-search2 tbody').on('click', '.hapus-item', function () {
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 searchTable2.row( $(this).parents('tr') ).remove().draw();
-                console.log(kode);
-                searchTable.row().search(kode).deselect();
+                console.log('kode_akun='+kode);
+                var rowIndexes = [];
+                searchTable.rows( function ( idx, data, node ) {             
+                    if(data[kunci] === kode){
+                        rowIndexes.push(idx);                  
+                    }
+                    return false;
+                }); 
+                console.log(rowIndexes);
+                searchTable.row(rowIndexes).deselect();
             });
 
             $('#modal-search').on('click','#btn-ok',function(){
@@ -660,12 +681,12 @@
         
 
         $('#form-filter').on('change', '.sai-rpt-filter-type', function(){
-            console.log('change');
             var type = $(this).val();
+            console.log(type);
             var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
             var field = eval(kunci);
             switch(type){
-                case "All":
+                case "all":
                     
                     $aktif = '';
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
@@ -676,7 +697,7 @@
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
                     
-                    field.type = "All";
+                    field.type = "all";
                     field.from = "";
                     field.to = "";
                     field.fromname = "";
@@ -708,7 +729,7 @@
                         //
                     });
                 break;
-                case "Range":
+                case "range":
                     
                     $aktif = $(this);
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
@@ -717,7 +738,7 @@
                     $('#modal-search').on('hide.bs.modal', function (e) {
                         if($aktif != ""){
 
-                            field.type = "Range";
+                            field.type = "range";
                             field.from = field.from;
                             field.to = field.to;
                             field.fromname =  field.fromname ;
@@ -823,7 +844,7 @@
             $loadBar2.show();
             $.ajax({
                 type: 'POST',
-                url: "saku/gl_send_jurnal_form",
+                url: "esaku-report/send-laporan",
                 dataType: 'json',
                 data: formData,
                 async:false,
