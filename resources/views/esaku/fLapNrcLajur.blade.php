@@ -244,7 +244,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button> 
                 </div>
-                <div class="modal-body">
+                <div class="modal-body pt-3">
                     
                 </div>
             </div>
@@ -391,7 +391,7 @@
             }
 
             if(type == "range"){
-                var table = "<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag'><table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+                var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
             table += "<tbody></tbody></table>";
             }
@@ -425,6 +425,9 @@
 
 
             $('#modal-search .modal-body').html(table);
+            
+            $('#btn-ok').addClass('disabled');
+            $('#btn-ok').prop('disabled', true);
 
             var searchTable = $("#table-search").DataTable({
                 sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -501,12 +504,41 @@
                 searchTable2.columns.adjust().draw();
                 
                 $('#table-search2_wrapper').addClass('hidden');
+
+                $("<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag'>").insertAfter('#table-search_filter label');
+                $("<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag2'>").insertAfter('#table-search2_filter label');
                 $("#rentang-tag").tagsinput({
                     cancelConfirmKeysOnEmpty: true,
                     confirmKeys: [13],
                     itemValue: 'id',
                     itemText: 'text'
                 });
+                $("#rentang-tag2").tagsinput({
+                    cancelConfirmKeysOnEmpty: true,
+                    confirmKeys: [13],
+                    itemValue: 'id',
+                    itemText: 'text'
+                });
+                $('#rentang-tag').on('itemAdded', function(event) {
+                    $('#rentang-tag2').tagsinput('add', {id:event.item.id,text:event.item.text});
+                }); 
+                
+                $('#rentang-tag2').on('itemRemoved', function(event) {
+                    $('#rentang-tag').tagsinput('remove', {id:event.item.id,text:event.item.text});
+                    var rowIndexes = [];
+                    searchTable.rows( function ( idx, data, node ) {             
+                        if(data[kunci] === event.item.id){
+                            rowIndexes.push(idx);                  
+                        }
+                        return false;
+                    }); 
+                    searchTable.row(rowIndexes).deselect();
+                    
+                    $('#table-search_wrapper').removeClass('hidden');
+                    $('#table-search2_wrapper').addClass('hidden');
+                    $('#modal-search .modal-subtitle').html('[Rentang Awal]');
+                }); 
+                $('.bootstrap-tagsinput').css('text-align','left');
             }else if(type == "in"){
                 var searchTable2 = $("#table-search2").DataTable({
                     sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -541,6 +573,22 @@
                 
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
+                    if(type == "in"){
+                        var datain = searchTable.rows('.selected').data();
+                        if(datain.length > 1){
+                            
+                            $('#btn-ok').removeClass('disabled');
+                            $('#btn-ok').prop('disabled', false);
+                        }else{
+                            
+                            $('#btn-ok').addClass('disabled');
+                            $('#btn-ok').prop('disabled', true);
+                        }
+                        searchTable2.clear().draw();
+                        if(typeof datain !== 'undefined' && datain.length>0){
+                            searchTable2.rows.add(datain).draw(false);
+                        }
+                    }
                 }
                 else {
                     if(type == "range"){
@@ -561,31 +609,24 @@
                         field["from"] = kode;
                         field["fromname"] = nama;
                         
+                        $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
+                       
                         $('#table-search_wrapper').addClass('hidden');
                         $('#table-search2_wrapper').removeClass('hidden');
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
-                        $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
-                        $('#rentang-tag').on('itemRemoved', function(event) {
-                            console.log('item removed : '+event.item.id);
-                            console.log('kode_akun='+event.item.id);
-                            var rowIndexes = [];
-                            searchTable.rows( function ( idx, data, node ) {             
-                                if(data[kunci] === kode){
-                                    rowIndexes.push(idx);                  
-                                }
-                                return false;
-                            }); 
-                            console.log(rowIndexes);
-                            searchTable.row(rowIndexes).deselect();
-
-                            $('#table-search_wrapper').removeClass('hidden');
-                            $('#table-search2_wrapper').addClass('hidden');
-                            $('#modal-search .modal-subtitle').html('[Rentang Awal]');
-                        }); 
                     }
                     else if (type == "in"){
                         $(this).addClass('selected');
                         var datain = searchTable.rows('.selected').data();
+                        if(datain.length > 1){
+                            
+                            $('#btn-ok').removeClass('disabled');
+                            $('#btn-ok').prop('disabled', false);
+                        }else{
+                            
+                            $('#btn-ok').addClass('disabled');
+                            $('#btn-ok').prop('disabled', true);
+                        }
                         searchTable2.clear().draw();
                         if(typeof datain !== 'undefined' && datain.length>0){
                             searchTable2.rows.add(datain).draw(false);
@@ -639,7 +680,7 @@
                         field["toname"] = nama;   
                         console.log(field);      
                         
-                        $('#rentang-tag').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
+                        $('#rentang-tag2').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
                         $('#modal-search').modal('hide');
                     }
                 }
