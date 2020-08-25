@@ -271,7 +271,7 @@
                         <div class='form-group row'>
                             <label for="modal-nama" class="col-3 col-form-label">Nama</label>
                             <div class="col-9">
-                                <input type='text' class='form-control' maxlength='100' name='nama' id='modal-nama' required >
+                                <input type='text' class='form-control' maxlength='100' name='to_name' id='modal-nama' required >
                             </div>
                         </div>
                     </div>
@@ -835,16 +835,18 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.append("kode_akun[]",akun.type);
+            $formData.append("kode_akun[]",akun.from);
+            $formData.append("kode_akun[]",akun.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            
-            var html= $('#canvasPreview').html();
-            formData.append('html', html);
-            $loadBar2.show();
             $.ajax({
                 type: 'POST',
-                url: "esaku-report/send-laporan",
+                url: "{{ url('esaku-report/send-laporan') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -856,7 +858,7 @@
                     if(result.status){
                         $('#modalEmail').modal('hide');
                     }
-                    $loadBar2.hide();
+                    // $loadBar2.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);

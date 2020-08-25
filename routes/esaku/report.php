@@ -31,3 +31,4 @@ Route::post('lap-barang', 'Esaku\LaporanController@getBarang');
 Route::post('lap-saldo', 'Esaku\LaporanController@getSaldo');
 Route::post('lap-kartu', 'Esaku\LaporanController@getKartu');
 Route::post('lap-nrclajur', 'Esaku\LaporanController@getNrcLajur');
+Route::post('send-laporan', 'Esaku\LaporanController@sendMail');
