@@ -555,13 +555,13 @@
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 else{
                     if(jenis == 'change'){
@@ -602,13 +602,13 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
             }
         });
@@ -654,13 +654,13 @@
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 else{
                     if(jenis == 'change'){
@@ -975,13 +975,13 @@
                             )
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
+                            // Swal.fire({
+                            //     title: 'Session telah habis',
+                            //     text: 'harap login terlebih dahulu!',
+                            //     icon: 'error'
+                            // }).then(function() {
                                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            })
+                            // })
                         }
                         else{
                             Swal.fire({
@@ -1063,13 +1063,13 @@
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
+                            // Swal.fire({
+                            //     title: 'Session telah habis',
+                            //     text: 'harap login terlebih dahulu!',
+                            //     icon: 'error'
+                            // }).then(function() {
                                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            })
+                            // })
                         }
                         else{
                             Swal.fire({
@@ -1917,13 +1917,13 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 $iconLoad.hide();
             }

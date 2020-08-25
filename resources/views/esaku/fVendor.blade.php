@@ -74,8 +74,18 @@
         justify-content: center; }
 
         .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
+            padding-left: 5px;
+            padding-right: 5px; 
+        }
+
+        .dataTables_length select {
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border:none;
+            width:120px !important;
+            transition-duration: 0.3s; 
+        }
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -417,7 +427,13 @@
             },
             search: "_INPUT_",
             searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_"
+            // lengthMenu: "Items Per Page _MENU_"
+            "lengthMenu": 'Menampilkan <select>'+
+            '<option value="10">10 per halaman</option>'+
+            '<option value="25">25 per halaman</option>'+
+            '<option value="50">50 per halaman</option>'+
+            '<option value="100">100 per halaman</option>'+
+            '</select>'
         },
     });
 
