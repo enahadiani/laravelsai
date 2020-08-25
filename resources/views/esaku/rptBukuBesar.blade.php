@@ -20,7 +20,7 @@
         var data = data;
         if(data.length > 0){
             if(res.back){
-                var back= `<button type="button" class="btn btn-light ml-2 mb-2" id="btn-back" style="float:right;">
+                var back= `<button type="button" class="btn btn-light mr-2 mb-2" id="btn-back" style="float:right;">
                 <i class=""></i> Back</button>`;
             }else{
                 var back= ``;

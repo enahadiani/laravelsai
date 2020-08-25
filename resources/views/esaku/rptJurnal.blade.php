@@ -23,7 +23,7 @@
         console.log(res.detail_jurnal);
         if(data.length > 0){
             if(res.back){
-                var back= `<button type="button" class="btn btn-light ml-2 mb-2" id="btn-back" style="float:right;">
+                var back= `<button type="button" class="btn btn-light mr-2 mb-2" id="btn-back" style="float:right;">
                 <i class=""></i> Back</button>`;
             }else{
                 var back= ``;
@@ -46,7 +46,7 @@
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`
-                <table class='table no-border'>
+                <table class='table table-borderless'>
                 <tr>
                     <td><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
                     <tr>
@@ -104,7 +104,7 @@
                                 tot_debet=tot_debet+parseFloat(line2.debet);
                                 tot_kredit=tot_kredit+parseFloat(line2.kredit);
                                 det+=`<tr>
-                                    <td class='isi_laporan' align='center'>`+i+`</td>
+                                    <td class='isi_laporan' align='center'>`+x+`</td>
                                     <td class='isi_laporan'>`+line2.kode_akun+`</td>
                                     <td class='isi_laporan'>`+line2.nama_akun+`</td>
                                     <td class='isi_laporan'>`+line2.keterangan+`</td>
@@ -112,8 +112,8 @@
                                     <td class='isi_laporan' align='right'>`+debet+`</td>
                                     <td class='isi_laporan' align='right'>`+kredit+`</td>
                                 </tr>`;
-                            }
                                 x=x+1;
+                            }
                         }
                         tot_debet1=sepNum(tot_debet);
                         tot_kredit1=sepNum(tot_debet);
