@@ -119,6 +119,10 @@
         {
             margin-top:0;
         }
+
+        .bootstrap-tagsinput input{
+            width:auto !important;
+        }
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -136,11 +140,11 @@
                             <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
                         </div>
                     </div>
-                    <div class="separator mb-2"></div>
+                    <div class="separator"></div>
                     <div class="row">
                         <div class="col-12 col-sm-12">
                             <div class="collapse show" id="collapseFilter">
-                                <div class="px-4 pb-4 pt-0">
+                                <div class="px-4 pb-4 pt-2">
                                     <form id="form-filter">
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
@@ -204,8 +208,8 @@
                         </div>
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
-                                <div class="p-4 row">
-                                    <div class='col-sm-2' style='padding-top: 0'>
+                                <div class="px-4 py-0 row"  style="min-height:63px">
+                                    <div class='col-sm-2' style='padding-top: 0;margin:auto'>
                                         <select name="show" id="show" class="form-control" style=''>
                                             <option value="10">10</option>
                                             <option value="25">25</option>
@@ -216,7 +220,7 @@
                                     </div>
                                     <div class="col-sm-10 text-center">
                                         <div id="pager">
-                                            <ul id="pagination" class="pagination pagination-sm2 float-right"></ul>
+                                            <ul id="pagination" class="pagination pagination-sm2 float-right mb-0"></ul>
                                         </div>
                                     </div>
                                 </div>
@@ -517,8 +521,8 @@
                 
                 $('#table-search2_wrapper').addClass('hidden');
 
-                $("<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag'>").insertAfter('#table-search_filter label');
-                $("<input class='col-sm-12 form-control mb-1' type='text' id='rentang-tag2'>").insertAfter('#table-search2_filter label');
+                $("<input class='form-control mb-1' type='text' id='rentang-tag'>").insertAfter('#table-search_filter label');
+                $("<input class='form-control mb-1' type='text' id='rentang-tag2'>").insertAfter('#table-search2_filter label');
                 $("#rentang-tag").tagsinput({
                     cancelConfirmKeysOnEmpty: true,
                     confirmKeys: [13],
@@ -550,7 +554,7 @@
                     $('#table-search2_wrapper').addClass('hidden');
                     $('#modal-search .modal-subtitle').html('[Rentang Awal]');
                 }); 
-                $('.bootstrap-tagsinput').css({'text-align':'left','border':'0'});
+                $('.bootstrap-tagsinput').css({'text-align':'left','border':'0','min-height':'41.2px'});
             }else if(type == "in"){
                 var searchTable2 = $("#table-search2").DataTable({
                     sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
