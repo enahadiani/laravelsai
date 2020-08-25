@@ -876,12 +876,12 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_akun[]",akun.type);
-            $formData.append("kode_akun[]",akun.from);
-            $formData.append("kode_akun[]",akun.to);
+            formData.append("periode[]",periode.type);
+            formData.append("periode[]",periode.from);
+            formData.append("periode[]",periode.to);
+            formData.append("kode_akun[]",akun.type);
+            formData.append("kode_akun[]",akun.from);
+            formData.append("kode_akun[]",akun.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
