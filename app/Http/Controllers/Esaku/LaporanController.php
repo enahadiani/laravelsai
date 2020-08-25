@@ -403,16 +403,16 @@
                 $query = [
                     'periode' => $request->periode,
                     'kode_akun' => $request->kode_akun,
-                    'email' => $request->email,
-                    'to_name' => $request->to_name
+                    'email' => $request->email
                 ];
         
                 $response = $client->request('POST',  config('api.url').'toko-report/send-laporan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
                     ],
-                    'form_params' => $query
+                    'body' => json_encode($query)
                 ]);
         
                 if ($response->getStatusCode() == 200) { // 200 OK

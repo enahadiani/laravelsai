@@ -268,12 +268,6 @@
                                 <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
                             </div>
                         </div>
-                        <div class='form-group row'>
-                            <label for="modal-nama" class="col-3 col-form-label">Nama</label>
-                            <div class="col-9">
-                                <input type='text' class='form-control' maxlength='100' name='to_name' id='modal-nama' required >
-                            </div>
-                        </div>
                     </div>
                     <div class='modal-footer'>
                         <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
