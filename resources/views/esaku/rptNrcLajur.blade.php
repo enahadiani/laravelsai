@@ -21,8 +21,8 @@
         var data = data;
         if(data.length > 0){
             if(res.back){
-                var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
-                <i class="fa fa-undo"></i> Back</button>`;
+                var back= `<button type="button" class="btn btn-light ml-2" id="btn-back" style="float:right;">
+                <i class=""></i> Back</button>`;
             }else{
                 var back= ``;
             }

@@ -123,10 +123,10 @@
         <div class="row" id="saku-filter">
             <div class="col-12">
                 <div class="card" >
-                    <div class="card-body pt-4 pb-2 px-4">
+                    <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
                         <h5 style="position:absolute;top: 25px;">Laporan Neraca Lajur</h5>
-                        <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
-                        <button id="btn-export" type="button" class="btn btn-light dropdown-toggle float-right"
+                        <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
+                        <button id="btn-export" type="button" class="btn btn-light dropdown-toggle float-right hidden"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Export
                         </button>
@@ -243,6 +243,10 @@
                     <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button> 
+                    <ul class="nav nav-tabs col-12 hidden" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
+                    </ul>
                 </div>
                 <div class="modal-body pt-3">
                     
@@ -314,6 +318,9 @@
                 $(this).removeClass("btn-primary");
                 $(this).addClass("btn-light");
             }
+            
+            $('#btn-filter').addClass("hidden");
+            $('#btn-export').addClass("hidden");
         });
         
         $('#btn-tutup').click(function(e){
@@ -321,6 +328,8 @@
             $('#collapsePaging').show();
             $('#btn-filter').addClass("btn-primary");
             $('#btn-filter').removeClass("btn-light");
+            $('#btn-filter').removeClass("hidden");
+            $('#btn-export').removeClass("hidden");
         });
 
         $('#btn-tampil').click(function(e){
@@ -328,6 +337,8 @@
             $('#collapsePaging').show();
             $('#btn-filter').addClass("btn-primary");
             $('#btn-filter').removeClass("btn-light");
+            $('#btn-filter').removeClass("hidden");
+            $('#btn-export').removeClass("hidden");
         });
 
         $('.selectize').selectize();
@@ -386,8 +397,12 @@
 
             if(type == "range"){
                 var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-            table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
-            table += "<tbody></tbody></table>";
+                table += "<tbody></tbody></table><table width='100%' id='table-search2'><thead><tr>"+header_html+"</tr></thead>";
+                table += "<tbody></tbody></table>";
+                if(!$('#modal-search .modal-header ul').hasClass('hidden')){
+                    $('#modal-search .modal-header ul').addClass('hidden');
+                    $('#modal-search .modal-header').css('padding-bottom','1.75rem');
+                }
             }
             else if(type == "in"){
                 var headerpilih_html = '';
@@ -396,10 +411,7 @@
                     headerpilih_html +=  "<th style='width:"+width[i]+"'>"+header_pilih[i]+"</th>";
                 }
 
-                var table = `<ul class="nav nav-tabs col-12 " role="tablist">
-                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#list" role="tab" aria-selected="true"><span class="hidden-xs-down">Data</span></a></li>
-                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#terpilih" role="tab" aria-selected="false"><span class="hidden-xs-down">Terpilih</span></a> </li>
-                </ul>
+                var table = `
                 <div class="tab-content tabcontent-border col-12 p-0">
                     <div class="tab-pane active" id="list" role="tabpanel">
                         <table class='' width='100%' id='table-search'><thead><tr>`+header_html+`</tr></thead>
@@ -411,10 +423,16 @@
                     </div>
                 </div>
                 <button class='btn btn-primary float-right' id='btn-ok'>OK</button>`;
+                $('#modal-search .modal-header').css('padding-bottom','0');
+                $('#modal-search .modal-header ul').removeClass('hidden');
             }
             else{
                 var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
                 table += "<tbody></tbody></table>";
+                if(!$('#modal-search .modal-header ul').hasClass('hidden')){
+                    $('#modal-search .modal-header ul').addClass('hidden');
+                    $('#modal-search .modal-header').css('padding-bottom','1.75rem');
+                }
             }
 
 
@@ -532,7 +550,7 @@
                     $('#table-search2_wrapper').addClass('hidden');
                     $('#modal-search .modal-subtitle').html('[Rentang Awal]');
                 }); 
-                $('.bootstrap-tagsinput').css('text-align','left');
+                $('.bootstrap-tagsinput').css({'text-align':'left','border':'0'});
             }else if(type == "in"){
                 var searchTable2 = $("#table-search2").DataTable({
                     sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
@@ -809,8 +827,8 @@
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').addClass('search-item');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').text('ubah');
                     
                     field.type = "in";
                     field.from = "";
@@ -830,7 +848,13 @@
             var par = $(this).closest('.input-group').find('input').attr('name');
             var target1 = $(this).closest('.input-group').find('input');
             
-            showFilter(par,target1);
+            var type = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-type')[0].selectize.getValue();
+            console.log(type);
+            if(type == "in"){
+                showFilter(par,target1,type);
+            }else{
+                showFilter(par,target1);
+            }
         });
 
         var $formData = "";
@@ -849,6 +873,56 @@
             xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
             console.log(xurl);
             $('#saku-report .card').load(xurl);
+        });
+
+        $('#saku-report .card').on('click', '.bukubesar', function(e){
+        e.preventDefault();
+            var kode_akun = $(this).data('kode_akun');
+            var back = true;
+            
+            $formData.delete('kode_akun[]');
+            $formData.append('kode_akun[]', "=");
+            $formData.append('kode_akun[]', kode_akun);
+            $formData.append('kode_akun[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            xurl ="esaku-auth/form/rptBukuBesar";
+            $('#saku-report .card').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('#saku-report .card').on('click', '.jurnal', function(e){
+            e.preventDefault();
+            var no_bukti = $(this).data('no_bukti');
+            var back = true;
+            
+            $formData.delete('no_bukti[]');
+            $formData.append('no_bukti[]', "=");
+            $formData.append('no_bukti[]', no_bukti);
+            $formData.append('no_bukti[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            xurl ="esaku-auth/form/rptJurnal";
+            $('#saku-report .card').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('#saku-report .card').on('click', '#btn-back', function(e){
+            e.preventDefault();
+            $formData.delete('back');
+            $formData.delete('periode[]');
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.delete('kode_akun[]');
+            $formData.append("kode_akun[]",akun.type);
+            $formData.append("kode_akun[]",akun.from);
+            $formData.append("kode_akun[]",akun.to);
+            xurl = "esaku-auth/form/rptNrcLajur";
+            $('#saku-report .card').load(xurl);
+            // drawLapReg(formData);
         });
 
         $('#sai-rpt-print').click(function(){
