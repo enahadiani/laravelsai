@@ -207,9 +207,9 @@
                         </div>
                         <div class="form-group row ">
                             <label for="akun_hutang" class="col-md-2 col-sm-9 col-form-label">Akun Utang</label>
-                            <div class="col-md-3 col-sm-9 pr-0" >
+                            <div class="col-md-3 col-sm-9" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
