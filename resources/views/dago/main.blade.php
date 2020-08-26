@@ -377,7 +377,7 @@
                                                     <a href="javascript:void(0)">
                                                         <div class="btn btn-info btn-circle"><i class="ti-email"></i></div>
                                                         <div class="mail-contnet" style="width: 65%;">
-                                                            <h5>`+line.judul+`</h5> <span class="mail-desc">`+line.pesan+`</span> 
+                                                            <h5>`+line.title+`</h5> <span class="mail-desc">`+line.pesan+`</span> 
                                                         </div>
                                                         <div class="mail-contnet" style="width: 20%;">
                                                             <span class="time text-right">`+line.tgl+`</span>

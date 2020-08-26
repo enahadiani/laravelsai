@@ -1087,65 +1087,98 @@
         if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
-            var data = dataTable.row(this).data();
-            console.log(data);
-            var html = `<tr>
-                    <td style='border:none'>Kode Vendor</td>
-                    <td style='border:none'>`+id+`</td>
-                </tr>
-                <tr>
-                    <td>Nama Vendor</td>
-                    <td>`+data.nama+`</td>
-                </tr>
-                <tr>
-                    <td>No Telp</td>
-                    <td>`+data.no_tel+`</td>
-                </tr>
-                <tr>
-                    <td>No Fax</td>
-                    <td>`+data.no_fax+`</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>`+data.email+`</td>
-                </tr>
-                <tr>
-                    <td>No Telp PIC</td>
-                    <td>`+data.no_pictel+`</td>
-                </tr>
-                <tr>
-                    <td>Bank</td>
-                    <td>`+data.bank+`</td>
-                </tr>
-                <tr>
-                    <td>Cabang</td>
-                    <td>`+data.cabang+`</td>
-                </tr>
-                <tr>
-                    <td>No Rekening</td>
-                    <td>`+data.no_rek+`</td>
-                </tr>
-                <tr>
-                    <td>Nama Rekening</td>
-                    <td>`+data.nama_rek+`</td>
-                </tr>
-                <tr>
-                    <td>Alamat</td>
-                    <td>`+data.alamat+`</td>
-                </tr>
-                <tr>
-                    <td>Alamat NPWP</td>
-                    <td>`+data.alamat2+`</td>
-                </tr>
-                <tr>
-                    <td>Akun Hutang</td>
-                    <td>`+data.akun_hutang+`</td>
-                </tr>
-            `;
-            // $('#table-preview tbody').html(html);
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/esaku-trans/jurnal') }}/"+id,
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result= res.data;
+                    if(result.status){
+
+                        var html = `<tr>
+                            <td style='border:none'>No Bukti</td>
+                            <td style='border:none'>`+id+`</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>`+reverseDate2(result.jurnal[0].tanggal,'-','/')+`</td>
+                        </tr>
+                        <tr>
+                            <td>Deskripsi</td>
+                            <td>`+result.jurnal[0].deskripsi+`</td>
+                        </tr>
+                        <tr>
+                            <td>No Dokumen</td>
+                            <td>`+result.jurnal[0].no_dokumen+`</td>
+                        </tr>
+                        <tr>
+                            <td>NIK Verifikasi</td>
+                            <td>`+result.jurnal[0].nik_periksa+`</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis</td>
+                            <td>`+result.jurnal[0].jenis+`</td>
+                        </tr>
+                        <tr>
+                            <td>Total Debet</td>
+                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                        </tr>
+                        <tr>
+                            <td>Total Kredit</td>
+                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <table id='table-ju-preview' class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Kode Akun</th>
+                                            <th style="width:18%">Nama Akun</th>
+                                            <th style="width:5%">DC</th>
+                                            <th style="width:20%">Keterangan</th>
+                                            <th style="width:15%">Nilai</th>
+                                            <th style="width:7">Kode PP</th>
+                                            <th style="width:17">Nama PP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>`;
+                        
+                        $('#table-preview tbody').html(html);
+                        var det = ``;
+                        if(result.detail.length > 0){
+                            var input = '';
+                            var no=1;
+                            for(var i=0;i<result.detail.length;i++){
+                                var line =result.detail[i];
+                                input += "<tr>";
+                                input += "<td>"+no+"</td>";
+                                input += "<td >"+line.kode_akun+"</td>";
+                                input += "<td >"+line.nama_akun+"</td>";
+                                input += "<td >"+line.dc+"</td>";
+                                input += "<td >"+line.keterangan+"</td>";
+                                input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
+                                input += "<td >"+line.kode_pp+"</td>";
+                                input += "<td >"+line.nama_pp+"</td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                            $('#table-ju-preview tbody').html(input);
+                        }
+                        $('#modal-preview-id').text(id);
+                        $('#modal-preview').modal('show');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
             
-            $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
         }
     });
 
