@@ -362,6 +362,7 @@
         cluster: 'ap1',
         encrypted: true
     });
+    var userNIK = "{{ Session::get('userLog') }}";
 
     var channel = pusher.subscribe('saidago-channel-'+userNIK);
     channel.bind('saidago-event', function(data) {
