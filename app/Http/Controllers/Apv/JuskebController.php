@@ -694,7 +694,8 @@ class JuskebController extends Controller
                         $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
-                return response()->json(['data' => $data["success"],"cek"=>empty($cek),'file'=>$fields_nama_file], 200);  
+                return response()->json(['data' => $data["success"],"cek"=>empty($cek),'file'=>$fields_foto], 200);  
+                // dump($request->file_dok);
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
