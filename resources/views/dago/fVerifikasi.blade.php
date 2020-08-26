@@ -88,6 +88,7 @@
                                                     <th>No Bukti</th>
                                                     <th>Tanggal</th>
                                                     <th>No Registrasi</th>
+                                                    <th>Nama Peserta</th>
                                                     <th>Paket</th>
                                                     <th>Jadwal</th>
                                                     <th>Nilai Paket</th>
@@ -424,6 +425,7 @@
             { data: 'no_kwitansi' },
             { data: 'tgl_bayar' },
             { data: 'no_reg' },
+            { data: 'nama_peserta' },
             { data: 'paket' },
             { data: 'jadwal' },
             { data: 'nilai_p' },
@@ -432,12 +434,12 @@
             { data: 'action' }
         ],
         'columnDefs': [
-            {'targets': [5,6,7],
+            {'targets': [6,7,8],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             },
             {
-                "targets": 8,
+                "targets": 9,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     if("{{ Session::get('userStatus') }}" == "U"){
