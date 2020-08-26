@@ -196,7 +196,15 @@ drawLap($formData);
                     </table>
                 </section>
                 `;
-
+                html += `<table style="margin-top: -90px; width: 100%;"><tr>`;
+                html += `<td style="padding: 0px 15px 15px 0px; width: 5%;">2.</td>`;
+                html += `<td style="width: 80%; text-align: justify; padding-top: 95px;">`;
+                html += `Sehubungan dengan hal di atas, maka kami mengajukan permohonan
+                        pembayaran sebesar
+                        <b>Rp. ${sepNum(result.data.data[0].nilai_akhir)},- (${result.data.terbilang})</b> termasuk PPN
+                        10% dengan perincian sebagai berikut :`;
+                html += `</td>`;
+                html += `</tr></table>`;
                 html += `</div>`;
                 var winPrint = window.open('', '', 'left=0,top=0,width=800,height=600,toolbar=0,scrollbars=0,status=0');
                 winPrint.document.write(html);
