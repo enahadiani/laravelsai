@@ -476,7 +476,9 @@
                 });
 
                 $('.notif-btn').click(function(){
-                    updateNotifRead();
+                    if($('#notif-count').text() != ""){
+                        updateNotifRead();
+                    }
                 });
             </script>
         </div>
