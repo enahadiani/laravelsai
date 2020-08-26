@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Apv;
+namespace App\Http\Controllers\Dago;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class NotifController extends Controller
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('apv/login')->with('alert','Session telah habis !');
+            return redirect('dago-auth/login')->with('alert','Session telah habis !');
         }
     }
 
@@ -27,7 +27,7 @@ class NotifController extends Controller
     public function register(Request $request)
     {
         $client = new Client();
-        $response = $client->request('POST',  config('api.url').'apv/notif_register',[
+        $response = $client->request('POST',  config('api.url').'dago-auth/notif_register',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -99,7 +99,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/notif-pusher',[
+            $response = $client->request('GET',  config('api.url').'dago-auth/notif-pusher',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -126,7 +126,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'apv/notif-update-status',[
+            $response = $client->request('PUT',  config('api.url').'dago-auth/notif-update-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
