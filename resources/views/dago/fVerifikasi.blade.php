@@ -352,7 +352,34 @@
     </div>
     <!-- END MODAL --> 
 </div>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('d428ef5138920b411264', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
+    var channel = pusher.subscribe('saidago-channel-'+userNIK);
+    channel.bind('saidago-event', function(data) {
+        // alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        getNotif();
+        $.toast({
+            heading: data.title,
+            text: data.message,
+            position: 'top-center',
+            loaderBg:'#ff6849',
+            icon: 'info',
+            hideAfter: 7200, 
+            stack: 6
+        });
+        
+    });
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);

@@ -226,20 +226,20 @@
                         <!-- Comment -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
-                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark notif-btn" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="icon-bell"></i>
+                                <div class="notify" style="top: -40px;">  <span class="badge badge-danger text-white" style="border-radius: 50%;position: absolute;font-size: 10px;min-width: 20px;" id="notif-count"></span> </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="message-center">
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated" style="width:480px">
+                                <ul id="notif-dropdown">
+                                    <li class='header-notif'>
+                                        <div class="drop-title">
+                                            <span class="text-left">NOTIFICATIONS</span>
+                                            <span class="text-danger float-right">Mark all as read</span>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a class="nav-link text-center link" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+                                   
+                                    <li class='footer-notif'>
+                                        <a class="nav-link text-center link text-danger" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </div>
@@ -306,6 +306,13 @@
                 </div>
             </section>
             <script>
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+
                 function loadProfile(){
                    loadForm("{{url('dago-auth/form/fProfile')}}");
                 }
@@ -333,11 +340,69 @@
                         }
                     });
                 }
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    }
-                });
+
+                function getNotif(){
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ url('dago-auth/notif') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){    
+                            var notif='';
+                            $('.body-notif').remove(); 
+                            if(result.data.status){
+                                if(result.data.jumlah == 0){
+                                    
+                                    $('#notif-count').text('');
+                                }else{
+
+                                    $('#notif-count').text(result.data.jumlah);
+                                }
+                                if(result.data.data.length > 0){
+                                    for(var i=0;i<result.data.data.length;i++){
+                                        var line = result.data.data[i];
+                                        notif+=` <li class='body-notif'>
+                                                <div class="message-center" style="height: unset;">
+                                                    <a href="javascript:void(0)">
+                                                        <div class="btn btn-info btn-circle"><i class="ti-email"></i></div>
+                                                        <div class="mail-contnet" style="width: 65%;">
+                                                            <h5>`+line.judul+`</h5> <span class="mail-desc">`+line.pesan+`</span> 
+                                                        </div>
+                                                        <div class="mail-contnet" style="width: 20%;">
+                                                            <span class="time text-right">`+line.tgl+`</span>
+                                                            <span class="time text-right">at `+line.jam+`</span> 
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                        </li>`;
+                                    }
+                                    $(notif).insertAfter('.header-notif');
+                                }
+
+                            }else{
+                                $('.body-notif').remove(); 
+                            }
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
+                }
+                
+                function updateNotifRead(){
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('dago-auth/notif-update-status') }}",
+                        dataType: 'json',
+                        async:false,
+                        success:function(result){    
+                            $('#notif-count').text('');
+                        },
+                        fail: function(xhr, textStatus, errorThrown){
+                            alert('request failed:'+textStatus);
+                        }
+                    });
+                }
 
                 function loadMenu(){
                     $.ajax({
@@ -358,6 +423,7 @@
                 }
 
                 loadMenu();
+                getNotif();
 
                 $('.sidebar-nav').on('click','.a_link',function(e){
                     e.preventDefault();
@@ -396,6 +462,10 @@
                     if($('#content-lap').length > 0){
                         setHeightReport();
                     }
+                });
+
+                $('.notif-btn').click(function(){
+                    updateNotifRead();
                 });
             </script>
         </div>

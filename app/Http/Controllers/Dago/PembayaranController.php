@@ -31,6 +31,41 @@ class PembayaranController extends Controller
         }
     }
 
+    function sendPusher($data){ 	
+        try {
+            
+            $fields = array(
+                'id' => array($data['id']), 
+                'title' => $data['title'],
+                'message' => $data['message'],
+                'sts_insert' => $data['sts_insert']
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'dago-auth/notif-pusher', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -206,6 +241,22 @@ class PembayaranController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if($data['status'] == "SUCCESS"){
+                    $content = "Pengajuan pembayaran ".$data['no_kwitansi']."  menunggu verifikasi anda";
+                    $title = "Pengajuan Pembayaran [LaravelSAI]";
+                    $res = array(
+                        'title' => $title,
+                        'message' => $content,
+                        'id' => Session::get('userLog'),
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
+                    if($notif["status"]){
+                        $data["message"] .= " Notif to verifikasi success";
+                    }else{
+                        $data["message"] .= " Notif to verifikasi failed";
+                    }
+                }
                 return response()->json(['data' => $data], 200);  
             }
             
