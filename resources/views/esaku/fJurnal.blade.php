@@ -180,9 +180,9 @@
                             </div>
                             <div class="form-group row ">
                                 <label for="nik_periksa" class="col-md-2 col-sm-2 col-form-label">NIK Periksa</label>
-                                <div class="col-md-3 col-sm-9 pr-0" >
+                                <div class="col-md-3 col-sm-9" >
                                     <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 10px;"></i>
+                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                                 </div>
                                 <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                     <label id="label_nik_periksa" style="margin-top: 10px;"></label>
@@ -290,6 +290,50 @@
         </div>
     </div>
     <!-- END MODAL -->
+
+    
+    <!-- MODAL HAPUS -->
+    
+    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content" style="border-radius:1rem">
+                <div class="modal-body text-center pb-0" style="border:none">
+                    <span id="modal-delete-id" style="display:none"></span>
+                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
+                    <h1 style="font-weight:bold">Hapus Data</h1>
+                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Jurnal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL HAPUS -->
+
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Jurnal <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
+                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     
@@ -329,6 +373,11 @@
 
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
+    
+    // Initialize the plugin
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+
 
     function getPeriode(){
         $.ajax({
@@ -555,13 +604,13 @@
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 else{
                     if(jenis == 'change'){
@@ -602,13 +651,13 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
             }
         });
@@ -654,13 +703,13 @@
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 else{
                     if(jenis == 'change'){
@@ -947,57 +996,339 @@
         }
     });
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
+    // $('#saku-datatable').on('click','#btn-delete',function(e){
         
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('/esaku-trans/jurnal') }}/"+kode,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }
-                        else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            })
-                        }
-                        else{
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
+    //     Swal.fire({
+    //     title: 'Are you sure?',
+    //     text: "You won't be able to revert this!",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Yes, delete it!'
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             var kode = $(this).closest('tr').find('td:eq(0)').html(); 
+    //             $.ajax({
+    //                 type: 'DELETE',
+    //                 url: "{{ url('/esaku-trans/jurnal') }}/"+kode,
+    //                 dataType: 'json',
+    //                 async:false,
+    //                 success:function(result){
+    //                     if(result.data.status){
+    //                         dataTable.ajax.reload();
+    //                         Swal.fire(
+    //                             'Deleted!',
+    //                             'Your data has been deleted.',
+    //                             'success'
+    //                         )
+    //                     }
+    //                     else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                         // Swal.fire({
+    //                         //     title: 'Session telah habis',
+    //                         //     text: 'harap login terlebih dahulu!',
+    //                         //     icon: 'error'
+    //                         // }).then(function() {
+    //                             window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    //                         // })
+    //                     }
+    //                     else{
+    //                         Swal.fire({
+    //                         icon: 'error',
+    //                         title: 'Oops...',
+    //                         text: 'Something went wrong!',
+    //                         footer: '<a href>'+result.data.message+'</a>'
+    //                         })
+    //                     }
+    //                 }
+    //             });
                 
-            }else{
-                return false;
+    //         }else{
+    //             return false;
+    //         }
+    //     })
+    // });
+
+    
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('esaku-jurnal/jurnal') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your data has been deleted.',
+                        'success'
+                    );
+                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Jurnal ('+id+') berhasil dihapus ');
+                    $('#modal-delete-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-delete').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
             }
-        })
+        });
+    }
+
+    $('#table-data tbody tr').on('click','td',function(e){
+        if($(this).index() != 5){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/esaku-trans/jurnal') }}/"+id,
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result= res.data;
+                    if(result.status){
+
+                        var html = `<tr>
+                            <td style='border:none'>No Bukti</td>
+                            <td style='border:none'>`+id+`</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>`+reverseDate2(result.jurnal[0].tanggal,'-','/')+`</td>
+                        </tr>
+                        <tr>
+                            <td>Deskripsi</td>
+                            <td>`+result.jurnal[0].deskripsi+`</td>
+                        </tr>
+                        <tr>
+                            <td>No Dokumen</td>
+                            <td>`+result.jurnal[0].no_dokumen+`</td>
+                        </tr>
+                        <tr>
+                            <td>NIK Verifikasi</td>
+                            <td>`+result.jurnal[0].nik_periksa+`</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis</td>
+                            <td>`+result.jurnal[0].jenis+`</td>
+                        </tr>
+                        <tr>
+                            <td>Total Debet</td>
+                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                        </tr>
+                        <tr>
+                            <td>Total Kredit</td>
+                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <table id='table-ju-preview' class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Kode Akun</th>
+                                            <th style="width:18%">Nama Akun</th>
+                                            <th style="width:5%">DC</th>
+                                            <th style="width:20%">Keterangan</th>
+                                            <th style="width:15%">Nilai</th>
+                                            <th style="width:7">Kode PP</th>
+                                            <th style="width:17">Nama PP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>`;
+                        
+                        $('#table-preview tbody').html(html);
+                        var det = ``;
+                        if(result.detail.length > 0){
+                            var input = '';
+                            var no=1;
+                            for(var i=0;i<result.detail.length;i++){
+                                var line =result.detail[i];
+                                input += "<tr>";
+                                input += "<td>"+no+"</td>";
+                                input += "<td >"+line.kode_akun+"</td>";
+                                input += "<td >"+line.nama_akun+"</td>";
+                                input += "<td >"+line.dc+"</td>";
+                                input += "<td >"+line.keterangan+"</td>";
+                                input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
+                                input += "<td >"+line.kode_pp+"</td>";
+                                input += "<td >"+line.nama_pp+"</td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                            $('#table-ju-preview tbody').html(input);
+                        }
+                        $('#modal-preview-id').text(id);
+                        $('#modal-preview').modal('show');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                }
+            });
+            
+        }
+    });
+
+    $('.modal-footer').on('click','#btn-ya',function(e){
+        e.preventDefault();
+        var id = $('#modal-delete-id').text();
+        hapusData(id);
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-delete-id').text();
+        $('#modal-preview').modal('hide');
+        $('#modal-delete-id').text(id);
+        $('#modal-delete').modal('show');
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        $('#judul-form').html('Edit Data Jurnal');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $iconLoad.show();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-trans/jurnal') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id').val('edit');
+                    $('#method').val('put');
+                    $('#no_bukti').val(id);
+                    $('#no_bukti').attr('readonly', true);
+                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
+                    $('#deskripsi').val(result.jurnal[0].deskripsi);
+                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
+                    $('#nik_periksa').trigger('change');
+                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
+                    $('#total_debet').val(result.jurnal[0].nilai1);
+                    $('#total_kredit').val(result.jurnal[0].nilai1);
+                    $('#jenis').val(result.jurnal[0].jenis);
+                    if(result.detail.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            input += "<tr class='row-jurnal'>";
+                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
+                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+                            input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
+                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+        
+                            no++;
+                        }
+                        $('#input-jurnal tbody').html(input);
+                        no= 1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            $('.dcke'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tddcke'+no).text(value);
+                                    hitungTotal();
+                                }
+                            });
+                            $('#akunkode'+no).typeahead({
+                                // source: function (cari, result) {
+                                //     result($.map($dtAkun, function (item) {
+                                //         return item.kode_akun;
+                                //     }));
+                                // }
+                                source:$dtAkun,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+
+                            $('#ppkode'+no).typeahead({
+                                // source: function (cari, result) {
+                                //     result($.map($dtPP, function (item) {
+                                //         return item.kode_pp;
+                                //     }));
+                                // }
+                                source:$dtPP,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+                            $('.dcke'+no)[0].selectize.setValue(line.dc);
+                            $('.selectize-control.dcke'+no).addClass('hidden');
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        
+                    }
+                    hitungTotal();
+                   
+                    // $('#row-id').show();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }
+                $iconLoad.hide();
+            }
+        });
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $('#modal-delete-id').text(id);
+        $('#modal-delete').modal('show');
     });
 
     $('#form-tambah').validate({
@@ -1063,13 +1394,13 @@
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
+                            // Swal.fire({
+                            //     title: 'Session telah habis',
+                            //     text: 'harap login terlebih dahulu!',
+                            //     icon: 'error'
+                            // }).then(function() {
                                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            })
+                            // })
                         }
                         else{
                             Swal.fire({
@@ -1917,13 +2248,13 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    })
+                    // })
                 }
                 $iconLoad.hide();
             }

@@ -277,6 +277,8 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     
     
+    <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
+    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
@@ -346,7 +348,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right mt-3">
                     <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
-                    <a class="dropdown-item" href="{{ url('esaku-auth/logout') }}">Sign out</a>
+                    <a class="dropdown-item" href="#" onclick="logout()">Sign out</a>
                 </div>
             </div>
             <div class="header-icons d-inline-block align-middle mr-4">
@@ -1042,6 +1044,22 @@
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
         $('div.theme-colors').hide();
+        window.localStorage.setItem('logged_in', true);
+
+        function storageChange (event) {
+            if(event.key === 'logged_in') {
+                if(window.localStorage.getItem('logged_in') == "false"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        }
+        window.addEventListener('storage', storageChange, false);
+
+        function logout(){
+            window.localStorage.setItem('logged_in', false);
+            window.location.href = "{{ url('esaku-auth/logout') }}";
+        }
+
     </script>
 </body>
 </html>

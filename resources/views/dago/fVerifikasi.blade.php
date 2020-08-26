@@ -88,6 +88,7 @@
                                                     <th>No Bukti</th>
                                                     <th>Tanggal</th>
                                                     <th>No Registrasi</th>
+                                                    <th>Nama Peserta</th>
                                                     <th>Paket</th>
                                                     <th>Jadwal</th>
                                                     <th>Nilai Paket</th>
@@ -352,6 +353,25 @@
     <!-- END MODAL --> 
 </div>
 <script>
+    var userNIK = "{{ Session::get('userLog') }}";
+
+    var channel = $pusher.subscribe('saidago-channel-'+userNIK);
+    channel.bind('saidago-event', function(data) {
+        // alert(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        getNotif();
+        $.toast({
+            heading: data.title,
+            text: data.message,
+            position: 'top-center',
+            loaderBg:'#ff6849',
+            icon: 'info',
+            hideAfter: 7200, 
+            stack: 6
+        });
+        
+    });
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -424,6 +444,7 @@
             { data: 'no_kwitansi' },
             { data: 'tgl_bayar' },
             { data: 'no_reg' },
+            { data: 'nama_peserta' },
             { data: 'paket' },
             { data: 'jadwal' },
             { data: 'nilai_p' },
@@ -432,12 +453,12 @@
             { data: 'action' }
         ],
         'columnDefs': [
-            {'targets': [5,6,7],
+            {'targets': [6,7,8],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             },
             {
-                "targets": 8,
+                "targets": 9,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     if("{{ Session::get('userStatus') }}" == "U"){

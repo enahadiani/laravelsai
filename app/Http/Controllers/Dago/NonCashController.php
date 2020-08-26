@@ -151,6 +151,22 @@ class NonCashController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if($data['status'] == "SUCCESS"){
+                    $content = "Pengajuan pembayaran ".$data['no_kwitansi']."  menunggu verifikasi anda";
+                    $title = "Pengajuan Pembayaran [LaravelSAI]";
+                    $res = array(
+                        'title' => $title,
+                        'message' => $content,
+                        'id' => Session::get('userLog'),
+                        'sts_insert' => 1
+                    );
+                    $notif = $this->sendPusher($res);
+                    if($notif["status"]){
+                        $data["message"] .= " Notif to verifikasi success";
+                    }else{
+                        $data["message"] .= " Notif to verifikasi failed";
+                    }
+                }
                 return response()->json(['data' => $data], 200);  
             }
             

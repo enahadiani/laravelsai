@@ -328,72 +328,187 @@
         }
 
         
-    function getNrcLajur(Request $request){
-        try{
-            
-            $client = new Client();
-    
-            if(isset($request->jenis)){
-                $jenis = $request->jenis;
-            }else{
-                $jenis = "";
-            }
-    
-            if(isset($request->trail)){
-                $trail = $request->trail;
-            }else{
-                $trail = "";
-            }
-    
-            if(isset($request->kode_neraca)){
-                $kode_neraca = $request->kode_neraca;
-            }else{
-                $kode_neraca = "";
-            }
-    
-            if(isset($request->kode_fs)){
-                $kode_fs = $request->kode_fs;
-            }else{
-                $kode_fs = "";
-            }
-            
-            $query = [
-                'periode' => $request->periode,
-                'kode_akun' => $request->kode_akun,
-                'jenis' => $jenis,
-                'trail' => $trail,
-                'kode_neraca' => $kode_neraca,
-                'kode_fs' => $kode_fs
-            ];
-    
-            $response = $client->request('GET',  config('api.url').'toko-report/lap_nrclajur',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => $query
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
+        function getNrcLajur(Request $request){
+            try{
                 
-                $res = json_decode($response_data,true);
-                $data = $res["success"]["data"];
-            }
+                $client = new Client();
+        
+                if(isset($request->jenis)){
+                    $jenis = $request->jenis;
+                }else{
+                    $jenis = "";
+                }
+        
+                if(isset($request->trail)){
+                    $trail = $request->trail;
+                }else{
+                    $trail = "";
+                }
+        
+                if(isset($request->kode_neraca)){
+                    $kode_neraca = $request->kode_neraca;
+                }else{
+                    $kode_neraca = "";
+                }
+        
+                if(isset($request->kode_fs)){
+                    $kode_fs = $request->kode_fs;
+                }else{
+                    $kode_fs = "";
+                }
+                
+                $query = [
+                    'periode' => $request->periode,
+                    'kode_akun' => $request->kode_akun,
+                    'jenis' => $jenis,
+                    'trail' => $trail,
+                    'kode_neraca' => $kode_neraca,
+                    'kode_fs' => $kode_fs
+                ];
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-nrclajur',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $query
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+        
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back], 200);    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getJurnal(Request $request){
+            try{
     
-            if(isset($request->back)){
-                $back = true;
-            }else{
-                $back = false;
-            }
-            
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back], 200);    
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
-        } 
-    }
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-jurnal',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'modul' => $request->modul,
+                        'no_bukti' => $request->no_bukti,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    $detail = $res["detail_jurnal"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+    
+        function getBukuBesar(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-bukubesar',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_akun' => $request->kode_akun,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'jenis' => $request->jenis
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                    $detail = $res["data_detail"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function sendMail(Request $request){
+            try{
+                
+                $client = new Client();
+                
+                $query = [
+                    'periode' => $request->periode,
+                    'kode_akun' => $request->kode_akun,
+                    'email' => $request->email
+                ];
+        
+                $response = $client->request('POST',  config('api.url').'toko-report/send-laporan',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
+                    ],
+                    'body' => json_encode($query)
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res;
+                }
+
+                return response()->json($data, 200);    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            } 
+        }
 
     }
 ?>

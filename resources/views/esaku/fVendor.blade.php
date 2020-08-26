@@ -74,8 +74,18 @@
         justify-content: center; }
 
         .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
+            padding-left: 5px;
+            padding-right: 5px; 
+        }
+
+        .dataTables_length select {
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border:none;
+            width:120px !important;
+            transition-duration: 0.3s; 
+        }
     </style>
     <div class="row mb-3" id="saku-datatable">
         <div class="col-12">
@@ -207,9 +217,9 @@
                         </div>
                         <div class="form-group row ">
                             <label for="akun_hutang" class="col-md-2 col-sm-9 col-form-label">Akun Utang</label>
-                            <div class="col-md-3 col-sm-9 pr-0" >
+                            <div class="col-md-3 col-sm-9" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 20px;"></i>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
                                 <label id="label_akun_hutang" style="margin-top: 10px;"></label>
@@ -234,34 +244,49 @@
             </div>
         </div>
     </div>
-    <!-- END MODAL -->
+    <!-- MODAL HAPUS -->
+    
     <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
         <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title">Hapus Data Vendor <span id="modal-delete-nama"></span><span id="modal-delete-id" style="display:none"></span> </h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-content" style="border-radius:1rem">
+                <div class="modal-body text-center pb-0" style="border:none">
+                    <span id="modal-delete-id" style="display:none"></span>
+                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
+                    <h1 style="font-weight:bold">Hapus Data</h1>
+                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
                 </div>
-                <div class="modal-body" >
-                    <p class="mb-0">- Semua informasi tentang data vendor ini akan terhapus dari database</p>
-                    <p class="mb-4">- Data vendor ini akan terhapus permanen dalam 24 jam</p>
-                    <span style="z-index: 200;position: absolute;top: 85px;left: 40px;background: white;padding: 0 10px;">Meninjau Data Vendor</span>
-                    <div id="content-delete" class="py-2 px-2" style="height:250px;border: 1px solid #d7d7d7;">
-                        <table id="table-delete" class="table no-border">
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="border:none">
                     <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" >Hapus Data Vendor</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Vendor</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- END MODAL HAPUS -->
+
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
+                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
         // var $iconLoad = $('.preloader');
@@ -369,7 +394,7 @@
     $('[data-toggle="tooltip"]').tooltip(); 
 
     // Initialize the plugin
-    var scroll = document.querySelector('#content-delete');
+    var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
 
     var scrollform = document.querySelector('.form-body');
@@ -417,7 +442,13 @@
             },
             search: "_INPUT_",
             searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_"
+            // lengthMenu: "Items Per Page _MENU_"
+            "lengthMenu": 'Menampilkan <select>'+
+            '<option value="10">10 per halaman</option>'+
+            '<option value="25">25 per halaman</option>'+
+            '<option value="50">50 per halaman</option>'+
+            '<option value="100">100 per halaman</option>'+
+            '</select>'
         },
     });
 
@@ -781,10 +812,20 @@
         e.preventDefault();
         var id = $('#modal-delete-id').text();
         hapusData(id);
-    })
+    });
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-delete-id').text();
+        $('#modal-preview').modal('hide');
+        $('#modal-delete-id').text(id);
+        $('#modal-delete').modal('show');
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-master/vendor') }}/" + id,
@@ -792,67 +833,30 @@
             async:false,
             success:function(res){
                 var result= res.data;
-                var html = '';
-                
-                $('#table-delete tbody').html(html);
                 if(result.status){
-                    html +=`<tr>
-                        <td style='border:none'>Kode Vendor</td>
-                        <td style='border:none'>`+id+`</td>
-                    </tr>
-                    <tr>
-                        <td>Nama Vendor</td>
-                        <td>`+result.data[0].nama+`</td>
-                    </tr>
-                    <tr>
-                        <td>No Telp</td>
-                        <td>`+result.data[0].no_tel+`</td>
-                    </tr>
-                    <tr>
-                        <td>No Fax</td>
-                        <td>`+result.data[0].no_fax+`</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>`+result.data[0].email+`</td>
-                    </tr>
-                    <tr>
-                        <td>No Telp PIC</td>
-                        <td>`+result.data[0].no_pictel+`</td>
-                    </tr>
-                    <tr>
-                        <td>Bank</td>
-                        <td>`+result.data[0].bank+`</td>
-                    </tr>
-                    <tr>
-                        <td>Cabang</td>
-                        <td>`+result.data[0].cabang+`</td>
-                    </tr>
-                    <tr>
-                        <td>No Rekening</td>
-                        <td>`+result.data[0].no_rek+`</td>
-                    </tr>
-                    <tr>
-                        <td>Nama Rekening</td>
-                        <td>`+result.data[0].nama_rek+`</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td>`+result.data[0].alamat+`</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat NPWP</td>
-                        <td>`+result.data[0].alamat2+`</td>
-                    </tr>
-                    <tr>
-                        <td>Akun Hutang</td>
-                        <td>`+result.data[0].akun_hutang+`</td>
-                    </tr>
-                    `;
-                    $('#table-delete tbody').html(html);
-                    $('#modal-delete-id').text(id);
-                    $('#modal-delete').modal('show');
-
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_vendor').attr('readonly', true);
+                    $('#kode_vendor').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#alamat').val(result.data[0].alamat);
+                    $('#alamat2').val(result.data[0].alamat2);
+                    $('#email').val(result.data[0].email);
+                    $('#npwp').val(result.data[0].npwp);
+                    $('#pic').val(result.data[0].pic);
+                    $('#no_pictel').val(result.data[0].no_pictel);
+                    $('#no_tel').val(result.data[0].no_tel);
+                    $('#no_fax').val(result.data[0].no_fax);
+                    $('#bank').val(result.data[0].bank);
+                    $('#cabang').val(result.data[0].cabang);
+                    $('#no_rek').val(result.data[0].no_rek);
+                    $('#nama_rek').val(result.data[0].nama_rek);
+                    $('#akun_hutang').val(result.data[0].akun_hutang);
+                    getLabelAkun(result.data[0].akun_hutang);                    
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -860,6 +864,12 @@
                 // $iconLoad.hide();
             }
         });
+    });
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $('#modal-delete-id').text(id);
+        $('#modal-delete').modal('show');
     });
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
@@ -952,6 +962,71 @@
         afterSelect: function (item) {
             console.log('cek');
             searchForm(item);
+        }
+    });
+
+    $('#table-data tbody tr').on('click','td',function(e){
+        if($(this).index() != 3){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Kode Vendor</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Nama Vendor</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.no_tel+`</td>
+            </tr>
+            <tr>
+                <td>No Fax</td>
+                <td>`+data.no_fax+`</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>No Telp PIC</td>
+                <td>`+data.no_pictel+`</td>
+            </tr>
+            <tr>
+                <td>Bank</td>
+                <td>`+data.bank+`</td>
+            </tr>
+            <tr>
+                <td>Cabang</td>
+                <td>`+data.cabang+`</td>
+            </tr>
+            <tr>
+                <td>No Rekening</td>
+                <td>`+data.no_rek+`</td>
+            </tr>
+            <tr>
+                <td>Nama Rekening</td>
+                <td>`+data.nama_rek+`</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>`+data.alamat+`</td>
+            </tr>
+            <tr>
+                <td>Alamat NPWP</td>
+                <td>`+data.alamat2+`</td>
+            </tr>
+            <tr>
+                <td>Akun Hutang</td>
+                <td>`+data.akun_hutang+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
         }
     });
 
