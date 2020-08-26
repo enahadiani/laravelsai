@@ -21,14 +21,11 @@
             $dokumen = str_replace('.','/',$no_dokumen);
             try {
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sai-report/lap-tagihan-detail',[
+                $response = $client->request('GET',  config('api.url').'sai-report/lap-tagihan-detail?no_dokumen='.$dokumen."&kode_cust=".$kode_cust,
+                [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
-                    ],
-                    'query' => [
-                        'kode_cust' => $kode_cust,
-                        'dokumen' => $dokumen,
                     ]
                 ]);
 
@@ -36,7 +33,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res;
+                    $data = $res['data'];
                 }
                 return response()->json(['data' => $data, 'status'=>true], 200); 
             } catch (BadResponseException $e) {

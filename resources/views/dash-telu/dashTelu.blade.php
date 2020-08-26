@@ -129,15 +129,15 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card">
                  <h6 class="ml-3 mt-4">Growth RKA</h6>
                 <div class="card-body pt-0">
-                    <ul class="nav nav-tabs mb-2">
+                    <!-- <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Rp</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">%</a>
                         </li>
-                    </ul>
-                    <div id='growthRKA' style='height:300px'></div>
+                    </ul> -->
+                    <div id='growthRKA' style='height:300px;margin-top:10px;'></div>
                 </div>
             </div>
         </div>
@@ -145,15 +145,15 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card">
                  <h6 class="ml-3 mt-4">Growth Realisasi</h6>
                 <div class="card-body pt-0">
-                    <ul class="nav nav-tabs mb-2">
+                    <!-- <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Rp</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">%</a>
                         </li>
-                    </ul>
-                    <div id='growthReal' style='height:300px'></div>
+                    </ul> -->
+                    <div id='growthReal' style='height:300px;margin-top:10px;'></div>
                 </div>
             </div>
         </div>
