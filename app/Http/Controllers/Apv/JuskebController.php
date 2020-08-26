@@ -619,13 +619,14 @@ class JuskebController extends Controller
 
             $fields_foto = array();
             $fields_nama_file = array();
+            $fields_nama_file_seb = array();
             $cek = $request->file_dok;
             if(!empty($cek)){
 
                 if(count($request->file_dok) > 0){
 
-                    for($i=0;$i<count($request->file_dok);$i++){
-                        if($request->hasfile('file_dok')[$i]){
+                    for($i=0;$i<count($request->nama_dok);$i++){
+                        if(isset($request->file('file_dok')[$i])){
                             $image_path = $request->file('file_dok')[$i]->getPathname();
                             $image_mime = $request->file('file_dok')[$i]->getmimeType();
                             $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
@@ -635,15 +636,26 @@ class JuskebController extends Controller
                                 'Mime-Type'=> $image_mime,
                                 'contents' => fopen( $image_path, 'r' ),
                             );
-                            $nama_file = $request->nama_dok[$i];
-                            $fields_nama_file[$i] = array(
-                                'name'     => 'nama_file[]',
-                                'contents' => $nama_file,
+                        }else{
+                            $fields_foto[$i] = array(
+                                'name'     => 'file[]',
+                                'contents' => ''
                             );
                         }
+                        $nama_file = $request->nama_dok[$i];
+                        $fields_nama_file[$i] = array(
+                            'name'     => 'nama_file[]',
+                            'contents' => $nama_file,
+                        );
+
+                        $fields_nama_file_seb[$i] = array(
+                            'name'     => 'nama_file_seb[]',
+                            'contents' => $request->nama_file[$i],
+                        );
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file);
+                    $send_data = array_merge($send_data,$fields_nama_file_seb);
                 }
             }
                 
@@ -682,7 +694,7 @@ class JuskebController extends Controller
                         $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
-                return response()->json(['data' => $data["success"],"cek"=>empty($cek)], 200);  
+                return response()->json(['data' => $data["success"],"cek"=>empty($cek),'file'=>$fields_nama_file], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
