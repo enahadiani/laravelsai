@@ -464,7 +464,7 @@
             {
                 text: '<i class="simple-icon-equalizer"></i> &nbsp;&nbsp;Filter',
                 action: function ( e, dt, node, config ) {
-                    openFilter();
+                    // openFilter();
                 },
                 className: 'btn btn-light' 
             }
