@@ -314,7 +314,7 @@
 
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog" role="document" style="max-width:600px">
+        <div class="modal-dialog" role="document" style="max-width:800px">
             <div class="modal-content">
                 <div class="modal-header" style="display:block">
                     <h6 class="modal-title" style="position: absolute;">Preview Data Jurnal <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
