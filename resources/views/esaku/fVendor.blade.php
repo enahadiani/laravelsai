@@ -460,15 +460,26 @@
             '</select>'
         },
         dom: 'lBfrtip',
-        buttons: [
-            {
-                text: '<i class="simple-icon-equalizer"></i> &nbsp;&nbsp;Filter',
-                action: function ( e, dt, node, config ) {
-                    // openFilter();
+        buttons: {
+            buttons: [
+                {
+                    text: '<i class="simple-icon-equalizer"></i> &nbsp;&nbsp;Filter',
+                    action: function ( e, dt, node, config ) {
+                        // openFilter();
+                        console.log(dt);
+                    }
+                }
+            ],
+            dom: {
+                button: {
+                    tag: "button",
+                    className: "btn btn-light"
                 },
-                className: 'btn btn-light' 
+                buttonLiner: {
+                    tag: null
+                }
             }
-        ]
+        }
     });
 
     
