@@ -631,15 +631,10 @@ class JuskebController extends Controller
                             $image_mime = $request->file('file_dok')[$i]->getmimeType();
                             $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
                             $fields_foto[$i] = array(
-                                'name'     => 'file[]',
+                                'name'     => 'file['.$i.']',
                                 'filename' => $image_org,
                                 'Mime-Type'=> $image_mime,
                                 'contents' => fopen( $image_path, 'r' ),
-                            );
-                        }else{
-                            $fields_foto[$i] = array(
-                                'name'     => 'file[]',
-                                'contents' => ''
                             );
                         }
                         $nama_file = $request->nama_dok[$i];
@@ -694,7 +689,7 @@ class JuskebController extends Controller
                         $data["success"]["message"] .= " Notif to verifikasi failed";
                     }
                 }
-                return response()->json(['data' => $data["success"],"cek"=>empty($cek),'file'=>$fields_foto], 200);  
+                return response()->json(['data' => $data["success"],"cek"=>empty($cek)], 200);  
                 // dump($request->file_dok);
             }
         } catch (BadResponseException $ex) {
