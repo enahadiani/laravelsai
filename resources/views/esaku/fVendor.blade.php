@@ -984,7 +984,7 @@
         }
     });
 
-    $('#table-data tbody tr').on('click','td',function(e){
+    $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
