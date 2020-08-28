@@ -469,7 +469,7 @@ class JuspoController extends Controller
 
                 }
 
-                return response()->json(['data' => $data['success'],'cek'=>!empty($cek),'count'=>count($request->file_dok)], 200);  
+                return response()->json(['data' => $data['success']], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

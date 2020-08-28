@@ -136,6 +136,7 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <div class="form-group row " id="row-id">
                             <div class="col-9">
@@ -787,7 +788,7 @@
     });
     // END BUTTON SIMPAN
 
-    // HAPUS DATA
+    // BUTTON HAPUS DATA
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
