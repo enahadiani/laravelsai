@@ -1,6 +1,6 @@
 <div class='row' >
     <div class='col-md-8'>	<center>
-		<img src="/assets/img/home1.png" class='img-responsive'>
+		<img src="{{ config('api.url').'webjava/storage/home1.png' }}" class='img-responsive'>
 		</center>
     </div>
     <div class='col-md-4' style='height:358px;'>

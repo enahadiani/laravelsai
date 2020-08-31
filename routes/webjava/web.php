@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,20 @@ Route::get('/form/{id}', function ($id) {
     // }
 });
 
+Route::get('/form/{id}/{kode}/{name}', function ($id,$kode,$name) {
+    // if(!Session::has('isLoggedIn')){
+    //     return redirect('webjava/login')->with('alert','Session telah habis !');
+    // }else{
+        $data['page'] = $kode;
+        return view('webjava.'.$id,$data);
+    // }
+});
+
 Route::get('/', 'Webjava\WebController@index');
 Route::get('/menu', 'Webjava\WebController@getMenu');
 Route::get('/gallery', 'Webjava\WebController@getGallery');
+Route::get('/kontak', 'Webjava\WebController@getKontak');
+Route::get('/page/{id}', 'Webjava\WebController@getPage');
 
 
 

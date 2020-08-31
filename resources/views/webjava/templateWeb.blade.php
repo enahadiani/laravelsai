@@ -146,7 +146,10 @@
                     if(result[0].status){
                         $('#myNavbar').html('');
                         $('<ul class="nav navbar-nav navbar-right" style="margin-right:10px;">'+result[0].html+'</ul>').appendTo('#myNavbar').slideDown();
-                        $('.navbar-brand').html(`<img src="url('asset_adminlte/img/`+result[0].logo+`')" style="padding-left:15px; padding-bottom:10px; height:60px; width:auto" alt="logo">`);
+                        var tmp = result[0].logo.split("/");
+                        var logo = "{{ config('api.url') }}webjava/storage/"+tmp[3];
+                        
+                        $('.navbar-brand').html(`<img src="`+logo+`" style="padding-left:15px; padding-bottom:10px; height:60px; width:auto" alt="logo">`);
 
                     }
                 },

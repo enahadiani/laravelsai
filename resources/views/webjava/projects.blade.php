@@ -19,8 +19,8 @@
 								<div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img style='width:auto; height:400px;' src="/assets/uploads/java111.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java12.jpg">
+											<img style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java111.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java12.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
@@ -44,8 +44,8 @@
 								<div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java21.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java22.jpg">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java21.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java22.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
@@ -69,8 +69,8 @@
 								<div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java31.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java32.jpg">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java31.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java32.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
@@ -94,8 +94,8 @@
 								<div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java41.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java42.jpg">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java41.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java42.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
@@ -119,8 +119,8 @@
                                 <div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java51.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java52.jpg">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java51.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java52.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
@@ -144,8 +144,8 @@
                                 <div class="panel-body">
 									<div class="media accordion-inner">
 										<center>
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java61.jpg">
-											<img  style='width:auto; height:400px;' src="/assets/uploads/java62.jpg">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java61.jpg' }}">
+											<img  style='width:auto; height:400px;' src="{{ config('api.url').'webjava/storage/java62.jpg' }}">
 										</center>
 										<div class="media-body">
 											<!-- <h4>Adipisicing elit</h4> -->
