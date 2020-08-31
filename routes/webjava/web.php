@@ -16,20 +16,13 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/form/{id}', function ($id) {
-    // if(!Session::has('isLoggedIn')){
-    //     return redirect('webjava/login')->with('alert','Session telah habis !');
-    // }else{
-        return view('webjava.'.$id);
-    // }
+    return view('webjava.'.$id);
 });
 
 Route::get('/form/{id}/{kode}/{name}', function ($id,$kode,$name) {
-    // if(!Session::has('isLoggedIn')){
-    //     return redirect('webjava/login')->with('alert','Session telah habis !');
-    // }else{
-        $data['page'] = $kode;
-        return view('webjava.'.$id,$data);
-    // }
+    
+    $data['page'] = $kode;
+    return view('webjava.'.$id,$data);
 });
 
 Route::get('/', 'Webjava\WebController@index');

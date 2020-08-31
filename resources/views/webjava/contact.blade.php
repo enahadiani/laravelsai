@@ -11,7 +11,7 @@
 
                 <div class="col-sm-4">
                     <center>
-                        <img src="/assets/uploads/kantor.jpg" style='margin-top:20px;'>
+                        <img src="{{ config('api.url').'webjava/storage/kantor.jpg' }}" style='margin-top:20px;'>
                     </center>
                 </div>
 

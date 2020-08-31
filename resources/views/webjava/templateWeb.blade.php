@@ -66,7 +66,7 @@
     </style>
 </head><!--/head-->
 
-<body class="homepage"  style="background-image:url('asset_adminlte/img/pattern2.jpg');  background-repeat:repeat; height:100%;">
+<body class="homepage"  style="background-image:url({{ config('api.url').'webjava/storage/pattern2.jpg' }});  background-repeat:repeat; height:100%;">
 
     <header id="header">
 
@@ -164,6 +164,8 @@
         }
 
         loadMenu();
+
+        loadForm("{{ url('webjava/form/home') }}");
 
         $('#myNavbar').on('click','.a_link',function(e){
             e.preventDefault();
