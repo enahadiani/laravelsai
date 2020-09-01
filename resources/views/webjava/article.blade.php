@@ -186,8 +186,8 @@ if(isset($str)){
                                                 <span id='publish_date'>`+reverseDate(line.tgl_input)+`</span>
                                             </div>
                                         </div>
-                                        <div class='col-xs-12 col-sm-10'>
-                                            <h2 style='margin-top:5px;'><a href='`+url+`' style='color:#0066ff;'>`+line.judul+`</a></h2>
+                                        <div class='col-xs-12 col-sm-10 judul-link'>
+                                            <h2 style='margin-top:5px;'><a href='#' data-href='`+url+`' style='color:#0066ff;'>`+line.judul+`</a></h2>
                                         </div>
                                     </div>
                                     <div class='row'>
@@ -240,7 +240,7 @@ if(isset($str)){
     }
 
     loadarticle($npage);
-    $('.pageControl,.blog_archieve,.readmore,.blog_category').on('click','a',function(e){
+    $('.pageControl,.blog_archieve,.blog-content,.blog_category,.judul-link').on('click','a',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         var url = form;

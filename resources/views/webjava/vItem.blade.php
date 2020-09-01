@@ -26,7 +26,7 @@
                 
                 <aside class="col-md-4">
                     <div class="widget search">
-                        <form role="form" action='/webjava/search/all/string/' method='GET'>
+                        <form role="form" id="form-search" method='GET'>
                             <input type="text" name='str' class="form-control search_box" autocomplete="on" placeholder="Search" required>
                         </form>
                     </div>
@@ -217,5 +217,41 @@ if(isset($id)){
     }
 
     loadReadItem($nid);
+
+    $('.pageControl,.blog_archieve,.blog-content,.blog_category').on('click','a',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = form;
+        if(form == "" || form == "-"){
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
+    $('#form-search').submit(
+        function(e){
+        e.preventDefault();
+    });
+
+    $('.search_box').change(function(e){
+        var str = $('.search_box').val();
+        var url = "webjava/news-search/?str="+str;
+        loadForm(url);
+    });
+
+    $('.search_box').keydown(function(e){
+        if(e.which == 13) 
+        {
+            e.preventDefault();
+            
+            var str = $('.search_box').val();
+            var url = "webjava/news-search/?str="+str;
+
+            loadForm(url);
+        }
+    });
+
     
 </script>
