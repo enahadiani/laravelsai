@@ -25,6 +25,9 @@ Route::get('/', function () {
         case 'javaturbine.co.id' : 
             return redirect('webjava');
         break;
+        case 'trengginasjaya.com' : 
+            return redirect('webginas');
+        break;
         default : 
             return view('welcome');
         break;
