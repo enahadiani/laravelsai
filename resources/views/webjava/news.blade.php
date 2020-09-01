@@ -43,9 +43,17 @@
 <script>
     function generateSEO(id, judul)
     {
-        seo = str_replace(" ", "-", strtolower(judul));
-        seo = str_replace(array("(",")","'","/","'\'",':','"',',','?','%'), "", seo);
-        return "id/seo";
+        seo = toLowerCase(judul).replace(" ","-");
+        seo = seo.replace(["(",")","'","/","'\'",':','"',',','?','%'], "");
+        return id+"/"+seo;
+    }
+
+    function removeTags(str) {
+        if ((str===null) || (str===''))
+        return false;
+        else
+        str = str.toString();
+        return str.replace( /(<([^>]+)>)/ig, '');
     }
 
     function getNamaBulan(no_bulan){
@@ -66,6 +74,14 @@
         }
 
         return bulan;
+    }
+
+    function reverseDate(date_str, separator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+separator+str[1]+separator+str[0];
     }
 
      // template corlate only
@@ -107,13 +123,14 @@
                     for(var i=0; i<result.daftar_artikel.length;i++){
                         var line = result.daftar_artikel[i];
                         var url = "{{ url('readItem'/".generateSEO(line.id, line.judul)."') }}");
-                        var arr = explode('/', line.file_type]);
-                        var cut_on = strpos(strip_tags(line.keterangan), ".", strpos(strip_tags(line.keterangan), ".")  + strlen("."));
+                        var arr = line.file_type.split("/");
+
+                        var cut_on = removeTags(line.keterangan).indexOf(".", removeTags(line.keterangan).indexOf(".")  + (".").length);
 
                         if(arr[0] == 'video'){
                             var link_img = "<video controls  style='min-width:200px; min-height:200px; display:block; margin-left: auto; margin-right: auto;'><source src='"+line.header_url+"' type='"+line.file_type+"'></video>";
                         }else{
-                            var link_img = "<a href='$url'><img class='img-responsive img-blog' src='"+line.header_url+"' style='width:100%; display:block;' alt=''/></a>";
+                            var link_img = "<a href='"+url+"'><img class='img-responsive img-blog' src='"+line.header_url+"' style='width:100%; display:block;' alt=''/></a>";
                         }
 
                         html +=`<div class='blog-item'>
@@ -131,7 +148,7 @@
                                         <div class='col-xs-12 col-sm-12 blog-content'>
                                             <div style='overflow:hidden; max-height:400px;'>`+link_img+`
                                             </div>
-                                            <h3>`+substr(strip_tags(line.keterangan), 0, cut_on+1)+`</h3>
+                                            <h3>`+removeTags(line.keterangan).substr(0, cut_on+1)+`</h3>
                                             <a class='btn btn-sm btn-primary readmore' style='padding: 8px 8px;' href='`+url+`'>Read More <i class='fa fa-angle-right'></i></a>
                                         </div>
                                     </div>    
