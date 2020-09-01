@@ -22,6 +22,9 @@ Route::get('/', function () {
         case 'silo.simkug.com' : 
             return redirect('apv/login');
         break;
+        case 'javaturbine.co.id' : 
+            return redirect('webjava');
+        break;
         default : 
             return view('welcome');
         break;

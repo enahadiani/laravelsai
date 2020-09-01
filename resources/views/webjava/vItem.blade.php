@@ -1,17 +1,5 @@
 
     <section id="blog" class="container">
-        <!--<div class="center">-->
-            <!--<div class="col-xs-12 col-sm-2 text-center">
-                <div class="entry-meta">
-                    <span id="publish_date"></span>
-                </div>
-            </div>
-            <div class='col-xs-12 col-sm-10'>
-                <h2></h2>
-            </div>-->
-            <!--<p class="lead">SUB</p>-->
-        <!--</div>-->
-
         <div class="blog">
             <div class="row">
                 <div class="col-md-8">
