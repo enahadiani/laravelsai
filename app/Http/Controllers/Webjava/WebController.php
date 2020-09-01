@@ -219,5 +219,67 @@ class WebController extends Controller
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }    
     }
+
+    public function getNews($page,$bln,$thn){
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'webjava/news',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'page' => $page,
+                'bln' => $bln,
+                'thn' => $thn
+            ]
+        ]);
+
+        $hasil = "";
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            $success = json_decode($response_data,true);
+    
+        }else{
+            $success['status'] = true;
+            $success['daftar_artikel'] = [] ;
+            $success['categories'] = [] ;
+            $success['archive'] = [] ;
+            $success['jumlah_artikel'] = 0 ;
+            $success['item_per_page'] = 0 ;
+            $success['active_page'] = 0 ;
+        }
+                
+        return response()->json([$success], 200);     
+    }
+    
+    public function readItem($id){
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'webjava/read-item',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'id' => $id
+            ]
+        ]);
+
+        $hasil = "";
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            $success = json_decode($response_data,true);
+    
+        }else{
+            $success['status'] = true;
+            $success['daftar_artikel'] = [] ;
+            $success['categories'] = [] ;
+            $success['archive'] = [] ;
+            $success['jumlah_artikel'] = 0 ;
+            $success['item_per_page'] = 0 ;
+            $success['active_page'] = 0 ;
+        }
+                
+        return response()->json([$success], 200);     
+    }
     
 }

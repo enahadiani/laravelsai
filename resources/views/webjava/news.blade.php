@@ -35,10 +35,18 @@
         </div><!--/.row-->
     </div>
 </section><!--/#blog-->
+@php
+if(isset($page)){
+    $page = $page;
+}else{
+    $page = 1;
+}
+@endphp
 <script>
+    var $npage = "{{ $page }}";
     function generateSEO(id, judul)
     {
-        seo = toLowerCase(judul).replace(" ","-");
+        seo = judul.toLowerCase().replace(" ","-");
         seo = seo.replace(["(",")","'","/","'\'",':','"',',','?','%'], "");
         return id+"/"+seo;
     }
@@ -90,46 +98,58 @@
             }
         }
         
-        var list = (active_page_number > 1 ? "<li><a href='sub_url/"+(active_page_number - 1)+"'><i class='fa fa-long-arrow-left'></i>Previous Page</a></li>" : "");
+        var list = (active_page_number > 1 ? "<li><a href='#' data-href='"+sub_url+(active_page_number - 1)+"'><i class='fa fa-long-arrow-left'></i>Previous Page</a></li>" : "");
 
         for(var i=1; i <= page; i++)
         {
-            list += (i == active_page_number ? "<li class='active'><a href='#'>"+i+"</a></li>" : "<li><a href='"+sub_url+"'/'"+i+"'>"+i+"</a></li>");
+            list += (i == active_page_number ? "<li class='active'><a href='#' data-href='#'>"+i+"</a></li>" : "<li><a href='#' data-href='"+sub_url+""+i+"'>"+i+"</a></li>");
         }
 
-        list += (active_page_number < page ? "<li><a href='sub_url/"+(active_page_number + 1)+"'>Next Page<i class='fa fa-long-arrow-right'></i></a></li>" : "");
+        list += (active_page_number < page ? "<li><a href='#' data-href='"+sub_url+(parseInt(active_page_number) + 1)+"'>Next Page<i class='fa fa-long-arrow-right'></i></a></li>" : "");
 
-        var html = "<ul class='pagination pagination-lg'>"+list+"</ul>";
+        var html = "<ul class='pagination pagination-lg pageControl'>"+list+"</ul>";
         return html;
     }
 
-    function loadNews()
+    function loadNews($npage)
     {
+        console.log($npage);
+        if($npage == undefined){
+            $npage = 1;
+        }else{
+            $npage = $npage;
+        }
+        
+        console.log($npage);
         $.ajax({
             type: 'GET',
-            url: "{{ url('webjava/news') }}",
+            url: "{{ url('webjava/news') }}/"+$npage+"/null/null",
             dataType: 'json',
             async:false,
-            success:function(result)
+            success:function(res)
             {
                 var html ='';
+                var result = res[0];
                 if(result.daftar_artikel.length > 0)
                 {
 
                     for(var i=0; i<result.daftar_artikel.length;i++)
                     {
                         var line = result.daftar_artikel[i];
-                        var url = "{{ url('webjava/readItem') }}/"+generateSEO(line.id, line.judul);
+                        var url = "{{ url('webjava/read-item') }}/"+line.id;
                         var arr = line.file_type.split("/");
                         var keterangan = removeTags(line.keterangan);
                         var index = keterangan.indexOf(".")  + 1;
                         var cut_on = keterangan.indexOf(".", index);
 
+                        var tmp = line.header_url.split("/");
+                        var header_url = "{{ config('api.url') }}webjava/storage/"+tmp[3];
+
                         if(arr[0] == 'video')
                         {
-                            var link_img = "<video controls  style='min-width:200px; min-height:200px; display:block; margin-left: auto; margin-right: auto;'><source src='"+line.header_url+"' type='"+line.file_type+"'></video>";
+                            var link_img = "<video controls  style='min-width:200px; min-height:200px; display:block; margin-left: auto; margin-right: auto;'><source src='"+header_url+"' type='"+line.file_type+"'></video>";
                         }else{
-                            var link_img = "<a href='"+url+"'><img class='img-responsive img-blog' src='"+line.header_url+"' style='width:100%; display:block;' alt=''/></a>";
+                            var link_img = "<a href='"+url+"'><img class='img-responsive img-blog' src='"+header_url+"' style='width:100%; display:block;' alt=''/></a>";
                         }
 
                         html +=`<div class='blog-item'>
@@ -148,7 +168,7 @@
                                             <div style='overflow:hidden; max-height:400px;'>`+link_img+`
                                             </div>
                                             <h3>`+removeTags(line.keterangan).substr(0, cut_on+1)+`</h3>
-                                            <a class='btn btn-sm btn-primary readmore' style='padding: 8px 8px;' href='`+url+`'>Read More <i class='fa fa-angle-right'></i></a>
+                                            <a class='btn btn-sm btn-primary readmore' style='padding: 8px 8px;' href='#' data-href='`+url+`'>Read More <i class='fa fa-angle-right'></i></a>
                                         </div>
                                     </div>    
                                 </div>
@@ -157,7 +177,7 @@
                     }
 
                     html +=`
-                    <center>`+generateWebPaging('/webjava/news', result.jumlah_artikel, result,item_per_page, result.active_page)+`</center>`;
+                    <center>`+generateWebPaging('webjava/news/', result.jumlah_artikel, result.item_per_page, result.active_page)+`</center>`;
 
                     var categori = '';
                     if(result.categories.length > 0){
@@ -177,10 +197,10 @@
                         for(var i=0; i<result.archive.length;i++)
                         {
                             var arc = result.archive[i];
-                            archive += "<li><a href='/webjava/Index/news/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
+                            archive += "<li><a href='webjava/news/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
                         }
                     }
-                    $('.blog_archive').html(archive);
+                    $('.blog_archieve').html(archive);
                 }
 
                 $('#content-news').html(html);
@@ -192,5 +212,31 @@
         });
     }
 
-    loadNews();
+    loadNews($npage);
+    $('.pageControl').on('click','a',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
+    $('.readmore').click(function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+    
 </script>
