@@ -113,7 +113,7 @@ class AuthController extends Controller
     }
 
     public function login(){
-        return view('Wisata.login');
+        return view('wisata.login');
     }
 
     public function logout(){
