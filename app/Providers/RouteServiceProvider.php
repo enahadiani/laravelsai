@@ -69,7 +69,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapEsakuRoutes();
 
         $this->mapWebjavaRoutes();
+
         $this->mapWebginasRoutes();
+        
+        $this->mapWisataRoutes();
 
         //
     }

@@ -35,25 +35,25 @@ Route::get('/sesi-habis', function () {
     return view('wisata.sesi');
 });
 
-Route::get('/cek_session', 'wisata\AuthController@cek_session');
-Route::get('/', 'wisata\AuthController@index');
-Route::get('/dash', 'wisata\AuthController@index');
-Route::get('/menu', 'wisata\AuthController@getMenu');
-Route::get('/login', 'wisata\AuthController@login');
-Route::post('/login', 'wisata\AuthController@cek_auth');
-Route::get('/logout', 'wisata\AuthController@logout');
+Route::get('/cek_session', 'Wisata\AuthController@cek_session');
+Route::get('/', 'Wisata\AuthController@index');
+Route::get('/dash', 'Wisata\AuthController@index');
+Route::get('/menu', 'Wisata\AuthController@getMenu');
+Route::get('/login', 'Wisata\AuthController@login');
+Route::post('/login', 'Wisata\AuthController@cek_auth');
+Route::get('/logout', 'Wisata\AuthController@logout');
 
 
-Route::get('/profile', 'wisata\AuthController@getProfile');
-Route::post('/update-password', 'wisata\AuthController@updatePassword');
-Route::post('/update-foto', 'wisata\AuthController@updatePhoto');
-Route::post('/update-background', 'wisata\AuthController@updateBackground');
+Route::get('/profile', 'Wisata\AuthController@getProfile');
+Route::post('/update-password', 'Wisata\AuthController@updatePassword');
+Route::post('/update-foto', 'Wisata\AuthController@updatePhoto');
+Route::post('/update-background', 'Wisata\AuthController@updateBackground');
 
-Route::get('notif','wisata\NotifController@getNotif');
-Route::post('notif-update-status','wisata\NotifController@updateStatusRead');
-Route::post('search-form','wisata\AuthController@searchForm');
-Route::get('search-form-list','wisata\AuthController@searchFormList');
-Route::get('search-form-list2','wisata\AuthController@searchFormList2');
+Route::get('notif','Wisata\NotifController@getNotif');
+Route::post('notif-update-status','Wisata\NotifController@updateStatusRead');
+Route::post('search-form','Wisata\AuthController@searchForm');
+Route::get('search-form-list','Wisata\AuthController@searchFormList');
+Route::get('search-form-list2','Wisata\AuthController@searchFormList2');
 
 
 
