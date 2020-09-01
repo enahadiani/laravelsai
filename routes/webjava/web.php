@@ -34,7 +34,7 @@ Route::get('/news/{page}', function ($page) {
 Route::get('read-item/{id}', function ($id) {
     
     $data['id'] = $id;
-    return view('webjava.vitem',$data);
+    return view('webjava.vItem',$data);
 });
 
 Route::get('/', 'Webjava\WebController@index');
