@@ -68,6 +68,8 @@ class RouteServiceProvider extends ServiceProvider
         
         $this->mapEsakuRoutes();
 
+        $this->mapWebjavaRoutes();
+
         //
     }
 
@@ -273,6 +275,15 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/esaku/report.php'));
+   
+    }
+
+    protected function mapWebjavaRoutes()
+    {
+        Route::prefix('webjava')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webjava/web.php'));
    
     }
 

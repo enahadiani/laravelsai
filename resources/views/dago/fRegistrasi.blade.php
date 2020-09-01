@@ -148,11 +148,11 @@
                                 <div class="form-group row">
                                     <label for="brkt_dgn" class="col-3 col-form-label">Berangkat Dengan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn" readonly>
+                                    <input class="form-control" type="text" placeholder="Berangkat Dengan" id="brkt_dgn" name="brkt_dgn">
                                 </div>
                                 <label for="hubungan" class="col-3 col-form-label">Hubungan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan" readonly>
+                                    <input class="form-control" type="text" placeholder="Hubungan" id="hubungan" name="hubungan">
                                 </div>
                             </div>
                             </div>

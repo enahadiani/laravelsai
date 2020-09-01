@@ -87,6 +87,15 @@
             padding-left: 2px !important;
             padding-right: 2px !important;
         }
+
+        #table-data_filter label
+        {
+            width:100%;
+        }
+        #table-data_filter label input
+        {
+            width:inherit;
+        }
     </style>
         <div class="row" id="saku-datatable">
             <div class="col-12">
@@ -520,7 +529,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        sDom: '<"row view-filter mb-4"<"col-sm-4 text-left"l><"col-sm-4"f><"col-sm-4 text-right"B><"clearfix">>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-trans/jurnal') }}",
             'async':false,
@@ -567,6 +576,27 @@
             searchPlaceholder: "Search...",
             lengthMenu: "Items Per Page _MENU_"
         },
+        dom: 'lBfrtip',
+        buttons: {
+            buttons: [
+                {
+                    text: '<i class="simple-icon-equalizer"></i> &nbsp;&nbsp;Filter',
+                    action: function ( e, dt, node, config ) {
+                        // openFilter();
+                        console.log(dt);
+                    }
+                }
+            ],
+            dom: {
+                button: {
+                    tag: "button",
+                    className: "btn btn-light"
+                },
+                buttonLiner: {
+                    tag: null
+                }
+            }
+        }
     });
 
     function getPP(id,target1,target2,jenis){
@@ -1083,7 +1113,7 @@
         });
     }
 
-    $('#table-data tbody tr').on('click','td',function(e){
+    $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
