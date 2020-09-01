@@ -7,7 +7,7 @@
 
             <aside class="col-md-4">
                 <div class="widget search">
-                    <form role="form" action='webjava/search/news/string/' method='GET'>
+                    <form role="form" id="form-search" method='GET'>
                         <input type="text" name='str' class="form-control search_box" autocomplete="on" placeholder="Search" required>
                     </form>
                 </div><!--/.search-->
@@ -41,9 +41,37 @@ if(isset($page)){
 }else{
     $page = 1;
 }
+
+if(isset($tahun)){
+    $tahun = $tahun;
+}else{
+    $tahun = 1;
+}
+
+if(isset($bulan)){
+    $bulan = $bulan;
+}else{
+    $bulan = 1;
+}
+
+if(isset($jenis)){
+    $jenis = $jenis;
+}else{
+    $jenis = 1;
+}
+
+if(isset($str)){
+    $str = $str;
+}else{
+    $str = 1;
+}
 @endphp
 <script>
     var $npage = "{{ $page }}";
+    var $nbulan = "{{ $bulan }}";
+    var $ntahun = "{{ $tahun }}";
+    var $nstr = "{{ $str }}";
+    var $njenis = "{{ $jenis }}";
     function generateSEO(id, judul)
     {
         seo = judul.toLowerCase().replace(" ","-");
@@ -113,18 +141,17 @@ if(isset($page)){
 
     function loadNews($npage)
     {
-        console.log($npage);
         if($npage == undefined){
             $npage = 1;
         }else{
             $npage = $npage;
         }
         
-        console.log($npage);
         $.ajax({
             type: 'GET',
-            url: "{{ url('webjava/news') }}/"+$npage+"/null/null",
+            url: "{{ url('webjava/news-data') }}",
             dataType: 'json',
+            data:{page : $npage,bulan: $nbulan,tahun:$ntahun,jenis:$njenis,str:$nstr},
             async:false,
             success:function(res)
             {
@@ -179,29 +206,29 @@ if(isset($page)){
                     html +=`
                     <center>`+generateWebPaging('webjava/news/', result.jumlah_artikel, result.item_per_page, result.active_page)+`</center>`;
 
-                    var categori = '';
-                    if(result.categories.length > 0){
-
-                        for(var i=0; i<result.categories.length;i++)
-                        {
-                            var cat = result.categories[i];
-                            categori += "<li><a href='webjava/search/news/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
-                        }
-                    }
-                    
-                    $('.blog_category').html(categori);
-
-                    var archive = '';
-                    if(result.archive.length > 0){
-
-                        for(var i=0; i<result.archive.length;i++)
-                        {
-                            var arc = result.archive[i];
-                            archive += "<li><a href='webjava/news/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
-                        }
-                    }
-                    $('.blog_archieve').html(archive);
                 }
+                var categori = '';
+                if(result.categories.length > 0){
+
+                    for(var i=0; i<result.categories.length;i++)
+                    {
+                        var cat = result.categories[i];
+                        categori += "<li><a href='#' data-href='webjava/news-categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
+                    }
+                }
+                
+                $('.blog_category').html(categori);
+
+                var archive = '';
+                if(result.archive.length > 0){
+
+                    for(var i=0; i<result.archive.length;i++)
+                    {
+                        var arc = result.archive[i];
+                        archive += "<li><a href='#' data-href='webjava/news/1/"+arc.bulan+"/"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+" "+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
+                    }
+                }
+                $('.blog_archieve').html(archive);
 
                 $('#content-news').html(html);
 
@@ -213,11 +240,10 @@ if(isset($page)){
     }
 
     loadNews($npage);
-    $('.pageControl').on('click','a',function(e){
+    $('.pageControl,.blog_archieve,.readmore,.blog_category').on('click','a',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         var url = form;
-        console.log(url);
         if(form == "" || form == "-"){
             return false;
         }else{
@@ -226,17 +252,28 @@ if(isset($page)){
         }
     });
 
-    $('.readmore').click(function(e){
+    $('#form-search').submit(function(e){
         e.preventDefault();
-        var form = $(this).data('href');
-        var url = form;
-        console.log(url);
-        if(form == "" || form == "-"){
-            return false;
-        }else{
-            loadForm(url);
+    });
+
+    $('.search_box').change(function(e){
+        var str = $('.search_box').val();
+        var url = "webjava/news-search/?str="+str;
+        loadForm(url);
+    });
+
+    $('.search_box').keydown(function(e){
+        if(e.which == 13) 
+        {
+            e.preventDefault();
             
+            var str = $('.search_box').val();
+            var url = "webjava/news-search/?str="+str;
+
+            loadForm(url);
         }
     });
+
+
     
 </script>

@@ -220,7 +220,7 @@ class WebController extends Controller
         }    
     }
 
-    public function getNews($page,$bln,$thn){
+    public function getNews(Request $request){
         $client = new Client();
         $response = $client->request('GET',  config('api.url').'webjava/news',[
             'headers' => [
@@ -228,9 +228,45 @@ class WebController extends Controller
                 'Accept'     => 'application/json',
             ],
             'query' => [
-                'page' => $page,
-                'bln' => $bln,
-                'thn' => $thn
+                'page' => $request->page,
+                'bln' => $request->bln,
+                'thn' => $request->thn,
+                'jenis' => $request->jenis,
+                'str' => $request->str,
+            ]
+        ]);
+
+        $hasil = "";
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            $success = json_decode($response_data,true);
+    
+        }else{
+            $success['status'] = true;
+            $success['daftar_artikel'] = [] ;
+            $success['categories'] = [] ;
+            $success['archive'] = [] ;
+            $success['jumlah_artikel'] = 0 ;
+            $success['item_per_page'] = 0 ;
+            $success['active_page'] = 0 ;
+        }
+                
+        return response()->json([$success], 200);     
+    }
+
+    public function getArticle(Request $request){
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'webjava/article',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => [
+                'page' => $request->page,
+                'bln' => $request->bln,
+                'thn' => $request->thn,
+                'jenis' => $request->jenis,
+                'str' => $request->str,
             ]
         ]);
 

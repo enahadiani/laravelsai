@@ -31,8 +31,29 @@ Route::get('/news/{page}', function ($page) {
     return view('webjava.news',$data);
 });
 
-Route::get('read-item/{id}', function ($id) {
+Route::get('/news/{page}/{bulan}/{tahun}', function ($page,$bulan,$tahun) {
     
+    $data['page'] = $page;
+    $data['bulan'] = $bulan;
+    $data['tahun'] = $tahun;
+    return view('webjava.news',$data);
+});
+
+Route::get('/news-categories', function (Request $request) {
+    
+    $data['jenis'] = 'categories';
+    $data['str'] = $request->str;
+    return view('webjava.news',$data);
+});
+
+Route::get('/news-search', function (Request $request) {
+    
+    $data['jenis'] = 'string';
+    $data['str'] = $request->str;
+    return view('webjava.news',$data);
+});
+
+Route::get('read-item/{id}', function ($id) {
     $data['id'] = $id;
     return view('webjava.vItem',$data);
 });
@@ -42,8 +63,38 @@ Route::get('/menu', 'Webjava\WebController@getMenu');
 Route::get('/gallery', 'Webjava\WebController@getGallery');
 Route::get('/kontak', 'Webjava\WebController@getKontak');
 Route::get('/page/{id}', 'Webjava\WebController@getPage');
-Route::get('/news/{page}/{bln}/{thn}', 'Webjava\WebController@getNews');
+Route::get('/news-data', 'Webjava\WebController@getNews');
+Route::get('/article-data', 'Webjava\WebController@getArticle');
 Route::get('/readitem/{id}', 'Webjava\WebController@readItem');
+
+
+Route::get('/article/{page}', function ($page) {
+    
+    $data['page'] = $page;
+    return view('webjava.article',$data);
+});
+
+Route::get('/article/{page}/{bulan}/{tahun}', function ($page,$bulan,$tahun) {
+    
+    $data['page'] = $page;
+    $data['bulan'] = $bulan;
+    $data['tahun'] = $tahun;
+    return view('webjava.article',$data);
+});
+
+Route::get('/article-categories', function (Request $request) {
+    
+    $data['jenis'] = 'categories';
+    $data['str'] = $request->str;
+    return view('webjava.article',$data);
+});
+
+Route::get('/article-search', function (Request $request) {
+    
+    $data['jenis'] = 'string';
+    $data['str'] = $request->str;
+    return view('webjava.article',$data);
+});
 
 
 
