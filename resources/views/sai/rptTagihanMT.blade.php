@@ -197,7 +197,7 @@ drawLap($formData);
                         </tr>
                     </table>
                 </div>`;
-                html += `<div id="isi-surat-3" style="margin-top: 345px;position:fixed;">
+                html += `<div id="isi-surat-3" style="margin-top: 335px;position:fixed;">
                     <table style="width:95%;">
                         <tr>
                             <td style="width: 5%;" valign="top">2.</td>
@@ -209,7 +209,7 @@ drawLap($formData);
                         </tr>
                     </table>
                 </div>`;
-                html += `<div id="isi-surat-4" style="margin-top: 410px;margin-left:35px;position:fixed;">
+                html += `<div id="isi-surat-4" style="margin-top: 400px;margin-left:35px;position:fixed;">
                     <table style="width:100%;border: 1px solid black;border-collapse: collapse;">
                         <thead>
                             <tr>
@@ -249,10 +249,10 @@ drawLap($formData);
                         </tbody>
                     </table>
                 </div>`;
-                html += `<div id="isi-surat-5" style="margin-top: 530px;position:fixed;">
+                html += `<div id="isi-surat-5" style="margin-top: 515px;position:fixed;">
                     <table style="width:100%;">
                         <tr>
-                            <td style="width: 5%;" valign="top">3.</td>
+                            <td style="width: 8%;" valign="top">3.</td>
                             <td style="text-align: justify;">
                                 Pembayaran mohon ditransfer ke :
                                 <table style="width:100%;">
@@ -289,10 +289,10 @@ drawLap($formData);
                         <td>${result.data.data_lampiran[i]}</td>
                     </tr>`;
                 }
-                html += `<div id="isi-surat-6" style="margin-top: 675px;position:fixed;padding-bottom:20px;">
+                html += `<div id="isi-surat-6" style="margin-top: 660px;position:fixed;padding-bottom:20px;">
                     <table style="width:100%;">
                         <tr>
-                            <td style="width: 5%;" valign="top">4.</td>
+                            <td style="width: 6%;" valign="top">4.</td>
                             <td style="text-align: justify;">
                             Untuk melengkapi surat permohonan ini, kami lampirkan pula dokumen sebagai berikut :
                             <table>
@@ -302,17 +302,17 @@ drawLap($formData);
                         </tr>
                     </table>
                 </div>`;
-                html += `<div id="isi-surat-7" style="margin-top: 800px;position:fixed;">
+                html += `<div id="isi-surat-7" style="margin-top: 790px;position:fixed;">
                     <table style="width:100%;">
                         <tr>
-                            <td style="width: 5%;" valign="top">5.</td>
+                            <td style="width: 6%;" valign="top">5.</td>
                             <td style="text-align: justify;">
                                 Demikian kami sampaikan, atas perhatian dan kerja samanya kami ucapkan terima kasih.
                             </td>
                         </tr>
                     </table>
                 </div>`;
-                html += `<div id="isi-surat-8" style="margin-top: 850px;position:fixed;">
+                html += `<div id="isi-surat-8" style="margin-top: 860px;position:fixed;">
                     <table style="width:100%;">
                         <tr>
                             <td>Hormat kami,</td>
