@@ -96,7 +96,7 @@
     {
         $.ajax({
             type: 'GET',
-            url: "{{ url('webjava/kontak') }}",
+            url: "{{ url('webjava/news') }}",
             dataType: 'json',
             async:false,
             success:function(result){
