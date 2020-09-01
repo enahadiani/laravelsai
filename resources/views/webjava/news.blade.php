@@ -115,19 +115,23 @@
             url: "{{ url('webjava/news') }}",
             dataType: 'json',
             async:false,
-            success:function(result){
+            success:function(result)
+            {
                 var html ='';
                 if(result.daftar_artikel.length > 0)
                 {
 
-                    for(var i=0; i<result.daftar_artikel.length;i++){
+                    for(var i=0; i<result.daftar_artikel.length;i++)
+                    {
                         var line = result.daftar_artikel[i];
-                        var url = "{{ url('readItem'/".generateSEO(line.id, line.judul)."') }}");
+                        var url = "{{ url('readItem'/".generateSEO(line.id, line.judul)."') }}";
                         var arr = line.file_type.split("/");
+                        var keterangan = removeTags(line.keterangan);
+                        var index = keterangan.indexOf(".")  + 1;
+                        var cut_on = keterangan.indexOf(".", index);
 
-                        var cut_on = removeTags(line.keterangan).indexOf(".", removeTags(line.keterangan).indexOf(".")  + (".").length);
-
-                        if(arr[0] == 'video'){
+                        if(arr[0] == 'video')
+                        {
                             var link_img = "<video controls  style='min-width:200px; min-height:200px; display:block; margin-left: auto; margin-right: auto;'><source src='"+line.header_url+"' type='"+line.file_type+"'></video>";
                         }else{
                             var link_img = "<a href='"+url+"'><img class='img-responsive img-blog' src='"+line.header_url+"' style='width:100%; display:block;' alt=''/></a>";
@@ -156,13 +160,16 @@
                             `;
 
                     }
+
                     html +=`
-                    <center>`+generateWebPaging('/webjava/news', jumlah_artikel, item_per_page, active_page)+`</center>`;
+                    <center>`+generateWebPaging('/webjava/news', result.jumlah_artikel, result,item_per_page, result.active_page)+`</center>`;
 
                     if(result.categories.length > 0){
 
-                        for(var i=0; i<result.categories.length;i++){
-                            echo "<li><a href='webjava/search/news/categories/?str=".$cat['kode_kategori']."'>".$cat['nama']." <span class='badge'>".$cat['jml']."</span></a></li>";
+                        for(var i=0; i<result.categories.length;i++)
+                        {
+                            var cat = result.categories[i];
+                            echo "<li><a href='webjava/search/news/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
                         }
                     }
                 }
