@@ -249,7 +249,7 @@ function loadService(index,method,url,param={}){
                         var img= `<img src="{{ asset('asset_elite/images/user.png') }}" class="img-circle" width="150" />
                         `;
                     }else{
-                        var img= `<img src="https://api.simkug.com/api/apv/storage/`+result.data[0].foto+`" class="img-circle" width="150" />`;
+                        var img= `<img src="{{ config('api.url').'apv/storage' }}"/`+result.data[0].foto+`" class="img-circle" width="150" />`;
                     }
                     var html = img+`
                         <h4 class="card-title m-t-10">`+result.data[0].nama+`</h4>`;
@@ -272,14 +272,14 @@ function loadService(index,method,url,param={}){
     });
 }
 function initDash(){
-    loadService('profile','GET',"apv/profile"); 
+    loadService('profile','GET',"{{ url('apv/profile') }}"); 
 }
 initDash();
 
 $('#form-profile').on('submit', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var url = "apv/update-password";
+        var url = "{{ url('apv/update-password') }}";
         var pesan = "saved";
 
         var formData = new FormData(this);
