@@ -27,11 +27,6 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <ul class="blog_archieve">
-                                <?php
-                                    foreach($archive as $arc){
-                                        echo "<li><a href='/webjava/Index/news/1/".$arc['bulan']."/".$arc['tahun']."'><i class='fa fa-angle-double-right'></i> ".getNamaBulan($arc['bulan'])." ".$arc['tahun']." <span class='pull-right'>(".$arc['jml'].")</span></a></li>";
-                                    }
-                                ?>
                             </ul>
                         </div>
                     </div>                     
@@ -164,15 +159,31 @@
                     html +=`
                     <center>`+generateWebPaging('/webjava/news', result.jumlah_artikel, result,item_per_page, result.active_page)+`</center>`;
 
+                    var categori = '';
                     if(result.categories.length > 0){
 
                         for(var i=0; i<result.categories.length;i++)
                         {
                             var cat = result.categories[i];
-                            echo "<li><a href='webjava/search/news/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
+                            categori += "<li><a href='webjava/search/news/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
                         }
                     }
+                    
+                    $('.blog_category').html(categori);
+
+                    var archive = '';
+                    if(result.archive.length > 0){
+
+                        for(var i=0; i<result.archive.length;i++)
+                        {
+                            var arc = result.archive[i];
+                            archive += "<li><a href='/webjava/Index/news/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
+                        }
+                    }
+                    $('.blog_archive').html(archive);
                 }
+
+                $('#content-news').html(html);
 
             },
             fail: function(xhr, textStatus, errorThrown){
