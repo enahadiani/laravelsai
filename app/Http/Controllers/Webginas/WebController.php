@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Webjava;
+namespace App\Http\Controllers\Webginas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class WebController extends Controller
         //     return redirect('saku/login')->with('alert','Kamu harus login dulu');
         // }
         // else{
-            return view('webjava.templateWeb');
+            return view('webginas.templateWeb');
         // }
         
     }
@@ -120,14 +120,14 @@ class WebController extends Controller
 
     public function getMenu(){
         $client = new Client();
-        $url = url('webjava/form/');
-        $response = $client->request('GET',  config('api.url').'webjava/menu/',[
+        $url = url('webginas/form/');
+        $response = $client->request('GET',  config('api.url').'webginas/menu/',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
             ],
             'query' => [
-                'domain' => 'javaturbine',
+                'domain' => 'trengginasjaya',
                 'url_web' => $url
             ]
         ]);
@@ -148,10 +148,34 @@ class WebController extends Controller
         return response()->json([$success], 200);     
     }
     
+    public function getHome(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'webginas/home',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }    
+    }
+
     public function getGallery(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'webjava/gallery',[
+            $response = $client->request('GET',  config('api.url').'webginas/gallery',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -175,7 +199,7 @@ class WebController extends Controller
     public function getKontak(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'webjava/kontak',[
+            $response = $client->request('GET',  config('api.url').'webginas/kontak',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -199,7 +223,7 @@ class WebController extends Controller
     public function getPage($id){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'webjava/page/'.$id,[
+            $response = $client->request('GET',  config('api.url').'webginas/page/'.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -222,7 +246,7 @@ class WebController extends Controller
 
     public function getNews(Request $request){
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'webjava/news',[
+        $response = $client->request('GET',  config('api.url').'webginas/news',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -256,7 +280,7 @@ class WebController extends Controller
 
     public function getArticle(Request $request){
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'webjava/article',[
+        $response = $client->request('GET',  config('api.url').'webginas/article',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -290,7 +314,7 @@ class WebController extends Controller
     
     public function readItem($id){
         $client = new Client();
-        $response = $client->request('GET',  config('api.url').'webjava/read-item',[
+        $response = $client->request('GET',  config('api.url').'webginas/read-item',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

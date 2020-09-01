@@ -45,25 +45,25 @@ if(isset($page)){
 if(isset($tahun)){
     $tahun = $tahun;
 }else{
-    $tahun = 1;
+    $tahun = null;
 }
 
 if(isset($bulan)){
     $bulan = $bulan;
 }else{
-    $bulan = 1;
+    $bulan = null;
 }
 
 if(isset($jenis)){
     $jenis = $jenis;
 }else{
-    $jenis = 1;
+    $jenis = null;
 }
 
 if(isset($str)){
     $str = $str;
 }else{
-    $str = 1;
+    $str = null;
 }
 @endphp
 <script>

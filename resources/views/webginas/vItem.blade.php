@@ -147,7 +147,7 @@ if(isset($id)){
 
         $.ajax({
             type: 'GET',
-            url: "{{ url('webjava/readitem') }}/"+$nid,
+            url: "{{ url('webginas/readitem') }}/"+$nid,
             dataType: 'json',
             async:false,
             success:function(res)
@@ -162,10 +162,9 @@ if(isset($id)){
                     var arr = line.file_type.split("/");
 
                     var img = '';
-                    
+
                     var tmp = line.header_url.split("/");
                     var header_url = "{{ config('api.url') }}webginas/storage/"+tmp[3];
-
 
                     if(arr[0] == 'video'){
                         img +="<video controls  style='min-width:200px; min-height:200px; display:block; margin-left: auto; margin-right: auto;'><source src='"+header_url+"' type='"+line.file_type+"'></video>";
@@ -180,9 +179,9 @@ if(isset($id)){
                     if(line.tag != undefined){
 
                         var tag = line.tag.split(',');
-                        str += "<a href='/webjava/search/all/tag/?str="+tag[0].toLowerCase()+"'>".ucfirst(tag[0].toLowerCase())+"</a> ";
+                        str += "<a href='/webginas/search/all/tag/?str="+tag[0].toLowerCase()+"'>".ucfirst(tag[0].toLowerCase())+"</a> ";
                         for(var i=1; i<tag.length; i++){
-                            str += "/<a href='/webjava/search/all/tag/?str="+tag[i].toLowerCase()+"'>"+ucfirst(tag[i].toLowerCase())+"</a> ";
+                            str += "/<a href='/webginas/search/all/tag/?str="+tag[i].toLowerCase()+"'>"+ucfirst(tag[i].toLowerCase())+"</a> ";
                         }
                     }
                     html+= `<strong>Tag:</strong>`+str+`
@@ -194,7 +193,7 @@ if(isset($id)){
                         for(var i=0; i<result.categories.length;i++)
                         {
                             var cat = result.categories[i];
-                            categori += "<li><a href='webjava/search/all/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
+                            categori += "<li><a href='webginas/search/all/categories/?str="+cat.kode_kategori+"'>"+cat.nama+" <span class='badge'>"+cat.jml+"</span></a></li>";
                         }
                     }
                     
@@ -206,7 +205,7 @@ if(isset($id)){
                         for(var i=0; i<result.archive.length;i++)
                         {
                             var arc = result.archive[i];
-                            archive += "<li><a href='webjava/article/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
+                            archive += "<li><a href='webginas/article/1/'"+arc.bulan+"'/'"+arc.tahun+"'><i class='fa fa-angle-double-right'></i> "+getNamaBulan(arc.bulan)+""+arc.tahun+"<span class='pull-right'>("+arc.jml+")</span></a></li>";
                         }
                     }
                     $('.blog_archieve').html(archive);
@@ -241,7 +240,7 @@ if(isset($id)){
 
     $('.search_box').change(function(e){
         var str = $('.search_box').val();
-        var url = "webjava/news-search/?str="+str;
+        var url = "webginas/news-search/?str="+str;
         loadForm(url);
     });
 
@@ -251,7 +250,7 @@ if(isset($id)){
             e.preventDefault();
             
             var str = $('.search_box').val();
-            var url = "webjava/news-search/?str="+str;
+            var url = "webginas/news-search/?str="+str;
 
             loadForm(url);
         }

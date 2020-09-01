@@ -69,6 +69,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapEsakuRoutes();
 
         $this->mapWebjavaRoutes();
+        $this->mapWebginasRoutes();
 
         //
     }
@@ -284,6 +285,44 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webjava/web.php'));
+   
+    }
+
+    protected function mapWebginasRoutes()
+    {
+        Route::prefix('webginas')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webginas/web.php'));
+   
+    }
+
+    protected function mapWisataRoutes()
+    {
+        Route::prefix('wisata-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/wisata/auth.php'));
+
+        Route::prefix('wisata-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/wisata/dash.php'));
+    
+        Route::prefix('wisata-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/wisata/master.php'));
+    
+        Route::prefix('wisata-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/wisata/trans.php'));
+    
+        Route::prefix('wisata-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/wisata/report.php'));
    
     }
 
