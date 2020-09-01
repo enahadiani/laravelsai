@@ -124,7 +124,7 @@
                     for(var i=0; i<result.daftar_artikel.length;i++)
                     {
                         var line = result.daftar_artikel[i];
-                        var url = "{{ url('readItem'/"+generateSEO(line.id, line.judul)+"') }}";
+                        var url = "{{ url('webjava/readItem') }}/"+generateSEO(line.id, line.judul);
                         var arr = line.file_type.split("/");
                         var keterangan = removeTags(line.keterangan);
                         var index = keterangan.indexOf(".")  + 1;
