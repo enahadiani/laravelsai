@@ -523,7 +523,7 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
