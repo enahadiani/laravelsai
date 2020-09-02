@@ -117,7 +117,7 @@
                     <div class="d-block d-md-inline-block float-left">
                         <div class="page-countdata">
                             <label>Menampilkan 
-                            <select style="border:none">
+                            <select style="border:none" id="page-count">
                                 <option value="10">10 per halaman</option>
                                 <option value="25">25 per halaman</option>
                                 <option value="50">50 per halaman</option>
@@ -356,7 +356,7 @@
     function getAkun(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/vendor-akun') }}",
+            url: "{{ url('esaku-master/vendor-akun') }}",
             dataType: 'json',
             data:{'kode_akun':id},
             async:false,
@@ -379,7 +379,7 @@
     function getLabelAkun(no){
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/vendor-akun') }}",
+            url: "{{ url('esaku-master/vendor-akun') }}",
             dataType: 'json',
             data:{'kode_akun':no},
             async:false,
@@ -413,7 +413,7 @@
         switch(par){
         case 'akun_hutang': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('wisata-master/vendor-akun') }}";
+            var toUrl = "{{ url('esaku-master/vendor-akun') }}";
                 var columns = [
                     { data: 'kode_akun' },
                     { data: 'nama' }
@@ -590,7 +590,7 @@
     function getVendorAkun() {
         $.ajax({
             type:'GET',
-            url:"{{ url('wisata-master/vendor-akun') }}",
+            url:"{{ url('esaku-master/vendor-akun') }}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -601,7 +601,7 @@
                     }
                     
                 }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else{
                     alert(result.message);
                 }
@@ -613,7 +613,7 @@
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/wisata-auth/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -654,14 +654,14 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('wisata-master/vendor') }}",
+            'url': "{{ url('esaku-master/vendor') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
                 if(json.status){
                     return json.daftar;   
                 }else{
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     return [];
                 }
             }
@@ -704,11 +704,10 @@
 
     $("#searchData").on("keyup", function (event) {
         dataTable.search($(this).val()).draw();
-      });
+    });
 
-    $(".page-countdata .option").on("click", function (event) {
-        var selText = $(this).text();
-        console.log(selText);
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
         dataTable.page.len(parseInt(selText)).draw();
     });
     // END LIST DATA
@@ -744,10 +743,10 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "edit"){
-                var url = "{{ url('wisata-master/vendor') }}/"+id;
+                var url = "{{ url('esaku-master/vendor') }}/"+id;
                 var pesan = "updated";
             }else{
-                var url = "{{ url('wisata-master/vendor') }}";
+                var url = "{{ url('esaku-master/vendor') }}";
                 var pesan = "saved";
             }
 
@@ -785,7 +784,7 @@
                     
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/wisata-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                         
                     }else{
                         Swal.fire({
@@ -814,7 +813,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('wisata-master/vendor') }}/"+id,
+            url: "{{ url('esaku-master/vendor') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -831,7 +830,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -865,7 +864,7 @@
         $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/vendor') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -895,7 +894,7 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -1008,7 +1007,7 @@
         $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/vendor') }}/" + id,
+            url: "{{ url('esaku-master/vendor') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1039,7 +1038,7 @@
                     $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
