@@ -769,25 +769,6 @@
             $('#form-tambah').submit();
         });
     });
-
-    $('#btn-inputbaru').click(function(){
-        $('#modal-pesan').modal('hide');
-        $('#row-id').hide();
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('[id^=label]').html('');
-        $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Vendor');
-        $('#method').val('post');
-        $('#kode_vendor').attr('readonly', false);
-    });
-
-    $('#btn-selesai').click(function(){
-        $('#modal-pesan').modal('hide');
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
     
     // END BUTTON KEMBALI
 
@@ -842,7 +823,24 @@
                             btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
                         });
 
-                    
+                        $('#btn-inputbaru').click(function(){
+                            $('#modal-pesan').modal('hide');
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Vendor');
+                            $('#method').val('post');
+                            $('#kode_vendor').attr('readonly', false);
+                        });
+
+                        $('#btn-selesai').click(function(){
+                            $('#modal-pesan').modal('hide');
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
+                        });
+
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
@@ -911,12 +909,11 @@
             judul : 'Hapus Data?',
             text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
             btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ya' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-hapusya' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
         });
-        $('#btn-ya').click(function(e){
-            e.preventDefault();
-            var id = $('#modal-pesan-id').text();
-            hapusData(id);
+        $('#btn-hapusya').click(function(){
+            var kode = $('#modal-pesan-id').text();
+            hapusData(kode);
         });
     });
 
@@ -1064,20 +1061,17 @@
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-delete-id').text();
+        var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
-        // $('#modal-delete-id').text(id);
-        // $('#modal-delete').modal('show');
         callPesan({
             id : id,
             judul : 'Hapus Data?',
             text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
             btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ya2' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-hapusya2' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
         });
         
-        $('#btn-ya2').click(function(e){
-            e.preventDefault();
+        $('#btn-hapusya2').click(function(){
             var id = $('#modal-pesan-id').text();
             hapusData(id);
         });
