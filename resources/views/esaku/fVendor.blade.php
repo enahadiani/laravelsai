@@ -501,9 +501,8 @@
             if($target3 != ""){
                 $($target3).text(nama);
             }
+            console.log($target3);
             $('#modal-search').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
         });
 
         $('#table-search tbody').on('click', 'tr', function () {
@@ -531,9 +530,8 @@
                 if($target3 != ""){
                     $($target3).text(nama);
                 }
+                console.log($target3);
                 $('#modal-search').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
             }
         });
 
@@ -573,8 +571,6 @@
                     $($target3).text(nama);
                 }
                 $('#modal-search').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
             }
         })
     }
@@ -753,8 +749,6 @@
 
         $('#btn-keluar').click(function(){
             $('#modal-pesan').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
             $('#saku-datatable').show();
             $('#saku-form').hide();
         });
@@ -823,72 +817,31 @@
 
                         showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+id+') berhasil disimpan ');
 
-                        if(parameter == "edit"){
-                            
-                            callPesan({
-                                id : id,
-                                judul : 'Tersimpan',
-                                text : text,
-                                btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai2'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
-                                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru2' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
-                            });
-    
-                            $('#btn-inputbaru2').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
+                        callPesan({
+                            id : id,
+                            judul : 'Tersimpan',
+                            text : text,
+                            btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
+                            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
+                        });
 
-                                $('#row-id').hide();
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('[id^=label]').html('');
-                                $('#id_edit').val('');
-                                $('#judul-form').html('Tambah Data Vendor');
-                                $('#method').val('post');
-                                $('#kode_vendor').attr('readonly', false);
-                            });
-    
-                            $('#btn-selesai2').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
-                                $('#saku-datatable').show();
-                                $('#saku-form').hide();
-                            });
-                        }else{
-                            callPesan({
-                                id : id,
-                                judul : 'Tersimpan',
-                                text : text,
-                                btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
-                                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
-                            });
-    
-                            $('#btn-inputbaru').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
+                        $('#btn-inputbaru').click(function(){
+                            $('#modal-pesan').modal('hide');
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Vendor');
+                            $('#method').val('post');
+                            $('#kode_vendor').attr('readonly', false);
+                        });
 
-                                $('#row-id').hide();
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('[id^=label]').html('');
-                                $('#id_edit').val('');
-                                $('#judul-form').html('Tambah Data Vendor');
-                                $('#method').val('post');
-                                $('#kode_vendor').attr('readonly', false);
-                            });
-    
-                            $('#btn-selesai').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('body').removeClass('modal-open');
-                                $('.modal-backdrop').remove();
-
-                                $('#saku-datatable').show();
-                                $('#saku-form').hide();
-                            });
-                        }
+                        $('#btn-selesai').click(function(){
+                            $('#modal-pesan').modal('hide');
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
+                        });
 
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
@@ -937,8 +890,6 @@
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
@@ -1114,8 +1065,6 @@
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
         callPesan({
             id : id,
             judul : 'Hapus Data?',
@@ -1169,9 +1118,6 @@
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
-                    
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
