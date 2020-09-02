@@ -105,6 +105,30 @@
                         <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                     </div>
                     <div class="separator mb-2"></div>
+                    <div class="" style="padding-right:1.75rem;padding-left:1.75rem">
+                    <div class="dataTables_length" id="table-data_length"></div>
+                        <div class="d-block d-md-inline-block float-left">
+                            <div class="page-countdata">
+                                <label>Menampilkan 
+                                <select style="border:none" id="page-count">
+                                    <option value="10">10 per halaman</option>
+                                    <option value="25">25 per halaman</option>
+                                    <option value="50">50 per halaman</option>
+                                    <option value="100">100 per halaman</option>
+                                </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-block d-md-inline-block float-right">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Search..."
+                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
                         <div class="table-responsive ">
                             <table id="table-data" class="" style='width:100%'>
@@ -529,7 +553,9 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
-        sDom: '<"row view-filter mb-4"<"col-sm-4 text-left"l><"col-sm-4"f><"col-sm-4 text-right"B><"clearfix">>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        destroy: true,
+        bLengthChange: false,
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': "{{ url('esaku-trans/jurnal') }}",
             'async':false,
@@ -575,28 +601,18 @@
             search: "_INPUT_",
             searchPlaceholder: "Search...",
             lengthMenu: "Items Per Page _MENU_"
-        },
-        dom: 'lBfrtip',
-        buttons: {
-            buttons: [
-                {
-                    text: '<i class="simple-icon-equalizer"></i> &nbsp;&nbsp;Filter',
-                    action: function ( e, dt, node, config ) {
-                        // openFilter();
-                        console.log(dt);
-                    }
-                }
-            ],
-            dom: {
-                button: {
-                    tag: "button",
-                    className: "btn btn-light"
-                },
-                buttonLiner: {
-                    tag: null
-                }
-            }
         }
+    });
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
     });
 
     function getPP(id,target1,target2,jenis){

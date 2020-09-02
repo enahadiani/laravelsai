@@ -708,7 +708,6 @@
 
     $("#page-count").on("change", function (event) {
         var selText = $(this).val();
-        console.log(selText);
         dataTable.page.len(parseInt(selText)).draw();
     });
     // END LIST DATA
