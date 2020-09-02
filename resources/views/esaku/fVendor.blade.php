@@ -117,7 +117,7 @@
                     <div class="d-block d-md-inline-block float-left">
                         <div class="page-countdata">
                             <label>Menampilkan 
-                            <select style="border:none">
+                            <select style="border:none" id="page-count">
                                 <option value="10">10 per halaman</option>
                                 <option value="25">25 per halaman</option>
                                 <option value="50">50 per halaman</option>
@@ -704,10 +704,10 @@
 
     $("#searchData").on("keyup", function (event) {
         dataTable.search($(this).val()).draw();
-      });
+    });
 
-    $(".page-countdata .option").on("click", function (event) {
-        var selText = $(this).text();
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
         console.log(selText);
         dataTable.page.len(parseInt(selText)).draw();
     });
