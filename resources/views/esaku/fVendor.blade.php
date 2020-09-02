@@ -778,7 +778,7 @@
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#id').val();
+            var id = $('#kode_vendor').val();
             if(parameter == "edit"){
                 var url = "{{ url('esaku-master/vendor') }}/"+id;
                 var pesan = "updated";
