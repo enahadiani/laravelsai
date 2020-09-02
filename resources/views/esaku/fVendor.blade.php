@@ -764,12 +764,12 @@
             btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ubah' style='background:#00AFB9;border:1px solid #00AFB9'>Ubah</button>",
         });
 
-        $('#btn-ubah').click(function(){
-            $('#modal-pesan').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-            $('#form-tambah').submit();
-        });
+        // $('#btn-ubah').click(function(){
+        //     $('#modal-pesan').modal('hide');
+        //     $('body').removeClass('modal-open');
+        //     $('.modal-backdrop').remove();
+        //     $('#form-tambah').submit();
+        // });
     });
     
     // END BUTTON KEMBALI
