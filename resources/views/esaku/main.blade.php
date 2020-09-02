@@ -589,6 +589,27 @@
         <div class="container-fluid">
             <div class="body-content"></div>
         </div>
+        <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
+                    <div class="modal-body text-center pb-0">
+                        <span id="modal-pesan-id" style="display:none"></span>
+                        <h4 style="font-weight:bold" id="pesan-judul"></h4>  
+                        <p style="font-size:12px" id="pesan-text"></p>  
+                    </div>
+                    <div class="modal-footer pt-0" style="border:none;justify-content:center">
+                        <div class="row" style="width:100%">
+                            <div class="col-6 px-0 py-0" id="btn-pesan1">
+                                <!-- <button type="button" class="btn btn-light btn-block" data-dismiss="modal" >Batal</button> -->
+                            </div>
+                            <div class="col-6 px-0 py-0" style="padding-left: 5px !important;" id="btn-pesan2">
+                                <!-- <button type="button" class="btn btn-primary btn-block" id="btn-ya" style="background:#EB3F33;border:1px solid #EB3F33">Hapus</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
@@ -605,6 +626,15 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function callPesan(data){
+        $('#modal-pesan-id').text(data.id);
+        $('#pesan-judul').text(data.judul);
+        $('#pesan-text').text(data.text);
+        $('#btn-pesan1').html(data.btn1);
+        $('#btn-pesan2').html(data.btn2);
+        $('#modal-pesan').modal('show');
+    }
 
     function showNotification(placementFrom, placementAlign, type,title,message) {
       $.notify(
@@ -1056,9 +1086,22 @@
         window.addEventListener('storage', storageChange, false);
 
         function logout(){
-            window.localStorage.setItem('logged_in', false);
-            window.location.href = "{{ url('esaku-auth/logout') }}";
+
+            callPesan({
+                id : null,
+                judul : 'Keluar Aplikasi ?',
+                text : 'Semua halaman akses esaku akan keluar dari sistem. ',
+                btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
+                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-sign-out' style='background:#00AFB9;border:1px solid #00AFB9'>Keluar</button>",
+            });
+
+            $('#btn-sign-out').click(function(){
+                window.localStorage.setItem('logged_in', false);
+                window.location.href = "{{ url('esaku-auth/logout') }}";
+            })
         }
+
+        
 
     </script>
 </body>

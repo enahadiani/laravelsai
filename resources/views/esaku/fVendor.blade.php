@@ -176,7 +176,7 @@
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
@@ -310,43 +310,6 @@
 
     <!-- MODAL HAPUS -->
     
-    <!-- <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content" style="border-radius:1rem">
-                <div class="modal-body text-center pb-0" style="border:none">
-                    <span id="modal-delete-id" style="display:none"></span>
-                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
-                    <h1 style="font-weight:bold">Hapus Data</h1>
-                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
-                </div>
-                <div class="modal-footer" style="border:none">
-                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Vendor</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deletetitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
-                <div class="modal-body text-center pb-0">
-                    <span id="modal-delete-id" style="display:none"></span>
-                    <h4 style="font-weight:bold">Hapus Data?</h4>  
-                    <p style="font-size:12px">Data akan terhapus secara permanen dan kamu tidak dapat mengurungkan.</p>  
-                </div>
-                <div class="modal-footer pt-0" style="border:none;justify-content:center">
-                    <div class="row" style="width:100%">
-                        <div class="col-6 px-0 py-0">
-                            <button type="button" class="btn btn-light btn-block" data-dismiss="modal" >Batal</button>
-                        </div>
-                        <div class="col-6 px-0 py-0" style="padding-left: 5px !important;">
-                            <button type="button" class="btn btn-primary btn-block" id="btn-ya" style="background:#EB3F33;border:1px solid #EB3F33">Hapus</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- END MODAL HAPUS -->
 
     <!-- MODAL PREVIEW -->
@@ -752,6 +715,8 @@
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#judul-form').html('Tambah Data Vendor');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
@@ -764,9 +729,58 @@
     
     // BUTTON KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        callPesan({
+            id : kode,
+            judul : 'Keluar Form?',
+            text : 'Kamu keluar dari form ini tanpa menyimpan transaksi. Semua perubahan akan hilang',
+            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-keluar' style='background:#00AFB9;border:1px solid #00AFB9'>Keluar</button>",
+        });
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_vendor').val();
+        callPesan({
+            id : kode,
+            judul : 'Ubah Data?',
+            text : 'Data akan dirubah dan semua informasi sebelumnya akan dihapus. ',
+            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ubah' style='background:#00AFB9;border:1px solid #00AFB9'>Ubah</button>",
+        });
+
+        $('#btn-ubah').click(function(){
+            $('#modal-pesan').modal('hide');
+            $('#form-tambah').submit();
+        });
+    });
+
+    $('#btn-keluar').click(function(){
+        $('#modal-pesan').modal('hide');
         $('#saku-datatable').show();
         $('#saku-form').hide();
     });
+
+
+    $('#btn-inputbaru').click(function(){
+        $('#modal-pesan').modal('hide');
+        $('#row-id').hide();
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('[id^=label]').html('');
+        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Vendor');
+        $('#method').val('post');
+        $('#kode_vendor').attr('readonly', false);
+    });
+
+    $('#btn-selesai').click(function(){
+        $('#modal-pesan').modal('hide');
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+    });
+
+    
     // END BUTTON KEMBALI
 
     //BUTTON SIMPAN /SUBMIT
@@ -779,9 +793,11 @@
             if(parameter == "edit"){
                 var url = "{{ url('esaku-master/vendor') }}/"+id;
                 var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
             }else{
                 var url = "{{ url('esaku-master/vendor') }}";
                 var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
             }
 
             var formData = new FormData(form);
@@ -801,20 +817,23 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        
                         Swal.fire(
                             'Great Job!',
                             'Your data has been '+pesan,
                             'success'
                             )
-                        $('#row-id').hide();
-                        $('#form-tambah')[0].reset();
-                        $('#form-tambah').validate().resetForm();
-                        $('#akun_hutang').val('');
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Vendor');
-                        $('#method').val('post');
-                        $('#kode_vendor').attr('readonly', false);
+
+                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+id+') berhasil disimpan ');
+
+                        callPesan({
+                            id : id,
+                            judul : 'Tersimpan',
+                            text : text,
+                            btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
+                            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
+                        });
+
                     
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
@@ -860,9 +879,9 @@
                     );
                     
                     showNotification("top", "center", "success",'Hapus Data','Data Vendor ('+id+') berhasil dihapus ');
-                    $('#modal-delete-id').html('');
+                    $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
-                    $('#modal-delete').modal('hide');
+                    $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }else{
@@ -878,9 +897,14 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
-        $('#modal-delete-id').text(id);
-        $('#modal-delete').modal('show');
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        callPesan({
+            id : kode,
+            judul : 'Hapus Data?',
+            text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
+            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ya' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
+        });
     });
 
     $('.modal-footer').on('click','#btn-ya',function(e){
@@ -895,6 +919,10 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
         $('#judul-form').html('Edit Data Vendor');
         $.ajax({
             type: 'GET',
@@ -1039,6 +1067,9 @@
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Vendor');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-master/vendor') }}/" + id,
