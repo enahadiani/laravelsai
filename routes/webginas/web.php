@@ -58,6 +58,11 @@ Route::get('read-item/{id}', function ($id) {
     return view('webginas.vItem',$data);
 });
 
+Route::get('watch/{id}', function ($id) {
+    $data['id'] = $id;
+    return view('webginas.watch',$data);
+});
+
 Route::get('/', 'Webginas\WebController@index');
 Route::get('/menu', 'Webginas\WebController@getMenu');
 Route::get('/gallery', 'Webginas\WebController@getGallery');
@@ -67,7 +72,8 @@ Route::get('/page/{id}', 'Webginas\WebController@getPage');
 Route::get('/news-data', 'Webginas\WebController@getNews');
 Route::get('/article-data', 'Webginas\WebController@getArticle');
 Route::get('/readitem/{id}', 'Webginas\WebController@readItem');
-
+Route::get('/video-data', 'Webginas\WebController@getVideo');
+Route::get('/watch-data', 'Webginas\WebController@getWatch');
 
 Route::get('/article/{page}', function ($page) {
     
