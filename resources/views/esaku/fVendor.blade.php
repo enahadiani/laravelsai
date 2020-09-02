@@ -737,6 +737,12 @@
             btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
             btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-keluar' style='background:#00AFB9;border:1px solid #00AFB9'>Keluar</button>",
         });
+
+        $('#btn-keluar').click(function(){
+            $('#modal-pesan').modal('hide');
+            $('#saku-datatable').show();
+            $('#saku-form').hide();
+        });
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
@@ -754,13 +760,6 @@
             $('#form-tambah').submit();
         });
     });
-
-    $('#btn-keluar').click(function(){
-        $('#modal-pesan').modal('hide');
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
 
     $('#btn-inputbaru').click(function(){
         $('#modal-pesan').modal('hide');
