@@ -768,7 +768,7 @@
             $('#modal-pesan').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
-            $('#form-tambah').submit();
+            // $('#form-tambah').submit();
         });
     });
     
