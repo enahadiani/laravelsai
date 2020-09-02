@@ -769,6 +769,7 @@
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
 
+            console.log('call pesan');
             callPesan({
                 id : id,
                 judul : 'Tersimpan',
@@ -794,6 +795,8 @@
                 $('#saku-datatable').show();
                 $('#saku-form').hide();
             });
+
+            console.log('call pesan2');
             // $('#form-tambah').submit();
         });
     });
