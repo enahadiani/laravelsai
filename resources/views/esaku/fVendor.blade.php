@@ -315,16 +315,25 @@
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
+            <div class="modal-content" style="border-radius:0.75em">
+                <div class="modal-header" style="display:block;padding-top: 10px;padding-bottom: 10px;">
                     <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
-                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
+
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        Aksi
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item" href="#" id="btn-delete2">Hapus</a>
+                            <a class="dropdown-item" href="#" id="btn-edit2">Edit</a>
+                            <a class="dropdown-item" href="#">Export</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body" id="content-preview" style="height:450px">
+                <div class="modal-body" id="content-preview" style="height:520px">
                     <table id="table-preview" class="table no-border">
                         <tbody>
                         </tbody>
@@ -904,13 +913,13 @@
             btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
             btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ya' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
         });
+        $('#btn-ya').click(function(e){
+            e.preventDefault();
+            var id = $('#modal-pesan-id').text();
+            hapusData(id);
+        });
     });
 
-    $('.modal-footer').on('click','#btn-ya',function(e){
-        e.preventDefault();
-        var id = $('#modal-delete-id').text();
-        hapusData(id);
-    });
     // END BUTTON HAPUS
     
     // BUTTON EDIT
@@ -1057,8 +1066,21 @@
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-delete-id').text();
         $('#modal-preview').modal('hide');
-        $('#modal-delete-id').text(id);
-        $('#modal-delete').modal('show');
+        // $('#modal-delete-id').text(id);
+        // $('#modal-delete').modal('show');
+        callPesan({
+            id : id,
+            judul : 'Hapus Data?',
+            text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
+            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
+            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ya2' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
+        });
+        
+        $('#btn-ya2').click(function(e){
+            e.preventDefault();
+            var id = $('#modal-pesan-id').text();
+            hapusData(id);
+        });
     });
 
     $('.modal-header').on('click', '#btn-edit2', function(){
