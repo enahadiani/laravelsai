@@ -502,7 +502,7 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_bidang,#nama).keydown(function(e){
+    $('#kode_bidang,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['kode_bidang','nama'];
         if (code == 13 || code == 40) {
