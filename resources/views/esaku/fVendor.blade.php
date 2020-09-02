@@ -772,7 +772,7 @@
             callPesan({
                 id : id,
                 judul : 'Tersimpan',
-                text : text,
+                text : 'is test',
                 btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
                 btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
             });
