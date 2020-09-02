@@ -101,6 +101,20 @@
             font-size: .75rem;
             height: 31px;
         }
+
+        #filter-btn:hover 
+        {
+            background:rgba(58,58,58,.15);
+            cursor:pointer;
+        }
+
+        #table-data tbody tr:hover
+        {
+            background:rgba(58,58,58,.15) !important;
+            border-color:rgba(58,58,58,.15) !important;
+            cursor:pointer;
+        }
+
     </style>
     <!-- LIST DATA -->
     <div class="row mb-3" id="saku-datatable">
@@ -111,10 +125,9 @@
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
-                <div class="" style="padding-right:1.75rem;padding-left:1.75rem">
-                
-                <div class="dataTables_length" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left">
+                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
                         <div class="page-countdata">
                             <label>Menampilkan 
                             <select style="border:none" id="page-count">
@@ -126,7 +139,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="d-block d-md-inline-block float-right">
+                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData">
@@ -297,7 +310,7 @@
 
     <!-- MODAL HAPUS -->
     
-    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
+    <!-- <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:1rem">
                 <div class="modal-body text-center pb-0" style="border:none">
@@ -309,6 +322,27 @@
                 <div class="modal-footer" style="border:none">
                     <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
                     <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Vendor</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-deletetitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
+                <div class="modal-body text-center pb-0">
+                    <span id="modal-delete-id" style="display:none"></span>
+                    <h4 style="font-weight:bold">Hapus Data?</h4>  
+                    <p style="font-size:12px">Data akan terhapus secara permanen dan kamu tidak dapat mengurungkan.</p>  
+                </div>
+                <div class="modal-footer pt-0" style="border:none;justify-content:center">
+                    <div class="row" style="width:100%">
+                        <div class="col-6 px-0 py-0">
+                            <button type="button" class="btn btn-light btn-block" data-dismiss="modal" >Batal</button>
+                        </div>
+                        <div class="col-6 px-0 py-0" style="padding-left: 5px !important;">
+                            <button type="button" class="btn btn-primary btn-block" id="btn-ya" style="background:#EB3F33;border:1px solid #EB3F33">Hapus</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
