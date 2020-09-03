@@ -45,6 +45,10 @@
         {
             border-collapse:collapse !important;
         }
+
+        .hidden{
+            display:none;
+        }
         
         #table-search tbody tr:hover
         {
@@ -113,6 +117,14 @@
             background:rgba(58,58,58,.15) !important;
             border-color:rgba(58,58,58,.15) !important;
             cursor:pointer;
+        }
+
+        .dropdown-toggle::after {
+            display:none;
+        }
+
+        .dropdown-aksi > .dropdown-item{
+            font-size : 0.7rem;
         }
 
     </style>
@@ -324,12 +336,16 @@
 
                     <div class="dropdown d-inline-block float-right">
                         <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        Aksi
+                        <h6>Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item" href="#" id="btn-delete2">Hapus</a>
-                            <a class="dropdown-item" href="#" id="btn-edit2">Edit</a>
-                            <a class="dropdown-item" href="#">Export</a>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
                         </div>
                     </div>
                 </div>
@@ -942,6 +958,7 @@
 
 
     // PREVIEW saat klik di list data
+
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 3){
 
@@ -1063,5 +1080,20 @@
             }
         });
     });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
+    });
+
 
     </script>
