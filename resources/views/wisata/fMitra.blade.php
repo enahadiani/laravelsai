@@ -558,8 +558,7 @@
                     $('#method').val('put');
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
-                    $('#id').val(id);
-                    
+                    $('#id').val(id);                    
                     $('#nama').val(result.data[0].nama);        
                     $('#alamat').val(result.data[0].alamat);        
                     $('#kecamatan').val(result.data[0].kecamatan);        
@@ -569,7 +568,6 @@
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
                     $('#status').val(result.data[0].status);        
-
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -585,7 +583,7 @@
     // HANDLER untuk enter dan tab
     $('#kode_mitra,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_mitra','nama'];
+        var nxt = ['kode_mitra','nama','alamat','kecamatan','no_tel','pic','no_hp','website','email','status'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -604,7 +602,7 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 2){
+        if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
