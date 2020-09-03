@@ -384,6 +384,7 @@
             '</select>'
         }
     });
+
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $("#searchData").on("keyup", function (event) {
@@ -558,7 +559,17 @@
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);                                    
+                    
+                    $('#nama').val(result.data[0].nama);        
+                    $('#alamat').val(result.data[0].alamat);        
+                    $('#kecamatan').val(result.data[0].kecamatan);        
+                    $('#no_tel').val(result.data[0].no_tel);        
+                    $('#pic').val(result.data[0].pic);        
+                    $('#no_hp').val(result.data[0].no_hp);        
+                    $('#website').val(result.data[0].website);        
+                    $('#email').val(result.data[0].email);        
+                    $('#status').val(result.data[0].status);        
+
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -605,6 +616,39 @@
                 <td>Nama Mitra</td>
                 <td>`+data.nama+`</td>
             </tr>            
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.alamat+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.kecamatan+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.no_tel+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.pic+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.no_hp+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.website+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>No Telp</td>
+                <td>`+data.status+`</td>
+            </tr>
+
             `;
             $('#table-preview tbody').html(html);
             
@@ -638,7 +682,17 @@
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);                                        
+                    
+                    $('#nama').val(result.data[0].nama);        
+                    $('#alamat').val(result.data[0].alamat);        
+                    $('#kecamatan').val(result.data[0].kecamatan);        
+                    $('#no_tel').val(result.data[0].no_tel);        
+                    $('#pic').val(result.data[0].pic);        
+                    $('#no_hp').val(result.data[0].no_hp);        
+                    $('#website').val(result.data[0].website);        
+                    $('#email').val(result.data[0].email);        
+                    $('#status').val(result.data[0].status);  
+
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
