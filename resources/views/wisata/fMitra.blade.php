@@ -617,35 +617,35 @@
                 <td>`+data.nama+`</td>
             </tr>            
             <tr>
-                <td>No Telp</td>
+                <td>Alamat</td>
                 <td>`+data.alamat+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>Kecamatan</td>
                 <td>`+data.kecamatan+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>No Telpon</td>
                 <td>`+data.no_tel+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>Contact Person</td>
                 <td>`+data.pic+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>No HP</td>
                 <td>`+data.no_hp+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>Website</td>
                 <td>`+data.website+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>Email</td>
                 <td>`+data.email+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
+                <td>Status</td>
                 <td>`+data.status+`</td>
             </tr>
 
