@@ -246,6 +246,61 @@
             padding-bottom: initial; 
         }
 
+        .swal2-modal {
+            border-radius:0.75rem !important;
+            width:270px !important;
+            font-family: 'Roboto', sans-serif !important;
+        }
+        .swal2-title{
+            font-family: 'Roboto', sans-serif !important;
+            font-size:20px !important;
+            color:black !important;
+        }
+        
+        .swal2-content{
+            font-family: 'Roboto', sans-serif !important;
+            font-size:12px !important;
+            color:black;
+        }
+
+        .swal2-confirm{
+            width:100px !important;
+            margin-left:5px !important;            
+        }
+        
+        .swal2-cancel{
+            width:100px !important;
+        }
+
+        
+        .btn-blue {
+            background-color: #00AFB9;
+            border-color: #00AFB9;
+            color: #fff; }
+            .btn-blue:hover {
+                color: #fff;
+                background-color: #00AFB9DE;
+                border-color: #00AFB9DE; }
+
+        .btn-red {
+            background-color: #EB3F33;
+            border-color: #EB3F33;
+            color: #fff; }
+            .btn-red:hover {
+                color: #fff;
+                background-color: #EB3F33DE;
+                border-color: #EB3F33DE; }
+        
+        .btn-outline-blue {
+            background-color: #fff;
+            border-color: #00AFB9;
+            color: black; }
+            .btn-outline-blue:hover {
+                color: black;
+                background-color: #fff;
+                border-color: #00AFB9DE; }
+
+
 
     </style>
     <script>
@@ -627,13 +682,156 @@
         }
     });
 
-    function callPesan(data){
-        $('#modal-pesan-id').text(data.id);
-        $('#pesan-judul').text(data.judul);
-        $('#pesan-text').text(data.text);
-        $('#btn-pesan1').html(data.btn1);
-        $('#btn-pesan2').html(data.btn2);
-        $('#modal-pesan').modal('show');
+    
+    function msgDialog(data){
+        console.log(data.type);
+        switch(data.type){
+            case 'hapus':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Hapus Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                function callBackMsg(){
+                    hapusData(data.id);
+                }
+                
+                function callBackCancel(){
+                    // 
+                }
+                
+            break;
+            case 'edit':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-blue');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Ubah Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan dihapus.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Ubah');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                function callBackMsg(){
+                    $('#form-tambah').submit();
+                }
+                
+                function callBackCancel(){
+                    // 
+                }
+            break;
+            case 'simpan':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-blue');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-blue');
+                var title = (data.title != undefined ? data.title : 'Tersimpan');
+                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi '+data.id);
+                var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
+                
+                function callBackMsg(){
+                    showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                }
+                
+                function callBackCancel(){
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
+                    showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                }
+            break;
+            case 'keluar':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-blue');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Keluar Form?');
+                var text = (data.text != undefined ? data.text : 'Keluar dari form tanpa menyimpan transaksi. Semua perubahan akan hilang.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                function callBackMsg(){
+                    $('#saku-datatable').show();
+                    $('#saku-form').hide();
+                }
+                
+                function callBackCancel(){
+                    // 
+                }
+            break;
+            case 'logout':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-blue');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Keluar Aplikasi?');
+                var text = (data.text != undefined ? data.text : 'Semua halaman akses yang sama akan keluar.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                function callBackMsg(){
+                    window.localStorage.setItem('logged_in', false);
+                    window.location.href = "{{ url('esaku-auth/logout') }}";
+                }
+                
+                function callBackCancel(){
+                    // 
+                }
+            break;
+        }
+        var swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn '+btn1,
+            cancelButtonClass: 'btn '+btn2,
+            buttonsStyling: false,
+        })
+        
+        swalWithBootstrapButtons.fire({
+            title: title,
+            text: text,
+            showCancelButton: true,
+            confirmButtonText: confirm,
+            cancelButtonText: cancel,
+            reverseButtons: true
+        }).then((result) => {
+            switch(data.type){
+                case 'hapus':
+                    if (result.value) {
+                        console.log('commit');
+                        hapusData(data.id);
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('cancel');
+                    }
+                    
+                break;
+                case 'edit':
+                    if (result.value) {
+                        console.log('commit');
+                        $('#form-tambah').submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('cancel');
+                    }
+                break;
+                case 'simpan':
+                    if (result.value) {
+                        console.log('commit');
+                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('cancel');
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                    }
+                break;
+                case 'keluar':
+                    if (result.value) {
+                        console.log('commit');
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('cancel');
+                    }
+                break;
+                case 'logout':
+                    if (result.value) {
+                        console.log('commit');
+                        window.localStorage.setItem('logged_in', false);
+                        window.location.href = "{{ url('esaku-auth/logout') }}";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('cancel');
+                    }                    
+                break;
+            }
+                
+        })
     }
 
     function showNotification(placementFrom, placementAlign, type,title,message) {
@@ -1086,19 +1284,10 @@
         window.addEventListener('storage', storageChange, false);
 
         function logout(){
-
-            callPesan({
-                id : null,
-                judul : 'Keluar Aplikasi ?',
-                text : 'Semua halaman akses esaku akan keluar dari sistem. ',
-                btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-sign-out' style='background:#00AFB9;border:1px solid #00AFB9'>Keluar</button>",
+            msgDialog({
+                id:null,
+                type:'logout'
             });
-
-            $('#btn-sign-out').click(function(){
-                window.localStorage.setItem('logged_in', false);
-                window.location.href = "{{ url('esaku-auth/logout') }}";
-            })
         }
 
         

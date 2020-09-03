@@ -13,10 +13,9 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
-
         body {
             font-family: 'Roboto', sans-serif !important;
         }
@@ -37,9 +36,9 @@
         input{
             border-radius: 10px !important;
         }
-        button{
+        /* button{
             border-radius: 15px !important;
-        }
+        } */
         .footer-content{
             width:60%;
             padding: 0 150px
@@ -63,6 +62,7 @@
         }
         
     </style>
+
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
@@ -112,7 +112,7 @@
                                 </label>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <a href="#">Lupa password?</a>
-                                    <button class="btn btn-primary btn-lg btn-shadow" type="submit">Masuk</button>
+                                    <button class="btn btn-primary btn-lg" type="submit">Masuk</button>
                                 </div>
                             </form>
                             <button class="btn btn-block mt-5" style="background: #C9C9C929;">Daftar</button>
@@ -139,6 +139,7 @@
         </footer>
     </main>
     <script>
+      
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(
                 {
@@ -186,7 +187,8 @@
                     "</div>"
                 }
             );
-            }
+        }
+
         $(document).ready(function() {
             $('#username,#password').keydown(function(e){
                 
@@ -227,9 +229,7 @@
         });
     </script>
     @if (Session::has('status'))
-        <script>
-            // alert("{{Session::get('alert')}}")
-            
+        <script>            
             showNotification("top", "center", "success",'Logout','Anda telah berhasil logout.');
         </script>
         

@@ -739,65 +739,17 @@
     // BUTTON KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
-        callPesan({
-            id : kode,
-            judul : 'Keluar Form?',
-            text : 'Kamu keluar dari form ini tanpa menyimpan transaksi. Semua perubahan akan hilang',
-            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-keluar' style='background:#00AFB9;border:1px solid #00AFB9'>Keluar</button>",
-        });
-
-        $('#btn-keluar').click(function(){
-            $('#modal-pesan').modal('hide');
-            $('#saku-datatable').show();
-            $('#saku-form').hide();
+        msgDialog({
+            id:kode,
+            type:'keluar'
         });
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
         var kode = $('#kode_vendor').val();
-        callPesan({
-            id : kode,
-            judul : 'Ubah Data?',
-            text : 'Data akan dirubah dan semua informasi sebelumnya akan dihapus. ',
-            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-ubahya' style='background:#00AFB9;border:1px solid #00AFB9'>Ubah</button>",
-        });
-
-        $('#btn-ubahya').click(function(){
-            $('#modal-pesan').modal('hide');
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-
-            console.log('call pesan');
-            callPesan({
-                id : id,
-                judul : 'Tersimpan',
-                text : 'is test',
-                btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
-                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
-            });
-            
-            $('#btn-inputbaru').click(function(){
-                $('#modal-pesan').modal('hide');
-                $('#row-id').hide();
-                $('#form-tambah')[0].reset();
-                $('#form-tambah').validate().resetForm();
-                $('[id^=label]').html('');
-                $('#id_edit').val('');
-                $('#judul-form').html('Tambah Data Vendor');
-                $('#method').val('post');
-                $('#kode_vendor').attr('readonly', false);
-            });
-            
-            $('#btn-selesai').click(function(){
-                $('#modal-pesan').modal('hide');
-                $('#saku-datatable').show();
-                $('#saku-form').hide();
-            });
-
-            console.log('call pesan2');
-            // $('#form-tambah').submit();
+        msgDialog({
+            id:kode,
+            type:'edit'
         });
     });
     
@@ -837,67 +789,18 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
-
-                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+id+') berhasil disimpan ');
-
-                        if(parameter == ""){
-
-                            callPesan({
-                                id : id,
-                                judul : 'Tersimpan',
-                                text : text,
-                                btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai2'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
-                                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru2' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
-                            });
-    
-                            $('#btn-inputbaru2').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('#row-id').hide();
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('[id^=label]').html('');
-                                $('#id_edit').val('');
-                                $('#judul-form').html('Tambah Data Vendor');
-                                $('#method').val('post');
-                                $('#kode_vendor').attr('readonly', false);
-                            });
-
-                            $('#btn-selesai2').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('#saku-datatable').show();
-                                $('#saku-form').hide();
-                            });
-                        }else{
-
-                            callPesan({
-                                id : id,
-                                judul : 'Tersimpan',
-                                text : text,
-                                btn1 : "<button type='button' class='btn btn-outline-primary btn-block' id='btn-selesai'  style='background:white;border:1px solid #00AFB9;color:black'>Selesai</button>",
-                                btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-inputbaru' style='background:#00AFB9;border:1px solid #00AFB9'>Input Baru</button>",
-                            });
-    
-                            $('#btn-inputbaru').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('#row-id').hide();
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('[id^=label]').html('');
-                                $('#id_edit').val('');
-                                $('#judul-form').html('Tambah Data Vendor');
-                                $('#method').val('post');
-                                $('#kode_vendor').attr('readonly', false);
-                            });
-
-                            $('#btn-selesai').click(function(){
-                                $('#modal-pesan').modal('hide');
-                                $('#saku-datatable').show();
-                                $('#saku-form').hide();
-                            });
-                        }
-
-
-
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Vendor');
+                        $('#method').val('post');
+                        $('#kode_vendor').attr('readonly', false);
+                        msgDialog({
+                            id:id,
+                            type:'simpan'
+                        });
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
@@ -955,16 +858,9 @@
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var kode = $(this).closest('tr').find('td').eq(0).html();
-        callPesan({
-            id : kode,
-            judul : 'Hapus Data?',
-            text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
-            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-hapusya' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
-        });
-        $('#btn-hapusya').click(function(){
-            var kode = $('#modal-pesan-id').text();
-            hapusData(kode);
+        msgDialog({
+            id: kode,
+            type:'hapus'
         });
     });
 
@@ -1114,17 +1010,9 @@
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
-        callPesan({
-            id : id,
-            judul : 'Hapus Data?',
-            text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.',
-            btn1 : "<button type='button' class='btn btn-light btn-block' data-dismiss='modal' >Batal</button>",
-            btn2 : "<button type='button' class='btn btn-primary btn-block' id='btn-hapusya2' style='background:#EB3F33;border:1px solid #EB3F33'>Hapus</button>",
-        });
-        
-        $('#btn-hapusya2').click(function(){
-            var id = $('#modal-pesan-id').text();
-            hapusData(id);
+        msgDialog({
+            id:id,
+            type:'hapus'
         });
     });
 
