@@ -264,12 +264,12 @@
         }
 
         .swal2-confirm{
-            width:100px !important;
+            width:110px !important;
             margin-left:5px !important;            
         }
         
         .swal2-cancel{
-            width:100px !important;
+            width:110px !important;
         }
 
         
