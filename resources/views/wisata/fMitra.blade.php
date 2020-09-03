@@ -252,9 +252,9 @@
                             <div class="col-md-3 col-sm-12">                            
                                 <select class='form-control' id="status" name="status" required>
                                 <option value=''>--- Pilih Status ---</option>
-                                <option value='BINTANG'>Menikah</option>
-                                <option value='NON'>Belum Menikah</option>
-                                <option value='-'>Cerai Hidup</option>                                
+                                <option value='Bintang'>Bintang</option>
+                                <option value='NonBintang'>NonBintang</option>
+                                <option value='NonHotel'>NonHotel</option>                                
                                 </select>
                             </div>
                         </div>
