@@ -389,7 +389,7 @@
 
         <div class="navbar-right">
             <div class="user d-inline-block mr-3">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="name">{{ Session::get('namaUser') }}</span>
                     <span id="foto-profile">
@@ -1191,6 +1191,19 @@
         afterSelect: function (item) {
             console.log('cek');
             searchForm(item);
+        }
+    });
+
+    $('#notificationButton').hover(function(){
+        
+        if($(this).attr("aria-expanded") != "true"){
+            $(this).dropdown('toggle');
+        }
+    });
+
+    $('#btn-admin').hover(function(){
+        if($(this).attr("aria-expanded") != "true"){
+            $(this).dropdown('toggle');
         }
     });
 
