@@ -310,6 +310,29 @@
             color:black !important;
         }
 
+        .dropdown-profile{
+            display:unset
+        }
+        .dropdown-profile:hover,.userprofile:hover,.userjab:hover{
+            background:#f8f8f8 !important;
+            color:unset;
+        }
+        .imgprofile{
+            position:absolute;
+        }
+        .userprofile{   
+            margin-left:50px;
+            font-size:13px;
+        }
+        .userjab{   
+            margin-left:50px;
+            font-size:10px;
+        }
+
+        .dropdown-item:active{
+            background:#E8E8E8 !important;
+            color:unset !important;
+        }
 
     </style>
     <script>
@@ -395,12 +418,17 @@
             <span class="logo d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
+        @php
+            $tmp = explode(" ",Session::get('namaUser'));
+            $nama = $tmp[0];
+
+        @endphp
 
         <div class="navbar-right">
             <div class="user d-inline-block mr-3">
                 <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <span class="name">{{ Session::get('namaUser') }}</span>
+                    <span class="name">{{ $nama }}</span>
                     <span id="foto-profile">
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
@@ -409,23 +437,6 @@
                     @endif
                     </span>
                 </button>
-                <style>
-                    .dropdown-profile{
-                        display:unset
-                    }
-                    .imgprofile{
-                        position:absolute;
-                    }
-                    .userprofile{   
-                        margin-left:50px;
-                        font-size:13px;
-                    }
-                    .userjab{   
-                        margin-left:50px;
-                        font-size:10px;
-                    }
-                </style>
-                
                 <div class="dropdown-menu dropdown-menu-right mt-2" style="width:200px">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
@@ -434,8 +445,8 @@
                             @else
                             <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'/toko-auth/storage/'.Session::get('foto') }}" />
                             @endif
-                            <h7 class="userprofile">{{ Session::get('namaUser') }}</h7>
-                            <span class="userjab" >{{ Session::get('namaUser') }}</span>
+                            <p class="userprofile mb-0">{{ $nama }}</p>
+                            <span class="userjab" >{{ Session::get('jabatan') }}</span>
                         </div>
                     </a>
                     <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>

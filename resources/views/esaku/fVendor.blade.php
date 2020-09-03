@@ -52,13 +52,13 @@
         
         #table-search tbody tr:hover
         {
-            background:#E8E8E8 !important;
+            background:#f8f8f8 !important;
             cursor:pointer;
         }
 
         #table-search tbody tr.selected
         {
-            background:#E8E8E8 !important;
+            background:#f8f8f8 !important;
         }
 
         #table-search_filter label, #table-search_filter input
@@ -108,14 +108,14 @@
 
         #filter-btn:hover 
         {
-            background:rgba(58,58,58,.15);
+            background:#f8f8f8;
             cursor:pointer;
         }
 
         #table-data tbody tr:hover
         {
-            background:rgba(58,58,58,.15) !important;
-            border-color:rgba(58,58,58,.15) !important;
+            background:#f8f8f8 !important;
+            border-color:#f8f8f8 !important;
             cursor:pointer;
         }
 
