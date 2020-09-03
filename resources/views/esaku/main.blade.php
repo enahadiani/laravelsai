@@ -299,7 +299,16 @@
                 color: black;
                 background-color: #fff;
                 border-color: #00AFB9DE; }
+        
+        .row-notif:hover{
+            background:#f8f8f8;
+            color:black;
+        }
 
+        .row-notif  a:hover {
+            background:#f8f8f8 !important;
+            color:black !important;
+        }
 
 
     </style>
@@ -396,14 +405,42 @@
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
                     @else
-                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ config('api.url').'/toko-auth/storage/'.Session::get('foto') }}" />
                     @endif
                     </span>
                 </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
-                    <a class="dropdown-item" href="#" onclick="logout()">Sign out</a>
+                <style>
+                    .dropdown-profile{
+                        display:unset
+                    }
+                    .imgprofile{
+                        position:absolute;
+                    }
+                    .userprofile{   
+                        margin-left:50px;
+                        font-size:13px;
+                    }
+                    .userjab{   
+                        margin-left:50px;
+                        font-size:10px;
+                    }
+                </style>
+                
+                <div class="dropdown-menu dropdown-menu-right mt-2" style="width:200px">
+                    <a href="#" class="dropdown-profile">
+                        <div style="height: 45px;padding: 0 1rem;">
+                            @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
+                            @else
+                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'/toko-auth/storage/'.Session::get('foto') }}" />
+                            @endif
+                            <h7 class="userprofile">{{ Session::get('namaUser') }}</h7>
+                            <span class="userjab" >{{ Session::get('namaUser') }}</span>
+                        </div>
+                    </a>
+                    <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
+                    <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
             </div>
             <div class="header-icons d-inline-block align-middle mr-4">
@@ -414,6 +451,8 @@
                         <label class="custom-switch-btn" for="switchDark"></label>
                     </div>
                 </div>
+
+                
 
                 <!-- <div class="position-relative d-none d-sm-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
@@ -460,61 +499,32 @@
                         <i class="simple-icon-bell icon-notif"></i>
                         <!-- <span class="count"></span> -->
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0" id="notificationDropdown2" style="width:300px;">
-                        <!-- <div class="scroll">
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/profiles/l-2.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-2" id="notificationDropdown2" style="width:300px;">
+                        <div class='row-header border-bottom'>
+                            <div class="d-flex flex-row px-3 py-2 ">
+                                <div class="">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/1.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                        </div>
+                        <div class="notif-body px-3 py-3" style="height:280px">
+                        </div>
+                        <div class='row-footer border-top'>
+                            <div class="d-flex flex-row px-3 py-2 text-center">
+                                <div class="" style="width:100%">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">1 item is out of stock!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                    <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/2.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
-                                    <a href="#">
-                                        <p class="font-weight-medium mb-1">New order received! It is total $147,20.</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row mb-3 pb-3 ">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/3.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
-                                    <a href="#">
-                                        <p class="font-weight-medium mb-1">3 items just added to wish list by a user!
-                                        </p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
-
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab">
+                    <i class="simple-icon-screen-desktop"></i>
+                </button>
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
@@ -888,7 +898,7 @@
             async:false,
             success:function(result){    
                 var notif='';
-                $('#notificationDropdown2').html(''); 
+                $('.notif-body').html(''); 
                 
                 if(result.data.status){
                     if(result.data.jumlah == 0){
@@ -897,16 +907,7 @@
                         $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
                     }
                     notif = `
-                    <div class='row-header border-bottom'>
-                        <div class="d-flex flex-row px-3 py-2 ">
-                            <div class="">
-                                <a href="#">
-                                    <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="notif-body px-3 py-3" style="height:280px">
+                    
                             `;
                     if(result.data.data.length > 0){
                         for(var i=0;i<result.data.data.length;i++){
@@ -935,25 +936,10 @@
                             `;
                         }
                     }
-                    notif += `
-                        
-                    </div>
-                    <div class='row-footer border-top'>
-                        <div class="d-flex flex-row px-3 py-2 text-center">
-                            <div class="" style="width:100%">
-                                <a href="#">
-                                <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>`;
-                    $('#notificationDropdown2').append(notif);
-                    
-                    var scroll = document.querySelector('.notif-body');
-                    var psscroll = new PerfectScrollbar(scroll);
+                    $('.notif-body').append(notif);
                     
                 }else{
-                    $('#notificationDropdown2').html(''); 
+                    $('.notif-body').html(''); 
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
@@ -1171,6 +1157,9 @@
             }
         });
     }
+
+    var scrollnotif = document.querySelector('.notif-body');
+    var notifscroll = new PerfectScrollbar(scrollnotif);
     
     loadMenu();
     getNotif();
@@ -1239,6 +1228,11 @@
         if($(this).attr("aria-expanded") != "true"){
             $(this).dropdown('toggle');
         }
+    });
+
+    $('#btn-newtab').click(function(){
+        var url = "{{url('esaku-auth')}}";
+        window.open(url, '_blank');
     });
 
     // $('#cari').typeahead({
