@@ -195,8 +195,8 @@
 
                         <div class="form-group row ">
                             <label for="alamat" class="col-md-2 col-sm-12 col-form-label">Alamat</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Alamat" id="alamat" name="alamat" required>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Alamat Mitra" id="alamat" name="alamat" required>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
