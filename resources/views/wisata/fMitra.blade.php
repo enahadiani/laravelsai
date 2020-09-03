@@ -167,6 +167,7 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
+
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <div class="form-group row " id="row-id">
@@ -182,7 +183,6 @@
                                 <input class="form-control" type="text" placeholder="Kode Mitra" id="kode_mitra" name="kode_mitra" required>                                
                             </div>
                             
-                            </div>
                             <div class="col-md-2 col-sm-12">
                             </div>
 
