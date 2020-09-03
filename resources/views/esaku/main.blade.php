@@ -460,7 +460,7 @@
                         <i class="simple-icon-bell icon-notif"></i>
                         <!-- <span class="count"></span> -->
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
+                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0" id="notificationDropdown2" style="width:300px;">
                         <!-- <div class="scroll">
                             <div class="d-flex flex-row mb-3 pb-3 border-bottom">
                                 <a href="#">
@@ -888,7 +888,7 @@
             async:false,
             success:function(result){    
                 var notif='';
-                $('#notificationDropdown').html(''); 
+                $('#notificationDropdown2').html(''); 
                 
                 if(result.data.status){
                     if(result.data.jumlah == 0){
@@ -896,30 +896,64 @@
                     }else{
                         $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
                     }
-                    notif = `<div class="scroll">
+                    notif = `
+                    <div class='row-header border-bottom'>
+                        <div class="d-flex flex-row px-3 py-2 ">
+                            <div class="">
+                                <a href="#">
+                                    <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notif-body px-3 py-3" style="height:280px">
                             `;
                     if(result.data.data.length > 0){
                         for(var i=0;i<result.data.data.length;i++){
                             var line = result.data.data[i];
-                            notif+=`<div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                            notif+=`
+                            <div class='row-notif'>
+                                <div class="d-flex flex-row">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">`+line.pesan+`</p>
-                                        <p class="text-muted mb-0 text-small">`+line.tgl+` - `+line.jam+`</p>
+                                        <i class='simple-icon-info'></i>
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="#">
+                                            <p class="font-weight-medium mb-1" style="font-size:10px;color;black;font-weight:unset">`+line.judul+` &nbsp; &nbsp;  &bull; &nbsp; &nbsp; `+line.tgl+`</p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>`;
+                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                    <div class="">
+                                        <a href="#">
+                                            <p class="font-weight-medium mb-1" style="color;black;font-weight:bold">`+line.subjudul+`</p>
+                                            <p class="text-muted mb-0 text-small" style="font-weight:unset;color:black !important">`+line.pesan+`</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
                         }
                     }
-                    notif += `</div>`;
-                    $('#notificationDropdown').append(notif);
+                    notif += `
+                        
+                    </div>
+                    <div class='row-footer border-top'>
+                        <div class="d-flex flex-row px-3 py-2 text-center">
+                            <div class="" style="width:100%">
+                                <a href="#">
+                                <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`;
+                    $('#notificationDropdown2').append(notif);
+                    
+                    var scroll = document.querySelector('.notif-body');
+                    var psscroll = new PerfectScrollbar(scroll);
                     
                 }else{
-                    $('#notificationDropdown').html(''); 
+                    $('#notificationDropdown2').html(''); 
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
