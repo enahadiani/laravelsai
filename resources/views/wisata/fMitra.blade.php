@@ -567,7 +567,7 @@
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
-                    $('#status').val(result.data[0].status);        
+                    $('#status')[0].selectize.setValue(result.data.data[0].status);     
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -679,8 +679,7 @@
                     $('#method').val('put');
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
-                    $('#id').val(id);
-                    
+                    $('#id').val(id);                    
                     $('#nama').val(result.data[0].nama);        
                     $('#alamat').val(result.data[0].alamat);        
                     $('#kecamatan').val(result.data[0].kecamatan);        
@@ -688,9 +687,8 @@
                     $('#pic').val(result.data[0].pic);        
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
-                    $('#email').val(result.data[0].email);        
-                    $('#status').val(result.data[0].status);  
-
+                    $('#email').val(result.data[0].email);                            
+                    $('#status')[0].selectize.setValue(result.data.data[0].status); 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
