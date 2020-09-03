@@ -177,6 +177,7 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
+                       
                         <div class="form-group row  ">
                             <label for="kode_mitra" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
@@ -189,8 +190,7 @@
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Mitra" id="nama" name="nama" required>
-                            </div>
-                            
+                            </div>                            
                         </div>
 
                         <div class="form-group row ">
@@ -201,6 +201,64 @@
                             <div class="col-md-2 col-sm-12">
                             </div>                            
                         </div>
+
+                        <div class="form-group row  ">
+                            <label for="kecamatan" class="col-md-2 col-sm-12 col-form-label">Kecamatan</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Kecamatan" id="kecamatan" name="kecamatan" required>                                
+                            </div>
+                            
+                            <div class="col-md-2 col-sm-12">
+                            </div>
+
+                            <label for="no_tel" class="col-md-2 col-sm-12 col-form-label">No Telpon</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>
+                            </div>                            
+                        </div>
+
+                        <div class="form-group row  ">
+                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">Contact Person</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Contact Person" id="pic" name="pic" required>                                
+                            </div>
+                            
+                            <div class="col-md-2 col-sm-12">
+                            </div>
+
+                            <label for="no_hp" class="col-md-2 col-sm-12 col-form-label">HP PIC</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="HP PIC" id="no_hp" name="no_hp" required>
+                            </div>                            
+                        </div>
+
+                        <div class="form-group row  ">
+                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">Website</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Website" id="website" name="website" required>                                
+                            </div>
+                            
+                            <div class="col-md-2 col-sm-12">
+                            </div>
+
+                            <label for="email" class="col-md-2 col-sm-12 col-form-label">Email</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Email" id="email" name="email" required>
+                            </div>                            
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="status" class="col-3 col-form-label">Status</label>
+                            <div class="col-3">
+                                <select class='form-control' id="status" name="status" required>
+                                <option value=''>--- Pilih Status ---</option>
+                                <option value='BINTANG'>Menikah</option>
+                                <option value='NON'>Belum Menikah</option>
+                                <option value='-'>Cerai Hidup</option>                                
+                                </select>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
@@ -338,6 +396,7 @@
     });
     // END LIST DATA
 
+    $('#status').selectize();    
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
