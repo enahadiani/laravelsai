@@ -567,7 +567,7 @@
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
-                    $('#status')[0].selectize.setValue(result.data.data[0].status);     
+                    $('#status')[0].selectize.setValue(result.data[0].status);     
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -688,7 +688,7 @@
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);                            
-                    $('#status')[0].selectize.setValue(result.data.data[0].status); 
+                    $('#status')[0].selectize.setValue(result.data[0].status); 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
