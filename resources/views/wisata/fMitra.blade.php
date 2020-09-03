@@ -247,9 +247,9 @@
                             </div>                            
                         </div>
 
-                        <div class="form-group row">
-                            <label for="status" class="col-3 col-form-label">Status</label>
-                            <div class="col-3">
+                        <div class="form-group row">                            
+                            <label for="status" class="col-md-2 col-sm-12 col-form-label">Status</label>
+                            <div class="col-md-3 col-sm-12">                            
                                 <select class='form-control' id="status" name="status" required>
                                 <option value=''>--- Pilih Status ---</option>
                                 <option value='BINTANG'>Menikah</option>
