@@ -309,16 +309,11 @@
         {
             left: 50% !important;
             right: auto !important;
-            transform: translate(-50%, 0) !important;
+            transform: translate(-40%, 0) !important;
         }
-
-        div.dropdown{
-            transition: 0s;
-        }
-
+        
         div.dropdown:hover > div.dropdown-menu {
             display: block !important;
-            transition-delay: 3s;
         } 
         
         div.dropdown>div.dropdown-toggle:active {
