@@ -327,7 +327,7 @@
 
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog" role="document" style="max-width:600px">
+        <div class="modal-dialog" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
             <div class="modal-header" style="display:block;padding-top: 10px;padding-bottom: 10px;">
                     <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>

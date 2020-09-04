@@ -720,7 +720,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
                 var title = (data.title != undefined ? data.title : 'Keluar Form?');
-                var text = (data.text != undefined ? data.text : 'Keluar dari form tanpa menyimpan transaksi. Semua perubahan akan hilang.');
+                var text = (data.text != undefined ? data.text : 'Semua perubahan tidak akan disimpan.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
