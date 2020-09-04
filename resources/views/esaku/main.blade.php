@@ -298,7 +298,7 @@
             font-size:10px;
         }
 
-        button#notificationButton:hover + div.dropdown-menu 
+        /* button#notificationButton:hover + div.dropdown-menu 
         {
             display: block !important;
         }
@@ -306,15 +306,15 @@
         button#btn-admin:hover + div.dropdown-menu 
         {
             display: block !important;
-        }
+        } */
 
-        /* #notificationButton:hover >#notificationDropdown2.dropdown-menu {
+        div.dropdown:hover > div.dropdown-menu {
             display: block !important;
-        } */
+        } 
         
-        /* .dropdown>.dropdown-toggle:active {
+        div.dropdown>div.dropdown-toggle:active {
             pointer-events: none;
-        } */
+        }
 
     </style>
     <script>
@@ -407,7 +407,7 @@
         @endphp
 
         <div class="navbar-right">
-            <div class="user d-inline-block mr-3">
+            <div class="user d-inline-block mr-3 dropdown">
                 <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="name">{{ $nama }}</span>
@@ -486,7 +486,7 @@
                     </div>
                 </div> -->
 
-                <div class="position-relative d-inline-block">
+                <div class="dropdown position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="simple-icon-bell icon-notif"></i>
