@@ -644,7 +644,10 @@
             },
             search: "_INPUT_",
             searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_"
+            lengthMenu: "Items Per Page _MENU_",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
         }
     });
 
@@ -763,7 +766,10 @@
                 },
                 search: "_INPUT_",
                 searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_"
+                lengthMenu: "Items Per Page _MENU_",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
             },
         });
 

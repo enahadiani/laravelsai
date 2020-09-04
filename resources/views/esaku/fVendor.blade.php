@@ -454,7 +454,9 @@
                 },
                 search: "_INPUT_",
                 searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_"
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
             },
         });
 
@@ -682,7 +684,11 @@
             '<option value="25">25 per halaman</option>'+
             '<option value="50">50 per halaman</option>'+
             '<option value="100">100 per halaman</option>'+
-            '</select>'
+            '</select>',
+            
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
         }
     });
     $.fn.DataTable.ext.pager.numbers_length = 5;

@@ -298,18 +298,27 @@
             font-size:10px;
         }
 
-        /* button#notificationButton:hover + div.dropdown-menu 
+        #notificationDropdown2
         {
-            display: block !important;
+            left: 50% !important;
+            right: auto !important;
+            transform: translate(-60%, 0) !important;
         }
 
-        button#btn-admin:hover + div.dropdown-menu 
+        #adminDropdown
         {
-            display: block !important;
-        } */
+            left: 50% !important;
+            right: auto !important;
+            transform: translate(-50%, 0) !important;
+        }
+
+        div.dropdown{
+            transition: 0s;
+        }
 
         div.dropdown:hover > div.dropdown-menu {
             display: block !important;
+            transition-delay: 3s;
         } 
         
         div.dropdown>div.dropdown-toggle:active {
@@ -391,7 +400,7 @@
 
             <form action="#">
                 <div class="search" >
-                    <input type="text" placeholder="Search..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
+                    <input type="text" placeholder="Cari Form..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
                     <span class="search-icon cari-form">
                         <i class="simple-icon-magnifier"></i>
                     </span>
@@ -423,7 +432,7 @@
                     @endif
                     </span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right mt-2" style="width:200px">
+                <div class="dropdown-menu dropdown-menu-right mt-2" id="adminDropdown" style="width:200px">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
                             @if (Session::get('foto') == "" || Session::get('foto') == "-" )
@@ -441,59 +450,10 @@
                 </div>
             </div>
             <div class="header-icons d-inline-block align-middle mr-4">
-                <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                         data-toggle="tooltip" data-placement="left" title="Dark Mode">
-                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
-                        <label class="custom-switch-btn" for="switchDark"></label>
-                    </div>
-                </div>
-
-                
-
-                <!-- <div class="position-relative d-none d-sm-inline-block">
-                    <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-grid"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-equalizer d-block"></i>
-                            <span>Settings</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-male-female d-block"></i>
-                            <span>Users</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-puzzle d-block"></i>
-                            <span>Components</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-bar-chart-4 d-block"></i>
-                            <span>Profits</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-file d-block"></i>
-                            <span>Surveys</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-suitcase d-block"></i>
-                            <span>Tasks</span>
-                        </a>
-
-                    </div>
-                </div> -->
-
                 <div class="dropdown position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell icon-notif"></i>
+                        <i class="simple-icon-bell icon-notif" style="font-size:17px"></i>
                         <!-- <span class="count"></span> -->
                     </button>
                     <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-2" id="notificationDropdown2" style="width:300px;">
@@ -520,7 +480,7 @@
                     </div>
                 </div>
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab">
-                    <i class="simple-icon-screen-desktop"></i>
+                    <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
                 </button>
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
@@ -536,114 +496,6 @@
         <div class="main-menu">
         </div>
         <div class="sub-menu">
-                <!-- <ul class="list-unstyled" data-link="dashboard">
-                    <li class="active">
-                        <a href="Dashboard.Default.html">
-                            <i class="simple-icon-rocket"></i> <span class="d-inline-block">Default</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Analytics.html">
-                            <i class="simple-icon-pie-chart"></i> <span class="d-inline-block">Analytics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Ecommerce.html">
-                            <i class="simple-icon-basket-loaded"></i> <span class="d-inline-block">Ecommerce</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Content.html">
-                            <i class="simple-icon-doc"></i> <span class="d-inline-block">Content</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="list-unstyled" data-link="menu" id="menuTypes">
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuTypes" aria-expanded="true"
-                            aria-controls="collapseMenuTypes" class="rotate-arrow-icon">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Types</span>
-                        </a>
-                        <div id="collapseMenuTypes" class="collapse show" data-parent="#menuTypes">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="Menu.Default.html">
-                                        <i class="simple-icon-control-pause"></i> <span
-                                            class="d-inline-block">Default</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Subhidden.html">
-                                        <i class="simple-icon-arrow-left mi-subhidden"></i> <span
-                                            class="d-inline-block">Subhidden</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Hidden.html">
-                                        <i class="simple-icon-control-start mi-hidden"></i> <span
-                                            class="d-inline-block">Hidden</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Mainhidden.html">
-                                        <i class="simple-icon-control-rewind mi-hidden"></i> <span
-                                            class="d-inline-block">Mainhidden</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuLevel" aria-expanded="true"
-                            aria-controls="collapseMenuLevel" class="rotate-arrow-icon collapsed">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Levels</span>
-                        </a>
-                        <div id="collapseMenuLevel" class="collapse" data-parent="#menuTypes">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                            Level</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" data-toggle="collapse" data-target="#collapseMenuLevel2"
-                                        aria-expanded="true" aria-controls="collapseMenuLevel2"
-                                        class="rotate-arrow-icon collapsed">
-                                        <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Another
-                                            Level</span>
-                                    </a>
-                                    <div id="collapseMenuLevel2" class="collapse">
-                                        <ul class="list-unstyled inner-level-menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                                        Level</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuDetached" aria-expanded="true"
-                            aria-controls="collapseMenuDetached" class="rotate-arrow-icon collapsed">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-                        </a>
-                        <div id="collapseMenuDetached" class="collapse">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                            Level</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul> -->
         </div>
     </div>
 
@@ -713,7 +565,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
                 var title = (data.title != undefined ? data.title : 'Ubah Data?');
-                var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan dihapus.');
+                var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan diganti.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Ubah');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
@@ -794,6 +646,7 @@
         swalWithBootstrapButtons.fire({
             title: title,
             html: text,
+            animation: false,
             showCancelButton: (showCancel != undefined ? showCancel : true),
             confirmButtonText: confirm,
             cancelButtonText: cancel,
@@ -1227,19 +1080,20 @@
         }
     });
 
-    // $('#notificationButton').hover(function(){
+    $('#notificationButton').hover(function(){
         
-    //     // if($(this).attr("aria-expanded") != "true"){
-    //         $(this).dropdown('toggle');
-    //     // }
+        if($('#btn-admin').attr("aria-expanded") == "true"){
+            $('#btn-admin').dropdown('toggle');
+        }
         
-    // });
+        
+    });
 
-    // $('#btn-admin').hover(function(){
-    //     // if($(this).attr("aria-expanded") != "true"){
-    //         $(this).dropdown('toggle');
-    //     // }
-    // });
+    $('#btn-admin').hover(function(){
+        if($('#notificationButton').attr("aria-expanded") == "true"){
+            $('#notificationButton').dropdown('toggle');
+        }
+    });
 
     $('#btn-newtab').click(function(){
         var url = "{{url('esaku-auth')}}";
