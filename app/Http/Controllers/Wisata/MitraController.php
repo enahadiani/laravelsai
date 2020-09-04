@@ -71,10 +71,11 @@ class MitraController extends Controller
 
         try {   
                 $data = array();
+                $arrBidang = array();
                 if(count($request->generate)) {
                     for($i=0;$i<count($request->generate);$i++) {
                         if($request->generate[$i] == "true") {
-                            $arrBidang[] = array('kode_bidang[]'=>$request->kode_bidang[$i]);
+                            $arrBidang[] = array('kode_bidang'=>$request->kode_bidang[$i]);
                         }
                     }
                 }
