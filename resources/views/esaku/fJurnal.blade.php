@@ -1574,7 +1574,7 @@
                             $('[id^=label]').html('');
                             
                             msgDialog({
-                                id:id,
+                                id:result.data.no_bukti,
                                 type:'simpan'
                             });
                                 

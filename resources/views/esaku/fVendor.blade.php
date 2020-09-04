@@ -607,7 +607,7 @@
             }
         });
     }
-    
+
     getVendorAkun();
 
     $('#akun_hutang').typeahead({
@@ -777,7 +777,7 @@
                         $('#method').val('post');
                         $('#kode_vendor').attr('readonly', false);
                         msgDialog({
-                            id:id,
+                            id:result.data.kode,
                             type:'simpan'
                         });
                     }else if(!result.data.status && result.data.message === "Unauthorized"){

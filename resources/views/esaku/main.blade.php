@@ -674,13 +674,13 @@
                 var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
-                function callBackMsg(){
-                    hapusData(data.id);
-                }
+                // function callBackMsg(){
+                //     hapusData(data.id);
+                // }
                 
-                function callBackCancel(){
-                    // 
-                }
+                // function callBackCancel(){
+                //     // 
+                // }
                 
             break;
             case 'edit':
@@ -690,13 +690,13 @@
                 var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan dihapus.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Ubah');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
-                function callBackMsg(){
-                    $('#form-tambah').submit();
-                }
+                // function callBackMsg(){
+                //     $('#form-tambah').submit();
+                // }
                 
-                function callBackCancel(){
-                    // 
-                }
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
             case 'simpan':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -706,15 +706,15 @@
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
                 
-                function callBackMsg(){
-                    showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
-                }
+                // function callBackMsg(){
+                //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                // }
                 
-                function callBackCancel(){
-                    $('#saku-datatable').show();
-                    $('#saku-form').hide();
-                    showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
-                }
+                // function callBackCancel(){
+                //     $('#saku-datatable').show();
+                //     $('#saku-form').hide();
+                //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                // }
             break;
             case 'keluar':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -723,14 +723,14 @@
                 var text = (data.text != undefined ? data.text : 'Keluar dari form tanpa menyimpan transaksi. Semua perubahan akan hilang.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
-                function callBackMsg(){
-                    $('#saku-datatable').show();
-                    $('#saku-form').hide();
-                }
+                // function callBackMsg(){
+                //     $('#saku-datatable').show();
+                //     $('#saku-form').hide();
+                // }
                 
-                function callBackCancel(){
-                    // 
-                }
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
             case 'logout':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -739,14 +739,14 @@
                 var text = (data.text != undefined ? data.text : 'Semua halaman akses yang sama akan keluar.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
-                function callBackMsg(){
-                    window.localStorage.setItem('logged_in', false);
-                    window.location.href = "{{ url('esaku-auth/logout') }}";
-                }
+                // function callBackMsg(){
+                //     window.localStorage.setItem('logged_in', false);
+                //     window.location.href = "{{ url('esaku-auth/logout') }}";
+                // }
                 
-                function callBackCancel(){
-                    // 
-                }
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
         }
         var swalWithBootstrapButtons = Swal.mixin({
@@ -781,12 +781,12 @@
                 break;
                 case 'simpan':
                     if (result.value) {
-                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         //
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
-                        showNotification("top", "center", "success",'Simpan Data','Data Vendor ('+data.id+') berhasil disimpan ');
+                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
                     }
                 break;
                 case 'keluar':
