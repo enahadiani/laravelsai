@@ -288,10 +288,6 @@
     </div>
     <!-- END MODAL CBBL -->
 
-    <!-- MODAL HAPUS -->
-    
-    <!-- END MODAL HAPUS -->
-
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog" role="document" style="max-width:600px">
@@ -611,8 +607,7 @@
             }
         });
     }
-
-
+    
     getVendorAkun();
 
     $('#akun_hutang').typeahead({

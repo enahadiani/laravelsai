@@ -6,11 +6,7 @@
         .search-item2{
             cursor:pointer;
         }
-        .form-control[readonly]:focus {
-            background-color: #e9ecef;
-            opacity: 1;
-        }
-        
+
         input.error{
             border:1px solid #dc3545;
         }
@@ -51,17 +47,6 @@
         {
             border-collapse:collapse !important;
         }
-        
-        #table-search tbody tr:hover
-        {
-            background:#E8E8E8 !important;
-            cursor:pointer;
-        }
-
-        #table-search tbody tr.selected
-        {
-            background:#E8E8E8 !important;
-        }
 
         #table-search_filter label, #table-search_filter input
         {
@@ -96,216 +81,232 @@
         {
             width:inherit;
         }
+        
+        #searchData
+        {
+            font-size: .75rem;
+            height: 31px;
+        }
+        .dropdown-toggle::after {
+            display:none;
+        }
+        .dropdown-aksi > .dropdown-item{
+            font-size : 0.7rem;
+        }
     </style>
-        <div class="row" id="saku-datatable">
-            <div class="col-12">
-                <div class="card" >
-                    <div class="card-body pb-3" style="padding-top:1rem;">
-                        <h5 style="position:absolute;top: 25px;">Data Jurnal</h5>
-                        <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+    <!-- LIST DATA -->
+    <div class="row" id="saku-datatable">
+        <div class="col-12">
+            <div class="card" >
+                <div class="card-body pb-3" style="padding-top:1rem;">
+                    <h5 style="position:absolute;top: 25px;">Data Jurnal</h5>
+                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                        <div class="page-countdata">
+                            <label>Menampilkan 
+                            <select style="border:none" id="page-count">
+                                <option value="10">10 per halaman</option>
+                                <option value="25">25 per halaman</option>
+                                <option value="50">50 per halaman</option>
+                                <option value="100">100 per halaman</option>
+                            </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Search..."
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
+                    <div class="table-responsive ">
+                        <table id="table-data" class="" style='width:100%'>
+                            <thead>
+                                <tr>
+                                    <th style="width:15%">No Bukti</th>
+                                    <th style="width:10%">Tanggal</th>
+                                    <th style="width:15%">No Dokumen</th>
+                                    <th style="width:35%">Deskripsi</th>
+                                    <th style="width:15%">Nilai</th>
+                                    <th style="width:10%" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END LIST DATA -->
+
+    <!-- FORM INPUT -->
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
-                    <div class="" style="padding-right:1.75rem;padding-left:1.75rem">
-                    <div class="dataTables_length" id="table-data_length"></div>
-                        <div class="d-block d-md-inline-block float-left">
-                            <div class="page-countdata">
-                                <label>Menampilkan 
-                                <select style="border:none" id="page-count">
-                                    <option value="10">10 per halaman</option>
-                                    <option value="25">25 per halaman</option>
-                                    <option value="50">50 per halaman</option>
-                                    <option value="100">100 per halaman</option>
-                                </select>
-                                </label>
+                    <div class="card-body pt-3 form-body">
+                    <input type="hidden" id="method" name="_method" value="post">
+                        <div class="form-group row" id="row-id">
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             </div>
                         </div>
-                        <div class="d-block d-md-inline-block float-right">
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="Search..."
-                                    aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer"></i></span>
+                        <div class="form-group row">
+                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                            </div>
+                            <div class="col-md-2 col-sm-9">
+                            </div>
+                            <label for="jenis" class="col-md-2 col-sm-2 col-form-label">Jenis</label>
+                            <div class="col-md-3 col-sm-9">
+                                <select class='form-control selectize' id="jenis" name="jenis">
+                                <option value=''>--- Pilih Jenis ---</option>
+                                <option value='MI' selected>MI</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-9" style="display:none">
+                                <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="no_dokumen" class="col-md-2 col-sm-2 col-form-label">No Dokumen</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
+                            </div>
+                            <div class="col-md-2 col-sm-9">
+                            </div>
+                            <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total_debet" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Deskripsi</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi" required>
+                            </div>
+                            <div class="col-md-2 col-sm-9">
+                            </div>
+                            <label for="total_kredit" class="col-md-2 col-sm-2 col-form-label">Total Kredit</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="nik_periksa" class="col-md-2 col-sm-2 col-form-label">NIK Periksa</label>
+                            <div class="col-md-3 col-sm-9" >
+                                <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
+                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>
+                            <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
+                                <label id="label_nik_periksa" style="margin-top: 10px;"></label>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                        </ul>
+                        <div class="tab-content tabcontent-border col-12 p-0">
+                            <div class="tab-pane active" id="data-jurnal" role="tabpanel">
+
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
+                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
+                                </div>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th{
+                                            vertical-align:middle !important;
+                                        }
+                                        /* #input-jurnal td{
+                                            padding:0 !important;
+                                        } */
+                                        #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label
+                                        {
+                                            border:0 !important;
+                                            border-radius:0 !important;
+                                        }
+                                        .modal-header .close {
+                                            padding: 1rem;
+                                            margin: -1rem 0 -1rem auto;
+                                        }
+                                        .check-item{
+                                            cursor:pointer;
+                                        }
+                                        .selected{
+                                            cursor:pointer;
+                                            /* background:#4286f5 !important; */
+                                            /* color:white; */
+                                        }
+                                        #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        {
+                                            background: var(--theme-color-6) !important;
+                                            color:white;
+                                        }
+                                        #input-jurnal input:hover,
+                                        #input-jurnal .selectize-input:hover,
+                                        {
+                                            width:inherit;
+                                        }
+                                        #input-jurnal ul.typeahead.dropdown-menu
+                                        {
+                                            width:max-content !important;
+                                        }
+                                        #input-jurnal td
+                                        {
+                                            overflow:hidden !important;
+                                        }
+
+                                        #input-jurnal td:nth-child(4)
+                                        {
+                                            overflow:unset !important;
+                                        }
+                                    </style>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Kode Akun</th>
+                                            <th style="width:18%">Nama Akun</th>
+                                            <th style="width:5%">DC</th>
+                                            <th style="width:20%">Keterangan</th>
+                                            <th style="width:15%">Nilai</th>
+                                            <th style="width:7">Kode PP</th>
+                                            <th style="width:17">Nama PP</th>
+                                            <th style="width:5%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
-                        <div class="table-responsive ">
-                            <table id="table-data" class="" style='width:100%'>
-                                <thead>
-                                    <tr>
-                                        <th style="width:15%">No Bukti</th>
-                                        <th style="width:10%">Tanggal</th>
-                                        <th style="width:15%">No Dokumen</th>
-                                        <th style="width:35%">Deskripsi</th>
-                                        <th style="width:15%">Nilai</th>
-                                        <th style="width:10%" class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <form id="form-tambah" class="tooltip-label-right" novalidate>
-            <div class="row" id="saku-form" style="display:none;">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                            <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                            <button type="submit" class="btn btn-primary ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
-                        </div>
-                        <div class="separator mb-2"></div>
-                        <div class="card-body pt-3 form-body">
-                        <input type="hidden" id="method" name="_method" value="post">
-                            <div class="form-group row" id="row-id">
-                                <div class="col-9">
-                                    <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                                </div>
-                                <div class="col-md-2 col-sm-9">
-                                </div>
-                                <label for="jenis" class="col-md-2 col-sm-2 col-form-label">Jenis</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <select class='form-control selectize' id="jenis" name="jenis">
-                                    <option value=''>--- Pilih Jenis ---</option>
-                                    <option value='MI' selected>MI</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 col-sm-9" style="display:none">
-                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_dokumen" class="col-md-2 col-sm-2 col-form-label">No Dokumen</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required>
-                                </div>
-                                <div class="col-md-2 col-sm-9">
-                                </div>
-                                <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total_debet" value="0">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Deskripsi</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <input class="form-control" type="text" placeholder="Deskripsi" id="deskripsi" name="deskripsi" required>
-                                </div>
-                                <div class="col-md-2 col-sm-9">
-                                </div>
-                                <label for="total_kredit" class="col-md-2 col-sm-2 col-form-label">Total Kredit</label>
-                                <div class="col-md-3 col-sm-9">
-                                    <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" name="total_kredit" value="0">
-                                </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label for="nik_periksa" class="col-md-2 col-sm-2 col-form-label">NIK Periksa</label>
-                                <div class="col-md-3 col-sm-9" >
-                                    <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
-                                    <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                                </div>
-                                <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
-                                    <label id="label_nik_periksa" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <ul class="nav nav-tabs col-12 " role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
-                            </ul>
-                            <div class="tab-content tabcontent-border col-12 p-0">
-                                <div class="tab-pane active" id="data-jurnal" role="tabpanel">
-
-                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                        <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
-                                        <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
-                                    </div>
-                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th{
-                                                vertical-align:middle !important;
-                                            }
-                                            /* #input-jurnal td{
-                                                padding:0 !important;
-                                            } */
-                                            #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label
-                                            {
-                                                border:0 !important;
-                                                border-radius:0 !important;
-                                            }
-                                            .modal-header .close {
-                                                padding: 1rem;
-                                                margin: -1rem 0 -1rem auto;
-                                            }
-                                            .check-item{
-                                                cursor:pointer;
-                                            }
-                                            .selected{
-                                                cursor:pointer;
-                                                /* background:#4286f5 !important; */
-                                                /* color:white; */
-                                            }
-                                            #input-jurnal td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                            {
-                                                background: var(--theme-color-6) !important;
-                                                color:white;
-                                            }
-                                            #input-jurnal input:hover,
-                                            #input-jurnal .selectize-input:hover,
-                                            {
-                                                width:inherit;
-                                            }
-                                            #input-jurnal ul.typeahead.dropdown-menu
-                                            {
-                                                width:max-content !important;
-                                            }
-                                            #input-jurnal td
-                                            {
-                                                overflow:hidden !important;
-                                            }
-
-                                            #input-jurnal td:nth-child(4)
-                                            {
-                                                overflow:unset !important;
-                                            }
-                                        </style>
-                                        <table class="table table-bordered table-condensed gridexample" id="input-jurnal" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                        <thead style="background:#F8F8F8">
-                                            <tr>
-                                                <th style="width:3%">No</th>
-                                                <th style="width:10%">Kode Akun</th>
-                                                <th style="width:18%">Nama Akun</th>
-                                                <th style="width:5%">DC</th>
-                                                <th style="width:20%">Keterangan</th>
-                                                <th style="width:15%">Nilai</th>
-                                                <th style="width:7">Kode PP</th>
-                                                <th style="width:17">Nama PP</th>
-                                                <th style="width:5%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> 
+    </form>
+    <!-- FORM INPUT  -->
 
     <!-- MODAL SEARCH AKUN-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
@@ -324,38 +325,29 @@
     </div>
     <!-- END MODAL -->
 
-    
-    <!-- MODAL HAPUS -->
-    
-    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content" style="border-radius:1rem">
-                <div class="modal-body text-center pb-0" style="border:none">
-                    <span id="modal-delete-id" style="display:none"></span>
-                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
-                    <h1 style="font-weight:bold">Hapus Data</h1>
-                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
-                </div>
-                <div class="modal-footer" style="border:none">
-                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Jurnal</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL HAPUS -->
-
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog" role="document" style="max-width:800px">
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Jurnal <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content" style="border-radius:0.75em">
+            <div class="modal-header" style="display:block;padding-top: 10px;padding-bottom: 10px;">
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
-                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        <h6>Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-body" id="content-preview" style="height:450px">
                     <table id="table-preview" class="table no-border">
@@ -366,6 +358,7 @@
             </div>
         </div>
     </div>
+    <!-- END MODAL PREVIEW -->
 
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
@@ -380,15 +373,7 @@
         }
     });
 
-    $("input.datepicker").datepicker({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        }
-    });
-
+    // FUNCTION TAMBAHAN
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -404,14 +389,7 @@
         return str[2]+newseparator+str[1]+newseparator+str[0];
     }
 
-    var scrollform = document.querySelector('.form-body');
-    var psscrollform = new PerfectScrollbar(scrollform);
     
-    // Initialize the plugin
-    var scroll = document.querySelector('#content-preview');
-    var psscroll = new PerfectScrollbar(scroll);
-
-
     function getPeriode(){
         $.ajax({
             type: 'GET',
@@ -433,11 +411,56 @@
         });
     }
 
-    $.fn.DataTable.ext.pager.numbers_length = 5;
+    function hitungTotal(){
+        
+        var total_d = 0;
+        var total_k = 0;
 
+        $('.row-jurnal').each(function(){
+            var dc = $(this).closest('tr').find('.td-dc').text();
+            var nilai = $(this).closest('tr').find('.inp-nilai').val();
+            if(dc == "D"){
+                total_d += +toNilai(nilai);
+            }else{
+                total_k += +toNilai(nilai);
+            }
+        });
+
+        $('#total_debet').val(total_d);
+        $('#total_kredit').val(total_k);
+        
+    }
+
+    // END FUNCTION TAMBAHAN
+
+    // INISIASI AWAL FORM
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+    
+    $('.selectize').selectize();
+    
+    
+    $("input.datepicker").datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        }
+    });
+
+    $('[data-toggle="tooltip"]').tooltip(); 
+    // END 
+
+    // SUGGESTION
     var $dtNIK = new Array();
     var $dtPP = new Array();
     var $dtAkun = new Array();
+    
     function getDtNIK() {
         $.ajax({
             type:'GET',
@@ -547,9 +570,30 @@
     getDtPP();
     getDtAkun();
 
-    // getPeriode();
-    $('[data-toggle="tooltip"]').tooltip(); 
+    
+    $('#nik_periksa').typeahead({
+        // source: function (cari, result) {
+        //     result($.map($dtNIK, function (item) {
+        //         return item.nik;
+        //     }));
+        // },
+        source:$dtNIK,
+        fitToElement:true,
+        displayText:function(item){
+            return item.id+' - '+item.name;
+        },
+        autoSelect:false,
+        changeInputOnSelect:false,
+        changeInputOnMove:false,
+        selectOnBlur:false,
+        afterSelect: function (item) {
+            console.log(item.id);
+        }
+    });
+    // END SUGGESTION
 
+
+    // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
@@ -615,187 +659,9 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
 
-    function getPP(id,target1,target2,jenis){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/esaku-master/unit') }}/"+kode,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        if(jenis == 'change'){
-                            $('.'+target1).val(kode);
-                            $('.td'+target1).text(kode);
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                        }else{
-                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
-                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
+    // END LIST DATA
 
-                            $('.'+target1).closest('tr').find('.search-pp').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
-                            $('.'+target1).hide();
-                            $('.td'+target1).show();
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                        }
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
-                }
-                else{
-                    if(jenis == 'change'){
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }else{
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                        alert('Kode PP tidak valid');   
-                    }
-                }
-            }
-        });
-    }
-
-    function getNIKPeriksa(id){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/esaku-trans/nikperiksa') }}/"+kode,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#nik_periksa').val(result.daftar[0].nik);
-                         $('#label_nik_periksa').text(result.daftar[0].nama);
-                    }else{
-                        // alert('NIK tidak valid');
-                        $('#nik_periksa').val('');
-                        $('#label_nik_periksa').text('');
-                        $('#nik_periksa').focus();
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
-                }
-            }
-        });
-    }
-
-    function getAkun(id,target1,target2,target3,jenis){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/esaku-master/masakun-detail') }}/"+kode,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        if(jenis == 'change'){
-                            $('.'+target1).val(kode);
-                            $('.td'+target1).text(kode);
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            // $('.'+target3)[0].selectize.focus();
-                            $('.td'+target3).text('D');
-                        }else{
-
-                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
-                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
-
-                            $('.'+target1).closest('tr').find('.search-akun').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
-                            $('.'+target1).hide();
-                            $('.td'+target1).show();
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                            $('.td'+target3).text('D');
-                        }
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
-                }
-                else{
-                    if(jenis == 'change'){
-
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }else{
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                        alert('Kode akun tidak valid');
-                    }
-                }
-            }
-        });
-    }
-
-    function hitungTotal(){
-        
-        var total_d = 0;
-        var total_k = 0;
-
-        $('.row-jurnal').each(function(){
-            var dc = $(this).closest('tr').find('.td-dc').text();
-            var nilai = $(this).closest('tr').find('.inp-nilai').val();
-            if(dc == "D"){
-                total_d += +toNilai(nilai);
-            }else{
-                total_k += +toNilai(nilai);
-            }
-        });
-
-        $('#total_debet').val(total_d);
-        $('#total_kredit').val(total_k);
-        
-    }
-
+    // CBBL
     function showFilter(param,target1,target2){
         var par = param;
 
@@ -1022,95 +888,313 @@
         })
     }
 
-    $('#nik_periksa').typeahead({
-        // source: function (cari, result) {
-        //     result($.map($dtNIK, function (item) {
-        //         return item.nik;
-        //     }));
-        // },
-        source:$dtNIK,
-        fitToElement:true,
-        displayText:function(item){
-            return item.id+' - '+item.name;
-        },
-        autoSelect:false,
-        changeInputOnSelect:false,
-        changeInputOnMove:false,
-        selectOnBlur:false,
-        afterSelect: function (item) {
-            console.log(item.id);
-        }
-    });
+    function getPP(id,target1,target2,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-master/unit') }}/"+kode,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                        }else{
+                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
 
-    // $('#saku-datatable').on('click','#btn-delete',function(e){
+                            $('.'+target1).closest('tr').find('.search-pp').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                    }
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }
+                else{
+                    if(jenis == 'change'){
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode PP tidak valid');   
+                    }
+                }
+            }
+        });
+    }
+
+    function getNIKPeriksa(id){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-trans/nikperiksa') }}/"+kode,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#nik_periksa').val(result.daftar[0].nik);
+                         $('#label_nik_periksa').text(result.daftar[0].nama);
+                    }else{
+                        // alert('NIK tidak valid');
+                        $('#nik_periksa').val('');
+                        $('#label_nik_periksa').text('');
+                        $('#nik_periksa').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }
+            }
+        });
+    }
+
+    function getAkun(id,target1,target2,target3,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-master/masakun-detail') }}/"+kode,
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            // $('.'+target3)[0].selectize.focus();
+                            $('.td'+target3).text('D');
+                        }else{
+
+                            $("#input-jurnal td").removeClass("p2x py-0 aktif");
+                            $('.'+target2).closest('td').addClass("p2x py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-akun').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.data.data[0].nama);
+                            $('.td'+target2).text(result.data.data[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).text('D');
+                        }
+                    }
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }
+                else{
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode akun tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
+    // END CBBL
+
+    // BUTTON EDIT
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
         
-    //     Swal.fire({
-    //     title: 'Are you sure?',
-    //     text: "You won't be able to revert this!",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes, delete it!'
-    //     }).then((result) => {
-    //         if (result.value) {
-    //             var kode = $(this).closest('tr').find('td:eq(0)').html(); 
-    //             $.ajax({
-    //                 type: 'DELETE',
-    //                 url: "{{ url('/esaku-trans/jurnal') }}/"+kode,
-    //                 dataType: 'json',
-    //                 async:false,
-    //                 success:function(result){
-    //                     if(result.data.status){
-    //                         dataTable.ajax.reload();
-    //                         Swal.fire(
-    //                             'Deleted!',
-    //                             'Your data has been deleted.',
-    //                             'success'
-    //                         )
-    //                     }
-    //                     else if(!result.data.status && result.data.message == 'Unauthorized'){
-    //                         // Swal.fire({
-    //                         //     title: 'Session telah habis',
-    //                         //     text: 'harap login terlebih dahulu!',
-    //                         //     icon: 'error'
-    //                         // }).then(function() {
-    //                             window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-    //                         // })
-    //                     }
-    //                     else{
-    //                         Swal.fire({
-    //                         icon: 'error',
-    //                         title: 'Oops...',
-    //                         text: 'Something went wrong!',
-    //                         footer: '<a href>'+result.data.message+'</a>'
-    //                         })
-    //                     }
-    //                 }
-    //             });
-                
-    //         }else{
-    //             return false;
-    //         }
-    //     })
-    // });
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Jurnal');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $iconLoad.show();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/esaku-trans/jurnal') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id').val('edit');
+                    $('#method').val('put');
+                    $('#no_bukti').val(id);
+                    $('#no_bukti').attr('readonly', true);
+                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
+                    $('#deskripsi').val(result.jurnal[0].deskripsi);
+                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
+                    $('#nik_periksa').trigger('change');
+                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
+                    $('#total_debet').val(result.jurnal[0].nilai1);
+                    $('#total_kredit').val(result.jurnal[0].nilai1);
+                    $('#jenis').val(result.jurnal[0].jenis);
+                    if(result.detail.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            input += "<tr class='row-jurnal'>";
+                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
+                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+                            input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
+                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+        
+                            no++;
+                        }
+                        $('#input-jurnal tbody').html(input);
+                        no= 1;
+                        for(var i=0;i<result.detail.length;i++){
+                            var line =result.detail[i];
+                            $('.dcke'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tddcke'+no).text(value);
+                                    hitungTotal();
+                                }
+                            });
+                            $('#akunkode'+no).typeahead({
+                                // source: function (cari, result) {
+                                //     result($.map($dtAkun, function (item) {
+                                //         return item.kode_akun;
+                                //     }));
+                                // }
+                                source:$dtAkun,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
 
-    
+                            $('#ppkode'+no).typeahead({
+                                // source: function (cari, result) {
+                                //     result($.map($dtPP, function (item) {
+                                //         return item.kode_pp;
+                                //     }));
+                                // }
+                                source:$dtPP,
+                                // fitToElement:true,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+                            $('.dcke'+no)[0].selectize.setValue(line.dc);
+                            $('.selectize-control.dcke'+no).addClass('hidden');
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        
+                    }
+                    hitungTotal();
+                   
+                    // $('#row-id').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    // Swal.fire({
+                    //     title: 'Session telah habis',
+                    //     text: 'harap login terlebih dahulu!',
+                    //     icon: 'error'
+                    // }).then(function() {
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // })
+                }
+                $iconLoad.hide();
+            }
+        });
+    });
+    // END BUTTON EDIT
+
+    // HAPUS DATA
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('esaku-jurnal/jurnal') }}/"+id,
+            url: "{{ url('esaku-trans/jurnal') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Deleted!',
-                        'Your data has been deleted.',
-                        'success'
-                    );
-                    
+                    dataTable.ajax.reload();                    
                     showNotification("top", "center", "success",'Hapus Data','Data Jurnal ('+id+') berhasil dihapus ');
                     $('#modal-delete-id').html('');
                     $('#table-delete tbody').html('');
@@ -1129,6 +1213,54 @@
         });
     }
 
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: id,
+            type:'hapus'
+        });
+    });
+    // END HAPUS DATA
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#method').val('post');
+        $('#judul-form').html('Tambah Data Jurnal');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-jurnal tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        addRowDef();
+        addRowDef();
+    });
+    // END BUTTON TAMBAH
+
+     // BUTTON KEMBALI
+     $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+    // END BUTTON KEMBALI
+
+    // BUTTON UPDATE DATA
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#no_bukti').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    // END BUTTON UPDATE
+
+    // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 5){
 
@@ -1228,17 +1360,13 @@
         }
     });
 
-    $('.modal-footer').on('click','#btn-ya',function(e){
-        e.preventDefault();
-        var id = $('#modal-delete-id').text();
-        hapusData(id);
-    });
-
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-delete-id').text();
         $('#modal-preview').modal('hide');
-        $('#modal-delete-id').text(id);
-        $('#modal-delete').modal('show');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
     });
 
     $('.modal-header').on('click', '#btn-edit2', function(){
@@ -1246,6 +1374,9 @@
         $('#judul-form').html('Edit Data Jurnal');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
         $iconLoad.show();
         $.ajax({
             type: 'GET',
@@ -1371,12 +1502,23 @@
         });
     });
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
-        $('#modal-delete-id').text(id);
-        $('#modal-delete').modal('show');
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
     });
 
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
+    });
+
+    // END PREVIEW
+
+    // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
         errorElement: "label",
@@ -1420,33 +1562,26 @@
                         // alert('Input data '+result.message);
                         if(result.data.status){
                             // location.reload();
-                            dataTable.ajax.reload();                            
-                            Swal.fire(
-                                'Great Job!',
-                                'Your data has been saved',
-                                'success'
-                                )
-                                // $('#saku-datatable').show();
-                                // $('#saku-form').hide();
-                                $('#form-tambah')[0].reset();
-                                $('#form-tambah').validate().resetForm();
-                                $('#row-id').hide();
-                                $('#method').val('post');
-                                $('#judul-form').html('Tambah Data Jurnal');
-                                $('#id').val('');
-                                $('#input-jurnal tbody').html('');
-                                $('[id^=label]').html('');
+                            dataTable.ajax.reload();
+
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('#row-id').hide();
+                            $('#method').val('post');
+                            $('#judul-form').html('Tambah Data Jurnal');
+                            $('#id').val('');
+                            $('#input-jurnal tbody').html('');
+                            $('[id^=label]').html('');
+                            
+                            msgDialog({
+                                id:id,
+                                type:'simpan'
+                            });
                                 
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            // Swal.fire({
-                            //     title: 'Session telah habis',
-                            //     text: 'harap login terlebih dahulu!',
-                            //     icon: 'error'
-                            // }).then(function() {
-                                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                            // })
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         }
                         else{
                             Swal.fire({
@@ -1472,6 +1607,9 @@
         }
     });
 
+    // END SIMPAN
+
+    // ENTER FIELD FORM
     $('#kode_pp,#nama,#initial,#kode_bidang,#kode_ba,#kode_pc,#kota,#flag_aktif ').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['kode_pp','nama','initial','kode_bidang','kode_ba','kode_pc','kota','flag_aktif'];
@@ -1494,6 +1632,96 @@
             }
         }
     });
+    // END ENTER FIELD FORM
+
+    $('#form-tambah').on('click', '.search-item2', function(){
+
+    var par = $(this).closest('div').find('input').attr('name');
+    var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+    target1 = par;
+    target2 = par2;
+    showFilter(par,target1,target2);
+    });
+
+    $('#form-tambah').on('change', '#nik_periksa', function(){
+        var par = $(this).val();
+        getNIKPeriksa(par);
+    });
+
+    // GRID JURNAL
+    function addRowDef(){
+        var no=$('#input-jurnal .row-jurnal:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-jurnal'>";
+        input += "<td class='no-jurnal text-center'>"+no+"</td>";
+                                    
+        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
+        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "</tr>";
+        $('#input-jurnal tbody').append(input);
+        $('.dcke'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tddcke'+no).text(value);
+                hitungTotal();
+            }
+        });
+        $('.selectize-control.dcke'+no).addClass('hidden');
+        $('.nilke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+        $('#akunkode'+no).typeahead({
+            // source: function (cari, result) {
+            //     result($.map($dtAkun, function (item) {
+            //         return item.kode_akun;
+            //     }));
+            // }
+            source:$dtAkun,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        $('#ppkode'+no).typeahead({
+            // source: function (cari, result) {
+            //     result($.map($dtPP, function (item) {
+            //         return item.kode_pp;
+            //     }));
+            // }
+            source:$dtPP,
+            // fitToElement:true,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+    }
 
     $('#input-jurnal').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -1602,96 +1830,6 @@
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
-    });
-
-    $('.selectize').selectize();
-
-    function addRowDef(){
-        var no=$('#input-jurnal .row-jurnal:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode tdakunke"+no+"'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+"'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+"'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+"'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+"'></span><input type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+"'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "</tr>";
-        $('#input-jurnal tbody').append(input);
-        $('.dcke'+no).selectize({
-            selectOnTab:true,
-            onChange: function(value) {
-                $('.tddcke'+no).text(value);
-                hitungTotal();
-            }
-        });
-        $('.selectize-control.dcke'+no).addClass('hidden');
-        $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#akunkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtAkun, function (item) {
-            //         return item.kode_akun;
-            //     }));
-            // }
-            source:$dtAkun,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('#ppkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtPP, function (item) {
-            //         return item.kode_pp;
-            //     }));
-            // }
-            source:$dtPP,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-    }
-
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('#method').val('post');
-        $('#judul-form').html('Tambah Data Jurnal');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('#id').val('');
-        $('#input-jurnal tbody').html('');
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        addRowDef();
-        addRowDef();
     });
 
     $('#form-tambah').on('click', '#add-row', function(){
@@ -1972,12 +2110,6 @@
         }
     });
 
-    
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -2028,29 +2160,6 @@
 
         showFilter(par,target1,target2);
     });
-
-    $('#form-tambah').on('click', '.search-item2', function(){
-
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
-    });
-
-    
-    $('#form-tambah').on('change', '#nik_periksa', function(){
-        var par = $(this).val();
-        getNIKPeriksa(par);
-    });
-
-    // $('#form-tambah').on('keydown', '#nik_periksa', function(e){
-    //     e.preventDefault();
-    //     if(e.which == 13 || e.which == 9){
-    //         var par = $(this).val();
-    //         getNIKPeriksa(par);
-    //     }
-    // });
 
     $('#input-jurnal').on('keydown', '.inp-kode', function(e){
         if(e.which == 40){
@@ -2175,135 +2284,5 @@
                 $(this).val('');
             }
         }
-    });
-
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        $('#judul-form').html('Edit Data Jurnal');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/esaku-trans/jurnal') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                if(result.status){
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#nik_periksa').trigger('change');
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+"'>"+line.kode_akun+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmakunke"+no+"'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
-                            input += "<td ><span class='td-dc tddcke"+no+"'>"+line.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+line.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td ><span class='td-ket tdketke"+no+"'>"+line.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+line.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td ><span class='td-pp tdppke"+no+"'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:10px;'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama_pp tdnmppke"+no+"'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-        
-                            no++;
-                        }
-                        $('#input-jurnal tbody').html(input);
-                        no= 1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode'+no).typeahead({
-                                // source: function (cari, result) {
-                                //     result($.map($dtAkun, function (item) {
-                                //         return item.kode_akun;
-                                //     }));
-                                // }
-                                source:$dtAkun,
-                                // fitToElement:true,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode'+no).typeahead({
-                                // source: function (cari, result) {
-                                //     result($.map($dtPP, function (item) {
-                                //         return item.kode_pp;
-                                //     }));
-                                // }
-                                source:$dtPP,
-                                // fitToElement:true,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke'+no)[0].selectize.setValue(line.dc);
-                            $('.selectize-control.dcke'+no).addClass('hidden');
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-                        
-                    }
-                    hitungTotal();
-                   
-                    // $('#row-id').show();
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                    // })
-                }
-                $iconLoad.hide();
-            }
-        });
     });
     </script>
