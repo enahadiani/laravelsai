@@ -275,11 +275,14 @@
         .btn-red {
             background-color: #EB3F33;
             border-color: #EB3F33;
-            color: #fff; }
-            .btn-red:hover {
+            color: #fff; 
+        }
+        .btn-red:hover {
                 color: #fff;
                 background-color: #EB3F33DE;
-                border-color: #EB3F33DE; }
+                border-color: #EB3F33DE; 
+            }
+
         .dropdown-profile{
             display:unset
         }
@@ -294,6 +297,25 @@
             margin-left:50px;
             font-size:10px;
         }
+
+        button#notificationButton:hover + div.dropdown-menu 
+        {
+            display: block !important;
+        }
+
+        button#btn-admin:hover + div.dropdown-menu 
+        {
+            display: block !important;
+        }
+
+        /* #notificationButton:hover >#notificationDropdown2.dropdown-menu {
+            display: block !important;
+        } */
+        
+        /* .dropdown>.dropdown-toggle:active {
+            pointer-events: none;
+        } */
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -1188,18 +1210,19 @@
         }
     });
 
-    $('#notificationButton').hover(function(){
+    // $('#notificationButton').hover(function(){
         
-        if($(this).attr("aria-expanded") != "true"){
-            $(this).dropdown('toggle');
-        }
-    });
+    //     // if($(this).attr("aria-expanded") != "true"){
+    //         $(this).dropdown('toggle');
+    //     // }
+        
+    // });
 
-    $('#btn-admin').hover(function(){
-        if($(this).attr("aria-expanded") != "true"){
-            $(this).dropdown('toggle');
-        }
-    });
+    // $('#btn-admin').hover(function(){
+    //     // if($(this).attr("aria-expanded") != "true"){
+    //         $(this).dropdown('toggle');
+    //     // }
+    // });
 
     $('#btn-newtab').click(function(){
         var url = "{{url('esaku-auth')}}";
