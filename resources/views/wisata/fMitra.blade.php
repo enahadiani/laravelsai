@@ -370,6 +370,56 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    // EVENT CHANGE CHECKBOX //
+    $('#table-btambah').on('click', '.checkbox-generate', function(){
+        var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
+        var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
+        var row = $(this).closest('tr');
+        if(row.hasClass('generate')){
+            row.removeClass('generate');
+        }else{
+            row.addClass('generate');
+        }
+        
+        if($('#'+checkbox).is(':checked')) {
+            $('#'+input).val(true);
+        }else{
+            $('#'+input).val(false);
+        }
+    });
+    // END EVENT CHANGE CHECKBOX //
+
+    // GET DATA BIDANG //
+    function getDataBidang() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('wisata-master/bidang') }}",
+            dataType: 'json',
+            async:false,
+            success: function(result) {
+                var row = "";
+                var no  = 1;
+                if(result.status) {
+                    $('#table-btambah tbody').empty();
+                    for(var i=0;i<result.daftar.length;i++) {
+                        var data = result.daftar[i];
+                        console.log(data) 
+                        row += "<tr>";
+                        row += "<td>"+no+"</td>";
+                        row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                        row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                        row += "<td>"+data.nama+"</td>";
+                        row += "</tr>";
+                        no++;
+                    }
+                    console.log(row)
+                    $('#table-btambah tbody').append(row);
+                }
+            }
+        });
+    }
+    // END GET DATA BIDANG //
   
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
@@ -460,6 +510,7 @@
         $('#kode_mitra').attr('readonly', false);        
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        getDataBidang();
     });
     // END BUTTON TAMBAH
     
