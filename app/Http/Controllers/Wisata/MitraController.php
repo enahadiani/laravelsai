@@ -70,7 +70,6 @@ class MitraController extends Controller
         ]);
 
         try {   
-                $data = array();
                 $arrBidang = array();
                 if(count($request->generate)) {
                     for($i=0;$i<count($request->generate);$i++) {
@@ -120,7 +119,7 @@ class MitraController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'wisata-master/mitra?kode_mitra='.$id,
+            $response = $client->request('GET',  config('api.url').'wisata-master/mitrabid?kode_mitra='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -154,28 +153,40 @@ class MitraController extends Controller
             'email' => 'required',            
             'pic' => 'required', 
             'no_hp' => 'required', 
-            'status' => 'required'  
+            'status' => 'required',
+            'kode_bidang' => 'required|array',  
         ]);
 
-        try {
+        try {   
+                $arrBidang = array();
+                if(count($request->generate)) {
+                    for($i=0;$i<count($request->generate);$i++) {
+                        if($request->generate[$i] == "true") {
+                            $arrBidang[] = array('kode_bidang'=>$request->kode_bidang[$i]);
+                        }
+                    }
+                }
+                $data = array(
+                    'kode_mitra'=>$request->kode_mitra,
+                    'nama'=>$request->nama,
+                    'alamat'=>$request->alamat,
+                    'no_tel'=>$request->no_tel,
+                    'kecamatan'=>$request->kecamatan,
+                    'website'=>$request->website,
+                    'email'=>$request->email,
+                    'pic'=>$request->pic,
+                    'no_hp'=>$request->no_hp,
+                    'status'=>$request->status,
+                    'arrbidang'=>$arrBidang
+                );
+
                 $client = new Client();
                 $response = $client->request('PUT',  config('api.url').'wisata-master/mitra?kode_mitra='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_mitra' => $request->kode_mitra,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'no_tel' => $request->no_tel,
-                        'kecamatan' => $request->kecamatan,
-                        'website' => $request->website,
-                        'email' => $request->email,
-                        'pic' => $request->pic,
-                        'no_hp' => $request->no_hp,
-                        'status' => $request->status
-                    ]
+                    'body' => json_encode($data)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();

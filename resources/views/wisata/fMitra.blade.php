@@ -364,7 +364,6 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -404,7 +403,6 @@
                     $('#table-btambah tbody').empty();
                     for(var i=0;i<result.daftar.length;i++) {
                         var data = result.daftar[i];
-                        console.log(data) 
                         row += "<tr>";
                         row += "<td>"+no+"</td>";
                         row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
@@ -413,7 +411,6 @@
                         row += "</tr>";
                         no++;
                     }
-                    console.log(row)
                     $('#table-btambah tbody').append(row);
                 }
             }
@@ -645,6 +642,7 @@
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
+        $('#table-btambah tbody').empty();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Mitra');
         $.ajax({
@@ -668,7 +666,29 @@
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
-                    $('#status')[0].selectize.setValue(result.data[0].status);     
+                    $('#status')[0].selectize.setValue(result.data[0].status);
+                    var row = '';
+                    var no = 1;
+                    for(var i=0;i<result.arrbid.length;i++){
+                        var data = result.arrbid[i];
+                        if(data.status == "CEK") {
+                            row += "<tr>";
+                            row += "<td>"+no+"</td>";
+                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td>"+data.nama+"</td>";
+                            row += "</tr>";
+                        } else {
+                            row += "<tr>";
+                            row += "<td>"+no+"</td>";
+                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td>"+data.nama+"</td>";
+                            row += "</tr>";
+                        }
+                        no++;
+                    }
+                    $('#table-btambah tbody').append(row);
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
