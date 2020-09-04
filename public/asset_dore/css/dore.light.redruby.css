@@ -7670,3 +7670,43 @@ html.dash-contents{
 body.dash-contents{
   background: white !important;
 }
+div.row-notif:hover{
+  background:#f8f8f8;
+  color:black;
+}
+div.row-notif  a:hover {
+  background:#f8f8f8 !important;
+  color:black !important;
+}
+.dropdown-profile:hover,.userprofile:hover,.userjab:hover{
+  background:#f8f8f8 !important;
+  color:unset;
+}
+.dropdown-item:active{
+  background:#E8E8E8 !important;
+  color:unset !important;
+}
+.form-control[readonly]:focus {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+#table-search tbody tr:hover
+{
+  background:#f8f8f8 !important;
+  cursor:pointer;
+}
+#table-search tbody tr.selected
+{
+  background:#f8f8f8 !important;
+}
+#filter-btn:hover 
+{
+  background:#f8f8f8;
+  cursor:pointer;
+}
+#table-data tbody tr:hover
+{
+  background:#f8f8f8 !important;
+  border-color:#f8f8f8 !important;
+  cursor:pointer;
+}

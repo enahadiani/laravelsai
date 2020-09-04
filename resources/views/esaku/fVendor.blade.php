@@ -7,11 +7,6 @@
         .search-item2{
             cursor:pointer;
         }
-        .form-control[readonly]:focus {
-            background-color: #e9ecef;
-            opacity: 1;
-        }
-        
         input.error{
             border:1px solid #dc3545;
         }
@@ -28,7 +23,6 @@
         {
             float:right;
         }
-
         .form-body 
         {
             position: relative;
@@ -48,17 +42,6 @@
 
         .hidden{
             display:none;
-        }
-        
-        #table-search tbody tr:hover
-        {
-            background:#f8f8f8 !important;
-            cursor:pointer;
-        }
-
-        #table-search tbody tr.selected
-        {
-            background:#f8f8f8 !important;
         }
 
         #table-search_filter label, #table-search_filter input
@@ -105,24 +88,9 @@
             font-size: .75rem;
             height: 31px;
         }
-
-        #filter-btn:hover 
-        {
-            background:#f8f8f8;
-            cursor:pointer;
-        }
-
-        #table-data tbody tr:hover
-        {
-            background:#f8f8f8 !important;
-            border-color:#f8f8f8 !important;
-            cursor:pointer;
-        }
-
         .dropdown-toggle::after {
             display:none;
         }
-
         .dropdown-aksi > .dropdown-item{
             font-size : 0.7rem;
         }

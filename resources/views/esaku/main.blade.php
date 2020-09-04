@@ -272,16 +272,6 @@
             width:110px !important;
         }
 
-        
-        .btn-blue {
-            background-color: #00AFB9;
-            border-color: #00AFB9;
-            color: #fff; }
-            .btn-blue:hover {
-                color: #fff;
-                background-color: #00AFB9DE;
-                border-color: #00AFB9DE; }
-
         .btn-red {
             background-color: #EB3F33;
             border-color: #EB3F33;
@@ -290,32 +280,8 @@
                 color: #fff;
                 background-color: #EB3F33DE;
                 border-color: #EB3F33DE; }
-        
-        .btn-outline-blue {
-            background-color: #fff;
-            border-color: #00AFB9;
-            color: black; }
-            .btn-outline-blue:hover {
-                color: black;
-                background-color: #fff;
-                border-color: #00AFB9DE; }
-        
-        .row-notif:hover{
-            background:#f8f8f8;
-            color:black;
-        }
-
-        .row-notif  a:hover {
-            background:#f8f8f8 !important;
-            color:black !important;
-        }
-
         .dropdown-profile{
             display:unset
-        }
-        .dropdown-profile:hover,.userprofile:hover,.userjab:hover{
-            background:#f8f8f8 !important;
-            color:unset;
         }
         .imgprofile{
             position:absolute;
@@ -328,12 +294,6 @@
             margin-left:50px;
             font-size:10px;
         }
-
-        .dropdown-item:active{
-            background:#E8E8E8 !important;
-            color:unset !important;
-        }
-
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";

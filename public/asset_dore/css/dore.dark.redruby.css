@@ -7679,3 +7679,50 @@ html.dash-contents{
 body.dash-contents{
   background: #1b1919 !important;
 }
+div.swal2-modal{
+  background:#222020;
+}
+div.row-notif:hover{
+  background-color: #1b1919;
+  color: #8f8f8f;
+}
+div.row-notif  a:hover {
+  background-color: #1b1919;
+  color: #8f8f8f;
+}
+.dropdown-profile:hover,.userprofile:hover,.userjab:hover{
+  background-color: #1b1919;
+  color: #8f8f8f;
+}
+.dropdown-item:active{
+  background-color: #1b1919;
+  color: #8f8f8f;
+}
+.form-control[readonly]:focus {
+  background-color: #1b1919;
+  opacity: 1;
+}
+#table-search tbody tr:hover
+{
+  background-color: #1b1919 !important;
+  color: #8f8f8f !important;
+  cursor:pointer;
+}
+#table-search tbody tr.selected
+{
+  background-color: #1b1919 !important;
+  color: #8f8f8f !important;
+}
+#filter-btn:hover 
+{
+  background-color: #1b1919 !important;
+  color: #8f8f8f !important;
+  cursor:pointer;
+}
+#table-data tbody tr:hover
+{
+  background-color: #1b1919 !important;
+  color: #8f8f8f !important;
+  border-color:#1b1919 !important;
+  cursor:pointer;
+}
