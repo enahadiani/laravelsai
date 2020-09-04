@@ -262,54 +262,54 @@
 
 
                         <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#btambah" role="tab" aria-selected="true"><span class="hidden-xs-down">Bidang Wisata</span></a> </li>                                
-                            </ul>
-                            <div class="tab-content tabcontent-border">
-                                <div class="tab-pane active" id="btambah" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                        th,td{
-                                            padding:8px !important;
-                                            vertical-align:middle !important;
-                                        }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="table-btambah">
-                                            <thead>
-                                            <tr>
-                                            <th width="5%">No</th>
-                                            <th width="10%">Kode Bidang</th>
-                                            <th width="65%">Nama Bidang</th>                                            
-                                            <th width="20%">Jml Kunjungan</th>                                            
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#btambah" role="tab" aria-selected="true"><span class="hidden-xs-down">Bidang Wisata</span></a> </li>                                
+                        </ul>
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" id="btambah" role="tabpanel">
+                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                    th,td{
+                                        padding:8px !important;
+                                        vertical-align:middle !important;
+                                    }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed" id="table-btambah">
+                                        <thead>
+                                        <tr>
+                                        <th width="5%" class="text-center">No</th>
+                                        <th width="30%" class="text-center">Kode Bidang</th>
+                                        <th width="53%" class="text-center">Nama Bidang</th>     
+                                        <th width="12%" class="text-center">Cek List</th>                                                                                         
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="tab-pane" id="bdok" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                        th,td{
-                                            padding:8px !important;
-                                            vertical-align:middle !important;
-                                        }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="table-bdok">
-                                            <thead>
-                                            <tr>
-                                            <th width="5%">No</th>
-                                            <th width="10%">Kode Bidang</th>
-                                            <th width="65%">Nama Bidang</th>                                            
-                                            <th width="20%">Jml Kunjungan</th>                                            
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>                                
                             </div>
+                            <div class="tab-pane" id="bdok" role="tabpanel">
+                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                    th,td{
+                                        padding:8px !important;
+                                        vertical-align:middle !important;
+                                    }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed" id="table-bdok">
+                                        <thead>
+                                        <tr>
+                                        <th width="5%" class="text-center">No</th>
+                                        <th width="30%" class="text-center">Kode Bidang</th>
+                                        <th width="53%" class="text-center">Nama Bidang</th>     
+                                        <th width="12%" class="text-center">Cek List</th>                                                                                                                               
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                                
+                        </div>
                     </div>
                 </div>
             </div>
