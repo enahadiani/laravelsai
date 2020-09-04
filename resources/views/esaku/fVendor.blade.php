@@ -785,12 +785,21 @@
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                         
                     }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode vendor sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){

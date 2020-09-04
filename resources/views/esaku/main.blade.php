@@ -316,6 +316,10 @@
             pointer-events: none;
         }
 
+        .btn-200{
+            width:200px !important;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -770,7 +774,17 @@
                 //     // 
                 // }
             break;
+            case 'duplicate':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Duplikat Data');
+                var text = (data.text != undefined ? data.text : 'Kode sudah digunakan');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Mengerti');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
         }
+        
         var swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn '+btn1,
             cancelButtonClass: 'btn '+btn2,
@@ -780,7 +794,7 @@
         swalWithBootstrapButtons.fire({
             title: title,
             html: text,
-            showCancelButton: true,
+            showCancelButton: (showCancel != undefined ? showCancel : true),
             confirmButtonText: confirm,
             cancelButtonText: cancel,
             reverseButtons: true
@@ -826,6 +840,9 @@
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }                    
+                break;
+                case 'duplicate':
+                    //  
                 break;
             }
                 
