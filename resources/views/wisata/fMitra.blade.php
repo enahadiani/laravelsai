@@ -277,9 +277,9 @@
                                         <thead>
                                         <tr>
                                         <th width="5%" class="text-center">No</th>
+                                        <th width="12%" class="text-center">Cek List</th>   
                                         <th width="30%" class="text-center">Kode Bidang</th>
-                                        <th width="53%" class="text-center">Nama Bidang</th>     
-                                        <th width="12%" class="text-center">Cek List</th>                                                                                         
+                                        <th width="53%" class="text-center">Nama Bidang</th>                                                                                                                                   
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -299,9 +299,9 @@
                                         <thead>
                                         <tr>
                                         <th width="5%" class="text-center">No</th>
+                                        <th width="12%" class="text-center">Cek List</th>     
                                         <th width="30%" class="text-center">Kode Bidang</th>
-                                        <th width="53%" class="text-center">Nama Bidang</th>     
-                                        <th width="12%" class="text-center">Cek List</th>                                                                                                                               
+                                        <th width="53%" class="text-center">Nama Bidang</th>                                                                                                                                                                       
                                         </tr>
                                         </thead>
                                         <tbody>
