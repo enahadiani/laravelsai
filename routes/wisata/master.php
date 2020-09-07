@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
+//Helper//
+Route::get('getMitra', 'Wisata\HelperController@getMitra');
+Route::get('getTglServer', 'Wisata\HelperController@getTglServer');
+Route::get('getMitraBid', 'Wisata\HelperController@getMitraBid');
+Route::get('getTahunList', 'Wisata\HelperController@getTahunList');
+Route::get('getJumlahTgl/{tahun}/{bulan}', 'Wisata\HelperController@getJumlahTgl');
+
 // Data Vendor //
 Route::get('bidang', 'Wisata\BidangController@index');
 Route::get('bidang/{id}', 'Wisata\BidangController@getData');
@@ -17,3 +24,9 @@ Route::post('mitra', 'Wisata\MitraController@store');
 Route::put('mitra/{id}', 'Wisata\MitraController@update');
 Route::delete('mitra/{id}', 'Wisata\MitraController@delete');
 
+// Data Kunjungan //
+Route::get('kunjungan', 'Wisata\KunjunganController@index');
+Route::get('kunjungan/{id}', 'Wisata\KunjunganController@getData');
+Route::post('kunjungan', 'Wisata\KunjunganController@store');
+Route::put('kunjungan/{id}', 'Wisata\KunjunganController@update');
+Route::delete('kunjungan/{id}', 'Wisata\KunjunganController@delete');

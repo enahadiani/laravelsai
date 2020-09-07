@@ -286,29 +286,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="bdok" role="tabpanel">
-                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                    <style>
-                                    th,td{
-                                        padding:8px !important;
-                                        vertical-align:middle !important;
-                                    }
-                                    </style>
-                                    <table class="table table-striped table-bordered table-condensed" id="table-bdok">
-                                        <thead>
-                                        <tr>
-                                        <th width="5%" class="text-center">No</th>
-                                        <th width="12%" class="text-center">Cek List</th>     
-                                        <th width="30%" class="text-center">Kode Bidang</th>
-                                        <th width="53%" class="text-center">Nama Bidang</th>                                                                                                                                                                       
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>                                
+                            </div>                            
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@
     use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use Illuminate\Http\Request;
 
     class HelperController extends Controller {
 
@@ -31,6 +32,102 @@
                 $data = $data;
             }
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getMitra() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getMitra',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getTglServer() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getTglServer',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getMitraBid(Request $request) {
+            $kode = $request->param;
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getMitraBid/'.$kode,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getTahunList() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getTahunList',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getJumlahTgl($tahun,$bulan) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getJumTgl/'.$tahun."/".$bulan,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
         }
 
     }
