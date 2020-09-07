@@ -3413,17 +3413,17 @@ div.error {
     color: #8f8f8f; 
     /* background-color: #913a47;
     color: #d0d0d0;  */
-    border-radius: 0.75rem;
+    /* border-radius: 0.75rem; */
   }
   .typeahead.dropdown-menu .active a:hover {
     color: #913a47;
     background: #2c2a2a; 
-    border-radius: 0.75rem;
+    /* border-radius: 0.75rem; */
   }
   .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
     color: #913a47;
     background: #222121; 
-    border-radius: 0.75rem;
+    /* border-radius: 0.75rem; */
   }
 
 .select2-container .select2-selection--single .select2-selection__rendered {

@@ -232,8 +232,8 @@
                                 <input class="form-control" type="text"  id="nik_periksa" name="nik_periksa" required>
                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
-                            <div class="col-md-2 col-sm-9" style="border-bottom: 1px solid #d7d7d7;">
-                                <label id="label_nik_periksa" style="margin-top: 10px;"></label>
+                            <div class="col-md-2 col-sm-9 px-0" >
+                                <input id="label_nik_periksa" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -243,9 +243,17 @@
                             <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
-                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="Add Row" class='add-row' style='font-size:18px'><i class='simple-icon-plus'></i></a>
-                                    <a type="button" href="#" class="ml-1" id="import-excel" data-toggle="tooltip" title="Import Excel" style='font-size:18px'><i class='simple-icon-doc'></i></a>
+                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
+                                    <span class="pemisah mx-1" style="border:1px solid #d7d7d7;font-size:20px"></span>
+                                    <div class="dropdown d-inline-block mx-0">
+                                        <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
+                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-import">
+                                            <a class="dropdown-item" href="#" id="download-template" >Download Template</a>
+                                            <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
+                                        </div>
+                                    </div>
                                     <input type="file" name="file_xls" class="hidden" id="file-xls" />
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
@@ -368,14 +376,14 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
-            <div class="modal-header" style="display:block;padding-top: 10px;padding-bottom: 10px;">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header py-0" style="display:block;padding-top: 10px;padding-bottom: 10px;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="dropdown d-inline-block float-right">
                         <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        <h6>Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
                         </button>
                         <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
@@ -755,7 +763,7 @@
                 var judul = "Daftar Karyawan";
                 var jTarget1 = "val";
                 var pilih = "karyawan";
-                var jTarget2 = "text";
+                var jTarget2 = "val";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
@@ -1006,11 +1014,11 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#nik_periksa').val(result.daftar[0].nik);
-                         $('#label_nik_periksa').text(result.daftar[0].nama);
+                         $('#label_nik_periksa').val(result.daftar[0].nama);
                     }else{
                         // alert('NIK tidak valid');
                         $('#nik_periksa').val('');
-                        $('#label_nik_periksa').text('');
+                        $('#label_nik_periksa').val('');
                         $('#nik_periksa').focus();
                     }
                 }
@@ -1280,7 +1288,6 @@
         $('#input-jurnal tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        addRowDef();
         addRowDef();
     });
     // END BUTTON TAMBAH
@@ -1569,80 +1576,80 @@
         errorElement: "label",
         submitHandler: function (form) {
 
-            var formData = new FormData(form);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
-            var total_d = $('#total_debet').val();
-            var total_k = $('#total_kredit').val();
-            var jumdet = $('#input-jurnal tr').length;
+            // var formData = new FormData(form);
+            // for(var pair of formData.entries()) {
+            //     console.log(pair[0]+ ', '+ pair[1]); 
+            // }
+            // var total_d = $('#total_debet').val();
+            // var total_k = $('#total_kredit').val();
+            // var jumdet = $('#input-jurnal tr').length;
 
-            var param = $('#id').val();
-            var id = $('#no_bukti').val();
-            // $iconLoad.show();
-            if(param == "edit"){
-                var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
-            }else{
-                var url = "{{ url('/esaku-trans/jurnal') }}";
-            }
+            // var param = $('#id').val();
+            // var id = $('#no_bukti').val();
+            // // $iconLoad.show();
+            // if(param == "edit"){
+            //     var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
+            // }else{
+            //     var url = "{{ url('/esaku-trans/jurnal') }}";
+            // }
 
-            if(total_d != total_k){
-                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-            }else if( total_d <= 0 || total_k <= 0){
-                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-            }else if(jumdet <= 1){
-                alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
-            }else{
+            // if(total_d != total_k){
+            //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
+            // }else if( total_d <= 0 || total_k <= 0){
+            //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
+            // }else if(jumdet <= 1){
+            //     alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
+            // }else{
 
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    dataType: 'json',
-                    data: formData,
-                    async:false,
-                    contentType: false,
-                    cache: false,
-                    processData: false, 
-                    success:function(result){
-                        // alert('Input data '+result.message);
-                        if(result.data.status){
-                            // location.reload();
-                            dataTable.ajax.reload();
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: url,
+            //         dataType: 'json',
+            //         data: formData,
+            //         async:false,
+            //         contentType: false,
+            //         cache: false,
+            //         processData: false, 
+            //         success:function(result){
+            //             // alert('Input data '+result.message);
+            //             if(result.data.status){
+            //                 // location.reload();
+            //                 dataTable.ajax.reload();
 
-                            $('#form-tambah')[0].reset();
-                            $('#form-tambah').validate().resetForm();
-                            $('#row-id').hide();
-                            $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Jurnal');
-                            $('#id').val('');
-                            $('#input-jurnal tbody').html('');
-                            $('[id^=label]').html('');
+            //                 $('#form-tambah')[0].reset();
+            //                 $('#form-tambah').validate().resetForm();
+            //                 $('#row-id').hide();
+            //                 $('#method').val('post');
+            //                 $('#judul-form').html('Tambah Data Jurnal');
+            //                 $('#id').val('');
+            //                 $('#input-jurnal tbody').html('');
+            //                 $('[id^=label]').html('');
                             
-                            msgDialog({
-                                id:result.data.no_bukti,
-                                type:'simpan'
-                            });
+            //                 msgDialog({
+            //                     id:result.data.no_bukti,
+            //                     type:'simpan'
+            //                 });
                                 
 
-                        }
-                        else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                        }
-                        else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                        $iconLoad.hide();
-                    },
-                    fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
-                    }
-                });
-            }
+            //             }
+            //             else if(!result.data.status && result.data.message == 'Unauthorized'){
+            //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+            //             }
+            //             else{
+            //                 Swal.fire({
+            //                     icon: 'error',
+            //                     title: 'Oops...',
+            //                     text: 'Something went wrong!',
+            //                     footer: '<a href>'+result.data.message+'</a>'
+            //                 })
+            //             }
+            //             $iconLoad.hide();
+            //         },
+            //         fail: function(xhr, textStatus, errorThrown){
+            //             alert('request failed:'+textStatus);
+            //         }
+            //     });
+            // }
 
         },
         errorPlacement: function (error, element) {
@@ -1681,10 +1688,10 @@
 
     $('#form-tambah').on('click', '.search-item2', function(){
 
-    var par = $(this).closest('div').find('input').attr('name');
-    var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-    target1 = par;
-    target2 = par2;
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
+        target1 = par;
+        target2 = par2;
     showFilter(par,target1,target2);
     });
 
@@ -2288,7 +2295,8 @@
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotal();
             $(this).closest('tr').find('.inp-pp').val();
-        }else{
+        }
+        else{
             alert('Nilai yang dimasukkan tidak valid');
             return false;
         }

@@ -461,7 +461,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="notif-body px-3 py-3" style="height:280px">
+                        <div class="notif-body" style="height:280px">
                         </div>
                         <div class='row-footer border-top'>
                             <div class="d-flex flex-row px-3 py-2 text-center">
@@ -474,7 +474,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab" title="Open Newtab">
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab" title="New Tab">
                     <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
                 </button>
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton" title="Full Screen">
@@ -771,7 +771,7 @@
                             var line = result.data.data[i];
                             notif+=`
                             <div class='row-notif'>
-                                <div class="d-flex flex-row">
+                                <div class="d-flex flex-row px-3 pt-3">
                                     <a href="#">
                                         <i class='simple-icon-info'></i>
                                     </a>
@@ -781,7 +781,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-row mb-3 pb-3 border-bottom">
+                                <div class="d-flex flex-row pb-3 border-bottom px-3">
                                     <div class="">
                                         <a href="#">
                                             <p class="font-weight-medium mb-1" style="color;black;font-weight:bold">`+line.subjudul+`</p>
