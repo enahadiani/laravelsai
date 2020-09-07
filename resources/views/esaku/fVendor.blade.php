@@ -259,9 +259,9 @@
                             <div class="col-md-3 col-sm-12" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
-                                <label id="label_akun_hutang" style="margin-top: 10px;"></label>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_akun_hutang" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                     </div>
@@ -292,15 +292,15 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
-                <div class="modal-header" style="display:block;padding-top: 10px;padding-bottom: 10px;">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header py-0" style="display:block;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
 
                     <div class="dropdown d-inline-block float-right">
                         <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        <h6>Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
                         </button>
                         <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
@@ -350,11 +350,11 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#akun_hutang').val(result.daftar[0].kode_akun);
-                        $('#label_akun_hutang').text(result.daftar[0].nama);
+                        $('#label_akun_hutang').val(result.daftar[0].nama);
                     }else{
                         // alert('Kode Akun tidak valid');
                         $('#akun_hutang').val('');
-                        $('#label_akun_hutang').html('');
+                        $('#label_akun_hutang').val('');
                         $('#akun_hutang').focus();
                     }
                 }
@@ -374,13 +374,13 @@
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_akun === no){
-                                $('#label_akun_hutang').text(result.daftar[i].nama);
+                                $('#label_akun_hutang').val(result.daftar[i].nama);
                                 break;
                             }
                         }
                     }else{
                         alert('Kode Akun tidak valid');
-                        $('#label_akun_hutang').html('');
+                        $('#label_akun_hutang').val('');
                         $('#akun_hutang').val('');
                         $('#akun_hutang').focus();
                     }
@@ -407,7 +407,7 @@
                 
                 var judul = "Daftar Akun";
                 var jTarget1 = "val";
-                var jTarget2 = "text";
+                var jTarget2 = "val";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
@@ -559,7 +559,7 @@
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
@@ -743,6 +743,81 @@
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
+        rules: 
+        {
+            kode_vendor:{
+                required: true,
+                maxlength:10   
+            },
+            nama:{
+                required: true,
+                maxlength:50   
+            },
+            no_tel:{
+                required: true,
+                number:true   
+            },
+            email:{
+                required: true,
+                email:true ,
+                maxlength:50  
+            },
+            alamat:
+            {
+                required: true,
+                maxlength:300
+            },
+            npwp:
+            {
+                required: true,
+                maxlength:50
+            },
+            pic:
+            {
+                required: true,
+                maxlength:50
+            },
+            alamat2:
+            {
+                required: true,
+                maxlength:200
+            },
+            bank:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            cabang:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            no_rek:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            nama_rek:
+            {
+                required: true,
+                maxlength:50
+            },
+            no_fax:
+            {
+                required: true,
+                maxlength:50
+            },
+            no_pictel:
+            {
+                required: true,
+                maxlength:50
+            },
+            akun_hutang:
+            {
+                required: true,
+                maxlength:20
+            }
+        },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
