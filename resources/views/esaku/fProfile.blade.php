@@ -583,6 +583,9 @@ $('#file-foto').change(function(e){
                     var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
                     $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
                     loadForm("{{url('esaku-auth/form/fProfile')}}");
+
+                    $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
+                            
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";

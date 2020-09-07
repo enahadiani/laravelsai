@@ -428,11 +428,13 @@
                 <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
-                            @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
-                            @else
-                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
-                            @endif
+                            <span id="adminProfilePhoto">
+                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
+                                @else
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                                @endif
+                            </span>
                             <p class="userprofile mb-0">{{ $nama }}</p>
                             <span class="userjab" >{{ Session::get('jabatan') }}</span>
                         </div>
