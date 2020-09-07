@@ -224,7 +224,7 @@
                         <div class="form-group row ">
                             <label for="kode_bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" required>
+                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" required readonly>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
@@ -382,6 +382,8 @@
                             $('#kode_mitra').attr('value',filter[0].kode_mitra);
                             $('#label_kode_mitra').text(filter[0].nama);
                             $('#alamat').val(filter[0].alamat);
+                            $('#kode_bidang').val('')
+                            $('#label_kode_bidang').text('')
                         } else {
                             $('#kode_mitra').val('');
                             $('#label_kode_mitra').text('');
