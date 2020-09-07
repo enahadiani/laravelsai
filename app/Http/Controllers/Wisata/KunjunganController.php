@@ -56,21 +56,44 @@ class KunjunganController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_bidang' => 'required',
-            'nama' => 'required'          
+            'tgl_kunjungan' => 'required',
+            'kode_mitra' => 'required',          
+            'kode_bidang' => 'required',          
+            'tahun' => 'required',          
+            'bulan' => 'required',         
+            'tanggal' => 'required|array',         
+            'jumlah' => 'required|array',         
         ]);
 
         try {   
+                $explode_tgl = explode('/', $request->tgl_kunjungan);
+                $tgl = $explode_tgl[0];
+                $bln = $explode_tgl[1];
+                $tahun = $explode_tgl[2];
+                $tanggal = $tahun."-".$bln."-".$tgl;
+
+                $arrTgl = array();
+                for($i=0;$i<count($request->tanggal);$i++) {
+                    $arrTgl[] = array('tanggal' => $request->tahun."-".$request->bulan."-".$request->tanggal[$i],
+                                      'jumlah' => $request->jumlah[$i]);
+                }
+
+                $data = array(
+                    'tanggal' => $tanggal,
+                    'kode_mitra' => $request->kode_mitra,
+                    'kode_bidang' => $request->kode_bidang,
+                    'tahun' => $request->tahun,
+                    'bulan' => $request->bulan,
+                    'arrtgl' => $arrTgl
+                );
+
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'wisata-master/bidang',[
+                $response = $client->request('POST',  config('api.url').'wisata-master/kunjungan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'     => 'application/json',
                     ],
-                    'form_params' => [
-                        'kode_bidang' => $request->kode_bidang,
-                        'nama' => $request->nama                        
-                    ]
+                    'body' => json_encode($data)
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();

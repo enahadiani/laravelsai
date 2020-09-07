@@ -148,11 +148,11 @@
                     <table id="table-data" style='width:100%'>
                         <thead>
                             <tr>
+                                <th width="15%">No Bukti</th>
                                 <th width="15%">Mitra</th>
                                 <th width="38%">Alamat</th>
                                 <th width="15%">Bidang</th>                                
-                                <th width="10%">Bulan</th>                                
-                                <th width="9%">Tahun</th>                                
+                                <th width="10%">Periode</th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -197,7 +197,7 @@
                         <div class="form-group row" id="no-bukti-div">
                             <label for="no_bukti" class="col-md-2 col-sm-12 col-form-label">No Bukti</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Bukti" id="no-bukti" name="no_bukti" required>                                
+                                <input class="form-control" type="text" placeholder="No Bukti" id="no-bukti" name="no_bukti">                                
                             </div>                                                      
                         </div>
 
@@ -355,7 +355,6 @@
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
-
         //DATEPICKER FORMAT//
         $('.datepicker').datepicker({
             format: 'dd/mm/yyyy',
@@ -366,6 +365,10 @@
         //END DATEPICKER FORMAT//
 
         //HELPER FUNCTION//
+        function NameBulan(bulan) {
+            var array = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            return array[bulan - 1];
+        }
         function getMitra(kode) {
             $.ajax({
             type: 'GET',
@@ -447,8 +450,8 @@
                     var row = "";
                     for(var i=0;i<parseInt(result.daftar[0].jum_tgl);i++) {
                         row += "<tr>";
-                        row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tgl+"' type='hidden' readonly />"+tgl+"</td>"
-                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='0' class='form-control' style='width: 120px !important;'/></td>"
+                        row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+("0"+tgl).slice(-2)+"' type='hidden' readonly />"+("0"+tgl).slice(-2)+"</td>"
+                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='0' class='form-control' style='width: 120px !important;' required/></td>"
                         row += "</tr>";
                         tgl++;
                     }
@@ -491,11 +494,13 @@
                 {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
             ],
             'columns': [
+                { data: 'no_bukti' },
                 { data: 'nama_mitra' },
                 { data: 'alamat' },
                 { data: 'nama_bidang' },
-                { data: 'bulan' },
-                { data: 'tahun' }
+                { data: function(data) {
+                    return NameBulan(parseInt(data.bulan)) +" "+ data.tahun
+                } }
             ],
             drawCallback: function () {
                 $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -776,4 +781,76 @@
             getJumlahTgl(tahun, bulan);
         });
         //END EVENT CHANGE//
+
+        //BUTTON SIMPAN /SUBMIT
+        $('#form-tambah').validate({
+            ignore: [],
+            errorElement: "label",
+            submitHandler: function (form) {
+                var parameter = $('#id_edit').val();
+                var id = $('#id').val();
+                if(parameter == "edit"){
+                    var url = "{{ url('wisata-master/kunjungan') }}/"+id;
+                    var pesan = "updated";
+                }else{
+                    var url = "{{ url('wisata-master/kunjungan') }}";
+                    var pesan = "saved";
+                }
+
+                var formData = new FormData(form);
+                for(var pair of formData.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                }
+                
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Data berhasil tersimpan!',
+                                'Your data has been '+pesan,
+                                'success'
+                                )
+                            $('#row-id').hide();
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('[id^=label]').html('');
+                            $('#id_edit').val('');
+                            $('#judul-form').html('Tambah Data Kunjungan');
+                            $('#method').val('post');
+                        
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/wisata-auth/sesi-habis') }}";
+                            
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            },
+            errorPlacement: function (error, element) {
+                var id = element.attr("id");
+                $("label[for="+id+"]").append("<br/>");
+                $("label[for="+id+"]").append(error);
+            }
+        });
+        // END BUTTON SIMPAN
     </script>
