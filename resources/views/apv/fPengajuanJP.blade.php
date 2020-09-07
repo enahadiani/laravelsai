@@ -16,6 +16,10 @@
 {
     font-family: 'Roboto', sans-serif !important;
 }
+
+.datepicker{
+    padding: inherit !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
@@ -119,7 +123,9 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                    <!-- <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required> -->
+                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
+                                    
                                     <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb" name="tgl_juskeb" value="{{ date('Y-m-d') }}" required>
                                 </div>
                             </div>
@@ -139,7 +145,8 @@
                             <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required>
+                                    <!-- <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required> -->
+                                    <input class="form-control datepicker" type="text" id="waktu" name="waktu" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}" readonly>
                                 </div>
                             </div>
                             @if(Session::get('kodePP') == "7")
@@ -314,6 +321,16 @@
     <script>
     
     setHeightForm();
+
+    
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+        
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -755,6 +772,19 @@
     }
 
     getStatus();
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
+
+    $('#tanggal').change(function(){
+        var pp = $('#kode_pp')[0].selectize.getValue();
+        var kota = $('#kode_kota')[0].selectize.getValue();
+        var tanggal = $('#tanggal').val();
+        generateDok(tanggal,pp,kota);
+    });
+
     $('#saku-datatable').on('click', '#btn-aju-tambah', function(){
         $('#row-id').hide();
         $('#id').val('');

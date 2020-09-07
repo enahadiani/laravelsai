@@ -764,7 +764,7 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#jadwal').val(result.daftar[0].no_jadwal);
-                         $('#label_jadwal').text(reverseDateNew(result.daftar[0].tgl_berangkat),'-','/');
+                         $('#label_jadwal').text(reverseDateNew(result.daftar[0].tgl_berangkat,'-','/'));
                     }else{
                         alert('Jadwal tidak valid');
                         $('#jadwal').val('');

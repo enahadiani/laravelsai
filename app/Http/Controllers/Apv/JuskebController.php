@@ -23,6 +23,11 @@ class JuskebController extends Controller
         }
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     function sendNotif($title,$content,$token_player){ 	
 
         try {
@@ -240,7 +245,7 @@ class JuskebController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $request->tanggal,
+                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
                 ],
                 [
                     'name' => 'no_dokumen',
@@ -264,7 +269,7 @@ class JuskebController extends Controller
                 ],
                 [
                     'name' => 'waktu',
-                    'contents' => $request->waktu,
+                    'contents' => $this->reverseDate($request->waktu,"/","-"),
                 ],
                 [
                     'name' => 'kegiatan',
@@ -506,7 +511,7 @@ class JuskebController extends Controller
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $request->tanggal,
+                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
                 ],
                 [
                     'name' => 'no_dokumen',
@@ -530,7 +535,7 @@ class JuskebController extends Controller
                 ],
                 [
                     'name' => 'waktu',
-                    'contents' => $request->waktu,
+                    'contents' => $this->reverseDate($request->waktu,"/","-"),
                 ],
                 [
                     'name' => 'kegiatan',
@@ -980,7 +985,7 @@ class JuskebController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                     'kode_pp' => $request->kode_pp,
                     'kode_kota' => $request->kode_kota
                 ]
