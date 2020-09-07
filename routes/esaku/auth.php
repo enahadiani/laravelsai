@@ -35,6 +35,10 @@ Route::get('/sesi-habis', function () {
     return view('esaku.sesi');
 });
 
+Route::get('/tes', function () {
+    return view('esaku.tes');
+});
+
 Route::get('/cek_session', 'Esaku\AuthController@cek_session');
 Route::get('/', 'Esaku\AuthController@index');
 Route::get('/dash', 'Esaku\AuthController@index');

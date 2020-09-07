@@ -298,7 +298,7 @@
             font-size:10px;
         }
 
-        #notificationDropdown2
+        /* #notificationDropdown2
         {
             left: 50% !important;
             right: auto !important;
@@ -311,7 +311,7 @@
             right: auto !important;
             transform: translate(-40%, 0) !important;
         }
-        
+         */
         div.dropdown:hover > div.dropdown-menu {
             display: block !important;
         } 
@@ -368,9 +368,7 @@
 @else
 <body id="app-container" class="menu-default show-spinner" >
 @endif
-
-
-    <nav class="navbar fixed-top">
+    <nav class="navbar fixed-top px-0 py-0">
         <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">
                 <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
@@ -414,7 +412,7 @@
 
         @endphp
 
-        <div class="navbar-right">
+        <div class="navbar-right" >
             <div class="user d-inline-block mr-3 dropdown">
                 <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -427,7 +425,7 @@
                     @endif
                     </span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right mt-2" id="adminDropdown" style="width:200px">
+                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
                             @if (Session::get('foto') == "" || Session::get('foto') == "-" )
@@ -451,7 +449,7 @@
                         <i class="simple-icon-bell icon-notif" style="font-size:17px"></i>
                         <!-- <span class="count"></span> -->
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-2" id="notificationDropdown2" style="width:300px;">
+                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-0" id="notificationDropdown2" style="width:300px;">
                         <div class='row-header border-bottom'>
                             <div class="d-flex flex-row px-3 py-2 ">
                                 <div class="">
@@ -474,10 +472,10 @@
                         </div>
                     </div>
                 </div>
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab">
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab" title="Open Newtab">
                     <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
                 </button>
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton" title="Full Screen">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
                 </button>
@@ -535,7 +533,6 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
     
     function msgDialog(data){
         console.log(data.type);

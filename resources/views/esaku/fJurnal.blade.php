@@ -93,6 +93,20 @@
         .dropdown-aksi > .dropdown-item{
             font-size : 0.7rem;
         }
+
+        .btn-light2{
+            background:#F8F8F8;
+            color:#D4D4D4;
+        }
+
+        .btn-light2:hover{
+            color:#131113;
+        }
+
+        .btn-light2:active{
+            color: #131113;
+            background-color: #d8d8d8;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -230,7 +244,7 @@
 
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
-                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='simple-icon-plus'></i></a>
+                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" class='add-row' style='font-size:18px'><i class='simple-icon-plus'></i></a>
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
@@ -320,6 +334,7 @@
                                     <tbody>
                                     </tbody>
                                     </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
@@ -1860,7 +1875,7 @@
         }
     });
 
-    $('#form-tambah').on('click', '#add-row', function(){
+    $('#form-tambah').on('click', '.add-row', function(){
         var no=$('#input-jurnal .row-jurnal:last').index();
         no=no+2;
         var input = "";
