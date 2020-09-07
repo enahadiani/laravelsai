@@ -250,7 +250,7 @@
                                         <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdown-import">
-                                            <a class="dropdown-item" href="#" id="download-template" >Download Template</a>
+                                            <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_jurnal_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                         </div>
                                     </div>
@@ -827,27 +827,27 @@
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
 
-        $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-            }else{
-                $($target).text(kode);
-            }
+        // $('#table-search').on('click','.check-item',function(){
+        //     var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+        //     var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+        //     if(jTarget1 == "val"){
+        //         $($target).val(kode);
+        //     }else{
+        //         $($target).text(kode);
+        //     }
 
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
+        //     if(jTarget2 == "val"){
+        //         $($target2).val(nama);
+        //     }else{
+        //         $($target2).text(nama);
+        //     }
 
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            console.log($target3);
-            $('#modal-search').modal('hide');
-        });
+        //     if($target3 != ""){
+        //         $($target3).text(nama);
+        //     }
+        //     console.log($target3);
+        //     $('#modal-search').modal('hide');
+        // });
 
         // $('#table-search tbody').on('dblclick','tr',function(){
         //     console.log('dblclick');
@@ -1871,7 +1871,7 @@
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
-                    $('#add-row').click();
+                    $('.add-row').click();
                     break;
 
                 default:
