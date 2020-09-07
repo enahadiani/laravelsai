@@ -243,8 +243,10 @@
                             <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
-                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" class='add-row' style='font-size:18px'><i class='simple-icon-plus'></i></a>
+                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row"><i class='iconsminds-duplicate-layer' style='font-size:18px'></i></a>&nbsp;
+                                    <a type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="Add Row" class='add-row' style='font-size:18px'><i class='simple-icon-plus'></i></a>
+                                    <a type="button" href="#" class="ml-1" id="import-excel" data-toggle="tooltip" title="Import Excel" style='font-size:18px'><i class='simple-icon-doc'></i></a>
+                                    <input type="file" name="file_xls" class="hidden" id="file-xls" />
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
@@ -396,7 +398,9 @@
         </div>
     </div>
     <!-- END MODAL PREVIEW -->
-
+    
+    
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     
@@ -489,8 +493,6 @@
             rightArrow: '<i class="simple-icon-arrow-right"></i>'
         }
     });
-
-    $('[data-toggle="tooltip"]').tooltip(); 
     // END 
 
     // SUGGESTION
@@ -2327,5 +2329,110 @@
                 $(this).val('');
             }
         }
+    });
+
+    $('#import-excel').click(function(e){
+        $('#file-xls').click();
+    });
+
+    $('#file-xls').change(function(evt){
+        // evt.preventDefault();
+
+        var selectedFile = evt.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var dataResult = [];
+            var data = event.target.result;
+            var workbook = XLSX.read(data,{
+                type:'binary'
+            });
+            workbook.SheetNames.forEach(function(sheetName) {
+                var no = 1;
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                var json_parse = JSON.parse(json_object)
+                $('#input-jurnal tbody').empty();
+                var row = "";
+                for(var i=0;i<json_parse.length;i++){
+                    var res = json_parse[i];
+
+                    row += "<tr class='row-jurnal'>";
+                    row += "<td class='no-jurnal text-center'>"+no+"</td>";              
+                    row += "<td><span class='td-kode tdakunke"+no+"'>"+res.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+res.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                    row += "<td><span class='td-nama tdnmakunke"+no+"'>"+res.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+res.nama_akun+"' readonly></td>";
+                    row += "<td><span class='td-dc tddcke"+no+"'>"+res.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+res.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+                    row += "<td><span class='td-ket tdketke"+no+"'>"+res.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+res.keterangan+"' required></td>";
+                    row += "<td class='text-right'><span class='td-nilai tdnilke"+no+"'>"+format_number(res.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(res.nilai)+"' required></td>";
+                    row += "<td><span class='td-pp tdppke"+no+"'>"+res.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+res.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                    row += "<td><span class='td-nama_pp tdnmppke"+no+"'>"+res.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+res.nama_pp+"' readonly ></td>";
+                    row += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                    row += "</tr>";        
+                    no++;
+                }
+                $('#input-jurnal tbody').html(row);
+
+                var no=1;
+                for(var i=0;i<json_parse.length;i++){
+                    var res = json_parse[i];
+                    $('.dcke'+no).selectize({
+                        selectOnTab:true,
+                        onChange: function(value) {
+                            $('.tddcke'+no).text(value);
+                            hitungTotal();
+                        }
+                    });
+                    $('.selectize-control.dcke'+no).addClass('hidden');
+                    $('.nilke'+no).inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        oncleared: function () { self.Value(''); }
+                    });
+
+                    $('#akunkode'+no).typeahead({
+                        source:$dtAkun,
+                        displayText:function(item){
+                            return item.id+' - '+item.name;
+                        },
+                        autoSelect:false,
+                        changeInputOnSelect:false,
+                        changeInputOnMove:false,
+                        selectOnBlur:false,
+                        afterSelect: function (item) {
+                            console.log(item.id);
+                        }
+                    });
+
+                    $('#ppkode'+no).typeahead({
+                        source:$dtPP,
+                        displayText:function(item){
+                            return item.id+' - '+item.name;
+                        },
+                        autoSelect:false,
+                        changeInputOnSelect:false,
+                        changeInputOnMove:false,
+                        selectOnBlur:false,
+                        afterSelect: function (item) {
+                            console.log(item.id);
+                        }
+                    });
+                    no++;
+                }
+
+                hitungTotal();
+                
+            });
+
+
+        }
+
+        reader.onerror = function(event) {
+            console.log('File could not be read! Code '+ event.target.error.code)
+        }
+
+        reader.readAsBinaryString(selectedFile);
+
     });
     </script>
