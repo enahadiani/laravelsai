@@ -207,6 +207,10 @@ input.form-control{
         top:70px
     }
 }
+
+.hidden{
+    display:none;
+}
 </style>
 <div class="row" id="page-profile">
     <div class="col-12">
@@ -216,12 +220,14 @@ input.form-control{
                     <button id="editBackground" alt="Edit Background" class="btn" style="background: #FFFFFF;border-radius: 10px;opacity: 0.63;padding: 5px 10px;">
                     <i class="simple-icon-pencil"></i>&nbsp;
                     Ubah background</button>
+                    <input type="file" name="file_background" class="hidden" id="file-background" />
                 </div>
                 <div id="foto-background"></div>
             </div>
             <div class="col-12 col-lg-5 col-xl-4 col-left">
                 <a href="#" class="lightbox" id="foto">
                 </a>
+                <input type="file" name="file_foto" class="hidden" id="file-foto" />
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="pt-5">
@@ -538,40 +544,42 @@ $('#form-ubahPass').on('submit', function(e){
         
 });
 
-$('#formPhoto').on('submit', function(e){
+$('#file-foto').change(function(e){
     e.preventDefault();
-        var parameter = $('#id_foto').val();
-
-        if(parameter == "foto"){
-            var url = "esaku-auth/update-foto";
-        }else{
-            
-            var url = "esaku-auth/update-background";
-        }
-        var pesan = "saved";
-
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-
+    var foto = document.getElementById("file-foto").files[0];
+    var name = foto.name;
+    var form_data = new FormData();
+    var ext = name.split('.').pop().toLowerCase();
+    if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    {
+        alert("Invalid Image File");
+    }
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(foto);
+    var f = foto;
+    var fsize = f.size||f.fileSize;
+    if(fsize > 3000000)
+    {
+        alert("Image File Size is very big");
+    }
+    else
+    {
+        form_data.append("foto", foto);
         $.ajax({
-            type: 'POST',
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
+            url:"{{ url('esaku-auth/update-foto') }}",
+            method:"POST",
+            data: form_data,
+            async: false,
             contentType: false,
             cache: false,
             processData: false, 
+            beforeSend:function(){
+                // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+            },   
             success:function(result){
                 if(result.data.status){
                     alert('Update foto sukses!');
-                    $('#modalPhoto').modal('hide');
-                    if(parameter == "foto"){
-
-                        $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/toko-auth/storage/'+result.data.foto+'">');
-                    }
+                    $('#foto-profile').html('<img alt="Profile Picture" src="https://api.simkug.com/api/toko-auth/storage/'+result.data.foto+'">');
                     loadForm("{{url('esaku-auth/form/fProfile')}}");
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -590,7 +598,63 @@ $('#formPhoto').on('submit', function(e){
                 }
             }
         });
-        
+    }
+});
+
+$('#file-background').change(function(e){
+    e.preventDefault();
+    var foto = document.getElementById("file-background").files[0];
+    var name = foto.name;
+    var form_data = new FormData();
+    var ext = name.split('.').pop().toLowerCase();
+    if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    {
+        alert("Invalid Image File");
+    }
+    var oFReader = new FileReader();
+    oFReader.readAsDataURL(foto);
+    var f = foto;
+    var fsize = f.size||f.fileSize;
+    if(fsize > 3000000)
+    {
+        alert("Image File Size is very big");
+    }
+    else
+    {
+        form_data.append("foto", foto);
+        $.ajax({
+            url:"{{ url('esaku-auth/update-background') }}",
+            method:"POST",
+            data: form_data,
+            async: false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            beforeSend:function(){
+                // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+            },   
+            success:function(result){
+                if(result.data.status){
+                    alert('Update foto sukses!');
+                    loadForm("{{url('esaku-auth/form/fProfile')}}");
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                else{
+                    alert(result.data.message);
+                }
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status==422){
+                    alert(jqXHR.responseText);
+                }
+            }
+        });
+    }
 });
 
 $('#editPassword').click(function(){
@@ -605,19 +669,11 @@ $('#btn-cancel').click(function(){
 
 $('#foto').on('click','#editPhoto',function(e){
     e.preventDefault();
-    console.log('click');
-    // $('#page-profile').hide();
-    // $('#editpage-profile').show();
-    $('#id_foto').val('foto');
-    $('.modal-title').html("Edit Foto");
-    $('#modalPhoto').modal('show');
+    $('#file-foto').click();
 });
 
-$('#editBackground').click(function(){
-    // $('#page-profile').hide();
-    // $('#editpage-profile').show();
-    $('#id_foto').val('background');
-    $('.modal-title').html("Edit Background");
-    $('#modalPhoto').modal('show');
+$('#editBackground').click(function(e){
+    e.preventDefault();
+    $('#file-background').click();
 });
 </script>
