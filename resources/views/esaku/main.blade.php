@@ -421,7 +421,7 @@
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
                     @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'/toko-auth/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
                     @endif
                     </span>
                 </button>
@@ -431,7 +431,7 @@
                             @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                             <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
                             @else
-                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'/toko-auth/storage/'.Session::get('foto') }}" />
+                            <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
                             @endif
                             <p class="userprofile mb-0">{{ $nama }}</p>
                             <span class="userjab" >{{ Session::get('jabatan') }}</span>
