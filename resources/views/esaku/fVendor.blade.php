@@ -259,9 +259,9 @@
                             <div class="col-md-3 col-sm-12" >
                                  <input class="form-control" type="text"  id="akun_hutang" name="akun_hutang" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
-                                <label id="label_akun_hutang" style="margin-top: 10px;"></label>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_akun_hutang" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                     </div>
@@ -350,11 +350,11 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#akun_hutang').val(result.daftar[0].kode_akun);
-                        $('#label_akun_hutang').text(result.daftar[0].nama);
+                        $('#label_akun_hutang').val(result.daftar[0].nama);
                     }else{
                         // alert('Kode Akun tidak valid');
                         $('#akun_hutang').val('');
-                        $('#label_akun_hutang').html('');
+                        $('#label_akun_hutang').val('');
                         $('#akun_hutang').focus();
                     }
                 }
@@ -374,13 +374,13 @@
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(var i=0;i<=result.daftar.length;i++){   
                             if(result.daftar[i].kode_akun === no){
-                                $('#label_akun_hutang').text(result.daftar[i].nama);
+                                $('#label_akun_hutang').val(result.daftar[i].nama);
                                 break;
                             }
                         }
                     }else{
                         alert('Kode Akun tidak valid');
-                        $('#label_akun_hutang').html('');
+                        $('#label_akun_hutang').val('');
                         $('#akun_hutang').val('');
                         $('#akun_hutang').focus();
                     }
@@ -407,7 +407,7 @@
                 
                 var judul = "Daftar Akun";
                 var jTarget1 = "val";
-                var jTarget2 = "text";
+                var jTarget2 = "val";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
@@ -559,7 +559,7 @@
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
         target1 = par;
         target2 = par2;
         showFilter(par,target1,target2);
@@ -743,6 +743,81 @@
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
+        rules: 
+        {
+            kode_vendor:{
+                required: true,
+                maxlength:10   
+            },
+            nama:{
+                required: true,
+                maxlength:50   
+            },
+            no_tel:{
+                required: true,
+                number:true   
+            },
+            email:{
+                required: true,
+                email:true ,
+                maxlength:50  
+            },
+            alamat:
+            {
+                required: true,
+                maxlength:300
+            },
+            npwp:
+            {
+                required: true,
+                maxlength:50
+            },
+            pic:
+            {
+                required: true,
+                maxlength:50
+            },
+            alamat2:
+            {
+                required: true,
+                maxlength:200
+            },
+            bank:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            cabang:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            no_rek:
+            {
+                required: true,
+                maxlength:50
+            }, 
+            nama_rek:
+            {
+                required: true,
+                maxlength:50
+            },
+            no_fax:
+            {
+                required: true,
+                maxlength:50
+            },
+            no_pictel:
+            {
+                required: true,
+                maxlength:50
+            },
+            akun_hutang:
+            {
+                required: true,
+                maxlength:20
+            }
+        },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
