@@ -446,7 +446,7 @@
                     for(var i=0;i<parseInt(result.daftar[0].jum_tgl);i++) {
                         row += "<tr>";
                         row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tgl+"' type='hidden' readonly />"+tgl+"</td>"
-                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' class='form-control' style='width: 120px !important;'/></td>"
+                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='0' class='form-control' style='width: 120px !important;'/></td>"
                         row += "</tr>";
                         tgl++;
                     }
