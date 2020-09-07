@@ -735,6 +735,7 @@
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
+                $target4 = ".td-dc";
             break;
             case 'kode_pp[]': 
                 header = ['Kode PP', 'Nama'];
@@ -751,6 +752,7 @@
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
+                $target4 = $target3;
             break;
             case 'nik_periksa': 
                 header = ['NIK', 'Nama'];
@@ -767,6 +769,7 @@
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
+                $target4 = "";
             break;
         }
 
@@ -896,7 +899,10 @@
                 if($target3 != ""){
                     $($target3).text(nama);
                 }
-                console.log($target3);
+                console.log($target4);
+                if($target4 != ""){
+                    $($target4).click();
+                }
                 $('#modal-search').modal('hide');
             }
         });
@@ -1871,7 +1877,13 @@
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
-                    $('.add-row').click();
+                    // $('.add-row').click();
+                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                    if(cek.length > 0){
+                        cek.click();
+                    }else{
+                        $('.add-row').click();
+                    }
                     break;
 
                 default:
