@@ -434,6 +434,7 @@ function getKomponenInvestasi(periode=null){
 $.ajax({
     type:"GET",
     url:"{{ url('/dash-telu/komponen-investasi') }}",
+    data:{periode:periode},
     dataType:"JSON",
     success: function(result){
         Highcharts.chart('komponen', {
