@@ -107,6 +107,12 @@
             color: #131113;
             background-color: #d8d8d8;
         }
+
+        .custom-file-label::after{
+            content:"Cari berkas" !important;
+            border-left:0;
+            color: var(--theme-color-1) !important;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -376,7 +382,7 @@
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
         <div class="modal-dialog" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
-            <div class="modal-header py-0" style="display:block;padding-top: 10px;padding-bottom: 10px;">
+                <div class="modal-header py-0" style="display:block;">
                     <h6 class="modal-title py-2" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
@@ -406,6 +412,35 @@
         </div>
     </div>
     <!-- END MODAL PREVIEW -->
+
+    <!-- MODAL UPLOAD -->
+    <div class="modal fade" id="modal-import" tabindex="-1" aria-labelledby="modal-importLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius:0.75em">
+                <form id="form-import">
+                    <div class="modal-header py-2">
+                        <h6 class="modal-title" id="modal-importLabel">Upload Berkas</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:0">
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01" style="display: unset;" name="file">
+                                <label class="custom-file-label" for="inputGroupFile01" style="display: block;">File input</label>
+                            </div>
+                        </div>
+                        <label id="label-file"></label>
+                    </div>
+                    <div class="modal-footer" style="border:0">
+                        <button type="submit" class="btn btn-light disabled" disabled>Process</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  -->
     
     
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -1587,80 +1622,80 @@
         errorElement: "label",
         submitHandler: function (form) {
 
-            // var formData = new FormData(form);
-            // for(var pair of formData.entries()) {
-            //     console.log(pair[0]+ ', '+ pair[1]); 
-            // }
-            // var total_d = $('#total_debet').val();
-            // var total_k = $('#total_kredit').val();
-            // var jumdet = $('#input-jurnal tr').length;
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            var total_d = $('#total_debet').val();
+            var total_k = $('#total_kredit').val();
+            var jumdet = $('#input-jurnal tr').length;
 
-            // var param = $('#id').val();
-            // var id = $('#no_bukti').val();
-            // // $iconLoad.show();
-            // if(param == "edit"){
-            //     var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
-            // }else{
-            //     var url = "{{ url('/esaku-trans/jurnal') }}";
-            // }
+            var param = $('#id').val();
+            var id = $('#no_bukti').val();
+            // $iconLoad.show();
+            if(param == "edit"){
+                var url = "{{ url('/esaku-trans/jurnal') }}/"+id;
+            }else{
+                var url = "{{ url('/esaku-trans/jurnal') }}";
+            }
 
-            // if(total_d != total_k){
-            //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-            // }else if( total_d <= 0 || total_k <= 0){
-            //     alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-            // }else if(jumdet <= 1){
-            //     alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
-            // }else{
+            if(total_d != total_k){
+                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
+            }else if( total_d <= 0 || total_k <= 0){
+                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
+            }else if(jumdet <= 1){
+                alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
+            }else{
 
-            //     $.ajax({
-            //         type: 'POST',
-            //         url: url,
-            //         dataType: 'json',
-            //         data: formData,
-            //         async:false,
-            //         contentType: false,
-            //         cache: false,
-            //         processData: false, 
-            //         success:function(result){
-            //             // alert('Input data '+result.message);
-            //             if(result.data.status){
-            //                 // location.reload();
-            //                 dataTable.ajax.reload();
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        // alert('Input data '+result.message);
+                        if(result.data.status){
+                            // location.reload();
+                            dataTable.ajax.reload();
 
-            //                 $('#form-tambah')[0].reset();
-            //                 $('#form-tambah').validate().resetForm();
-            //                 $('#row-id').hide();
-            //                 $('#method').val('post');
-            //                 $('#judul-form').html('Tambah Data Jurnal');
-            //                 $('#id').val('');
-            //                 $('#input-jurnal tbody').html('');
-            //                 $('[id^=label]').html('');
+                            $('#form-tambah')[0].reset();
+                            $('#form-tambah').validate().resetForm();
+                            $('#row-id').hide();
+                            $('#method').val('post');
+                            $('#judul-form').html('Tambah Data Jurnal');
+                            $('#id').val('');
+                            $('#input-jurnal tbody').html('');
+                            $('[id^=label]').html('');
                             
-            //                 msgDialog({
-            //                     id:result.data.no_bukti,
-            //                     type:'simpan'
-            //                 });
+                            msgDialog({
+                                id:result.data.no_bukti,
+                                type:'simpan'
+                            });
                                 
 
-            //             }
-            //             else if(!result.data.status && result.data.message == 'Unauthorized'){
-            //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-            //             }
-            //             else{
-            //                 Swal.fire({
-            //                     icon: 'error',
-            //                     title: 'Oops...',
-            //                     text: 'Something went wrong!',
-            //                     footer: '<a href>'+result.data.message+'</a>'
-            //                 })
-            //             }
-            //             $iconLoad.hide();
-            //         },
-            //         fail: function(xhr, textStatus, errorThrown){
-            //             alert('request failed:'+textStatus);
-            //         }
-            //     });
-            // }
+                        }
+                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                        }
+                        else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                        $iconLoad.hide();
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+            }
 
         },
         errorPlacement: function (error, element) {
@@ -2373,9 +2408,74 @@
         }
     });
 
+    // IMPORT EXCEL
+
     $('#import-excel').click(function(e){
-        $('#file-xls').click();
+        // $('#file-xls').click();
+        $('#modal-import').modal('show');
     });
+
+    $("#form-import").validate({
+        rules: {
+            file: {required: true, accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"}
+        },
+        messages: {
+            file: {required: 'Harus diisi!', accept: 'Hanya import dari file excel.'}
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('esaku-trans/import-excel') }}",
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        console.log(data);
+                    }
+                    else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        })
+                    }
+                    $iconLoad.hide();
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+
+        },
+        errorPlacement: function (error, element) {
+            $('#label-file').html(error);
+            $('#label-file').addClass('error');
+        }
+    });
+
+    
+    $('.custom-file-input').change(function(){
+        var fileName = $(this).val();
+        console.log(fileName);
+        $('.custom-file-label').html(fileName);
+        $('#form-import').submit();
+    })
+
 
     $('#file-xls').change(function(evt){
         // evt.preventDefault();
@@ -2477,4 +2577,6 @@
         reader.readAsBinaryString(selectedFile);
 
     });
+
+    // 
     </script>
