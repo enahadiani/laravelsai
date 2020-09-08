@@ -75,6 +75,7 @@ class AuthController extends Controller
                             Session::put('namaPP',$res[0]["nama_pp"]);
                             Session::put('kode_kota',$res[0]["kode_kota"]);
                             // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
+                            Session::put('nikUser',$res[0]["nik"].'_'.time());
                             $tmp = explode("_",$res[0]["path_view"]);
                             if(isset($tmp[2])){
                                 $dash = $tmp[2];

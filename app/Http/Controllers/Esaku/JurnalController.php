@@ -450,10 +450,14 @@ class JurnalController extends Controller
             $image_mime = $request->file('file')->getmimeType();
             $image_org  = $request->file('file')->getClientOriginalName();
             $fields[0] = array(
-                'name'     => "file",
+                'name'     => 'file',
                 'filename' => $image_org,
                 'Mime-Type'=> $image_mime,
                 'contents' => fopen($image_path, 'r' ),
+            );
+            $fields[1] = array(
+                'name'     => 'nik_user',
+                'contents' => Session::get('nikUser')
             );
 
             $client = new Client();
