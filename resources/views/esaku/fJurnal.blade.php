@@ -432,9 +432,13 @@
                             </div>
                         </div>
                         <label id="label-file"></label>
+                        <div class="pesan-upload" style="background:#F5F5F5;display:none" >
+                            <p class="pesan-upload-judul"></p>
+                            <p class="pesan-upload-isi"></p>
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:0">
-                        <button type="submit" class="btn btn-light disabled" disabled>Process</button>
+                        <button type="submit"  id="process-upload" class="btn btn-light" >Process</button>
                     </div>
                 </form>
             </div>
@@ -446,6 +450,9 @@
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+    
+    $('#process-upload').addClass('disabled');
+    $('#process-upload').prop('disabled', true);
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -2429,7 +2436,8 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-
+            $('.pesan-upload').show();
+            $('.pesan-upload-judul').html('Proses upload!');
             $.ajax({
                 type: 'POST',
                 url: "{{ url('esaku-trans/import-excel') }}",
@@ -2441,7 +2449,18 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-                        console.log(data);
+                        if(result.data.validate){
+                            $('#process-upload').removeClass('disabled');
+                            $('#process-upload').prop('disabled', false);
+                            $('#process-upload').removeClass('btn-light');
+                            $('#process-upload').addClass('btn-primary');
+                            $('.pesan-upload-judul').html('Berhasil upload!');
+                            $('.pesan-upload-isi').html('File berhasil diupload!');
+                        }else{
+                            var link = "{{ config('api.url').'toko-trans/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser') }}";
+                            $('.pesan-upload-judul').html('Gagal upload!');
+                            $('.pesan-upload-isi').html("Terdapat kesalahan dalam mengisi format upload data. Download berkas untuk melihat kesalahan.<a href='"+link+"' target='_blank' id='btn-download-file' >Download disini</a>");
+                        }
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -2453,8 +2472,9 @@
                             text: 'Something went wrong!',
                             footer: '<a href>'+result.data.message+'</a>'
                         })
+                        $('.pesan-upload-judul').html('Gagal upload!');
                     }
-                    $iconLoad.hide();
+                    
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
