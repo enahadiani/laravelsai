@@ -624,7 +624,7 @@
             }
         }
 
-        public function komponenInvestasi()
+        public function komponenInvestasi(Request $request)
         {
             try{
                 $client = new Client();
@@ -633,6 +633,9 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode
                     ]
                 ]);
     
