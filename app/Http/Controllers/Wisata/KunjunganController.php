@@ -88,10 +88,10 @@ class KunjunganController extends Controller
                 );
 
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'wisata-master/kunjungan',[
+                $response = $client->request('POST',  config('api.url').'wisata-master/kunj',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json',
+                        'Content-Type'  => 'application/json',
                     ],
                     'body' => json_encode($data)
                 ]);
@@ -108,13 +108,13 @@ class KunjunganController extends Controller
                 $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
-            }
+        }
     }
 
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'wisata-master/bidang?kode_bidang='.$id,
+            $response = $client->request('GET',  config('api.url').'wisata-master/getEdit?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -139,42 +139,66 @@ class KunjunganController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_bidang' => 'required',
-            'nama' => 'required'
+            'tgl_kunjungan' => 'required',
+            'kode_mitra' => 'required',          
+            'kode_bidang' => 'required',          
+            'tahun' => 'required',          
+            'bulan' => 'required',         
+            'tanggal' => 'required|array',         
+            'jumlah' => 'required|array',         
         ]);
 
-        try {
-                $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'wisata-master/bidang?kode_bidang='.$id,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_bidang' => $request->kode_bidang,
-                        'nama' => $request->nama
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
+        try {   
+            $explode_tgl = explode('/', $request->tgl_kunjungan);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
+
+            $arrTgl = array();
+            for($i=0;$i<count($request->tanggal);$i++) {
+                $arrTgl[] = array('tanggal' => $request->tahun."-".$request->bulan."-".$request->tanggal[$i],
+                            'jumlah' => $request->jumlah[$i]);
+            }
+
+            $data = array(
+                'tanggal' => $tanggal,
+                'no_bukti'=>$request->no_bukti,
+                'kode_mitra' => $request->kode_mitra,
+                'kode_bidang' => $request->kode_bidang,
+                'tahun' => $request->tahun,
+                'bulan' => $request->bulan,
+                'arrtgl' => $arrTgl
+            );
+
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'wisata-master/kunj?no_bukti='.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'  => 'application/json',
+                ],
+                'body' => json_encode($data)
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'wisata-master/bidang?kode_bidang='.$id,
+            $response = $client->request('DELETE',  config('api.url').'wisata-master/kunj?no_bukti='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

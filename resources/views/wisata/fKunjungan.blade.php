@@ -197,7 +197,7 @@
                         <div class="form-group row" id="no-bukti-div">
                             <label for="no_bukti" class="col-md-2 col-sm-12 col-form-label">No Bukti</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Bukti" id="no-bukti" name="no_bukti">                                
+                                <input class="form-control" type="text" placeholder="No Bukti" id="no-bukti" name="no_bukti" readonly>                                
                             </div>                                                      
                         </div>
 
@@ -234,7 +234,7 @@
                         <div class="form-group row ">
                             <label for="bulan" class="col-md-2 col-sm-12 col-form-label">Bulan</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <select class="form-control" name="bulan" id="bulan" required>
+                                 <select class="form-control" id="bulan" required>
                                     <option value='01'>Januari</option>
                                     <option value='02'>Februari</option>
                                     <option value='03'>Maret</option>
@@ -248,10 +248,14 @@
                                     <option value='11'>November</option>
                                     <option value='12'>Desember</option>
                                  </select>
+                                 <input class="form-control" type="hidden" id="bulan-input" name="bulan">
+                                 <input class="form-control" type="text" id="bulan-input-text" readonly>
                             </div>
                             <label for="tahun" class="col-md-2 col-sm-12 col-form-label">Tahun</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <select class="form-control" name="tahun" id="tahun" required></select>
+                                 <select class="form-control" id="tahun" required></select>
+                                 <input class="form-control" type="hidden" id="tahun-input" name="tahun">
+                                 <input class="form-control" type="text" id="tahun-input-text" readonly>
                             </div>
                         </div>
 
@@ -299,7 +303,7 @@
                 </div>
                 <div class="modal-footer" style="border:none">
                     <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Mitra</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Kunjungan</button>
                 </div>
             </div>
         </div>
@@ -311,7 +315,7 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header" style="display:block">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Mitra <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Kunjungan <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -413,7 +417,9 @@
                     var tanggal = `${splitTglNow[2]}/${splitTglNow[1]}/${splitTglNow[0]}`
                     $('#tgl_kunjungan').val(tanggal);
                     $('#bulan').val(splitTglNow[1]);
+                    $('#bulan-input').val(splitTglNow[1]);
                     $('#tahun').val(splitTglNow[0]);
+                    $('#tahun-input').val(splitTglNow[0]);
                 }
             }
             });
@@ -460,6 +466,32 @@
             }
             });
         }
+        function getBidang(kodeMitra,kodeBidang) {
+            $.ajax({
+            type: 'GET',
+            url: "{{ url('wisata-master/getMitraBid') }}",
+            dataType: 'json',
+            data:{'param':kodeMitra},
+            async:false,
+            success:function(result){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_bidang == kodeBidang);
+                        if(filter.length > 0) {
+                            $('#kode_bidang').val(filter[0].kode_bidang);
+                            $('#kode_bidang').attr('value',filter[0].kode_bidang);
+                            $('#label_kode_bidang').text(filter[0].nama);
+                        } else {
+                            $('#kode_bidang').val('');
+                            $('#label_kode_bidang').text('');
+                            $('#kode_bidang').focus();
+                        }
+                    }
+                }
+            }
+            });
+        }
         //END HELPER FUNCTION//  
 
         // PLUGIN SCROLL di bagian preview dan form input
@@ -491,7 +523,7 @@
                 }
             },
             'columnDefs': [
-                {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+                {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' },
             ],
             'columns': [
                 { data: 'no_bukti' },
@@ -543,9 +575,22 @@
 
         // BUTTON TAMBAH
         $('#saku-datatable').on('click', '#btn-tambah', function(){
+            $('[id^=label]').html('');
+            $('#kode_mitra').val('');
+            $('#kode_bidang').val('');
+            $('#kode_mitra').attr('value','');
+            $('#kode_bidang').attr('value','');
             $('#row-id').hide();
+            $('#tgl_kunjungan').attr('readonly', false);
+            $('#kode_mitra').attr('readonly', false);
+            $('.search-item2').show();
+            $('.selectize-control').show();
             $('#table-btambah tbody').empty();
             $('#no-bukti-div').hide();
+            $('#bulan-input-text').hide();
+            $('#tahun-input-text').hide();
+            $('#bulan').show();
+            $('#tahun').show();
             $('#id_edit').val('');
             $('#judul-form').html('Tambah Data Kunjungan');
             $('#form-tambah')[0].reset();
@@ -597,7 +642,7 @@
             case 'kode_bidang':
                 header = ['Kode', 'Nama'];
                 par = mitra;
-                var toUrl = "{{ url('wisata-master/getMitraBid/') }}";
+                var toUrl = "{{ url('wisata-master/getMitraBid') }}";
                     var columns = [
                         { data: 'kode_bidang' },
                         { data: 'nama' }
@@ -773,11 +818,13 @@
         $('#bulan').change(function(){
             var bulan = $(this).val();
             var tahun = $('#tahun').val();
+            $('#bulan-input').val(bulan);
             getJumlahTgl(tahun, bulan);
         });
         $('#tahun').change(function(){
             var tahun = $(this).val();
             var bulan = $('#bulan').val();
+            $('#tahun-input').val(tahun);
             getJumlahTgl(tahun, bulan);
         });
         //END EVENT CHANGE//
@@ -853,4 +900,239 @@
             }
         });
         // END BUTTON SIMPAN
+
+        // PREVIEW saat klik di list data
+        $('#table-data tbody').on('click','td',function(e){
+            if($(this).index() != 5){
+
+                var id = $(this).closest('tr').find('td').eq(0).html();
+                $('#modal-delete-id').text(id);
+                var data = dataTable.row(this).data();
+                var html = `<tr>
+                    <td style='border:none'>No Bukti</td>
+                    <td style='border:none'>`+id+`</td>
+                </tr>
+                <tr>
+                    <td>Mitra</td>
+                    <td>`+data.nama_mitra+`</td>
+                </tr>            
+                <tr>
+                    <td>Alamat</td>
+                    <td>`+data.alamat+`</td>
+                </tr>
+                <tr>
+                    <td>Bidang</td>
+                    <td>`+data.nama_bidang+`</td>
+                </tr>
+                <tr>
+                    <td>Periode</td>
+                    <td>`+NameBulan(parseInt(data.bulan)) +" "+ data.tahun+`</td>
+                </tr>
+                `;
+                $('#table-preview tbody').html(html);
+                
+                $('#modal-preview-id').text(id);
+                $('#modal-preview').modal('show');
+            }
+        });
+        // END PREVIEW saat klik di list data
+
+        // BUTTON EDIT
+        $('#saku-datatable').on('click', '#btn-edit', function(){
+            var id= $(this).closest('tr').find('td').eq(0).html();
+            // $iconLoad.show();
+            $('#table-btambah tbody').empty();
+            $('#form-tambah').validate().resetForm();
+            $('#judul-form').html('Edit Data Kunjungan');
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('wisata-master/kunjungan') }}/" + id,
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result= res.data;
+                    if(result.status){
+                        var dataDate = result.data[0].tanggal.split('-');
+                        var tgl = dataDate[2];
+                        var bln = dataDate[1];
+                        var tahun = dataDate[0]
+                        var tanggal =  tgl+"/"+bln+"/"+tahun;
+
+                        $('#id_edit').val('edit');
+                        $('#method').val('put');
+                        $('#tgl_kunjungan').attr('readonly', true);
+                        $('#kode_mitra').attr('readonly', true);
+                        $('#kode_bidang').attr('readonly', true);
+                        $('#bulan-input-text').show();
+                        $('#tahun-input-text').show();
+                        $('#bulan').hide();
+                        $('#tahun').hide();
+                        $('.selectize-control').hide();
+                        $('.search-item2').hide();
+                        $('#no-bukti-div').show();
+                        $('#id_edit').val('edit');
+                        $('#method').val('put');
+                        $('#id').val(id);                    
+                        $('#no-bukti').val(id);                    
+                        $('#tgl_kunjungan').val(tanggal);        
+                        $('#tahun-input').val(result.data[0].tahun);        
+                        $('#bulan-input').val(result.data[0].bulan);
+                        $('#tahun-input-text').val(result.data[0].tahun);        
+                        $('#bulan-input-text').val(NameBulan(result.data[0].bulan));
+                        getMitra(result.data[0].kode_mitra);
+                        getBidang(result.data[0].kode_mitra,result.data[0].kode_bidang);
+
+                        var row = '';
+                        var no = 1;
+
+                        for(var i=0;i<result.arrbid.length;i++){
+                            var data = result.arrbid[i];
+                            var split = data.tanggal.split('-');
+                            var tanggal = split[2];
+
+                            row += "<tr>";
+                            row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tanggal+"' type='hidden' readonly />"+tanggal+"</td>"
+                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important;' required/></td>"
+                            row += "</tr>";
+                        }
+
+                        $('#table-btambah tbody').append(row);
+                        $('#saku-datatable').hide();
+                        $('#saku-form').show();
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                    // $iconLoad.hide();
+                }
+            });
+        });
+        // END BUTTON EDIT
+
+        // BUTTON HAPUS DATA
+        function hapusData(id){
+            $.ajax({
+                type: 'DELETE',
+                url: "{{ url('wisata-master/kunjungan') }}/"+id,
+                dataType: 'json',
+                async:false,
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your data has been deleted.',
+                            'success'
+                        );
+                        
+                        showNotification("top", "center", "success",'Hapus Data','Data Kunjungan ('+id+') berhasil dihapus ');
+                        $('#modal-delete-id').html('');
+                        $('#table-delete tbody').html('');
+                        $('#modal-delete').modal('hide');
+                    }else if(!result.data.status && result.data.message == "Unauthorized"){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                        });
+                    }
+                }
+            });
+        }
+
+        $('#saku-datatable').on('click','#btn-delete',function(e){
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            $('#modal-delete-id').text(id);
+            $('#modal-delete').modal('show');
+        });
+
+        $('.modal-footer').on('click','#btn-ya',function(e){
+            e.preventDefault();
+            var id = $('#modal-delete-id').text();
+            hapusData(id);
+        });
+        //END BUTTON HAPUS//
+        //BUTTON HAPUS DI MODAL//
+        $('.modal-header').on('click','#btn-delete2',function(e){
+            var id = $('#modal-delete-id').text();
+            $('#modal-preview').modal('hide');
+            $('#modal-delete-id').text(id);
+            $('#modal-delete').modal('show');
+        });
+        //END BUTTON HAPUS DI MODAL//
+
+        //BUTTON EDIT DI MODAL//
+        $('.modal-header').on('click', '#btn-edit2', function(){
+            var id= $('#modal-preview-id').text();
+            $('#table-btambah tbody').empty();
+            $('#form-tambah').validate().resetForm();
+            $('#judul-form').html('Edit Data Kunjungan');
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('wisata-master/kunjungan') }}/" + id,
+                dataType: 'json',
+                async:false,
+                success:function(res){
+                    var result= res.data;
+                    if(result.status){
+                        var dataDate = result.data[0].tanggal.split('-');
+                        var tgl = dataDate[2];
+                        var bln = dataDate[1];
+                        var tahun = dataDate[0]
+                        var tanggal =  tgl+"/"+bln+"/"+tahun;
+
+                        $('#id_edit').val('edit');
+                        $('#method').val('put');
+                        $('#tgl_kunjungan').attr('readonly', true);
+                        $('#kode_mitra').attr('readonly', true);
+                        $('#kode_bidang').attr('readonly', true);
+                        $('#bulan-input-text').show();
+                        $('#tahun-input-text').show();
+                        $('#bulan').hide();
+                        $('#tahun').hide();
+                        $('.selectize-control').hide();
+                        $('.search-item2').hide();
+                        $('#no-bukti-div').show();
+                        $('#id_edit').val('edit');
+                        $('#method').val('put');
+                        $('#id').val(id);                    
+                        $('#no-bukti').val(id);                    
+                        $('#tgl_kunjungan').val(tanggal);        
+                        $('#tahun-input').val(result.data[0].tahun);        
+                        $('#bulan-input').val(result.data[0].bulan);
+                        $('#tahun-input-text').val(result.data[0].tahun);        
+                        $('#bulan-input-text').val(NameBulan(result.data[0].bulan));
+                        getMitra(result.data[0].kode_mitra);
+                        getBidang(result.data[0].kode_mitra,result.data[0].kode_bidang);
+
+                        var row = '';
+                        var no = 1;
+
+                        for(var i=0;i<result.arrbid.length;i++){
+                            var data = result.arrbid[i];
+                            var split = data.tanggal.split('-');
+                            var tanggal = split[2];
+
+                            row += "<tr>";
+                            row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tanggal+"' type='hidden' readonly />"+tanggal+"</td>"
+                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important;' required/></td>"
+                            row += "</tr>";
+                        }
+
+                        $('#table-btambah tbody').append(row);
+                        $('#saku-datatable').hide();
+                        $('#saku-form').show();
+                        $('#modal-preview').modal('hide');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    }
+                   // $iconLoad.hide();
+                }
+            });
+        }); 
+        //END BUTTON EDIT DI MODAL//
     </script>

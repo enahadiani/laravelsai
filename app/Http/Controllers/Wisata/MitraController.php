@@ -96,7 +96,7 @@ class MitraController extends Controller
                 $response = $client->request('POST',  config('api.url').'wisata-master/mitra',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json',
+                        'Content-Type'  => 'application/json',
                     ],
                     'body' => json_encode($data)
                 ]);
