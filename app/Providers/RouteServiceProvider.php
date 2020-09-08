@@ -336,27 +336,27 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('yakes-auth')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/Yakes/auth.php'));
+            ->group(base_path('routes/yakes/auth.php'));
 
         Route::prefix('yakes-dash')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/Yakes/dash.php'));
+            ->group(base_path('routes/yakes/dash.php'));
     
         Route::prefix('yakes-master')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/Yakes/master.php'));
+            ->group(base_path('routes/yakes/master.php'));
     
         Route::prefix('yakes-trans')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/Yakes/trans.php'));
+            ->group(base_path('routes/yakes/trans.php'));
     
         Route::prefix('yakes-report')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/Yakes/report.php'));
+            ->group(base_path('routes/yakes/report.php'));
    
     }
 
