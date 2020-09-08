@@ -484,4 +484,35 @@ class JurnalController extends Controller
         } 
         
     }
+
+    public function getJurnalTmp()
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/jurnal-tmp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'nik_user' => Session::get('nikUser')
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["success"];
+            }
+            return response()->json(['data' => $data], 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+    }
 }

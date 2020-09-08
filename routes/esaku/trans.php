@@ -87,3 +87,4 @@ Route::get('/nikperiksa', 'Esaku\JurnalController@getNIKPeriksa');
 Route::get('/nikperiksa/{nik}', 'Esaku\JurnalController@getNIKPeriksaByNIK');
 Route::get('/jurnal-periode', 'Esaku\JurnalController@getPeriodeJurnal');
 Route::post('/import-excel', 'Esaku\JurnalController@importExcel');
+Route::get('jurnal-tmp', 'Esaku\JurnalController@getJurnalTmp');
