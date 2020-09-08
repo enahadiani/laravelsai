@@ -30,3 +30,10 @@ Route::get('kunjungan/{id}', 'Wisata\KunjunganController@getData');
 Route::post('kunjungan', 'Wisata\KunjunganController@store');
 Route::put('kunjungan/{id}', 'Wisata\KunjunganController@update');
 Route::delete('kunjungan/{id}', 'Wisata\KunjunganController@delete');
+
+// Data Kecamatan //
+Route::get('kecamatan', 'Wisata\KecamatanController@index');
+Route::get('kecamatan/{id}', 'Wisata\KecamatanController@getData');
+Route::post('kecamatan', 'Wisata\KecamatanController@store');
+Route::put('kecamatan/{id}', 'Wisata\KecamatanController@update');
+Route::delete('kecamatan/{id}', 'Wisata\KecamatanController@delete');
