@@ -74,6 +74,8 @@ class RouteServiceProvider extends ServiceProvider
         
         $this->mapWisataRoutes();
 
+        $this->mapYakesRoutes();
+
         //
     }
 
@@ -326,6 +328,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/wisata/report.php'));
+   
+    }
+
+    protected function mapYakesRoutes()
+    {
+        Route::prefix('yakes-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yakes/auth.php'));
+
+        Route::prefix('yakes-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yakes/dash.php'));
+    
+        Route::prefix('yakes-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yakes/master.php'));
+    
+        Route::prefix('yakes-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yakes/trans.php'));
+    
+        Route::prefix('yakes-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/yakes/report.php'));
    
     }
 

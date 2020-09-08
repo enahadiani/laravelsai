@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Esaku;
+namespace App\Http\Controllers\Yakes;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -15,10 +15,10 @@ class AuthController extends Controller
     {
         // return view('login');
         if(!Session::get('login')){
-            return redirect('esaku-auth/login');
+            return redirect('yakes-auth/login');
         }
         else{
-            return view('esaku.main');
+            return view('yakes.main');
         }
         
     }
@@ -92,13 +92,13 @@ class AuthController extends Controller
                         }
                     }
                     
-                    return redirect('esaku-auth/');
+                    return redirect('yakes-auth/');
                 }else{
-                    return redirect('esaku-auth/login')->with('alert','Password atau NIK, Salah !');
+                    return redirect('yakes-auth/login')->with('alert','Password atau NIK, Salah !');
                 }
             
             }else if($response->getStatusCode() == 401){
-                return redirect('esaku-auth/login')->with('alert','Password atau NIK, Salah !');
+                return redirect('yakes-auth/login')->with('alert','Password atau NIK, Salah !');
             }
 
         } catch (BadResponseException $ex) {
@@ -109,18 +109,18 @@ class AuthController extends Controller
             }else{
                 $message = $res["message"];
             }
-            return redirect('esaku-auth/login')->with('alert',$message);
+            return redirect('yakes-auth/login')->with('alert',$message);
         }
         
     }
 
     public function login(){
-        return view('esaku.login');
+        return view('yakes.login');
     }
 
     public function logout(){
         Session::flush();
-        return redirect('esaku-auth/login')->with('status','logout');
+        return redirect('yakes-auth/login')->with('status','logout');
     }
 
     public function getMenu(){

@@ -9,6 +9,10 @@
 {
     font-family: 'Roboto', sans-serif !important;
 }
+
+.datepicker{
+    padding: inherit !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
@@ -64,18 +68,22 @@
                             <div class="form-group row">
                                 <div class="col-3">
                                     <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" hidden>
+
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal Pengajuan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                    <!-- <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required> -->
+                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
+                                    
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="waktu" class="col-3 col-form-label">Tanggal Kebutuhan</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="{{ date('Y-m-d') }}" required>
+                                    <!-- <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" value="{{ date('Y-m-d') }}" required> -->
+                                    <input class="form-control datepicker" type="text" id="waktu" name="waktu" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -239,7 +247,17 @@
     </div>     
     
     <script>
+    
     setHeightForm();
+    
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+        
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+    
     function sepNum(x){
         var num = parseFloat(x).toFixed(0);
         var parts = num.toString().split(".");
@@ -577,6 +595,11 @@
 
     getPP();
     // getNIKVer();
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
+
     $('#kode_kota').selectize();
     $('#nik_ver').selectize();
     $('#kode_pp').selectize({
@@ -586,6 +609,7 @@
             getNIKVer(value);
         }
     });
+
 
     $('#kode_kota').change(function(){
         // var tmp = $("#kode_pp option:selected").text();
@@ -600,7 +624,12 @@
         generateDok(tanggal,pp,kota);
     });
 
-    
+    $('#tanggal').change(function(){
+        var pp = $('#kode_pp')[0].selectize.getValue();
+        var kota = $('#kode_kota')[0].selectize.getValue();
+        var tanggal = $('#tanggal').val();
+        generateDok(tanggal,pp,kota);
+    });
 
     var $iconLoad = $('.preloader');
     var action_html = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>&nbsp; <a href='#' title='History' class='badge badge-success' id='btn-history'><i class='fas fa-history'></i></a>&nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
@@ -828,12 +857,12 @@
                     $('#id').val('edit');
                     $('#no_bukti').val(id);
                     // $('#kode_barang').attr('readonly', true);
-                    $('#tanggal').val(result.data[0].tanggal);
+                    $('#tanggal').val(reverseDateNew(result.data[0].tanggal,'-','/'));
                     $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                     $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
                     $('#nik_ver')[0].selectize.setValue(result.data[0].nik_ver);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
-                    $('#waktu').val(result.data[0].waktu);
+                    $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
                     $('#total').val(toRp(result.data[0].nilai));
