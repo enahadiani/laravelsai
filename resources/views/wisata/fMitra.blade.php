@@ -203,15 +203,18 @@
                             </div>                            
                         </div>
 
-                        <div class="form-group row  ">
-                            <label for="kecamatan" class="col-md-2 col-sm-12 col-form-label">Kecamatan</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kecamatan" id="kecamatan" name="kecamatan" required>                                
+                        <div class="form-group row ">
+                            <label for="kode_camat" class="col-md-2 col-sm-12 col-form-label">Kecamatan</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_camat" name="kode_camat" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
-                            
-                            <div class="col-md-2 col-sm-12">
+                            <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
+                                <label id="label_kode_camat" style="margin-top: 10px;"></label>
                             </div>
+                        </div>
 
+                        <div class="form-group row  ">
                             <label for="no_tel" class="col-md-2 col-sm-12 col-form-label">No Telpon</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>
@@ -348,6 +351,34 @@
         }
     });
 
+    //HELPER FUNCTION//
+    function getKecamatan(kode) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('wisata-master/kecamatan') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        var data = result.daftar;
+                        var filter = data.filter(data => data.kode_camat == kode);
+                        if(filter.length > 0) {
+                            $('#kode_camat').val(filter[0].kode_mitra);
+                            $('#kode_camat').attr('value',filter[0].kode_mitra);
+                            $('#label_kode_camat').text(filter[0].nama);
+                        } else {
+                            $('#kode_camat').val('');
+                            $('#label_kode_camat').text('');
+                            $('#kode_camat').focus();
+                        }
+                    }
+                }
+            }
+        });
+    }
+    //END HELPER FUNCTION//
+
     // EVENT CHANGE CHECKBOX //
     $('#table-btambah').on('click', '.checkbox-generate', function(){
         var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
@@ -472,7 +503,192 @@
     });
     // END LIST DATA
 
-    $('#status').selectize();    
+    $('#status').selectize();
+
+    //SHOW FILTER POP UP//
+    function showFilter(param,target1,target2){
+        var par = param;
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+            
+        switch(par){
+        case 'kode_camat': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('wisata-master/kecamatan') }}";
+                    var columns = [
+                        { data: 'kode_camat' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Kecamatan";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+        }
+
+        var header_html = '';
+        var width = ["30%","70%"];
+        for(i=0; i<header.length; i++){
+            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+        }
+
+        var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        table += "<tbody></tbody></table>";
+
+        $('#modal-search .modal-body').html(table);
+
+        var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": {'param':par},
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search').on('click','.check-item',function(){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode).change();
+                        $($target).attr('value',kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    console.log($target3);
+                    $('#modal-search').modal('hide');
+                }
+            });
+
+            $(document).keydown(function(e) {
+                if (e.keyCode == 40){ //arrow down
+                    var tr = searchTable.$('tr.selected');
+                    tr.removeClass('selected');
+                    tr.next().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+                if (e.keyCode == 38){ //arrow up
+                    
+                    var tr = searchTable.$('tr.selected');
+                    searchTable.$('tr.selected').removeClass('selected');
+                    tr.prev().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+
+                if (e.keyCode == 13){
+                    var kode = $('tr.selected').find('td:nth-child(1)').text();
+                    var nama = $('tr.selected').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+                    
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            })
+    }
+    //END SHOW FILTER POP UP//
+    //EVENT TO CALL FILTER POP UP//
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+    //ENDEVENT TO CALL FILTER POP UP//    
+    //EVENT CHANGE//
+    $('#kode_camat').change(function(){
+        var par = $(this).val();
+        getKecamatan(par);
+    });
+    //END EVENT CHANGE//
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
