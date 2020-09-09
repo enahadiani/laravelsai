@@ -462,6 +462,14 @@
                         tgl++;
                     }
                     $('#table-btambah tbody').append(row);
+                    $('.jumlah').inputmask("numeric", {
+                        radixPoint: ",",
+                        groupSeparator: ".",
+                        digits: 2,
+                        autoGroup: true,
+                        rightAlign: true,
+                        oncleared: function () { self.Value(''); }
+                    });
                 }
             }
             });
@@ -583,6 +591,7 @@
             $('#row-id').hide();
             $('#tgl_kunjungan').attr('readonly', false);
             $('#kode_mitra').attr('readonly', false);
+            $('#kode_bidang').attr('readonly', true);
             $('.search-item2').show();
             $('.selectize-control').show();
             $('#table-btambah tbody').empty();
@@ -828,9 +837,8 @@
             getJumlahTgl(tahun, bulan);
         });
         $('#table-btambah tbody').on('change', 'input', function(){
-            var reg = new RegExp('^[0-9]+$'); //CEK INPUTAN BERUPA ANGKA//
             var result = $(this).val();
-            if(result == '' || reg.test(result) == false) {
+            if(result == '') {
                 $(this).val(0);
             }
         })
@@ -1004,6 +1012,14 @@
                         }
 
                         $('#table-btambah tbody').append(row);
+                        $('.jumlah').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
@@ -1130,6 +1146,14 @@
                         }
 
                         $('#table-btambah tbody').append(row);
+                        $('.jumlah').inputmask("numeric", {
+                            radixPoint: ",",
+                            groupSeparator: ".",
+                            digits: 2,
+                            autoGroup: true,
+                            rightAlign: true,
+                            oncleared: function () { self.Value(''); }
+                        });
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                         $('#modal-preview').modal('hide');

@@ -75,7 +75,7 @@ class KunjunganController extends Controller
                 $arrTgl = array();
                 for($i=0;$i<count($request->tanggal);$i++) {
                     $arrTgl[] = array('tanggal' => $request->tahun."-".$request->bulan."-".$request->tanggal[$i],
-                                      'jumlah' => $request->jumlah[$i]);
+                                      'jumlah' => intval(str_replace('.','', $request->jumlah[$i])));
                 }
 
                 $data = array(
@@ -158,7 +158,7 @@ class KunjunganController extends Controller
             $arrTgl = array();
             for($i=0;$i<count($request->tanggal);$i++) {
                 $arrTgl[] = array('tanggal' => $request->tahun."-".$request->bulan."-".$request->tanggal[$i],
-                            'jumlah' => $request->jumlah[$i]);
+                            'jumlah' => intval(str_replace('.','', $request->jumlah[$i])));
             }
 
             $data = array(
