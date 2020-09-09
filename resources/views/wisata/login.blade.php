@@ -197,7 +197,9 @@
                     var idx = nxt.indexOf(e.target.id);
                     idx++;
                     if(idx == 2){
-                        $('#form-login').submit();
+                        $('#form-login').submit();if($('#password').val().trim() != ""){
+                            $('#form-login').submit();
+                        }
                     }else{
                         
                         $('#'+nxt[idx]).focus();
