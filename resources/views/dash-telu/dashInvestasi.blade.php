@@ -541,7 +541,7 @@ function getSerapInvestasi(periode=null) {
                         }
                     },
                     column: {
-                        stacking: 'percent'
+                        stacking: 'normal'
                     }
                 },
                 // series:[
