@@ -381,8 +381,8 @@
                         var data = result.daftar;
                         var filter = data.filter(data => data.kode_camat == kode);
                         if(filter.length > 0) {
-                            $('#kode_camat').val(filter[0].kode_mitra);
-                            $('#kode_camat').attr('value',filter[0].kode_mitra);
+                            $('#kode_camat').val(filter[0].kode_camat);
+                            $('#kode_camat').attr('value',filter[0].kode_camat);
                             $('#label_kode_camat').text(filter[0].nama);
                         } else {
                             $('#kode_camat').val('');
@@ -871,13 +871,13 @@
                     $('#id').val(id);                    
                     $('#nama').val(result.data[0].nama);        
                     $('#alamat').val(result.data[0].alamat);        
-                    $('#kecamatan').val(result.data[0].kecamatan);        
                     $('#no_tel').val(result.data[0].no_tel);        
                     $('#pic').val(result.data[0].pic);        
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
                     $('#status')[0].selectize.setValue(result.data[0].status);
+                    getKecamatan(result.data[0].kecamatan);
                     var row = '';
                     var no = 1;
                     for(var i=0;i<result.arrbid.length;i++){
