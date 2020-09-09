@@ -457,7 +457,7 @@
                     for(var i=0;i<parseInt(result.daftar[0].jum_tgl);i++) {
                         row += "<tr>";
                         row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+("0"+tgl).slice(-2)+"' type='hidden' readonly />"+("0"+tgl).slice(-2)+"</td>"
-                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='0' class='form-control' style='width: 120px !important;' required/></td>"
+                        row += "<td style='width: 120px !important;'><input name='jumlah[]' type='text' value='0' class='form-control' style='width: 120px !important; text-align:right;' required/></td>"
                         row += "</tr>";
                         tgl++;
                     }
@@ -992,7 +992,7 @@
 
                             row += "<tr>";
                             row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tanggal+"' type='hidden' readonly />"+tanggal+"</td>"
-                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important;' required/></td>"
+                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='text' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important; text-align:right;' required/></td>"
                             row += "</tr>";
                         }
 
@@ -1118,7 +1118,7 @@
 
                             row += "<tr>";
                             row += "<td style='text-align:center;vertical-align:middle;'><input name='tanggal[]' value='"+tanggal+"' type='hidden' readonly />"+tanggal+"</td>"
-                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='number' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important;' required/></td>"
+                            row += "<td style='width: 120px !important;'><input name='jumlah[]' type='text' value='"+parseInt(data.jumlah)+"' class='form-control' style='width: 120px !important; text-align:right;' required/></td>"
                             row += "</tr>";
                         }
 
