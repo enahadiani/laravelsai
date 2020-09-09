@@ -265,7 +265,7 @@
                                             <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                         </div>
                                     </div>
-                                    <input type="file" name="file_xls" class="hidden" id="file-xls" />
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
@@ -508,6 +508,11 @@
                 }
             }
         });
+    }
+
+    function hitungTotalRow(){
+        var total_row = $('#input-jurnal tbody tr').length;
+        $('#total-row').html(total_row+' Baris');
     }
 
     function hitungTotal(){
@@ -1279,7 +1284,7 @@
                         
                     }
                     hitungTotal();
-                   
+                    hitungTotalRow();
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -1595,7 +1600,7 @@
                         
                     }
                     hitungTotal();
-                   
+                    hitungTotalRow();
                     // $('#row-id').show();
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
@@ -1839,7 +1844,9 @@
             title: function(){
                 return $(this).text();
             }
-        })
+        });
+
+        hitungTotalRow();
     }
 
     $('#input-jurnal').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp',function(e){
@@ -2041,7 +2048,8 @@
             title: function(){
                 return $(this).text();
             }
-        })
+        });
+        hitungTotalRow();
 
     });
 
@@ -2264,6 +2272,7 @@
             no++;
         });
         hitungTotal();
+        hitungTotalRow();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
@@ -2635,6 +2644,7 @@
                         
                     }
                     hitungTotal();
+                    hitungTotalRow();
                     $('#modal-import').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
