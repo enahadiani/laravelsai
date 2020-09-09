@@ -767,8 +767,8 @@
                             'success'
                             )
                         $('#row-id').hide();
-                        // $('#form-tambah')[0].reset();
-                        // $('#form-tambah').validate().resetForm();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Mitra');
