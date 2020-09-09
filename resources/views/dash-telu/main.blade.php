@@ -350,6 +350,7 @@
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     
+    <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
