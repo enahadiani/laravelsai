@@ -1728,17 +1728,16 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#kode_pp,#nama,#initial,#kode_bidang,#kode_ba,#kode_pc,#kota,#flag_aktif ').keydown(function(e){
+    $('#tanggal,#jenis,#no_dokumen,#total_debet,#deskripsi,#total_kredit,#nik_periksa,#label_nik_periksa').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_pp','nama','initial','kode_bidang','kode_ba','kode_pc','kota','flag_aktif'];
+        var nxt = ['tanggal','jenis','no_dokumen','total_debet','deskripsi','total_kredit','nik_periksa','label_nik_periksa'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            if(idx == 8){
+            if(idx == 2){
                 $('#'+nxt[idx])[0].selectize.focus();
             }else{
-                
                 $('#'+nxt[idx]).focus();
             }
         }else if(code == 38){
