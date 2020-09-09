@@ -355,7 +355,7 @@
     
     
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
-    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
@@ -574,7 +574,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-primary');
                 var title = (data.title != undefined ? data.title : 'Tersimpan');
-                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br>'+data.id);
+                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
                 

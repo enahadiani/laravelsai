@@ -130,14 +130,16 @@
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
                         <h5 style="position:absolute;top: 25px;">Laporan Neraca Lajur</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
-                        <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Export
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btn-export">
-                            <a class="dropdown-item" href="#" id="sai-rpt-print">Print</a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
+                        <div class="dropdown float-right">
+                            <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Export
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                <a class="dropdown-item" href="#" id="sai-rpt-print">Print</a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
+                            </div>
                         </div>
                     </div>
                     <div class="separator"></div>
@@ -290,7 +292,9 @@
         <!-- /.modal-content -->
         </div>
     </div>
-
+    @php
+        date_default_timezone_set("Asia/Bangkok");
+    @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
         var periode = {
@@ -935,7 +939,12 @@
 
         $("#sai-rpt-excel").click(function(e) {
             e.preventDefault();
-            $('#saku-report .card').tblToExcel();
+            $("#saku-report .card").table2excel({
+                // exclude: ".excludeThisClass",
+                name: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                preserveColors: false // set to true if you want background colors and font colors preserved
+            });
         });
 
         
