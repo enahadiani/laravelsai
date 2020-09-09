@@ -598,8 +598,8 @@
             $('#no-bukti-div').hide();
             $('#bulan-input-text').hide();
             $('#tahun-input-text').hide();
-            $('#bulan').show();
-            $('#tahun').show();
+            $('#bulan').hide();
+            $('#tahun').hide();
             $('#id_edit').val('');
             $('#judul-form').html('Tambah Data Kunjungan');
             $('#form-tambah')[0].reset();
