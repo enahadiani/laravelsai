@@ -996,14 +996,14 @@
                     $('#kode_mitra').val(id);
                     $('#id').val(id);                    
                     $('#nama').val(result.data[0].nama);        
-                    $('#alamat').val(result.data[0].alamat);        
-                    $('#kecamatan').val(result.data[0].kecamatan);        
+                    $('#alamat').val(result.data[0].alamat);              
                     $('#no_tel').val(result.data[0].no_tel);        
                     $('#pic').val(result.data[0].pic);        
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);                            
-                    $('#status')[0].selectize.setValue(result.data[0].status); 
+                    $('#status')[0].selectize.setValue(result.data[0].status);
+                    getKecamatan(result.data[0].kecamatan); 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
