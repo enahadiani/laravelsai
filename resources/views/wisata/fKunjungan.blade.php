@@ -204,7 +204,7 @@
                         <div class="form-group row ">
                             <label for="kode_mitra" class="col-md-2 col-sm-12 col-form-label">Mitra</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_mitra" name="kode_mitra" required>
+                                 <input class="form-control" type="text"  id="kode_mitra" name="kode_mitra" data-input="cbbl" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
@@ -215,7 +215,7 @@
                         <div class="form-group row ">
                             <label for="alamat" class="col-md-2 col-sm-12 col-form-label">Alamat</label>
                             <div class="col-md-10 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Alamat Mitra" id="alamat" name="alamat" required readonly>
+                                <input class="form-control" type="text" placeholder="Alamat Mitra" id="alamat" name="alamat" data-input="cbbl" required readonly>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
@@ -224,7 +224,7 @@
                         <div class="form-group row ">
                             <label for="kode_bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" required readonly>
+                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" data-input="cbbl" required readonly>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
@@ -721,7 +721,7 @@
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                 if(jTarget1 == "val"){
                     $($target).val(kode);
-                    $($target).attr('value',kode);
+                    // $($target).attr('value',kode);
                 }else{
                     $($target).text(kode);
                 }
@@ -882,7 +882,9 @@
                                 'success'
                                 )
                             $('#row-id').hide();
+                            $('input[data-input="cbbl"]').val(''); 
                             // $('#form-tambah')[0].reset();
+                            // document.getElementById('form-tambah').reset()
                             // $('#form-tambah').validate().resetForm();
                             $('[id^=label]').html('');
                             $('#id_edit').val('');
