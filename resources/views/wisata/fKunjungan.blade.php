@@ -264,7 +264,7 @@
                         </ul>
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="btambah" role="tabpanel">
-                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                <div class='col-xs-12 mt-2' style='overflow-y: hidden; height:auto; margin:0px; padding:0px;'>
                                     <style>
                                     th,td{
                                         padding:8px !important;
