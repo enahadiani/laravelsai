@@ -997,6 +997,7 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
+        $('#table-btambah tbody').empty();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Mitra');
         $.ajax({
@@ -1013,20 +1014,42 @@
                     $('#kode_mitra').val(id);
                     $('#id').val(id);                    
                     $('#nama').val(result.data[0].nama);        
-                    $('#alamat').val(result.data[0].alamat);              
+                    $('#alamat').val(result.data[0].alamat);        
                     $('#no_tel').val(result.data[0].no_tel);        
                     $('#pic').val(result.data[0].pic);        
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
-                    $('#email').val(result.data[0].email);                            
+                    $('#email').val(result.data[0].email);        
                     $('#status')[0].selectize.setValue(result.data[0].status);
-                    getKecamatan(result.data[0].kecamatan); 
+                    getKecamatan(result.data[0].kecamatan);
+                    var row = '';
+                    var no = 1;
+                    for(var i=0;i<result.arrbid.length;i++){
+                        var data = result.arrbid[i];
+                        if(data.status == "CEK") {
+                            row += "<tr>";
+                            row += "<td>"+no+"</td>";
+                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td>"+data.nama+"</td>";
+                            row += "</tr>";
+                        } else {
+                            row += "<tr>";
+                            row += "<td>"+no+"</td>";
+                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td>"+data.nama+"</td>";
+                            row += "</tr>";
+                        }
+                        no++;
+                    }
+                    $('#table-btambah tbody').append(row);
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
