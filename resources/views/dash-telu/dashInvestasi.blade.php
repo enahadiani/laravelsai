@@ -135,7 +135,7 @@ $nik     = Session::get('userLog');
                 <h6 class="ml-3 mt-4" >Penyerapan Inventaris Tahun 2020</h6>
                 <!-- <p style='font-size:9px;padding-left:20px'>Klik bar untuk melihat detail</p> -->
                 <div class="card-body pt-0">
-                    <div id='rkaVSreal2' style='height:350px'></div>
+                    <div id='serapInvestasi' style='height:350px'></div>
                 </div>
             </div>
         </div>
@@ -372,6 +372,7 @@ function getRKARealInvestasi(periode=null){
     $.ajax({
         type:"GET",
         url:"{{ url('/dash-telu/rka-real-investasi') }}",
+        data:{periode:periode},
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('rkaVSreal', { 
@@ -506,62 +507,86 @@ $.ajax({
 
 }
 
-function getRKARealInvestasi2(periode=null) {
-    Highcharts.chart('rkaVSreal2', {
-        title: {
-            text: null
-        },
-        xAxis:{
-            categories: ['GEDUNG DAN BANGUNAN','SARANA PENDIDIKAN','Sarpen CELOE','Sarpen Telu','INVENTARIS KANTOR','SERTIFIKASI PENDIDIKAN','AKREDITASI DALAM','ALAT PENGOLAH DATA','ALAT CATUT DAYA']
-        },
-        credits:{
-            enabled:false
-        },
-        plotOptions: {
-        area: {
-            marker: {
-                pointStart: 5,
-                enabled: false,
-                symbol: 'circle',
-                radius: 2,
-                states: {
-                        hover: {
-                            enabled: true
+function getSerapInvestasi(periode=null) {
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/penyerapan-investasi') }}",
+        dataType:"JSON",
+        data:{periode:periode},
+        success:function(result){
+
+            Highcharts.chart('serapInvestasi', {
+                title: {
+                    text: null
+                },
+                xAxis:{
+                    // categories: ['GEDUNG DAN BANGUNAN','SARANA PENDIDIKAN','Sarpen CELOE','Sarpen Telu','INVENTARIS KANTOR','SERTIFIKASI PENDIDIKAN','AKREDITASI DALAM','ALAT PENGOLAH DATA','ALAT CATUT DAYA']
+                    categories : result.data.ctg
+                },
+                credits:{
+                    enabled:false
+                },
+                plotOptions: {
+                    area: {
+                        marker: {
+                            pointStart: 5,
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
                         }
+                    },
+                    column: {
+                        stacking: 'normal'
                     }
-                }
+                },
+                // series:[
+                //     {
+                //         type:'area',
+                //         name:'RKA',
+                //         color:'#0004FF',
+                //         data: [150,200,250,300,350,270,170,220,210]
+                //     },
+                //     {
+                //         type:'column',
+                //         name:'Real',
+                //         color: '#FF8F01',
+                //         data: [5,9,7,6,5,3,8,8.5,9]
+                //     },
+                //     {
+                //         type:'column',
+                //         name:'On Progres',
+                //         color:'#A5A5A5 ',
+                //         data: [2,5,4,5,7,5,6,7.5,6]
+                //     }
+                // ]
+                series: result.data.series
+            });
         },
-        column: {
-            stacking: 'percent'
-        }
-        },
-        series:[
-            {
-                type:'area',
-                name:'RKA',
-                color:'#0004FF',
-                data: [150,200,250,300,350,270,170,220,210]
-            },
-            {
-                type:'column',
-                name:'Real',
-                color: '#FF8F01',
-                data: [5,9,7,6,5,3,8,8.5,9]
-            },
-            {
-                type:'column',
-                name:'On Progres',
-                color:'#A5A5A5 ',
-                data: [2,5,4,5,7,5,6,7.5,6]
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
             }
-        ]
+            
+        }
     });
 }
 
 getKomponenInvestasi("{{$periode}}");
 // getOprNonOpr("{{$periode}}");
 getRKARealInvestasi("{{$periode}}");
-getRKARealInvestasi2("{{$periode}}");
+getSerapInvestasi("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();

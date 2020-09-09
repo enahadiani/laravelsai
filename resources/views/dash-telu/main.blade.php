@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -25,8 +25,11 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     
+    <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -54,6 +57,275 @@
             background-size:30px;
             width:30px;
         }
+
+        .navbar{
+            height:60px;
+            padding:0;
+        }
+        @media (max-width: 1439px) {
+            .navbar {
+            height: 60px; } }
+        @media (max-width: 1199px) {
+            .navbar {
+            height: 60px;
+            padding: 12px 0; } }
+        @media (max-width: 767px) {
+            .navbar {
+            height: 60px; } }
+        .menu{
+            padding-top:60px;
+            height: calc(100% - 60px);
+        }
+        .menu .main-menu {
+            height: calc(100% - 60px);
+        }
+
+        @media (max-width: 1439px) {
+        .menu .main-menu {
+            height: calc(100% - 60px); } }
+        @media (max-width: 1199px) {
+        .menu .main-menu {
+            height: calc(100% - 60px); } }
+        @media (max-width: 767px) {
+        .menu .main-menu {
+            height: calc(100% - 60px); } }
+        .menu .sub-menu {
+            
+            height: calc(100% - 60px);
+        }
+
+        @media (max-width: 1439px) {
+        .menu .sub-menu {
+            height: calc(100% - 60px); } 
+        }
+        @media (max-width: 1199px) {
+        .menu .sub-menu {
+            height: calc(100% - 60px); } }
+        @media (max-width: 767px) {
+        .menu .sub-menu {
+            height: calc(100% - 60px); } }
+        @media (max-width: 1439px) {
+            .menu {
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
+        @media (max-width: 1199px) {
+            .menu {
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
+        @media (max-width: 767px) {
+            .menu {
+            padding-top: 60px;
+            height: calc(100% - 60px); } }
+
+        /* @media (max-width: 1439px) {
+            main {
+            margin-top: 100px; } }
+        @media (max-width: 1199px) {
+            main {
+            margin-top: 100px; } }
+        @media (max-width: 767px) {
+            main {
+            margin-top: 100px; } } */
+
+        main {
+        margin-left: 390px;
+        margin-top: 90px;
+        margin-right: 30px;
+        margin-bottom: 40px; }
+        main.default-transition {
+            transition: margin-left 300ms; }
+        main .container-fluid {
+            padding-left: 0;
+            padding-right: 0; }
+        @media (max-width: 1439px) {
+            main {
+            margin-left: 390px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 30px; } }
+        @media (max-width: 1199px) {
+            main {
+            margin-left: 370px;
+            margin-right: 30px;
+            margin-top: 90px;
+            margin-bottom: 20px; } }
+        @media (max-width: 767px) {
+            main {
+            margin-left: 15px !important;
+            margin-right: 15px !important;
+            margin-top: 90px !important;
+            margin-bottom: 0; } }
+        @media (max-width: 575px) {
+            main {
+            margin-bottom: 0; } }
+        
+        #app-container.sub-hidden main,
+        #app-container.menu-sub-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 140px; 
+        }
+        
+        #app-container.main-hidden main,
+        #app-container.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        #app-container.menu-main-hidden main 
+        {
+            margin-left: 270px; 
+        }
+        
+        #app-container.menu-main-hidden.menu-hidden main 
+        {
+            margin-left: 40px; 
+        }
+        
+        @media (max-width: 1439px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+        
+        @media (max-width: 1199px) 
+        {
+            #app-container.sub-hidden main,
+            #app-container.menu-sub-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 140px; 
+            }
+            #app-container.main-hidden main,
+            #app-container.menu-hidden main 
+            {
+                margin-left: 40px; 
+            }
+            #app-container.menu-main-hidden main 
+            {
+                margin-left: 270px; 
+            }
+            #app-container.menu-main-hidden.menu-hidden main 
+            {
+                margin-left: 40px; 
+            } 
+        }
+
+        body {
+        min-height: calc(100% - 90px);
+        position: relative;
+        padding-bottom: 0px; }
+        @media (max-width: 1439px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 1199px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 767px) {
+            body {
+            min-height: calc(100% - 90px); } }
+        @media (max-width: 575px) {
+            body {
+            padding-bottom: 0px; } }
+        body.no-footer {
+            padding-bottom: initial; 
+        }
+
+        .swal2-modal {
+            border-radius:0.75rem !important;
+            width:270px !important;
+            font-family: 'Roboto', sans-serif !important;
+        }
+        .swal2-title{
+            font-family: 'Roboto', sans-serif !important;
+            font-size:20px !important;
+            color:black !important;
+        }
+        
+        .swal2-content{
+            font-family: 'Roboto', sans-serif !important;
+            font-size:12px !important;
+            color:black;
+        }
+
+        .swal2-confirm{
+            width:110px !important;
+            margin-left:5px !important;            
+        }
+        
+        .swal2-cancel{
+            width:110px !important;
+        }
+
+        .btn-red {
+            background-color: #EB3F33;
+            border-color: #EB3F33;
+            color: #fff; 
+        }
+        .btn-red:hover {
+                color: #fff;
+                background-color: #EB3F33DE;
+                border-color: #EB3F33DE; 
+            }
+
+        .dropdown-profile{
+            display:unset
+        }
+        .imgprofile{
+            position:absolute;
+        }
+        .userprofile{   
+            margin-left:50px;
+            font-size:13px;
+        }
+        .userjab{   
+            margin-left:50px;
+            font-size:10px;
+        }
+
+        /* #notificationDropdown2
+        {
+            left: 50% !important;
+            right: auto !important;
+            transform: translate(-60%, 0) !important;
+        }
+
+        #adminDropdown
+        {
+            left: 50% !important;
+            right: auto !important;
+            transform: translate(-40%, 0) !important;
+        }
+         */
+        div.dropdown:hover > div.dropdown-menu {
+            display: block !important;
+        } 
+        
+        div.dropdown>div.dropdown-toggle:active {
+            pointer-events: none;
+        }
+
+        .btn-200{
+            width:200px !important;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -78,9 +350,14 @@
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
     
+    <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
-    
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
+    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+    <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
+    <script src="{{ asset('asset_elite/sai.js') }}"></script>
+    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
 </head>
 
 @if(Session::get('menu') != "")
@@ -88,9 +365,7 @@
 @else
 <body id="app-container" class="menu-default show-spinner">
 @endif
-
-
-    <nav class="navbar fixed-top">
+<nav class="navbar fixed-top px-0 py-0">
         <div class="d-flex align-items-center navbar-left">
             <a href="#" class="menu-button d-none d-md-block">
                 <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
@@ -115,7 +390,7 @@
 
             <form action="#">
                 <div class="search" >
-                    <input type="text" placeholder="Search..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
+                    <input type="text" placeholder="Cari Form..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
                     <span class="search-icon cari-form">
                         <i class="simple-icon-magnifier"></i>
                     </span>
@@ -124,260 +399,95 @@
         </div>
 
 
-        <a class="navbar-logo" href="Dashboard.Default.html">
+        <a class="navbar-logo" href="#">
             <span class="logo d-none d-xs-block"></span>
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
+        @php
+            $tmp = explode(" ",Session::get('namaUser'));
+            $nama = $tmp[0];
 
-        <div class="navbar-right">
-            <div class="header-icons d-inline-block align-middle">
-                <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                         data-toggle="tooltip" data-placement="left" title="Dark Mode">
-                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
-                        <label class="custom-switch-btn" for="switchDark"></label>
-                    </div>
+        @endphp
+
+        <div class="navbar-right" >
+            <div class="user d-inline-block mr-3 dropdown">
+                <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="name">{{ $nama }}</span>
+                    <span id="foto-profile">
+                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    @else
+                    <img alt="Profile Picture" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                    @endif
+                    </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
+                    <a href="#" class="dropdown-profile">
+                        <div style="height: 45px;padding: 0 1rem;">
+                            <span id="adminProfilePhoto">
+                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
+                                @else
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                                @endif
+                            </span>
+                            <p class="userprofile mb-0">{{ $nama }}</p>
+                            <span class="userjab" >{{ Session::get('jabatan') }}</span>
+                        </div>
+                    </a>
+                    <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>
+                    <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
+                    <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
-
-                <!-- <div class="position-relative d-none d-sm-inline-block">
-                    <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-grid"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-equalizer d-block"></i>
-                            <span>Settings</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-male-female d-block"></i>
-                            <span>Users</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-puzzle d-block"></i>
-                            <span>Components</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-bar-chart-4 d-block"></i>
-                            <span>Profits</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-file d-block"></i>
-                            <span>Surveys</span>
-                        </a>
-
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-suitcase d-block"></i>
-                            <span>Tasks</span>
-                        </a>
-
-                    </div>
-                </div> -->
-
-                <div class="position-relative d-inline-block">
+            </div>
+            <div class="header-icons d-inline-block align-middle mr-4">
+                <div class="dropdown position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell icon-notif"></i>
+                        <i class="simple-icon-bell icon-notif" style="font-size:17px"></i>
                         <!-- <span class="count"></span> -->
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
-                        <!-- <div class="scroll">
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/profiles/l-2.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-0" id="notificationDropdown2" style="width:300px;">
+                        <div class='row-header border-bottom'>
+                            <div class="d-flex flex-row px-3 py-2 ">
+                                <div class="">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                        <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/1.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                        </div>
+                        <div class="notif-body" style="height:280px">
+                        </div>
+                        <div class='row-footer border-top'>
+                            <div class="d-flex flex-row px-3 py-2 text-center">
+                                <div class="" style="width:100%">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">1 item is out of stock!</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
+                                    <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
                                     </a>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/2.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
-                                    <a href="#">
-                                        <p class="font-weight-medium mb-1">New order received! It is total $147,20.</p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row mb-3 pb-3 ">
-                                <a href="#">
-                                    <img src="{{ asset('asset_dore/img/notifications/3.jpg') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
-                                    <a href="#">
-                                        <p class="font-weight-medium mb-1">3 items just added to wish list by a user!
-                                        </p>
-                                        <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
-
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab" title="New Tab">
+                    <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
+                </button>
+                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton" title="Full Screen">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
                 </button>
 
             </div>
 
-            <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">{{ Session::get('namaUser') }}</span>
-                    <span id="foto-profile">
-                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
-                    @else
-                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/ypt/storage/'.Session::get('foto') }}" />
-                    @endif
-                    </span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" onclick="loadProfile()" href='#' >Profile</a>
-                    <a class="dropdown-item" href="{{ url('dash-telu/logout') }}">Sign out</a>
-                </div>
-            </div>
+            
         </div>
     </nav>
     <div class="menu">
         <div class="main-menu">
         </div>
         <div class="sub-menu">
-                <!-- <ul class="list-unstyled" data-link="dashboard">
-                    <li class="active">
-                        <a href="Dashboard.Default.html">
-                            <i class="simple-icon-rocket"></i> <span class="d-inline-block">Default</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Analytics.html">
-                            <i class="simple-icon-pie-chart"></i> <span class="d-inline-block">Analytics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Ecommerce.html">
-                            <i class="simple-icon-basket-loaded"></i> <span class="d-inline-block">Ecommerce</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Dashboard.Content.html">
-                            <i class="simple-icon-doc"></i> <span class="d-inline-block">Content</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="list-unstyled" data-link="menu" id="menuTypes">
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuTypes" aria-expanded="true"
-                            aria-controls="collapseMenuTypes" class="rotate-arrow-icon">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Types</span>
-                        </a>
-                        <div id="collapseMenuTypes" class="collapse show" data-parent="#menuTypes">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="Menu.Default.html">
-                                        <i class="simple-icon-control-pause"></i> <span
-                                            class="d-inline-block">Default</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Subhidden.html">
-                                        <i class="simple-icon-arrow-left mi-subhidden"></i> <span
-                                            class="d-inline-block">Subhidden</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Hidden.html">
-                                        <i class="simple-icon-control-start mi-hidden"></i> <span
-                                            class="d-inline-block">Hidden</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="Menu.Mainhidden.html">
-                                        <i class="simple-icon-control-rewind mi-hidden"></i> <span
-                                            class="d-inline-block">Mainhidden</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuLevel" aria-expanded="true"
-                            aria-controls="collapseMenuLevel" class="rotate-arrow-icon collapsed">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Levels</span>
-                        </a>
-                        <div id="collapseMenuLevel" class="collapse" data-parent="#menuTypes">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                            Level</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" data-toggle="collapse" data-target="#collapseMenuLevel2"
-                                        aria-expanded="true" aria-controls="collapseMenuLevel2"
-                                        class="rotate-arrow-icon collapsed">
-                                        <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Another
-                                            Level</span>
-                                    </a>
-                                    <div id="collapseMenuLevel2" class="collapse">
-                                        <ul class="list-unstyled inner-level-menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                                        Level</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="collapse" data-target="#collapseMenuDetached" aria-expanded="true"
-                            aria-controls="collapseMenuDetached" class="rotate-arrow-icon collapsed">
-                            <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-                        </a>
-                        <div id="collapseMenuDetached" class="collapse">
-                            <ul class="list-unstyled inner-level-menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-                                            Level</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul> -->
         </div>
     </div>
 
@@ -385,10 +495,28 @@
         <div class="container-fluid">
             <div class="body-content"></div>
         </div>
+        <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
+                    <div class="modal-body text-center pb-0">
+                        <span id="modal-pesan-id" style="display:none"></span>
+                        <h4 style="font-weight:bold" id="pesan-judul"></h4>  
+                        <p style="font-size:12px" id="pesan-text"></p>  
+                    </div>
+                    <div class="modal-footer pt-0" style="border:none;justify-content:center">
+                        <div class="row" style="width:100%">
+                            <div class="col-6 px-0 py-0" id="btn-pesan1">
+                            </div>
+                            <div class="col-6 px-0 py-0" style="padding-left: 5px !important;" id="btn-pesan2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-    
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
     
@@ -402,6 +530,126 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+    
+    function msgDialog(data){
+        console.log(data.type);
+        switch(data.type){
+            case 'hapus':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Hapus Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                
+            break;
+            case 'edit':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Ubah Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan diganti.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Ubah');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+            break;
+            case 'simpan':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-primary');
+                var title = (data.title != undefined ? data.title : 'Tersimpan');
+                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br>'+data.id);
+                var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
+            break;
+            case 'keluar':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Keluar Form?');
+                var text = (data.text != undefined ? data.text : 'Semua perubahan tidak akan disimpan.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+            break;
+            case 'logout':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Keluar Aplikasi?');
+                var text = (data.text != undefined ? data.text : 'Semua halaman akses yang sama akan keluar.');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+            break;
+            case 'duplicate':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Duplikat Data');
+                var text = (data.text != undefined ? data.text : 'Kode sudah digunakan');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Mengerti');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+        }
+        
+        var swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn '+btn1,
+            cancelButtonClass: 'btn '+btn2,
+            buttonsStyling: false,
+        })
+        
+        swalWithBootstrapButtons.fire({
+            title: title,
+            html: text,
+            animation: false,
+            showCancelButton: (showCancel != undefined ? showCancel : true),
+            confirmButtonText: confirm,
+            cancelButtonText: cancel,
+            reverseButtons: true
+        }).then((result) => {
+            switch(data.type){
+                case 'hapus':
+                    if (result.value) {
+                        hapusData(data.id);
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //
+                    }
+                    
+                break;
+                case 'edit':
+                    if (result.value) {
+                        $('#form-tambah').submit();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //
+                    }
+                break;
+                case 'simpan':
+                    if (result.value) {
+                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                    }
+                break;
+                case 'keluar':
+                    if (result.value) {
+                        $('#saku-datatable').show();
+                        $('#saku-form').hide();
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // console.log('cancel');
+                    }
+                break;
+                case 'logout':
+                    if (result.value) {
+                        window.localStorage.setItem('logged_in', false);
+                        window.location.href = "{{ url('dash-telu/logout') }}";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // console.log('cancel');
+                    }                    
+                break;
+                case 'duplicate':
+                    //  
+                break;
+            }
+                
+        })
+    }
 
     function showNotification(placementFrom, placementAlign, type,title,message) {
       $.notify(
@@ -462,7 +710,7 @@
             async:false,
             success:function(result){    
                 var notif='';
-                $('#notificationDropdown').html(''); 
+                $('.notif-body').html(''); 
                 
                 if(result.data.status){
                     if(result.data.jumlah == 0){
@@ -470,30 +718,40 @@
                     }else{
                         $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
                     }
-                    notif = `<div class="scroll">
+                    notif = `
+                    
                             `;
                     if(result.data.data.length > 0){
                         for(var i=0;i<result.data.data.length;i++){
                             var line = result.data.data[i];
-                            notif+=`<div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                <a href="#">
-                                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Notification Image"
-                                        class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
-                                </a>
-                                <div class="pl-3">
+                            notif+=`
+                            <div class='row-notif'>
+                                <div class="d-flex flex-row px-3 pt-3">
                                     <a href="#">
-                                        <p class="font-weight-medium mb-1">`+line.pesan+`</p>
-                                        <p class="text-muted mb-0 text-small">`+line.tgl+` - `+line.jam+`</p>
+                                        <i class='simple-icon-info'></i>
                                     </a>
+                                    <div class="pl-3">
+                                        <a href="#">
+                                            <p class="font-weight-medium mb-1" style="font-size:10px;color;black;font-weight:unset">`+line.judul+` &nbsp; &nbsp;  &bull; &nbsp; &nbsp; `+line.tgl+`</p>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>`;
+                                <div class="d-flex flex-row pb-3 border-bottom px-3">
+                                    <div class="">
+                                        <a href="#">
+                                            <p class="font-weight-medium mb-1" style="color;black;font-weight:bold">`+line.subjudul+`</p>
+                                            <p class="text-muted mb-0 text-small" style="font-weight:unset;color:black !important">`+line.pesan+`</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
                         }
                     }
-                    notif += `</div>`;
-                    $('#notificationDropdown').append(notif);
+                    $('.notif-body').append(notif);
                     
                 }else{
-                    $('#notificationDropdown').html(''); 
+                    $('.notif-body').html(''); 
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
@@ -638,7 +896,8 @@
                         var form = tmp[2];
                         //add Class active in li level 1;
                         $('.sub-menu li').removeClass('active');
-                        $("[data-href="+form+"]").first().parents("li").addClass("active");
+                        $("[data-href="+form+"]").closest("li").addClass("active");
+                        // $("[data-href="+form+"]").first().parents("li").addClass("active");
                         
                         //add Class active in li level 0;
                         var target = $("[data-href="+form+"]").parents("li").parents("ul").last().attr("data-link");
@@ -710,6 +969,9 @@
             }
         });
     }
+
+    var scrollnotif = document.querySelector('.notif-body');
+    var notifscroll = new PerfectScrollbar(scrollnotif);
     
     loadMenu();
     getNotif();
@@ -718,11 +980,11 @@
         loadForm("{{ url('dash-telu/form')}}/"+form)
     }
     
-    $('.menu').on('click','.a_link',function(e){
+    $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         $('.sub-menu li').removeClass('active');
-        $(this).parents('li').addClass('active');
+        $(this).closest('li').addClass('active');
         var url = "{{ url('dash-telu/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){
@@ -760,8 +1022,33 @@
             result($.map($dtForm, function (item) {
                 return item.nama;
             }));
+        },
+        afterSelect: function (item) {
+            console.log('cek');
+            searchForm(item);
         }
     });
+
+    $('#notificationButton').hover(function(){
+        
+        if($('#btn-admin').attr("aria-expanded") == "true"){
+            $('#btn-admin').dropdown('toggle');
+        }
+        
+        
+    });
+
+    $('#btn-admin').hover(function(){
+        if($('#notificationButton').attr("aria-expanded") == "true"){
+            $('#notificationButton').dropdown('toggle');
+        }
+    });
+
+    $('#btn-newtab').click(function(){
+        var url = "{{url('dash-telu')}}";
+        window.open(url, '_blank');
+    });
+
     // $('#cari').typeahead({
     //     source: function (cari, result) {
     //         $.ajax({
@@ -779,16 +1066,9 @@
     //     }
     // });
 
-    $(document).ready(function(){
-        setTimeout(function(){
-            window.location.href = "{{url('dash-telu/sesi-habis')}}";
-        }, 1000 * 60 * 60);
-        
-        var form ="{{ Session::get('dash') }}";
-        if(form !="" || form != "-"){
-            loadForm("{{ url('dash-telu/form') }}/"+form);
-        }
-    });
+    // $(document).ready(function(){
+       
+    // });
     
     function setHeightReport(){
         var header = $('.topbar').height();
@@ -799,20 +1079,31 @@
     }
     
     function setHeightForm(){
-        var header = $('.topbar').height();
+        var header = 70;
         var content = window.innerHeight;
-        var tinggi = content-header-40;
-        var title = 66;
-        var body = tinggi-title;
+        // var tinggi = content-header-40;
+        var title = 69;
+        // var body = tinggi-title;
+        var height = content-header-title-40;
+    
         if($('#saku-form').length > 0){
             
-            $('#saku-form').css('height',tinggi);
-            $('.title-form').css('height',title);
-            $('.body-form').css('height',body);
+            // $('#saku-form').css('height',tinggi);
+            // $('.title-form').css('height',title);
+            $('.form-body').css('height',height);
         }
-        if($('#saku-datatable').length > 0){
-            $('#saku-datatable .card').css('min-height',tinggi);
-        }
+        // if($('#saku-datatable').length > 0){
+        //     $('#saku-datatable .card').css('min-height',tinggi);
+        // }
+    }
+
+    setTimeout(function(){
+        window.location.href = "{{url('dash-telu/sesi-habis')}}";
+    }, 1000 * 60 * 60);
+    
+    var form ="{{ Session::get('dash') }}";
+    if(form !="" || form != "-"){
+        loadForm("{{ url('dash-telu/form') }}/"+form);
     }
     
     $( window ).resize(function() {
@@ -821,30 +1112,36 @@
         }
         setHeightForm();
     });
-
-    $('.typeahead').on('click','a.dropdown-item',function(e){
-    e.preventDefault();
-        console.log('tes');
-        
-        // var cari = $(this).text();
-        // searchForm(cari);
-    });
     
     $('#notificationButton').click(function(){
         updateNotifRead();
     });
     var $theme = "dore.light.redruby.min.css";
-    // localStorage.setItem("dore-theme-color", theme);
-
-    // $('.typeahead.dropdown-menu').on('click','.dropdown-item',function(e){
-    //     e.preventDefault();
-    //     console.log('click');
-    //     var cari = $(this).text();
-    // })
+ 
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
         $('div.theme-colors').hide();
+        window.localStorage.setItem('logged_in', true);
+
+        function storageChange (event) {
+            if(event.key === 'logged_in') {
+                if(window.localStorage.getItem('logged_in') == "false"){
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                }
+            }
+        }
+        window.addEventListener('storage', storageChange, false);
+
+        function logout(){
+            msgDialog({
+                id:null,
+                type:'logout'
+            });
+        }
+
+        
+
     </script>
 </body>
 </html>

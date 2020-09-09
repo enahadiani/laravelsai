@@ -424,17 +424,20 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" style="border:0">
-                        <div class="input-group mb-3">
+                    <div class="modal-body pb-0" style="border:0">
+                        <div class="input-group mb-1">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="inputGroupFile01" style="display: unset;" name="file">
                                 <label class="custom-file-label" for="inputGroupFile01" style="display: block;">File input</label>
                             </div>
                         </div>
-                        <label id="label-file"></label>
-                        <div class="pesan-upload" style="background:#F5F5F5;display:none" >
-                            <p class="pesan-upload-judul"></p>
-                            <p class="pesan-upload-isi"></p>
+                        <label id="label-file" class="mb-0"></label>
+                        <div style="height: 10px;" class="progress hidden mb-2">
+                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="5" style="width:5%" >5%</div>
+                        </div>
+                        <div class="pesan-upload" style="background:#F5F5F5;display:none;padding: 10px 25px;border-radius: 0.75em;" >
+                            <p class="pesan-upload-judul" style="font-weight:bold;font-size:12px;margin:0"></p>
+                            <p class="pesan-upload-isi" style="font-size:12px"></p>
                         </div>
                     </div>
                     <div class="modal-footer" style="border:0">
@@ -2421,7 +2424,7 @@
         $('.custom-file-input').val('');
         $('.custom-file-label').text('File upload');
         $('.pesan-upload .pesan-upload-judul').html('');
-        $('.pesan-upload .pesan-upload-isi').html('')
+        $('.pesan-upload .pesan-upload-isi').html('')        
         $('.pesan-upload').hide();
         $('#modal-import').modal('show');
     });
@@ -2441,13 +2444,44 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('.pesan-upload').show();
-            $('.pesan-upload-judul').html('Proses upload!');
+            $('.pesan-upload-judul').html('Proses upload...');
+            $('.pesan-upload-judul').removeClass('text-success');
+            $('.pesan-upload-judul').removeClass('text-danger');
+            $('.progress').removeClass('hidden');
+            $('.progress-bar').attr('aria-valuenow', 0).css({
+                                width: 0 + '%'
+                            }).html(parseFloat(0 * 100).toFixed(2) + '%');
             $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            console.log(percentComplete);
+                            $('.progress-bar').attr('aria-valuenow', percentComplete * 100).css({
+                                width: percentComplete * 100 + '%'
+                            }).html(parseFloat(percentComplete * 100).toFixed(2) + '%');
+                            // if (percentComplete === 1) {
+                            //     $('.progress').addClass('hidden');
+                            // }
+                        }
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            console.log(percentComplete);
+                            $('.progress-bar').css({
+                                width: percentComplete * 100 + '%'
+                            });
+                        }
+                    }, false);
+                    return xhr;
+                },
                 type: 'POST',
                 url: "{{ url('esaku-trans/import-excel') }}",
                 dataType: 'json',
                 data: formData,
-                async:false,
+                // async:false,
                 contentType: false,
                 cache: false,
                 processData: false, 
@@ -2459,6 +2493,8 @@
                             $('#process-upload').removeClass('btn-light');
                             $('#process-upload').addClass('btn-primary');
                             $('.pesan-upload-judul').html('Berhasil upload!');
+                            $('.pesan-upload-judul').removeClass('text-danger');
+                            $('.pesan-upload-judul').addClass('text-success');
                             $('.pesan-upload-isi').html('File berhasil diupload!');
                         }else{
                             if(!$('#process-upload').hasClass('disabled')){
@@ -2467,7 +2503,9 @@
                             }
                             var link = "{{ config('api.url').'toko-trans/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser') }}";
                             $('.pesan-upload-judul').html('Gagal upload!');
-                            $('.pesan-upload-isi').html("Terdapat kesalahan dalam mengisi format upload data. Download berkas untuk melihat kesalahan.<a href='"+link+"' target='_blank' id='btn-download-file' >Download disini</a>");
+                            $('.pesan-upload-judul').removeClass('text-success');
+                            $('.pesan-upload-judul').addClass('text-danger');
+                            $('.pesan-upload-isi').html("Terdapat kesalahan dalam mengisi format upload data. Download berkas untuk melihat kesalahan.<a href='"+link+"' target='_blank' class='text-primary' id='btn-download-file' >Download disini</a>");
                         }
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -2486,6 +2524,9 @@
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
+                },
+                complete: function (xhr) {
+                    $('.progress').addClass('hidden');
                 }
             });
 
