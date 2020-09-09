@@ -113,6 +113,10 @@
             border-left:0;
             color: var(--theme-color-1) !important;
         }
+        .focus{
+            /* border:none !important; */
+            box-shadow:none !important;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -142,7 +146,7 @@
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData">
                             <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer"></i></span>
+                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -251,11 +255,12 @@
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-1" style="border:1px solid #d7d7d7;font-size:20px"></span>
+                                    
                                     <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
                                         <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-import">
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_jurnal_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                         </div>
@@ -363,7 +368,7 @@
 
     <!-- MODAL SEARCH AKUN-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog" role="document" style="max-width:600px">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
                     <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
@@ -380,7 +385,7 @@
 
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog" role="document" style="max-width:800px">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
                     <h6 class="modal-title py-2" style="position: absolute;">Preview Data Vendor <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
@@ -2292,16 +2297,16 @@
         showFilter(par,target1,target2);
     });
 
-    $('#input-jurnal').on('keydown', '.inp-kode', function(e){
-        if(e.which == 40){
-            var noidx =  $(this).closest('tr').find('.no-jurnal').html();
-            target1 = "akunke"+noidx;
-            target2 = "nmakunke"+noidx;
-            target3 = "dcke"+noidx;
-            e.preventDefault();
-            showFilter("kode_akun[]",target1,target2);
-        }
-    });
+    // $('#input-jurnal').on('keydown', '.inp-kode', function(e){
+        // if(e.which == 40){
+        //     var noidx =  $(this).closest('tr').find('.no-jurnal').html();
+        //     target1 = "akunke"+noidx;
+        //     target2 = "nmakunke"+noidx;
+        //     target3 = "dcke"+noidx;
+        //     e.preventDefault();
+        //     showFilter("kode_akun[]",target1,target2);
+        // }
+    // });
 
     $('#input-jurnal').on('change', '.inp-kode', function(e){
         e.preventDefault();
@@ -2381,15 +2386,15 @@
         }
     });
 
-    $('#input-jurnal').on('keydown', '.inp-pp', function(e){
-        if(e.which == 40){
-            e.preventDefault();
-            var noidx =  $(this).closest('tr').find('.no-jurnal').html();
-            target1 = "ppke"+noidx;
-            target2 = "nmppke"+noidx;
-            showFilter("kode_pp[]",target1,target2);
-        }
-    });
+    // $('#input-jurnal').on('keydown', '.inp-pp', function(e){
+    //     if(e.which == 40){
+    //         e.preventDefault();
+    //         var noidx =  $(this).closest('tr').find('.no-jurnal').html();
+    //         target1 = "ppke"+noidx;
+    //         target2 = "nmppke"+noidx;
+    //         showFilter("kode_pp[]",target1,target2);
+    //     }
+    // });
 
     $('#input-jurnal').on('change', '.inp-pp', function(e){
         e.preventDefault();
@@ -2501,7 +2506,7 @@
                                 $('#process-upload').addClass('disabled');
                                 $('#process-upload').prop('disabled', true);
                             }
-                            var link = "{{ config('api.url').'toko-trans/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser') }}";
+                            var link = "{{ config('api.url').'toko-trans/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser').'&nik='.Session::get('userLog') }}";
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
                             $('.pesan-upload-judul').addClass('text-danger');
