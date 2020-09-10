@@ -905,7 +905,7 @@
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else{
-                    alert(result.message);
+                    console.log(result.message);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
