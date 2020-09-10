@@ -363,7 +363,8 @@
                     'jenis' => $jenis,
                     'trail' => $trail,
                     'kode_neraca' => $kode_neraca,
-                    'kode_fs' => $kode_fs
+                    'kode_fs' => $kode_fs,
+                    'nik_user' => Session::get('nikUser')
                 ];
         
                 $response = $client->request('GET',  config('api.url').'toko-report/lap-nrclajur',[
@@ -409,7 +410,8 @@
                         'modul' => $request->modul,
                         'no_bukti' => $request->no_bukti,
                         'tgl_awal' => $request->tgl_awal,
-                        'tgl_akhir' => $request->tgl_akhir
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'nik_user' => Session::get('nikUser')
                     ]
                 ]);
         
@@ -448,7 +450,8 @@
                         'modul' => $request->modul,
                         'no_bukti' => $request->no_bukti,
                         'tgl_awal' => $request->tgl_awal,
-                        'tgl_akhir' => $request->tgl_akhir
+                        'tgl_akhir' => $request->tgl_akhir,
+                        'nik_user' => Session::get('nikUser')
                     ]
                 ]);
         
@@ -488,7 +491,8 @@
                         'kode_akun' => $request->kode_akun,
                         'tgl_awal' => $request->tgl_awal,
                         'tgl_akhir' => $request->tgl_akhir,
-                        'jenis' => $request->jenis
+                        'jenis' => $request->jenis,
+                        'nik_user' => Session::get('nikUser')
                     ]
                 ]);
         
@@ -528,7 +532,8 @@
                         'periode' => $request->periode,
                         'kode_fs' => $request->kode_fs,
                         'level' => $request->level,
-                        'format' => $request->format
+                        'format' => $request->format,
+                        'nik_user' => Session::get('nikUser')
                     ]
                 ]);
         
@@ -536,7 +541,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res;
+                    $data = $res["data"];
                 }
                 if(isset($request->back)){
                     $back = true;
