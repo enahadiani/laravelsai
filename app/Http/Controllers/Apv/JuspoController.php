@@ -226,7 +226,7 @@ class JuspoController extends Controller
                             $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit2'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
                         }else{
 
-                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp;<a href='#' title='Preview' class='badge badge-info' id='btn-print'><i class='fas fa-print'></i></a>";
+                            $data[$i]["action"] = "<a href='#' title='Edit' class='badge badge-warning' id='btn-edit'><i class='fas fa-pencil-alt'></i></a>";
                         }
                     }
                 }
@@ -894,11 +894,11 @@ class JuspoController extends Controller
         }
     }
 
-    public function getPreview($no_bukti)
+    public function getPreview($no_bukti,$no_juskeb)
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_preview/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url').'apv/juspo_preview/'.$no_bukti.'/'.$no_juskeb,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

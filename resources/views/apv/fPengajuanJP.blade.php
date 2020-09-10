@@ -448,10 +448,10 @@
         });
     }
 
-    function printAju(id){
+    function printAju(id,kd){
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/juspo_preview') }}/"+id,
+            url: "{{ url('apv/juspo_preview') }}/"+id+"/"+kd,
             dataType: 'json',
             async:false,
             success:function(res){  
@@ -1243,10 +1243,10 @@
     });
 
     $('#saku-datatable').on('click','#btn-print',function(e){
-        // var id = $(this).closest('tr').find('td').eq(0).html();
+        var kode = $(this).closest('tr').find('td').eq(0).html();
         var dt = dataTable.row($(this).parents('tr')).data();
         var id= dt.id;
-        printAju(id);
+        printAju(id,kode);
     });
 
     
@@ -1337,7 +1337,7 @@
                             'Your data has been '+pesan+'. '+result.data.message,
                             'success'
                             )
-                        printAju(result.data.no_aju);
+                        printAju(result.data.no_aju,result.data.no_juskeb);
                         
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){

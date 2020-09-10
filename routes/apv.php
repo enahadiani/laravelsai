@@ -119,7 +119,7 @@ Route::post('juspo','Apv\JuspoController@store');
 Route::post('juspo/{no_bukti}','Apv\JuspoController@update');
 Route::delete('juspo/{no_bukti}','Apv\JuspoController@destroy');
 Route::get('juspo_history/{no_bukti}','Apv\JuspoController@getHistory');
-Route::get('juspo_preview/{no_bukti}','Apv\JuspoController@getPreview');
+Route::get('juspo_preview/{no_bukti}/{no_juskeb}','Apv\JuspoController@getPreview');
 Route::get('generate-dok-juspo','Apv\JuspoController@generateDok');
 
 Route::get('juspo_app','Apv\JuspoApprovalController@index');
