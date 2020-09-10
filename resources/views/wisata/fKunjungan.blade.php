@@ -500,6 +500,34 @@
             }
             });
         }
+        function redirectFormTambah() {
+            $('input[data-input="cbbl"]').val('');
+            $('[id^=label]').html('');
+            $('#row-id').hide();
+            $('#tgl_kunjungan').attr('readonly', false);
+            $('#kode_mitra').attr('readonly', false);
+            $('#kode_bidang').attr('readonly', true);
+            $('.search-item2').show();
+            $('.selectize-control').not('.swal2-select').show();
+            $('#table-btambah tbody').empty();
+            $('#no-bukti-div').hide();
+            $('#no-bukti').val('');
+            $('#bulan-input-text').hide();
+            $('#tahun-input-text').hide();
+            $('#bulan').hide();
+            $('#tahun').hide();
+            $('#id_edit').val('');
+            $('#judul-form').html('Tambah Data Kunjungan');
+            $('#method').val('post');        
+            $('#saku-datatable').hide();
+            $('#saku-form').show();
+            getTahunList();
+            getTglServer();
+            var bulan = $('#bulan').val();
+            var tahun = $('#tahun').val();
+            getJumlahTgl(tahun,bulan);
+            $('select').selectize();
+        }
         //END HELPER FUNCTION//  
 
         // PLUGIN SCROLL di bagian preview dan form input
@@ -584,8 +612,7 @@
         // BUTTON TAMBAH
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('[id^=label]').html('');
-            $('#kode_mitra').val('');
-            $('#kode_bidang').val('');
+            $('input[data-input="cbbl"]').val('');;
             $('#kode_mitra').attr('value','');
             $('#kode_bidang').attr('value','');
             $('#row-id').hide();
@@ -878,25 +905,12 @@
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
+                            redirectFormTambah();
                             Swal.fire(
                                 'Data berhasil tersimpan!',
                                 'Your data has been '+pesan,
                                 'success'
-                                )
-                            $('#table-btambah tbody').empty();
-                            $('#row-id').hide();
-                            $('#no-bukti-div').hide();
-                            $('#no-bukti').val('');
-                            $('input[data-input="cbbl"]').val(''); 
-                            // $('#form-tambah')[0].reset();
-                            // document.getElementById('form-tambah').reset()
-                            // $('#form-tambah').validate().resetForm();
-                            $('[id^=label]').html('');
-                            $('#id_edit').val('');
-                            $('#judul-form').html('Tambah Data Kunjungan');
-                            $('#method').val('post');
-                            getJumlahTgl(tahun,bulan);
-                        
+                                ) 
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
                             window.location.href = "{{ url('/wisata-auth/sesi-habis') }}";
