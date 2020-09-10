@@ -20,6 +20,9 @@ Route::get('filter-nik-retur', 'Esaku\HelperController@getNikRetur');
 Route::get('filter-bukti-retur', 'Esaku\HelperController@getBuktiRetur');
 Route::get('filter-akun', 'Esaku\HelperController@getFilterAkun');
 Route::get('filter-periode-keu', 'Esaku\HelperController@getFilterPeriodeKeuangan');
+Route::get('filter-fs', 'Esaku\HelperController@getFilterFS');
+Route::get('filter-level', 'Esaku\HelperController@getFilterLevel');
+Route::get('filter-format', 'Esaku\HelperController@getFilterFormat');
 
 
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');
@@ -34,4 +37,5 @@ Route::post('lap-nrclajur', 'Esaku\LaporanController@getNrcLajur');
 Route::post('lap-jurnal', 'Esaku\LaporanController@getJurnal');
 Route::post('lap-buktijurnal', 'Esaku\LaporanController@getBuktiJurnal');
 Route::post('lap-bukubesar', 'Esaku\LaporanController@getBukuBesar');
+Route::post('lap-neraca', 'Esaku\LaporanController@getNeraca');
 Route::post('send-laporan', 'Esaku\LaporanController@sendMail');
