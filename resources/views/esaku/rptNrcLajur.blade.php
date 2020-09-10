@@ -1,6 +1,3 @@
-<div id='canvasPreview'>
-
-</div>
 <script type="text/javascript">
 
     function drawLap(formData){
@@ -21,10 +18,9 @@
         var data = data;
         if(data.length > 0){
             if(res.back){
-                var back= `<button type="button" class="btn btn-light ml-2 mb-2" id="btn-back" style="float:right;">
-                <i class=""></i> Back</button>`;
+                $('.navigation-lap').removeClass('hidden');
             }else{
-                var back= ``;
+                $('.navigation-lap').addClass('hidden');
             }
             var html = `<div>
             <style>
@@ -42,7 +38,7 @@
                 }
             </style>
 
-            `+back;
+            `;
             var lokasi = res.lokasi;
             html+=`
                 <table class='table table-bordered info-table'>

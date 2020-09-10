@@ -235,7 +235,19 @@
         <div class="row mt-2" id="saku-report">
             <div class="col-12">
                 <div class="card px-2 py-2" style="min-height:200px">
-
+                    <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
+                        <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
+                            <ol class="breadcrumb py-0 my-0">
+                                <li class="breadcrumb-item active">
+                                    Neraca Lajur
+                                </li>
+                            </ol>
+                        </nav>            
+                        <button type="button" id="btn-back" style="position: absolute;right: 15px;top: 15px;" class="btn btn-light float-right">
+                        <i class=""></i> Back</button>
+                    </div>
+                    <div id="canvasPreview">
+                    </div>
                 </div>
             </div>
         </div>
@@ -880,10 +892,10 @@
             }
             xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
             console.log(xurl);
-            $('#saku-report .card').load(xurl);
+            $('#saku-report #canvasPreview').load(xurl);
         });
 
-        $('#saku-report .card').on('click', '.bukubesar', function(e){
+        $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
         e.preventDefault();
             var kode_akun = $(this).data('kode_akun');
             var back = true;
@@ -895,12 +907,19 @@
 
             $formData.delete('back');
             $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="buku-besar" >Buku Besar</li>
+            `);
             xurl ="esaku-auth/form/rptBukuBesar";
-            $('#saku-report .card').load(xurl);
+            $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });
 
-        $('#saku-report .card').on('click', '.jurnal', function(e){
+        $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
             e.preventDefault();
             var no_bukti = $(this).data('no_bukti');
             var back = true;
@@ -912,14 +931,23 @@
 
             $formData.delete('back');
             $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
+            `);
             xurl ="esaku-auth/form/rptJurnal";
-            $('#saku-report .card').load(xurl);
+            $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });
 
-        $('#saku-report .card').on('click', '#btn-back', function(e){
+        $('.navigation-lap').on('click', '#btn-back', function(e){
             e.preventDefault();
-            $formData.delete('back');
             $formData.delete('periode[]');
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
@@ -928,18 +956,72 @@
             $formData.append("kode_akun[]",akun.type);
             $formData.append("kode_akun[]",akun.from);
             $formData.append("kode_akun[]",akun.to);
-            xurl = "esaku-auth/form/rptNrcLajur";
-            $('#saku-report .card').load(xurl);
+
+            var aktif = $('.breadcrumb-item.active').attr('aria-current');
+            if(aktif == "buku-besar"){
+                $formData.delete('back');
+                xurl = "esaku-auth/form/rptNrcLajur";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="jurnal">Neraca</li>
+                `);
+                $('.navigation-lap').hide();
+            }else if(aktif == "jurnal"){
+                xurl = "esaku-auth/form/rptBukuBesar";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
+                `);
+                $('.navigation-lap').hide();
+            }
+            $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });
 
+        $('.breadcrumb').on('click', '.klik-report', function(e){
+            e.preventDefault();
+            var tujuan = $(this).data('href');
+            $formData.delete('periode[]');
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.delete('kode_akun[]');
+            $formData.append("kode_akun[]",akun.type);
+            $formData.append("kode_akun[]",akun.from);
+            $formData.append("kode_akun[]",akun.to);
+            if(tujuan == "neraca-lajur"){
+                $formData.delete('back');
+                xurl = "esaku-auth/form/rptNrcLajur";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="jurnal">Neraca</li>
+                `);
+                $('.navigation-lap').hide();
+            }else if(tujuan == "buku-besar"){
+                xurl = "esaku-auth/form/rptBukuBesar";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
+                `);
+                $('.navigation-lap').hide();
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            
+        });
+
         $('#sai-rpt-print').click(function(){
-            $('#saku-report .card').printThis();
+            $('#saku-report #canvasPreview').printThis();
         });
 
         $("#sai-rpt-excel").click(function(e) {
             e.preventDefault();
-            $("#saku-report .card").table2excel({
+            $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
                 name: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
                 filename: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
