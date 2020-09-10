@@ -711,6 +711,8 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
+        $('#kode_camat').val('');
+        $('[id^=label]').html('');
         $('#judul-form').html('Tambah Data Mitra');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -769,6 +771,7 @@
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
+                        $('#kode_camat').val('');
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Mitra');
