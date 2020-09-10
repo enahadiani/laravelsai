@@ -746,8 +746,8 @@
         });
     }
     
-    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
-    channel.bind('saitelu-event', function(data) {
+    var channel = pusher.subscribe('saiwisata-channel-'+userNIK);
+    channel.bind('saiwisata-event', function(data) {
         // alert(JSON.stringify(data));
         console.log(JSON.stringify(data));
         getNotif();
@@ -805,7 +805,7 @@
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 } else{
-                    alert(result.message);
+                    console.log(result.message);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       

@@ -421,7 +421,7 @@
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
                     @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ config('api.url').'yakes-auth/storage/'.Session::get('foto') }}" />
                     @endif
                     </span>
                 </button>
@@ -432,7 +432,7 @@
                                 @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                                 <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
                                 @else
-                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'yakes-auth/storage/'.Session::get('foto') }}" />
                                 @endif
                             </span>
                             <p class="userprofile mb-0">{{ $nama }}</p>
@@ -846,8 +846,8 @@
         });
     }
     
-    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
-    channel.bind('saitelu-event', function(data) {
+    var channel = pusher.subscribe('saiyakes-channel-'+userNIK);
+    channel.bind('saiyakes-event', function(data) {
         // alert(JSON.stringify(data));
         console.log(JSON.stringify(data));
         getNotif();
@@ -905,7 +905,7 @@
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 } else{
-                    alert(result.message);
+                    console.log(result.message);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
