@@ -76,9 +76,10 @@
                             </tr>
                         </tbody>
                     </table><br>
-                    <div style="page-break-after:always"></div>`;
+                    </div>`;
                }
-               mon_html+="</div>"; 
+               mon_html+=`</div>
+               <div style="page-break-after:always">`; 
                
             }
         $('#canvasPreview').html(mon_html);
