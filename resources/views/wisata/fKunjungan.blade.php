@@ -850,6 +850,8 @@
             errorElement: "label",
             submitHandler: function (form) {
                 var parameter = $('#id_edit').val();
+                var bulan = $('#bulan').val();
+                var tahun = $('#tahun').val();
                 var id = $('#id').val();
                 if(parameter == "edit"){
                     var url = "{{ url('wisata-master/kunjungan') }}/"+id;
@@ -881,7 +883,10 @@
                                 'Your data has been '+pesan,
                                 'success'
                                 )
+                            $('#table-btambah tbody').empty();
                             $('#row-id').hide();
+                            $('#no-bukti-div').hide();
+                            $('#no-bukti').val('');
                             $('input[data-input="cbbl"]').val(''); 
                             // $('#form-tambah')[0].reset();
                             // document.getElementById('form-tambah').reset()
@@ -890,6 +895,7 @@
                             $('#id_edit').val('');
                             $('#judul-form').html('Tambah Data Kunjungan');
                             $('#method').val('post');
+                            getJumlahTgl(tahun,bulan);
                         
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
