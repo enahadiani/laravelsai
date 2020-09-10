@@ -43,7 +43,7 @@ class SettingMenuController extends Controller
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'toko-master/menu',[
+                $response = $client->request('POST',  config('api.url').'yakes-master/menu',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -109,7 +109,7 @@ class SettingMenuController extends Controller
                  );
 
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'toko-master/menu-move',[
+                $response = $client->request('POST',  config('api.url').'yakes-master/menu-move',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -135,7 +135,7 @@ class SettingMenuController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-master/menu?kode_klp='.$id,
+            $response = $client->request('GET',  config('api.url').'yakes-master/menu?kode_klp='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -172,7 +172,7 @@ class SettingMenuController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'toko-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,[
+                $response = $client->request('PUT',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -209,7 +209,7 @@ class SettingMenuController extends Controller
     public function delete($kd_menu,$kd_klp) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'toko-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,
+            $response = $client->request('DELETE',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

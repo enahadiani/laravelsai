@@ -38,7 +38,7 @@ class AuthController extends Controller
 
         try {
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-auth/login',[
+            $response = $client->request('POST',  config('api.url').'yakes-auth/login',[
                 'form_params' => [
                     'nik' => $request->input('nik'),
                     'password' => $request->input('password')
@@ -50,7 +50,7 @@ class AuthController extends Controller
                 if($data["message"] == "success"){
                     Session::put('token',$data["token"]);
                     Session::put('login',TRUE);
-                    $response2 = $client->request('GET',  config('api.url').'toko-auth/profile',[
+                    $response2 = $client->request('GET',  config('api.url').'yakes-auth/profile',[
                         'headers' => [
                             'Authorization' => 'Bearer '.$data["token"],
                             'Accept'     => 'application/json',
@@ -73,7 +73,6 @@ class AuthController extends Controller
                             Session::put('namaLokasi',$res[0]["nmlok"]);
                             Session::put('kodePP',$res[0]["kode_pp"]);
                             Session::put('namaPP',$res[0]["nama_pp"]);
-                            Session::put('kode_kota',$res[0]["kode_kota"]);
                             Session::put('jabatan',$res[0]["jabatan"]);
                             Session::put('nikUser',$res[0]["nik"].'_'.time());
                             // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
@@ -126,7 +125,7 @@ class AuthController extends Controller
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
-        $response = $client->request('GET',  config('api.url').'toko-auth/menu/'.$kodemenu,[
+        $response = $client->request('GET',  config('api.url').'yakes-auth/menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -301,7 +300,7 @@ class AuthController extends Controller
     public function getProfile(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-auth/profile',[
+            $response = $client->request('GET',  config('api.url').'yakes-auth/profile',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -330,7 +329,7 @@ class AuthController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-auth/update-password',[
+            $response = $client->request('POST',  config('api.url').'yakes-auth/update-password',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -378,7 +377,7 @@ class AuthController extends Controller
                 
             }
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-auth/update-foto',[
+            $response = $client->request('POST',  config('api.url').'yakes-auth/update-foto',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -426,7 +425,7 @@ class AuthController extends Controller
                 
             }
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-auth/update-background',[
+            $response = $client->request('POST',  config('api.url').'yakes-auth/update-background',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -455,7 +454,7 @@ class AuthController extends Controller
         ]);
         try {
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'toko-auth/search-form',[
+            $response = $client->request('POST',  config('api.url').'yakes-auth/search-form',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -483,7 +482,7 @@ class AuthController extends Controller
     public function searchFormList(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-auth/search-form-list',[
+            $response = $client->request('GET',  config('api.url').'yakes-auth/search-form-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -511,7 +510,7 @@ class AuthController extends Controller
     public function searchFormList2(Request $request){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-auth/search-form-list',[
+            $response = $client->request('GET',  config('api.url').'yakes-auth/search-form-list',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
