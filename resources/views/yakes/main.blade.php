@@ -846,8 +846,8 @@
         });
     }
     
-    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
-    channel.bind('saitelu-event', function(data) {
+    var channel = pusher.subscribe('saiyakes-channel-'+userNIK);
+    channel.bind('saiyakes-event', function(data) {
         // alert(JSON.stringify(data));
         console.log(JSON.stringify(data));
         getNotif();
