@@ -42,114 +42,102 @@
             </style>
             `;
             var lokasi = res.lokasi;
-            for(var i=0;i<data.length;i++){
-                var line = data[i];
-                html+=`
-                <table class='table table-borderless'>
+            html+=`
+                <table class='table table-borderless' width="800px">
                 <tr>
-                    <td><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
-                    <tr>
-                        <td width='80%'><table width='100%'  border='0' cellspacing='2' cellpadding='1'>
-                        <tr>
-                            <td class='style16 bold' style='font-size:16px'>`+lokasi+`</td>
-                        </tr>
-                        <tr>
-                            <td class='style16'></td>
-                        </tr>
-                        </table></td>
-                        <td width='20%' align='center'><table class='table table-bordered'>
-                        
-                        <tr>
-                            <td align='center' class='istyle15'>`+line.no_bukti+`</td>
-                        </tr>
-                        <tr>
-                            <td align='center' class='istyle15'>`+line.tgl+`</td>
-                        </tr>
-                        </table></td>
-                    </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td align='center' class='istyle17 bold' style='font-size:18px'>BUKTI JURNAL</td>
-                </tr>
-                <tr>
-                    <td><table width='100%' class='table table-bordered'>
+                    <td align="center"><table width='100%' class='table table-bordered'>
                     <thead>
                     <tr>
-                        <td width='30' class='bold'>NO</td>
-                        <td width='100' class='bold'>KODE AKUN </td>
-                        <td width='200' class='bold'>NAMA AKUN </td>
-                        <td width='270' class='bold'>KETERANGAN</td>
-                        <td width='60' class='bold'>PP</td>
-                        <td width='100' class='bold'>DEBET</td>
-                        <td width='100' class='bold'>KREDIT</td>
+                        <td width='20'  class='header_laporan' align='center'>No</td>
+                        <td width='80' class='header_laporan' align='center'>No Bukti</td>
+                        <td width='80' class='header_laporan' align='center'>No Dokumen</td>
+                        <td width='50' class='header_laporan' align='center'>Tanggal</td>
+                        <td width='70' height='25' class='header_laporan' align='center'>Akun</td>
+                        <td width='200' class='header_laporan' align='center'>Nama Akun </td>
+                        <td width='40' class='header_laporan' align='center'>PP</td>
+                        <td width='40' class='header_laporan' align='center'>Modul</td>
+                        <td width='250' class='header_laporan' align='center'>Keterangan</td>
+                        <td width='80' class='header_laporan' align='center'>Debet</td>
+                        <td width='80' class='header_laporan' align='center'>Kredit</td>
                     </tr>
                     </thead>
                     <tbody>`;
-                   
-                        var x=1;
-                        var tot_debet=0;
-                        var tot_kredit=0;
-                        var debet =0;
-                        var kredit =0;
-                        var det ='';
-                        for (var a=0; a<res.detail_jurnal.length;a++)
+                    var total=0; 
+                        var det = '';
+                        var no=1;
+                        var first = true;
+                        var debet=0; var kredit=0;var beda ='';var tmp='';
+                        for (var x=0;x<data.length;x++)
                         {
-                            var line2 = res.detail_jurnal[a];
-                            if(line2.no_bukti == line.no_bukti){
-
-                                debet=sepNum(parseFloat(line2.debet));
-                                kredit=sepNum(parseFloat(line2.kredit));
-                                tot_debet=tot_debet+parseFloat(line2.debet);
-                                tot_kredit=tot_kredit+parseFloat(line2.kredit);
-                                det+=`<tr>
-                                    <td class='isi_laporan' align='center'>`+x+`</td>
-                                    <td class='isi_laporan'>`+line2.kode_akun+`</td>
-                                    <td class='isi_laporan'>`+line2.nama_akun+`</td>
-                                    <td class='isi_laporan'>`+line2.keterangan+`</td>
-                                    <td class='isi_laporan' align='center'>`+line2.kode_pp+`</td>
-                                    <td class='isi_laporan' align='right'>`+debet+`</td>
-                                    <td class='isi_laporan' align='right'>`+kredit+`</td>
-                                </tr>`;
-                                x=x+1;
+                            var line2 = data[x];
+                            
+                            if(res.sumju == "Ya"){
+                                
+                                beda = tmp!=line2.no_bukti; 
+                                if (tmp!=line2.no_bukti)
+                                {
+                                    tmp=line2.no_bukti;
+                                    first = true;
+                                    
+                                    if (no>1)
+                                    {
+                                        debet=0;kredit=0;no=1;
+                                        det+=`<tr>
+                                        <td height='25' colspan='9' align='right'  class='bold'>Sub Total</td>
+                                        <td class='bold' align='right'>`+ndebet+`</td>
+                                        <td class='bold' align='right'>`+nkredit+`</td>
+                                        </tr>`;
+                                    }
+                                    
+                                }
                             }
+                            
+                            
+                            debet=debet+parseFloat(line2.debet);
+                            kredit=kredit+parseFloat(line2.kredit);
+                            ndebet=sepNum(debet);
+                            nkredit=sepNum(kredit);
+                            
+                            det+=`<tr>
+                            <td align='center' class='isi_laporan'>`+no+`</td>
+                            <td  class='isi_laporan'>`+line2.no_bukti+`</td>
+                            <td class='isi_laporan'>`+line2.no_dokumen+`</td>
+                            <td class='isi_laporan'>`+line2.tgl+`</td>
+                            <td class='isi_laporan'>`+line2.kode_akun+`</td>
+                            <td  class='isi_laporan'>`+line2.nama_akun+`</td>
+                            <td  class='isi_laporan'>`+line2.kode_pp+`</td>
+                            <td  class='isi_laporan'>`+line2.modul+`</td>
+                            <td  class='isi_laporan'>`+line2.keterangan+`</td>
+                            <td  class='isi_laporan'>`+sepNum(parseFloat(line2.debet))+`</td>
+                            <td  class='isi_laporan'>`+sepNum(parseFloat(line2.kredit))+`</td>
+                            </tr>`;	
+                            first = true;
+                            no++;
+                            
+                            
                         }
-                        tot_debet1=sepNum(tot_debet);
-                        tot_kredit1=sepNum(tot_debet);
-                    html+=det+`<tr>
-                
-                    <td colspan='5' class='header_laporan' align='right'>Total</td>
-                    <td class='isi_laporan' align='right'>`+tot_debet1+`</td>
-                    <td class='isi_laporan' align='right'>`+tot_kredit1+`</td>
-                </tr>
+                        ndebet=sepNum(debet);
+                        nkredit=sepNum(kredit);
+                        if(res.sumju == "Ya"){
+                            
+                            det+=`<tr>
+                            <td height='25' colspan='9' align='right'  class='bold'>Sub Total</td>
+                            <td class='bold' align='right'>`+ndebet+`</td>
+                            <td class='bold' align='right'>`+nkredit+`</td>
+                            </tr>`;
+                        }else{
+                            det+=`<tr>
+                            <td height='25' colspan='9' align='right'  class='bold'>Sub Total</td>
+                            <td class='bold' align='right'>`+sepNum(debet)+`</td>
+                            <td class='bold' align='right'>`+sepNum(kredit)+`</td>
+                            </tr>`;
+                        }
+                        html+=det+`
                     </tbody>
                     </table></td>
                 </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td align='right'><table class='table table-bordered' style='width:60%'>
-                    <tr>
-                        <td width='200' align='center'>Dibuat Oleh : </td>
-                        <td width='200' align='center'>Diperiksa Oleh : </td>
-                    </tr>
-                    <tr>
-                        <td align='center'>Paraf &amp; Tanggal </td>
-                        <td align='center'>Paraf &amp; Tanggal </td>
-                        </tr>
-                    <tr>
-                        <td height='80'>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        </tr>
-                    </table></td>
-                </tr>
-
                 </table><br>
                 <DIV style='page-break-after:always'></DIV>`;
-
-            }
-
                         
             html+="</div>"; 
         }

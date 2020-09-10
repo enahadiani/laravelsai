@@ -32,5 +32,6 @@ Route::post('lap-saldo', 'Esaku\LaporanController@getSaldo');
 Route::post('lap-kartu', 'Esaku\LaporanController@getKartu');
 Route::post('lap-nrclajur', 'Esaku\LaporanController@getNrcLajur');
 Route::post('lap-jurnal', 'Esaku\LaporanController@getJurnal');
+Route::post('lap-buktijurnal', 'Esaku\LaporanController@getBuktiJurnal');
 Route::post('lap-bukubesar', 'Esaku\LaporanController@getBukuBesar');
 Route::post('send-laporan', 'Esaku\LaporanController@sendMail');

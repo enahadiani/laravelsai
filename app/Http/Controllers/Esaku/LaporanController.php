@@ -395,11 +395,11 @@
             } 
         }
 
-        function getJurnal(Request $request){
+        function getBuktiJurnal(Request $request){
             try{
     
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-jurnal',[
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-buktijurnal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -427,6 +427,45 @@
                     $back = false;
                 }
                 return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'detail_jurnal'=>$detail,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getJurnal(Request $request){
+            try{
+    
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'toko-report/lap-jurnal',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'modul' => $request->modul,
+                        'no_bukti' => $request->no_bukti,
+                        'tgl_awal' => $request->tgl_awal,
+                        'tgl_akhir' => $request->tgl_akhir
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $result = $res["data"];
+                    
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>"Tidak",'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

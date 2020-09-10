@@ -942,7 +942,7 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="jurnal" aria-param="`+kode_akun+`|`+no_bukti+`">Jurnal</li>
             `);
-            xurl ="esaku-auth/form/rptJurnal";
+            xurl ="esaku-auth/form/rptBuktiJurnal";
             $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });
