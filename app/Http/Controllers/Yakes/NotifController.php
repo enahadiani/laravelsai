@@ -27,7 +27,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'toko-auth/notif-pusher',[
+            $response = $client->request('GET',  config('api.url').'yakes-auth/notif-pusher',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -54,7 +54,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'toko-auth/notif-update-status',[
+            $response = $client->request('PUT',  config('api.url').'yakes-auth/notif-update-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
