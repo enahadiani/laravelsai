@@ -17,6 +17,7 @@
    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
+            console.log(res.back);
             if(res.back){
                 $('.navigation-lap').removeClass('hidden');
             }else{

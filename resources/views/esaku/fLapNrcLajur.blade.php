@@ -968,10 +968,9 @@
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
                 `);
-                $('.navigation-lap').hide();
+                $('.navigation-lap').addClass('hidden');
             }else if(aktif == "jurnal"){
                 xurl = "esaku-auth/form/rptBukuBesar";
-                
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
                 $formData.append("kode_akun[]",param);
@@ -983,7 +982,6 @@
                     </li>
                     <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
                 `);
-                $('.navigation-lap').hide();
             }
             $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
@@ -1009,7 +1007,7 @@
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
                 `);
-                $('.navigation-lap').hide();
+                $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "buku-besar"){
                 
                 $formData.delete('kode_akun[]');
@@ -1020,11 +1018,10 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                        <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
                 `);
-                $('.navigation-lap').hide();
             }
             $('#saku-report #canvasPreview').load(xurl);
             
