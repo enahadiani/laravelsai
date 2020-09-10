@@ -157,6 +157,8 @@
     <!-- This is data table -->
     <script src="{{ asset('asset_elite/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
    
+    <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>

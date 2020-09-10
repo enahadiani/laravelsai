@@ -388,9 +388,13 @@
 
     $("#btnExport").click(function(e) {
         e.preventDefault();
-        $('#canvasPreview').tblToExcel();
+        $("#canvasPreview").table2excel({
+            // exclude: ".excludeThisClass",
+            name: "LapPosisi",
+            filename: "LapPosisi.xls", // do include extension
+            preserveColors: false // set to true if you want background colors and font colors preserved
+        });
     });
-
     
     $("#btnEmail").click(function(e) {
         e.preventDefault();
