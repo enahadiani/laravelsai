@@ -94,6 +94,15 @@
         .dropdown-aksi > .dropdown-item{
             font-size : 0.7rem;
         }
+        .last-add::before{
+            content: "***";
+            background: var(--theme-color-1);
+            border-radius: 50%;
+            font-size: 5px;
+            position: relative;
+            top: -2px;
+            left: -10px;
+        }
 
     </style>
     <!-- LIST DATA -->
@@ -335,6 +344,24 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
     
     // BAGIAN CBBL 
     var $target = "";
@@ -861,6 +888,7 @@
                             id:result.data.kode,
                             type:'simpan'
                         });
+                        last_add("kode_vendor",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";

@@ -309,6 +309,11 @@
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         var periode = {
             type : "=",
             from : "{{ date('Ym') }}",

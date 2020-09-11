@@ -66,7 +66,7 @@
                             nilai2=sepNum(parseFloat(line.nilai2));
                         }
                         det +="<tr><td valign='middle' class='isi_laporan' >";
-                        // det += fnSpasi(line.level_spasi1);
+                        det += fnSpasi(line.level_spasi1);
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
                             det +="<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca1+"' class='neraca-lajur'>"+line.nama1+"</a>";
@@ -77,7 +77,7 @@
                         }
                         det +=`</td><td valign='middle' class='isi_laporan' align='right'>`+nilai1+`</td>`;
                         det +="<td height='20' valign='middle' class='isi_laporan'>";
-                        // // det += fnSpasi(line.level_spasi2);
+                        det += fnSpasi(line.level_spasi2);
                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {
                             det += "<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca2+"' class='neraca-lajur'>"+line.nama2+"</a>";

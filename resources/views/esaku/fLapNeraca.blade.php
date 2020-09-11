@@ -268,7 +268,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
-                                            <option value="All">All</option>
+                                            <option value="All" selected>All</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-10 text-center">
@@ -360,6 +360,11 @@
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
         var periode = {
             type : "=",
             from : "{{ date('Ym') }}",
@@ -398,7 +403,15 @@
             kode_akun : "",
             no_bukti : ""
         };
-        
+        function fnSpasi(level)
+        {
+            var tmp="";
+            for (var iS=1; iS<=level; iS++)
+            {
+                tmp=tmp+"&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            return tmp;
+        }
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
         $('#show').selectize();
