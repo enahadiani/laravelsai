@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-from" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -168,7 +168,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun_from" readonly value="Menampilkan semua akun">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun-from" readonly value="Menampilkan semua akun">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -194,7 +194,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="akun-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -311,7 +311,7 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
         var periode = {
@@ -335,7 +335,7 @@
 
         $('#show').selectize();
 
-        $('#periode_from').val(namaPeriode("{{ date('Ym') }}"));
+        $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();
@@ -375,7 +375,7 @@
             var header = [];
             $target = target1;
             var tmp = $target.attr('id');
-            tmp = tmp.split("_");
+            tmp = tmp.split("-");
             target2 = tmp[1];
             target3 = tmp[1]+'name';
             

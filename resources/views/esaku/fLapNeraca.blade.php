@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-from" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -168,7 +168,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs_from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs-from" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -194,7 +194,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -209,7 +209,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level_from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level-from" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -220,7 +220,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="level[]" id="level-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -235,7 +235,7 @@
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format_from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format-from" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -246,7 +246,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="format[]" id="format-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -362,7 +362,7 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
         var periode = {
@@ -416,10 +416,10 @@
 
         $('#show').selectize();
 
-        $('#periode_from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs_from').val("{{ Session::get('kode_fs') }}");
-        $('#level_from').val("1");
-        $('#format_from').val("Saldo Akhir");
+        $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
+        $('#level-from').val("1");
+        $('#format-from').val("Saldo Akhir");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -460,7 +460,7 @@
             var header = [];
             $target = target1;
             var tmp = $target.attr('id');
-            tmp = tmp.split("_");
+            tmp = tmp.split("-");
             target2 = tmp[1];
             target3 = tmp[1]+'name';
             

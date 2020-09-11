@@ -683,6 +683,7 @@
 
         public function getFilterBuktiJurnal(Request $request) {
             $client = new Client();
+
             $response = $client->request('GET',  config('api.url').'toko-report/filter-bukti-jurnal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -698,7 +699,6 @@
                 $response_data = $response->getBody()->getContents();
             
                 $data = json_decode($response_data,true);
-                $data = $data;
             }
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
