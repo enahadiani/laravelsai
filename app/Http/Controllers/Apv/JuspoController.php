@@ -533,7 +533,7 @@ class JuspoController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'tanggal' => $request->tanggal,
+                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                     'kode_pp' => $request->kode_pp,
                     'kode_kota' => $request->kode_kota
                 ]

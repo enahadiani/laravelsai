@@ -953,7 +953,7 @@
                             $('#kode_pp').val(result.data[0].kode_pp);
                             $('#kode_kota').val(result.data[0].kode_kota);
                         }
-                        $('#waktu').val(result.data[0].waktu);
+                        $('#waktu').val(reverseDateNew(result.data[0].waktu,"-","/"));
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#total').val(toRp(result.data[0].nilai)); 
@@ -1067,7 +1067,7 @@
                         $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
                         $('#kode_pp')[0].selectize.trigger('change');
                         $('#kode_kota')[0].selectize.setValue(result.data[0].kode_kota);
-                        $('#waktu').val(result.data[0].waktu);
+                        $('#waktu').val(reverseDateNew(result.data[0].waktu,"-","/"));
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#total').val(toRp(result.data[0].nilai)); 
