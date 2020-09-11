@@ -1071,12 +1071,18 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            formData.append("periode[]",periode.type);
-            formData.append("periode[]",periode.from);
-            formData.append("periode[]",periode.to);
-            formData.append("kode_fs[]",kode_fs.type);
-            formData.append("kode_fs[]",kode_fs.from);
-            formData.append("kode_fs[]",kode_fs.to);
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.append("modul[]",modul.type);
+            $formData.append("modul[]",modul.from);
+            $formData.append("modul[]",modul.to);
+            $formData.append("no_bukti[]",no_bukti.type);
+            $formData.append("no_bukti[]",no_bukti.from);
+            $formData.append("no_bukti[]",no_bukti.to);
+            $formData.append("sum_ju[]",sum_ju.type);
+            $formData.append("sum_ju[]",sum_ju.from);
+            $formData.append("sum_ju[]",sum_ju.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
