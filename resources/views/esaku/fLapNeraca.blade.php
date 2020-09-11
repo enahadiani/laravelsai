@@ -1081,10 +1081,10 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca</a>
+                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca Lajur</a>
+                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
@@ -1107,6 +1107,7 @@
 
             if(aktif == "neraca-lajur"){
                 xurl = "esaku-auth/form/rptNeraca";
+                $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",kode_fs.type);
                 $formData.append("kode_fs[]",kode_fs.from);
@@ -1118,12 +1119,12 @@
                 $('.navigation-lap').addClass('hidden');
             }
             else if(aktif == "buku-besar"){
-                $formData.delete('back');
+                xurl = "esaku-auth/form/rptNrcLajur";
                 $formData.delete('kode_neraca[]');
                 $formData.append("kode_neraca[]","=");
                 $formData.append("kode_neraca[]",param_trace.kode_neraca);
                 $formData.append("kode_neraca[]","");
-                xurl = "esaku-auth/form/rptNrcLajur";
+                $formData.delete('kode_akun[]');
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
@@ -1165,28 +1166,26 @@
                 $formData.append("kode_fs[]",kode_fs.type);
                 $formData.append("kode_fs[]",kode_fs.from);
                 $formData.append("kode_fs[]",kode_fs.to);
-                xurl = "esaku-auth/form/rptNrcLajur";
+                xurl = "esaku-auth/form/rptNeraca";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
-            }
-            else if(tujuan == "neraca-lajur"){
-                $formData.delete('back');
+            }else if(tujuan == "neraca-lajur"){
                 $formData.delete('kode_neraca[]');
                 $formData.append("kode_neraca[]","=");
                 $formData.append("kode_neraca[]",param_trace.kode_neraca);
                 $formData.append("kode_neraca[]","");
+                $formData.delete('kode_akun[]');
                 xurl = "esaku-auth/form/rptNrcLajur";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca">Neraca</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca</li>
+                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
-                $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "buku-besar"){
                 
                 $formData.delete('kode_akun[]');
