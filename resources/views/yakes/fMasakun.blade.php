@@ -192,6 +192,65 @@
                             <div class="col-md-2 col-sm-12">
                             </div>                            
                         </div>
+                        <div class="form-group row ">
+                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Modul</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="modul" name="modul" required>
+                                    <option value="">--Pilih Modul--</option>
+                                    <option value="A">Aktiva</option>
+                                    <option value="P">Passiva</option>
+                                    <option value="L">Laba Rugi</option>
+                                </select>
+                            </div>
+                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="jenis" name="jenis" required></select>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>                            
+                        </div>
+                        <div class="form-group row ">
+                            <label for="kode_curr" class="col-md-2 col-sm-12 col-form-label">Currency</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>                            
+                        </div>
+                        <div class="form-group row ">
+                            <label for="blok" class="col-md-2 col-sm-12 col-form-label">Status Blok</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="blok" name="blok" required>
+                                    <option value="">--Pilih Status Blok--</option>
+                                    <option value="0">Unblok</option>
+                                    <option value="1">Blok</option>
+                                </select>
+                            </div>
+                            <label for="budget" class="col-md-2 col-sm-12 col-form-label">Status Budget</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="budget" name="budget" required>
+                                    <option value="">--Pilih Status Budget--</option>
+                                    <option value="0">Uncheck</option>
+                                    <option value="1">Check</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>                            
+                        </div>
+                        <div class="form-group row ">
+                            <label for="account" class="col-md-2 col-sm-12 col-form-label">Normal Account</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="account" name="account" required>
+                                    <option value="">--Pilih Normal Account--</option>
+                                    <option value="D">D - Debet</option>
+                                    <option value="C">C - Kredit</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -257,12 +316,33 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
+    $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
+    $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
     
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    //EVENT DROPDOWN//
+    $('#modul').change(function(){
+        $('#jenis').find('option').remove().end().append('<option value="">--Pilih Jenis--</option>').val('')
+        var value = $(this).val();
+        var option = null;
+        if(value == "A" || value == "P") {
+            option = $optionJenis1;
+        } else {
+            option = $optionJenis2
+        }
+
+        $.each(option, function (i, item) {
+            $('#jenis').append($('<option>', { 
+                value: item.value,
+                text : item.text 
+            }));
+        });
+    })
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -454,7 +534,7 @@
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_akun",result.data.kode_akun);
+                        last_add("kode_akun",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
@@ -553,7 +633,12 @@
                     $('#kode_akun').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_akun').val(result.data[0].kode_akun);                  
+                    $('#modul').val(result.data[0].modul).change();
+                    $('#jenis').val(result.data[0].jenis);
+                    $('#kode_curr').val(result.data[0].kode_curr);
+                    $('#blok').val(result.data[0].block);                  
+                    $('#budget').val(result.data[0].status_gar);                  
+                    $('#account').val(result.data[0].normal);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -646,7 +731,12 @@
                     $('#kode_akun').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_akun').val(result.data[0].kode_akun);                    
+                    $('#modul').val(result.data[0].modul).change();
+                    $('#jenis').val(result.data[0].jenis);
+                    $('#kode_curr').val(result.data[0].kode_curr);
+                    $('#blok').val(result.data[0].block);                  
+                    $('#budget').val(result.data[0].status_gar);                  
+                    $('#account').val(result.data[0].normal);                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class MasakunController extends Controller
+class FSController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class MasakunController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/masakun',[
+            $response = $client->request('GET',  config('api.url').'yakes-master/fs',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,32 +56,22 @@ class MasakunController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'kode_akun' => 'required',
-            'nama' => 'required',
-            'modul'=>'required',          
-            'jenis'=>'required',          
-            'kode_curr'=>'required',          
-            'blok'=>'required',          
-            'budget'=>'required',          
-            'account'=>'required',          
+            'kode_fs' => 'required',
+            'nama' => 'required',          
+            'status' => 'required',          
         ]);
 
         try {   
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'yakes-master/masakun',[
+                $response = $client->request('POST',  config('api.url').'yakes-master/fs',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_akun' => $request->kode_akun,
+                        'kode_fs' => $request->kode_fs,
                         'nama' => $request->nama,
-                        'modul'=>$request->modul,
-                        'jenis'=>$request->jenis,
-                        'kode_curr'=>$request->kode_curr,
-                        'block'=>$request->blok,
-                        'status_gar'=>$request->budget,
-                        'normal'=>$request->account
+                        'flag_status' => $request->status
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -103,7 +93,7 @@ class MasakunController extends Controller
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/masakun?kode_akun='.$id,
+            $response = $client->request('GET',  config('api.url').'yakes-master/fs?kode_fs='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -128,32 +118,22 @@ class MasakunController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_akun' => 'required',
+            'kode_fs' => 'required',
             'nama' => 'required',
-            'modul'=>'required',          
-            'jenis'=>'required',          
-            'kode_curr'=>'required',          
-            'blok'=>'required',          
-            'budget'=>'required',          
-            'account'=>'required',
+            'status'=>'required'
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'yakes-master/masakun?kode_akun='.$id,[
+                $response = $client->request('PUT',  config('api.url').'yakes-master/fs?kode_fs='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_akun' => $request->kode_akun,
+                        'kode_fs' => $request->kode_fs,
                         'nama' => $request->nama,
-                        'modul'=>$request->modul,
-                        'jenis'=>$request->jenis,
-                        'kode_curr'=>$request->kode_curr,
-                        'block'=>$request->blok,
-                        'status_gar'=>$request->budget,
-                        'normal'=>$request->account
+                        'flag_status' => $request->status
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -175,7 +155,7 @@ class MasakunController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'yakes-master/masakun?kode_akun='.$id,
+            $response = $client->request('DELETE',  config('api.url').'yakes-master/fs?kode_fs='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

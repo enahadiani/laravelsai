@@ -111,7 +111,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Akun</h5>
+                    <h5 style="position:absolute;top: 25px;">Data FS</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -145,7 +145,8 @@
                         <thead>
                             <tr>
                                 <th width="30%">Kode</th>
-                                <th width="58%">Nama</th>                                
+                                <th width="43%">Nama</th>                                
+                                <th width="15%">Status</th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -179,15 +180,26 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kode_akun" class="col-md-2 col-sm-12 col-form-label">Kode</label>
+                            <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>                                
+                                <input class="form-control" type="text" placeholder="Kode FS" id="kode_fs" name="kode_fs" required>                                
                             </div>
                         </div>
                         <div class="form-group row ">
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                            </div>                            
+                        </div>
+                        <div class="form-group row ">
+                            <label for="status" class="col-md-2 col-sm-12 col-form-label">Flag Aktif</label>
+                            <div class="col-md-3 col-sm-12">
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="1">AKTIF</option>
+                                    <option value="0">NON-AKTIF</option>
+                                </select>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
@@ -221,7 +233,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Akun <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data FS <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -299,7 +311,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('yakes-master/masakun') }}",
+            'url': "{{ url('yakes-master/fs') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -312,11 +324,18 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         'columns': [
-            { data: 'kode_akun' },
+            { data: 'kode_fs' },
             { data: 'nama' },
+            { data: 'flag_status', render: function(data,type,row) {
+                if(data == "1") {
+                    return "Aktif"
+                }else {
+                    return "Non Aktif"
+                }
+            } },
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -365,13 +384,13 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Akun');
+        $('#judul-form').html('Tambah Data FS');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_vendor').attr('readonly', false);
+        $('#kode_fs').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });
@@ -387,7 +406,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_vendor').val();
+        var kode = $('#kode_fs').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -401,7 +420,7 @@
         ignore: [],
         rules: 
         {
-            kode_akun:{
+            kode_fs:{
                 required: true,
                 maxlength:10   
             },
@@ -413,13 +432,13 @@
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_akun').val();
+            var id = $('#kode_fs').val();
             if(parameter == "edit"){
-                var url = "{{ url('yakes-master/masakun') }}/"+id;
+                var url = "{{ url('yakes-master/fs') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('yakes-master/masakun') }}";
+                var url = "{{ url('yakes-master/fs') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -441,20 +460,20 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
-                        var kode = $('#kode_akun').val();
+                        var kode = $('#kode_fs').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Akun');
+                        $('#judul-form').html('Tambah Data FS');
                         $('#method').val('post');
-                        $('#kode_akun').attr('readonly', false);
+                        $('#kode_fs').attr('readonly', false);
                         msgDialog({
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_akun",result.data.kode_akun);
+                        last_add("kode_fs",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
@@ -464,7 +483,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode akun sudah digunakan'
+                                text:'Kode FS sudah digunakan'
                             });
                         }else{
 
@@ -495,13 +514,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('yakes-master/masakun') }}/"+id,
+            url: "{{ url('yakes-master/fs') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Akun ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data FS ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -538,10 +557,10 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Akun');
+        $('#judul-form').html('Edit Data FS');
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/masakun') }}/" + id,
+            url: "{{ url('yakes-master/fs') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -549,11 +568,12 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_akun').attr('readonly', true);
-                    $('#kode_akun').val(id);
+                    $('#kode_fs').attr('readonly', true);
+                    $('#kode_fs').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_akun').val(result.data[0].kode_akun);                  
+                    $('#status').val(result.data[0].flag_status);
+                    $('#kode_fs').val(result.data[0].kode_fs);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -567,9 +587,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_akun,#nama').keydown(function(e){
+    $('#kode_fs,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_akun','nama'];
+        var nxt = ['kode_fs','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -595,17 +615,27 @@
     // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 2){
+        if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
+             var status = data.flag_status;
+            if(status == "1") {
+                status = "Aktif"
+            }else{
+                status = "Non Aktif"
+            }
             var html = `<tr>
-                <td style='border:none'>Kode Akun</td>
+                <td style='border:none'>Kode FS</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Akun</td>
+                <td>Nama FS</td>
                 <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Status FS</td>
+                <td>`+status+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -628,13 +658,13 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Akun');
+        $('#judul-form').html('Edit Data FS');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/masakun') }}/" + id,
+            url: "{{ url('yakes-master/fs') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -642,11 +672,12 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_akun').attr('readonly', true);
-                    $('#kode_akun').val(id);
+                    $('#kode_fs').attr('readonly', true);
+                    $('#kode_fs').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#kode_akun').val(result.data[0].kode_akun);                    
+                    $('#kode_fs').val(result.data[0].kode_fs);  
+                    $('#status').val(result.data[0].flag_status);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
