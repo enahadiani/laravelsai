@@ -128,7 +128,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Jurnal</h5>
+                        <h5 style="position:absolute;top: 25px;">Laporan Buku Besar</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -168,7 +168,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -176,14 +176,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>modul</p>
-                                            <label for="modul" class="col-md-3 col-sm-12 col-form-label">Modul</label>
+                                            <p class="kunci" hidden>kode_akun</p>
+                                            <label for="kode_akun" class="col-md-3 col-sm-12 col-form-label">Akun</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='modul[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='kode_akun[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="modul[]" id="modul-from" readonly value="Menampilkan semua modul">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun-from" readonly value="Menampilkan semua akun">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -194,7 +194,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="modul[]" id="modul_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="kode_akun[]" id="kode_akun-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -202,40 +202,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>no_bukti</p>
-                                            <label for="no_bukti" class="col-md-3 col-sm-12 col-form-label">No Bukti</label>
+                                            <p class="kunci" hidden>mutasi</p>
+                                            <label for="mutasi" class="col-md-3 col-sm-12 col-form-label">Tampil Mutasi Nol</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='no_bukti[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='mutasi[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="no_bukti[]" id="no_bukti-from" readonly value="Menampilkan semua no bukti">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="no_bukti[]" id="no_bukti_to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>sum_ju</p>
-                                            <label for="sum_ju" class="col-md-3 col-sm-12 col-form-label">Sum Jurnal</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='sum_ju[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
-                                            </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="sum_ju[]" id="sum_ju-from" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="mutasi[]" id="mutasi-from" readonly value="Menampilkan semua mutasi">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -246,7 +220,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="sum_ju[]" id="sum_ju_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="mutasi[]" id="mutasi-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -291,7 +265,7 @@
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb py-0 my-0">
                                 <li class="breadcrumb-item active">
-                                    Jurnal
+                                    Buku Besar
                                 </li>
                             </ol>
                         </nav>            
@@ -364,7 +338,7 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
         var periode = {
@@ -374,7 +348,7 @@
             to : "",
             toname : "",
         }
-        var modul = {
+        var kode_akun = {
             type : "all",
             from : "",
             fromname : "",
@@ -382,30 +356,34 @@
             toname : "",
         }
 
-        var no_bukti = {
+        var mutasi = {
             type : "all",
             from : "",
             fromname : "",
-            to : "",
-            toname : "",
-        }
-
-        var sum_ju = {
-            type : "=",
-            from : "Ya",
-            fromname : "Ya",
             to : "",
             toname : "",
         }
 
         var $aktif = "";
-        
+
+        var param_trace = {
+            kode_akun : "",
+            no_bukti : ""
+        };
+        function fnSpasi(level)
+        {
+            var tmp="";
+            for (var iS=1; iS<=level; iS++)
+            {
+                tmp=tmp+"&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+            return tmp;
+        }
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
         $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#sum_ju-from').val("Ya");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -443,6 +421,7 @@
             var par = param;
             var parameter = {};
 
+            var modul = '';
             var header = [];
             $target = target1;
             var tmp = $target.attr('id');
@@ -451,63 +430,40 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'modul[]': 
+                case 'kode_akun[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('yakes-report/filter-akun') }}";
+                    var columns = [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ];
+                    header_pilih = ['Kode', 'Nama','Action'];
+                    var judul = "Daftar Akun <span class='modal-subtitle'></span>";
+                    var pilih = "akun";
+                    $target = $target;
+                    $target2 = target2;
+                    var display = "kodename";
+                    var field = eval("kode_akun");
+                    var kunci = "kode_akun";
+                break;
+                case 'mutasi[]': 
                     header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-modul') }}";
+                    var toUrl = "{{ url('yakes-report/filter-mutasi') }}";
                     var columns = [
                         { data: 'kode' }
                     ];
                     header_pilih = ['Kode','Action'];
-                    var judul = "Daftar Modul <span class='modal-subtitle'></span>";
-                    var pilih = "modul";
+                    var judul = "Daftar Mutasi <span class='modal-subtitle'></span>";
+                    var pilih = "mutasi";
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("modul");
-                    var kunci = "modul";
-                break;
-                case 'no_bukti[]': 
-                    header = ['No Bukti','Keterangan'];
-                    var toUrl = "{{ url('esaku-report/filter-bukti-jurnal') }}";
-                    var columns = [
-                        { data: 'no_bukti' },
-                        { data: 'keterangan' }
-                    ];
-                    header_pilih = ['No Bukti','Keterangan','Action'];
-                    var judul = "Daftar Transaksi <span class='modal-subtitle'></span>";
-                    var pilih = "no_bukti";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("no_bukti");
-                    var kunci = "no_bukti";
-                    parameter = {
-                        'periode[0]' : periode.type,
-                        'periode[1]' : periode.from,
-                        'periode[2]' : periode.to,
-                        'modul[0]' : modul.type,
-                        'modul[1]' : modul.from,
-                        'modul[2]' : modul.to
-                    }
-                break;
-                case 'sum_ju[]': 
-                    header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-sumju') }}";
-                    var columns = [
-                        { data: 'kode' }
-                    ];
-                    header_pilih = ['Kode','Action'];
-                    var judul = "Daftar format <span class='modal-subtitle'></span>";
-                    var pilih = "type summary jurnal";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("sum_ju");
-                    var kunci = "sum_ju";
+                    var field = eval("mutasi");
+                    var kunci = "mutasi";
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
-                    var toUrl = "{{ url('esaku-report/filter-periode-keu') }}";
+                    var toUrl = "{{ url('yakes-report/filter-periode-keu') }}";
                     var columns = [
                         { data: 'periode' },
                         { data: 'nama' }
@@ -567,6 +523,7 @@
                     $('#modal-search .modal-header').css('padding-bottom','1.75rem');
                 }
             }
+
 
             $('#modal-search .modal-body').html(table);
             
@@ -718,8 +675,6 @@
                 if ( $(this).hasClass('selected') ) {
                     $(this).removeClass('selected');
                     if(type == "in"){
-                        
-                        console.log('in');
                         var datain = searchTable.rows('.selected').data();
                         if(datain.length > 1){
                             
@@ -742,14 +697,9 @@
                         searchTable.$('tr.selected').removeClass('selected');
                         searchTable2.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
-                        if(header.length == 1){
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = kode;
-                        }else{
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        }
     
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                         if(display == "kodename"){
                             $($target).val(kode+' - '+nama);
                         }else if(display == "name"){
@@ -759,7 +709,6 @@
                         }
                         field["from"] = kode;
                         field["fromname"] = nama;
-                        console.log(field);
                         
                         $('#rentang-tag').tagsinput('add', {id:kode,text:'Rentang Awal :'+kode});
                        
@@ -768,7 +717,6 @@
                         $('#modal-search .modal-subtitle').html('[Rentang Akhir]');
                     }
                     else if (type == "in"){
-                        console.log('in');
                         $(this).addClass('selected');
                         var datain = searchTable.rows('.selected').data();
                         if(datain.length > 1){
@@ -790,14 +738,8 @@
                         searchTable.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
 
-                        if(header.length == 1){
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = $(this).closest('tr').find('td:nth-child(1)').text();
-                        }else{
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        }
-
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                         if(display == "kodename"){
                             $($target).val(kode+' - '+nama);
                         }else if(display == "name"){
@@ -825,14 +767,8 @@
                         searchTable2.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
     
-                        if(header.length == 1){
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = $(this).closest('tr').find('td:nth-child(1)').text();
-                        }else{
-                            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                        }
-
+                        var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                        var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                         if(display == "kodename"){
                             $($target).val(kode+' - '+nama);
                         }else if(display == "name"){
@@ -842,7 +778,8 @@
                         }
     
                         field["to"] = kode;
-                        field["toname"] = nama;    
+                        field["toname"] = nama;   
+                        console.log(field);      
                         
                         $('#rentang-tag2').tagsinput('add', { id: kode, text: 'Rentang akhir:'+kode });       
                         $('#modal-search').modal('hide');
@@ -934,24 +871,31 @@
                         //
                     });
                 break;
-                case "range":                    
+                case "range":
+                    
                     $aktif = $(this);
                     var par = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').attr('name'); 
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     showFilter(par,target,"range");
                     $('#modal-search').on('hide.bs.modal', function (e) {
                         if($aktif != ""){
+
                             field.type = "range";
                             field.from = field.from;
                             field.to = field.to;
                             field.fromname =  field.fromname ;
                             field.toname =  field.toname ;
+                            console.log('close');
         
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
                             if(kunci == "periode"){
+        
                                 $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                                 $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
+                            }else if(kunci == "kode_akun"){
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from+' - '+field.fromname);
+                                $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to+' - '+field.toname);
                             }else{
                                 $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.from);
                                 $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.to);
@@ -1012,19 +956,16 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("modul[]",modul.type);
-            $formData.append("modul[]",modul.from);
-            $formData.append("modul[]",modul.to);
-            $formData.append("no_bukti[]",no_bukti.type);
-            $formData.append("no_bukti[]",no_bukti.from);
-            $formData.append("no_bukti[]",no_bukti.to);
-            $formData.append("sum_ju[]",sum_ju.type);
-            $formData.append("sum_ju[]",sum_ju.from);
-            $formData.append("sum_ju[]",sum_ju.to);
+            $formData.append("kode_akun[]",kode_akun.type);
+            $formData.append("kode_akun[]",kode_akun.from);
+            $formData.append("kode_akun[]",kode_akun.to);
+            $formData.append("mutasi[]",mutasi.type);
+            $formData.append("mutasi[]",mutasi.from);
+            $formData.append("mutasi[]",mutasi.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('yakes-auth/form/rptBukuBesar') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1033,20 +974,93 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("modul[]",modul.type);
-            $formData.append("modul[]",modul.from);
-            $formData.append("modul[]",modul.to);
-            $formData.append("no_bukti[]",no_bukti.type);
-            $formData.append("no_bukti[]",no_bukti.from);
-            $formData.append("no_bukti[]",no_bukti.to);
-            $formData.append("sum_ju[]",sum_ju.type);
-            $formData.append("sum_ju[]",sum_ju.from);
-            $formData.append("sum_ju[]",sum_ju.to);
+            $formData.append("kode_akun[]",kode_akun.type);
+            $formData.append("kode_akun[]",kode_akun.from);
+            $formData.append("kode_akun[]",kode_akun.to);
+            $formData.append("mutasi[]",mutasi.type);
+            $formData.append("mutasi[]",mutasi.from);
+            $formData.append("mutasi[]",mutasi.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('yakes-auth/form/rptBukuBesar') }}";
             $('#saku-report #canvasPreview').load(xurl);
+        });
+
+        // TRACE
+        $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
+            e.preventDefault();
+            var no_bukti = $(this).data('no_bukti');
+            param_trace.no_bukti = no_bukti;
+            var back = true;
+            
+            $formData.delete('no_bukti[]');
+            $formData.append('no_bukti[]', "=");
+            $formData.append('no_bukti[]', no_bukti);
+            $formData.append('no_bukti[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
+            `);
+            xurl ="yakes-auth/form/rptBuktiJurnal";
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.navigation-lap').on('click', '#btn-back', function(e){
+            e.preventDefault();
+            $formData.delete('periode[]');
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+
+            var aktif = $('.breadcrumb-item.active').attr('aria-current');
+
+            if(aktif == "jurnal"){
+                xurl = "yakes-auth/form/rptBukuBesar";
+                $formData.delete('kode_akun[]');
+                $formData.append("kode_akun[]",kode_akun.type);
+                $formData.append("kode_akun[]",kode_akun.from);
+                $formData.append("kode_akun[]",kode_akun.to);
+                $formData.delete('back');
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
+        $('.breadcrumb').on('click', '.klik-report', function(e){
+            e.preventDefault();
+            var tujuan = $(this).data('href');
+            $formData.delete('periode[]');
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            if(tujuan == "buku-besar"){
+                $formData.delete('back');
+                $formData.delete('kode_akun[]');
+                $formData.append("kode_akun[]",kode_akun.type);
+                $formData.append("kode_akun[]",kode_akun.from);
+                $formData.append("kode_akun[]",kode_akun.to);
+                xurl = "yakes-auth/form/rptBukuBesar";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="buku-besar" >Buku Besar</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            $('#saku-report #canvasPreview').load(xurl);
+            
         });
 
         $('#sai-rpt-print').click(function(){
@@ -1057,8 +1071,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "Jurnal_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "Jurnal_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "BukuBesar_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "BukuBesar_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
@@ -1073,24 +1087,21 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("modul[]",modul.type);
-            $formData.append("modul[]",modul.from);
-            $formData.append("modul[]",modul.to);
-            $formData.append("no_bukti[]",no_bukti.type);
-            $formData.append("no_bukti[]",no_bukti.from);
-            $formData.append("no_bukti[]",no_bukti.to);
-            $formData.append("sum_ju[]",sum_ju.type);
-            $formData.append("sum_ju[]",sum_ju.from);
-            $formData.append("sum_ju[]",sum_ju.to);
+            formData.append("periode[]",periode.type);
+            formData.append("periode[]",periode.from);
+            formData.append("periode[]",periode.to);
+            formData.append("kode_akun[]",kode_akun.type);
+            formData.append("kode_akun[]",kode_akun.from);
+            formData.append("kode_akun[]",kode_akun.to);
+            formData.append("mutasi[]",mutasi.type);
+            formData.append("mutasi[]",mutasi.from);
+            formData.append("mutasi[]",mutasi.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-report/send-laporan') }}",
+                url: "{{ url('yakes-report/send-laporan') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,

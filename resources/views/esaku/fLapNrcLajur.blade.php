@@ -211,16 +211,17 @@
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
                                 <div class="px-4 py-0 row"  style="min-height:63px">
+                                    <label class="col-sm-1 pr-0 mt-3">Menampilkan</label>
                                     <div class='col-sm-2' style='padding-top: 0;margin:auto'>
                                         <select name="show" id="show" class="form-control" style=''>
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="All">All</option>
+                                            <option value="10">10 per halaman</option>
+                                            <option value="25">25 per halaman</option>
+                                            <option value="50">50 per halaman</option>
+                                            <option value="100">100 per halaman</option>
+                                            <option value="All">Semua halaman</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-10 text-center">
+                                    <div class="col-sm-9 text-center">
                                         <div id="pager">
                                             <ul id="pagination" class="pagination pagination-sm2 float-right mb-0"></ul>
                                         </div>
@@ -234,7 +235,7 @@
         </div>
         <div class="row mt-2" id="saku-report">
             <div class="col-12">
-                <div class="card px-2 py-2" style="min-height:200px">
+                <div class="card px-4 py-4" style="min-height:200px">
                     <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb py-0 my-0">
@@ -243,7 +244,8 @@
                                 </li>
                             </ol>
                         </nav>            
-                        <button type="button" id="btn-back" style="position: absolute;right: 15px;top: 15px;" class="btn btn-light float-right">
+                        <button type="button" id="btn-back" style="position: absolute;right: 25px;
+                        top: 30px;" class="btn btn-light float-right">
                         <i class=""></i> Back</button>
                     </div>
                     <div id="canvasPreview">

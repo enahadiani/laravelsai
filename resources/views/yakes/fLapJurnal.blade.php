@@ -453,7 +453,7 @@
             switch(par){
                 case 'modul[]': 
                     header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-modul') }}";
+                    var toUrl = "{{ url('yakes-report/filter-modul') }}";
                     var columns = [
                         { data: 'kode' }
                     ];
@@ -468,7 +468,7 @@
                 break;
                 case 'no_bukti[]': 
                     header = ['No Bukti','Keterangan'];
-                    var toUrl = "{{ url('esaku-report/filter-bukti-jurnal') }}";
+                    var toUrl = "{{ url('yakes-report/filter-bukti-jurnal') }}";
                     var columns = [
                         { data: 'no_bukti' },
                         { data: 'keterangan' }
@@ -492,7 +492,7 @@
                 break;
                 case 'sum_ju[]': 
                     header = ['Kode'];
-                    var toUrl = "{{ url('esaku-report/filter-sumju') }}";
+                    var toUrl = "{{ url('yakes-report/filter-sumju') }}";
                     var columns = [
                         { data: 'kode' }
                     ];
@@ -507,7 +507,7 @@
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
-                    var toUrl = "{{ url('esaku-report/filter-periode-keu') }}";
+                    var toUrl = "{{ url('yakes-report/filter-periode-keu') }}";
                     var columns = [
                         { data: 'periode' },
                         { data: 'nama' }
@@ -1024,7 +1024,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('yakes-auth/form/rptJurnal') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1045,7 +1045,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
+            xurl = "{{ url('yakes-auth/form/rptJurnal') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1090,7 +1090,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-report/send-laporan') }}",
+                url: "{{ url('yakes-report/send-laporan') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,

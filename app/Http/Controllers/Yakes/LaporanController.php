@@ -1,5 +1,5 @@
 <?php
-    namespace App\Http\Controllers\Esaku;
+    namespace App\Http\Controllers\Yakes;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Support\Facades\DB;
@@ -13,14 +13,14 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('esaku-auth/login');
+            return redirect('yakes-auth/login');
             }
         }
 
         public function getKartu(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap_kartu',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap_kartu',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -59,7 +59,7 @@
         public function getSaldo(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap_saldo',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap_saldo',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -98,7 +98,7 @@
         public function getPenjualanHarian(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan-harian',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-penjualan-harian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -137,7 +137,7 @@
         public function getReturBeli(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-retur-beli',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-retur-beli',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -176,7 +176,7 @@
         public function getBarang(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-barang',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-barang',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -213,7 +213,7 @@
         public function getClosing(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-closing',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-closing',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -252,7 +252,7 @@
         public function getPembelian(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-pembelian',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-pembelian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -291,7 +291,7 @@
         public function getPenjualan(Request $request) {
            try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-penjualan',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-penjualan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -367,7 +367,7 @@
                     'nik_user' => Session::get('nikUser')
                 ];
         
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-nrclajur',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-nrclajur',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -400,7 +400,7 @@
             try{
     
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-buktijurnal',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-buktijurnal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -440,7 +440,7 @@
             try{
     
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-jurnal',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-jurnal',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -481,7 +481,7 @@
     
                 $client = new Client();
         
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-bukubesar',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-bukubesar',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -523,7 +523,7 @@
     
                 $client = new Client();
         
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-neraca',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-neraca',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -563,7 +563,7 @@
     
                 $client = new Client();
         
-                $response = $client->request('GET',  config('api.url').'toko-report/lap-labarugi',[
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-labarugi',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -609,7 +609,7 @@
                     'email' => $request->email
                 ];
         
-                $response = $client->request('POST',  config('api.url').'toko-report/send-laporan',[
+                $response = $client->request('POST',  config('api.url').'yakes-report/send-laporan',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
