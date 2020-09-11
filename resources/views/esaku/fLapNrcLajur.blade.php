@@ -217,7 +217,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
-                                            <option value="all">all</option>
+                                            <option value="All">All</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-10 text-center">
@@ -891,7 +891,21 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
-            console.log(xurl);
+            $('#saku-report #canvasPreview').load(xurl);
+        });
+
+        $('#show').change(function(e){
+            $formData = new FormData();
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.append("kode_akun[]",akun.type);
+            $formData.append("kode_akun[]",akun.from);
+            $formData.append("kode_akun[]",akun.to);
+            for(var pair of $formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            xurl = "{{ url('esaku-auth/form/rptNrcLajur') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 

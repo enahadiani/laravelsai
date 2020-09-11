@@ -268,7 +268,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
-                                            <option value="all">all</option>
+                                            <option value="All">All</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-10 text-center">
@@ -986,6 +986,27 @@
         var $formData = "";
         $('#form-filter').submit(function(e){
             e.preventDefault();
+            $formData = new FormData();
+            $formData.append("periode[]",periode.type);
+            $formData.append("periode[]",periode.from);
+            $formData.append("periode[]",periode.to);
+            $formData.append("kode_fs[]",kode_fs.type);
+            $formData.append("kode_fs[]",kode_fs.from);
+            $formData.append("kode_fs[]",kode_fs.to);
+            $formData.append("level[]",level.type);
+            $formData.append("level[]",level.from);
+            $formData.append("level[]",level.to);
+            $formData.append("format[]",format.type);
+            $formData.append("format[]",format.from);
+            $formData.append("format[]",format.to);
+            for(var pair of $formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            xurl = "{{ url('esaku-auth/form/rptNeraca') }}";
+            $('#saku-report #canvasPreview').load(xurl);
+        });
+
+        $('#show').change(function(e){
             $formData = new FormData();
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
