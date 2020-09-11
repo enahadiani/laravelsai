@@ -491,7 +491,7 @@
                         'kode_akun' => $request->kode_akun,
                         'tgl_awal' => $request->tgl_awal,
                         'tgl_akhir' => $request->tgl_akhir,
-                        'jenis' => $request->jenis,
+                        'mutasi' => $request->mutasi,
                         'nik_user' => Session::get('nikUser')
                     ]
                 ]);
