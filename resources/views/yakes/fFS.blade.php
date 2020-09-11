@@ -371,7 +371,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_akun').attr('readonly', false);
+        $('#kode_vendor').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });
@@ -387,7 +387,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_akun').val();
+        var kode = $('#kode_vendor').val();
         msgDialog({
             id:kode,
             type:'edit'
