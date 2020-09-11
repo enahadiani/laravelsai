@@ -508,8 +508,8 @@
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("level");
-                    var kunci = "level";
+                    var field = eval("format");
+                    var kunci = "format";
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
@@ -1250,8 +1250,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "NeracaLajur_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });

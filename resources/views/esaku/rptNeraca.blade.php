@@ -40,9 +40,6 @@
             `;
             var lokasi = res.lokasi;
             html+=`
-            <table class='table table-borderless' style='width:100%' >
-            <tr>
-                <td align='center'>
                     <table class='table table-bordered' width='100%'>
                         <tr>
                             <td style='text-align:center;width:35%'>Deskripsi</td>
@@ -88,11 +85,7 @@
                         }
                         det +="</td><td valign='middle' class='isi_laporan' align='right'>"+nilai2+"</td></tr>";
                     }
-            html+=det+`</table></td>
-                        </tr>
-                    </td>
-                </tr>
-            </table>
+            html+=det+`</table>
             </div>`;
         }
         $('#canvasPreview').html(html);

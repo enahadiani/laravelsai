@@ -23,6 +23,9 @@ Route::get('filter-periode-keu', 'Esaku\HelperController@getFilterPeriodeKeuanga
 Route::get('filter-fs', 'Esaku\HelperController@getFilterFS');
 Route::get('filter-level', 'Esaku\HelperController@getFilterLevel');
 Route::get('filter-format', 'Esaku\HelperController@getFilterFormat');
+Route::get('filter-sumju', 'Esaku\HelperController@getFilterSumju');
+Route::get('filter-modul', 'Esaku\HelperController@getFilterModul');
+Route::get('filter-bukti-jurnal', 'Esaku\HelperController@getFilterBuktiJurnal');
 
 
 Route::post('lap-penjualan-harian', 'Esaku\LaporanController@getPenjualanHarian');

@@ -1,5 +1,3 @@
-<div id='canvasPreview'>
-</div>
 <script type="text/javascript">
 
     function drawLap(formData){
@@ -43,9 +41,7 @@
             `;
             var lokasi = res.lokasi;
             html+=`
-                <table class='table table-borderless' width="800px">
-                <tr>
-                    <td align="center"><table width='100%' class='table table-bordered'>
+                <table width='100%' class='table table-bordered'>
                     <thead>
                     <tr>
                         <td width='20'  class='header_laporan' align='center'>No</td>
@@ -134,9 +130,7 @@
                         }
                         html+=det+`
                     </tbody>
-                    </table></td>
-                </tr>
-                </table><br>
+                    </table>
                 <DIV style='page-break-after:always'></DIV>`;
                         
             html+="</div>"; 
