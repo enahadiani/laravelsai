@@ -69,7 +69,7 @@
                         // det += fnSpasi(line.level_spasi1);
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
-                            det +="<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca1+"'>"+line.nama1+"</a>";
+                            det +="<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca1+"' class='neraca-lajur'>"+line.nama1+"</a>";
                         }
                         else
                         {
@@ -80,7 +80,7 @@
                         // // det += fnSpasi(line.level_spasi2);
                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {
-                            det += "<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca2+"'>"+line.nama2+"</a>";
+                            det += "<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca2+"' class='neraca-lajur'>"+line.nama2+"</a>";
                         }
                         else
                         {

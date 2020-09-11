@@ -392,6 +392,12 @@
         }
 
         var $aktif = "";
+
+        var param_trace = {
+            kode_neraca : "",
+            kode_akun : "",
+            no_bukti : ""
+        };
         
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -1000,9 +1006,41 @@
             $('#saku-report #canvasPreview').load(xurl);
         });
 
+        // TRACE
+        $('#saku-report #canvasPreview').on('click', '.neraca-lajur', function(e){
+            e.preventDefault();
+            var kode_neraca = $(this).data('kode_neraca');
+            param_trace.kode_neraca = kode_neraca;
+            var back = true;
+            
+            $formData.delete('kode_neraca[]');
+            $formData.append('kode_neraca[]', "=");
+            $formData.append('kode_neraca[]', kode_neraca);
+            $formData.append('kode_neraca[]', "");
+
+            $formData.delete('trail[]');
+            $formData.append('trail[]', "=");
+            $formData.append('trail[]', "1");
+            $formData.append('trail[]', "");
+
+            $formData.delete('back');
+            $formData.append('back', back);
+            $('.breadcrumb').html('');
+            $('.breadcrumb').append(`
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
+            `);
+            xurl ="esaku-auth/form/rptNrcLajur";
+            $('#saku-report #canvasPreview').load(xurl);
+            // drawLapReg(formData);
+        });
+
         $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
         e.preventDefault();
             var kode_akun = $(this).data('kode_akun');
+            param_trace.kode_akun = kode_akun;
             var back = true;
             
             $formData.delete('kode_akun[]');
@@ -1015,9 +1053,12 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
+                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+kode_akun+`">Buku Besar</li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
             `);
             xurl ="esaku-auth/form/rptBukuBesar";
             $('#saku-report #canvasPreview').load(xurl);
@@ -1027,7 +1068,7 @@
         $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
             e.preventDefault();
             var no_bukti = $(this).data('no_bukti');
-            var kode_akun = $(this).data('kode_akun');
+            param_trace.no_bukti = no_bukti;
             var back = true;
             
             $formData.delete('no_bukti[]');
@@ -1040,12 +1081,15 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
+                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="buku-besar" aria-param="`+kode_akun+`">Buku Besar</a>
+                    <a href="#" class="klik-report" data-href="neraca">Neraca Lajur</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="jurnal" aria-param="`+kode_akun+`|`+no_bukti+`">Jurnal</li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
             `);
             xurl ="esaku-auth/form/rptBuktiJurnal";
             $('#saku-report #canvasPreview').load(xurl);
@@ -1060,32 +1104,48 @@
             $formData.append("periode[]",periode.to);
 
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
-            var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
-            var param = tmp[0];
-            if(aktif == "buku-besar"){
+
+            if(aktif == "neraca-lajur"){
+                xurl = "esaku-auth/form/rptNeraca";
+                $formData.delete('kode_fs[]');
+                $formData.append("kode_fs[]",kode_fs.type);
+                $formData.append("kode_fs[]",kode_fs.from);
+                $formData.append("kode_fs[]",kode_fs.to);
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item active" aria-current="neraca">Neraca</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            else if(aktif == "buku-besar"){
                 $formData.delete('back');
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]",akun.type);
-                $formData.append("kode_akun[]",akun.from);
-                $formData.append("kode_akun[]",akun.to);
+                $formData.delete('kode_neraca[]');
+                $formData.append("kode_neraca[]","=");
+                $formData.append("kode_neraca[]",param_trace.kode_neraca);
+                $formData.append("kode_neraca[]","");
                 xurl = "esaku-auth/form/rptNrcLajur";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
-                $('.navigation-lap').addClass('hidden');
             }else if(aktif == "jurnal"){
                 xurl = "esaku-auth/form/rptBukuBesar";
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param);
+                $formData.append("kode_akun[]",param_trace.kode_akun);
                 $formData.append("kode_akun[]","");
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
+                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
                 `);
             }
             $('#saku-report #canvasPreview').load(xurl);
@@ -1095,37 +1155,54 @@
         $('.breadcrumb').on('click', '.klik-report', function(e){
             e.preventDefault();
             var tujuan = $(this).data('href');
-            var tmp = $(this).attr('aria-param').split("|");
-            var param = tmp[0];
             $formData.delete('periode[]');
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            if(tujuan == "neraca-lajur"){
+            if(tujuan == "neraca"){
                 $formData.delete('back');
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]",akun.type);
-                $formData.append("kode_akun[]",akun.from);
-                $formData.append("kode_akun[]",akun.to);
+                $formData.delete('kode_fs[]');
+                $formData.append("kode_fs[]",kode_fs.type);
+                $formData.append("kode_fs[]",kode_fs.from);
+                $formData.append("kode_fs[]",kode_fs.to);
                 xurl = "esaku-auth/form/rptNrcLajur";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
+                    <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
+                `);
+                $('.navigation-lap').addClass('hidden');
+            }
+            else if(tujuan == "neraca-lajur"){
+                $formData.delete('back');
+                $formData.delete('kode_neraca[]');
+                $formData.append("kode_neraca[]","=");
+                $formData.append("kode_neraca[]",param_trace.kode_neraca);
+                $formData.append("kode_neraca[]","");
+                xurl = "esaku-auth/form/rptNrcLajur";
+                $('.breadcrumb').html('');
+                $('.breadcrumb').append(`
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "buku-besar"){
                 
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param);
+                $formData.append("kode_akun[]",param_trace.kode_akun);
                 $formData.append("kode_akun[]","");
                 xurl = "esaku-auth/form/rptBukuBesar";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
+                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar"Buku Besar</li>
                 `);
             }
             $('#saku-report #canvasPreview').load(xurl);
