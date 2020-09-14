@@ -264,6 +264,10 @@ class VerifikasiController extends Controller
                     'contents' => $request->kode_kota,
                 ],
                 [
+                    'name' => 'kode_divisi',
+                    'contents' => $request->kode_divisi,
+                ],
+                [
                     'name' => 'status',
                     'contents' => $request->status,
                 ],
