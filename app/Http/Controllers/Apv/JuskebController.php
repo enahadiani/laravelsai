@@ -923,7 +923,8 @@ class JuskebController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'kode_kota' => $request->kode_kota
+                    'kode_kota' => $request->kode_kota,
+                    'kode_divisi' => $request->kode_divisi
                 ]
             ]);
 

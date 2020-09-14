@@ -536,12 +536,12 @@
         });
     }
 
-    function getNIKVer(kode_kota = null){
+    function getNIKVer(kode_kota = null,kode_divisi = null){
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/nik_verifikasi2') }}",
             dataType: 'json',
-            data:{'kode_kota':kode_kota},
+            data:{'kode_kota':kode_kota, 'kode_divisi':kode_divisi},
             async:false,
             success:function(res){
                 var result = res.data;    
@@ -642,11 +642,12 @@
         // var kota = $("#kode_kota option:selected").text();
         var pp = $('#kode_pp')[0].selectize.getValue();
         var kota = $('#kode_kota')[0].selectize.getValue();
+        var kode_divisi = $('#kode_divisi')[0].selectize.getValue();
         var tanggal = $('#tanggal').val();
         // console.log(pp);
         // console.log(kota);
         generateDok(tanggal,pp,kota);
-        getNIKVer(kota);
+        getNIKVer(kota,kode_divisi);
     });
 
     $('#tanggal').change(function(){
@@ -708,9 +709,10 @@
         $('#form-tambah')[0].reset();
         var pp = $('#kode_pp')[0].selectize.getValue();
         var kota = $('#kode_kota')[0].selectize.getValue();
+        var kode_divisi = $('#kode_divisi')[0].selectize.getValue();
         var tanggal = $('#tanggal').val();
         generateDok(tanggal,pp,kota);
-        getNIKVer(kota);
+        getNIKVer(kota,kode_divisi);
         $('#input-grid2 tbody').html('');
         $('#input-dok tbody').html('');
     });
