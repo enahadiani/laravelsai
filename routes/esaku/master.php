@@ -139,3 +139,14 @@ Route::post('cust-ol', 'Esaku\CustomerOLController@store');
 Route::put('cust-ol/{id}', 'Esaku\CustomerOLController@update');
 Route::delete('cust-ol/{id}', 'Esaku\CustomerOLController@delete');
 
+//Format Laporan
+Route::get('format-laporan','Esaku\FormatLaporanController@show');
+Route::post('format-laporan','Esaku\FormatLaporanController@store');
+Route::put('format-laporan','Esaku\FormatLaporanController@update');
+Route::delete('format-laporan','Esaku\FormatLaporanController@destroy');
+Route::get('format-laporan-versi','Esaku\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe','Esaku\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun','Esaku\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi','Esaku\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move','Esaku\FormatLaporanController@simpanMove');
+
