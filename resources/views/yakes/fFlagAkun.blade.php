@@ -111,7 +111,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Akun</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Flag Akun</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -145,7 +145,7 @@
                         <thead>
                             <tr>
                                 <th width="30%">Kode</th>
-                                <th width="58%">Nama</th>                                
+                                <th width="58%">Nama</th>                                  
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -179,74 +179,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kode_akun" class="col-md-2 col-sm-12 col-form-label">Kode</label>
+                            <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>                                
+                                <input class="form-control" type="text" placeholder="Kode Flag" id="kode_flag" name="kode_flag" required>                                
                             </div>
                         </div>
                         <div class="form-group row ">
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-                        <div class="form-group row ">
-                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Modul</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="modul" name="modul" required>
-                                    <option value="">--Pilih Modul--</option>
-                                    <option value="A">Aktiva</option>
-                                    <option value="P">Passiva</option>
-                                    <option value="L">Laba Rugi</option>
-                                </select>
-                            </div>
-                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="jenis" name="jenis" required></select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_curr" class="col-md-2 col-sm-12 col-form-label">Currency</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-                        <div class="form-group row ">
-                            <label for="blok" class="col-md-2 col-sm-12 col-form-label">Status Blok</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="blok" name="blok" required>
-                                    <option value="">--Pilih Status Blok--</option>
-                                    <option value="0">Unblok</option>
-                                    <option value="1">Blok</option>
-                                </select>
-                            </div>
-                            <label for="budget" class="col-md-2 col-sm-12 col-form-label">Status Budget</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="budget" name="budget" required>
-                                    <option value="">--Pilih Status Budget--</option>
-                                    <option value="0">Uncheck</option>
-                                    <option value="1">Check</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-                        <div class="form-group row ">
-                            <label for="account" class="col-md-2 col-sm-12 col-form-label">Normal Account</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="account" name="account" required>
-                                    <option value="">--Pilih Normal Account--</option>
-                                    <option value="D">D - Debet</option>
-                                    <option value="C">C - Kredit</option>
-                                </select>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
@@ -280,7 +221,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Akun <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data FS <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -316,33 +257,12 @@
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
-    $optionJenis1 = [{value:'Neraca', text:'Neraca'}]
-    $optionJenis2 = [{value:'Pendapatan', text:'Pendapatan'},{value:'Beban', text:'Beban'}]
     
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
-    //EVENT DROPDOWN//
-    $('#modul').change(function(){
-        $('#jenis').find('option').remove().end().append('<option value="">--Pilih Jenis--</option>').val('')
-        var value = $(this).val();
-        var option = null;
-        if(value == "A" || value == "P") {
-            option = $optionJenis1;
-        } else {
-            option = $optionJenis2
-        }
-
-        $.each(option, function (i, item) {
-            $('#jenis').append($('<option>', { 
-                value: item.value,
-                text : item.text 
-            }));
-        });
-    })
 
     function last_add(param,isi){
         var rowIndexes = [];
@@ -379,7 +299,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('yakes-master/masakun') }}",
+            'url': "{{ url('yakes-master/flag-akun') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -395,7 +315,7 @@
             {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         'columns': [
-            { data: 'kode_akun' },
+            { data: 'kode_flag' },
             { data: 'nama' },
         ],
         drawCallback: function () {
@@ -445,13 +365,13 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Akun');
+        $('#judul-form').html('Tambah Data Flag Akun');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_akun').attr('readonly', false);
+        $('#kode_flag').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });
@@ -467,7 +387,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_akun').val();
+        var kode = $('#kode_fs').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -481,7 +401,7 @@
         ignore: [],
         rules: 
         {
-            kode_akun:{
+            kode_fs:{
                 required: true,
                 maxlength:10   
             },
@@ -493,13 +413,13 @@
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_akun').val();
+            var id = $('#kode_fs').val();
             if(parameter == "edit"){
-                var url = "{{ url('yakes-master/masakun') }}/"+id;
+                var url = "{{ url('yakes-master/flag-akun') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('yakes-master/masakun') }}";
+                var url = "{{ url('yakes-master/flag-akun') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -521,20 +441,20 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
-                        var kode = $('#kode_akun').val();
+                        var kode = $('#kode_fs').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Akun');
+                        $('#judul-form').html('Tambah Data Flag Akun');
                         $('#method').val('post');
-                        $('#kode_akun').attr('readonly', false);
+                        $('#kode_fs').attr('readonly', false);
                         msgDialog({
                             id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_akun",kode);
+                        last_add("kode_fs",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/yakes-auth/sesi-habis') }}";
@@ -544,7 +464,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode akun sudah digunakan'
+                                text:'Kode Flag Akun sudah digunakan'
                             });
                         }else{
 
@@ -575,13 +495,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('yakes-master/masakun') }}/"+id,
+            url: "{{ url('yakes-master/flag-akun') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Akun ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Flag AKun ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -618,10 +538,10 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Akun');
+        $('#judul-form').html('Edit Data FS');
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/masakun') }}/" + id,
+            url: "{{ url('yakes-master/flag-akun') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -629,16 +549,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_akun').attr('readonly', true);
-                    $('#kode_akun').val(id);
+                    $('#kode_flag').attr('readonly', true);
+                    $('#kode_flag').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#modul').val(result.data[0].modul).change();
-                    $('#jenis').val(result.data[0].jenis);
-                    $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok').val(result.data[0].block);                  
-                    $('#budget').val(result.data[0].status_gar);                  
-                    $('#account').val(result.data[0].normal);                  
+                    $('#kode_flag').val(result.data[0].kode_flag);                  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -652,9 +567,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_akun,#nama').keydown(function(e){
+    $('#kode_fs,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_akun','nama'];
+        var nxt = ['kode_flag','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -684,12 +599,13 @@
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
+            var status = data.flag_status;
             var html = `<tr>
-                <td style='border:none'>Kode Akun</td>
+                <td style='border:none'>Kode FS</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Akun</td>
+                <td>Nama FS</td>
                 <td>`+data.nama+`</td>
             </tr>
             `;
@@ -713,13 +629,13 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Akun');
+        $('#judul-form').html('Edit Data FS');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/masakun') }}/" + id,
+            url: "{{ url('yakes-master/flag-akun') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -727,16 +643,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_akun').attr('readonly', true);
-                    $('#kode_akun').val(id);
+                    $('#kode_flag').attr('readonly', true);
+                    $('#kode_flag').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    $('#modul').val(result.data[0].modul).change();
-                    $('#jenis').val(result.data[0].jenis);
-                    $('#kode_curr').val(result.data[0].kode_curr);
-                    $('#blok').val(result.data[0].block);                  
-                    $('#budget').val(result.data[0].status_gar);                  
-                    $('#account').val(result.data[0].normal);                    
+                    $('#kode_flag').val(result.data[0].kode_flag);                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

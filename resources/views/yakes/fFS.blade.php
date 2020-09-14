@@ -318,7 +318,7 @@
                 if(json.status){
                     return json.daftar;   
                 }else{
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     return [];
                 }
             }
@@ -476,7 +476,7 @@
                         last_add("kode_fs",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/yakes-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -525,7 +525,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -578,7 +578,7 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -683,7 +683,7 @@
                     $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }

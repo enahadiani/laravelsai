@@ -16,3 +16,10 @@ Route::get('fs/{id}', 'Yakes\FSController@getData');
 Route::post('fs', 'Yakes\FSController@store');
 Route::put('fs/{id}', 'Yakes\FSController@update');
 Route::delete('fs/{id}', 'Yakes\FSController@delete');
+
+// Data Flag AKun //
+Route::get('flag-akun', 'Yakes\FlagAkunController@index');
+Route::get('flag-akun/{id}', 'Yakes\FlagAkunController@getData');
+Route::post('flag-akun', 'Yakes\FlagAkunController@store');
+Route::put('flag-akun/{id}', 'Yakes\FlagAkunController@update');
+Route::delete('flag-akun/{id}', 'Yakes\FlagAkunController@delete');
