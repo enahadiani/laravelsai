@@ -401,7 +401,7 @@
         ignore: [],
         rules: 
         {
-            kode_fs:{
+            kode_flag:{
                 required: true,
                 maxlength:10   
             },
