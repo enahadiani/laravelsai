@@ -669,7 +669,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                     getJenisAkun();
                     
                     $('#id-edit-set').val('1');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#kode-set').val('');
                     $('#nama-set').val('');
                     // $('#link-set')[0].selectize.setValue('');
