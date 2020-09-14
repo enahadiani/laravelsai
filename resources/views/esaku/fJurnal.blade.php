@@ -807,7 +807,7 @@
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
-                $target4 = $target3;
+                $target4 = "2";
             break;
             case 'nik_periksa': 
                 header = ['NIK', 'Nama'];
@@ -954,9 +954,22 @@
                 if($target3 != ""){
                     $($target3).text(nama);
                 }
-                console.log($target4);
+
                 if($target4 != ""){
-                    $($target).closest('tr').find($target4).click();
+                    if($target4 == "2"){
+                        $($target).parents("tr").find(".inp-pp").val(kode);
+                        $($target).parents("tr").find(".td-pp").text(kode);
+                        $($target).parents("tr").find(".inp-pp").hide();
+                        $($target).parents("tr").find(".td-pp").show();
+                        $($target).parents("tr").find(".search-pp").hide();
+                        $($target).parents("tr").find(".inp-nama_pp").show();
+                        $($target).parents("tr").find(".td-nama_pp").hide();
+                        $($target).parents("tr").find(".inp-nama_pp").attr('readonly',false);
+                       
+                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
+                    }else{
+                        $($target).closest('tr').find($target4).click();
+                    }
                 }
                 $('#modal-search').modal('hide');
             }
@@ -1018,6 +1031,8 @@
                             $('.td'+target1).text(kode);
                             $('.'+target2).val(result.data.data[0].nama);
                             $('.td'+target2).text(result.data.data[0].nama);
+                            console.log('ini'+target2)
+
                         }else{
                             $("#input-jurnal td").removeClass("px-0 py-0 aktif");
                             $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
