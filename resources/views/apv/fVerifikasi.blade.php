@@ -87,6 +87,7 @@
                                 <label for="nama" class="col-3 col-form-label">Kode Kota</label>
                                 <div class="col-3">
                                     <input class="form-control" type="text" id="kode_kota" name="kode_kota" readonly>
+                                    <input class="form-control" type="hidden" id="kode_divisi" name="kode_divisi" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -497,6 +498,7 @@
                     $('#kode_pp')[0].selectize.disable();
                     $('#kode_pp2').val(result.data[0].kode_pp);
                     $('#kode_kota').val(result.data[0].kode_kota);
+                    $('#kode_divisi').val(result.data[0].kode_divisi);
                     $('#waktu').val(result.data[0].waktu);
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
