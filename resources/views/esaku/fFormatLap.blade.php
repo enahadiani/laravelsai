@@ -661,6 +661,47 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 $('#sai-treegrid-modal').modal('show');
             }else{
 
+                var this_index = $('.ui-selected').index();
+                var this_class = $("#sai-treegrid tbody tr:eq("+this_index+")").attr('class');
+                var node_class = this_class.match(/^treegrid-[A-Za-z0-9_.]+/gm);
+
+                var this_node = $("."+node_class).treegrid('getId');
+                var this_parent = $("."+node_class).treegrid('getParent');
+                var this_kode = $("."+node_class).find('.set_kode').text();
+                var this_nu = $("."+node_class).treegrid('getBranch').last().find('.set_nu').text();
+                var this_rowindex = $("."+node_class).treegrid('getBranch').last().find('.set_index').text();
+
+                if(this_nu == ""){
+                    var this_nu = $("."+node_class).find('.set_nu').text();
+                    var this_rowindex = $("."+node_class).find('.set_index').text();
+                }
+
+                
+                var this_lv = $("."+node_class).treegrid('getDepth');
+                var this_child_amount = $("."+node_class).treegrid('getChildNodes').length;
+                var this_child_branch = $("."+node_class).treegrid('getBranch').length;
+
+                var nu = parseInt(this_nu) + 1;
+                var rowindex = parseInt(this_rowindex) + 1;
+
+                if(nu == null || nu == '' || isNaN(nu)){
+                    nu = 101;
+                }else{
+                    nu = nu;
+                }
+
+                if(rowindex == null || rowindex == '' || isNaN(rowindex)){
+                    rowindex = 1;
+                }else{
+                    rowindex = rowindex;
+                }
+                
+                // $('#kode-set').val(this_kode.concat(+this_child_amount + 1));
+                $('#lv-set').val(this_lv);
+                $('#nu-set').val(nu);
+                $('#induk-set').val(this_kode);
+                $('#rowindex-set').val(rowindex);
+
                 var tipe = $(".ui-selected").closest('tr').find('.set_tipe').val();
                 var kode = $(".ui-selected").closest('tr').find('.set_kode').text();
                 if(tipe == "Posting"){

@@ -194,7 +194,7 @@ class FormatLaporanController extends Controller
             'sum_header' =>'required',
             'jenis_akun' =>'required',
             'kode_induk' =>'required',
-            'nu' =>'required',
+            'rowindex'=>'required',
             'tipe' =>'required'
         ]);
 
@@ -217,7 +217,7 @@ class FormatLaporanController extends Controller
                     'sum_header' => $request->sum_header,
                     'jenis_akun' => $request->jenis_akun,
                     'kode_induk' => $request->kode_induk,
-                    'nu' => $request->nu,
+                    'rowindex' => $request->rowindex,
                     'tipe' => $request->tipe
                 ]
             ]);
