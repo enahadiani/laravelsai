@@ -54,40 +54,6 @@ class FlagRelasiController extends Controller
         }
     }
 
-    public function store(Request $request) {
-        $this->validate($request, [
-            'kode_flag' => 'required',
-            'nama' => 'required',            
-        ]);
-
-        try {   
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'yakes-master/flagakun',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_flag' => $request->kode_flag,
-                        'nama' => $request->nama,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
-
-        } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
-    }
-
     public function getData($id) {
         try{
             $client = new Client();
@@ -154,7 +120,7 @@ class FlagRelasiController extends Controller
     public function delete($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'yakes-master/flagakun?kode_flag='.$id,
+            $response = $client->request('DELETE',  config('api.url').'yakes-master/flagrelasi?kode_flag='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

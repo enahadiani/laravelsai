@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 //Helper Data//
 Route::get('helper-akun', 'Yakes\HelperController@getAkun');
+Route::get('cek-akun/{id}', 'Yakes\HelperController@cekAkun');
 
 // Data Masakun //
 Route::get('masakun', 'Yakes\MasakunController@index');
@@ -30,6 +31,5 @@ Route::delete('flag-akun/{id}', 'Yakes\FlagAkunController@delete');
 // Data Flag Relasi //
 Route::get('flag-relasi', 'Yakes\FlagRelasiController@index');
 Route::get('flag-akun/{id}', 'Yakes\FlagAkunController@getData');
-Route::post('flag-akun', 'Yakes\FlagAkunController@store');
 Route::put('flag-relasi/{id}', 'Yakes\FlagRelasiController@update');
-Route::delete('flag-akun/{id}', 'Yakes\FlagAkunController@delete');
+Route::delete('flag-relasi/{id}', 'Yakes\FlagRelasiController@delete');
