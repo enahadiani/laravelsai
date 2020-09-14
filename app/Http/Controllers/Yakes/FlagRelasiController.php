@@ -131,7 +131,7 @@ class FlagRelasiController extends Controller
                 $response = $client->request('PUT',  config('api.url').'yakes-master/flagrelasi?kode_flag='.$id,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
+                        'Content-Type'  => 'application/json',
                     ],
                     'body' => json_encode($data)
                 ]);
