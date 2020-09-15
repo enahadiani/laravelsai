@@ -146,6 +146,12 @@
                             <tr>
                                 <th width="30%">Kode</th>
                                 <th width="58%">Nama</th>                                
+                                <th class="th-remove"></th>                                
+                                <th class="th-remove"></th>                                
+                                <th class="th-remove"></th>                                
+                                <th class="th-remove"></th>                                
+                                <th class="th-remove"></th>                                
+                                <th class="th-remove"></th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -392,11 +398,21 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 8, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": [2,3,4,5,6,7],
+                "visible": false
+            }
         ],
         'columns': [
             { data: 'kode_akun' },
             { data: 'nama' },
+            { data: 'modul' },
+            { data: 'jenis' },
+            { data: 'kode_curr' },
+            { data: 'block' },
+            { data: 'status_gar' },
+            { data: 'normal' },
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -407,6 +423,7 @@
                 .addClass("next");
 
             $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            $('#table-data thead.th-remove').remove();
         },
         language: {
             paginate: {
@@ -684,6 +701,35 @@
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
+            var modul = '';
+            var block = '';
+            var gar = '';
+            var normal = '';
+            if(data.modul == 'A') {
+                modul = "Aktiva"
+            } else if(data.modul == 'P') {
+                modul = "Passiva"
+            } else {
+                modul = "Laba Rugi"
+            }
+
+            if(data.block == "0") {
+                block = "Unblock"
+            } else {
+                block = "Block"
+            }
+
+            if(data.status_gar == "0") {
+                gar = "Uncheck"
+            } else {
+                gar = "Check"
+            }
+
+            if(data.normal == "D") {
+                normal = "Debet"
+            } else {
+                normal = "Kredit"
+            }
             var html = `<tr>
                 <td style='border:none'>Kode Akun</td>
                 <td style='border:none'>`+id+`</td>
@@ -691,6 +737,30 @@
             <tr>
                 <td>Nama Akun</td>
                 <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Modul</td>
+                <td>`+modul+`</td>
+            </tr>
+            <tr>
+                <td>Jenis</td>
+                <td>`+data.jenis+`</td>
+            </tr>
+            <tr>
+                <td>Currency</td>
+                <td>`+data.kode_curr+`</td>
+            </tr>
+            <tr>
+                <td>Status Block</td>
+                <td>`+block+`</td>
+            </tr>
+            <tr>
+                <td>Status Budget</td>
+                <td>`+gar+`</td>
+            </tr>
+            <tr>
+                <td>Normal Account</td>
+                <td>`+normal+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
