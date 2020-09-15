@@ -324,6 +324,13 @@
             width:200px !important;
         }
 
+        .report-link:hover{
+            background: #F8F8F8
+        }
+        .report-link:active, .report-link:focus{
+            background: #E8E8E8;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
