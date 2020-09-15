@@ -216,10 +216,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                                 <h6 class='modal-title py-2' id='header_modal'>Relasi Akun</h6>
                             </div>
                             <div class='col-4 text-center'>
-                                <button type="button" class="sai-btn-allright pull-right btn btn-light btn-sm"><img src="{{ asset('asset_elite/img/next.png') }}" width="16px"></button>
-                                <button type='button' class='sai-btn-right pull-right btn btn-light btn-sm' ><img src="{{ asset('asset_elite/img/play-button-arrowhead.png') }}" width="16px"></button>
-                                <button type='button' class='sai-btn-left btn btn-light btn-sm' ><img src="{{ asset('asset_elite/img/back.png') }}" width="16px"></button>
-                                <button type='button' class='sai-btn-allleft  btn btn-light btn-sm' ><img src="{{ asset('asset_elite/img/previous.png') }}" width="16px"></button>
+                                <button type="button" class="sai-btn-allright pull-right btn btn-sm" title="Pindah kanan semua"><i class="simple-icon-control-end" style="font-size:16px"></i></button>
+                                <button type='button' class='sai-btn-right pull-right btn btn-sm' title="Pindah kanan"><i class="simple-icon-control-play" style="font-size:16px"></i></button>
+                                <button type='button' class='sai-btn-left btn btn-sm' title="Pindah kiri"><i class="simple-icon-control-play" style="display:inline-block;transform:rotate(180deg);font-size:16px"></i></button>
+                                <button type='button' class='sai-btn-allleft btn btn-sm' title="Pindah kiri semua"><i class="simple-icon-control-start" style="font-size:16px"></i></button>
                             </div>
                             <div class='col-4 text-right'>
                                 <button type='button' id="simpanRelasi" class='btn btn-primary'>Simpan</button> 
@@ -233,7 +233,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                         <div class='row'>
                             <div class='col-6 table-responsive px-0'>
                                 <input type='hidden' id='kd_nrc' name='kode_neraca'>
-                                <table id='table-belum' class='table table-bordered table-striped' width='100%'>
+                                <table id='table-belum' class='table table-bordered' width='100%'>
                                     <thead>
                                         <tr>
                                             <td>Kode Akun</td>
@@ -247,7 +247,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                             </div>
                             <div class='col-6 table-responsive px-0'>
                                 
-                                <table id='table-sudah' class='table table-bordered table-striped' width='100%'>
+                                <table id='table-sudah' class='table table-bordered' width='100%'>
                                     <thead>
                                         <tr>
                                             <td>Kode Akun</td>
@@ -1004,10 +1004,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         $('.modal-header').on('click','.sai-btn-right',function (e) {
             e.preventDefault();
 
-            var source = table_belum.row('.selected').data();
-            table_belum.row('.selected').remove().draw(false);
+            var source = table_belum.rows('.selected').data();
+            table_belum.rows('.selected').remove().draw(false);
 
-            table_sudah.row.add(source).draw(false);
+            table_sudah.rows.add(source).draw(false);
         });
 
         $('.modal-header').on('click','.sai-btn-allright',function (e) {
@@ -1020,10 +1020,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         $('.modal-header').on('click','.sai-btn-left',function (e) {
             e.preventDefault();
-            var source = table_sudah.row('.selected2').data();
-            table_sudah.row('.selected2').remove().draw(false);
+            var source = table_sudah.rows('.selected2').data();
+            table_sudah.rows('.selected2').remove().draw(false);
 
-            table_belum.row.add(source).draw(false);
+            table_belum.rows.add(source).draw(false);
 
         });
 
@@ -1040,7 +1040,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 $(this).removeClass('selected');
             }
             else {
-                table_belum.$('tr.selected').removeClass('selected');
+                // table_belum.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
         });
@@ -1050,7 +1050,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 $(this).removeClass('selected2');
             }
             else {
-                table_sudah.$('tr.selected2').removeClass('selected2');
+                // table_sudah.$('tr.selected2').removeClass('selected2');
                 $(this).addClass('selected2');
             }
         });
