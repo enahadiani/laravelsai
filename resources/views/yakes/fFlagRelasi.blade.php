@@ -468,7 +468,7 @@
                         var data = result.daftar;
                         var filter = data.filter(data => data.kode_flag == par);
                         if(filter.length > 0) {
-                            $('#kode_flag_akun').val(filter[0].kode_flag).change();
+                            $('#kode_flag_akun').val(filter[0].kode_flag);
                             $('#label_flag_akun').val(filter[0].nama);
                         } else {
                             $('#kode_flag_akun').val('');
