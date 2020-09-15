@@ -5,7 +5,7 @@
            if(res.result.length > 0){
 
                 $('#pagination').html('');
-                var show = $('#show')[0].selectize.getValue();
+                var show = $('#show').val();
                 generatePagination('pagination',show,res);
               
            }
@@ -119,8 +119,8 @@
             </table>`;
         }
         $('#canvasPreview').html(html);
-        $('li.first a ').html("<i class='icon-control-start'></i>");
-        $('li.last a ').html("<i class='icon-control-end'></i>");
+        $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
+        $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
     }
 </script>
    

@@ -236,9 +236,9 @@
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
                                 <div class="px-4 py-0 row"  style="min-height:63px">
-                                    <label class="col-sm-1 pr-0 mt-3">Menampilkan</label>
+                                    <label class="col-sm-1 pr-0" style="padding-top: 0;margin:auto">Menampilkan</label>
                                     <div class='col-sm-2' style='padding-top: 0;margin:auto'>
-                                        <select name="show" id="show" class="form-control" style=''>
+                                        <select name="show" id="show" class="" style='border:none'>
                                             <option value="10">10 per halaman</option>
                                             <option value="25">25 per halaman</option>
                                             <option value="50">50 per halaman</option>
@@ -381,7 +381,7 @@
         }
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
-        $('#show').selectize();
+        // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
 
