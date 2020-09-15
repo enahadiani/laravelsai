@@ -248,13 +248,14 @@
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-jurnal" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-tes" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Tes</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
                                 <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
-                                    <span class="pemisah mx-1" style="border:1px solid #d7d7d7;font-size:20px"></span>
+                                    <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
                                     
                                     <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
@@ -357,6 +358,8 @@
                                     </table>
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
+                            </div>
+                            <div class="tab-pane" id="data-tes" role="tabpanel">
                             </div>
                         </div>
                     </div>
