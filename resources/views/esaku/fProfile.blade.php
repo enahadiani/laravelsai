@@ -233,6 +233,7 @@ input.form-control{
                         <div class="pt-5">
                         <h5 style="font-weight: bold;">Keamanan Akun</h5>
                         </div>
+                        <p id="output"></p>
                         <table class="table table-profile">
                             <tbody>
                                 <tr>
@@ -365,7 +366,17 @@ input.form-control{
             </div>
         </div>
     </div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<script src="{{ asset('asset_dore/js/jquery.imagedrag.js') }}"></script>
 <script>
+
+$('#foto-background').imagedrag({
+    input: "#output",
+    position: "bottom",
+    attribute: "html"
+});
+
 
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
@@ -390,14 +401,17 @@ function toJuta(x) {
 }
 
 function typePass(str){
-    var count = str.length;
-    var text = "";
-    if(count > 0){
-        for(var i=0;i<count;i++){
-            text+="•";
+    if(str != "" || str != undefined){
+
+        var count = str.length;
+        var text = "";
+        if(count > 0){
+            for(var i=0;i<count;i++){
+                text+="•";
+            }
         }
+        return text;
     }
-    return text;
 }
 
 function loadService(index,method,url,param={}){
@@ -448,7 +462,7 @@ function loadService(index,method,url,param={}){
                     var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
                     $('#pp').html(pp);
                     $('#jabatan').html(result.data[0].jabatan);
-                    $('#password').html(typePass(result.data[0].password));
+                    $('#password').html(typePass(result.data[0].pass));
                     break;
 
                 }
