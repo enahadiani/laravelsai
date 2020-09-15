@@ -78,11 +78,10 @@
                         so_akhir_debet=so_akhir_debet + parseFloat(line.so_akhir_debet);
                         so_akhir_kredit=so_akhir_kredit + parseFloat(line.so_akhir_kredit);
                         
-                        html +=`<tr>
+                        html +=`<tr class='report-link bukubesar' style='cursor:pointer;' data-kode_akun='`+line.kode_akun+`'>
                             <td class='isi_laporan' align='center'>`+no+`</td>
                             <td class='isi_laporan'>`+line.kode_akun+`</td>
-                            <td height='20' class='isi_laporan'><a style='cursor:pointer;color:blue' data-kode_akun='`+line.kode_akun+`' class='bukubesar'>`+line.nama+`</a>
-                            </td>
+                            <td height='20' class='isi_laporan'>`+line.nama+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_debet))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_kredit))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.debet))+`</td>

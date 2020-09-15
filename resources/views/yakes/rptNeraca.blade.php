@@ -62,28 +62,26 @@
                         { 
                             nilai2=sepNum(parseFloat(line.nilai2));
                         }
-                        det +="<tr><td valign='middle' class='isi_laporan' >";
-                        det += fnSpasi(line.level_spasi1);
+                        det +="<tr>";
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
-                            det +="<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca1+"' class='neraca-lajur'>"+line.nama1+"</a>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
                         }
                         else
                         {
-                            det += line.nama1;
+                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
                         }
-                        det +=`</td><td valign='middle' class='isi_laporan' align='right'>`+nilai1+`</td>`;
-                        det +="<td height='20' valign='middle' class='isi_laporan'>";
-                        det += fnSpasi(line.level_spasi2);
-                        if (line.tipe2 == "Posting" && line.nilai2 != 0)
+                        det +=`<td valign='middle' class='isi_laporan' align='right'>`+nilai1+`</td>`;
+
+                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {
-                            det += "<a style='cursor:pointer;color:blue' data-kode_neraca='"+line.kode_neraca2+"' class='neraca-lajur'>"+line.nama2+"</a>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
                         }
                         else
                         {
-                            det += line.nama2;
+                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
                         }
-                        det +="</td><td valign='middle' class='isi_laporan' align='right'>"+nilai2+"</td></tr>";
+                        det +="<td valign='middle' class='isi_laporan' align='right'>"+nilai2+"</td></tr>";
                     }
             html+=det+`</table>
             </div>`;

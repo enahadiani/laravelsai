@@ -34,7 +34,7 @@
         
         #table-search tbody tr:hover,#table-search2 tbody tr:hover
         {
-            background:#E8E8E8 !important;
+            background:#F8F8F8 !important;
             cursor:pointer;
         }
 
@@ -48,8 +48,6 @@
         {
             width:100%;
         }
-
-  
         .page-item.next .page-link, .page-item.all .page-link {
             background: #900604;
             color: #fff;

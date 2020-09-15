@@ -34,7 +34,7 @@
         
         #table-search tbody tr:hover,#table-search2 tbody tr:hover
         {
-            background:#E8E8E8 !important;
+            background:#F8F8F8 !important;
             cursor:pointer;
         }
 

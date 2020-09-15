@@ -6,7 +6,7 @@
 
                 $('#pagination').html('');
                 var show = $('#show').val();
-                generatePagination('pagination',show,res);
+                generatePaginationDore('pagination',show,res);
               
            }
        });
@@ -83,18 +83,18 @@
                     nilai=sepNum(parseFloat(line.n4));
                 }
 			
-			    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi);
                 if (line.tipe=="Posting" && line.n4 != 0)
                 {
-                    html+=`<a style='cursor:pointer;color:blue' class='neraca-lajur' data-kode_neraca='`+line.kode_neraca+`' >`+line.nama+`</a>`;
+                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    </tr>`;
                 }
                 else
                 {
-                    html+=line.nama;
-                }
-			    html+= `</td>
+                    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
                     <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                </tr>`;
+                    </tr>`;
+                }
                 // if (res.bentuk == "Detail" && line.tipe=="Posting")
                 // {
                 //     var kode_neraca=line.kode_neraca;
@@ -119,8 +119,8 @@
             </table>`;
         }
         $('#canvasPreview').html(html);
-        $('li.first a ').html("<i class='icon-control-start'></i>");
-        $('li.last a ').html("<i class='icon-control-end'></i>");
+        $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
+        $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
     }
 </script>
    

@@ -83,9 +83,8 @@
                     saldo=saldo + parseFloat(line2.debet) - parseFloat(line2.kredit);	
                     debet=debet + parseFloat(line2.debet);
                     kredit=kredit + parseFloat(line2.kredit);	
-				    det +=`<tr>
-                        <td valign='top' class='isi_laporan'>
-                        <a style='cursor:pointer;color:blue' class='jurnal' data-no_bukti='`+line2.no_bukti+`' data-kode_akun='`+line.kode_akun+`'>`+line2.no_bukti+`</a>
+				    det +=`<tr style='cursor:pointer;' class='jurnal report-link' data-no_bukti='`+line2.no_bukti+`' data-kode_akun='`+line.kode_akun+`'>
+                        <td valign='top' class='isi_laporan'>`+line2.no_bukti+`
                         </td>
                         <td valign='top' class='isi_laporan'>`+line2.no_dokumen+`</td>
                         <td height='23' valign='top' class='isi_laporan'>`+line2.tgl+`</td>
