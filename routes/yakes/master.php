@@ -33,3 +33,14 @@ Route::get('flag-relasi', 'Yakes\FlagRelasiController@index');
 Route::get('flag-akun/{id}', 'Yakes\FlagAkunController@getData');
 Route::put('flag-relasi/{id}', 'Yakes\FlagRelasiController@update');
 Route::delete('flag-relasi/{id}', 'Yakes\FlagRelasiController@delete');
+
+// Tambahan //
+Route::get('format-laporan','Esaku\FormatLaporanController@show');
+Route::post('format-laporan','Esaku\FormatLaporanController@store');
+Route::put('format-laporan','Esaku\FormatLaporanController@update');
+Route::delete('format-laporan','Esaku\FormatLaporanController@destroy');
+Route::get('format-laporan-versi','Esaku\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe','Esaku\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun','Esaku\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi','Esaku\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move','Esaku\FormatLaporanController@simpanMove');
