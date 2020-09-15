@@ -830,13 +830,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 processData: false, 
                 success:function(result){
                     alert(result.data.message);
+                    
                     if(result.data.status){
                         
                         init(kode_fs,modul);
                         $('#sai-treegrid-modal').modal('hide');
                         // $('#sai-treegrid tr').removeClass('ui-selected');
                         $('#validation-box').text('');
-                    } else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    }else if(!result.data.status && result.data.message == 'Unauthorized'){
                         // Swal.fire({
                         //     title: 'Session telah habis',
                         //     text: 'harap login terlebih dahulu!',
