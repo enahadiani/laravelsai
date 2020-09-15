@@ -8,7 +8,7 @@
            if(res.result.length > 0){
 
                 $('#pagination').html('');
-                var show = $('#show')[0].selectize.getValue();
+                var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
            }
