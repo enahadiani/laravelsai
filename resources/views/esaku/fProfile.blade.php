@@ -233,7 +233,6 @@ input.form-control{
                         <div class="pt-5">
                         <h5 style="font-weight: bold;">Keamanan Akun</h5>
                         </div>
-                        <p id="output"></p>
                         <table class="table table-profile">
                             <tbody>
                                 <tr>
@@ -303,10 +302,7 @@ input.form-control{
 <div class="row" id="editpage-profile" style="display:none">
     <div class="col-12">
         <div class="row">
-            <div class="col-12 col-lg-6 col-xl-7 col-left text-center">
-            <a href="https://stories.freepik.com/web" title="Illustration by Freepik Stories" target="_blank"><img src="{{ asset('/img/Version-control-bro.png') }}" width="400px"></a>
-            </div>
-            <div class="col-12 col-lg-5 col-xl-4 col-right">
+            <div class="col-12 col-lg-5 col-xl-4" style="margin:0 auto">
                 <div class="card mb-4" style="box-shadow:none;border-radius: 8px;border: 1px solid #dadce0;box-sizing: border-box;">
                     <div class="card-body">
                         <form id="form-ubahPass" class="tooltip-right-bottom" novalidate="novalidate">
@@ -367,16 +363,7 @@ input.form-control{
         </div>
     </div>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script src="{{ asset('asset_dore/js/jquery.imagedrag.js') }}"></script>
 <script>
-
-$('#foto-background').imagedrag({
-    input: "#output",
-    position: "bottom",
-    attribute: "html"
-});
-
 
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);

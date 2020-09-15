@@ -1073,7 +1073,6 @@
     });
 
     $('.main-menu li').click(function(){
-        console.log('click-menu');
         $('.main-menu li').removeClass('active');
         $(this).addClass('active');
     });
