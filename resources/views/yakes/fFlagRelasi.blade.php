@@ -1147,7 +1147,7 @@
                             $('[id^=label]').html('');
                             
                             msgDialog({
-                                id:result.data.no_bukti,
+                                id:id,
                                 type:'simpan'
                             });
                                 
@@ -1225,85 +1225,125 @@
     // END DELETE ACTION //
 
     // EDIT ACTION //
-        $('.modal-header').on('click', '#btn-edit2', function(){
+    $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
-        $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Flag Relasi');
-        
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-        $('#input-grid tbody').empty();
-        $('#id').val('edit');
-        $('#method').val('put');
-        getForChangeFlag(id);                    
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $('#modal-preview').modal('hide');
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{ url('yakes-master/flag-akun') }}/" + id,
-        //     dataType: 'json',
-        //     async:false,
-        //     success:function(res){
-        //         var result= res.data;
-        //         if(result.status){
-        //             $('#input-grid tbody').empty();
-        //             $('#id').val('edit');
-        //             $('#method').val('put');
-        //             getForChangeFlag(id);                    
-        //             $('#saku-datatable').hide();
-        //             $('#saku-form').show();
-        //             $('#modal-preview').modal('hide');
-        //         }
-        //         else if(!result.status && result.message == 'Unauthorized'){
-        //             window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-        //         }
-        //         // $iconLoad.hide();
-        //     }
-        // });
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('yakes-master/cek-akun') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.status){
+                    console.log(result)
+                    $('#input-grid tbody').empty();
+                    
+                    $('#form-tambah').validate().resetForm();
+                    
+                    $('#btn-save').attr('type','button');
+                    $('#btn-save').attr('id','btn-update');
+                    $('#id').val('edit');
+                    $('#method').val('put');
+                    $('#judul-form').html('Edit Data Flag Relasi');
+                    getForChangeFlag(id);
+                    var no = 1;
+                    var row = "";
+                    for(var i=0;i<result.daftar.data.length;i++) {
+                        var data = result.daftar.data[i];
+                        row += "<tr class='row-grid no-grid'>";
+                        row += "<td class='text-center'>"+no+"</td>";
+                        row += "<td><span class='td-kode tdakunke"+no+" tooltip-span' style='display:inline-block;'>"+data.kode_akun+"</span><input type='text' style='display:none;' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                        row += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama+"' readonly></td>";
+                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                        row += "</tr>";
+                        no++;
+                    }
+                    $('#input-grid tbody').append(row);
+                    $('.inp-kode').typeahead({
+                        source:$dtAkun,
+                        displayText:function(item){
+                            return item.id+' - '+item.name;
+                        },
+                        autoSelect:false,
+                        changeInputOnSelect:false,
+                        changeInputOnMove:false,
+                        selectOnBlur:false,
+                        afterSelect: function (item) {
+                            console.log(item.id);
+                        }
+                    });
+                    $('.tooltip-span').tooltip({
+                        title: function(){
+                            return $(this).text();
+                        }
+                    });
+                    hitungTotalRow();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+            }
+        });
     });
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
-        $('#form-tambah').validate().resetForm();
-        
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
-
-        $('#judul-form').html('Edit Data Flag Relasi');
-        $('#input-grid tbody').empty();
-        $('#id').val('edit');
-        $('#method').val('put');
-        getForChangeFlag(id);                    
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $('#modal-preview').modal('hide');
-        // $.ajax({
-        //     type: 'GET',
-        //     url: "{{ url('yakes-master/flag-akun') }}/" + id,
-        //     dataType: 'json',
-        //     async:false,
-        //     success:function(res){
-        //         var result= res.data;
-        //         if(result.status){
-        //             $('#id_edit').val('edit');
-        //             $('#method').val('put');
-        //             $('#kode_flag').attr('readonly', true);
-        //             $('#kode_flag').val(id);
-        //             $('#id').val(id);
-        //             $('#nama').val(result.data[0].nama);
-        //             $('#kode_flag').val(result.data[0].kode_flag);                  
-        //             $('#saku-datatable').hide();
-        //             $('#saku-form').show();
-        //         }
-        //         else if(!result.status && result.message == 'Unauthorized'){
-        //             window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-        //         }
-        //         // $iconLoad.hide();
-        //     }
-        // });
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('yakes-master/cek-akun') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.status){
+                    console.log(result)
+                    $('#input-grid tbody').empty();
+                    
+                    $('#form-tambah').validate().resetForm();
+                    
+                    $('#btn-save').attr('type','button');
+                    $('#btn-save').attr('id','btn-update');
+                    $('#id').val('edit');
+                    $('#method').val('put');
+                    $('#judul-form').html('Edit Data Flag Relasi');
+                    getForChangeFlag(id);
+                    var no = 1;
+                    var row = "";
+                    for(var i=0;i<result.daftar.data.length;i++) {
+                        var data = result.daftar.data[i];
+                        row += "<tr class='row-grid no-grid'>";
+                        row += "<td class='text-center'>"+no+"</td>";
+                        row += "<td><span class='td-kode tdakunke"+no+" tooltip-span' style='display:inline-block;'>"+data.kode_akun+"</span><input type='text' style='display:none;' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                        row += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama+"' readonly></td>";
+                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                        row += "</tr>";
+                        no++;
+                    }
+                    $('#input-grid tbody').append(row);
+                    $('.inp-kode').typeahead({
+                        source:$dtAkun,
+                        displayText:function(item){
+                            return item.id+' - '+item.name;
+                        },
+                        autoSelect:false,
+                        changeInputOnSelect:false,
+                        changeInputOnMove:false,
+                        selectOnBlur:false,
+                        afterSelect: function (item) {
+                            console.log(item.id);
+                        }
+                    });
+                    $('.tooltip-span').tooltip({
+                        title: function(){
+                            return $(this).text();
+                        }
+                    });
+                    hitungTotalRow();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+            }
+        });               
     });
     // END EDIT ACTION //
 
@@ -1311,7 +1351,63 @@
         // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 2){
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var nama = $(this).closest('tr').find('td').eq(1).html();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('/yakes-master/cek-akun') }}/"+id,
+                dataType: 'json',
+                async:false,
+                success:function(result){
+                    if(result.status){
 
+                        var html = `<tr>
+                            <td style='border:none'>Kode Flag</td>
+                            <td style='border:none'>`+id+`</td>
+                        </tr>
+                        <tr>
+                            <td>Nama Flag</td>
+                            <td>`+nama+`</td>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <table id='table-preview-data' class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Kode Akun</th>
+                                            <th style="width:18%">Nama Akun</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>`;
+                        $('#table-preview tbody').html(html);
+                        var det = ``;
+                        if(result.daftar.data.length > 0){
+                            var input = '';
+                            var no=1;
+                            for(var i=0;i<result.daftar.data.length;i++){
+                                var data = result.daftar.data[i];
+                                input += "<tr>";
+                                input += "<td>"+no+"</td>";
+                                input += "<td >"+data.kode_akun+"</td>";
+                                input += "<td >"+data.nama+"</td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                            $('#table-preview-data tbody').html(input);
+                        }
+                        $('#modal-preview-id').text(id);
+                        $('#modal-preview').modal('show');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                        }
+                }
+            });
         }
     });
     // END PREVIEW DATA //
