@@ -253,7 +253,7 @@
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-jurnal" role="tabpanel">
 
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
                                     
