@@ -629,6 +629,24 @@
                 var cancel = (data.cancel != undefined ? data.cancel : null);
                 var showCancel = (data.cancel != undefined ? true : false);
             break;
+            case 'sukses':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Sukses');
+                var text = (data.text != undefined ? data.text : 'Data berhasil disimpan');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+            case 'warning':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Peringatan');
+                var text = (data.text != undefined ? data.text : '');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
         }
         
         var swalWithBootstrapButtons = Swal.mixin({
@@ -689,6 +707,12 @@
                     }                    
                 break;
                 case 'duplicate':
+                    //  
+                break;
+                case 'sukses':
+                    //  
+                break;
+                case 'warning':
                     //  
                 break;
             }

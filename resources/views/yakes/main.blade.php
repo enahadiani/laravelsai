@@ -574,7 +574,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-primary');
                 var title = (data.title != undefined ? data.title : 'Tersimpan');
-                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br>'+data.id);
+                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
                 
@@ -613,7 +613,7 @@
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
                 //     window.localStorage.setItem('logged_in', false);
-                //     window.location.href = "{{ url('yakes-auth/logout') }}";
+                //     window.location.href = "{{ url('esaku-auth/logout') }}";
                 // }
                 
                 // function callBackCancel(){
@@ -626,6 +626,24 @@
                 var title = (data.title != undefined ? data.title : 'Duplikat Data');
                 var text = (data.text != undefined ? data.text : 'Kode sudah digunakan');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Mengerti');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+            case 'sukses':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Sukses');
+                var text = (data.text != undefined ? data.text : 'Data berhasil disimpan');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+            case 'warning':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Peringatan');
+                var text = (data.text != undefined ? data.text : '');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
                 var cancel = (data.cancel != undefined ? data.cancel : null);
                 var showCancel = (data.cancel != undefined ? true : false);
             break;
@@ -683,12 +701,18 @@
                 case 'logout':
                     if (result.value) {
                         window.localStorage.setItem('logged_in', false);
-                        window.location.href = "{{ url('yakes-auth/logout') }}";
+                        window.location.href = "{{ url('esaku-auth/logout') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }                    
                 break;
                 case 'duplicate':
+                    //  
+                break;
+                case 'sukses':
+                    //  
+                break;
+                case 'warning':
                     //  
                 break;
             }

@@ -499,7 +499,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         $('.sai-treegrid-btn-up').click(function(){
             if($(".ui-selected").length != 1){
-                alert('Harap pilih struktur yang akan dipindah terlebih dahulu');
+                // alert('Harap pilih struktur yang akan dipindah terlebih dahulu');
+                msgDialog({
+                    id: '',
+                    type: 'warning',
+                    text: 'Harap pilih struktur yang akan dipindah terlebih dahulu'
+                });
                 return false;
             }else{
                 var this_index = $(".ui-selected").closest('tr').index();
@@ -557,7 +562,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         $('.sai-treegrid-btn-down').click(function(){
             if($(".ui-selected").length != 1){
-                alert('Harap pilih struktur yang akan dipindah terlebih dahulu');
+                // alert('Harap pilih struktur yang akan dipindah terlebih dahulu');
+                msgDialog({
+                    id: '',
+                    type: 'warning',
+                    text: 'Harap pilih struktur yang akan dipindah terlebih dahulu!'
+                });
                 return false;
             }else{
                 
@@ -705,7 +715,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 var tipe = $(".ui-selected").closest('tr').find('.set_tipe').val();
                 var kode = $(".ui-selected").closest('tr').find('.set_kode').text();
                 if(tipe == "Posting"){
-                    alert("Kode "+kode+" tidak boleh bertipe posting. Ubah tipenya dulu ke Header atau Sum Posted, jika akan ditambahkan sub item");
+                    // alert("Kode "+kode+" tidak boleh bertipe posting. Ubah tipenya dulu ke Header atau Sum Posted, jika akan ditambahkan sub item");
+                    msgDialog({
+                        id: '',
+                        type: 'warning',
+                        text: "Kode "+kode+" tidak boleh bertipe posting. Ubah tipenya dulu ke Header atau Sum Posted, jika akan ditambahkan sub item"
+                    });
                 }else{
                     getJenisAkun();
                     
@@ -721,7 +736,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         $('.sai-treegrid-btn-del').click(function(){
             if($(".ui-selected").length != 1){
-                alert('Harap pilih struktur yang akan dihapus terlebih dahulu');
+                // alert('Harap pilih struktur yang akan dihapus terlebih dahulu');
+                msgDialog({
+                    id: '',
+                    type: 'warning',
+                    text: 'Harap pilih struktur yang akan dihapus terlebih dahulu'
+                });
                 return false;
             }else{
                 var sts = confirm("Apakah anda yakin ingin menghapus item ini?");
@@ -735,8 +755,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                         dataType: 'json',
                         data: {'kode_fs':kode_fs,'modul':modul,'kode_neraca':selected_id},
                         success:function(result){
-                            alert(result.data.message);
+                            // alert(result.data.message);
+                            
                             if(result.data.status){
+                                msgDialog({
+                                    id: '',
+                                    type: 'sukses',
+                                    text: result.data.message
+                                });
                                 init(kode_fs,modul);
                                 
                             } else if(!result.data.status && result.data.message == 'Unauthorized'){
@@ -745,8 +771,15 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                                 //     text: 'harap login terlebih dahulu!',
                                 //     icon: 'error'
                                 // }).then(function() {
-                                //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                                 // })
+                            }else{
+                                msgDialog({
+                                    id: '',
+                                    type: 'sukses',
+                                    title: 'Error',
+                                    text: result.data.message
+                                });
                             }
                         }
                     });
@@ -804,7 +837,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 
             }else{
-                alert('Harap pilih struktur yang akan diubah terlebih dahulu');
+                // alert('Harap pilih struktur yang akan diubah terlebih dahulu');
+                msgDialog({
+                    id: '',
+                    type: 'warning',
+                    text: 'Harap pilih struktur yang akan diubah terlebih dahulu'
+                });
                 return false;
             }
         });
@@ -829,9 +867,14 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert(result.data.message);
+                    // alert(result.data.message);
                     
                     if(result.data.status){
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            text: result.data.message
+                        });
                         
                         init(kode_fs,modul);
                         $('#sai-treegrid-modal').modal('hide');
@@ -843,8 +886,15 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                        //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         // })
+                    }else{
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            title: 'Error',
+                            text: result.data.message
+                        });
                     }
                 }
             });
@@ -874,8 +924,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert('Perubahan '+result.data.message);
+                    // alert('Perubahan '+result.data.message);
                     if(result.data.status){
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            text: 'Perubahan '+result.data.message
+                        });
                         init(kode_klp);
                     } else if(!result.data.status && result.data.message == 'Unauthorized'){
                         // Swal.fire({
@@ -883,8 +938,15 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                        //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         // })
+                    }else{
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            title: 'Error',
+                            text: result.data.message
+                        });
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
@@ -986,7 +1048,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         $('.sai-treegrid-btn-link').click(function(){
             if($(".ui-selected").length != 1){
-                alert('Harap pilih struktur yang akan di relasi terlebih dahulu');
+                // alert('Harap pilih struktur yang akan di relasi terlebih dahulu');
+                msgDialog({
+                    id: '',
+                    type: 'warning',
+                    text: 'Harap pilih struktur yang akan di relasi terlebih dahulu'
+                });
                 return false;
             }else{
                 var tipe = $('.ui-selected').closest('tr').find('.set_tipe').val();
@@ -997,7 +1064,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                     getDataAkun(kode_neraca,modul);
                     $('#modal-relasi').modal('show');
                 }else{
-                    alert('Hanya kode akun yang bertipe posting yang bisa direlasi!');
+                    // alert('Hanya kode akun yang bertipe posting yang bisa direlasi!');
+                    msgDialog({
+                        id: '',
+                        type: 'warning',
+                        text: 'Hanya kode akun yang bertipe posting yang bisa direlasi!'
+                    });
                 }
             }
         });
@@ -1089,8 +1161,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert(result.data.message);
+                    // alert(result.data.message);
                     if(result.data.status){
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            text: result.data.message
+                        });
 
                         $('#modal-relasi').modal('hide');
                     }
@@ -1100,8 +1177,15 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                        //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                         // })
+                    }else{
+                        msgDialog({
+                            id: '',
+                            type: 'sukses',
+                            title: 'Error',
+                            text: result.data.message
+                        });
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
