@@ -52,6 +52,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     padding-left: 2px !important;
     padding-right: 2px !important;
 }
+#table-sudah tbody tr:hover, 
+#table-belum tbody tr:hover, #sai-treegrid tbody tr:hover
+{
+  background:#f8f8f8 !important;
+  border-color:#f8f8f8 !important;
+  cursor:pointer;
+}
 </style>
 
     <div class="row" id="saku-data">
