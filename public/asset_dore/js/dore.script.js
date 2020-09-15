@@ -627,7 +627,6 @@ $.dore = function (element, options) {
         }
         return;
       }
-
       showSubMenu($(this).attr("href"));
       var container = $("#app-container");
       if (!$("#app-container").hasClass("menu-mobile")) {

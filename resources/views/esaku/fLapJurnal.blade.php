@@ -151,11 +151,11 @@
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>periode</p>
-                                            <label for="periode" class="col-md-3 col-sm-12 col-form-label">Periode</label>
+                                            <label for="periode" class="col-md-2 col-sm-12 col-form-label">Periode</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -163,8 +163,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -177,11 +177,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>modul</p>
-                                            <label for="modul" class="col-md-3 col-sm-12 col-form-label">Modul</label>
+                                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Modul</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='modul[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="modul[]" id="modul-from" readonly value="Menampilkan semua modul">
                                                     <div class="input-group-append border-left-0">
@@ -189,8 +189,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -203,11 +203,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>no_bukti</p>
-                                            <label for="no_bukti" class="col-md-3 col-sm-12 col-form-label">No Bukti</label>
+                                            <label for="no_bukti" class="col-md-2 col-sm-12 col-form-label">No Bukti</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='no_bukti[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="no_bukti[]" id="no_bukti-from" readonly value="Menampilkan semua no bukti">
                                                     <div class="input-group-append border-left-0">
@@ -215,8 +215,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -229,11 +229,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>sum_ju</p>
-                                            <label for="sum_ju" class="col-md-3 col-sm-12 col-form-label">Sum Jurnal</label>
+                                            <label for="sum_ju" class="col-md-2 col-sm-12 col-form-label">Sum Jurnal</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='sum_ju[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="sum_ju[]" id="sum_ju-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -241,8 +241,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -895,7 +895,7 @@
                     
                     $aktif = '';
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
@@ -919,7 +919,7 @@
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
@@ -947,7 +947,7 @@
                             field.fromname =  field.fromname ;
                             field.toname =  field.toname ;
         
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
                             if(kunci == "periode"){
                                 $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
@@ -971,7 +971,7 @@
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     showFilter(par,target,"in");
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
