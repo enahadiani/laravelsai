@@ -7691,7 +7691,7 @@ div.row-notif  a:hover {
   color: #8f8f8f;
 }
 .dropdown-profile:hover,.userprofile:hover,.userjab:hover{
-  background-color: #1b1919;
+  background-color: unset;
   color: #8f8f8f;
 }
 .dropdown-item:active{

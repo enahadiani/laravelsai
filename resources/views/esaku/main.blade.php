@@ -298,6 +298,10 @@
             font-size:10px;
         }
 
+        .dropdown-periode:hover,.dropdown-lokasi{
+            background: unset !important;
+        }
+
         /* #notificationDropdown2
         {
             left: 50% !important;
@@ -446,7 +450,8 @@
                             <span class="userjab" >{{ Session::get('jabatan') }}</span>
                         </div>
                     </a>
-                    <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>
+                    <a href="#" class="dropdown-periode dropdown-item border-top" ></a>
+                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom border-top" ></a>
                     <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
                     <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
@@ -1051,6 +1056,8 @@
     
     loadMenu();
     getNotif();
+    $('.dropdown-periode').html("Periode "+namaPeriode("{{ Session::get('periode') }}"));
+    $('.dropdown-lokasi').html("Lokasi {{ Session::get('lokasi') }}");
     
     if(form !="" || form != "-"){
         loadForm("{{ url('esaku-auth/form')}}/"+form)
