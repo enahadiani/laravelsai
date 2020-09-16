@@ -103,7 +103,7 @@
                             <div class="form-group row">
                                 <label for="kode_divisi" class="col-3 col-form-label">Kode Divisi</label>
                                 <div class="col-3">
-                                    <select class='form-control' id="kode_divisi" name="kode_divisi" >
+                                    <select class='form-control' id="kode_divisi" name="kode_divisi" readonly>
                                     <option value=''>--- Pilih Divisi ---</option>
                                     </select>
                                 </div>

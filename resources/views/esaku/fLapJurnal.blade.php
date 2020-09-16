@@ -136,10 +136,10 @@
                             <i class="simple-icon-share-alt mr-1"></i> Export 
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                                <a class="dropdown-item" href="#" id="sai-rpt-print"><i class="simple-icon-printer mr-1"></i> Print</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-print"><i class="iconsminds-file" style="margin-left: -2px;"></i> Print Preview</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-email"><i class="simple-icon-envelope mr-2"></i>Email</a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:14px;"> <span class="ml-2">Print Preview</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;"><span class="ml-2">Email</span></a>
                             </div>
                         </div>
                     </div>
