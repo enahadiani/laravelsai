@@ -650,6 +650,12 @@
         getNIKVer(kota,kode_divisi);
     });
 
+    $('#kode_divisi').change(function(){
+        var kota = $('#kode_kota')[0].selectize.getValue();
+        var kode_divisi = $('#kode_divisi')[0].selectize.getValue();
+        getNIKVer(kota,kode_divisi);
+    });
+
     $('#tanggal').change(function(){
         var pp = $('#kode_pp')[0].selectize.getValue();
         var kota = $('#kode_kota')[0].selectize.getValue();
