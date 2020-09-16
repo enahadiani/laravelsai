@@ -682,6 +682,15 @@
         },
         'columnDefs': [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            }
         ],
         'columns': [
             { data: 'kode_vendor' },
