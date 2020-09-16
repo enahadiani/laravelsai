@@ -1,5 +1,5 @@
 <script type="text/javascript">
-
+    
     function drawLap(formData){
        saiPost('esaku-report/lap-nrclajur', null, formData, null, function(res){
            if(res.result.length > 0){
@@ -27,9 +27,6 @@
                 .info-table thead{
                     // background:#e9ecef;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
                 .no-border td{
                     border:0 !important;
                 }
@@ -40,9 +37,8 @@
 
             `;
             var lokasi = res.lokasi;
-            html+=`
+            html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
                 <table class='table table-bordered info-table'>
-                    <thead>
                     <tr>
                         <td width='30' rowspan='2'  class='header_laporan' align='center'>No</td>
                         <td width='70' rowspan='2' class='header_laporan' align='center'>Kode Akun</td>
@@ -58,9 +54,7 @@
                         <td width='90' class='header_laporan' align='center'>Kredit</td>
                         <td width='90' class='header_laporan' align='center'>Debet</td>
                         <td width='90' class='header_laporan' align='center'>Kredit</td>
-                    </tr>
-                    </thead>
-                    <tbody>`;
+                    </tr>`;
                     var so_awal_debet=0;
                     var so_awal_kredit=0;
                     var debet=0;
@@ -100,7 +94,6 @@
                 <td class='sum_laporan' align='right'>`+sepNum(so_akhir_debet)+`</td>
                 <td class='sum_laporan' align='right'>`+sepNum(so_akhir_kredit)+`</td>
                 </tr>
-                </tbody>
             </table>`;
         }
         $('#canvasPreview').html(html);

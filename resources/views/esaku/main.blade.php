@@ -345,6 +345,18 @@
             }
         }
 
+        .judul-nama{
+            font-weight:bold;
+            font-size:1.1rem;
+        }
+        .judul-lokasi{
+            font-weight:bold;
+            font-size:1rem;
+        }
+        .judul-periode{
+            font-weight:bold;
+            font-size:0.75rem;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";

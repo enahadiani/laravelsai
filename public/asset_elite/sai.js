@@ -73,6 +73,20 @@ function namaPeriode(periode){
     return bulan+' '+tahun;
 }
 
+function judul_lap(nama,lokasi,periode){
+    return `<table class='table table-borderless' width='100%'>
+        <tr>
+            <td class='text-center px-0 py-0 judul-nama'>`+nama+`</td>
+        </tr>
+        <tr>
+            <td class='text-center px-0 py-0 judul-lokasi'>`+lokasi+`</td>
+        </tr>
+        <tr>
+            <td class='text-center px-0 py-0 judul-periode'>`+periode+`</td>
+        </tr>
+    </table>`;
+}
+
 function sepNum(x,prefix=null){
     if (typeof x === 'undefined' || !x) { 
         return 0;

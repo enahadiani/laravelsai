@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
     function drawLap(formData){
        saiPost('esaku-report/lap-bukubesar', null, formData, null, function(res){
            if(res.result.length > 0){
@@ -23,39 +22,32 @@
             }else{
                 $('.navigation-lap').addClass('hidden');
             }
+            var lokasi = res.lokasi;
             var html = `<div>
             <style>
                 .info-table thead{
                     background:#4286f5;
                     color:white;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
-                .no-border td{
-                    border:0 !important;
-                }
                 .bold {
                     font-weight:bold;
                 }
+                td.no-border{
+                    border:none;
+                }
             </style>
-            `;
-            var lokasi = res.lokasi;
+            `+judul_lap("LAPORAN BUKU BESAR",lokasi,'Periode '+periode.fromname);
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`
                 <table class='table table-bordered'>
-                <tr >
-                <td height='23' colspan='9'><table class='table no-border'>
-                    <tr>
-                    <td class='header_laporan' width='100'>Kode Akun  </td>
-                    <td class='header_laporan' >:&nbsp;`+line.kode_akun+`</td>
-                  </tr>
-                  <tr>
-                    <td class='header_laporan'>Nama Akun </td>
-                    <td class='header_laporan'>:&nbsp;`+line.nama+`</td>
-                  </tr>
-                </table></td>
+                <tr>
+                    <td class='header_laporan no-border' width='100'>Kode Akun  </td>
+                    <td class='header_laporan no-border' colspan='7'>:&nbsp;`+line.kode_akun+`</td>
+                </tr>
+                <tr>
+                    <td class='header_laporan no-border'>Nama Akun </td>
+                    <td class='header_laporan no-border' colspan='7'>:&nbsp;`+line.nama+`</td>
                 </tr>
                 <tr>
                     <td height='23' colspan='7' class='header_laporan' align='right'>Saldo Awal </td>

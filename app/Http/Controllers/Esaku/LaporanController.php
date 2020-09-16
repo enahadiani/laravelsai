@@ -388,7 +388,7 @@
                     $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back], 200);    
+                return response()->json(['result' => $data, 'status'=>true,'lokasi'=>Session::get('namaLokasi'), 'auth_status'=>1,'back'=>$back], 200);    
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

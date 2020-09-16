@@ -41,13 +41,8 @@
    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
-            if(res.back){
-                var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
-                <i class="fa fa-undo"></i> Back</button>`;
-            }else{
-                var back= ``;
-            }
             res.bentuk = '';
+            var lokasi = res.lokasi;
             res.data_detail = [];
             var html = `
             <style>
@@ -55,24 +50,18 @@
                 background:#4286f5;
                 color:white;
             }
-            .table-bordered td{
-                border: 1px solid #e9ecef !important;
-            }
             .no-border td{
                 border:0 !important;
             }
             .bold {
                 font-weight:bold;
             }
-            </style>`+back+`
+            </style>`+judul_lap("LAPORAN LABA RUGI",lokasi,'Periode '+periode.fromname)+`
             <table class='table table-bordered'>
-            <thead>
             <tr>
                 <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
                 <td width='100' class='header_laporan'><div align='center'>Jumlah</div></td>
-            </tr>
-            </thead>
-            <tbody>`;
+            </tr>`;
             var no=1;
             for (var i=0;i < data.length;i++)
             {
@@ -115,7 +104,6 @@
                 no++;
             }
             html+=`
-            </tbody>
             </table>`;
         }
         $('#canvasPreview').html(html);

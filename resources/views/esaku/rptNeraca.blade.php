@@ -26,9 +26,6 @@
                 .info-table thead{
                     // background:#e9ecef;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
                 .no-border td{
                     border:0 !important;
                 }
@@ -39,7 +36,7 @@
 
             `;
             var lokasi = res.lokasi;
-            html+=`
+            html+=judul_lap("LAPORAN NERACA",lokasi,'Periode '+periode.fromname)+`
                     <table class='table table-bordered' width='100%'>
                         <tr>
                             <td class='text-center;' width='35%'>Deskripsi</td>
