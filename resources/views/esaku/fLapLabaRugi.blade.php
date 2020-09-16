@@ -133,12 +133,13 @@
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Export
+                            <i class="simple-icon-share-alt mr-1"></i> Export
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                                <a class="dropdown-item" href="#" id="sai-rpt-print">Print</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
                             </div>
                         </div>
                     </div>
@@ -482,6 +483,7 @@
                     var display = "kode";
                     var field = eval("kode_fs");
                     var kunci = "kode_fs";
+                    var orderby = [];
                 break;
                 case 'level[]': 
                     header = ['Kode'];
@@ -497,6 +499,7 @@
                     var display = "kode";
                     var field = eval("level");
                     var kunci = "level";
+                    var orderby = [];
                 break;
                 case 'format[]': 
                     header = ['Kode'];
@@ -512,6 +515,7 @@
                     var display = "kode";
                     var field = eval("format");
                     var kunci = "format";
+                    var orderby = [];
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
@@ -527,6 +531,7 @@
                     var field = eval("periode");
                     var display = "name";
                     var kunci = "periode";
+                    var orderby = [[0,"desc"]];
                 break;
             }
 
@@ -594,6 +599,7 @@
                     }
                 },
                 columns: columns,
+                order: orderby,
                 drawCallback: function () {
                     $($(".dataTables_wrapper .pagination li:first-of-type"))
                         .find("a")
@@ -632,6 +638,7 @@
                         }
                     },
                     columns: columns,
+                    order: orderby,
                     drawCallback: function () {
                         $($(".dataTables_wrapper .pagination li:first-of-type"))
                             .find("a")
@@ -696,6 +703,7 @@
                 var searchTable2 = $("#table-search2").DataTable({
                     sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
                     columns: columns,
+                    order: orderby,
                     drawCallback: function () {
                         $($(".dataTables_wrapper .pagination li:first-of-type"))
                             .find("a")

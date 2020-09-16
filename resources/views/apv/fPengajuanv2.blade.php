@@ -13,6 +13,10 @@
 .datepicker{
     padding: inherit !important;
 }
+
+.locked{
+    background: #eff1f3 !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
@@ -103,7 +107,7 @@
                             <div class="form-group row">
                                 <label for="kode_divisi" class="col-3 col-form-label">Kode Divisi</label>
                                 <div class="col-3">
-                                    <select class='form-control' id="kode_divisi" name="kode_divisi" >
+                                    <select class='form-control' id="kode_divisi" name="kode_divisi">
                                     <option value=''>--- Pilih Divisi ---</option>
                                     </select>
                                 </div>
@@ -557,6 +561,8 @@
                     if(res.data.nik_ver !== 'undefined'){
                         control.setValue(res.data.nik_ver);
                     }
+                    
+                    control.lock();
                 }
             }
         });
@@ -605,8 +611,7 @@
                     }
                     if(result.kode_divisi !== 'undefined'){
                         control.setValue(result.kode_divisi);
-                    }
-                    
+                    }                    
                 }
             }
         });
@@ -647,6 +652,12 @@
         // console.log(pp);
         // console.log(kota);
         generateDok(tanggal,pp,kota);
+        getNIKVer(kota,kode_divisi);
+    });
+
+    $('#kode_divisi').change(function(){
+        var kota = $('#kode_kota')[0].selectize.getValue();
+        var kode_divisi = $('#kode_divisi')[0].selectize.getValue();
         getNIKVer(kota,kode_divisi);
     });
 
