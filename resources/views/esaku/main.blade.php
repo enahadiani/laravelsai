@@ -357,6 +357,12 @@
             font-weight:bold;
             font-size:0.75rem;
         }
+        .saku-progress{
+            position:fixed;
+            z-index:9000;
+            bottom:0;
+            width:100%;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -554,6 +560,12 @@
             </div>
         </div>
     </main>
+    <div class="saku-progress" style="display:none">
+        Memuat ...
+        <div style="height: 10px;" class="progress mb-2">
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="1" style="width:1%" >1%</div>
+        </div>
+    </div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
     // Enable pusher logging - don't include this in production

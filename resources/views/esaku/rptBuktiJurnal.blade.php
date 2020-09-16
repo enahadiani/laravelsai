@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-       saiPost('esaku-report/lap-buktijurnal', null, formData, null, function(res){
+        saiPostLoad('esaku-report/lap-buktijurnal', null, formData, null, function(res){
            console.log(res.result.length);
            if(res.result.length > 0){
 

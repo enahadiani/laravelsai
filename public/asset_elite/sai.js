@@ -532,6 +532,119 @@ function saiPost(post_url, cancel_url, formData, table_refresh_target_id, succes
     });
 }
 
+function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, success_callback, failed_callback, clear){
+    if (typeof clear === 'undefined') { clear = true; }
+    if (typeof table_refresh_target_id === 'undefined') { table_refresh_target_id = null; }
+    if (typeof success_callback === 'undefined') { success_callback = null; }
+    if (typeof failed_callback === 'undefined') { failed_callback = null; }
+    var status = true;
+    $('.saku-progress').show();
+    $('.progress-bar').attr('aria-valuenow', 0).css({
+        width: 0 + '%'
+    }).html(parseFloat(0 * 100).toFixed(2) + '%');
+    $.ajax({
+        xhr: function () {
+            var xhr = new window.XMLHttpRequest();
+            console.log('xhr jalan');
+            xhr.upload.addEventListener("progress", function (evt) {
+                if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    console.log(percentComplete);
+                    $('.progress-bar').attr('aria-valuenow', percentComplete * 100).css({
+                        width: percentComplete * 100 + '%'
+                    }).html(parseFloat(percentComplete * 100).toFixed(2) + '%');
+                    // if (percentComplete === 1) {
+                    //     $('.progress').addClass('hidden');
+                    // }
+                }
+            }, false);
+            xhr.addEventListener("progress", function (evt) {
+                if (evt.lengthComputable) {
+                    var percentComplete = evt.loaded / evt.total;
+                    console.log(percentComplete);
+                    $('.progress-bar').css({
+                        width: percentComplete * 100 + '%'
+                    });
+                }
+            }, false);
+            
+            console.log('xhr udah');
+            return xhr;
+        },
+        url: post_url,
+        data: formData,
+        type: "post",
+        dataType: "json",
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false, 
+        success: function (data) {
+            if(data.auth_status == 1){
+                if(typeof data.alert !== 'undefined'){
+                    alert("Auth success : "+data.alert);
+                }
+                
+                if(success_callback != null){
+                    success_callback(data);
+                }else{
+                    if(data.status == 1){
+                        // clear input dan validation box jika berhasil
+                        if(table_refresh_target_id != null){
+                            $(table_refresh_target_id).DataTable().ajax.reload();
+                        }
+                        
+                        if(clear){
+                            // if(confirm('Bersihkan input?')){
+                            clearInput();
+                            // }
+                        }
+    
+                        if(data.edit){
+                            if(cancel_url == null){
+                                location.reload();
+                            }else{
+                                window.location = cancel_url;
+                            }
+                            // for(i = 0; i < $('.selectize').length; i++){
+                            //     $('.selectize')[i].selectize.setValue('');
+                            //     alert($('.selectize')[i].selectize.getValue());
+                            //     if selectize.length == null ?
+                            // }
+                        }else{
+                            $('.nav-tabs a[href="#sai-container-daftar"]').tab('show');
+                        }
+                    }
+                }
+
+                if(failed_callback != null){
+                    failed_callback(data);
+                }else{
+                    if (data.status == 3){
+                        // https://stackoverflow.com/a/26166303
+                        var error_array = Object.keys(data.error_input).map(function (key) { return data.error_input[key]; });
+    
+                        // append input element error
+                        var error_list = "<div class='alert alert-danger' style='padding:0px; padding-top:5px; padding-bottom:5px; margin:0px; color: #a94442; background-color: #f2dede; border-color: #ebccd1;'><ul>";
+                        for(i = 0; i<error_array.length; i++){
+                            error_list += '<li>'+error_array[i]+'</li>';
+                        }
+                        error_list += "</ul></div>";
+                        $('#validation-box').html(error_list);
+                    }
+                }
+            }else{
+                alert("Auth Failed : "+data.error);
+            }
+        },
+        complete:function(xhr){
+            $('.saku-progress').hide();
+            $('.progress-bar').attr('aria-valuenow', 0).css({
+                width: 0 + '%'
+            }).html(parseFloat(0 * 100).toFixed(2) + '%');
+        }
+    });
+}
+
 function saiReq(post_url, formData, options){
     if (typeof options === 'undefined') { 
         options = {

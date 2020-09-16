@@ -1,7 +1,6 @@
 <script type="text/javascript">
     function drawLap(formData){
-       saiPost('esaku-report/lap-jurnal', null, formData, null, function(res){
-           console.log(res.result.length);
+       saiPostLoad('esaku-report/lap-jurnal', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -18,8 +17,6 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        console.log(data.length);
-        console.log(res.detail_jurnal);
         if(data.length > 0){
             if(res.back){
                 $('.navigation-lap').removeClass('hidden');

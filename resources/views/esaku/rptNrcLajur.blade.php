@@ -1,7 +1,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-       saiPost('esaku-report/lap-nrclajur', null, formData, null, function(res){
+        saiPostLoad('esaku-report/lap-nrclajur', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');

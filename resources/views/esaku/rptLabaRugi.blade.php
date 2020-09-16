@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-       saiPost("{{ url('esaku-report/lap-labarugi') }}", null, formData, null, function(res){
+        saiPostLoad("{{ url('esaku-report/lap-labarugi') }}", null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');

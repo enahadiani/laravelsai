@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function drawLap(formData){
-       saiPost('esaku-report/lap-neraca', null, formData, null, function(res){
+        saiPostLoad('esaku-report/lap-neraca', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
