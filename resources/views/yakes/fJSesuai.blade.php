@@ -322,7 +322,7 @@
                                         }
 
 
-                                        #input-grid td:nth-child(4)
+                                        #input-grid td:nth-child(5)
                                         {
                                             overflow:unset !important;
                                         }
@@ -600,9 +600,9 @@
             dataType: 'json',
             async:false,
             success:function(result){    
-                if(result.daftar.status) {
-                    for(i=0;i<result.daftar.data.length;i++){
-                        $dtPP[i] = {id:result.daftar.data[i].kode_pp,name:result.daftar.data[i].nama};  
+                if(result.status) {
+                    for(i=0;i<result.daftar.length;i++){
+                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
                     }
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
@@ -698,23 +698,22 @@
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/yakes-master/helper-akun') }}/",
+            url: "{{ url('/yakes-master/helper-akun') }}/" + kode,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var filter = result.daftar.filter(data => data.kode_akun == kode);
-                        if(filter.length > 0) {
-                            if(jenis == 'change'){
+                        if(jenis == 'change'){
                             $('.'+target1).val(kode);
                             $('.td'+target1).text(kode);
 
-                            $('.'+target2).val(filter[0].nama);
-                            $('.td'+target2).text(filter[0].nama);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
                             // $('.'+target3)[0].selectize.focus();
                             $('.td'+target3).text('D');
                         }else{
+
                             $("#input-grid td").removeClass("px-0 py-0 aktif");
                             $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
@@ -723,31 +722,18 @@
                             $('.td'+target1).text(id);
                             $('.'+target1).hide();
                             $('.td'+target1).show();
-                            $('.'+target2).val(filter[0].nama);
-                            $('.td'+target2).text(filter[0].nama);
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
                             $('.td'+target3).text('D');
                         }
-                        }else {
-                            if(jenis == 'change'){
-                                $('.'+target1).val('');
-                                $('.'+target2).val('');
-                                $('.td'+target2).text('');
-                                $('.'+target1).focus();
-                            }else{
-                                $('.'+target1).val('');
-                                $('.'+target2).val('');
-                                $('.td'+target2).text('');
-                                $('.'+target1).focus();
-                                alert('Kode akun tidak valid');
-                            }
-                        }
                     }
                 }
                 else if(!result.daftar.status && result.daftar.message == 'Unauthorized'){
-                        window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
                 else{
                     if(jenis == 'change'){
@@ -762,6 +748,114 @@
                         $('.td'+target2).text('');
                         $('.'+target1).focus();
                         alert('Kode akun tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
+    function getPP(id,target1,target2,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/yakes-master/helper-pp') }}/"+ kode,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                        }else{
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-pp').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                }
+                else if(!result.daftar.status && result.daftar.message == 'Unauthorized'){
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode PP tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
+    function getFS(id,target1,target2,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/yakes-master/helper-fs') }}/"+ kode,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                        }else{
+                            $("#input-grid td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-fs').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                }
+                else if(!result.daftar.status && result.daftar.message == 'Unauthorized'){
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode PP tidak valid');
                     }
                 }
             }
@@ -817,7 +911,7 @@
                 if(json.status){
                     return json.daftar;   
                 }else{
-                    // window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     return [];
                 }
             }
@@ -1076,7 +1170,7 @@
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
             var idx_next = idx+1;
-            var kunci = $(this).closest('td').index()+2;
+            var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
             switch (idx) {
                 case 0:
@@ -1151,13 +1245,31 @@
                     }
                     break;
                 case 5:
-                    var noidx = $(this).parents("tr").find(".no-grid").text();
+                    var noidx = $(this).parents("tr").find("span.no-grid").text();
                     var kode = $(this).val();
                     var target1 = "ppke"+noidx;
                     var target2 = "nmppke"+noidx;
                     getPP(kode,target1,target2,'tab');
                     break;
                 case 6:
+                    console.log('PP nama');
+                    console.log({nxt, nxt2, idx, kunci});
+                    $("#input-grid td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    break;
+                case 7:
+                    console.log('FS');
+                    var noidx = $(this).parents("tr").find("span.no-grid").text();
+                    var kode = $(this).val();
+                    var target1 = "fske"+noidx;
+                    var target2 = "nmfske"+noidx;
+                    getFS(kode,target1,target2,'tab');
+                    break;
+                case 8:
                     $("#input-grid td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
@@ -1274,7 +1386,7 @@
 
     $('#input-grid').on('change', '.inp-pp', function(e){
         e.preventDefault();
-        var noidx =  $(this).closest('tr').find('.no-grid').html();
+        var noidx =  $(this).closest('tr').find('span.no-grid').text();
         target1 = "ppke"+noidx;
         target2 = "nmppke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
@@ -1299,6 +1411,33 @@
         }
     });
 
+    $('#input-grid').on('change', '.inp-fs', function(e){
+        e.preventDefault();
+        var noidx =  $(this).closest('tr').find('span.no-grid').text();
+        target1 = "fske"+noidx;
+        target2 = "nmfske"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-fs').val()).length){
+            var kode = $(this).val();
+            getFS(kode,target1,target2,'change');
+            // hitungTotal();
+        }else{
+            alert('FS yang dimasukkan tidak valid');
+            return false;
+        }
+    });
+
+    $('#input-grid').on('keypress', '.inp-fs', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val() != undefined){
+                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
@@ -1317,6 +1456,8 @@
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
                 var kode_pp = $(this).parents("tr").find(".inp-pp").val();
                 var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
+                var kode_fs = $(this).parents("tr").find(".inp-fs").val();
+                var nama_fs = $(this).parents("tr").find(".inp-nama_fs").val();
                 var no = $(this).parents("tr").find("span.no-grid").text();
                 $(this).parents("tr").find(".inp-kode").val(kode_akun);
                 $(this).parents("tr").find(".td-kode").text(kode_akun);
@@ -1412,6 +1553,34 @@
                     
                     $(this).parents("tr").find(".inp-nama_pp").hide();
                     $(this).parents("tr").find(".td-nama_pp").show();
+                }
+
+                $(this).parents("tr").find(".inp-fs").val(kode_fs);
+                $(this).parents("tr").find(".td-fs").text(kode_fs);
+                if(idx == 9){
+                    $(this).parents("tr").find(".inp-fs").show();
+                    $(this).parents("tr").find(".td-fs").hide();
+                    $(this).parents("tr").find(".search-fs").show();
+                    $(this).parents("tr").find(".inp-fs").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-fs").hide();
+                    $(this).parents("tr").find(".td-fs").show();
+                    $(this).parents("tr").find(".search-fs").hide();
+                }
+        
+                
+                $(this).parents("tr").find(".inp-nama_fs").val(nama_fs);
+                $(this).parents("tr").find(".td-nama_fs").text(nama_fs);
+                if(idx == 10){
+                    
+                    $(this).parents("tr").find(".inp-nama_fs").show();
+                    $(this).parents("tr").find(".td-nama_fs").hide();
+                    $(this).parents("tr").find(".inp-nama_fs").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_fs").hide();
+                    $(this).parents("tr").find(".td-nama_fs").show();
                 }
                 hitungTotal();
             }

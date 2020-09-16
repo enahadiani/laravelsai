@@ -763,7 +763,7 @@
 
         public function viewAkun($id) {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/viewAkun/'.$id,[
+            $response = $client->request('GET',  config('api.url').'yakes-master/cariAkunFlag/'.$id,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -813,7 +813,83 @@
                 $data = json_decode($response_data,true);
                 $data = $data;
             }
-            return response()->json(['daftar' => $data['success'], 'status' => true], 200);
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getPPYakesById($id) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/cariPPAktif?kode_pp='.$id,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getFSYakesById($id) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/cariFSAktif?kode_fs='.$id,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getAkunById($id) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/cariAkunAktif?kode_akun='.$id,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getFSById($id) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/cariFSAktif?kode_fs='.$id,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
         }
 
         public function generateBuktiSesuai(Request $request) {
