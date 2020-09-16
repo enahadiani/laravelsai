@@ -13,6 +13,10 @@
 .datepicker{
     padding: inherit !important;
 }
+
+.locked{
+    background: #eff1f3 !important;
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
