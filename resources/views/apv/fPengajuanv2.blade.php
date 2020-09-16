@@ -103,7 +103,7 @@
                             <div class="form-group row">
                                 <label for="kode_divisi" class="col-3 col-form-label">Kode Divisi</label>
                                 <div class="col-3">
-                                    <select class='form-control' id="kode_divisi" name="kode_divisi" readonly>
+                                    <select class='form-control' id="kode_divisi" name="kode_divisi">
                                     <option value=''>--- Pilih Divisi ---</option>
                                     </select>
                                 </div>
@@ -557,6 +557,8 @@
                     if(res.data.nik_ver !== 'undefined'){
                         control.setValue(res.data.nik_ver);
                     }
+                    
+                    control.lock();
                 }
             }
         });
@@ -605,8 +607,7 @@
                     }
                     if(result.kode_divisi !== 'undefined'){
                         control.setValue(result.kode_divisi);
-                    }
-                    
+                    }                    
                 }
             }
         });
