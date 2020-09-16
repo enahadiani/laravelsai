@@ -85,7 +85,7 @@
 			
                 if (line.tipe=="Posting" && line.n4 != 0)
                 {
-                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
                     <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
                     </tr>`;
                 }

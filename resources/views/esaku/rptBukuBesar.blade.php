@@ -46,7 +46,7 @@
                 html+=`
                 <table class='table table-bordered'>
                 <tr >
-                <td height='23' colspan='9' style='padding:5px'><table class='table no-border'>
+                <td height='23' colspan='9'><table class='table no-border'>
                     <tr>
                     <td class='header_laporan' width='100'>Kode Akun  </td>
                     <td class='header_laporan' >:&nbsp;`+line.kode_akun+`</td>
@@ -61,7 +61,7 @@
                     <td height='23' colspan='7' class='header_laporan' align='right'>Saldo Awal </td>
                     <td class='header_laporan' align='right'>`+sepNum(line.so_awal)+`</td>
                 </tr>
-                <tr bgcolor='' style=''>
+                <tr>
                     <td width='80' height='23' class='header_laporan' align='center'>No Bukti</td>
                     <td width='80' height='23' class='header_laporan' align='center'>No Dokumen</td>
                     <td width='60' class='header_laporan' align='center'>Tanggal</td>
@@ -84,7 +84,7 @@
                     debet=debet + parseFloat(line2.debet);
                     kredit=kredit + parseFloat(line2.kredit);	
 				    det +=`<tr style='cursor:pointer;' class='jurnal report-link' data-no_bukti='`+line2.no_bukti+`' data-kode_akun='`+line.kode_akun+`'>
-                        <td valign='top' class='isi_laporan'>`+line2.no_bukti+`
+                        <td valign='top' class='isi_laporan link-report'>`+line2.no_bukti+`
                         </td>
                         <td valign='top' class='isi_laporan'>`+line2.no_dokumen+`</td>
                         <td height='23' valign='top' class='isi_laporan'>`+line2.tgl+`</td>

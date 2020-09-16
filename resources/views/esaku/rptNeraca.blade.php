@@ -42,10 +42,10 @@
             html+=`
                     <table class='table table-bordered' width='100%'>
                         <tr>
-                            <td style='text-align:center;width:35%'>Deskripsi</td>
-                            <td style='text-align:center;width:15%'>Jumlah</td>
-                            <td style='text-align:center;width:35%'>Deskripsi</td>
-                            <td style='text-align:center;width:15%'>Jumlah</td>
+                            <td class='text-center;' width='35%'>Deskripsi</td>
+                            <td class='text-center;' width='15%'>Jumlah</td>
+                            <td class='text-center;' width='35%'>Deskripsi</td>
+                            <td class='text-center;' width='15%'>Jumlah</td>
                         </tr>
                 `;
                     var det = "";
@@ -65,7 +65,7 @@
                         det +="<tr>";
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
                         }
                         else
                         {
@@ -75,7 +75,7 @@
 
                          if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
                         }
                         else
                         {

@@ -80,8 +80,8 @@
                         
                         html +=`<tr class='report-link bukubesar' style='cursor:pointer;' data-kode_akun='`+line.kode_akun+`'>
                             <td class='isi_laporan' align='center'>`+no+`</td>
-                            <td class='isi_laporan'>`+line.kode_akun+`</td>
-                            <td height='20' class='isi_laporan'>`+line.nama+`</td>
+                            <td class='isi_laporan' >`+line.kode_akun+`</td>
+                            <td height='20' class='isi_laporan link-report'>`+line.nama+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_debet))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_kredit))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.debet))+`</td>

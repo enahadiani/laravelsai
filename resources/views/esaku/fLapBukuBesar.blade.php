@@ -1071,9 +1071,17 @@
         });
 
         $('#sai-rpt-print').click(function(){
-            $('#saku-report #canvasPreview').printThis();
+            $('#saku-report #canvasPreview').printThis({
+                removeInline: true
+            });
         });
 
+        $('#sai-rpt-print-prev').click(function(){
+            var newWindow = window.open();
+            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+            newWindow.document.write(html);
+        });
+        
         $("#sai-rpt-excel").click(function(e) {
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({

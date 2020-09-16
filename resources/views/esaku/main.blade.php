@@ -335,6 +335,16 @@
             background: #E8E8E8;
         }
 
+        .link-report{
+            color:blue;
+        }
+
+        @media print {
+            .link-report{
+                color:unset;
+            }
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
