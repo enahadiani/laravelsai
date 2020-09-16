@@ -727,7 +727,7 @@
 
         public function getAkun() {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/getAkun',[
+            $response = $client->request('GET',  config('api.url').'yakes-master/listAkunAktif',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -800,7 +800,7 @@
         public function getPPYakes() {
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/getPP',[
+            $response = $client->request('GET',  config('api.url').'yakes-master/listPPAktif',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -820,6 +820,25 @@
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-master/cariPPAktif?kode_pp='.$id,[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getFSYakes() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'yakes-master/listFSAktif',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -902,7 +921,7 @@
             $tahun = $explode_tgl[2];
             $tanggal = $tahun."-".$bln."-".$tgl;
 
-            $response = $client->request('GET',  config('api.url').'yakes-master/getNoBukti?tanggal='.$tanggal,[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/getNoBukti?tanggal='.$tanggal,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

@@ -32,7 +32,7 @@ class JurnalSesuaiController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/index',[
+            $response = $client->request('GET',  config('api.url').'yakes-trans/index',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
