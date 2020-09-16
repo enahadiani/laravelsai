@@ -1,4 +1,4 @@
-    <style>
+<style>
         th,td{
             padding:8px !important;
             vertical-align:middle !important;
@@ -1254,6 +1254,8 @@
                 case 6:
                     console.log('PP nama');
                     console.log({nxt, nxt2, idx, kunci});
+                    console.log(nxt[idx]);
+                    console.log(nxt[idx_next]);
                     $("#input-grid td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
