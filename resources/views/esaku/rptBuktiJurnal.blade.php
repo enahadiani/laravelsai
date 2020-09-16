@@ -11,6 +11,8 @@
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
            }
        });
    }
@@ -32,9 +34,6 @@
                 .info-table thead{
                     background:#4286f5;
                     color:white;
-                }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
                 }
                 .bold {
                     font-weight:bold;

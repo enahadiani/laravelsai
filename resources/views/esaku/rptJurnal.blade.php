@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
     function drawLap(formData){
        saiPost('esaku-report/lap-jurnal', null, formData, null, function(res){
            console.log(res.result.length);
@@ -9,6 +8,8 @@
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
            }
        });
    }
@@ -31,18 +32,14 @@
                     background:#4286f5;
                     color:white;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
                 .bold {
                     font-weight:bold;
                 }
             </style>
             `;
             var lokasi = res.lokasi;
-            html+=`
+            html+=judul_lap("LAPORAN TRANSAKSI JURNAL",lokasi,'Periode '+periode.fromname)+`
                 <table width='100%' class='table table-bordered'>
-                    <thead>
                     <tr>
                         <td width='20'  class='header_laporan' align='center'>No</td>
                         <td width='80' class='header_laporan' align='center'>No Bukti</td>
@@ -55,9 +52,7 @@
                         <td width='250' class='header_laporan' align='center'>Keterangan</td>
                         <td width='80' class='header_laporan' align='center'>Debet</td>
                         <td width='80' class='header_laporan' align='center'>Kredit</td>
-                    </tr>
-                    </thead>
-                    <tbody>`;
+                    </tr>`;
                     var total=0; 
                         var det = '';
                         var no=1;
@@ -129,7 +124,6 @@
                             </tr>`;
                         }
                         html+=det+`
-                    </tbody>
                     </table>
                 <DIV style='page-break-after:always'></DIV>`;
                         
