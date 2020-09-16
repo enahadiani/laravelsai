@@ -2290,35 +2290,7 @@
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
-    $('#input-jurnal').on('click', '.search-item', function(){
-
-        var par = $(this).closest('td').find('input').attr('name');
-
-        var modul = '';
-        var header = [];
-        
-        switch(par){
-            case 'kode_akun[]': 
-                var par2 = "nama_akun[]";
-
-            break;
-            case 'kode_pp[]': 
-                var par2 = "nama_pp[]";
-            break;
-        }
-
-        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        console.log(tmp);
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-
-        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        console.log(tmp);
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-
-        showFilter(par,target1,target2);
-    });
+     
 
     // $('#input-jurnal').on('keydown', '.inp-kode', function(e){
         // if(e.which == 40){

@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Session;
 //Helper Data//
 Route::get('helper-akun', 'Yakes\HelperController@getAkun');
 Route::get('cek-akun/{id}', 'Yakes\HelperController@cekAkun');
+Route::get('helper-tanggal', 'Yakes\HelperController@getTanggal');
+Route::get('helper-pp', 'Yakes\HelperController@getPPYakes');
+Route::get('helper-bukti-sesuai', 'Yakes\HelperController@generateBuktiSesuai');
 
 // Data Masakun //
 Route::get('masakun', 'Yakes\MasakunController@index');
