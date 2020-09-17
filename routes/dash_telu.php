@@ -75,4 +75,8 @@ Route::get('search-form-list2','DashTelu\AuthController@searchFormList2');
 Route::get('periode','DashTelu\DashboardController@getPeriode');
 
 
+Route::get('watch/{id}', function ($id) {
+    $data['id'] = $id;
+    return view('dash-telu.watch',$data);
+});
 ?>
