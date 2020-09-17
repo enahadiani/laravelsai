@@ -29,7 +29,7 @@
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -310,13 +310,12 @@
             transform: translate(-60%, 0) !important;
         }
 
+        */
         #adminDropdown
         {
-            left: 50% !important;
-            right: auto !important;
-            transform: translate(-40%, 0) !important;
+            width:250px !important; 
         }
-         */
+
         div.dropdown:hover > div.dropdown-menu {
             display: block !important;
         } 
@@ -364,6 +363,10 @@
             bottom:0;
             width:100%;
         }
+
+        .periode-label,.lokasi-label{
+            color:#B7B7B7;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -394,7 +397,7 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     
     
-    <script src="{{ asset('asset_dore/js/loading.js') }}"></script>
+    <!-- <script src="{{ asset('asset_dore/js/loading.js') }}"></script> -->
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
@@ -402,15 +405,15 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
 </head>
-<div class="preloader-wrap">
+<!-- <div class="preloader-wrap">
     <div class="progress" id="load-page">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
     </div>
-</div>
+</div> -->
 @if(Session::get('menu') != "")
-<body id="app-container" class="{{ Session::get('menu') }}">
+<body id="app-container" class="{{ Session::get('menu') }} show-spinner">
 @else
-<body id="app-container" class="menu-default" >
+<body id="app-container" class="menu-default show-spinner" >
 @endif
     <nav class="navbar fixed-top px-0 py-0">
         <div class="d-flex align-items-center navbar-left">
@@ -469,7 +472,7 @@
                     @endif
                     </span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
+                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
                             <span id="adminProfilePhoto">
@@ -484,7 +487,7 @@
                         </div>
                     </a>
                     <a href="#" class="dropdown-periode dropdown-item border-top" ></a>
-                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom border-top" ></a>
+                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom" ></a>
                     <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
                     <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
@@ -588,7 +591,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
                 var title = (data.title != undefined ? data.title : 'Hapus Data?');
-                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.<br> ID Data : <b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
@@ -1089,8 +1092,8 @@
     
     loadMenu();
     getNotif();
-    $('.dropdown-periode').html("Periode "+namaPeriode("{{ Session::get('periode') }}"));
-    $('.dropdown-lokasi').html("Lokasi {{ Session::get('lokasi') }}");
+    $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+    $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
     if(form !="" || form != "-"){
         loadForm("{{ url('esaku-auth/form')}}/"+form)

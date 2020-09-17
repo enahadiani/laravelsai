@@ -133,12 +133,13 @@
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Export
+                            <i class="simple-icon-share-alt mr-1"></i> Export
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                                <a class="dropdown-item" href="#" id="sai-rpt-print">Print</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-excel">Excel</a>
-                                <a class="dropdown-item" href="#" id="sai-rpt-email">Email</a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
+                                <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
                             </div>
                         </div>
                     </div>
@@ -151,11 +152,11 @@
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>periode</p>
-                                            <label for="periode" class="col-md-3 col-sm-12 col-form-label">Periode</label>
+                                            <label for="periode" class="col-md-2 col-sm-12 col-form-label">Periode</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='periode[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="periode[]" id="periode-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -163,8 +164,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -177,11 +178,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>kode_fs</p>
-                                            <label for="kode_fs" class="col-md-3 col-sm-12 col-form-label">Kode FS</label>
+                                            <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode FS</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='kode_fs[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="kode_fs[]" id="kode_fs-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -189,8 +190,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -203,11 +204,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>level</p>
-                                            <label for="level" class="col-md-3 col-sm-12 col-form-label">Level</label>
+                                            <label for="level" class="col-md-2 col-sm-12 col-form-label">Level</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='level[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="level[]" id="level-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -215,8 +216,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -229,11 +230,11 @@
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>format</p>
-                                            <label for="format" class="col-md-3 col-sm-12 col-form-label">Format</label>
+                                            <label for="format" class="col-md-2 col-sm-12 col-form-label">Format</label>
                                             <div class="col-md-2 col-sm-12" >
                                                 <select name='format[]' class='form-control sai-rpt-filter-type selectize'><option value='=' selected>Sama dengan</option></select>
                                             </div>
-                                            <div class="col-md-7 col-sm-12 sai-rpt-filter-from">
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-right-0 " name="format[]" id="format-from" readonly>
                                                     <div class="input-group-append border-left-0">
@@ -241,8 +242,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
@@ -284,7 +285,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-2" id="saku-report">
+        <div class="row mt-2 hidden" id="saku-report">
             <div class="col-12">
                 <div class="card px-4 py-4" style="min-height:200px">
                     <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
@@ -298,6 +299,17 @@
                         <button type="button" id="btn-back" style="position: absolute;right: 25px;
                         top: 30px;" class="btn btn-light float-right">
                         <i class=""></i> Back</button>
+                    </div>
+                    <div class="row h-100" id="report-load" style="display: none;">
+                        <div class="col-12 col-md-10 mx-auto my-auto">
+                            <div style="box-shadow:none" class="card auth-card text-center">
+                                <div style="padding:50px;width:50%;" class="my-auto mx-auto">
+                                    <div class="progress" style="height:10px">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="report-load-bar">0.00%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="canvasPreview">
                     </div>
@@ -482,6 +494,7 @@
                     var display = "kode";
                     var field = eval("kode_fs");
                     var kunci = "kode_fs";
+                    var orderby = [];
                 break;
                 case 'level[]': 
                     header = ['Kode'];
@@ -497,6 +510,7 @@
                     var display = "kode";
                     var field = eval("level");
                     var kunci = "level";
+                    var orderby = [];
                 break;
                 case 'format[]': 
                     header = ['Kode'];
@@ -512,6 +526,7 @@
                     var display = "kode";
                     var field = eval("format");
                     var kunci = "format";
+                    var orderby = [];
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
@@ -527,6 +542,7 @@
                     var field = eval("periode");
                     var display = "name";
                     var kunci = "periode";
+                    var orderby = [[0,"desc"]];
                 break;
             }
 
@@ -594,6 +610,7 @@
                     }
                 },
                 columns: columns,
+                order: orderby,
                 drawCallback: function () {
                     $($(".dataTables_wrapper .pagination li:first-of-type"))
                         .find("a")
@@ -632,6 +649,7 @@
                         }
                     },
                     columns: columns,
+                    order: orderby,
                     drawCallback: function () {
                         $($(".dataTables_wrapper .pagination li:first-of-type"))
                             .find("a")
@@ -696,6 +714,7 @@
                 var searchTable2 = $("#table-search2").DataTable({
                     sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
                     columns: columns,
+                    order: orderby,
                     drawCallback: function () {
                         $($(".dataTables_wrapper .pagination li:first-of-type"))
                             .find("a")
@@ -884,7 +903,7 @@
                     
                     $aktif = '';
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
@@ -908,7 +927,7 @@
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     showFilter(par,target);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
@@ -939,7 +958,7 @@
                             field.toname =  field.toname ;
                             console.log('close');
         
-                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-7');
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
                             if(kunci == "periode"){
         
@@ -964,7 +983,7 @@
                     var target = $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input');
                     showFilter(par,target,"in");
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
-                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-7');
+                    $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                     $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
@@ -1017,6 +1036,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            $('#saku-report').removeClass('hidden');
             xurl = "{{ url('yakes-auth/form/rptNeraca') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -1245,7 +1265,15 @@
         });
 
         $('#sai-rpt-print').click(function(){
-            $('#saku-report #canvasPreview').printThis();
+            $('#saku-report #canvasPreview').printThis({
+                removeInline: true
+            });
+        });
+
+        $('#sai-rpt-print-prev').click(function(){
+            var newWindow = window.open();
+            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+            newWindow.document.write(html);
         });
 
         $("#sai-rpt-excel").click(function(e) {

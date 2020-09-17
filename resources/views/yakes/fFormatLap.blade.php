@@ -1,111 +1,121 @@
-<link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-<style>
-.ui-selected{
-    background: #e8e8e8 !important;
-    color: unset !important;
-}
-.selected{
-    background: #e8e8e8 !important;
-    color: unset !important;
-}
-.selected2{
-    background: #e8e8e8 !important;
-    color: unset !important;
-}
-td,th{
-    padding:8px !important;
-}
-.form-group{
-    margin-bottom: 5px !important;
-}
-#table-belum,#table-sudah
-{
-    border-collapse:collapse !important;
-}
+    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+    <style>
+    .ui-selected{
+        background: #e8e8e8 !important;
+        color: unset !important;
+    }
+    .selected{
+        background: #e8e8e8 !important;
+        color: unset !important;
+    }
+    .selected2{
+        background: #e8e8e8 !important;
+        color: unset !important;
+    }
+    td,th{
+        padding:8px !important;
+    }
+    .form-group{
+        margin-bottom: 5px !important;
+    }
+    #table-belum,#table-sudah
+    {
+        border-collapse:collapse !important;
+    }
 
-#table-belum_filter label, #table-belum_filter input,#table-sudah_filter label, #table-sudah_filter input
-{
-    width:100%;
-}
+    #table-belum_filter label, #table-belum_filter input,#table-sudah_filter label, #table-sudah_filter input
+    {
+        width:100%;
+    }
 
-.dataTables_wrapper .paginate_button.previous {
-    margin-right: 0px; 
-}
+    .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; 
+    }
 
-.dataTables_wrapper .paginate_button.next {
-    margin-left: 0px; 
-}
+    .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; 
+    }
 
-div.dataTables_wrapper div.dataTables_paginate {
-    margin-top: 0; 
-}
+    div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 0; 
+    }
 
-div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-    justify-content: center; 
-}
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; 
+    }
 
-.dataTables_wrapper .paginate_button.page-item {
-    padding-left: 2px;
-    padding-right: 2px; 
-}
-.px-0{
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-}
+    .dataTables_wrapper .paginate_button.page-item {
+        padding-left: 2px;
+        padding-right: 2px; 
+    }
+    .px-0{
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+    #table-sudah tbody tr:hover, 
+    #table-belum tbody tr:hover, #sai-treegrid tbody tr:hover
+    {
+    background:#f8f8f8 !important;
+    border-color:#f8f8f8 !important;
+    cursor:pointer;
+    }
 
-#table-sudah tbody tr:hover, 
-#table-belum tbody tr:hover, #sai-treegrid tbody tr:hover
-{
-  background:#f8f8f8 !important;
-  border-color:#f8f8f8 !important;
-  cursor:pointer;
-}
-</style>
-
-    <div class="row" id="saku-data">
-        <div class="col-md-12">
-            <div class="card">
-            <form id="menu-form">
-                <div class='card-body'>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-3 col-sm-12">
-                            <select name='kode_fs' id='kode_fs' class='form-control selectize'>
-                            <option value=''>Pilih Versi Neraca</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-3 col-sm-12">
-                            <select name='modul' id='modul' class='form-control selectize'>
-                            <option value=''>Pilih Tipe Neraca</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <button type='button' class='sai-treegrid-btn-load btn btn-sm ' ><i class='simple-icon-reload'></i> Load</button>
-                        </div>
-                    </div>
-                    <hr style='margin:5px auto'>
-                    <div class='row'>
-                        <div class='col-md-12'>
-                            <a href='#' class='sai-treegrid-btn-root btn btn-sm ' ><i class='simple-icon-anchor'></i> Root</a>
-                            <a href='#' class='sai-treegrid-btn-tb btn btn-sm ' ><i class='simple-icon-plus'></i> Tambah</a>
-                            <a href='#' class='sai-treegrid-btn-ub btn btn-sm ' ><i class='simple-icon-pencil'></i> Edit</a>
-                            <a href='#' class='sai-treegrid-btn-del btn btn-sm '><i class='simple-icon-trash'></i> Hapus</a>
-                            <a href='#' class='sai-treegrid-btn-link btn btn-sm '><i class='simple-icon-link'></i> Link</a>
-                            <a href='#' class='sai-treegrid-btn-down btn btn-sm ' ><i class='simple-icon-arrow-down'></i> Turun</a>
-                            <a href='#' class='sai-treegrid-btn-up btn btn-sm ' ><i class='simple-icon-arrow-up'></i> Naik</a>
-                            <button type='submit' class='sai-treegrid-btn-save btn btn-sm ' ><i class='fas fa-save'></i> Simpan</button>
-                        </div>
+    .hidden{
+        display:none;
+    }
+    </style>
+    <form id="menu-form">
+        <div class="row" id="saku-filter">
+            <div class="col-12 mb-2">
+                <div class="card" >
+                    <div class="card-body py-4 px-4" style="min-height:69.2px">
+                        <h5 style="">Struktur Laporan</h5>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-3 col-sm-12">
+                                    <select name='kode_fs' id='kode_fs' class='form-control selectize'>
+                                    <option value=''>Pilih Versi Neraca</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <select name='modul' id='modul' class='form-control selectize'>
+                                    <option value=''>Pilih Tipe Neraca</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-sm-12 text-right">
+                                    <button type='button' class='sai-treegrid-btn-load btn btn-sm btn-outline-primary ' >Tampilkan</button>
+                                </div>
+                            </div>
+                        </div>              
                     </div>
                 </div>
-                <div id="detLap" class="card-body pt-0">
-                    
-                </div>
-            </form>
             </div>
         </div>
-    </div>
-
+        <div class="row" id="saku-data" style="display:none">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class='card-body py-2 px-4'>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <a href='#' class='sai-treegrid-btn-root btn btn-sm ' ><i class='simple-icon-anchor'></i> Root</a>
+                                <a href='#' class='sai-treegrid-btn-tb btn btn-sm ' ><i class='simple-icon-plus'></i> Tambah</a>
+                                <a href='#' class='sai-treegrid-btn-ub btn btn-sm ' ><i class='simple-icon-pencil'></i> Edit</a>
+                                <a href='#' class='sai-treegrid-btn-del btn btn-sm '><i class='simple-icon-trash'></i> Hapus</a>
+                                <a href='#' class='sai-treegrid-btn-link btn btn-sm '><i class='simple-icon-link'></i> Link</a>
+                                <a href='#' class='sai-treegrid-btn-down btn btn-sm ' ><i class='simple-icon-arrow-down'></i> Turun</a>
+                                <a href='#' class='sai-treegrid-btn-up btn btn-sm ' ><i class='simple-icon-arrow-up'></i> Naik</a>
+                                <button type='submit' class='sai-treegrid-btn-save btn btn-sm btn-primary float-right' ><i class='fas fa-save'></i> Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                    <div id="detLap" class="card-body pt-0">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
     <div class="modal fade" id="sai-treegrid-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius:0.75em">
@@ -420,6 +430,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
         $('.sai-treegrid-btn-load').click(function(){
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
             var modul = $('#modul')[0].selectize.getValue();
+            $('#saku-data').show();
             init(kode_fs,modul);
         });
 
@@ -911,9 +922,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
         
     
-        $('#saku-data').on('submit', '#menu-form', function(e){
+        $('#menu-form').submit(function(e){
         e.preventDefault();
-            
             
             var formData = new FormData(this);
             var kode_fs = $('#kode_fs')[0].selectize.getValue();

@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-       saiPost('yakes-report/lap-buktijurnal', null, formData, null, function(res){
+        saiPostLoad('yakes-report/lap-buktijurnal', null, formData, null, function(res){
            console.log(res.result.length);
            if(res.result.length > 0){
 
@@ -11,6 +11,8 @@
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
            }
        });
    }
@@ -32,9 +34,6 @@
                 .info-table thead{
                     background:#4286f5;
                     color:white;
-                }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
                 }
                 .bold {
                     font-weight:bold;

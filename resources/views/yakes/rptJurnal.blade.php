@@ -1,14 +1,14 @@
 <script type="text/javascript">
-
     function drawLap(formData){
-       saiPost('yakes-report/lap-jurnal', null, formData, null, function(res){
-           console.log(res.result.length);
+       saiPostLoad('yakes-report/lap-jurnal', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
            }
        });
    }
@@ -17,8 +17,6 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        console.log(data.length);
-        console.log(res.detail_jurnal);
         if(data.length > 0){
             if(res.back){
                 $('.navigation-lap').removeClass('hidden');
@@ -31,18 +29,14 @@
                     background:#4286f5;
                     color:white;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
                 .bold {
                     font-weight:bold;
                 }
             </style>
             `;
             var lokasi = res.lokasi;
-            html+=`
+            html+=judul_lap("LAPORAN TRANSAKSI JURNAL",lokasi,'Periode '+periode.fromname)+`
                 <table width='100%' class='table table-bordered'>
-                    <thead>
                     <tr>
                         <td width='20'  class='header_laporan' align='center'>No</td>
                         <td width='80' class='header_laporan' align='center'>No Bukti</td>
@@ -55,12 +49,14 @@
                         <td width='250' class='header_laporan' align='center'>Keterangan</td>
                         <td width='80' class='header_laporan' align='center'>Debet</td>
                         <td width='80' class='header_laporan' align='center'>Kredit</td>
-                    </tr>
-                    </thead>
-                    <tbody>`;
-                    var total=0; 
+                    </tr>`;
+                        var total=0; 
                         var det = '';
-                        var no=1;
+                        if(from != undefined){
+                            var no=from+1;
+                        }else{
+                            var no=1;
+                        }
                         var first = true;
                         var debet=0; var kredit=0;var beda ='';var tmp='';
                         for (var x=0;x<data.length;x++)
@@ -129,7 +125,6 @@
                             </tr>`;
                         }
                         html+=det+`
-                    </tbody>
                     </table>
                 <DIV style='page-break-after:always'></DIV>`;
                         
