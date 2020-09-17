@@ -52,7 +52,7 @@
                     </tr>`;
                     var total=0; 
                         var det = '';
-                        var no=1;
+                        var no=from+1;
                         var first = true;
                         var debet=0; var kredit=0;var beda ='';var tmp='';
                         for (var x=0;x<data.length;x++)
