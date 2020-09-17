@@ -58,7 +58,6 @@ class JurnalSesuaiController extends Controller
         
         $this->validate($request, [
             'tanggal' => 'required',
-            'no_bukti' => 'required',
             'total' => 'required',
             'no_dokumen' => 'required',
             'deskripsi' => 'required',
@@ -97,7 +96,6 @@ class JurnalSesuaiController extends Controller
 
             $data = array(
                 'tanggal' => $tanggal,
-                'no_bukti' => $request->no_bukti,
                 'kode_pp' => Session::get('kodePP'),
                 'nilai' => $nilai,
                 'no_dokumen' => $request->no_dokumen,
@@ -160,7 +158,6 @@ class JurnalSesuaiController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'periode' => 'required',
-            'no_bukti' => 'required',
             'total' => 'required',
             'no_dokumen' => 'required',
             'deskripsi' => 'required',
@@ -200,7 +197,6 @@ class JurnalSesuaiController extends Controller
             $data = array(
                 'tanggal' => $tanggal,
                 'periode' => $request->periode,
-                'no_bukti' => $request->no_bukti,
                 'kode_pp' => Session::get('kodePP'),
                 'nilai' => $nilai,
                 'no_dokumen' => $request->no_dokumen,
