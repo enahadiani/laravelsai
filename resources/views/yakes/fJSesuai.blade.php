@@ -202,7 +202,7 @@
                             <div class="col-md-2 col-sm-9"></div>
                             <label for="periode" class="col-md-2 col-sm-2 col-form-label">Periode</label>
                             <div class="col-md-3 col-sm-9">
-                                <input class='form-control' type="text" id="periode" name="periode" autocomplete="off" required readonly>
+                                <input class='form-control' type="text" id="periode" autocomplete="off" required readonly>
                             </div>
                         </div>
                         <div class="form-group row ">
