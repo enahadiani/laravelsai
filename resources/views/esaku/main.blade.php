@@ -591,7 +591,7 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
                 var title = (data.title != undefined ? data.title : 'Hapus Data?');
-                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.<br> ID Data : <b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
