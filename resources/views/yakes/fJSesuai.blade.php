@@ -868,9 +868,11 @@
         var value = $(this).val();
         var split = value.split('/');
         var periode =  split[2]+""+split[1];
-
+        var edit = $('#id').val();
         $('#periode').val(periode);
-        generateBukti(value);
+        if(edit === '') {
+            generateBukti(value);
+        }
     });
 
     $('#tanggal,#no_dokumen,#keterangan').keydown(function(e){
@@ -969,8 +971,6 @@
     // ACTION BUTTON FORM //
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
-        $('#tanggal').attr('readonly', false);
-        $('#tanggal').addClass('datepicker');
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Jurnal Penyesuaian');
         $('#btn-update').attr('id','btn-save');
@@ -2030,8 +2030,6 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('.generate').hide();
-                    $('#tanggal').attr('readonly', true);
-                    $('#tanggal').removeClass('datepicker');
 
                     $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
                     $('#no_bukti').val(form[0].no_ju);
@@ -2152,8 +2150,6 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('.generate').hide();
-                    $('#tanggal').attr('readonly', true);
-                    $('#tanggal').removeClass('datepicker');
 
                     $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
                     $('#no_bukti').val(form[0].no_ju);
@@ -2275,7 +2271,7 @@
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-delete-id').text();
+        var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
@@ -2396,7 +2392,7 @@
                 if(result.data.status){
                     dataTable.ajax.reload();                    
                     showNotification("top", "center", "success",'Hapus Data','Data Jurnal Penyesuaian ('+id+') berhasil dihapus ');
-                    $('#modal-delete-id').html('');
+                    $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
