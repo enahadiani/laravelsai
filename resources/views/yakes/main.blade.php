@@ -357,7 +357,7 @@
             width:100%;
         }
         
-        .periode-label,lokasi-label{
+        .periode-label,.lokasi-label{
             color:#B7B7B7;
         }
 
