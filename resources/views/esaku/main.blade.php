@@ -565,12 +565,6 @@
             </div>
         </div>
     </main>
-    <div class="saku-progress" style="display:none">
-        Memuat ...
-        <div style="height: 10px;" class="progress mb-2">
-            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="1" style="width:1%" >1%</div>
-        </div>
-    </div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
     // Enable pusher logging - don't include this in production

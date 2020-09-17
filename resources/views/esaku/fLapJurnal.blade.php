@@ -285,7 +285,8 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-2" id="saku-report">
+
+        <div class="row mt-2 hidden" id="saku-report">
             <div class="col-12">
                 <div class="card px-4 py-4" style="min-height:200px">
                     <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
@@ -1046,6 +1047,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            $('#saku-report').removeClass('hidden');
             xurl = "{{ url('esaku-auth/form/rptJurnal') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });

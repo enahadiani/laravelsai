@@ -63,7 +63,11 @@
                     var kredit=0;
                     var so_akhir_debet=0;
                     var so_akhir_kredit=0;
-                    var no=from+1;
+                    if(from != undefined){
+                        var no=from+1;
+                    }else{
+                        var no=1;
+                    }
                     for (var i=0; i < data.length ; i++)
                     {
                         var line  = data[i];
