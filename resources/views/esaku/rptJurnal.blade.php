@@ -50,9 +50,13 @@
                         <td width='80' class='header_laporan' align='center'>Debet</td>
                         <td width='80' class='header_laporan' align='center'>Kredit</td>
                     </tr>`;
-                    var total=0; 
+                        var total=0; 
                         var det = '';
-                        var no=from+1;
+                        if(from != undefined){
+                            var no=from+1;
+                        }else{
+                            var no=1;
+                        }
                         var first = true;
                         var debet=0; var kredit=0;var beda ='';var tmp='';
                         for (var x=0;x<data.length;x++)
