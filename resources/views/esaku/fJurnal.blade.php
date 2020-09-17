@@ -1342,7 +1342,7 @@
                 if(result.data.status){
                     dataTable.ajax.reload();                    
                     showNotification("top", "center", "success",'Hapus Data','Data Jurnal ('+id+') berhasil dihapus ');
-                    $('#modal-delete-id').html('');
+                    $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -1506,7 +1506,7 @@
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-delete-id').text();
+        var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
