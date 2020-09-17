@@ -117,6 +117,18 @@
             /* border:none !important; */
             box-shadow:none !important;
         }
+        .kredit {
+            margin-top: -50px;
+        }
+        .nav-grid {
+            margin-top: -10px;
+        }
+        .information {
+            margin-left: 23.6%;
+            position: relative;
+            top: 7px;
+            font-size: 12px;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -181,7 +193,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5><i class="simple-icon-info information"></i>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -200,42 +212,30 @@
                                 <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
                             </div>
                             <div class="col-md-2 col-sm-9"></div>
-                            <label for="periode" class="col-md-2 col-sm-2 col-form-label">Periode</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control' type="text" id="periode" name="periode" autocomplete="off" required readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="no_bukti" class="col-md-2 col-sm-2 col-form-label">No Bukti</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="no_bukti" name="no_bukti" required readonly>
-                                <i title="Generate Code" class='simple-icon-refresh generate' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;cursor:pointer;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9"></div>
-                            <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" name="total" value="0">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="no_dokumen" class="col-md-2 col-sm-2 col-form-label">No Dokumen</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required autocomplete="off">
                             </div>
-                            <div class="col-md-2 col-sm-9"></div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
+                            <div class="col-md-4 col-sm-9">
+                                <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required autocomplete="off" placeholder="Keterangan"></textarea>
+                            </div>
+                            <div class="col-md-1 col-sm-9"></div>
+                            <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
+                            <div class="col-md-3 col-sm-9">
+                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group row kredit">
+                            <div class="col-md-7 col-sm-12"></div>
                             <label for="total_kredit" class="col-md-2 col-sm-2 col-form-label">Total Kredit</label>
                             <div class="col-md-3 col-sm-9">
                                 <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" value="0">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
-                            <div class="col-md-10 col-sm-10">
-                                <input class="form-control" type="text" placeholder="Keterangan" id="deskripsi" name="deskripsi" required autocomplete="off">
-                            </div>
-                            <div class="col-md-2 col-sm-9"></div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
+                        <ul class="nav nav-tabs col-12 nav-grid" role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
