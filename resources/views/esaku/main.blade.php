@@ -487,7 +487,7 @@
                         </div>
                     </a>
                     <a href="#" class="dropdown-periode dropdown-item border-top" ></a>
-                    <a href="#" class="dropdown-lokasi dropdown-item border-top" ></a>
+                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom" ></a>
                     <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
                     <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
