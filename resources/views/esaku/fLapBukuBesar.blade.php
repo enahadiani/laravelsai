@@ -276,6 +276,17 @@
                     </div>
                     <div id="canvasPreview">
                     </div>
+                    <div class="row h-100" id="report-load" style="display: none;">
+                        <div class="col-12 col-md-10 mx-auto my-auto">
+                            <div style="box-shadow:none" class="card auth-card text-center">
+                                <div style="padding:50px;width:50%;" class="my-auto mx-auto">
+                                    <div class="progress" style="height:20px">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="report-load-bar">0.00%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
