@@ -10,6 +10,7 @@ Route::get('cek-akun/{id}', 'Yakes\HelperController@cekAkun');
 Route::get('helper-tanggal', 'Yakes\HelperController@getTanggal');
 Route::get('helper-pp', 'Yakes\HelperController@getPPYakes');
 Route::get('helper-pp/{id}', 'Yakes\HelperController@getPPYakesById');
+Route::get('helper-fs', 'Yakes\HelperController@getFSYakes');
 Route::get('helper-fs/{id}', 'Yakes\HelperController@getFSYakesById');
 Route::get('helper-bukti-sesuai', 'Yakes\HelperController@generateBuktiSesuai');
 
