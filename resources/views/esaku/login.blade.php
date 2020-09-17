@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
-    
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
         body {
@@ -75,9 +75,21 @@
     <script>
         $('div.theme-colors').hide();
     </script>
+    <script src="{{ asset('asset_dore/js/loading.js') }}"></script>
 </head>
-
-<body class="background show-spinner" style="border-radius:0 !important">
+<div class="preloader-wrap">
+    <!-- <div class="percentage" id="precent">0%</div>
+    <div class="loader">
+        <div class="trackbar">
+            <div class="loadbar"  style="width:0%"></div>
+        </div>
+        <div class="glow"  style="width:0%"></div>
+    </div> -->
+    <div class="progress" id="load-page">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
+    </div>
+</div>
+<body class="background" style="border-radius:0 !important">
     <div class=""></div>
     <main>
         <div class="container">
