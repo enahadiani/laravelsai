@@ -11,7 +11,7 @@ console.log(time);
 var PercentageID = "#load-page-bar",
 		start = 0,
 		end = 100,
-        durataion = time;
+    durataion = time;
         
 animateValue(PercentageID, start, end, durataion);
 		
@@ -50,5 +50,5 @@ function animateValue(id, start, end, duration) {
 
 // Fading Out Loadbar on Finised
 setTimeout(function(){
-  $('.preloader-wrap').fadeOut(300);
+  $('.preloader-wrap').fadeOut();
 }, time);

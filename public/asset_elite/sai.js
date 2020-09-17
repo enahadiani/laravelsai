@@ -538,8 +538,8 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
     if (typeof success_callback === 'undefined') { success_callback = null; }
     if (typeof failed_callback === 'undefined') { failed_callback = null; }
     var status = true;
-    $('.saku-progress').show();
-    $('.progress-bar').attr('aria-valuenow', 0).css({
+    $('#report-load').show();
+    $('#report-load-bar').attr('aria-valuenow', 0).css({
         width: 0 + '%'
     }).html(parseFloat(0 * 100).toFixed(2) + '%');
     $.ajax({
@@ -550,7 +550,7 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
                 if (evt.lengthComputable) {
                     var percentComplete = evt.loaded / evt.total;
                     console.log(percentComplete);
-                    $('.progress-bar').attr('aria-valuenow', percentComplete * 100).css({
+                    $('#report-load-bar').attr('aria-valuenow', percentComplete * 100).css({
                         width: percentComplete * 100 + '%'
                     }).html(parseFloat(percentComplete * 100).toFixed(2) + '%');
                     // if (percentComplete === 1) {
@@ -562,7 +562,7 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
                 if (evt.lengthComputable) {
                     var percentComplete = evt.loaded / evt.total;
                     console.log(percentComplete);
-                    $('.progress-bar').css({
+                    $('#report-load-bar').css({
                         width: percentComplete * 100 + '%'
                     });
                 }
@@ -637,8 +637,8 @@ function saiPostLoad(post_url, cancel_url, formData, table_refresh_target_id, su
             }
         },
         complete:function(xhr){
-            $('.saku-progress').hide();
-            $('.progress-bar').attr('aria-valuenow', 0).css({
+            $('#report-load').hide();
+            $('#report-load-bar').attr('aria-valuenow', 0).css({
                 width: 0 + '%'
             }).html(parseFloat(0 * 100).toFixed(2) + '%');
         }
