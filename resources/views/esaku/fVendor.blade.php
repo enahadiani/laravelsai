@@ -98,10 +98,10 @@
             content: "***";
             background: var(--theme-color-1);
             border-radius: 50%;
-            font-size: 5px;
+            font-size: 3px;
             position: relative;
             top: -2px;
-            left: -10px;
+            left: -5px;
         }
 
     </style>
@@ -146,6 +146,7 @@
                                 <th width="20%">Kode</th>
                                 <th width="30%">Nama</th>
                                 <th width="38%">Alamat</th>
+                                <th width="38%">Tanggal</th>
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -681,7 +682,7 @@
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -690,13 +691,20 @@
                         $(td).addClass('last-add');
                     }
                 }
+            },
+            {
+                "targets": [3],
+                "visible": false,
+                "searchable": false
             }
         ],
         'columns': [
             { data: 'kode_vendor' },
             { data: 'nama' },
             { data: 'alamat' },
+            { data: 'tgl_input' },
         ],
+        order:[[3,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")

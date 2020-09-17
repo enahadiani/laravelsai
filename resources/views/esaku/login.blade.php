@@ -56,6 +56,7 @@
            font-size: 90%;
            opacity: 1;top: -0.4em;left: 0.75rem;z-index: 3;line-height: 1;padding: 0 1px
         }
+        
         #btn-eye
         {
             top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
@@ -77,19 +78,19 @@
     </script>
     <script src="{{ asset('asset_dore/js/loading.js') }}"></script>
 </head>
-<div class="preloader-wrap">
-    <!-- <div class="percentage" id="precent">0%</div>
-    <div class="loader">
-        <div class="trackbar">
-            <div class="loadbar"  style="width:0%"></div>
-        </div>
-        <div class="glow"  style="width:0%"></div>
-    </div> -->
+<!-- <div class="percentage" id="precent">0%</div>
+<div class="loader">
+    <div class="trackbar">
+        <div class="loadbar"  style="width:0%"></div>
+    </div>
+    <div class="glow"  style="width:0%"></div>
+</div> -->
+<!-- <div class="preloader-wrap">
     <div class="progress" id="load-page">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
     </div>
-</div>
-<body class="background" style="border-radius:0 !important">
+</div> -->
+<body class="background show-spinner" style="border-radius:0 !important">
     <div class=""></div>
     <main>
         <div class="container">

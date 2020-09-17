@@ -117,6 +117,15 @@
             /* border:none !important; */
             box-shadow:none !important;
         }
+        .last-add::before{
+            content: "***";
+            background: var(--theme-color-1);
+            border-radius: 50%;
+            font-size: 3px;
+            position: relative;
+            top: -2px;
+            left: -5px;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -161,6 +170,7 @@
                                     <th style="width:15%">No Dokumen</th>
                                     <th style="width:35%">Deskripsi</th>
                                     <th style="width:15%">Nilai</th>
+                                    <th style="width:15%">Tanggal</th>
                                     <th style="width:10%" class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -732,15 +742,22 @@
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
-            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {
+                "targets": [5],
+                "visible": false,
+                "searchable": false
+            },
+            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
             ],
         'columns': [
             { data: 'no_bukti' },
             { data: 'tanggal' },
             { data: 'no_dokumen' },
             { data: 'keterangan' },
-            { data: 'nilai1' }
+            { data: 'nilai1' },
+            { data: 'tgl_input' }
         ],
+        order:[[5,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
