@@ -1,12 +1,14 @@
 <script type="text/javascript">
     function drawLap(formData){
-       saiPost('yakes-report/lap-neraca', null, formData, null, function(res){
+        saiPostLoad('yakes-report/lap-neraca', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
            }
        });
    }
@@ -26,9 +28,6 @@
                 .info-table thead{
                     // background:#e9ecef;
                 }
-                .table-bordered td{
-                    border: 1px solid #e9ecef !important;
-                }
                 .no-border td{
                     border:0 !important;
                 }
@@ -39,13 +38,13 @@
 
             `;
             var lokasi = res.lokasi;
-            html+=`
+            html+=judul_lap("LAPORAN NERACA",lokasi,'Periode '+periode.fromname)+`
                     <table class='table table-bordered' width='100%'>
                         <tr>
-                            <td style='text-align:center;width:35%'>Deskripsi</td>
-                            <td style='text-align:center;width:15%'>Jumlah</td>
-                            <td style='text-align:center;width:35%'>Deskripsi</td>
-                            <td style='text-align:center;width:15%'>Jumlah</td>
+                            <td class='text-center;' width='35%'>Deskripsi</td>
+                            <td class='text-center;' width='15%'>Jumlah</td>
+                            <td class='text-center;' width='35%'>Deskripsi</td>
+                            <td class='text-center;' width='15%'>Jumlah</td>
                         </tr>
                 `;
                     var det = "";
@@ -65,7 +64,7 @@
                         det +="<tr>";
                         if (line.tipe1 == "Posting" && line.nilai1 != 0)
                         {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
                         }
                         else
                         {
@@ -75,7 +74,7 @@
 
                          if (line.tipe2 == "Posting" && line.nilai2 != 0)
                         {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
+                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
                         }
                         else
                         {

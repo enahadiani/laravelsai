@@ -305,13 +305,11 @@
             transform: translate(-60%, 0) !important;
         }
 
+        */
         #adminDropdown
         {
-            left: 50% !important;
-            right: auto !important;
-            transform: translate(-40%, 0) !important;
+            width:250px !important;
         }
-         */
         div.dropdown:hover > div.dropdown-menu {
             display: block !important;
         } 
@@ -329,6 +327,34 @@
         }
         .report-link:active, .report-link:focus{
             background: #E8E8E8;
+        }
+        .link-report{
+            color:blue;
+        }
+
+        @media print {
+            .link-report{
+                color:unset;
+            }
+        }
+
+        .judul-nama{
+            font-weight:bold;
+            font-size:1.1rem;
+        }
+        .judul-lokasi{
+            font-weight:bold;
+            font-size:1rem;
+        }
+        .judul-periode{
+            font-weight:bold;
+            font-size:0.75rem;
+        }
+        .saku-progress{
+            position:fixed;
+            z-index:9000;
+            bottom:0;
+            width:100%;
         }
 
     </style>
@@ -362,7 +388,7 @@
     
     
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
-    <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
@@ -432,7 +458,7 @@
                     @endif
                     </span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
+                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown">
                     <a href="#" class="dropdown-profile">
                         <div style="height: 45px;padding: 0 1rem;">
                             <span id="adminProfilePhoto">
@@ -446,7 +472,8 @@
                             <span class="userjab" >{{ Session::get('jabatan') }}</span>
                         </div>
                     </a>
-                    <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>
+                    <a href="#" class="dropdown-periode dropdown-item border-top" ></a>
+                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom border-top" ></a>
                     <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
                     <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
@@ -1051,6 +1078,8 @@
     
     loadMenu();
     getNotif();
+    $('.dropdown-periode').html("Periode <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+    $('.dropdown-lokasi').html("Lokasi <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
     if(form !="" || form != "-"){
         loadForm("{{ url('yakes-auth/form')}}/"+form)
