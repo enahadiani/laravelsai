@@ -29,6 +29,7 @@
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
@@ -393,19 +394,24 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
     
     
+    <script src="{{ asset('asset_dore/js/loading.js') }}"></script>
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
-    
 </head>
 
+<div class="preloader-wrap">
+    <div class="progress" id="load-page">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
+    </div>
+</div>
 @if(Session::get('menu') != "")
-<body id="app-container" class="{{ Session::get('menu') }} show-spinner">
+<body id="app-container" class="{{ Session::get('menu') }}">
 @else
-<body id="app-container" class="menu-default show-spinner" >
+<body id="app-container" class="menu-default" >
 @endif
     <nav class="navbar fixed-top px-0 py-0">
         <div class="d-flex align-items-center navbar-left">
