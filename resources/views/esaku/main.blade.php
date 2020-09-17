@@ -363,6 +363,10 @@
             bottom:0;
             width:100%;
         }
+        
+        .periode-label,lokasi-label{
+            color:#B7B7B7;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -483,7 +487,7 @@
                         </div>
                     </a>
                     <a href="#" class="dropdown-periode dropdown-item border-top" ></a>
-                    <a href="#" class="dropdown-lokasi dropdown-item border-bottom border-top" ></a>
+                    <a href="#" class="dropdown-lokasi dropdown-item border-top" ></a>
                     <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
                     <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
                 </div>
@@ -1088,8 +1092,8 @@
     
     loadMenu();
     getNotif();
-    $('.dropdown-periode').html("Periode <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
-    $('.dropdown-lokasi').html("Lokasi <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
+    $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+    $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
     if(form !="" || form != "-"){
         loadForm("{{ url('esaku-auth/form')}}/"+form)

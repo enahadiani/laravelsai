@@ -356,6 +356,10 @@
             bottom:0;
             width:100%;
         }
+        
+        .periode-label,lokasi-label{
+            color:#B7B7B7;
+        }
 
     </style>
     <script>
@@ -1078,8 +1082,9 @@
     
     loadMenu();
     getNotif();
-    $('.dropdown-periode').html("Periode <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
-    $('.dropdown-lokasi').html("Lokasi <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
+    
+    $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+    $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
     if(form !="" || form != "-"){
         loadForm("{{ url('yakes-auth/form')}}/"+form)
