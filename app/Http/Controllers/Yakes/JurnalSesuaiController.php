@@ -159,6 +159,7 @@ class JurnalSesuaiController extends Controller
     public function update(Request $request, $id) {
         $this->validate($request, [
             'tanggal' => 'required',
+            'periode' => 'required',
             'no_bukti' => 'required',
             'total' => 'required',
             'no_dokumen' => 'required',
@@ -198,6 +199,7 @@ class JurnalSesuaiController extends Controller
 
             $data = array(
                 'tanggal' => $tanggal,
+                'periode' => $request->periode,
                 'no_bukti' => $request->no_bukti,
                 'kode_pp' => Session::get('kodePP'),
                 'nilai' => $nilai,
