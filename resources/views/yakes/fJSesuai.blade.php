@@ -230,7 +230,7 @@
                         </div>
                         <div class="form-group row">
                             <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
-                            <div class="col-md-3 col-sm-9">
+                            <div class="col-md-10 col-sm-10">
                                 <input class="form-control" type="text" placeholder="Keterangan" id="deskripsi" name="deskripsi" required autocomplete="off">
                             </div>
                             <div class="col-md-2 col-sm-9"></div>
