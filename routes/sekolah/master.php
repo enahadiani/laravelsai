@@ -86,8 +86,13 @@ Route::post('jadwal-harian', 'Sekolah\JadwalHarianController@store');
 Route::delete('jadwal-harian', 'Sekolah\JadwalHarianController@destroy');
 
 Route::get('jadwal-ujian', 'Sekolah\JadwalUjianController@index');
-Route::get('jadwal-ujian-detail', 'Sekolah\JadwalHarianController@show');
-Route::post('jadwal-ujian', 'Sekolah\JadwalHarianController@store');
-Route::put('jadwal-ujian', 'Sekolah\KalenderAkademikController@update');
-Route::delete('jadwal-ujian', 'Sekolah\JadwalHarianController@destroy');
+Route::get('jadwal-ujian-detail', 'Sekolah\JadwalUjianController@show');
+Route::post('jadwal-ujian', 'Sekolah\JadwalUjianController@store');
+Route::put('jadwal-ujian', 'Sekolah\JadwalUjianController@update');
+Route::delete('jadwal-ujian', 'Sekolah\JadwalUjianController@destroy');
 
+Route::get('hari', 'Sekolah\HariController@index');
+Route::get('hari-detail', 'Sekolah\HariController@show');
+Route::post('hari', 'Sekolah\HariController@store');
+Route::put('hari', 'Sekolah\HariController@update');
+Route::delete('hari', 'Sekolah\HariController@destroy');
