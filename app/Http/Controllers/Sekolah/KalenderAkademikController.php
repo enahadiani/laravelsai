@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Http\Controllers\Tarbak;
+    namespace App\Http\Controllers\Sekolah;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
@@ -12,27 +12,34 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-                return redirect('tarbak/login')->with('alert','Session telah habis !');
+                return redirect('sekolah-auth/login')->with('alert','Session telah habis !');
             }
         }
 
         public function index()
         {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/kalender_akad_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
+            try{
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/kalender_akad_all',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
             }
-            return response()->json(['data' => $data, 'status' => true], 200);
         }
 
         public function save(Request $request) {
