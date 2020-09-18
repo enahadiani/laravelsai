@@ -90,3 +90,4 @@ Route::get('jadwal-ujian-detail', 'Sekolah\JadwalHarianController@show');
 Route::post('jadwal-ujian', 'Sekolah\JadwalHarianController@store');
 Route::put('jadwal-ujian', 'Sekolah\KalenderAkademikController@update');
 Route::delete('jadwal-ujian', 'Sekolah\JadwalHarianController@destroy');
+
