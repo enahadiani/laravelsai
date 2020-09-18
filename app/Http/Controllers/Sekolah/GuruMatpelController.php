@@ -12,7 +12,7 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-                return redirect('tarbak/login')->with('alert','Session telah habis !');
+                return redirect('sekolah-auth/login')->with('alert','Session telah habis !');
             }
         }
 

@@ -492,7 +492,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[3, "desc"]],
+        "order": [[5, "desc"]],
         'ajax': {
             'url': "{{url('sekolah-master/kelas')}}",
             'async':false,

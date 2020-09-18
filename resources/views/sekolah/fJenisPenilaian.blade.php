@@ -1,135 +1,238 @@
-    <link href="{{ asset('asset_elite/dist/css/custom.css') }}" rel="stylesheet">
-<div class="container-fluid mt-3" style="font-size:13px">
-        <div class="row" id="saku-datatable">
-            <div class="col-12">
-                <div class="card" style="max-height:560px !important">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Data Jenis Penilaian 
-                            <button type="button" id="btn-tambah" class="btn btn-info ml-2" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+<style>
+        th,td{
+            padding:8px !important;
+            vertical-align:middle !important;
+        }
+        .search-item2{
+            cursor:pointer;
+        }
+        input.error{
+            border:1px solid #dc3545;
+        }
+        label.error{
+            color:#dc3545;
+            margin:0;
+        }
+        #table-data_paginate,#table-search_paginate
+        {
+            margin-top:0 !important;
+        }
+
+        #table-data_paginate ul,#table-search_paginate ul
+        {
+            float:right;
+        }
+        .form-body 
+        {
+            position: relative;
+            overflow: auto;
+        }
+
+        #content-delete
+        {
+            position: relative;
+            overflow: auto;
+        }
+        
+        #table-search
+        {
+            border-collapse:collapse !important;
+        }
+
+        .hidden{
+            display:none;
+        }
+
+        #table-search_filter label, #table-search_filter input
+        {
+            width:100%;
+        }
+
+        .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; }
+
+        .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 25px; }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; }
+
+        .dataTables_wrapper .paginate_button.page-item {
+            padding-left: 5px;
+            padding-right: 5px; 
+        }
+
+        .dataTables_length select {
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border:none;
+            width:120px !important;
+            transition-duration: 0.3s; 
+        }
+
+        #table-data_filter label
+        {
+            width:100%;
+        }
+        #table-data_filter label input
+        {
+            width:inherit;
+        }
+        #searchData
+        {
+            font-size: .75rem;
+            height: 31px;
+        }
+        .dropdown-toggle::after {
+            display:none;
+        }
+        .dropdown-aksi > .dropdown-item{
+            font-size : 0.7rem;
+        }
+        .last-add::before{
+            content: "***";
+            background: var(--theme-color-1);
+            border-radius: 50%;
+            font-size: 3px;
+            position: relative;
+            top: -2px;
+            left: -5px;
+        }
+
+    </style>
+    <div class="row" id="saku-datatable">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body pb-3" style="padding-top:1rem;">
+                    <h5 style="position:absolute;top: 25px;">Data Jenis Penilaian</h5>
+                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                        <div class="page-countdata">
+                            <label>Menampilkan 
+                            <select style="border:none" id="page-count">
+                                <option value="10">10 per halaman</option>
+                                <option value="25">25 per halaman</option>
+                                <option value="50">50 per halaman</option>
+                                <option value="100">100 per halaman</option>
+                            </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Search..."
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="min-height: 560px !important;padding-top:0;">                    
+                    <div class="table-responsive ">
+                        <table id="table-data" style='width:100%'>                                                              <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama</th>
+                                    <th>Kode PP</th>
+                                    <th>Tgl Input</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="saku-form" style="display:none;">
+        <div class="col-sm-12" style="height: 90px;">
+            <div class="card">
+                <form id="form-tambah" style=''>
+                    <div class="card-body pb-0">
+                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Penilaian
+                        <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         </h4>
-                        <hr style="margin-bottom:0">
-                        <div class="table-responsive ">
-                            <style>
-                            th,td{
-                                padding:8px !important;
-                                vertical-align:middle !important;
-                            }
-                            .hidden{
-                                display:none;
-                            }
-                            .form-group{
-                                margin-bottom:5px !important;
-                            }
-                            .form-control{
-                                font-size:13px !important;
-                                padding: .275rem .6rem !important;
-                            }
-                            .selectize-control, .selectize-dropdown{
-                                padding: 0 !important;
-                            }
-                            i:hover{
-                                cursor: pointer;
-                                color: blue;
-                            }
-
-                            </style>
-                            <table id="table-data" class="table table-bordered table-striped" style='width:100%'>
-                                <thead>
-                                    <tr>
-                                        <th>Kode</th>
-                                        <th>Nama</th>
-                                        <th>Kode PP</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+                        <hr>
+                    </div>
+                    <div class="card-body pt-0" style='min-height:471px'>
+                        <div class="form-group row" id="row-id">
+                            <div class="col-9">
+                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                <input type="hidden" id="method" name="_method" value="post">
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="kode_jenis" class="col-3 col-form-label">Kode</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Nama</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
+                            <div class="input-group col-3">
+                                <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
+                                    <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                            </div>
+                            <div class="col-6">
+                                <label id="label_kode_pp" style="margin-top: 10px;"></label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="flag_aktif" class="col-3 col-form-label">Flag Proses</label>
+                            <div class="col-3">
+                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                <option value='1'>Aktif</option>
+                                <option value='0'>Non Aktif</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12" style="height: 90px;">
-                <div class="card">
-                    <form id="form-tambah" style=''>
-                        <div class="card-body pb-0">
-                            <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jenis Penilaian
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                            </h4>
-                            <hr>
-                        </div>
-                        <div class="card-body pt-0" style='min-height:471px'>
-                            <div class="form-group row" id="row-id">
-                                <div class="col-9">
-                                    <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                    <input type="hidden" id="method" name="_method" value="post">
-                                </div>
-                            </div>
-                            <div class="form-group row ">
-								<label for="kode_jenis" class="col-3 col-form-label">Kode</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Nama</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                                <div class="input-group col-3">
-                                    <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
-                                        <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                                </div>
-                                <div class="col-6">
-                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="flag_aktif" class="col-3 col-form-label">Flag Proses</label>
-                                <div class="col-3">
-                                    <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                    <option value='' disabled>--- Pilih Status Aktif ---</option>
-                                    <option value='1'>Aktif</option>
-                                    <option value='0'>Non Aktif</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <div id='mySidepanel' class='sidepanel close'>
-            <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-            <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-            <form id="formFilter2" style='margin-top:50px'>
-            <div class="row" style="margin-left: -5px;">
-                <div class="col-sm-12">
-                    <div class="form-group" style='margin-bottom:0'>
-                        <label for="kode_pp2">Kode PP</label>
-                        <select name="kode_pp" id="kode_pp2" class="form-control">
-                        <option value="">Pilih PP</option>
-                        </select>
-                    </div>
+    <!-- <div id='mySidepanel' class='sidepanel close'>
+        <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
+        <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
+        <form id="formFilter2" style='margin-top:50px'>
+        <div class="row" style="margin-left: -5px;">
+            <div class="col-sm-12">
+                <div class="form-group" style='margin-bottom:0'>
+                    <label for="kode_pp2">Kode PP</label>
+                    <select name="kode_pp" id="kode_pp2" class="form-control">
+                    <option value="">Pilih PP</option>
+                    </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-                </div>
-            </div>
-            </form>
         </div>
-    </div> 
-
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
+            </div>
+        </div>
+        </form>
+    </div> -->
     <!-- MODAL SEARCH AKUN-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
@@ -161,7 +264,7 @@
         }
         });
 
-         function openFilter() {
+        function openFilter() {
             var element = $('#mySidepanel');
             
             var x = $('#mySidepanel').attr('class');
@@ -173,6 +276,24 @@
                 element.removeClass('open');
                 element.addClass('close');
             }
+        }
+
+        function last_add(param,isi){
+            var rowIndexes = [];
+            dataTable.rows( function ( idx, data, node ) {             
+                if(data[param] === isi){
+                    rowIndexes.push(idx);                  
+                }
+                return false;
+            }); 
+            dataTable.row(rowIndexes).select();
+            $('.selected td:eq(0)').addClass('last-add');
+            console.log('last-add');
+            setTimeout(function() {
+                console.log('timeout');
+                $('.selected td:eq(0)').removeClass('last-add');
+                dataTable.row(rowIndexes).deselect();
+            }, 1000 * 60 * 10);
         }
 
         $('.sidepanel').on('click', '#btnClose', function(e){
@@ -251,47 +372,91 @@
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
+        destroy: true,
+        bLengthChange: false,
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        "ordering": true,
+        "order": [[3, "desc"]],
         'ajax': {
-            'url': "{{url('/sekolah/getJenisPenilaian')}}",
+            'url': "{{url('sekolah-master/jenis-penilaian')}}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
                 if(json.status){
-                    return json.data;   
+                    return json.daftar;   
+                }else if(!json.status && json.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    return [];
                 }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('sekolah/login') }}";
-                    })
                     return [];
                 }
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html }
-            ],
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                "targets": [3],
+                "visible": false,
+                "searchable": false
+            },
+            {'targets': 4, data: null, 'defaultContent': action_html }
+        ],
         'columns': [
             { data: 'kode_jenis' },
             { data: 'nama' },
             { data: 'kode_pp' },
+            { data: 'tgl_input' },
         ],
-        dom: 'lBfrtip',
-        buttons: [
-            {
-                text: '<i class="fa fa-filter"></i> Filter',
-                action: function ( e, dt, node, config ) {
-                    openFilter();
-                },
-                className: 'btn btn-default ml-2' 
-            }
-        ]
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            // lengthMenu: "Items Per Page _MENU_"
+            "lengthMenu": 'Menampilkan <select>'+
+            '<option value="10">10 per halaman</option>'+
+            '<option value="25">25 per halaman</option>'+
+            '<option value="50">50 per halaman</option>'+
+            '<option value="100">100 per halaman</option>'+
+            '</select>',
+            
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        }
+    });
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){

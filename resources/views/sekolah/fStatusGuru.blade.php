@@ -1,4 +1,4 @@
-<style>
+    <style>
         th,td{
             padding:8px !important;
             vertical-align:middle !important;
@@ -374,48 +374,92 @@
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a> &nbsp; <a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = $('#table-data').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
+        destroy: true,
+        bLengthChange: false,
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        "ordering": true,
+        "order": [[3, "desc"]],
         'ajax': {
-            'url': "{{url('/sekolah/getStatusGuru')}}",
+            'url': "{{url('sekolah-master/status-guru')}}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
                 if(json.status){
-                    return json.data;   
+                    return json.daftar;   
+                }else if(!json.status && json.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    return [];
                 }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('sekolah/login') }}";
-                    })
                     return [];
                 }
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html }
-            ],
+            {
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                "targets": [4],
+                "visible": false,
+                "searchable": false
+            },
+            {'targets': 5, data: null, 'defaultContent': action_html }
+        ],
         'columns': [
             { data: 'kode_status' },
             { data: 'nama' },
             { data: 'flag_aktif' },
             { data: 'pp' },
+            { data: 'tgl_input' },
         ],
-        dom: 'lBfrtip',
-        buttons: [
-            {
-                text: '<i class="fa fa-filter"></i> Filter',
-                action: function ( e, dt, node, config ) {
-                    openFilter();
-                },
-                className: 'btn btn-default ml-2' 
-            }
-        ]
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            // lengthMenu: "Items Per Page _MENU_"
+            "lengthMenu": 'Menampilkan <select>'+
+            '<option value="10">10 per halaman</option>'+
+            '<option value="25">25 per halaman</option>'+
+            '<option value="50">50 per halaman</option>'+
+            '<option value="100">100 per halaman</option>'+
+            '</select>',
+            
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        }
+    });
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    
+    $("#searchData").on("keyup", function (event) {
+        dataTable.search($(this).val()).draw();
+    });
+
+    $("#page-count").on("change", function (event) {
+        var selText = $(this).val();
+        dataTable.page.len(parseInt(selText)).draw();
     });
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){

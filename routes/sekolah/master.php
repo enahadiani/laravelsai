@@ -63,7 +63,7 @@ Route::put('matpel', 'Sekolah\MataPelajaranController@update');
 Route::delete('matpel', 'Sekolah\MataPelajaranController@destroy');
 
 Route::get('kkm', 'Sekolah\KkmController@index');
-Route::get('kkm', 'Sekolah\KkmController@getKkm');
+Route::get('kkm-detail', 'Sekolah\KkmController@show');
 Route::post('kkm', 'Sekolah\KkmController@store');
 Route::put('kkm', 'Sekolah\KkmController@update');
 Route::delete('kkm', 'Sekolah\KkmController@destroy');
