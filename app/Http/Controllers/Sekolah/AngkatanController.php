@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Http\Controllers\Tarbak;
+    namespace App\Http\Controllers\Sekolah;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
@@ -12,37 +12,45 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('tarbak/login')->with('alert','Session telah habis !');
+                return redirect('sekolah-auth/login');
             }
         }
 
         public function index()
         {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/angkatan_all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
+            try{
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/angkatan_all',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
             }
-            return response()->json(['data' => $data, 'status' => true], 200);
         }
 
-        public function save(Request $request) {
-
+        public function store(Request $request) 
+        {
             $this->validate($request, [
-            'kode_akt' => 'required',
-            'nama' => 'required',
-            'kode_tingkat' => 'required',
-            'flag_aktif' => 'required',
-            'kode_pp' => 'required',
+                'kode_akt' => 'required',
+                'nama' => 'required',
+                'kode_tingkat' => 'required',
+                'flag_aktif' => 'required',
+                'kode_pp' => 'required',
             ]);
 
             try {
@@ -79,41 +87,41 @@
 
         }
 
-        public function getAngkatan($kode_akt1,$kode_akt2,$kode_pp) {
+        public function show($kode_akt1,$kode_akt2,$kode_pp) {
             try{
-            $client = new Client();
-            $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('GET',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $client = new Client();
+                $kode_akt = $kode_akt1."/".$kode_akt2;
+                $response = $client->request('GET',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['data' => $data], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
-        }
 
         }
 
         public function update(Request $request, $kode_akt1,$kode_akt2) {
             $this->validate($request, [
-            'nama' => 'required',
-            'kode_tingkat' => 'required',
-            'flag_aktif' => 'required',
-            'kode_pp' => 'required',
+                'nama' => 'required',
+                'kode_tingkat' => 'required',
+                'flag_aktif' => 'required',
+                'kode_pp' => 'required',
             ]);
 
             try {
@@ -147,25 +155,25 @@
             }
         }
 
-        public function delete($kode_akt1,$kode_akt2,$kode_pp) {
+        public function destroy($kode_akt1,$kode_akt2,$kode_pp) {
             try{
-            $client = new Client();
-            $kode_akt = $kode_akt1."/".$kode_akt2;
-            $response = $client->request('DELETE',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt.'&kode_pp='.$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
-            }
-            return response()->json(['data' => $data], 200); 
+                $client = new Client();
+                $kode_akt = $kode_akt1."/".$kode_akt2;
+                $response = $client->request('DELETE',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt.'&kode_pp='.$kode_pp,
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
             
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

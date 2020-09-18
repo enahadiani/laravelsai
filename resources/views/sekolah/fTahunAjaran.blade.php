@@ -663,7 +663,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[0, "desc"]],
+        "order": [[6, "desc"]],
         'ajax': {
             'url': "{{ url('sekolah-master/tahun-ajaran') }}",
             'async':false,
