@@ -715,7 +715,12 @@
             switch(data.type){
                 case 'hapus':
                     if (result.value) {
-                        hapusData(data.id);
+                        console.log(data.id,data.kode);
+                        if(data.kode == undefined){
+                            hapusData(data.id);
+                        }else{
+                            hapusData(data.id,data.kode);
+                        }
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         //
                     }

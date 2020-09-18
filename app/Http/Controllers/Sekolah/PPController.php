@@ -1,5 +1,5 @@
 <?php
-    namespace App\Http\Controllers\Tarbak;
+    namespace App\Http\Controllers\Sekolah;
 
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
@@ -11,27 +11,35 @@
 
         public function __contruct() {
             if(!Session::get('login')){
-            return redirect('tarbak/login')->with('alert','Session telah habis !');
+                return redirect('sekolah-auth/login')->with('alert','Session telah habis !');
             }
         }
 
         public function getPP() {
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/pp',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
 
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/pp',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
     }
