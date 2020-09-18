@@ -106,11 +106,11 @@ function loadStyle(href, callback) {
   var radius = "rounded";
 
   if (typeof Storage !== "undefined") {
-    if (localStorage.getItem("dore-theme-color")) {
-      theme = localStorage.getItem("dore-theme-color");
-    } else {
+    // if (localStorage.getItem("dore-theme-color")) {
+    //   theme = localStorage.getItem("dore-theme-color");
+    // } else {
       localStorage.setItem("dore-theme-color", theme);
-    }
+    // }
     if (localStorage.getItem("dore-direction")) {
       direction = localStorage.getItem("dore-direction");
     } else {
