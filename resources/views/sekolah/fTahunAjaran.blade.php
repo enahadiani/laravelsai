@@ -351,11 +351,13 @@
     var $target = "";
     var $target2 = "";
     function getPP(id=null){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/pp') }}",
             dataType: 'json',
-            data:{'kode_pp':id},
+            data:{'kode_pp':kode},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -584,7 +586,7 @@
     // END BAGIAN CBBL
 
     // SUGGESSION DI CBBL
-    var $dtVendor = new Array();
+    var $dtPP = new Array();
 
     function getTAPp() {
         $.ajax({
@@ -596,7 +598,8 @@
                 if(result.status) {
                     
                     for(i=0;i<result.daftar.length;i++){
-                        $dtVendor[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        // $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
                     }
                     
                 }else if(!result.status && result.message == "Unauthorized"){
@@ -621,16 +624,25 @@
         });
     }
 
-    // getTAPp();
+    getTAPp();
 
     $('#kode_pp').typeahead({
-        source: function (cari, result) {
-            result($.map($dtVendor, function (item) {
-                return item.kode_akun;
-            }));
+        // source: function (cari, result) {
+        //     result($.map($dtPP, function (item) {
+        //         return item.kode_pp;
+        //     }));
+        // },
+        source:$dtPP,
+        fitToElement:true,
+        displayText:function(item){
+            return item.id+' - '+item.name;
         },
+        autoSelect:false,
+        changeInputOnSelect:false,
+        changeInputOnMove:false,
+        selectOnBlur:false,
         afterSelect: function (item) {
-            // console.log('cek');
+            console.log(item.id);
         }
     });
     // END SUGGESTION

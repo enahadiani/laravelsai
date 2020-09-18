@@ -15,14 +15,17 @@
             }
         }
 
-        public function getPP() {
+        public function getPP(Request $request) {
             try{
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/pp',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
