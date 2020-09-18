@@ -154,10 +154,9 @@ class JurnalSesuaiController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id, $periode) {
         $this->validate($request, [
             'tanggal' => 'required',
-            'periode' => 'required',
             'total' => 'required',
             'no_dokumen' => 'required',
             'deskripsi' => 'required',
@@ -205,7 +204,7 @@ class JurnalSesuaiController extends Controller
             );
 
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'yakes-trans/jurnal?no_bukti='.$id,[
+            $response = $client->request('PUT',  config('api.url').'yakes-trans/jurnal?no_bukti='.$id.'&periode='.$periode,[
                         'headers' => [
                             'Authorization' => 'Bearer '.Session::get('token'),
                             'Content-Type'  => 'application/json',

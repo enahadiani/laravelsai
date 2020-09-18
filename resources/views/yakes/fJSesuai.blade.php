@@ -124,10 +124,20 @@
             margin-top: -10px;
         }
         .information {
-            margin-left: 23.6%;
+            margin-left: 20.5%;
             position: relative;
             top: 7px;
             font-size: 12px;
+        }
+        .bs-tooltip-right {
+            margin-top: 100px;
+            margin-left: 5px;
+        }
+        .bs-tooltip-right > .arrow {
+            margin-top: 11.5px;
+        }
+        .bs-tooltip-right > .tooltip-inner {
+            min-width: 450px !important;
         }
     </style>
     <!-- LIST DATA -->
@@ -225,7 +235,7 @@
                             <div class="col-md-1 col-sm-9"></div>
                             <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
                             <div class="col-md-3 col-sm-9">
-                                    <input class="form-control currency" type="text" placeholder="Total Debet" readonly id="total_debet" value="0">
+                                    <input class="form-control currency" type="text" name="total" placeholder="Total Debet" readonly id="total_debet" value="0">
                             </div>
                         </div>
                         <div class="form-group row kredit">
@@ -460,6 +470,8 @@
     var $dtPP = [];
     var $dtAkun = [];
     var $dtFS = [];
+    var $noBukti = null;
+    var $periode = null;
     
     $.ajaxSetup({
         headers: {
@@ -541,11 +553,18 @@
         $('#total_kredit').val(total_k);   
     }
 
-    function createPeriode(tanggal) {
-        var split = tanggal.split('/');
-        var periode = split[2]+""+split[1];
-
-        $('#periode').val(periode);
+    function tooltipIcon(id,periode,nik,tgl) {
+        $(".information").tooltip({
+            placement: 'right',
+            title: function() {
+                return 'No Bukti: '+id+', Periode: '+periode+', NIK input: '+nik+', Tanggal input: '+tgl
+            },
+        }).tooltip('show');
+    }
+    function closeTooltip() {
+        setTimeout(function(){
+            $('.information').tooltip('hide');
+        },1500) 
     }
     // END FUNCTION HELPERS //
 
@@ -561,7 +580,6 @@
                     var split = (result.daftar.data[0].tglnow).split(' ');
                     var tanggal = split[0].split('-');
                     var date = tanggal[2]+"/"+tanggal[1]+"/"+tanggal[0];
-                    createPeriode(date);
                     $('#tanggal').val(date);
                 }
             }
@@ -864,17 +882,6 @@
     // END FUNCTION GET DATA //
 
     // EVENT ACTION //
-    $('#tanggal').change(function(){
-        var value = $(this).val();
-        var split = value.split('/');
-        var periode =  split[2]+""+split[1];
-        var edit = $('#id').val();
-        $('#periode').val(periode);
-        if(edit === '') {
-            generateBukti(value);
-        }
-    });
-
     $('#tanggal,#no_dokumen,#keterangan').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['tanggal','no_dokumen','keterangan'];
@@ -891,10 +898,6 @@
                 $('#'+nxt[idx]).focus();
             }
         }
-    });
-
-    $('.generate').click(function(){
-        generateBukti();
     });
     // END EVENT ACTION //
 
@@ -927,7 +930,9 @@
             ],
         'columns': [
             { data: 'no_bukti' },
-            { data: 'tanggal' },
+            { data: 'tanggal', render: function(data) {
+                return reverseDate2(data,'-','/');
+            } },
             { data: 'no_dokumen' },
             { data: 'keterangan' },
             { data: 'nilai' }
@@ -971,6 +976,7 @@
     // ACTION BUTTON FORM //
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
+        $('.information').hide();
         $('#method').val('post');
         $('#judul-form').html('Tambah Data Jurnal Penyesuaian');
         $('#btn-update').attr('id','btn-save');
@@ -980,7 +986,6 @@
         $('#id').val('');
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
-        $('.generate').show();
         $('#saku-form').show();
         getTanggalServer();
         addRowGridDefault();
@@ -1624,15 +1629,15 @@
             input += "<tr class='row-grid'>";
             input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
             input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
-            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
+            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
+            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input autocomplete='off' type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
+            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
             input += "</tr>";
             $('#input-grid tbody').append(input);
             $('.dcke'+no).selectize({
@@ -1934,10 +1939,9 @@
             var jumdet = $('#input-grid tr').length;
 
             var param = $('#id').val();
-            var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/yakes-trans/jurnal-sesuai') }}/"+id;
+                var url = "{{ url('/yakes-trans/jurnal-sesuai') }}/"+$noBukti+"/"+$periode;
             }else{
                 var url = "{{ url('/yakes-trans/jurnal-sesuai') }}";
             }
@@ -1975,7 +1979,7 @@
                             addRowGridDefault();
                             
                             msgDialog({
-                                id:id,
+                                id:result.data.no_bukti,
                                 type:'simpan'
                             });
                                 
@@ -2026,11 +2030,12 @@
             success:function(result){
                 if(result.data.status) {
                     var form = result.data.data;
+                    $noBukti = form[0].no_ju;
+                    $periode = form[0].periode;
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_bukti').val(id);
-                    $('.generate').hide();
-
+                    var tgl_input = reverseDate2(form[0].tgl_input);
                     $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
                     $('#no_bukti').val(form[0].no_ju);
                     $('#no_dokumen').val(form[0].no_dokumen);
@@ -2038,7 +2043,9 @@
                     $('#periode').val(form[0].periode);
                     $('#total_debet').val(parseFloat(form[0].nilai));
                     $('#total_kredit').val(parseFloat(form[0].nilai));
-
+                    $('.information').show();
+                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
+                    closeTooltip();
                     var grid = result.data.arrjurnal;
                     if(grid.length > 0) {
                         var input = "";
@@ -2146,10 +2153,11 @@
             success:function(result){
                 if(result.data.status) {
                     var form = result.data.data;
+                    $noBukti = form[0].no_ju;
+                    $periode = form[0].periode;
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_bukti').val(id);
-                    $('.generate').hide();
 
                     $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
                     $('#no_bukti').val(form[0].no_ju);
@@ -2158,7 +2166,10 @@
                     $('#periode').val(form[0].periode);
                     $('#total_debet').val(parseFloat(form[0].nilai));
                     $('#total_kredit').val(parseFloat(form[0].nilai));
-
+                    
+                    $('.information').show();
+                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
+                    closeTooltip();
                     var grid = result.data.arrjurnal;
                     if(grid.length > 0) {
                         var input = "";
