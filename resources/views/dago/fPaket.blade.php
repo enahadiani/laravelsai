@@ -970,8 +970,8 @@
 
                             inputJadwal += "<tr class='row-jadwal'>";
                             inputJadwal += "<td class='no-jadwal text-center'>"+nomor+"</td>";
-                            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+"' value='"+berangkat+"' required readonly></td>";
-                            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+"' value='"+datang+"' required readonly></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_plan[]' class='form-control datepickerke"+nomor+" inp-tglplan tglplanke"+nomor+"' value='"+berangkat+"' required></td>";
+                            inputJadwal += "<td><input type='text' name='tgl_akt[]' class='form-control datepickerke"+nomor+" inp-tglakt tglaktke"+nomor+"' value='"+datang+"' required></td>";
                             inputJadwal += "<td><input type='text' name='hari[]' class='form-control inp-hari harike"+nomor+"' value='"+lineJadwal.lama_hari+"' required></td>";
                             inputJadwal += "<td><input name='q_std[]' class='form-control qke"+nomor+" inp-qstd qstdke"+nomor+"' value='"+parseFloat(lineJadwal.quota)+"' required></td>";
                             inputJadwal += "<td><input name='q_semi[]' class='form-control qke"+nomor+" inp-qsemi qsemike"+nomor+"' value='"+parseFloat(lineJadwal.quota_se)+"' required></td>";
