@@ -133,7 +133,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="pic" class="col-3 col-form-label">PIC</label>
-                                <div class="col-3">
+                                <div class="col-9">
                                     <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>
                                 </div>
                             </div>
