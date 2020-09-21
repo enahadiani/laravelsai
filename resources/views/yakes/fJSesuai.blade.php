@@ -1409,6 +1409,11 @@
     $('#input-grid').on('change', '.inp-nilai', function(){
         console.log('change-nilai');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
+            if($(this).closest('tr').find('.inp-nilai').val() < 0) {
+                var nilai = $(this).val();
+                var nilaiRegex = nilai.replace(/[-]/g, '');
+                $(this).val(nilaiRegex);
+            }
             hitungTotal();
             $(this).closest('tr').find('.inp-pp').val();
         }
