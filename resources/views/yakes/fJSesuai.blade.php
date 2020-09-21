@@ -1033,6 +1033,9 @@
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
+
+        $('.row-grid:last').addClass('selected-row');
+
         $('.dcke'+no).selectize({
             selectOnTab:true,
             onChange: function(value) {
@@ -1117,6 +1120,10 @@
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
+        
+        $('.row-grid:last').addClass('selected-row');
+        $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+
         $('.dcke'+no).selectize({
             selectOnTab:true,
             onChange: function(value) {
@@ -1185,6 +1192,7 @@
         });
 
         hitungTotalRow();
+        hideUnselectedRow();
     }
 
     $('#form-tambah').on('click', '.add-row', function(){
@@ -1329,14 +1337,68 @@
         }
     });
 
+    function hideUnselectedRow() {
+        $('#input-grid > tbody > tr').each(function(index, row) {
+            var kode_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+            if(!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_akun = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var dc = $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text();
+                var keterangan = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val();
+                var nilai = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+                var kode_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
+                var nama_pp = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val();
+                var kode_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val();
+                var nama_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val();
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-dc")[0].selectize.setValue(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").text(dc);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").val(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").text(keterangan);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").val(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").text(kode_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val(nama_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").text(nama_pp);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val(kode_fs);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").text(kode_fs);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val(nama_fs);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").text(nama_fs);
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-dc").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-ket").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-ket").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-pp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_pp").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-fs").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").show();
+            }
+        })
+    }
+
     $('#input-grid tbody').on('click', 'tr', function(){
-        if ( $(this).hasClass('selected-row') ) {
-            $(this).removeClass('selected-row');
-        }
-        else {
-            $('#input-grid tbody tr').removeClass('selected-row');
-            $(this).addClass('selected-row');
-        }
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
     });
 
     $('#input-grid').on('change', '.inp-kode', function(e){
@@ -1431,7 +1493,6 @@
         if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
             var kode = $(this).val();
             getPP(kode,target1,target2,'change');
-            // hitungTotal();
         }else{
             alert('PP yang dimasukkan tidak valid');
             return false;
