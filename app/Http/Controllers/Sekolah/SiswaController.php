@@ -16,16 +16,28 @@
             }
         }
 
+        public function joinNum($num){
+            // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+            $num = str_replace(".", "", $num);
+            $num = str_replace(",", ".", $num);
+            return $num;
+        }
+    
+        public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+            $arr = explode($org_sep, $ymd_or_dmy_date);
+            return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+        }
+
         public function index()
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/siswa_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -42,50 +54,84 @@
             }
         }
 
-        public function show()
+        public function show(Request $request)
         {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
+            try{
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nis' => $request->nis,
+                        'kode_pp' => $request->kode_pp
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
         public function store(Request $request) {
 
             $this->validate($request, [
-                'kode_kelas' => 'required',
+                'nis' => 'required',
                 'nama' => 'required',
+                'id_bank' => 'required',
                 'kode_pp' => 'required',
-                'kode_tingkat' => 'required',
-                'kode_jur' => 'required',
+                'kode_akt' => 'required',
+                'kode_kelas' => 'required',
+                'tgl_lulus' => 'required',
                 'flag_aktif' => 'required',
+                'kode_param' => 'array',
+                'tarif' => 'array',
+                'per_awal' => 'array',
+                'per_akhir' => 'array'
             ]);
 
             try {
+
+                $det_tarif = array();
+                if(isset($request->tarif)){
+                    $tarif = $request->tarif;
+                    for($i=0;$i<count($tarif);$i++){
+                        array_push($det_tarif,$this->joinNum($tarif[$i]));
+                    }
+                }
+
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/kelas',[
+                $response = $client->request('POST',  config('api.url').'sekolah/siswa',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_kelas' => $request->kode_kelas,
+                        'nis' => $request->nis,
                         'nama' => $request->nama,
+                        'id_bank' => $request->id_bank,
                         'kode_pp' => $request->kode_pp,
-                        'kode_tingkat' => $request->kode_tingkat,
-                        'kode_jur' => $request->kode_jur,
+                        'kode_akt' => $request->kode_akt,
+                        'kode_kelas' => $request->kode_kelas,
+                        'tgl_lulus' => $this->reverseDate($request->tgl_lulus,"/","-"),
                         'flag_aktif' => $request->flag_aktif,
+                        'kode_param' => $request->kode_param,
+                        'tarif' => $det_tarif,
+                        'per_awal' => $request->per_awal,
+                        'per_akhir' => $request->per_akhir
                     ]
                 ]);
                 // var_dump('Sukses');
@@ -120,7 +166,8 @@
                         'kode_pp' => $request->kode_pp,
                         'kode_akt' => $request->kode_akt,
                         'kode_jur' => $request->kode_jur,
-                        'kode_tingkat' => $request->kode_tingkat
+                        'kode_tingkat' => $request->kode_tingkat,
+                        'kode_param' => $request->kode_param
                     ]
                 ]);
         
@@ -172,28 +219,49 @@
 
         }
 
-        public function update(Request $request, $kode_kelas) {
+        public function update(Request $request) {
             $this->validate($request, [
-            'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_tingkat' => 'required',
-            'kode_jur' => 'required',
-            'flag_aktif' => 'required',
+                'nis' => 'required',
+                'nama' => 'required',
+                'id_bank' => 'required',
+                'kode_pp' => 'required',
+                'kode_akt' => 'required',
+                'kode_kelas' => 'required',
+                'tgl_lulus' => 'required',
+                'flag_aktif' => 'required',
+                'kode_param' => 'array',
+                'tarif' => 'array',
+                'per_awal' => 'array',
+                'per_akhir' => 'array'
             ]);
 
             try {
+                $det_tarif = array();
+                if(isset($request->tarif)){
+                    $tarif = $request->tarif;
+                    for($i=0;$i<count($tarif);$i++){
+                       array_push($det_tarif,$this->joinNum($tarif[$i]));
+                    }
+                }
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/kelas?kode_kelas='.$kode_kelas,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/siswa',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
+                        'nis' => $request->nis,
                         'nama' => $request->nama,
+                        'id_bank' => $request->id_bank,
                         'kode_pp' => $request->kode_pp,
-                        'kode_tingkat' => $request->kode_tingkat,
-                        'kode_jur' => $request->kode_jur,
+                        'kode_akt' => $request->kode_akt,
+                        'kode_kelas' => $request->kode_kelas,
+                        'tgl_lulus' => $this->reverseDate($request->tgl_lulus,"/","-"),
                         'flag_aktif' => $request->flag_aktif,
+                        'kode_param' => $request->kode_param,
+                        'tarif' => $det_tarif,
+                        'per_awal' => $request->per_awal,
+                        'per_akhir' => $request->per_akhir
                     ]
                 ]);
                 // var_dump('Sukses');
@@ -206,21 +274,26 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 500);
             }
         }
 
-        public function destroy($kode_kelas,$kode_pp) {
+        public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/kelas?kode_kelas='.$kode_kelas.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/siswa',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nis' => $request->nis,
+                        'kode_pp' => $request->kode_pp
                     ]
+
                 ]);
         
                 if ($response->getStatusCode() == 200) { // 200 OK
