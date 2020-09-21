@@ -223,6 +223,7 @@ class JuskebController extends Controller
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
+            'pic' => 'required',
             'total' => 'required',
             'barang'=> 'required|array',
             'barang_klp'=> 'required|array',
@@ -278,6 +279,10 @@ class JuskebController extends Controller
                 [
                     'name' => 'dasar',
                     'contents' => $request->dasar,
+                ],
+                [
+                    'name' => 'pemakai',
+                    'contents' => $request->pic,
                 ],
                 [
                     'name' => 'total_barang',
@@ -489,6 +494,7 @@ class JuskebController extends Controller
             'waktu' => 'required',
             'kegiatan' => 'required',
             'dasar' => 'required',
+            'pic'=>'required',
             'total' => 'required',
             'barang'=> 'required|array',
             'barang_klp'=> 'required|array',
@@ -544,6 +550,10 @@ class JuskebController extends Controller
                 [
                     'name' => 'dasar',
                     'contents' => $request->dasar,
+                ],
+                [
+                    'name' => 'pemakai',
+                    'contents' => $request->pic,
                 ],
                 [
                     'name' => 'total_barang',

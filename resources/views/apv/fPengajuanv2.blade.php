@@ -132,6 +132,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="pic" class="col-3 col-form-label">PIC</label>
+                                <div class="col-3">
+                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Total Barang</label>
                                 <div class="col-3">
                                     <input class="form-control text-right" type="text"  id="total" name="total" required readonly>
@@ -909,6 +915,7 @@
                     $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
+                    $('#pic').val(result.data[0].pemakai);
                     $('#total').val(toRp(result.data[0].nilai));
                     var input="";
                     var no=1;
@@ -1341,5 +1348,3 @@
 
 
     </script>
-
-    
