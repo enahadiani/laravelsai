@@ -54,6 +54,7 @@ Table of Contents
 */
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
+@import 'https://code.highcharts.com/css/highcharts.css';
 /* 01.Base */
 html {
   width: 100%;
@@ -75,8 +76,33 @@ html {
   --theme-color-6-10: rgba(138, 170, 180, 0.1);
   --primary-color: #3a3a3a;
   --foreground-color: white;
-  --separator-color: #d7d7d7; }
+  --separator-color: #d7d7d7;
+  --background-color: #ffffff;
+	--text-color: #292b2c;
+	--hilight-color: #0275d8; 
+}
 
+.highcharts-background {
+  fill: var(--background-color);
+}
+.highcharts-container text {
+  fill: var(--text-color);
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+  fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+  stroke: var(--text-color);
+  stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+  fill: var(--background-color);
+}
+.highcharts-column-series rect.highcharts-point {
+  stroke: var(--background-color);
+}
 body {
   font-family: "Nunito", sans-serif;
   font-size: 0.8rem;
@@ -3366,12 +3392,26 @@ div.error {
 
 .typeahead.dropdown-menu {
   width: 100%;
-  border-radius: 0.1rem !important; }
+  border-radius: 0.75rem !important; }
   .typeahead.dropdown-menu .dropdown-item {
     padding: 0.5rem 0.75rem !important; }
-  .typeahead.dropdown-menu .active a {
-    background-color: #008ecc;
-    color: #fff; }
+    .typeahead.dropdown-menu .active a {
+      /* background-color: #900604;
+      color: #fff;  */
+      background-color: #f8f8f8;
+      color: #3a3a3a;
+      /* border-radius: 0.75rem; */
+    }
+    .typeahead.dropdown-menu .active a:hover {
+      color: #008ecc;
+      background: rgb(224, 223, 223); 
+      /* border-radius: 0.75rem; */
+    }
+    .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
+      color: #008ecc;
+      background: rgb(197, 196, 196); 
+      /* border-radius: 0.75rem; */
+    }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;
@@ -7620,3 +7660,50 @@ footer.page-footer {
 .rtl .landing-page .mobile-menu-cta {
   padding-left: 1rem;
   padding-right: 1rem; }
+  
+  html.dash-contents{
+    background: white !important;
+  }
+  body.dash-contents{
+    background: white !important;
+  }
+  div.row-notif:hover{
+    background:#f8f8f8;
+    color:black;
+  }
+  div.row-notif  a:hover {
+    background:#f8f8f8 !important;
+    color:black !important;
+  }
+  .dropdown-profile:hover,.userprofile:hover,.userjab:hover{
+    background:unset;
+    color:unset;
+  }
+  .dropdown-item:active{
+    background:#E8E8E8 !important;
+    color:unset !important;
+  }
+  .form-control[readonly]:focus {
+    background-color: #e9ecef;
+    opacity: 1;
+  }
+  #table-search tbody tr:hover
+  {
+    background:#f8f8f8 !important;
+    cursor:pointer;
+  }
+  #table-search tbody tr.selected
+  {
+    background:#f8f8f8 !important;
+  }
+  #filter-btn:hover 
+  {
+    background:#f8f8f8;
+    cursor:pointer;
+  }
+  #table-data tbody tr:hover
+  {
+    background:#f8f8f8 !important;
+    border-color:#f8f8f8 !important;
+    cursor:pointer;
+  }

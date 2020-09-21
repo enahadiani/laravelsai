@@ -76,6 +76,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapYakesRoutes();
 
+        $this->mapSekolahRoutes();
+
         //
     }
 
@@ -357,6 +359,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/yakes/report.php'));
+   
+    }
+
+    protected function mapSekolahRoutes()
+    {
+        Route::prefix('sekolah-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah/auth.php'));
+
+        Route::prefix('sekolah-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah/dash.php'));
+    
+        Route::prefix('sekolah-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah/master.php'));
+    
+        Route::prefix('sekolah-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah/trans.php'));
+    
+        Route::prefix('sekolah-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sekolah/report.php'));
    
     }
 

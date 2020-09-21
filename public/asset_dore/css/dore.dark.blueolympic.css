@@ -54,6 +54,7 @@ Table of Contents
 */
 /* 00.Variables and Imports */
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
+@import 'https://code.highcharts.com/css/highcharts.css';
 /* 01.Base */
 html {
   width: 100%;
@@ -75,7 +76,44 @@ html {
   --theme-color-6-10: rgba(77, 95, 114, 0.1);
   --primary-color: #8f8f8f;
   --foreground-color: #1e2022;
-  --separator-color: #424242; }
+  --separator-color: #424242; 
+  --background-color: #1F2227;
+  --text-color: #c0c0c0;
+  --hilight-color: #8db4d6;
+}
+
+/* Some data colors. Light mode uses defaults */
+.highcharts-color-0 {
+  fill: #0460ba;
+  stroke: #0460ba;
+}
+.highcharts-color-1 {
+  fill: #9696ab;
+  stroke: #9696ab;
+}
+
+.highcharts-background {
+  fill: var(--background-color);
+}
+.highcharts-container text {
+  fill: var(--text-color);
+}
+.highcharts-subtitle,
+.highcharts-credits,
+.highcharts-axis-title {
+  fill-opacity: 0.7;
+}
+.highcharts-grid-line {
+  stroke: var(--text-color);
+  stroke-opacity: 0.2;
+}
+.highcharts-tooltip-box {
+  fill: var(--background-color);
+}
+.highcharts-column-series rect.highcharts-point {
+  stroke: var(--background-color);
+}
+
 
 body {
   font-family: "Nunito", sans-serif;
@@ -3366,12 +3404,26 @@ div.error {
 
 .typeahead.dropdown-menu {
   width: 100%;
-  border-radius: 0.1rem !important; }
+  border-radius: 0.75rem !important; }
   .typeahead.dropdown-menu .dropdown-item {
     padding: 0.5rem 0.75rem !important; }
   .typeahead.dropdown-menu .active a {
-    background-color: #3e83a1;
-    color: #d0d0d0; }
+    background-color: #1b1919;
+    color: #8f8f8f; 
+    /* background-color: #3e83a1;
+    color: #d0d0d0;  */
+    /* border-radius: 0.75rem; */
+  }
+  .typeahead.dropdown-menu .active a:hover {
+    color: #3e83a1;
+    background: #2c2a2a; 
+    /* border-radius: 0.75rem; */
+  }
+  .typeahead.dropdown-menu .active a:focus,.typeahead.dropdown-menu .active a:active {
+    color: #3e83a1;
+    background: #222121; 
+    /* border-radius: 0.75rem; */
+  }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;
@@ -7620,3 +7672,56 @@ footer.page-footer {
 .rtl .landing-page .mobile-menu-cta {
   padding-left: 1rem;
   padding-right: 1rem; }
+  html.dash-contents{
+    background: #1b1919 !important;
+  }
+  body.dash-contents{
+    background: #1b1919 !important;
+  }
+  div.swal2-modal{
+    background:#222020;
+  }
+  div.row-notif:hover{
+    background-color: #1b1919;
+    color: #8f8f8f;
+  }
+  div.row-notif  a:hover {
+    background-color: #1b1919;
+    color: #8f8f8f;
+  }
+  .dropdown-profile:hover,.userprofile:hover,.userjab:hover{
+    background-color: unset;
+    color: #8f8f8f;
+  }
+  .dropdown-item:active{
+    background-color: #1b1919;
+    color: #8f8f8f;
+  }
+  .form-control[readonly]:focus {
+    background-color: #1b1919;
+    opacity: 1;
+  }
+  #table-search tbody tr:hover
+  {
+    background-color: #1b1919 !important;
+    color: #8f8f8f !important;
+    cursor:pointer;
+  }
+  #table-search tbody tr.selected
+  {
+    background-color: #1b1919 !important;
+    color: #8f8f8f !important;
+  }
+  #filter-btn:hover 
+  {
+    background-color: #1b1919 !important;
+    color: #8f8f8f !important;
+    cursor:pointer;
+  }
+  #table-data tbody tr:hover
+  {
+    background-color: #1b1919 !important;
+    color: #8f8f8f !important;
+    border-color:#1b1919 !important;
+    cursor:pointer;
+  }
