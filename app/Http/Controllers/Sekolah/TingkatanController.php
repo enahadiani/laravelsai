@@ -15,14 +15,18 @@
             }
         }
 
-        public function getTingkatan() {
+        public function getTingkatan(Request $request) {
             try{
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/tingkat',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_tingkat' => $request->kode_tingkat
+                    ]
                 ]);
 
                 if ($response->getStatusCode() == 200) { // 200 OK

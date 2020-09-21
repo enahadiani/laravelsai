@@ -16,16 +16,19 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -42,23 +45,35 @@
             }
         }
 
-        public function show()
+        public function show(Request $request)
         {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kelas' => $request->kode_kelas
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
         public function store(Request $request) {

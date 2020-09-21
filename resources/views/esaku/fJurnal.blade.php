@@ -1801,7 +1801,7 @@
         var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
         target1 = par;
         target2 = par2;
-    showFilter(par,target1,target2);
+        showFilter(par,target1,target2);
     });
 
     $('#form-tambah').on('change', '#nik_periksa', function(){
