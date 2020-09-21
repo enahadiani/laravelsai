@@ -16,15 +16,18 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/status_siswa_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
 
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -83,14 +86,18 @@
 
         }
 
-        public function getStatusSiswa($kode_ss,$kode_pp) {
+        public function show(Request $request) {
             try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/status_siswa?kode_ss='.$kode_ss."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/status_siswa',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_ss' => $request->kode_ss,
+                    'kode_pp' => $request->kode_pp
                 ]
             ]);
     

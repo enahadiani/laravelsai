@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
         body {
@@ -76,7 +76,7 @@
     <script>
         $('div.theme-colors').hide();
     </script>
-    <script src="{{ asset('asset_dore/js/loading.js') }}"></script>
+    <!-- <script src="{{ asset('asset_dore/js/loading.js') }}"></script> -->
 </head>
 <!-- <div class="percentage" id="precent">0%</div>
 <div class="loader">

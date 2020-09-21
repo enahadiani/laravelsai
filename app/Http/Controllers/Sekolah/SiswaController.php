@@ -107,14 +107,51 @@
 
         }
 
-        public function getKelas($kode_kelas,$kode_pp) {
+        public function getParam(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/kelas?kode_kelas='.$kode_kelas."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa_param',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_akt' => $request->kode_akt,
+                        'kode_jur' => $request->kode_jur,
+                        'kode_tingkat' => $request->kode_tingkat
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]['data'];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+
+        }
+
+        public function getPeriodeParam(Request $request) {
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa_periode',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
                     ]
                 ]);
         
@@ -128,7 +165,7 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res;
                 $data['status'] = false;
                 return response()->json(['data' => $data], 200);
             }

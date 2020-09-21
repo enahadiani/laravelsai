@@ -8,6 +8,8 @@ Route::get('siswa-detail', 'Sekolah\SiswaController@show');
 Route::post('siswa', 'Sekolah\SiswaController@store');
 Route::put('siswa', 'Sekolah\SiswaController@update');
 Route::delete('siswa', 'Sekolah\SiswaController@destroy');
+Route::get('siswa-param', 'Sekolah\SiswaController@getParam');
+Route::get('siswa-periode', 'Sekolah\SiswaController@getPeriodeParam');
 
 Route::get('penilaian', 'Sekolah\PenilaianController@index');
 Route::get('penilaian-detail', 'Sekolah\PenilaianController@show');

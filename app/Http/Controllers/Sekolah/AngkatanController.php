@@ -16,16 +16,19 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
 
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/angkatan_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -87,15 +90,18 @@
 
         }
 
-        public function show($kode_akt1,$kode_akt2,$kode_pp) {
+        public function show(Request $request) {
             try{
                 $client = new Client();
-                $kode_akt = $kode_akt1."/".$kode_akt2;
-                $response = $client->request('GET',  config('api.url').'sekolah/angkatan?kode_akt='.$kode_akt."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/angkatan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_akt' => $request->kode_akt
                     ]
                 ]);
         
