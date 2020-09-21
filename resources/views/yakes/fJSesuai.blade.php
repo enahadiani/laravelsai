@@ -123,7 +123,7 @@
         .nav-grid {
             margin-top: -10px;
         }
-        .information {
+        /* .information {
             margin-left: 20.5%;
             position: relative;
             top: 7px;
@@ -138,7 +138,7 @@
         }
         .bs-tooltip-right > .tooltip-inner {
             min-width: 450px !important;
-        }
+        } */
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -203,7 +203,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5><i class="simple-icon-info information"></i>
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -247,6 +247,7 @@
                         </div>
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Jurnal</span></a> </li>
+                            <li class="nav-item" id="informasi"> <a class="nav-link" data-toggle="tab" href="#data-informasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Informasi</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-grid" role="tabpanel">
@@ -358,6 +359,19 @@
                                     </table>
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
+                            </div>
+                            <div class="tab-pane" id="data-informasi" role="tabpanel">
+                                <table class="table table-bordered table-condensed gridexample" id="informasi-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;margin-top:5px;">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="text-align:center;">No Bukti</th>
+                                            <th style="text-align:center;">Periode</th>
+                                            <th style="text-align:center;">NIK Input</th>
+                                            <th style="text-align:center;">Tanggal Input</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -553,18 +567,16 @@
         $('#total_kredit').val(total_k);   
     }
 
-    function tooltipIcon(id,periode,nik,tgl) {
-        $(".information").tooltip({
-            placement: 'right',
-            title: function() {
-                return 'No Bukti: '+id+', Periode: '+periode+', NIK input: '+nik+', Tanggal input: '+tgl
-            },
-        }).tooltip('show');
-    }
-    function closeTooltip() {
-        setTimeout(function(){
-            $('.information').tooltip('hide');
-        },1500) 
+    function InformasiJurnal(id,periode,nik,tgl) {
+        var input = "";
+        input += "<tr>";
+        input += "<td class='text-center'>"+id+"</td>";
+        input += "<td class='text-center'>"+periode+"</td>";
+        input += "<td class='text-center'>"+nik+"</td>";
+        input += "<td class='text-center'>"+tgl+"</td>";
+        input += "</tr>";
+
+        $('#informasi-grid tbody').append(input);
     }
     // END FUNCTION HELPERS //
 
@@ -986,6 +998,7 @@
         $('#id').val('');
         $('#input-grid tbody').html('');
         $('#saku-datatable').hide();
+        $('#informasi').hide();
         $('#saku-form').show();
         getTanggalServer();
         addRowGridDefault();
@@ -1986,7 +1999,7 @@
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
-                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                         }
                         else{
                             Swal.fire({
@@ -2018,6 +2031,7 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
+        $('#informasi').show();
         $('#judul-form').html('Edit Data Jurnal Penyesuaian');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -2044,8 +2058,7 @@
                     $('#total_debet').val(parseFloat(form[0].nilai));
                     $('#total_kredit').val(parseFloat(form[0].nilai));
                     $('.information').show();
-                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
-                    closeTooltip();
+                    InformasiJurnal(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
                     var grid = result.data.arrjurnal;
                     if(grid.length > 0) {
                         var input = "";
@@ -2141,6 +2154,7 @@
         var id= $('#modal-preview-id').text();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
+        $('#informasi').show();
         $('#judul-form').html('Edit Data Jurnal Penyesuaian');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -2183,7 +2197,7 @@
                             input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama_akun+"' readonly></td>";
                             input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+data.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+data.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
                             input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+data.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+data.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+parseFloat(data.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseFloat(data.nilai)+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(parseFloat(data.nilai))+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseFloat(data.nilai)+"' required></td>";
                             input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+data.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+data.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+data.nama_pp+"' readonly></td>";
                             input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
