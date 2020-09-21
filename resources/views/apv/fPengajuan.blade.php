@@ -122,6 +122,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="pic" class="col-3 col-form-label">PIC</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nik_ver" class="col-3 col-form-label">NIK Verifikasi</label>
                                 <div class="col-3">
                                     <select class='form-control' id="nik_ver" name="nik_ver" required>
@@ -865,6 +871,7 @@
                     $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#dasar').val(result.data[0].dasar);
+                    $('#pic').val(result.data[0].pemakai);
                     $('#total').val(toRp(result.data[0].nilai));
                     var input="";
                     var no=1;
@@ -1315,5 +1322,3 @@
 
 
     </script>
-
-    
