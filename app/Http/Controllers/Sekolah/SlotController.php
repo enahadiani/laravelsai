@@ -21,7 +21,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/slot_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/slot-all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

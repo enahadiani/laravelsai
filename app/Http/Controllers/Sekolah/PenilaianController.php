@@ -21,7 +21,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/penilaian_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian-all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -45,7 +45,7 @@
         public function show()
         {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/kelas-all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

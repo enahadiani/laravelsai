@@ -21,7 +21,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/kelas-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -49,7 +49,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/kelas_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/kelas-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

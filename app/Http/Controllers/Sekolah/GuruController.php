@@ -19,7 +19,7 @@
         public function getNIKGuru($kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru_nik?kode_pp='.$kode_pp,[
+                $response = $client->request('GET',  config('api.url').'sekolah/guru-nik?kode_pp='.$kode_pp,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

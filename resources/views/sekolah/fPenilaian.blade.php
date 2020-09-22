@@ -277,6 +277,16 @@
                             <div class="col-md-2 col-sm-9 px-0" >
                                 <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kode_ta" class="col-md-2 col-sm-2 col-form-label">Tahun Ajaran</label>
+                            <div class="col-md-3 col-sm-9" >
+                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required>
+                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>
+                            <div class="col-md-2 col-sm-9 px-0" >
+                                <input id="label_kode_ta" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
                             <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
                             <div class="col-md-3 col-sm-9">
                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
@@ -320,7 +330,7 @@
                             </div>
                             <label for="penilaian_ke" class="col-md-2 col-sm-2 col-form-label"> Penilaian Ke</label>
                             <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="penilaian_ke" name="penilaian_ke" required>
+                                <input class="form-control" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -357,6 +367,22 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-dok" role="tabpanel">
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-striped table-bordered table-condensed" id="input-dok" style='width:100%'>
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">No</th>
+                                                <th width="30%">Nama Dokumen</th>
+                                                <th width="30%">Nama File Upload</th>
+                                                <th width="30%">Upload File</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -892,7 +918,7 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Jurnal');
+        $('#judul-form').html('Edit Data Penilaian Siswa');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
@@ -1066,7 +1092,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Jurnal');
+        $('#judul-form').html('Tambah Data Penilaian Siswa');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -1075,7 +1101,6 @@
         $('#input-nilai tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        addRowDef();
     });
     // END BUTTON TAMBAH
 
@@ -1210,7 +1235,7 @@
 
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
-        $('#judul-form').html('Edit Data Jurnal');
+        $('#judul-form').html('Edit Data Penilaian Siswa');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
@@ -1487,88 +1512,7 @@
     });
 
     // GRID JURNAL
-    function addRowDef(){
-        var no=$('#input-nilai .row-jurnal:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td class='no-jurnal text-center'>"+no+"</td>";
-                                    
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "</tr>";
-        $('#input-nilai tbody').append(input);
-        $('.dcke'+no).selectize({
-            selectOnTab:true,
-            onChange: function(value) {
-                $('.tddcke'+no).text(value);
-                hitungTotal();
-            }
-        });
-        $('.selectize-control.dcke'+no).addClass('hidden');
-        $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#akunkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtAkun, function (item) {
-            //         return item.kode_akun;
-            //     }));
-            // }
-            source:$dtAkun,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('#ppkode'+no).typeahead({
-            // source: function (cari, result) {
-            //     result($.map($dtPP, function (item) {
-            //         return item.kode_pp;
-            //     }));
-            // }
-            source:$dtPP,
-            // fitToElement:true,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-
-        hitungTotalRow();
-    }
-
+   
     $('#input-nilai').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
         

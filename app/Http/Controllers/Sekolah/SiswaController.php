@@ -33,7 +33,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -156,7 +156,7 @@
         public function getParam(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_param',
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-param',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -191,7 +191,7 @@
         public function getPeriodeParam(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_periode',
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-periode',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

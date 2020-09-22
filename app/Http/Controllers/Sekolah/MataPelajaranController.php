@@ -16,15 +16,18 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/mata_pelajaran_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                $response = $client->request('GET',  config('api.url').'sekolah/mata-pelajaran-all',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
 
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -41,39 +44,20 @@
             }
         }
 
-        public function getDataMatpel()
-        {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/mata_pelajaran_all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
-            }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
-        }
-
-        public function save(Request $request) {
+        public function store(Request $request) {
 
             $this->validate($request, [
-            'kode_matpel' => 'required',
-            'nama' => 'required',
-            'keterangan' => 'required',
-            'sifat' => 'required',
-            'kode_pp' => 'required',
-            'flag_aktif' => 'required',
+                'kode_matpel' => 'required',
+                'nama' => 'required',
+                'keterangan' => 'required',
+                'sifat' => 'required',
+                'kode_pp' => 'required',
+                'flag_aktif' => 'required',
             ]);
 
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/mata_pelajaran',[
+                $response = $client->request('POST',  config('api.url').'sekolah/mata-pelajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -109,7 +93,7 @@
         public function getMataPelajaran($kode_matpel,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/mata_pelajaran?kode_matpel='.$kode_matpel."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -145,7 +129,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/mata_pelajaran?kode_matpel='.$kode_matpel,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -177,7 +161,7 @@
         public function delete($kode_matpel,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/mata_pelajaran?kode_matpel='.$kode_matpel.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

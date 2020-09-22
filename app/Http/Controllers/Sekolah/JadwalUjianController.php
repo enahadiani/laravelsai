@@ -21,7 +21,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/jadwal_ujian_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/jadwal-ujian-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

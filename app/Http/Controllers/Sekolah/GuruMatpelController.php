@@ -20,7 +20,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru_matpel_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -60,7 +60,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/guru_matpel',[
+                $response = $client->request('POST',  config('api.url').'sekolah/guru-matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -87,7 +87,7 @@
         public function getGuruMatpel($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru_matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -114,7 +114,7 @@
         public function delete($nik,$kode_pp) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/guru_matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/guru-matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -158,7 +158,7 @@
                   );
         
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/guru_matpel',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/guru-matpel',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
