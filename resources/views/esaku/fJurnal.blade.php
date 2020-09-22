@@ -722,8 +722,10 @@
             'dataSrc' : function(json) {
                 if(json.status){
                     return json.daftar;   
+                }else if(!json.status && json.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    return [];
                 }else{
-                    // window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                     return [];
                 }
             }

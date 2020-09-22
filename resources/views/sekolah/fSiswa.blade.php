@@ -241,7 +241,7 @@
                                     <th>Angkatan</th>
                                     <th>Kelas</th>
                                     <th>Tgl Input</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -638,9 +638,9 @@
                     "visible": false,
                     "searchable": false
                 },
-                {
-                    'targets': 6, data: null, 'defaultContent': action_html 
-                }
+                // {
+                //     'targets': 6, data: null, 'defaultContent': action_html 
+                // }
             ],
             'columns': [
                 { data: 'nis' },
