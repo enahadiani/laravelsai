@@ -703,6 +703,25 @@
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val()};
             break;
+            case 'kode_ta': 
+                header = ['Kode TA', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/tahun-ajaran') }}";
+                var columns = [
+                    { data: 'kode_ta' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Tahun Ajaran";
+                var jTarget1 = "val";
+                var pilih = "tahun ajaran";
+                var jTarget1 = "val";
+                var jTarget2 = "val";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                $target4 = "";
+                parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
+            break;
         }
 
         var header_html = '';
@@ -797,6 +816,15 @@
                     }else{
                         $($target).closest('tr').find($target4).click();
                     }
+                }
+                var kode_pp = $('#kode_pp').val(); 
+                var kode_ta = $('#kode_ta').val(); 
+                var kode_sem = $('#kode_sem').val(); 
+                var kode_kelas = $('#kode_kelas').val(); 
+                var kode_matpel = $('#kode_matpel').val(); 
+                var kode_jenis = $('#kode_jenis').val();
+                if(kode_pp != "" && kode_ta != "" && kode_sem != "" && kode_kelas != "" && kode_matpel != "" && kode_jenis != ""){
+                    getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel,kode_jenis);
                 }
                 $('#modal-search').modal('hide');
             }
@@ -910,7 +938,37 @@
         });
     }
 
+    function getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel,kode_jenis){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-trans/penilaian-ke') }}",
+            dataType: 'json',
+            data:{kode_pp:kode_pp,kode_ta:kode_ta,kode_sem:kode_sem,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_jenis:kode_jenis},
+            async:false,
+            success:function(result){    
+                if(result.data.status){
+                    $('#penilaian_ke').val(result.data.jumlah);
+                }
+                else if(!result.data.status && result.data.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     // END CBBL
+
+    $('#kode_pp,#kode_ta,#kode_sem,#kode_kelas,#kode_matpel,#kode_jenis').change(function(){
+        var kode_pp = $('#kode_pp').val(); 
+        var kode_ta = $('#kode_ta').val(); 
+        var kode_sem = $('#kode_sem').val(); 
+        var kode_kelas = $('#kode_kelas').val(); 
+        var kode_matpel = $('#kode_matpel').val(); 
+        var kode_jenis = $('#kode_jenis').val();
+        if(kode_pp != "" && kode_ta != "" && kode_sem != "" && kode_kelas != "" && kode_matpel != "" && kode_jenis != ""){
+            getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel,kode_jenis);
+        }
+    });
 
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){

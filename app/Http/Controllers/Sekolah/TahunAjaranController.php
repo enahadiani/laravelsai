@@ -16,7 +16,7 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try {
                 $client = new Client();
@@ -24,6 +24,10 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
 
