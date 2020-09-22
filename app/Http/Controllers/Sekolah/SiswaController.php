@@ -28,7 +28,7 @@
             return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
 
@@ -37,6 +37,10 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kelas'     => $request->kode_kelas
                     ]
                 ]);
     
