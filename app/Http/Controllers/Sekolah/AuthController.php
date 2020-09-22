@@ -83,6 +83,7 @@
                             Session::put('no_telp',$res[0]["no_telp"]);
                             Session::put('jabatan',$res[0]["jabatan"]);
                             Session::put('periode',$data2["periode"][0]["periode"]);
+                            Session::put('nikUser',$res[0]["nik"].'_'.time());
                             // Session::put('periode','201905');
                             Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                         }
