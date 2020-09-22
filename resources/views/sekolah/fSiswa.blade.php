@@ -694,6 +694,172 @@
 
         // END LIST DATA
 
+        // SUGGESTION
+        var $dtPP = new Array();
+        var $dtAngkatan = new Array();
+        var $dtKelas = new Array();
+        var $dtParam = new Array();
+        
+        function getDtPP() {
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-master/pp') }}",
+                dataType: 'json',
+                async: false,
+                success: function(result) {
+                    if(result.status) {
+                        for(i=0;i<result.daftar.length;i++){
+                            $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                        }
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+
+        function getDtAngkatan(kode_pp) {
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-master/angkatan') }}",
+                dataType: 'json',
+                data:{kode_pp:kode_pp},
+                async: false,
+                success: function(result) {
+                    if(result.status) {
+                    
+                        for(i=0;i<result.daftar.length;i++){
+                            $dtAngkatan[i] = {id:result.daftar[i].kode_akt,name:result.daftar[i].nama};  
+                        }
+
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+
+        function getDtKelas(kode_pp) {
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-master/kelas') }}",
+                dataType: 'json',
+                data:{kode_pp: kode_pp},
+                async: false,
+                success: function(result) {
+                    if(result.status) {
+                    
+                        for(i=0;i<result.daftar.length;i++){
+                            $dtKelas[i] = {id:result.daftar[i].kode_kelas,name:result.daftar[i].nama};  
+                        }
+
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+
+        function getDtParam(kode_pp,kode_akt,kode_jur,kode_tingkat) {
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-trans/siswa-param') }}",
+                dataType: 'json',
+                data: {kode_pp:kode_pp,kode_akt:kode_akt,kode_jur:kode_jur,kode_tingkat:kode_tingkat},
+                async: false,
+                success: function(result) {
+                    $dtParam = new Array();
+                    if(result.status) {
+                    
+                        for(i=0;i<result.daftar.length;i++){
+                            $dtParam[i] = {id:result.daftar[i].kode_param,name:result.daftar[i].nama};  
+                        }
+
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+
+        // getDtPP();
+        
+        // $('#kode_pp').typeahead({
+        //     source:$dtPP,
+        //     fitToElement:true,
+        //     displayText:function(item){
+        //         return item.id+' - '+item.name;
+        //     },
+        //     autoSelect:false,
+        //     changeInputOnSelect:false,
+        //     changeInputOnMove:false,
+        //     selectOnBlur:false,
+        //     afterSelect: function (item) {
+        //         console.log(item.id);
+        //     }
+        // });
+        // END SUGGESTION
+
         // BUTTON TAMBAH
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('#row-id').hide();
@@ -938,6 +1104,36 @@
 
                     if(jTarget2 == "val"){
                         $($target2).val(nama);
+                        // if(par == "kode_pp"){
+                        //     $('#kode_akt').typeahead({
+                        //         source:$dtAngkatan,
+                        //         fitToElement:true,
+                        //         displayText:function(item){
+                        //             return item.id+' - '+item.name;
+                        //         },
+                        //         autoSelect:false,
+                        //         changeInputOnSelect:false,
+                        //         changeInputOnMove:false,
+                        //         selectOnBlur:false,
+                        //         afterSelect: function (item) {
+                        //             console.log(item.id);
+                        //         }
+                        //     });
+                        //     $('#kode_kelas').typeahead({
+                        //         source:$dtKelas,
+                        //         fitToElement:true,
+                        //         displayText:function(item){
+                        //             return item.id+' - '+item.name;
+                        //         },
+                        //         autoSelect:false,
+                        //         changeInputOnSelect:false,
+                        //         changeInputOnMove:false,
+                        //         selectOnBlur:false,
+                        //         afterSelect: function (item) {
+                        //             console.log(item.id);
+                        //         }
+                        //     });
+                        // }
                     }else{
                         $($target2).text(nama);
                     }
@@ -955,7 +1151,12 @@
                         if(par == "kode_kelas"){
                             $($target4).val(dtrow.kode_tingkat);
                             $($target4).trigger('change');
-                        }else{
+                        }
+                        else if(par == "kode_param[]"){
+                            $($target).closest('tr').find($target4).click();
+                            setTimeout(function() {  $($target).parents("tr").find(".inp-tarif").focus(); }, 50);
+                        }
+                        else{
                             $($target4).click();
                         }
                     }
@@ -1208,26 +1409,90 @@
         $('#form-tambah').on('change', '#kode_pp', function(){
             var par = $(this).val();
             getPP(par);
+            // getDtAngkatan(par);
+            // getDtKelas(par);
+            // $('#kode_akt').typeahead({
+            //     source:$dtAngkatan,
+            //     fitToElement:true,
+            //     displayText:function(item){
+            //         return item.id+' - '+item.name;
+            //     },
+            //     autoSelect:false,
+            //     changeInputOnSelect:false,
+            //     changeInputOnMove:false,
+            //     selectOnBlur:false,
+            //     afterSelect: function (item) {
+            //         console.log(item.id);
+            //     }
+            // });
+            // $('#kode_kelas').typeahead({
+            //     source:$dtKelas,
+            //     fitToElement:true,
+            //     displayText:function(item){
+            //         return item.id+' - '+item.name;
+            //     },
+            //     autoSelect:false,
+            //     changeInputOnSelect:false,
+            //     changeInputOnMove:false,
+            //     selectOnBlur:false,
+            //     afterSelect: function (item) {
+            //         console.log(item.id);
+            //     }
+            // });
+            // var kode_akt = $('#kode_akt').val();
+            // var kode_jur = $('#kode_jur').val();
+            // var kode_tingkat = $('#kode_tingkat').val();
+            // if(par != "" && kode_jur != "" && kode_tingkat != "" && kode_akt != ""){
+            //     getDtParam(par,kode_akt,kode_jur,kode_tingkat);
+            // }
         });
 
         $('#form-tambah').on('change', '#kode_akt', function(){
             var par = $(this).val();
             getAngkatan(par);
+            // var kode_pp = $('#kode_pp').val();
+            // var kode_akt = $('#kode_akt').val();
+            // var kode_jur = $('#kode_jur').val();
+            // var kode_tingkat = $('#kode_tingkat').val();
+            // if(kode_pp != "" && kode_jur != "" && kode_tingkat != "" && kode_akt != ""){
+            //     getDtParam(par,kode_akt,kode_jur,kode_tingkat);
+            // }
         });
 
         $('#form-tambah').on('change', '#kode_kelas', function(){
             var par = $(this).val();
             getKelas(par);
+            // var kode_pp = $('#kode_pp').val();
+            // var kode_akt = $('#kode_akt').val();
+            // var kode_jur = $('#kode_jur').val();
+            // var kode_tingkat = $('#kode_tingkat').val();
+            // if(kode_pp != "" && kode_jur != "" && kode_tingkat != "" && kode_akt != ""){
+            //     getDtParam(par,kode_akt,kode_jur,kode_tingkat);
+            // }
         });
 
         $('#form-tambah').on('change', '#kode_jur', function(){
             var par = $(this).val();
             getJurusan(par);
+            // var kode_pp = $('#kode_pp').val();
+            // var kode_akt = $('#kode_akt').val();
+            // var kode_jur = $('#kode_jur').val();
+            // var kode_tingkat = $('#kode_tingkat').val();
+            // if(kode_pp != "" && kode_jur != "" && kode_tingkat != "" && kode_akt != ""){
+            //     getDtParam(par,kode_akt,kode_jur,kode_tingkat);
+            // }
         });
 
         $('#form-tambah').on('change', '#kode_tingkat', function(){
             var par = $(this).val();
             getTingkat(par);
+            // var kode_pp = $('#kode_pp').val();
+            // var kode_akt = $('#kode_akt').val();
+            // var kode_jur = $('#kode_jur').val();
+            // var kode_tingkat = $('#kode_tingkat').val();
+            // if(kode_pp != "" && kode_jur != "" && kode_tingkat != "" && kode_akt != ""){
+            //     getDtParam(par,kode_akt,kode_jur,kode_tingkat);
+            // }
         });
 
         
@@ -1429,12 +1694,16 @@
                         $('#nama').val(result.data[0].nama);
                         $('#id_bank').val(result.data[0].id_bank);
                         $('#kode_pp').val(result.data[0].kode_pp);
-                        $('#kode_pp').trigger('change');
+                        $('#labe_kode_pp').val(result.data[0].nama_pp);
                         $('#kode_akt').val(result.data[0].kode_akt);
                         $('#kode_kelas').val(result.data[0].kode_kelas);
-                        $('#kode_kelas').trigger('change');
+                        $('#label_kode_kelas').val(result.data[0].nama_kelas);
+                        $('#kode_jur').val(result.data[0].kode_jur);
+                        $('#label_kode_jur').val(result.data[0].nama_jur);
+                        $('#kode_tingkat').val(result.data[0].kode_tingkat);
+                        $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
                         $('#flag_aktif').val(result.data[0].flag_aktif);
-                        $('#flag_aktif').trigger('change');
+                        $('#label_flag_aktif').val(result.data[0].nama_status);
                         $('#tgl_lulus').val(result.data[0].tgl_lulus);
                         var input = "";
                         $('#input-param tbody').html('');
@@ -1474,6 +1743,19 @@
                                     rightAlign: true,
                                     oncleared: function () { self.Value(''); }
                                 });
+                                // $('#paramkode'+no).typeahead({
+                                //     source:$dtParam,
+                                //     displayText:function(item){
+                                //         return item.id+' - '+item.name;
+                                //     },
+                                //     autoSelect:false,
+                                //     changeInputOnSelect:false,
+                                //     changeInputOnMove:false,
+                                //     selectOnBlur:false,
+                                //     afterSelect: function (item) {
+                                //         console.log(item.id);
+                                //     }
+                                // });
                                 no++;
                             }
                         }
@@ -1520,20 +1802,28 @@
                                 <td>`+line.nama+`</td>
                             </tr>
                             <tr>
-                                <td>Kode PP</td>
-                                <td>`+line.kode_pp+`</td>
+                                <td>PP</td>
+                                <td>`+line.kode_pp+` - `+line.nama_pp+`</td>
                             </tr>
                             <tr>
-                                <td>Kode Angkatan</td>
-                                <td>`+line.kode_akt+`</td>
+                                <td>Angkatan</td>
+                                <td>`+line.kode_akt+` - `+line.nama_akt+`</td>
                             </tr>
                             <tr>
-                                <td>Kode Kelas</td>
-                                <td>`+line.kode_kelas+`</td>
+                                <td>Kelas</td>
+                                <td>`+line.kode_kelas+` - `+line.nama_kelas+`</td>
+                            </tr>
+                            <tr>
+                                <td>Jurusan</td>
+                                <td>`+line.kode_jur+` - `+line.nama_jur+`</td>
+                            </tr>
+                            <tr>
+                                <td>Tingkat</td>
+                                <td>`+line.kode_tingkat+` - `+line.nama_tingkat+`</td>
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td>`+line.flag_aktif+`</td>
+                                <td>`+line.flag_aktif+` - `+line.nama_status+`</td>
                             </tr>
                             <tr>
                                 <td>Tgl Lulus</td>
@@ -1624,12 +1914,16 @@
                         $('#nama').val(result.data[0].nama);
                         $('#id_bank').val(result.data[0].id_bank);
                         $('#kode_pp').val(result.data[0].kode_pp);
-                        $('#kode_pp').trigger('change');
+                        $('#labe_kode_pp').val(result.data[0].nama_pp);
                         $('#kode_akt').val(result.data[0].kode_akt);
                         $('#kode_kelas').val(result.data[0].kode_kelas);
-                        $('#kode_kelas').trigger('change');
+                        $('#label_kode_kelas').val(result.data[0].nama_kelas);
+                        $('#kode_jur').val(result.data[0].kode_jur);
+                        $('#label_kode_jur').val(result.data[0].nama_jur);
+                        $('#kode_tingkat').val(result.data[0].kode_tingkat);
+                        $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
                         $('#flag_aktif').val(result.data[0].flag_aktif);
-                        $('#flag_aktif').trigger('change');
+                        $('#label_flag_aktif').val(result.data[0].nama_status);
                         $('#tgl_lulus').val(result.data[0].tgl_lulus);
                         var input = "";
                         $('#input-param tbody').html('');
@@ -1670,6 +1964,19 @@
                                     rightAlign: true,
                                     oncleared: function () { self.Value(''); }
                                 });
+                                // $('#paramkode'+no).typeahead({
+                                //     source:$dtParam,
+                                //     displayText:function(item){
+                                //         return item.id+' - '+item.name;
+                                //     },
+                                //     autoSelect:false,
+                                //     changeInputOnSelect:false,
+                                //     changeInputOnMove:false,
+                                //     selectOnBlur:false,
+                                //     afterSelect: function (item) {
+                                //         console.log(item.id);
+                                //     }
+                                // });
                                 no++;
                             }
                         }
@@ -1699,6 +2006,26 @@
         });
         // END PREVIEW
 
+        // HANDLER untuk enter dan tab
+        $('#nis,#id_bank,#nama,#kode_pp,#kode_akt,#kode_kelas,#flag_aktif,#tgl_lulus').keydown(function(e){
+            var code = (e.keyCode ? e.keyCode : e.which);
+            var nxt = ['nis','id_bank','nama','kode_pp','kode_akt','kode_kelas','flag_aktif','tgl_lulus'];
+            if (code == 13 || code == 40) {
+                e.preventDefault();
+                var idx = nxt.indexOf(e.target.id);
+                idx++;
+                $('#'+nxt[idx]).focus();
+            }else if(code == 38){
+                e.preventDefault();
+                var idx = nxt.indexOf(e.target.id);
+                idx--;
+                if(idx != -1){ 
+                    $('#'+nxt[idx]).focus();
+                }
+            }
+        });
+        // END
+
         // GRID PARAM TARIF
         function addRowDef(){
             var no=$('#input-param .row-param:last').index();
@@ -1726,6 +2053,7 @@
                 rightAlign: true,
                 oncleared: function () { self.Value(''); }
             });
+
             // $('#paramkode'+no).typeahead({
             //     source:$dtParam,
             //     displayText:function(item){
@@ -1757,6 +2085,7 @@
                 var idx_next = idx+1;
                 var kunci = $(this).closest('td').index()+1;
                 var isi = $(this).val();
+                console.log(idx);
                 switch (idx) {
                     case 0:
                         var noidx = $(this).parents("tr").find(".no-param").text();
@@ -1793,8 +2122,9 @@
                             alert('Tarif yang dimasukkan tidak valid');
                             return false;
                         }
+                        break;
                     case 3:
-                        
+                        console.log(nxt[idx]);
                         var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
                         $("#input-param td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -1817,7 +2147,7 @@
                         $(this).parents("tr").find(".selectize-control.inp-periodeakr").hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
 
-                        var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                        var cek = $(this).parents('tr').next('tr').find('.td-kode_param');
                         if(cek.length > 0){
                             cek.click();
                         }else{
@@ -1835,6 +2165,11 @@
         });
 
         $('#form-tambah').on('click', '.add-row', function(){
+            var kode_pp = $('#kode_pp').val();
+            var kode_akt = $('#kode_akt').val();
+            var kode_jur = $('#kode_jur').val();
+            var kode_tingkat = $('#kode_tingkat').val();
+            
             var no=$('#input-param .row-param:last').index();
             no=no+2;
             var input = "";
@@ -1860,6 +2195,21 @@
                 rightAlign: true,
                 oncleared: function () { self.Value(''); }
             });
+
+            // $('#paramkode'+no).typeahead({
+            //     source:$dtParam,
+            //     displayText:function(item){
+            //         return item.id+' - '+item.name;
+            //     },
+            //     autoSelect:false,
+            //     changeInputOnSelect:false,
+            //     changeInputOnMove:false,
+            //     selectOnBlur:false,
+            //     afterSelect: function (item) {
+            //         console.log(item.id);
+            //     }
+            // });
+
             $('#input-param td').removeClass('px-0 py-0 aktif');
             $('#input-param tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
             $('#input-param tbody tr:last').find(".inp-kode_param").show();
@@ -1920,6 +2270,19 @@
                     rightAlign: true,
                     oncleared: function () { self.Value(''); }
                 });
+                // $('#paramkode'+no).typeahead({
+                //     source:$dtParam,
+                //     displayText:function(item){
+                //         return item.id+' - '+item.name;
+                //     },
+                //     autoSelect:false,
+                //     changeInputOnSelect:false,
+                //     changeInputOnMove:false,
+                //     selectOnBlur:false,
+                //     afterSelect: function (item) {
+                //         console.log(item.id);
+                //     }
+                // });
                 $('.tooltip-span').tooltip({
                     title: function(){
                         return $(this).text();

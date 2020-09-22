@@ -993,7 +993,7 @@
                         $($target).parents("tr").find(".search-pp").hide();
                         $($target).parents("tr").find(".inp-nama_pp").show();
                         $($target).parents("tr").find(".td-nama_pp").hide();
-                        $($target).parents("tr").find(".inp-nama_pp").attr('readonly',false);
+                        // $($target).parents("tr").find(".inp-nama_pp").attr('readonly',false);
                        
                         setTimeout(function() {  $($target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
                     }else{
