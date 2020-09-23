@@ -363,22 +363,28 @@
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0 mb-2">
                             <div class="tab-pane active" id="data-tarif" role="tabpanel">
-                                <table class="table table-bordered table-condensed gridexample" id="input-param" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:15%">Kode</th>
-                                            <th style="width:30%">Nama</th>
-                                            <th style="width:17%">Tarif</th>
-                                            <th style="width:15%">Periode Awal</th>
-                                            <th style="width:15%">Periode Akhir</th>
-                                            <th style="width:5%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                </div>
+                                
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-param" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:15%">Kode</th>
+                                                <th style="width:30%">Nama</th>
+                                                <th style="width:17%">Tarif</th>
+                                                <th style="width:15%">Periode Awal</th>
+                                                <th style="width:15%">Periode Akhir</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -520,6 +526,11 @@
             }, 1000 * 60 * 10);
         }
 
+        function hitungTotalRow(){
+            var total_row = $('#input-param tbody tr').length;
+            $('#total-row').html(total_row+' Baris');
+        }
+        
         function getPeriodeParam(kode_pp,param,param2,val1=null,val2=null){
             $.ajax({
                 type: 'GET',
@@ -1762,6 +1773,7 @@
                         $('#row-id').show();
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
+                        hitungTotalRow();
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1984,6 +1996,7 @@
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                         $('#modal-preview').modal('hide');
+                        hitungTotalRow();
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
                         window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -2074,6 +2087,50 @@
                 }
             });
         }
+
+        function hideUnselectedRow() {
+            $('#input-param > tbody > tr').each(function(index, row) {
+                var kode_akun = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                if(!$(row).hasClass('selected-row')) {
+
+                    var kode_param = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode_param").val();
+                    var nama_param = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-nama_param").val();
+                    var tarif = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-tarif").val();
+                    var per_awal = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-periodeawl  option:selected").text();
+                    var per_akhir = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-periodeakr  option:selected").text();
+                
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode_param").val(kode_param);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-kode_param").text(kode_param);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-nama_param").val(nama_param);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-nama_param").text(nama_param);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-tarif").val(tarif);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-tarif").text(tarif);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-periodeawl")[0].selectize.setValue(per_awal);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-periodeawl").text(per_awal);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-periodeakr")[0].selectize.setValue(per_akhir);
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-periodeakr").text(per_akhir);
+
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode_param").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-kode_param").show();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".search-param").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-nama_param").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-nama_param").show();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".selectize-control.inp-periodeawl").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".selectize-control.inp-periodeakr").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-periodeawl").show();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-periodeakr").show();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-tarif").hide();
+                    $('#input-param > tbody > tr:eq('+index+') > td').find(".td-tarif").show();
+                }
+            })
+        }
+
+        $('#input-param tbody').on('click', 'tr', function(){
+            $(this).addClass('selected-row');
+            $('#input-param tbody tr').not(this).removeClass('selected-row');
+            hideUnselectedRow();
+        });
+
 
         $('#input-param').on('keydown','.inp-kode_param, .inp-nama_param, .inp-tarif, .inp-periodeawl, .inp-periodeakr',function(e){
             var code = (e.keyCode ? e.keyCode : e.which);
@@ -2169,71 +2226,79 @@
             var kode_akt = $('#kode_akt').val();
             var kode_jur = $('#kode_jur').val();
             var kode_tingkat = $('#kode_tingkat').val();
-            
-            var no=$('#input-param .row-param:last').index();
-            no=no+2;
-            var input = "";
-            input += "<tr class='row-param'>";
-            input += "<td class='no-param text-center'>"+no+"</td>";              
-            input += "<td><span class='td-kode_param tdparamke"+no+" tooltip-span'></span><input type='text' name='kode_param[]' class='form-control inp-kode_param paramke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='paramkode"+no+"'><a href='#' class='search-item search-param hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_param tdnmparamke"+no+" tooltip-span'></span><input type='text' name='nama_param[]' class='form-control inp-nama_param nmparamke"+no+" hidden'  value='' readonly></td>";
-            input += "<td class='text-right'><span class='td-tarif tdtarifke"+no+" tooltip-span'></span><input type='text' name='tarif[]' class='form-control inp-tarif tarifke"+no+" hidden'  value='' required></td>";
-            input += "<td><span class='td-periodeawl tdperiodeawlke"+no+" tooltip-span'></span><select hidden name='per_awal[]' class='form-control inp-periodeawl periodeawlke"+no+"' value='' required></select></td>";
-            input += "<td><span class='td-periodeakr tdperiodeakrke"+no+" tooltip-span'></span><select hidden name='per_akhir[]' class='form-control inp-periodeakr periodeakrke"+no+"' value='' required></select></td>";
-            
-            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-            input += "</tr>";
-            $('#input-param tbody').append(input);
-            getPeriodeParam($('#kode_pp').val(),'periodeawlke'+no,'periodeakrke'+no);
-            $('.selectize-control.periodeawlke'+no).addClass('hidden');
-            $('.selectize-control.periodeakrke'+no).addClass('hidden');
-            $('.tarifke'+no).inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                oncleared: function () { self.Value(''); }
-            });
+            if(kode_pp != "" && kode_akt != "" && kode_jur != "" && kode_tingkat != ""){
 
-            // $('#paramkode'+no).typeahead({
-            //     source:$dtParam,
-            //     displayText:function(item){
-            //         return item.id+' - '+item.name;
-            //     },
-            //     autoSelect:false,
-            //     changeInputOnSelect:false,
-            //     changeInputOnMove:false,
-            //     selectOnBlur:false,
-            //     afterSelect: function (item) {
-            //         console.log(item.id);
-            //     }
-            // });
-
-            $('#input-param td').removeClass('px-0 py-0 aktif');
-            $('#input-param tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-            $('#input-param tbody tr:last').find(".inp-kode_param").show();
-            $('#input-param tbody tr:last').find(".td-kode_param").hide();
-            $('#input-param tbody tr:last').find(".search-param").show();
-            $('#input-param tbody tr:last').find(".inp-kode_param").focus();
-
-            $('.tooltip-span').tooltip({
-                title: function(){
-                    return $(this).text();
-                }
-            });
-
-        });
-
-        $('#input-param tbody').on('click', 'tr', function(){
-            if ( $(this).hasClass('selected-row') ) {
-                $(this).removeClass('selected-row');
-            }
-            else {
-                $('#input-param tbody tr').removeClass('selected-row');
-                $(this).addClass('selected-row');
+                var no=$('#input-param .row-param:last').index();
+                no=no+2;
+                var input = "";
+                input += "<tr class='row-param'>";
+                input += "<td class='no-param text-center'>"+no+"</td>";              
+                input += "<td><span class='td-kode_param tdparamke"+no+" tooltip-span'></span><input type='text' name='kode_param[]' class='form-control inp-kode_param paramke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='paramkode"+no+"'><a href='#' class='search-item search-param hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                input += "<td><span class='td-nama_param tdnmparamke"+no+" tooltip-span'></span><input type='text' name='nama_param[]' class='form-control inp-nama_param nmparamke"+no+" hidden'  value='' readonly></td>";
+                input += "<td class='text-right'><span class='td-tarif tdtarifke"+no+" tooltip-span'></span><input type='text' name='tarif[]' class='form-control inp-tarif tarifke"+no+" hidden'  value='' required></td>";
+                input += "<td><span class='td-periodeawl tdperiodeawlke"+no+" tooltip-span'></span><select hidden name='per_awal[]' class='form-control inp-periodeawl periodeawlke"+no+"' value='' required></select></td>";
+                input += "<td><span class='td-periodeakr tdperiodeakrke"+no+" tooltip-span'></span><select hidden name='per_akhir[]' class='form-control inp-periodeakr periodeakrke"+no+"' value='' required></select></td>";
+                
+                input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                input += "</tr>";
+                $('#input-param tbody').append(input);
+                getPeriodeParam($('#kode_pp').val(),'periodeawlke'+no,'periodeakrke'+no);
+                $('.selectize-control.periodeawlke'+no).addClass('hidden');
+                $('.selectize-control.periodeakrke'+no).addClass('hidden');
+                $('.tarifke'+no).inputmask("numeric", {
+                    radixPoint: ",",
+                    groupSeparator: ".",
+                    digits: 2,
+                    autoGroup: true,
+                    rightAlign: true,
+                    oncleared: function () { self.Value(''); }
+                });
+    
+                // $('#paramkode'+no).typeahead({
+                //     source:$dtParam,
+                //     displayText:function(item){
+                //         return item.id+' - '+item.name;
+                //     },
+                //     autoSelect:false,
+                //     changeInputOnSelect:false,
+                //     changeInputOnMove:false,
+                //     selectOnBlur:false,
+                //     afterSelect: function (item) {
+                //         console.log(item.id);
+                //     }
+                // });
+                
+                
+                hitungTotalRow();
+                hideUnselectedRow();
+                
+                $('#input-param td').removeClass('px-0 py-0 aktif');
+                $('#input-param tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+                $('#input-param tbody tr:last').find(".inp-kode_param").show();
+                $('#input-param tbody tr:last').find(".td-kode_param").hide();
+                $('#input-param tbody tr:last').find(".search-param").show();
+                $('#input-param tbody tr:last').find(".inp-kode_param").focus();
+    
+                $('.tooltip-span').tooltip({
+                    title: function(){
+                        return $(this).text();
+                    }
+                });
+            }else{
+                alert('Harap pilih terlebih dahulu PP, Angkatan, Jurusan dan Tingkat untuk menambah baris siswa !');
             }
         });
+
+        // $('#input-param tbody').on('click', 'tr', function(){
+        //     if ( $(this).hasClass('selected-row') ) {
+        //         $(this).removeClass('selected-row');
+        //     }
+        //     else {
+        //         $('#input-param tbody tr').removeClass('selected-row');
+        //         $(this).addClass('selected-row');
+        //     }
+        // });
+        
 
         $('.nav-control').on('click', '#copy-row', function(){
             if($(".selected-row").length != 1){
@@ -2399,7 +2464,7 @@
                 nom.html(no);
                 no++;
             });
-            // hitungTotalRow();
+            hitungTotalRow();
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         });
 
