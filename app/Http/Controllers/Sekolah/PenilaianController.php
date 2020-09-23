@@ -347,6 +347,172 @@
                 return response()->json(["data" => $result], 200);
             } 
         }
+
+        public function showDokUpload(Request $request)
+        {
+            $this->validate($request,[
+                'no_bukti' => 'required',
+                'kode_pp' => 'required'
+            ]);
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian-dok',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_bukti' => $request->no_bukti,
+                        'kode_pp' => $request->kode_pp
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json(['data' => $data], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $result['message'] = $res["message"];
+                $result['status']=false;
+                return response()->json(["data" => $result], 200);
+            } 
+        }
+
+        public function storeDokumen(Request $request) {
+
+            $this->validate($request, [
+                'kode_pp' => 'required',
+                'no_bukti' => 'required'
+            ]);
+
+            try {
+                
+                $fields = [
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'no_bukti',
+                        'contents' => $request->no_bukti,
+                    ]
+                ];
+    
+                $fields_foto = array();
+                $fields_nama_file = array();
+                $fields_nama_file_seb = array();
+                $fields_nama_nis = array();
+                $cek = $request->file_dok;
+                $send_data = array();
+                $send_data = array_merge($send_data,$fields);
+                if(!empty($cek)){
+    
+                    if(count($request->file_dok) > 0){
+    
+                        for($i=0;$i<count($request->nama_dok);$i++){
+                            if(isset($request->file('file_dok')[$i])){
+                                $image_path = $request->file('file_dok')[$i]->getPathname();
+                                $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                                $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                                $fields_foto[$i] = array(
+                                    'name'     => 'file['.$i.']',
+                                    'filename' => $image_org,
+                                    'Mime-Type'=> $image_mime,
+                                    'contents' => fopen( $image_path, 'r' ),
+                                );
+                                
+                            }
+                            $fields_nama_nis[$i] = array(
+                                'name'     => 'nis[]',
+                                'contents' => $request->nis[$i],
+                            );
+                            $nama_file = $request->nama_dok[$i];
+                            $fields_nama_file[$i] = array(
+                                'name'     => 'nama_file[]',
+                                'contents' => $nama_file,
+                            );
+                            
+                            $fields_nama_file_seb[$i] = array(
+                                'name'     => 'nama_file_seb[]',
+                                'contents' => $request->nama_file[$i],
+                            );
+                        }
+                        $send_data = array_merge($send_data,$fields_foto);
+                        $send_data = array_merge($send_data,$fields_nama_file);
+                        $send_data = array_merge($send_data,$fields_nama_file_seb);
+                        $send_data = array_merge($send_data,$fields_nama_nis);
+                    }
+                }
+                    
+                // dump($fields_nama_file);
+                // dump($fields_nama_file_seb);
+                // dump($fields_nama_nis);
+                // dump($fields_foto);
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'sekolah/penilaian-dok',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'multipart' => $send_data
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data["success"]], 200);  
+                }
+
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            }
+
+        }
+
+        public function deleteDokumen(Request $request) {
+            
+            try{
+                $client = new Client();
+                $response = $client->request('DELETE',  config('api.url').'sekolah/penilaian-dok',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_bukti' => $request->no_bukti,  
+                        'kode_pp' => $request->kode_pp,  
+                        'nis' => $request->nis
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
     }
 
 

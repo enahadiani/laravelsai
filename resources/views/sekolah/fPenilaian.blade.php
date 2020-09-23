@@ -389,7 +389,7 @@
                                             <th style="width:20%">NIS</th>
                                             <th style="width:55%">Nama</th>
                                             <th style="width:17%">Nilai</th>
-                                                <th width="5%"></th>
+                                            <th width="5%"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1060,7 +1060,7 @@
                     $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
                     $('#label_kode_ta').val(result.data[0].nama_ta);
-                    $('#kode_sem').val(result.data[0].kode_sem);
+                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
                     $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
@@ -1328,7 +1328,7 @@
                     $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
                     $('#label_kode_ta').val(result.data[0].nama_ta);
-                    $('#kode_sem').val(result.data[0].kode_sem);
+                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
                     $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
