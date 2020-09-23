@@ -111,6 +111,44 @@
             return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
         }
 
+        public function getReportTahunList() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-report/list-tahun',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getReportBulanList() {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-report/list-bulan',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
         public function getJumlahTgl($tahun,$bulan) {
 
             $client = new Client();
