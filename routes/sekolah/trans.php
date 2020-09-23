@@ -19,3 +19,4 @@ Route::delete('penilaian', 'Sekolah\PenilaianController@destroy');
 Route::get('penilaian-ke', 'Sekolah\PenilaianController@getPenilaianKe');
 Route::post('import-excel', 'Sekolah\PenilaianController@importExcel');
 Route::get('nilai-tmp', 'Sekolah\PenilaianController@getNilaiTmp');
+Route::get('penilaian-dok', 'Sekolah\PenilaianController@showDokUpload');
