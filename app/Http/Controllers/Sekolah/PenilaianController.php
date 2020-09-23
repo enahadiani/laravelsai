@@ -453,6 +453,7 @@
                 // dump($fields_nama_file);
                 // dump($fields_nama_file_seb);
                 // dump($fields_nama_nis);
+                // dump($fields_foto);
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'sekolah/penilaian-dok',[
                     'headers' => [

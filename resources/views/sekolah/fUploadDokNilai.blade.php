@@ -645,7 +645,13 @@
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control nama_dok' value='"+line.nis+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
-                            input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value=''></td>";
+                            if(line.nama != undefined && line.nama != "null"){
+
+                                input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value='"+line.nama+"'></td>";
+                            }else{
+                                input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value=''></td>";
+                            }
+                            var dok = "{{ config('api.url').'sekolah/storage' }}/"+line.fileaddres;
                             input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
                             if(line.fileaddres == "-" || line.fileaddres == ""){
                                 input+=`
@@ -661,7 +667,7 @@
                             input+=`
                                 <td class='text-center'>`;
                                 if(line.fileaddres != "-"){
-                                   var link =`<a class='download-dok' style='font-size:18px' href='`+line.fileaddres+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>`;
+                                   var link =`<a class='download-dok' style='font-size:18px' href='`+dok+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>`;
                                 }else{
                                     var link =``;
                                 }
