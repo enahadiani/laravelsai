@@ -708,7 +708,7 @@
         'columns': [
             { data: 'no_bukti' },
             { data: 'no_dokumen' },
-            { data: 'kode_pp' },
+            { data: 'nama_pp' },
             { data: 'waktu' },
             { data: 'kegiatan' },
             { data: 'posisi' },
