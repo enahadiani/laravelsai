@@ -20,7 +20,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/status_siswa_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/status-siswa-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -55,7 +55,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/status_siswa',[
+                $response = $client->request('POST',  config('api.url').'sekolah/status-siswa',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -89,7 +89,7 @@
         public function show(Request $request) {
             try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/status_siswa',
+            $response = $client->request('GET',  config('api.url').'sekolah/status-siswa',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -127,7 +127,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/status_siswa?kode_ss='.$kode_ss,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/status-siswa?kode_ss='.$kode_ss,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -157,7 +157,7 @@
         public function delete($kode_ss,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/status_siswa?kode_ss='.$kode_ss.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/status-siswa?kode_ss='.$kode_ss.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

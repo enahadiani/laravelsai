@@ -28,15 +28,19 @@
             return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kelas'     => $request->kode_kelas
                     ]
                 ]);
     
@@ -156,7 +160,7 @@
         public function getParam(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_param',
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-param',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -191,7 +195,7 @@
         public function getPeriodeParam(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/siswa_periode',
+                $response = $client->request('GET',  config('api.url').'sekolah/siswa-periode',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

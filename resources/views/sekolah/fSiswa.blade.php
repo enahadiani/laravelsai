@@ -241,7 +241,7 @@
                                     <th>Angkatan</th>
                                     <th>Kelas</th>
                                     <th>Tgl Input</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -638,9 +638,9 @@
                     "visible": false,
                     "searchable": false
                 },
-                {
-                    'targets': 6, data: null, 'defaultContent': action_html 
-                }
+                // {
+                //     'targets': 6, data: null, 'defaultContent': action_html 
+                // }
             ],
             'columns': [
                 { data: 'nis' },
@@ -1773,111 +1773,111 @@
 
         // PREVIEW saat klik di list data
 
-        $('#table-data tbody').on('click','td',function(e){
-            if($(this).index() != 5){
+        // $('#table-data tbody').on('click','td',function(e){
+        //     if($(this).index() != 5){
 
-                var id = $(this).closest('tr').find('td').eq(0).html();
-                var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
-                var kode_pp = tmp[0];
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ url('sekolah-trans/siswa-detail') }}",
-                    dataType: 'json',
-                    data:{nis: id, kode_pp:kode_pp},
-                    async:false,
-                    success:function(res){
-                        var result= res.data;
-                        if(result.status){
-                            var line = result.data[0];
-                            var html = `<tr>
-                                <td style='border:none'>NIS</td>
-                                <td style='border:none'>`+id+`</td>
-                            </tr>
-                            <tr>
-                                <td>ID Bank</td>
-                                <td>`+line.id_bank+`</td>
-                            </tr>
-                            <tr>
-                                <td>Nama</td>
-                                <td>`+line.nama+`</td>
-                            </tr>
-                            <tr>
-                                <td>PP</td>
-                                <td>`+line.kode_pp+` - `+line.nama_pp+`</td>
-                            </tr>
-                            <tr>
-                                <td>Angkatan</td>
-                                <td>`+line.kode_akt+` - `+line.nama_akt+`</td>
-                            </tr>
-                            <tr>
-                                <td>Kelas</td>
-                                <td>`+line.kode_kelas+` - `+line.nama_kelas+`</td>
-                            </tr>
-                            <tr>
-                                <td>Jurusan</td>
-                                <td>`+line.kode_jur+` - `+line.nama_jur+`</td>
-                            </tr>
-                            <tr>
-                                <td>Tingkat</td>
-                                <td>`+line.kode_tingkat+` - `+line.nama_tingkat+`</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>`+line.flag_aktif+` - `+line.nama_status+`</td>
-                            </tr>
-                            <tr>
-                                <td>Tgl Lulus</td>
-                                <td>`+line.tgl_lulus+`</td>
-                            </tr>
-                            <tr>
-                                <td colspan='2'>
-                                    <table id='table-param-preview' class='table table-bordered'>
-                                        <thead>
-                                            <tr>
-                                                <th style="width:3%">No</th>
-                                                <th style="width:15%">Kode Param</th>
-                                                <th style="width:30%">Nama Param</th>
-                                                <th style="width:17%">Tarif</th>
-                                                <th style="width:15">Periode Awal</th>
-                                                <th style="width:15">Periode Akhir</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            `;
-                            $('#table-preview tbody').html(html);
-                            var det = ``;
-                            if(result.data_detail.length > 0){
-                                var input = '';
-                                var no=1;
-                                for(var i=0;i<result.data_detail.length;i++){
-                                    var line2 =result.data_detail[i];
-                                    input += "<tr>";
-                                    input += "<td>"+no+"</td>";
-                                    input += "<td >"+line2.kode_param+"</td>";
-                                    input += "<td >"+line2.nama+"</td>";
-                                    input += "<td class='text-right'>"+format_number(line2.tarif)+"</td>";
-                                    input += "<td >"+line2.per_awal+"</td>";
-                                    input += "<td >"+line2.per_akhir+"</td>";
-                                    input += "</tr>";
-                                    no++;
-                                }
-                                $('#table-param-preview tbody').html(input);
-                            }
-                            $('#modal-preview-id').text(id);
-                            $('#modal-preview-kode').text(line.kode_pp);
-                            $('#modal-preview').modal('show');
-                        }
-                        else if(!result.status && result.message == 'Unauthorized'){
-                            window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
-                        }
-                    }
-                });
-            }
-        });
+        //         var id = $(this).closest('tr').find('td').eq(0).html();
+        //         var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+        //         var kode_pp = tmp[0];
+        //         $.ajax({
+        //             type: 'GET',
+        //             url: "{{ url('sekolah-trans/siswa-detail') }}",
+        //             dataType: 'json',
+        //             data:{nis: id, kode_pp:kode_pp},
+        //             async:false,
+        //             success:function(res){
+        //                 var result= res.data;
+        //                 if(result.status){
+        //                     var line = result.data[0];
+        //                     var html = `<tr>
+        //                         <td style='border:none'>NIS</td>
+        //                         <td style='border:none'>`+id+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>ID Bank</td>
+        //                         <td>`+line.id_bank+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Nama</td>
+        //                         <td>`+line.nama+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>PP</td>
+        //                         <td>`+line.kode_pp+` - `+line.nama_pp+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Angkatan</td>
+        //                         <td>`+line.kode_akt+` - `+line.nama_akt+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Kelas</td>
+        //                         <td>`+line.kode_kelas+` - `+line.nama_kelas+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Jurusan</td>
+        //                         <td>`+line.kode_jur+` - `+line.nama_jur+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Tingkat</td>
+        //                         <td>`+line.kode_tingkat+` - `+line.nama_tingkat+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Status</td>
+        //                         <td>`+line.flag_aktif+` - `+line.nama_status+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Tgl Lulus</td>
+        //                         <td>`+line.tgl_lulus+`</td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td colspan='2'>
+        //                             <table id='table-param-preview' class='table table-bordered'>
+        //                                 <thead>
+        //                                     <tr>
+        //                                         <th style="width:3%">No</th>
+        //                                         <th style="width:15%">Kode Param</th>
+        //                                         <th style="width:30%">Nama Param</th>
+        //                                         <th style="width:17%">Tarif</th>
+        //                                         <th style="width:15">Periode Awal</th>
+        //                                         <th style="width:15">Periode Akhir</th>
+        //                                     </tr>
+        //                                 </thead>
+        //                                 <tbody>
+        //                                 </tbody>
+        //                             </table>
+        //                         </td>
+        //                     </tr>
+        //                     `;
+        //                     $('#table-preview tbody').html(html);
+        //                     var det = ``;
+        //                     if(result.data_detail.length > 0){
+        //                         var input = '';
+        //                         var no=1;
+        //                         for(var i=0;i<result.data_detail.length;i++){
+        //                             var line2 =result.data_detail[i];
+        //                             input += "<tr>";
+        //                             input += "<td>"+no+"</td>";
+        //                             input += "<td >"+line2.kode_param+"</td>";
+        //                             input += "<td >"+line2.nama+"</td>";
+        //                             input += "<td class='text-right'>"+format_number(line2.tarif)+"</td>";
+        //                             input += "<td >"+line2.per_awal+"</td>";
+        //                             input += "<td >"+line2.per_akhir+"</td>";
+        //                             input += "</tr>";
+        //                             no++;
+        //                         }
+        //                         $('#table-param-preview tbody').html(input);
+        //                     }
+        //                     $('#modal-preview-id').text(id);
+        //                     $('#modal-preview-kode').text(line.kode_pp);
+        //                     $('#modal-preview').modal('show');
+        //                 }
+        //                 else if(!result.status && result.message == 'Unauthorized'){
+        //                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
         $('.modal-header').on('click','#btn-delete2',function(e){
             var id = $('#modal-preview-id').text();

@@ -20,7 +20,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/status_guru_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/status-guru-all',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -44,7 +44,7 @@
         public function getDataStatusGuru()
         {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/status_guru_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/status-guru_all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -71,7 +71,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/status_guru',[
+                $response = $client->request('POST',  config('api.url').'sekolah/status-guru',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -105,7 +105,7 @@
         public function getStatusGuru($kode_status,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/status_guru?kode_status='.$kode_status."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/status-guru?kode_status='.$kode_status."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -139,7 +139,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/status_guru?kode_status='.$kode_status,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/status-guru?kode_status='.$kode_status,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -169,7 +169,7 @@
         public function delete($kode_status,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/status_guru?kode_status='.$kode_status.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/status-guru?kode_status='.$kode_status.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

@@ -16,14 +16,18 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try {
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/tahun_ajaran_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/tahun-ajaran-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
 
@@ -54,7 +58,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/tahun_ajaran',[
+                $response = $client->request('POST',  config('api.url').'sekolah/tahun-ajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -89,7 +93,7 @@
         public function show(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/tahun_ajaran',
+                $response = $client->request('GET',  config('api.url').'sekolah/tahun-ajaran',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -130,7 +134,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/tahun_ajaran',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/tahun-ajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -162,7 +166,7 @@
         public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/tahun_ajaran',
+                $response = $client->request('DELETE',  config('api.url').'sekolah/tahun-ajaran',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),

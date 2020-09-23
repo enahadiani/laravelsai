@@ -16,16 +16,19 @@
             }
         }
 
-        public function index()
+        public function index(Request $request)
         {
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai_all',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai-all',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -45,7 +48,7 @@
         public function getJenisUjian()
         {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai_all',[
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai-all',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
@@ -72,7 +75,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/jenis_nilai',[
+                $response = $client->request('POST',  config('api.url').'sekolah/jenis-nilai',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -106,7 +109,7 @@
         public function getJenisPenilaian($kode_jenis,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis."&kode_pp=".$kode_pp,
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis."&kode_pp=".$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -140,7 +143,7 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -170,7 +173,7 @@
         public function delete($kode_jenis,$kode_pp) {
             try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/jenis_nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
+            $response = $client->request('DELETE',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

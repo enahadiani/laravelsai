@@ -21,7 +21,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('GET',  config('api.url').'sekolah/jadwal_load?kode_pp='.$kode_pp
+                $response = $client->request('GET',  config('api.url').'sekolah/jadwal-load?kode_pp='.$kode_pp
                 ."&kode_ta=".$kode_ta."&kode_kelas=".$kode_kelas."&nik_guru=".$nik
                 ."&kode_matpel=".$kode_matpel,
                 [
@@ -51,7 +51,7 @@
         {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/jadwal_harian_all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/jadwal-harian-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -107,7 +107,7 @@
                   );
     
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/jadwal_harian',[
+                $response = $client->request('POST',  config('api.url').'sekolah/jadwal-harian',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -135,7 +135,7 @@
             try{
                 $client = new Client();
                 $kode_ta = $kode_ta1."/".$kode_ta2;
-                $response = $client->request('DELETE',  config('api.url').'sekolah/jadwal_harian?kode_pp='.$kode_pp.
+                $response = $client->request('DELETE',  config('api.url').'sekolah/jadwal-harian?kode_pp='.$kode_pp.
                 '&kode_ta='.$kode_ta."&kode_kelas=".$kode_kelas."&nik_guru=".$nik."&kode_matpel=".$kode_matpel,
                 [
                     'headers' => [
@@ -196,7 +196,7 @@
         //           );
     
         //         $client = new Client();
-        //         $response = $client->request('PUT',  config('api.url').'sekolah/jadwal_harian',[
+        //         $response = $client->request('PUT',  config('api.url').'sekolah/jadwal-harian',[
         //             'headers' => [
         //                 'Authorization' => 'Bearer '.Session::get('token'),
         //                 'Content-Type'     => 'application/json'
