@@ -478,6 +478,41 @@
             }
 
         }
+
+        public function deleteDokumen(Request $request) {
+            
+            try{
+                $client = new Client();
+                $response = $client->request('DELETE',  config('api.url').'sekolah/penilaian-dok',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_bukti' => $request->no_bukti,  
+                        'kode_pp' => $request->kode_pp,  
+                        'nis' => $request->nis
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+        }
+
     }
 
 

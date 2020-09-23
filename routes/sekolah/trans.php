@@ -21,3 +21,4 @@ Route::post('import-excel', 'Sekolah\PenilaianController@importExcel');
 Route::get('nilai-tmp', 'Sekolah\PenilaianController@getNilaiTmp');
 Route::get('penilaian-dok', 'Sekolah\PenilaianController@showDokUpload');
 Route::post('penilaian-dok', 'Sekolah\PenilaianController@storeDokumen');
+Route::delete('penilaian-dok', 'Sekolah\PenilaianController@deleteDokumen');

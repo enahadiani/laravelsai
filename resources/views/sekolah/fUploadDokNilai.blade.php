@@ -643,16 +643,16 @@
                             var line =result.data_dokumen[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control nama_dok' value='"+line.nis+"'></td>";
+                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control inp-nis' value='"+line.nis+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
                             if(line.nama != undefined && line.nama != "null"){
 
-                                input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value='"+line.nama+"'></td>";
+                                input += "<td ><input type='text' name='nama_dok[]' class='form-control inp-nama_dok' value='"+line.nama+"'></td>";
                             }else{
-                                input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value=''></td>";
+                                input += "<td ><input type='text' name='nama_dok[]' class='form-control inp-nama_dok' value=''></td>";
                             }
                             var dok = "{{ config('api.url').'sekolah/storage' }}/"+line.fileaddres;
-                            input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
+                            input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
                             if(line.fileaddres == "-" || line.fileaddres == ""){
                                 input+=`
                                 <td>
@@ -665,9 +665,9 @@
                                 </td>`;
                             }
                             input+=`
-                                <td class='text-center'>`;
+                                <td class='text-center action-dok'>`;
                                 if(line.fileaddres != "-"){
-                                   var link =`<a class='download-dok' style='font-size:18px' href='`+dok+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>`;
+                                   var link =`<a class='download-dok' style='font-size:18px' href='`+dok+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' style='font-size:18px' href='#' title='Hapus Dokumen'><i class='simple-icon-trash'></i></a>`;
                                 }else{
                                     var link =``;
                                 }
@@ -782,28 +782,37 @@
 
     // END SIMPAN
 
-    // ENTER FIELD FORM
-    $('#tanggal,#jenis,#no_dokumen,#total_debet,#deskripsi,#total_kredit,#nik_periksa,#label_nik_periksa').keydown(function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','jenis','no_dokumen','total_debet','deskripsi','total_kredit','nik_periksa','label_nik_periksa'];
-        if (code == 13 || code == 40) {
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx++;
-            if(idx == 2){
-                $('#'+nxt[idx])[0].selectize.focus();
-            }else{
-                $('#'+nxt[idx]).focus();
-            }
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-            if(idx != -1){ 
-                $('#'+nxt[idx]).focus();
-            }
+    $('#input-dok').on('click', '.hapus-dok', function(){
+        if(confirm('Sistem akan menghapus file dari server. Apakah anda ingin menghapus data ini? ')){
+            var no_bukti = $('#no_bukti').val();
+            var kode_pp = $('#kode_pp').val();
+            var nis = $(this).closest('tr').find('.inp-nis').val();
+            var nama_dok = $(this).closest('tr').find('.inp-nama_dok');
+            var nama_file = $(this).closest('tr').find('.inp-nama_file');
+            var td_nama_file = $(this).closest('tr').find('.td-nama_file');
+            var action_dok = $(this).closest('tr').find('.action-dok');
+            
+            $.ajax({
+                type: 'DELETE',
+                url: "{{ url('sekolah-trans/penilaian-dok') }}",
+                dataType: 'json',
+                data: {'no_bukti':no_bukti,'nis':nis,'kode_pp':kode_pp},
+                success:function(result){
+                    alert(result.data.message);
+                    if(result.data.status){
+                        console.log(nama_dok);
+                        console.log(nama_file);
+                        console.log(td_nama_file);
+                        nama_dok.val(''); 
+                        nama_file.val('-');
+                        td_nama_file.html('-');
+                        action_dok.html('');
+                    }
+                }
+            });
+
+        }else{
+            return false;
         }
     });
-    // END ENTER FIELD FORM
-    
     </script>
