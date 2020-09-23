@@ -128,7 +128,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Bidang</h5>
+                        <h5 style="position:absolute;top: 25px;">Laporan Destinasi</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -151,14 +151,14 @@
                                     <form id="form-filter">
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>bidang</p>
-                                            <label for="bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
+                                            <p class="kunci" hidden>mitra</p>
+                                            <label for="mitra" class="col-md-2 col-sm-12 col-form-label">Destinasi</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='bidang[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="bidang[]" id="bidang-from" readonly value="Menampilkan semua bidang">
+                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-from" readonly value="Menampilkan semua destinasi">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -169,7 +169,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="bidang[]" id="bidang-to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -215,7 +215,7 @@
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb py-0 my-0">
                                 <li class="breadcrumb-item active">
-                                    Data Bidang
+                                    Data Destinasi
                                 </li>
                             </ol>
                         </nav>            
@@ -241,7 +241,7 @@
         </div>
     </div> 
     
-    <!-- MODAL SEARCH BIDANG-->
+    <!-- MODAL SEARCH MITRA-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
@@ -303,7 +303,7 @@
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
-        var bidang = {
+        var mitra = {
             type : "all",
             from : "",
             fromname : "",
@@ -357,20 +357,20 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'bidang[]': 
+                case 'mitra[]': 
                     header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('wisata-master/bidang') }}";
+                    var toUrl = "{{ url('wisata-master/mitra') }}";
                     var columns = [
-                        { data: 'kode_bidang' },
+                        { data: 'kode_mitra' },
                         { data: 'nama' }
                     ];
-                    var judul = "Daftar Bidang <span class='modal-subtitle'></span>";
-                    var pilih = "bidang";
+                    var judul = "Daftar Mitra <span class='modal-subtitle'></span>";
+                    var pilih = "mitra";
                     $target = $target;
                     $target2 = target2;
-                    var field = eval("bidang");
+                    var field = eval("mitra");
                     var display = "name";
-                    var kunci = "bidang";
+                    var kunci = "mitra";
                     var orderby = [[0,"desc"]];
                 break;
             }
@@ -690,7 +690,7 @@
             $('#table-search2 tbody').on('click', '.hapus-item', function () {
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 searchTable2.row( $(this).parents('tr') ).remove().draw();
-                console.log('bidang='+kode);
+                console.log('mitra='+kode);
                 var rowIndexes = [];
                 searchTable.rows( function ( idx, data, node ) {             
                     if(data[kunci] === kode){
@@ -733,7 +733,7 @@
                 $aktif = '';
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
-                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua '+kunci);
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua destinasi');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
@@ -788,7 +788,7 @@
                         console.log('close'); 
                         $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-8');
                         $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-3');
-                        if(kunci == "bidang"){
+                        if(kunci == "mitra"){
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
                         }
@@ -847,26 +847,26 @@
         $('#form-filter').submit(function(e){
             e.preventDefault();
             $formData = new FormData();
-            $formData.append("bidang[]",bidang.type);
-            $formData.append("bidang[]",bidang.from);
-            $formData.append("bidang[]",bidang.to);
+            $formData.append("mitra[]",mitra.type);
+            $formData.append("mitra[]",mitra.from);
+            $formData.append("mitra[]",mitra.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('wisata-auth/form/rptBidang') }}";
+            xurl = "{{ url('wisata-auth/form/rptMitra') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
         $('#show').change(function(e){
             $formData = new FormData();
-            $formData.append("bidang[]",bidang.type);
-            $formData.append("bidang[]",bidang.from);
-            $formData.append("bidang[]",bidang.to);
+            $formData.append("mitra[]",mitra.type);
+            $formData.append("mitra[]",mitra.from);
+            $formData.append("mitra[]",mitra.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('wisata-auth/form/rptBidang') }}";
+            xurl = "{{ url('wisata-auth/form/rptMitra') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
     //END LOAD REPORT//
