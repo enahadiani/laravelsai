@@ -129,13 +129,13 @@
         th{
             vertical-align:middle !important;
         }
-        #input-nilai .selectize-input.focus, #input-nilai input.form-control, #input-nilai .custom-file-label
+        #input-nilai .selectize-input.focus, #input-nilai input.form-control, #input-nilai .custom-file-label,  #input-dok .selectize-input.focus, #input-dok input.form-control, #input-dok .custom-file-label
         {
             border:1px solid black !important;
             border-radius:0 !important;
         }
         
-        #input-nilai .selectize-input
+        #input-nilai .selectize-input,  #input-dok .selectize-input
         {
             border-radius:0 !important;
         } 
@@ -152,17 +152,36 @@
             /* background:#4286f5 !important; */
             /* color:white; */
         }
-        #input-nilai td:not(:nth-child(1)):not(:nth-child(9)):hover
+        #input-nilai td:not(:nth-child(1)):not(:nth-child(5)):hover
         {
             background:#f8f8f8;
             color:black;
         }
+
+        #input-dok td:not(:nth-child(1)):not(:nth-child(7)):hover
+        {
+            background:#f8f8f8;
+            color:black;
+        }
+
         #input-nilai input:hover,
         #input-nilai .selectize-input:hover,
         {
             width:inherit;
         }
+
+        #input-dok input:hover,
+        #input-dok .selectize-input:hover,
+        {
+            width:inherit;
+        }
+
         #input-nilai ul.typeahead.dropdown-menu
+        {
+            width:max-content !important;
+        }
+
+        #input-dok ul.typeahead.dropdown-menu
         {
             width:max-content !important;
         }
@@ -179,6 +198,24 @@
         }
         
         #input-nilai input,#input-nilai .selectize-input
+        {
+            overflow:hidden !important;
+            height:35px !important;
+        }
+
+        #input-dok td
+        {
+            overflow:hidden !important;
+            height:37.2px !important;
+            padding:0px !important;
+        }
+        
+        #input-dok span
+        {
+            padding:0px 10px !important;
+        }
+        
+        #input-dok input,#input-dok .selectize-input
         {
             overflow:hidden !important;
             height:35px !important;
@@ -352,8 +389,9 @@
                                         <tr>
                                             <th style="width:3%">No</th>
                                             <th style="width:20%">NIS</th>
-                                            <th style="width:60%">Nama</th>
+                                            <th style="width:55%">Nama</th>
                                             <th style="width:17%">Nilai</th>
+                                                <th width="5%"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -364,7 +402,7 @@
                             </div>
                             <div class="tab-pane" id="data-dok" role="tabpanel">
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-striped table-bordered table-condensed" id="input-dok" style='width:100%'>
+                                    <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
@@ -373,7 +411,7 @@
                                                 <th width="20%">Nama Dokumen</th>
                                                 <th width="20%">Nama File Upload</th>
                                                 <th width="20%">Upload File</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                                <th width="5%"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1020,7 +1058,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            // input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
                             no++;
@@ -1282,7 +1320,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            // input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
                             no++;
@@ -1471,7 +1509,7 @@
 
     // GRID JURNAL
    
-    $('#input-nilai').on('click', '.search-item', function(){
+    $('#input-nilai, #input-dok').on('click', '.search-item', function(){
         var par = $(this).closest('td').find('input').attr('name');
         
         var modul = '';
@@ -1493,6 +1531,7 @@
         
         showFilter(par,target1,target2);
     });
+    
     
     $('#input-nilai').on('keydown','.inp-kode, .inp-nama, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -1558,7 +1597,7 @@
         var kode_kelas =$('#kode_kelas').val();
         if(kode_pp != "" && kode_kelas != ""){
 
-            var no=$('#input-nilai .row-jurnal:last').index();
+            var no=$('#input-nilai .row-nilai:last').index();
             no=no+2;
             var input = "";
             input += "<tr class='row-nilai'>";
@@ -1566,7 +1605,7 @@
             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-            // input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-nilai tbody').append(input);
             $('.nilke'+no).inputmask("numeric", {
@@ -1596,12 +1635,69 @@
 
     });
 
+    $('#form-tambah').on('click', '.add-row-dok', function(){
+        var kode_pp =$('#kode_pp').val();
+        var kode_kelas =$('#kode_kelas').val();
+        if(kode_pp != "" && kode_kelas != ""){
+
+            var no=$('#input-dok .row-dok:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-dok'>";
+            input += "<td class='no-dok text-center'>"+no+"</td>";
+            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
+            input += "<td width='30%'><span class='td-nama_dok tdnmdokke"+no+" tooltip-span'></span><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nmdokke"+no+" hidden' value='' required></td>";
+            input += "<td width='30%'><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden' value='-' required readonly></td>";
+            input += "<td width='30%'>"+
+            "<input type='file' name='file_dok[]' required  class='inp-file_dok'>"+
+            "</td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+            input += "</tr>";
+            $('#input-dok tbody').append(input);
+            $('.nilke'+no).inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                oncleared: function () { self.Value(''); }
+            });
+            $('#input-dok td').removeClass('px-0 py-0 aktif');
+            $('#input-dok tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-dok tbody tr:last').find(".inp-kode").show();
+            $('#input-dok tbody tr:last').find(".td-kode").hide();
+            $('#input-dok tbody tr:last').find(".search-nis").show();
+            $('#input-dok tbody tr:last').find(".inp-kode").focus();
+
+            $('.tooltip-span').tooltip({
+                title: function(){
+                    return $(this).text();
+                }
+            });
+            hitungTotalRow();
+        }else{
+            alert('Harap pilih terlebih dahulu Kode PP dan Kode Kelas untuk menambah baris siswa !');
+        }
+
+    });
+
     $('#input-nilai tbody').on('click', 'tr', function(){
         if ( $(this).hasClass('selected-row') ) {
             $(this).removeClass('selected-row');
         }
         else {
             $('#input-nilai tbody tr').removeClass('selected-row');
+            $(this).addClass('selected-row');
+        }
+    });
+
+    $('#input-dok tbody').on('click', 'tr', function(){
+        if ( $(this).hasClass('selected-row') ) {
+            $(this).removeClass('selected-row');
+        }
+        else {
+            $('#input-dok tbody tr').removeClass('selected-row');
             $(this).addClass('selected-row');
         }
     });
@@ -1716,6 +1812,62 @@
         }
     });
 
+    $('#input-dok').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-dok td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var nis = $(this).parents("tr").find(".inp-kode").val();
+                var nama = $(this).parents("tr").find(".inp-nama").val();
+                var nama_dok = $(this).parents("tr").find(".inp-nama_dok").val();
+                var no = $(this).parents("tr").find(".no-jurnal").text();
+                $(this).parents("tr").find(".inp-kode").val(nis);
+                $(this).parents("tr").find(".td-kode").text(nis);
+                if(idx == 1){
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-nis").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-nis").hide();
+                    
+                }
+        
+                $(this).parents("tr").find(".inp-nama").val(nama);
+                $(this).parents("tr").find(".td-nama").text(nama);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nama").show();
+                    $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+        
+                $(this).parents("tr").find(".inp-nama_dok").val(nama_dok);
+                $(this).parents("tr").find(".td-nama_dok").text(nama_dok);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-nama_dok").show();
+                    $(this).parents("tr").find(".td-nama_dok").hide();
+                    $(this).parents("tr").find(".inp-nama_dok").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nama_dok").hide();
+                    $(this).parents("tr").find(".td-nama_dok").show();
+                }
+                hitungTotalRow();
+            }
+        }
+    });
+
     $('.currency').inputmask("numeric", {
         radixPoint: ",",
         groupSeparator: ".",
@@ -1728,12 +1880,23 @@
     $('#input-nilai').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
         no=1;
-        $('.row-jurnal').each(function(){
-            var nom = $(this).closest('tr').find('.no-jurnal');
+        $('.row-nilai').each(function(){
+            var nom = $(this).closest('tr').find('.no-nilai');
             nom.html(no);
             no++;
         });
-        hitungTotal();
+        hitungTotalRow();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-dok').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
         hitungTotalRow();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
@@ -1902,7 +2065,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            // input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
                         }
