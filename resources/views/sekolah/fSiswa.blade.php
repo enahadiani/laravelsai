@@ -885,6 +885,7 @@
             $('#input-param tbody').html('');
             $('#saku-datatable').hide();
             $('#saku-form').show();
+            hitungTotalRow();
         });
         // END BUTTON TAMBAH
 
@@ -2271,7 +2272,7 @@
                 
                 hitungTotalRow();
                 hideUnselectedRow();
-                
+
                 $('#input-param td').removeClass('px-0 py-0 aktif');
                 $('#input-param tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
                 $('#input-param tbody tr:last').find(".inp-kode_param").show();
