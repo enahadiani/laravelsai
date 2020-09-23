@@ -54,9 +54,9 @@
                     {
                         var line  = data[i];
                         html +=`<tr>
-                            <td class='isi_laporan' style='text-align:center;'>`+line.nama_mitra+`</td>
+                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama_mitra+`</td>
                             <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama_bidang+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+sepNum(parseFloat(line.jumlah))+`</td>
+                            <td class='isi_laporan' style='text-align: right;'>`+sepNum(parseFloat(line.jumlah))+`</td>
                         </tr>`;
                         no++;
                     }
