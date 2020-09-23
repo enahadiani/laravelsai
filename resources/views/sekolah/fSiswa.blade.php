@@ -2091,7 +2091,6 @@
 
         function hideUnselectedRow() {
             $('#input-param > tbody > tr').each(function(index, row) {
-                var kode_akun = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 if(!$(row).hasClass('selected-row')) {
 
                     var kode_param = $('#input-param > tbody > tr:eq('+index+') > td').find(".inp-kode_param").val();
