@@ -735,24 +735,24 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-                        dataTable.ajax.reload();
 
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('#row-id').hide();
                         $('#method').val('post');
-                        $('#judul-form').html('Tambah Data Penilaian Siswa');
+                        $('#input-dok tbody').html('');
+                        $('#judul-form').html('Upload Dokumen Penilaian Siswa');
                         $('#id').val('');
-                        $('#input-nilai tbody').html('');
                         $('[id^=label]').html('');
                         hitungTotalRow();
 
                         msgDialog({
                             id:result.data.no_bukti,
-                            type:'simpan'
+                            title:'Sukses',
+                            text:'Dokumen Penilaian Siswa berhasil diupload'
                         });
-                        
-                        last_add("no_bukti",result.data.no_bukti);
+
+                        // last_add("no_bukti",result.data.no_bukti);
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){
                         window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -765,7 +765,6 @@
                             footer: '<a href>'+result.data.message+'</a>'
                         })
                     }
-                    $iconLoad.hide();
                 },
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
@@ -782,37 +781,59 @@
 
     // END SIMPAN
 
-    $('#input-dok').on('click', '.hapus-dok', function(){
-        if(confirm('Sistem akan menghapus file dari server. Apakah anda ingin menghapus data ini? ')){
-            var no_bukti = $('#no_bukti').val();
-            var kode_pp = $('#kode_pp').val();
-            var nis = $(this).closest('tr').find('.inp-nis').val();
-            var nama_dok = $(this).closest('tr').find('.inp-nama_dok');
-            var nama_file = $(this).closest('tr').find('.inp-nama_file');
-            var td_nama_file = $(this).closest('tr').find('.td-nama_file');
-            var action_dok = $(this).closest('tr').find('.action-dok');
-            
-            $.ajax({
-                type: 'DELETE',
-                url: "{{ url('sekolah-trans/penilaian-dok') }}",
-                dataType: 'json',
-                data: {'no_bukti':no_bukti,'nis':nis,'kode_pp':kode_pp},
-                success:function(result){
-                    alert(result.data.message);
-                    if(result.data.status){
-                        console.log(nama_dok);
-                        console.log(nama_file);
-                        console.log(td_nama_file);
-                        nama_dok.val(''); 
-                        nama_file.val('-');
-                        td_nama_file.html('-');
-                        action_dok.html('');
-                    }
+    // HAPUS DOK
+    function hapusData(param){
+        var no_bukti = param.no_bukti; 
+        var nis = param.nis; 
+        var kode_pp= param.kode_pp;
+        var nama_dok= param.nama_dok;
+        var nama_file= param.nama_file;
+        var td_nama_file= param.td_nama_file;
+        var action_dok= param.action_dok;
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('sekolah-trans/penilaian-dok') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'nis':nis,'kode_pp':kode_pp},
+            success:function(result){
+                // console.log(result.data.message);
+                if(result.data.status){
+                    nama_dok.val(''); 
+                    nama_file.val('-');
+                    td_nama_file.html('-');
+                    action_dok.html('');
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Sukses',
+                        back: false,
+                        text:'Dokumen Penilaian Siswa '+nis+' berhasil dihapus'
+                    });
+                }else{
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Error',
+                        back: false,
+                        text:result.data.message
+                    });
                 }
-            });
+            }
+        });
+    }
 
-        }else{
-            return false;
-        }
+    $('#input-dok').on('click', '.hapus-dok', function(){
+        var no_bukti = $('#no_bukti').val();
+        var kode_pp = $('#kode_pp').val();
+        var nis = $(this).closest('tr').find('.inp-nis').val();
+        var nama_dok = $(this).closest('tr').find('.inp-nama_dok');
+        var nama_file = $(this).closest('tr').find('.inp-nama_file');
+        var td_nama_file = $(this).closest('tr').find('.td-nama_file');
+        var action_dok = $(this).closest('tr').find('.action-dok');
+        msgDialog({
+            id: nis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+nis+'</b>',
+            param: {'kode_pp':kode_pp,'no_bukti':no_bukti,'nis':nis,'nama_dok':nama_dok,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok},
+            type:'hapus'
+        });
+       
     });
     </script>

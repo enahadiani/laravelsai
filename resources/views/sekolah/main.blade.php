@@ -585,7 +585,6 @@
     });
     
     function msgDialog(data){
-        console.log(data.type);
         switch(data.type){
             case 'hapus':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
@@ -695,13 +694,22 @@
                 var cancel = (data.cancel != undefined ? data.cancel : null);
                 var showCancel = (data.cancel != undefined ? true : false);
             break;
+            default:
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : '');
+                var text = (data.text != undefined ? data.text : '');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
         }
         
         var swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn '+btn1,
             cancelButtonClass: 'btn '+btn2,
             buttonsStyling: false,
-        })
+        });
         
         swalWithBootstrapButtons.fire({
             title: title,
@@ -715,11 +723,14 @@
             switch(data.type){
                 case 'hapus':
                     if (result.value) {
-                        console.log(data.id,data.kode);
-                        if(data.kode == undefined){
-                            hapusData(data.id);
-                        }else{
+                        if(data.kode != undefined){
                             hapusData(data.id,data.kode);
+                        }
+                        else if(data.param != undefined){
+                            hapusData(data.param);
+                        }
+                        else{
+                            hapusData(data.id);
                         }
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         //
@@ -768,9 +779,24 @@
                 case 'warning':
                     //  
                 break;
+                default:
+                    if(data.back != undefined){
+                        if(data.back){
+                            $('#saku-form').hide();
+                            $('#saku-datatable').show();
+                            showNotification("top", "center", "success",title,text);
+                        }else{
+                            showNotification("top", "center", "success",title,text);
+                        }
+                    }else{
+                        $('#saku-form').hide();
+                        $('#saku-datatable').show();
+                        showNotification("top", "center", "success",title,text);
+                    }
+                break;
             }
                 
-        })
+        });
     }
 
     function showNotification(placementFrom, placementAlign, type,title,message) {
