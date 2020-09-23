@@ -620,7 +620,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
                     $('#label_kode_pp').val(result.data[0].nama_pp);
@@ -643,10 +643,10 @@
                             var line =result.data_dokumen[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span></td>";
+                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control nama_dok' value='"+line.nis+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
                             input += "<td ><input type='text' name='nama_dok[]' class='form-control nama_dok' value=''></td>";
-                            input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span></td>";
+                            input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
                             if(line.fileaddres == "-" || line.fileaddres == ""){
                                 input+=`
                                 <td>
@@ -659,9 +659,9 @@
                                 </td>`;
                             }
                             input+=`
-                                <td>`;
+                                <td class='text-center'>`;
                                 if(line.fileaddres != "-"){
-                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+line.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>`;
+                                   var link =`<a class='download-dok' style='font-size:18px' href='`+line.fileaddres+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>`;
                                 }else{
                                     var link =``;
                                 }
