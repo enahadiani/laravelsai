@@ -16,6 +16,41 @@
             return redirect('wisata-auth/login');
             }
         }
+
+        public function getKunjungan(Request $request) {
+           try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'wisata-report/lap-kunjungan',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_bidang' => $request->bidang,
+                        'kode_mitra' => $request->mitra,
+                        'bulan' => $request->bulan,
+                        'tahun' => $request->tahun
+                    ]
+                ]);
+
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+
+                if(isset($request->back)){
+                    $res['back']=true;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>"",'sumju'=>$request->sumju,'res'=>$res], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
         
         public function getBidang(Request $request) {
            try{
