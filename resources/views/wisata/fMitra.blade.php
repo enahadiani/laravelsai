@@ -222,9 +222,9 @@
                         </div>
 
                         <div class="form-group row  ">
-                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">Contact Person</label>
+                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">PIC</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Contact Person" id="pic" name="pic" required>                                
+                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>                                
                             </div>
                             
                             <div class="col-md-2 col-sm-12">
