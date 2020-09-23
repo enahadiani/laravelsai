@@ -263,7 +263,8 @@
         {
             $this->validate($request, [
                 'file' => 'required',
-                'kode_pp' => 'required'
+                'kode_pp' => 'required',
+                'kode_kelas' => 'required'
             ]);
     
             try{
@@ -284,6 +285,10 @@
                 $fields[2] = array(
                     'name'     => 'kode_pp',
                     'contents' => $request->kode_pp
+                );
+                $fields[3] = array(
+                    'name'     => 'kode_kelas',
+                    'contents' => $request->kode_kelas
                 );
     
                 $client = new Client();

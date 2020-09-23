@@ -1941,6 +1941,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             formData.append('kode_pp',$('#kode_pp').val());
+            formData.append('kode_kelas',$('#kode_kelas').val());
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
             $('.pesan-upload-judul').removeClass('text-success');
@@ -1997,7 +1998,13 @@
                                 $('#process-upload').addClass('disabled');
                                 $('#process-upload').prop('disabled', true);
                             }
-                            var link = "{{ config('api.url').'sekolah/export?kode_lokasi='.Session::get('lokasi').'&nik_user='.Session::get('nikUser').'&nik='.Session::get('userLog').'&type=non&kode_pp=' }}"+$('#kode_pp').val();
+                            
+                            var kode_lokasi = "{{ Session::get('lokasi') }}";
+                            var nik_user = "{{ Session::get('nikUser') }}";
+                            var nik = "{{ Session::get('userLog') }}";
+
+                            var link = "{{ config('api.url').'sekolah/penilaian-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=non&kode_pp="+$('#kode_pp').val()+"&kode_kelas="+$('#kode_kelas').val();
+
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
                             $('.pesan-upload-judul').addClass('text-danger');
