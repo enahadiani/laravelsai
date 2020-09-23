@@ -16,6 +16,13 @@
             }
         }
 
+        public function joinNum($num){
+            // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
+            $num = str_replace(".", "", $num);
+            $num = str_replace(",", ".", $num);
+            return $num;
+        }  
+
         public function index()
         {
             try{
@@ -42,23 +49,36 @@
             }
         }
 
-        public function show()
+        public function show(Request $request)
         {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/kelas-all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
-            ]);
+            try{
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'no_bukti' => $request->no_bukti,
+                        'kode_pp' => $request->kode_pp
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res;
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
         public function store(Request $request) {
@@ -109,7 +129,6 @@
                 }
 
             } catch (BadResponseException $ex) {
-                // var_dump('Gagal');
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 $data['message'] = $res['message'];
@@ -159,7 +178,6 @@
                         'nilai'=>$det_nilai
                     ]
                 ]);
-                // var_dump('Sukses');
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                     

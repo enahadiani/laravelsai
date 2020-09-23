@@ -298,6 +298,7 @@
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -326,9 +327,6 @@
                                 <option value='1' selected>GANJIL</option>
                                 <option value='2'>GENAP</option>
                                 </select>
-                            </div>
-                            <div class="col-md-3 col-sm-9" style="display:none">
-                                <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -367,7 +365,7 @@
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
+                            <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a> </li> -->
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-nilai" role="tabpanel">
@@ -400,7 +398,7 @@
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-dok" role="tabpanel">
+                            <!-- <div class="tab-pane" id="data-dok" role="tabpanel">
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
                                         <thead>
@@ -419,7 +417,7 @@
                                     </table>
                                     <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -553,6 +551,23 @@
     function hitungTotalRow(){
         var total_row = $('#input-nilai tbody tr').length;
         $('#total-row').html(total_row+' Baris');
+    }
+
+    
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        setTimeout(function() {
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
     }
 
     // END FUNCTION TAMBAHAN
@@ -1021,7 +1036,8 @@
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        
+        var tmp= $(this).closest('tr').find('td').eq(6).html().split("-");
+        var kode_pp = tmp[0];
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Penilaian Siswa');
@@ -1030,8 +1046,9 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-trans/jurnal') }}/"+id,
+            url: "{{ url('sekolah-trans/penilaian-detail') }}",
             dataType: 'json',
+            data:{kode_pp:kode_pp,no_bukti:id},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -1039,20 +1056,24 @@
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#nik_periksa').trigger('change');
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#label_kode_pp').val(result.data[0].nama_pp);
+                    $('#kode_ta').val(result.data[0].kode_ta);
+                    $('#label_kode_ta').val(result.data[0].nama_ta);
+                    $('#kode_sem').val(result.data[0].kode_sem);
+                    $('#kode_kelas').val(result.data[0].kode_kelas);
+                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
+                    $('#kode_matpel').val(result.data[0].kode_matpel);
+                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
+                    $('#kode_jenis').val(result.data[0].kode_jenis);
+                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
+                    $('#penilaian_ke').val(result.data[0].jumlah);
+                
+                    if(result.data_detail.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
@@ -1070,8 +1091,8 @@
                             }
                         })
                         no= 1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
                             $('.nilke'+no).inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
@@ -1084,7 +1105,6 @@
                         }
                         
                     }
-                    hitungTotal();
                     hitungTotalRow();
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
@@ -1100,11 +1120,12 @@
     // END BUTTON EDIT
 
     // HAPUS DATA
-    function hapusData(id){
+    function hapusData(id,kode){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('sekolah-trans/jurnal') }}/"+id,
+            url: "{{ url('sekolah-trans/penilaian') }}",
             dataType: 'json',
+            data:{kode_pp:kode,no_bukti:id},
             async:false,
             success:function(result){
                 if(result.data.status){
@@ -1129,8 +1150,11 @@
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
+        var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
+        var kode_pp = tmp[0];
         msgDialog({
             id: id,
+            kode: kode_pp,
             type:'hapus'
         });
     });
@@ -1174,12 +1198,15 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 7){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
+            var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
+            var kode_pp = tmp[0];
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/sekolah-trans/jurnal') }}/"+id,
+                url: "{{ url('sekolah-trans/penilaian-detail') }}",
+                data:{kode_pp:kode_pp,no_bukti:id},
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -1191,32 +1218,32 @@
                             <td style='border:none'>`+id+`</td>
                         </tr>
                         <tr>
-                            <td>Tanggal</td>
-                            <td>`+reverseDate2(result.jurnal[0].tanggal,'-','/')+`</td>
+                            <td>PP</td>
+                            <td>`+result.data[0].kode_pp+`-`+result.data[0].nama_pp+`</td>
                         </tr>
                         <tr>
-                            <td>Deskripsi</td>
-                            <td>`+result.jurnal[0].deskripsi+`</td>
+                            <td>Tahun Ajaran</td>
+                            <td>`+result.data[0].kode_ta+`-`+result.data[0].nama_ta+`</td>
                         </tr>
                         <tr>
-                            <td>No Dokumen</td>
-                            <td>`+result.jurnal[0].no_dokumen+`</td>
+                            <td>Semester</td>
+                            <td>`+result.data[0].kode_sem+`</td>
                         </tr>
                         <tr>
-                            <td>NIK Verifikasi</td>
-                            <td>`+result.jurnal[0].nik_periksa+`</td>
+                            <td>Kelas</td>
+                            <td>`+result.data[0].kode_kelas+`-`+result.data[0].nama_kelas+`</td>
                         </tr>
                         <tr>
-                            <td>Jenis</td>
-                            <td>`+result.jurnal[0].jenis+`</td>
+                            <td>Mata Pelajaran</td>
+                            <td>`+result.data[0].kode_matpel+`-`+result.data[0].nama_matpel+`</td>
                         </tr>
                         <tr>
-                            <td>Total Debet</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                            <td>Jenis Penilaian</td>
+                            <td>`+result.data[0].kode_jenis+`-`+result.data[0].nama_jenis+`</td>
                         </tr>
                         <tr>
-                            <td>Total Kredit</td>
-                            <td>`+format_number(result.jurnal[0].nilai1)+`</td>
+                            <td>Penilaian ke - </td>
+                            <td>`+result.data[0].jumlah+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1224,13 +1251,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%">No</th>
-                                            <th style="width:10%">Kode Akun</th>
-                                            <th style="width:18%">Nama Akun</th>
-                                            <th style="width:5%">DC</th>
-                                            <th style="width:20%">Keterangan</th>
-                                            <th style="width:15%">Nilai</th>
-                                            <th style="width:7">Kode PP</th>
-                                            <th style="width:17">Nama PP</th>
+                                            <th style="width:20%">NIS</th>
+                                            <th style="width:57%">Nama Akun</th>
+                                            <th style="width:20%">Nilai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1241,26 +1264,23 @@
                         
                         $('#table-preview tbody').html(html);
                         var det = ``;
-                        if(result.detail.length > 0){
+                        if(result.data_detail.length > 0){
                             var input = '';
                             var no=1;
-                            for(var i=0;i<result.detail.length;i++){
-                                var line =result.detail[i];
+                            for(var i=0;i<result.data_detail.length;i++){
+                                var line =result.data_detail[i];
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
-                                input += "<td >"+line.kode_akun+"</td>";
-                                input += "<td >"+line.nama_akun+"</td>";
-                                input += "<td >"+line.dc+"</td>";
-                                input += "<td >"+line.keterangan+"</td>";
+                                input += "<td >"+line.nis+"</td>";
+                                input += "<td >"+line.nama+"</td>";
                                 input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
-                                input += "<td >"+line.kode_pp+"</td>";
-                                input += "<td >"+line.nama_pp+"</td>";
                                 input += "</tr>";
                                 no++;
                             }
                             $('#table-ju-preview tbody').html(input);
                         }
                         $('#modal-preview-id').text(id);
+                        $('#modal-preview-kode').text(result.data[0].kode_pp);
                         $('#modal-preview').modal('show');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -1274,26 +1294,29 @@
 
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
+        var kode_pp = $('#modal-preview-kode').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
+            kode:kode_pp,
             type:'hapus'
         });
     });
 
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
+        var kode_pp= $('#modal-preview-kode').text();
         $('#judul-form').html('Edit Data Penilaian Siswa');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-trans/jurnal') }}/"+id,
+            url: "{{ url('sekolah-trans/penilaian-detail') }}",
             dataType: 'json',
+            data:{kode_pp:kode_pp,no_bukti:id},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -1301,20 +1324,24 @@
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.jurnal[0].tanggal,'-','/'));
-                    $('#deskripsi').val(result.jurnal[0].deskripsi);
-                    $('#nik_periksa').val(result.jurnal[0].nik_periksa);
-                    $('#nik_periksa').trigger('change');
-                    $('#no_dokumen').val(result.jurnal[0].no_dokumen);
-                    $('#total_debet').val(result.jurnal[0].nilai1);
-                    $('#total_kredit').val(result.jurnal[0].nilai1);
-                    $('#jenis').val(result.jurnal[0].jenis);
-                    if(result.detail.length > 0){
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#label_kode_pp').val(result.data[0].nama_pp);
+                    $('#kode_ta').val(result.data[0].kode_ta);
+                    $('#label_kode_ta').val(result.data[0].nama_ta);
+                    $('#kode_sem').val(result.data[0].kode_sem);
+                    $('#kode_kelas').val(result.data[0].kode_kelas);
+                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
+                    $('#kode_matpel').val(result.data[0].kode_matpel);
+                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
+                    $('#kode_jenis').val(result.data[0].kode_jenis);
+                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
+                    $('#penilaian_ke').val(result.data[0].jumlah);
+                
+                    if(result.data_detail.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
@@ -1326,9 +1353,14 @@
                             no++;
                         }
                         $('#input-nilai tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
                         no= 1;
-                        for(var i=0;i<result.detail.length;i++){
-                            var line =result.detail[i];
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
                             $('.nilke'+no).inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
@@ -1341,23 +1373,14 @@
                         }
                         
                     }
-                    hitungTotal();
                     hitungTotalRow();
-                    // $('#row-id').show();
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    // Swal.fire({
-                    //     title: 'Session telah habis',
-                    //     text: 'harap login terlebih dahulu!',
-                    //     icon: 'error'
-                    // }).then(function() {
-                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
-                    // })
+                   window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 }
-                $iconLoad.hide();
             }
         });
     });
@@ -1366,7 +1389,6 @@
         e.stopPropagation();
         $('.dropdown-ke1').addClass('hidden');
         $('.dropdown-ke2').removeClass('hidden');
-        console.log('ok');
     });
 
     $('.modal-header').on('click','#btn-cetak2',function(e){
@@ -1385,30 +1407,23 @@
         submitHandler: function (form) {
 
             var formData = new FormData(form);
-            for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
-            var total_d = $('#total_debet').val();
-            var total_k = $('#total_kredit').val();
             var jumdet = $('#input-nilai tr').length;
-
+            
             var param = $('#id').val();
             var id = $('#no_bukti').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/sekolah-trans/jurnal') }}/"+id;
+                var url = "{{ url('sekolah-trans/penilaian') }}";
             }else{
-                var url = "{{ url('/sekolah-trans/jurnal') }}";
+                var url = "{{ url('sekolah-trans/penilaian') }}";
+            }
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
             }
 
-            if(total_d != total_k){
-                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak sama');
-            }else if( total_d <= 0 || total_k <= 0){
-                alert('Transaksi tidak valid. Total Debet dan Total Kredit tidak boleh sama dengan 0 atau kurang');
-            }else if(jumdet <= 1){
-                alert('Transaksi tidak valid. Detail jurnal tidak boleh kosong ');
+            if(jumdet <= 1){
+                alert('Transaksi tidak valid. Detail nilai tidak boleh kosong ');
             }else{
-
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -1419,26 +1434,25 @@
                     cache: false,
                     processData: false, 
                     success:function(result){
-                        // alert('Input data '+result.message);
                         if(result.data.status){
-                            // location.reload();
                             dataTable.ajax.reload();
 
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
                             $('#row-id').hide();
                             $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Jurnal');
+                            $('#judul-form').html('Tambah Data Penilaian Siswa');
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('[id^=label]').html('');
-                            
+                            hitungTotalRow();
+
                             msgDialog({
                                 id:result.data.no_bukti,
                                 type:'simpan'
                             });
-                                
-
+                            
+                            last_add("no_bukti",result.data.no_bukti);
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
                             window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1941,7 +1955,6 @@
                     xhr.upload.addEventListener("progress", function (evt) {
                         if (evt.lengthComputable) {
                             var percentComplete = evt.loaded / evt.total;
-                            console.log(percentComplete);
                             $('.progress-bar').attr('aria-valuenow', percentComplete * 100).css({
                                 width: percentComplete * 100 + '%'
                             }).html(parseFloat(percentComplete * 100).toFixed(2) + '%');
@@ -1953,7 +1966,6 @@
                     xhr.addEventListener("progress", function (evt) {
                         if (evt.lengthComputable) {
                             var percentComplete = evt.loaded / evt.total;
-                            console.log(percentComplete);
                             $('.progress-bar').css({
                                 width: percentComplete * 100 + '%'
                             });
@@ -2040,7 +2052,6 @@
     
     $('.custom-file-input').change(function(){
         var fileName = $(this).val();
-        console.log(fileName);
         $('.custom-file-label').html(fileName);
         $('#form-import').submit();
     })
