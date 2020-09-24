@@ -88,6 +88,7 @@
                                                     <th>No Verifikasi</th>
                                                     <th>Tanggal</th>
                                                     <th>Keterangan</th>
+                                                    <th>Jamaah</th>
                                                     <th>NIK Ver</th>
                                                     <th>No Kuitansi</th>
                                                     <th>No Terima</th>
@@ -215,6 +216,7 @@
             { data: 'no_ver' },
             { data: 'tanggal' },
             { data: 'keterangan' },
+            { data: 'nama' },
             { data: 'nik_ver' },
             { data: 'no_kwitansi' },
             { data: 'no_tt' },
@@ -222,28 +224,28 @@
         ],
         "columnDefs": [
             {
-                "targets": 4,
+                "targets": 5,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-kuitansi' data-no_kwitansi='"+row.no_kwitansi+"'>"+row.no_kwitansi+"</a>";
                 }
             },
             {
-                "targets": 5,
+                "targets": 6,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-terima' data-no_kwitansi='"+row.no_tt+"'>"+row.no_tt+"</a>";
                 }
             },
             {
-                "targets": 6,
+                "targets": 7,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-reg' data-no_reg='"+row.no_reg+"'>"+row.no_reg+"</a>";
                 }
             },
             {
-                "targets": 7,
+                "targets": 8,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-jurnal' data-no_bukti='"+row.no_kb+"'>"+row.no_kb+"</a>";
