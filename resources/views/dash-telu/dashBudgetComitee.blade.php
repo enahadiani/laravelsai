@@ -96,11 +96,26 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi PDPT, Beban, SHU, Beban SDM
-                   <br> <span style="font-size:12px">Tahun 2014-2020</span>
-                </h6>
-                <div class="card-body p-2" id="trend1">
-                   
+                <div class="row mx-3 my-3">
+                    <h6 class="col-md-9 col-sm-12 px-0">Realisasi PDPT, Beban, SHU, Beban SDM
+                       <br> <span style="font-size:12px">Tahun 2014-2020</span>
+                    </h6>
+                    <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab3-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab3-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                    </ul>
+                </div>
+                <div class="tab-content tabcontent-border p-0">
+                    <div class="tab-pane active" id="tab3-rp" role="tabpanel">
+                        <div class="card-body p-2" id="trend1">
+                           
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab3-persen" role="tabpanel">
+                        <div class="card-body p-2" id="trend1-persen">
+                        
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -290,6 +305,65 @@ function getBCRKA(){
                                         enabled: true,
                                         formatter: function () {
                                             return '<b>'+sepNum(this.y)+'</b>';
+                                        }
+                                    },
+                                    enableMouseTracking: false
+                                }
+                            },
+                            series: result.data.series
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
+function getBCRKAPersen(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/rka-persen') }}",
+        dataType:"JSON",
+        success: function(result){
+            Highcharts.chart('trend1-persen', {
+                chart: {
+                        type: 'line'
+                    },
+                title: {
+                        text: null
+                        },
+                        credits:{
+                            enabled:false
+                        },
+                        yAxis: {
+                            title: {
+                                text: ''
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return singkatNilai(this.value);
+                                }
+                            },
+                        },
+                        xAxis: {
+                                categories:result.data.ctg
+                        },
+                        plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true,
+                                        formatter: function () {
+                                            return '<b>'+sepNum(this.y)+' %</b>';
                                         }
                                     },
                                     enableMouseTracking: false
@@ -508,6 +582,7 @@ function getBCGrowthTuition(){
 getBCGrowthRKA();
 getBCGrowthTuition();
 getBCRKA();
+getBCRKAPersen();
 getBCTuition();
 // $('.app-menu').hide();
 // google.charts.load('current', {packages: ['corechart','line']});
