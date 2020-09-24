@@ -75,7 +75,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Trend PDPT, Beban, SHU, Beban SDM
+                <h6 class="ml-3 mt-4">Realisasi PDPT, Beban, SHU, Beban SDM
                     2014-2020 (RKA)
                 </h6>
                 <div class="card-body p-2" id="trend1">
@@ -85,7 +85,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Trend Growth PDPT, Beban, SHU, Beban SDM
+                <h6 class="ml-3 mt-4">Realisasi Growth PDPT, Beban, SHU, Beban SDM
                 2014-2020 (RKA)
                 </h6>
                 <div class="card-body p-2" id="trend2">
@@ -97,7 +97,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Trend Tuition Fee - Non Tuition Fee
+                <h6 class="ml-3 mt-4">Realisasi Tuition Fee - Non Tuition Fee
                 2014 - 2020 (RKA)
                 </h6>
                 <div class="card-body p-2" id="trend3">
@@ -107,7 +107,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Trend Growth Tuition Fee - NON Tuition Fee
+                <h6 class="ml-3 mt-4">Realisasi Growth Tuition Fee - NON Tuition Fee
                 </h6>
                 <div class="card-body p-2" id="trend4">
                    
@@ -116,7 +116,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <!-- <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Trend Growth PDPT, Beban, SHU, Beban SDM
+                <h6 class="ml-3 mt-4">Realisasi Growth PDPT, Beban, SHU, Beban SDM
                 2014-2020 (RKA)
                 </h6>
                 <div class="card-body p-2" id="trend21">
