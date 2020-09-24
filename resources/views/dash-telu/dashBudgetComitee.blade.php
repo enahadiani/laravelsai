@@ -86,6 +86,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h6 class="ml-3 mt-4">Realisasi Growth Tuition Fee - NON Tuition Fee
+                <br> <span style="font-size:12px">Tahun 2014-2020</span>
                 </h6>
                 <div class="card-body p-2" id="trend4">
                    
@@ -616,39 +617,39 @@ function getBCGrowthTuition(){
         success: function(result){
             Highcharts.chart('trend4', {
                 chart: {
-                        type: 'line'
-                    },
+                    type: 'line'
+                },
                 title: {
-                        text: null
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                            }
                         },
-                        credits:{
-                            enabled:false
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        xAxis: {
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+sepNum(this.y)+'</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                            },
-                            series: result.data.series
+                        enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
