@@ -626,7 +626,7 @@ function getBCGrowthTuition(){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
                     }
                 },
                 yAxis: {
