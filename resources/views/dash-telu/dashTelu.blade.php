@@ -123,7 +123,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h6 class="ml-3 mt-4">RKA vs Realisais YTD Bulan <span class="periode-label"></span></h6>
+                 <h6 class="ml-3 mt-4">RKA vs Realisasi YTD Bulan <span class="periode-label"></span></h6>
                 <div class="card-body" id='rkaVSreal' style='height:300px'>
                 </div>
             </div>
