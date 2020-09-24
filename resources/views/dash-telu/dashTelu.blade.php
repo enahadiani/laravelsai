@@ -48,6 +48,11 @@ $thnLalu = substr($tahunLalu,2,2)
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+
+    #pencapaian > td, th 
+    {
+        padding: 4px !important;
+    }
     
     /* #modalFilter
     {
@@ -99,7 +104,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
                 <h6 class="ml-3 mt-4">PERFORMANSI LAP. KEU <span class="tahun-label"></span> BULAN <uppercase><span class="bulan-label"></span><uppercase> </h6>
-                <div class="card-body">
+                <div class="card-body"  style='height:300px'>
                     <table class='table' id='pencapaian'>
                         <thead>
                             <tr>
