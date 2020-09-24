@@ -412,39 +412,39 @@ function getBCGrowthRKA(){
             console.log(result)
             Highcharts.chart('trend2', {
                 chart: {
-                        type: 'line'
-                    },
+                    type: 'line'
+                },
                 title: {
-                        text: null
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                            }
                         },
-                        credits:{
-                            enabled:false
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        xAxis: {
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+sepNum(this.y)+'</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                            },
-                            series: result.data.series
+                        enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
