@@ -127,7 +127,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h6 class="ml-3 mt-4">Growth RKA</h6>
+                 <h6 class="ml-3 mt-4">Growth RKA 5 Tahun</h6>
                 <div class="card-body pt-0">
                     <!-- <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
@@ -137,13 +137,13 @@ $thnLalu = substr($tahunLalu,2,2)
                             <a class="nav-link" href="#">%</a>
                         </li>
                     </ul> -->
-                    <div id='growthRKA' style='height:300px;margin-top:10px;'></div>
+                    <div id='growthRKA' style='height:500px;margin-top:10px;'></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h6 class="ml-3 mt-4">Growth Realisasi</h6>
+                 <h6 class="ml-3 mt-4">Growth Realisasi 5 Tahun</h6>
                 <div class="card-body pt-0">
                     <!-- <ul class="nav nav-tabs mb-2">
                         <li class="nav-item">
@@ -153,7 +153,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             <a class="nav-link" href="#">%</a>
                         </li>
                     </ul> -->
-                    <div id='growthReal' style='height:300px;margin-top:10px;'></div>
+                    <div id='growthReal' style='height:500px;margin-top:10px;'></div>
                 </div>
             </div>
         </div>
@@ -405,16 +405,20 @@ function getGrowthReal(periode=null){
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return '<b>'+toMilyar(this.y)+'</b>';
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
                         },
                         enableMouseTracking: false
                     },
                     column: {
                         dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
                             formatter: function () {
-                                return '<b>'+toMilyar(this.y)+'</b>';
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
                         },
                         enableMouseTracking: false
@@ -455,7 +459,7 @@ function getGrowthRKA(periode=null){
                 },
                 tooltip: {
                     formatter: function () {
-                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
                         }
                 },
                 yAxis: {
@@ -474,9 +478,13 @@ function getGrowthRKA(periode=null){
                 plotOptions: {
                     series: {
                         dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
                             formatter: function () {
-                                return '<b>'+toMilyar(this.y)+'</b>';
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
                         }
                     }
