@@ -98,7 +98,7 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Pencapaian YoY</h6>
+                <h6 class="ml-3 mt-4">PERFORMANSI LAP. KEU <span class="tahun-label"></span> BULAN <uppercase><span class="bulan-label"></span><uppercase> </h6>
                 <div class="card-body">
                     <table class='table' id='pencapaian'>
                         <thead>
@@ -118,7 +118,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                 <h6 class="ml-3 mt-4">RKA vs Realisais YTD</h6>
+                 <h6 class="ml-3 mt-4">RKA vs Realisais YTD Bulan <span class="periode-label"></span></h6>
                 <div class="card-body" id='rkaVSreal' style='height:300px'>
                 </div>
             </div>
@@ -472,16 +472,15 @@ function getGrowthRKA(periode=null){
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                            series: {
-                                    dataLabels: {
-                                    enabled: true,
-                                    formatter: function () {
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
                                 return '<b>'+toMilyar(this.y)+'</b>';
                             }
                         }
                     }
-                 },
-
+                },
                 series: result.data.series
 
             });
@@ -522,7 +521,7 @@ function getRkaVsReal(periode=null){
                     enabled:false
                 },
                 legend:{
-                    enabled:false
+                    enabled:true
                 },
                 xAxis: {
                     categories: result.data.ctg,
@@ -539,7 +538,6 @@ function getRkaVsReal(periode=null){
                     }
                 },
                 tooltip: {
-                    
                     formatter: function () {
                         return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
                     }
@@ -547,7 +545,17 @@ function getRkaVsReal(periode=null){
                 plotOptions: {
                     column: {
                         pointPadding: 0.2,
-                        borderWidth: 0
+                        borderWidth: 0,
+                        dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'none',
+                            formatter: function () {
+                                return '<b>'+toMilyar(this.y)+'</b>';
+                            }
+                        }
                     }
                 },
                 series : result.data.series
@@ -573,6 +581,9 @@ getPencapaianYoY("{{$periode}}");
 getRkaVsReal("{{$periode}}");
 getGrowthRKA("{{$periode}}");
 getGrowthReal("{{$periode}}");
+$('.periode-label').html(namaPeriode("{{$periode}}"));
+$('.bulan-label').html(namaPeriodeBulan("{{$periode}}"));
+$('.tahun-label').html("{{$periode}}".substr(0,4));
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -585,13 +596,16 @@ $('#form-filter').submit(function(e){
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
     $('.thnIni').text(tahun);
+    $('.periode-label').html(namaPeriode(periode));
+    $('.bulan-label').html(namaPeriodeBulan(periode));
+    $('.tahun-label').html(periode.substr(0,4));
     $('#modalFilter').modal('hide');
     // $('.app-menu').hide();
     if ($(".app-menu").hasClass("shown")) {
         $(".app-menu").removeClass("shown");
-      } else {
+    } else {
         $(".app-menu").addClass("shown");
-      }
+    }
 });
 
 $('#btn-reset').click(function(e){
