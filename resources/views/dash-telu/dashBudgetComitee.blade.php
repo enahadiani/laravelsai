@@ -121,11 +121,26 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi Tuition Fee - Non Tuition Fee
-                <br> <span style="font-size:12px">Tahun 2014 - 2020</span>
-                </h6>
-                <div class="card-body p-2" id="trend3">
-                   
+                <div class="row mx-3 my-3">
+                    <h6 class="col-md-9 col-sm-12 px-0">Realisasi Tuition Fee - Non Tuition Fee
+                       <br> <span style="font-size:12px">Tahun 2014-2020</span>
+                    </h6>
+                    <ul role="tablist" style="border: none;" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab4-rp" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Rp</b></span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab4-persen" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>%</b></span></a> </li>
+                    </ul>
+                </div>
+                <div class="tab-content tabcontent-border p-0">
+                    <div class="tab-pane active" id="tab4-rp" role="tabpanel">
+                        <div class="card-body p-2" id="trend3">
+                           
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab4-persen" role="tabpanel">
+                        <div class="card-body p-2" id="trend3-persen">
+                        
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,7 +378,7 @@ function getBCRKAPersen(){
                                     dataLabels: {
                                         enabled: true,
                                         formatter: function () {
-                                            return '<b>'+sepNum(this.y)+' %</b>';
+                                            return '<b>'+sepNumPas(this.y)+' %</b>';
                                         }
                                     },
                                     enableMouseTracking: false
@@ -520,6 +535,78 @@ function getBCTuition(){
     })
 }
 
+function getBCTuitionPersen(){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/dash-telu/tuition-persen') }}",
+        dataType:"JSON",
+        success:function(result){
+            Highcharts.chart('trend3-persen', { 
+                title: {
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    // footerFormat: '</table>',
+                    // shared: true,
+                    // useHTML: true
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
+                        }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                        },
+                    labels: {
+                        formatter: function () {
+                        return singkatNilai(this.value);
+                            }
+                        },
+                },
+                xAxis: {
+                    // accessibility: {
+                    //     rangeDescription: 'Range: 14 to 20'
+                    // }
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                            series: {
+                                    dataLabels: {
+                                    enabled: true,
+                                    formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+'%</b>';
+                            }
+                        }
+                    }
+                 },
+
+                series: result.data.series
+
+            });
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    })
+}
+
 
 function getBCGrowthTuition(){
     $.ajax({
@@ -584,6 +671,7 @@ getBCGrowthTuition();
 getBCRKA();
 getBCRKAPersen();
 getBCTuition();
+getBCTuitionPersen();
 // $('.app-menu').hide();
 // google.charts.load('current', {packages: ['corechart','line']});
 // google.charts.setOnLoadCallback(drawGoogleChart);

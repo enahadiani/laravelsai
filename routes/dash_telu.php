@@ -56,6 +56,7 @@ Route::get('/rka','DashTelu\DashboardController@getBCRKA');
 Route::get('/rka-persen','DashTelu\DashboardController@getBCRKAPersen');
 Route::get('/growth-rka','DashTelu\DashboardController@getBCGrowthRKA');
 Route::get('/tuition','DashTelu\DashboardController@getBCTuition');
+Route::get('/tuition-persen','DashTelu\DashboardController@getBCTuitionPersen');
 Route::get('/growth-tuition','DashTelu\DashboardController@getBCGrowthTuition');
 
 Route::get('/komponen-investasi','DashTelu\DashboardController@komponenInvestasi');
