@@ -75,32 +75,10 @@ $thnLalu = substr($tahunLalu,2,2)
     <div class="row" >
         <div class="col-md-6 col-sm-12 mb-4">
             <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi PDPT, Beban, SHU, Beban SDM
-                    2014-2020 (RKA)
-                </h6>
-                <div class="card-body p-2" id="trend1">
-                   
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
                 <h6 class="ml-3 mt-4">Realisasi Growth PDPT, Beban, SHU, Beban SDM
-                2014-2020 (RKA)
+                <br> <span style="font-size:12px">Tahun 2014-2020</span>
                 </h6>
                 <div class="card-body p-2" id="trend2">
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" >
-        <div class="col-md-6 col-sm-12 mb-4">
-            <div class="card">
-                <h6 class="ml-3 mt-4">Realisasi Tuition Fee - Non Tuition Fee
-                2014 - 2020 (RKA)
-                </h6>
-                <div class="card-body p-2" id="trend3">
                    
                 </div>
             </div>
@@ -110,6 +88,28 @@ $thnLalu = substr($tahunLalu,2,2)
                 <h6 class="ml-3 mt-4">Realisasi Growth Tuition Fee - NON Tuition Fee
                 </h6>
                 <div class="card-body p-2" id="trend4">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4">Realisasi PDPT, Beban, SHU, Beban SDM
+                   <br> <span style="font-size:12px">Tahun 2014-2020</span>
+                </h6>
+                <div class="card-body p-2" id="trend1">
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <h6 class="ml-3 mt-4">Realisasi Tuition Fee - Non Tuition Fee
+                <br> <span style="font-size:12px">Tahun 2014 - 2020</span>
+                </h6>
+                <div class="card-body p-2" id="trend3">
                    
                 </div>
             </div>
@@ -505,10 +505,10 @@ function getBCGrowthTuition(){
         }
     })
 }
-getBCRKA();
 getBCGrowthRKA();
-getBCTuition();
 getBCGrowthTuition();
+getBCRKA();
+getBCTuition();
 // $('.app-menu').hide();
 // google.charts.load('current', {packages: ['corechart','line']});
 // google.charts.setOnLoadCallback(drawGoogleChart);

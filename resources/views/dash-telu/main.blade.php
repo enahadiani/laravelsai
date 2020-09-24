@@ -418,7 +418,7 @@
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
                     <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
                     @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ config('api.url').'ypt/storage/'.Session::get('foto') }}" />
                     @endif
                     </span>
                 </button>
