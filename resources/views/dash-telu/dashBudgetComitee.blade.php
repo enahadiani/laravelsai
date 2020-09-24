@@ -294,39 +294,44 @@ function getBCRKA(){
         success: function(result){
             Highcharts.chart('trend1', {
                 chart: {
-                        type: 'line'
-                    },
+                    type: 'line'
+                },
                 title: {
-                        text: null
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' M</b>';
+                            }
                         },
-                        credits:{
-                            enabled:false
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        xAxis: {
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+sepNum(this.y)+'</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                            },
-                            series: result.data.series
+                        // enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -353,39 +358,44 @@ function getBCRKAPersen(){
         success: function(result){
             Highcharts.chart('trend1-persen', {
                 chart: {
-                        type: 'line'
-                    },
+                    type: 'line'
+                },
                 title: {
-                        text: null
+                    text: null
+                },
+                credits:{
+                    enabled:false
+                },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                xAxis: {
+                    categories:result.data.ctg
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                            }
                         },
-                        credits:{
-                            enabled:false
-                        },
-                        yAxis: {
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                formatter: function () {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        xAxis: {
-                                categories:result.data.ctg
-                        },
-                        plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true,
-                                        formatter: function () {
-                                            return '<b>'+sepNumPas(this.y)+' %</b>';
-                                        }
-                                    },
-                                    enableMouseTracking: false
-                                }
-                            },
-                            series: result.data.series
+                        // enableMouseTracking: false
+                    }
+                },
+                series: result.data.series
             });
         },
         error: function(jqXHR, textStatus, errorThrown) {       
@@ -421,6 +431,11 @@ function getBCGrowthRKA(){
                 credits:{
                     enabled:false
                 },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
+                    }
+                },
                 yAxis: {
                     title: {
                         text: ''
@@ -441,8 +456,8 @@ function getBCGrowthRKA(){
                             formatter: function () {
                                 return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
-                        },
-                        enableMouseTracking: false
+                        }
+                        // enableMouseTracking: false
                     }
                 },
                 series: result.data.series
@@ -478,15 +493,9 @@ function getBCTuition(){
                     enabled:false
                 },
                 tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // shared: true,
-                    // useHTML: true
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNum(this.y)+'</b>';
-                        }
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' M</b>';
+                    }
                 },
                 yAxis: {
                     title: {
@@ -499,22 +508,18 @@ function getBCTuition(){
                         },
                 },
                 xAxis: {
-                    // accessibility: {
-                    //     rangeDescription: 'Range: 14 to 20'
-                    // }
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                            series: {
-                                    dataLabels: {
-                                    enabled: true,
-                                    formatter: function () {
-                                return '<b>'+sepNum(this.y)+'</b>';
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' M</b>';
                             }
                         }
                     }
-                 },
-
+                },
                 series: result.data.series
 
             });
@@ -550,15 +555,9 @@ function getBCTuitionPersen(){
                     enabled:false
                 },
                 tooltip: {
-                    // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    //     '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                    // footerFormat: '</table>',
-                    // shared: true,
-                    // useHTML: true
                     formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
-                        }
+                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
+                    }
                 },
                 yAxis: {
                     title: {
@@ -571,22 +570,18 @@ function getBCTuitionPersen(){
                         },
                 },
                 xAxis: {
-                    // accessibility: {
-                    //     rangeDescription: 'Range: 14 to 20'
-                    // }
                     categories:result.data.ctg
                 },
                 plotOptions: {
-                            series: {
-                                    dataLabels: {
-                                    enabled: true,
-                                    formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+'%</b>';
+                    series: {
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
                         }
                     }
-                 },
-
+                },
                 series: result.data.series
 
             });
@@ -625,6 +620,11 @@ function getBCGrowthTuition(){
                 credits:{
                     enabled:false
                 },
+                tooltip: {
+                    formatter: function () {
+                        return this.series.name+':<b>'+sepNumPas(this.y)+'</b>';
+                    }
+                },
                 yAxis: {
                     title: {
                         text: ''
@@ -645,8 +645,8 @@ function getBCGrowthTuition(){
                             formatter: function () {
                                 return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
-                        },
-                        enableMouseTracking: false
+                        }
+                        // enableMouseTracking: false
                     }
                 },
                 series: result.data.series
