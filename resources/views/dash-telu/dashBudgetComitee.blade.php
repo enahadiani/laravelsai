@@ -452,7 +452,11 @@ function getBCGrowthRKA(){
                 plotOptions: {
                     line: {
                         dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
                             formatter: function () {
                                 return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
@@ -641,7 +645,11 @@ function getBCGrowthTuition(){
                 plotOptions: {
                     line: {
                         dataLabels: {
+                            padding:0,
+                            allowOverlap:true,
                             enabled: true,
+                            crop: false,
+                            overflow: 'none',
                             formatter: function () {
                                 return '<b>'+sepNumPas(this.y)+' %</b>';
                             }
