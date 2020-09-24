@@ -248,21 +248,21 @@
 
                                     html+=`
                                     <td width='20%'>
-                                    <input type='file' name='file_dok[]'>
+                                    <input type='file' name='file_dok[]' class='upload_file_dok'>
                                     </td>`;
 
                                 }else{
                                     
                                     html+=`
                                     <td width='20%'>
-                                    <input type='file' name='file_dok[]'>
+                                    <input type='file' name='file_dok[]' class='upload_file_dok'>
                                     </td>`;
                                 }
                                 html+=`
-                                <td width='5%'>`;
+                                <td width='5%' class='action_dok'>`;
                                 if(line2.fileaddres != "-"){
 
-                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+line2.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>`;
+                                   var link =`<a class='btn btn-success btn-sm download-dok' style='font-size:8px' href='`+line2.fileaddres+`'target='_blank'><i class='fa fa-download fa-1'></i></a>&nbsp;&nbsp;<a href='#' title='Hapus' class='badge badge-danger hapus-dok'><i class='fa fa-trash'></i></a>`;
                                    
                                 }else{
                                     var link =``;
@@ -352,6 +352,51 @@
                 $iconLoad.hide();
             }
         });      
+    });
+
+    $('#input-dok').on('click', '.hapus-dok', function(){
+        if(confirm('Sistem akan menghapus dokumen dari server. Apakah anda ingin menghapus dokumen ini? ')){
+            var no_reg = $('#upload_no_reg').val();
+            var no_dokumen = $(this).closest('tr').find('.upload_no_dokumen').val();
+            var path_file = $(this).closest('tr').find('.upload_path');
+            var action_dok = $(this).closest('tr').find('.action_dok');
+            
+            $.ajax({
+                type: 'DELETE',
+                url: "{{ url('dago-trans/upload-dok') }}",
+                dataType: 'json',
+                data: {'no_reg':no_reg,'no_dokumen':no_dokumen},
+                success:function(result){
+                    alert(result.data.message);
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        path_file.html('-');
+                        action_dok.html('');
+                    }else{
+                        return false;
+                    }
+                }
+            });
+
+        }else{
+            return false;
+        }       
+    });
+
+    $('#input-dok').on('change', '.upload_file_dok', function(){
+        if($(this).val() != ""){
+            var action_dok = $(this).closest('tr').find('.action_dok');
+            action_dok.html("<a href='#' title='Hapus' class='badge badge-danger hapus-dok2'><i class='fa fa-trash'></i></a>"); 
+        }
+    });
+
+    $('#input-dok').on('click', '.hapus-dok2', function(){
+        if(confirm('Apakah anda ingin menghapus dokumen ini? ')){
+            $(this).closest('tr').find('.upload_file_dok').val('');
+            $(this).closest('tr').find('.action_dok').html('');
+        }else{
+            return false;
+        }       
     });
 
     </script>

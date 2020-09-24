@@ -71,6 +71,7 @@ Route::get('verifikasi-histori','Dago\VerifikasiController@histori');
 Route::get('upload-dok','Dago\UploadDokController@index');
 Route::get('upload-dok-detail','Dago\UploadDokController@show');
 Route::post('upload-dok','Dago\UploadDokController@store');
+Route::delete('upload-dok','Dago\UploadDokController@destroy');
 
 //Pembayaran Group
 Route::get('pembayaran-group','Dago\PembayaranGroupController@index');

@@ -187,4 +187,37 @@ class UploadDokController extends Controller
         }
     }
 
+    public function destroy(Request $request) {
+            
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE',  config('api.url').'dago-trans/upload-dok',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_reg' => $request->no_reg,  
+                    'no_dokumen' => $request->no_dokumen
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data], 200); 
+        
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
 }
