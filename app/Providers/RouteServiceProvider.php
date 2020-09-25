@@ -77,6 +77,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapYakesRoutes();
 
         $this->mapSekolahRoutes();
+        
+        $this->mapAdmGinasRoutes();
 
         //
     }
@@ -388,6 +390,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/report.php'));
+   
+    }
+
+    protected function mapAdmGinasRoutes()
+    {
+        Route::prefix('admginas-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admginas/auth.php'));
+
+        Route::prefix('admginas-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admginas/dash.php'));
+    
+        Route::prefix('admginas-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admginas/master.php'));
+    
+        Route::prefix('admginas-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admginas/trans.php'));
+    
+        Route::prefix('admginas-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admginas/report.php'));
    
     }
 

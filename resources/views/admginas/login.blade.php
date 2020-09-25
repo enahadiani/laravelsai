@@ -107,7 +107,7 @@
                             Kembali
                             @endif
                             </h6>
-                            <form method="POST" action="{{ url('esaku-auth/login') }}" id="form-login">
+                            <form method="POST" action="{{ url('admginas-auth/login') }}" id="form-login">
                                 @csrf
                                 @if(Session::has('alert'))
                                 <div class="alert alert-danger rounded" role="alert">
