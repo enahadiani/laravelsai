@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-// Data Bonus //
-Route::get('bonus', 'Esaku\BonusController@index');
-Route::get('bonus/{id}', 'Esaku\BonusController@getData');
-Route::post('bonus', 'Esaku\BonusController@store');
-Route::put('bonus/{id}', 'Esaku\BonusController@update');
-Route::delete('bonus/{id}', 'Esaku\BonusController@delete');
+// Data Konten //
+Route::get('konten', 'AdmGinas\KontenController@index');
+Route::get('konten/{id}', 'AdmGinas\KontenController@getData');
+Route::post('konten', 'AdmGinas\KontenController@store');
+Route::put('konten/{id}', 'AdmGinas\KontenController@update');
+Route::delete('konten/{id}', 'AdmGinas\KontenController@delete');
+Route::get('konten-header', 'AdmGinas\KontenController@getHeader');
+Route::get('konten-klp', 'AdmGinas\KontenController@getKlp');
+Route::get('konten-kategori', 'AdmGinas\KontenController@getKategori');
