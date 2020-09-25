@@ -946,6 +946,7 @@
                         $('#id_edit').val('edit');
                         $('#jenis').val(line.jenis);
                         $('#no_reg').val(line.no_reg);
+                        $('#tanggal').val(line.tgl_bayar);
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);
                         $('#status_bayar')[0].selectize.setValue(line.status_bayar);
