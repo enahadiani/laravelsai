@@ -173,13 +173,12 @@ if(isset($id)){
                     }
                     
                     $('#videoimage').html(img);
-
                     html += line.keterangan + `<div class="post-tags">`;
                     var str = '';
                     if(line.tag != undefined){
 
                         var tag = line.tag.split(',');
-                        str += "<a href='/webginas/search/all/tag/?str="+tag[0].toLowerCase()+"'>".ucfirst(tag[0].toLowerCase())+"</a> ";
+                        str += "<a href='/webginas/search/all/tag/?str="+tag[0].toLowerCase()+"'>"+ucfirst(tag[0].toLowerCase())+"</a> ";
                         for(var i=1; i<tag.length; i++){
                             str += "/<a href='/webginas/search/all/tag/?str="+tag[i].toLowerCase()+"'>"+ucfirst(tag[i].toLowerCase())+"</a> ";
                         }
