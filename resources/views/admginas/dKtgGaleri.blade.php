@@ -110,7 +110,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Konten</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Kategori Galeri</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -144,8 +144,7 @@
                         <thead>
                             <tr>
                                 <th width="15%">ID</th>
-                                <th width="20%">Tanggal</th>
-                                <th width="55%">Judul</th>
+                                <th width="75%">Nama</th>
                                 <th width="0%">Tgl Input</th>
                                 <th width="10%" class="text-center">Aksi</th>
                             </tr>
@@ -176,62 +175,13 @@
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id" name="id">
+                                <input type="hidden" id="kode_ktg" name="kode_ktg">
                             </div>
                         </div>
                         <div class="form-group row  ">
-                            <label for="judul" class="col-md-2 col-sm-12 col-form-label">Judul</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Judul Konten" id="judul" name="judul" required>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal Publish</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="header" class="col-md-2 col-sm-12 col-form-label">Header</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="header" name="header" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_header" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="keterangan" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
+                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
                             <div class="col-md-10 col-sm-12">
-                                <textarea class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_klp" class="col-md-2 col-sm-12 col-form-label">Kelompok</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_klp" name="kode_klp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_klp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <!-- <div class="form-group row ">
-                            <label for="kode_kategori" class="col-md-2 col-sm-12 col-form-label">Kategori</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_kategori" name="kode_kategori" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_kategori" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div> -->
-                        <div class="form-group row ">
-                            <label for="tag" class="col-md-2 col-sm-12 col-form-label">Tag</label>
-                            <div class="col-md-6 col-sm-12" >
-                                 <input class="form-control" type="text" data-role="tagsinput" id="tag" name="tag" >
+                                <input class="form-control" type="text" placeholder="Nama Kategori" id="nama" name="nama" required>
                             </div>
                         </div>
                     </div>
@@ -263,7 +213,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Konten <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Kategori Galeri <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -308,24 +258,6 @@
         }
     });
 
-    $("#tag").tagsinput({
-        cancelConfirmKeysOnEmpty: true
-    });
-    
-    $("input.datepicker").datepicker({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        templates: {
-            leftArrow: '<i class="simple-icon-arrow-left"></i>',
-            rightArrow: '<i class="simple-icon-arrow-right"></i>'
-        }
-    });
-
-    var editor = ClassicEditor.create( document.querySelector( '#keterangan' ) )
-        .catch( error => {
-            console.error( error );
-    });
-
     function last_add(param,isi){
         var rowIndexes = [];
         dataTable.rows( function ( idx, data, node ) {             
@@ -344,353 +276,6 @@
         }, 1000 * 60 * 10);
     }
     
-    // BAGIAN CBBL 
-    var $target = "";
-    var $target2 = "";
-    function getHeader(id=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('admginas-master/konten-header') }}",
-            dataType: 'json',
-            data:{'id':id},
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#header').val(result.daftar[0].id);
-                        $('#label_header').val(result.daftar[0].nama);
-                    }else{
-                        // alert('Kode Akun tidak valid');
-                        $('#header').val('');
-                        $('#label_header').val('');
-                        $('#header').focus();
-                    }
-                }
-            }
-        });
-    }
-
-    function getKlp(id=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('admginas-master/konten-klp') }}",
-            dataType: 'json',
-            data:{'id':id},
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#kode_klp').val(result.daftar[0].kode_klp);
-                        $('#label_kode_klp').val(result.daftar[0].nama);
-                    }else{
-                        // alert('Kode Akun tidak valid');
-                        $('#kode_klp').val('');
-                        $('#label_kode_klp').val('');
-                        $('#kode_klp').focus();
-                    }
-                }
-            }
-        });
-    }
-
-    function getKategori(id=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('admginas-master/konten-kategori') }}",
-            dataType: 'json',
-            data:{'id':id},
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#kode_kategori').val(result.daftar[0].id);
-                        $('#label_kode_kategori').val(result.daftar[0].nama);
-                    }else{
-                        // alert('Kode Akun tidak valid');
-                        $('#kode_kategori').val('');
-                        $('#label_kode_kategori').val('');
-                        $('#kode_kategori').focus();
-                    }
-                }
-            }
-        });
-    }
-
-    function showFilter(param,target1,target2){
-        var par = param;
-        var modul = '';
-        var header = [];
-        $target = target1;
-        $target2 = target2;
-        
-        switch(par){
-            case 'header': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('admginas-master/konten-header') }}";
-                var columns = [
-                    { data: 'id' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar Header";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-            case 'kode_klp': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('admginas-master/konten-klp') }}";
-                var columns = [
-                    { data: 'kode_klp' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar Kelompok";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-            case 'kode_kategori': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('admginas-master/konten-kategori') }}";
-                var columns = [
-                    { data: 'kode_kategori' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar Kategori";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
-                $target3 = "";
-            break;
-        }
-
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
-
-        var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": {'param':par},
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
-
-        $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-                $($target).attr('value',kode);
-            }else{
-                $($target).text(kode);
-            }
-
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
-
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            console.log($target3);
-            $('#modal-search').modal('hide');
-        });
-
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                    $($target).attr('value',kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                console.log($target3);
-                $('#modal-search').modal('hide');
-            }
-        });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
-                
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-                
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        })
-    }
-
-    $('#form-tambah').on('click', '.search-item2', function(){
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
-    });
-
-    $('#form-tambah').on('change', '#header', function(){
-        var par = $(this).val();
-        getHeader(par);
-    });
-
-    $('#form-tambah').on('change', '#kode_klp', function(){
-        var par = $(this).val();
-        getKlp(par);
-    });
-
-    $('#form-tambah').on('change', '#kode_kategori', function(){
-        var par = $(this).val();
-        getKategori(par);
-    });
-
-    // END BAGIAN CBBL
-
-    // SUGGESSION DI CBBL
-    var $dtkonten = new Array();
-
-    function getkontenAkun() {
-        $.ajax({
-            type:'GET',
-            url:"{{ url('admginas-master/konten-akun') }}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if(result.status) {
-                    
-                    for(i=0;i<result.daftar.length;i++){
-                        $dtkonten[i] = {kode_akun:result.daftar[i].kode_akun};  
-                    }
-                    
-                }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
-                } else{
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/admginas-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-                
-            }
-        });
-    }
-
-    // getkontenAkun();
-
-    $('#akun_hutang').typeahead({
-        source: function (cari, result) {
-            result($.map($dtkonten, function (item) {
-                return item.kode_akun;
-            }));
-        },
-        afterSelect: function (item) {
-            // console.log('cek');
-        }
-    });
-    // END SUGGESTION
-
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
@@ -707,7 +292,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('admginas-master/konten') }}",
+            'url': "{{ url('admginas-master/kategori-galeri') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -722,7 +307,7 @@
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -733,15 +318,14 @@
                 }
             },
             {
-                "targets": [3],
+                "targets": [2],
                 "visible": false,
                 "searchable": false
             }
         ],
         'columns': [
-            { data: 'id' },
-            { data: 'tanggal' },
-            { data: 'judul' },
+            { data: 'kode_ktg' },
+            { data: 'nama' },
             { data: 'tgl_input' },
         ],
         order:[[3,'desc']],
@@ -792,18 +376,13 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Konten');
+        $('#judul-form').html('Tambah Data Kategori Galeri');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
-        editor.then(editor => {
-            editor.setData('');
-        })
-        $('#keterangan').val('');
         $('#method').val('post');
-        $('#kode_konten').attr('readonly', false);
-        $('#label_akun_hutang').text('');
+        $('#kode_ktg').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
     });
@@ -819,13 +398,9 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#id').val();
-        editor.then(editor => {
-            $('#keterangan').val(editor.getData()); 
-        });
+        var kode = $('#kode_ktg').val();
         msgDialog({
             id:kode,
-            with:'editor',
             type:'edit'
         });
     });
@@ -837,30 +412,20 @@
         ignore: [],
         rules: 
         {
-            judul:{
+            nama:{
                 required: true 
-            },
-            tanggal:{
-                required: true
-            },
-            header:{
-                required: true 
-            },
-            kode_klp:
-            {
-                required: true
             }
         },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#id').val();
+            var id = $('#kode_ktg').val();
             if(parameter == "edit"){
-                var url = "{{ url('admginas-master/konten') }}/"+id;
+                var url = "{{ url('admginas-master/kategori-galeri') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('admginas-master/konten') }}";
+                var url = "{{ url('admginas-master/kategori-galeri') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -885,16 +450,15 @@
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data konten');
+                        $('#judul-form').html('Tambah Data Kategori Galeri');
                         $('#method').val('post');
-                        $('#id').attr('readonly', false);
+                        $('#kode_ktg').attr('readonly', false);
+                        console.log(result.data.kode);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("id",result.data.kode);
+                        last_add("kode_ktg",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";
@@ -935,13 +499,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('admginas-master/konten') }}/"+id,
+            url: "{{ url('admginas-master/kategori-galeri') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data konten ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Kategori Galeri ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -974,18 +538,13 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        editor.then(editor => {
-            editor.setData('');
-        })
-        $('#keterangan').val('');
-        
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Konten');
+        $('#judul-form').html('Edit Data Kategori Galeri');
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/konten') }}/" + id,
+            url: "{{ url('admginas-master/kategori-galeri') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -993,24 +552,8 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#id').val(id);
-                    $('#judul').val(result.data[0].judul);
-                    $('#header').val(result.data[0].header_url);
-                    $('#label_header').val(result.data[0].nama_header); 
-                    editor.then(editor => {
-                        editor.setData(result.data[0].keterangan);//here i am 
-                    });
-                    $('#kode_klp').val(result.data[0].kode_klp); 
-                    $('#label_kode_klp').val(result.data[0].nama_klp); 
-                    if(result.data[0].tag != "" && result.data[0].tag != null){
-
-                        var tmp = result.data[0].tag.split(",");
-                        if(tmp.length > 0){
-                            for(var i=0;i< tmp.length;i++){
-                                $('#tag').tagsinput('add', tmp[i]);
-                            }
-                        }
-                    }            
+                    $('#kode_ktg').val(id);
+                    $('#nama').val(result.data[0].nama);
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -1023,60 +566,24 @@
     });
     // END BUTTON EDIT
     
-    // HANDLER untuk enter dan tab
-    $('#judul,#header,#keterangan,#kode_klp,#tag').keydown(function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['judul','header','keterangan','kode_klp','tag'];
-        if (code == 13 || code == 40) {
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx++;
-            $('#'+nxt[idx]).focus();
-        }else if(code == 38){
-            e.preventDefault();
-            var idx = nxt.indexOf(e.target.id);
-            idx--;
-            if(idx != -1){ 
-                $('#'+nxt[idx]).focus();
-            }
-        }
-    });
-
-
     // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>ID Konten</td>
+                <td style='border:none'>ID Kategori</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Judul</td>
-                <td>`+data.judul+`</td>
+                <td>Nama Kategori</td>
+                <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Tanggal Publish</td>
-                <td>`+data.tanggal+`</td>
-            </tr>
-            <tr>
-                <td>Header URL</td>
-                <td>`+data.header_url+`-`+data.nama_header+`</td>
-            </tr>
-            <tr>
-                <td>Keterangan</td>
-                <td>`+data.keterangan+`</td>
-            </tr>
-            <tr>
-                <td>Kelompok</td>
-                <td>`+data.kode_klp+`-`+data.nama_klp+`</td>
-            </tr>
-            <tr>
-                <td>Tag</td>
-                <td>`+data.tag+`</td>
+                <td>Jenis</td>
+                <td>`+data.jenis+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -1099,18 +606,13 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data konten');
+        $('#judul-form').html('Edit Data Kategori Galeri');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        editor.then(editor => {
-            editor.setData('');
-        })
-        $('#keterangan').val('');
-        
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/konten') }}/" + id,
+            url: "{{ url('admginas-master/kategori-galeri') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1118,24 +620,8 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#id').val(id);
-                    $('#judul').val(result.data[0].judul);
-                    $('#header').val(result.data[0].header_url);
-                    $('#label_header').val(result.data[0].nama_header);
-                    editor.then(editor => {
-                        editor.setData(result.data[0].keterangan);//here i am 
-                    });
-                    $('#kode_klp').val(result.data[0].kode_klp); 
-                    $('#label_kode_klp').val(result.data[0].nama_klp); 
-                    if(result.data[0].tag != "" && result.data[0].tag != null){
-
-                        var tmp = result.data[0].tag.split(",");
-                        if(tmp.length > 0){
-                            for(var i=0;i< tmp.length;i++){
-                                $('#tag').tagsinput('add', tmp[i]);
-                            }
-                        }
-                    }                      
+                    $('#kode_ktg').val(id);
+                    $('#nama').val(result.data[0].nama);
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

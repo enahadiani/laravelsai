@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class KontenController extends Controller
+class KategoriGaleriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,7 +38,7 @@ class KontenController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/konten',[
+            $response = $client->request('GET',  config('api.url').'admginas-master/kategori-galeri',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -62,28 +62,18 @@ class KontenController extends Controller
 
     public function store(Request $request) {
         $this->validate($request, [
-            'tanggal' => 'required',
-            'judul' => 'required',
-            'keterangan' => 'required',
-            'header' => 'required',
-            'kode_klp' => 'required',
+            'nama' => 'required'
         ]);
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admginas-master/konten',[
+            $response = $client->request('POST',  config('api.url').'admginas-master/kategori-galeri',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
-                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
-                    'judul' => $request->judul,
-                    'keterangan' => $request->keterangan,
-                    'flag_aktif' => '1',
-                    'header_url' => $request->header,
-                    'kode_klp' => $request->kode_klp,
-                    'tag' => $request->tag
+                    'nama' => $request->nama
                 ]
             ]);
 
@@ -106,7 +96,7 @@ class KontenController extends Controller
     public function show($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/konten?id='.$id,
+            $response = $client->request('GET',  config('api.url').'admginas-master/kategori-galeri?kode_ktg='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -129,118 +119,21 @@ class KontenController extends Controller
         }
     }
 
-    public function getHeader(Request $request) {
-        try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/konten-header',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'id' => $request->id
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data;
-            }
-            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json($data, 200);
-        }
-    }
-
-    public function getKlp(Request $request) {
-        try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/konten-klp',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'kode_klp' => $request->kode_klp
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data;
-            }
-            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json($data, 200);
-        }
-    }
-
-    public function getKategori(Request $request) {
-        try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/konten-kategori',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => [
-                    'kode_kategori' => $request->kode_kategori
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-            
-                $data = json_decode($response_data,true);
-                $data = $data;
-            }
-            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json($data, 200);
-        }
-    }
-
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'tanggal' => 'required',
-            'judul' => 'required',
-            'keterangan' => 'required',
-            'header' => 'required',
-            'kode_klp' => 'required'
+            'nama' => 'required'
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'admginas-master/konten',[
+                $response = $client->request('PUT',  config('api.url').'admginas-master/kategori-galeri',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'id' => $id,
-                        'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
-                        'judul' => $request->judul,
-                        'keterangan' => $request->keterangan,
-                        'flag_aktif' => '1',
-                        'header_url' => $request->header,
-                        'kode_klp' => $request->kode_klp,
-                        'tag' => $request->tag
+                        'kode_ktg' => $id,
+                        'nama' => $request->nama
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -262,7 +155,7 @@ class KontenController extends Controller
     public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'admginas-master/konten?id='.$id,
+            $response = $client->request('DELETE',  config('api.url').'admginas-master/kategori-galeri?kode_ktg='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

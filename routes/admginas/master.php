@@ -5,10 +5,17 @@ use Illuminate\Support\Facades\Session;
 
 // Data Konten //
 Route::get('konten', 'AdmGinas\KontenController@index');
-Route::get('konten/{id}', 'AdmGinas\KontenController@getData');
+Route::get('konten/{id}', 'AdmGinas\KontenController@show');
 Route::post('konten', 'AdmGinas\KontenController@store');
 Route::put('konten/{id}', 'AdmGinas\KontenController@update');
 Route::delete('konten/{id}', 'AdmGinas\KontenController@destroy');
 Route::get('konten-header', 'AdmGinas\KontenController@getHeader');
 Route::get('konten-klp', 'AdmGinas\KontenController@getKlp');
 Route::get('konten-kategori', 'AdmGinas\KontenController@getKategori');
+
+// Data Kategori Galeri //
+Route::get('kategori-galeri', 'AdmGinas\KategoriGaleriController@index');
+Route::get('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@show');
+Route::post('kategori-galeri', 'AdmGinas\KategoriGaleriController@store');
+Route::put('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@update');
+Route::delete('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@destroy');
