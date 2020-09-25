@@ -795,6 +795,10 @@
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
+        editor.then(editor => {
+            editor.setData('');
+        })
+        $('#keterangan').val('');
         $('#method').val('post');
         $('#kode_konten').attr('readonly', false);
         $('#label_akun_hutang').text('');
@@ -814,8 +818,12 @@
 
     $('#saku-form').on('click', '#btn-update', function(){
         var kode = $('#kode_konten').val();
+        editor.then(editor => {
+            $('#keterangan').val(editor.getData()); 
+        });
         msgDialog({
             id:kode,
+            with:'editor',
             type:'edit'
         });
     });
@@ -964,6 +972,10 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
+        editor.then(editor => {
+            editor.setData('');
+        })
+        $('#keterangan').val('');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -985,11 +997,16 @@
                     editor.then(editor => {
                         editor.setData(result.data[0].keterangan);//here i am 
                     });
-                    $('#kode_klp').val(result.data[0].kode_klp);             
-                    var tmp = result.data[0].tag.split(",");
-                    for(var i=0;i< tmp.length;i++){
-                        $('#tag').tagsinput('add', tmp[i]);
-                    }
+                    $('#kode_klp').val(result.data[0].kode_klp); 
+                    if(result.data[0].tag != "" && result.data[0].tag != null){
+
+                        var tmp = result.data[0].tag.split(",");
+                        if(tmp.length > 0){
+                            for(var i=0;i< tmp.length;i++){
+                                $('#tag').tagsinput('add', tmp[i]);
+                            }
+                        }
+                    }            
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
