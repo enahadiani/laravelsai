@@ -218,50 +218,29 @@ class KontenController extends Controller
 
     public function update(Request $request, $id) {
         $this->validate($request, [
-            'kode_konten' => 'required',
-            'nama' => 'required',
-            'alamat' => 'required',
-            'alamat2' => 'required',
-            'no_tel' => 'required',
-            'no_fax' => 'required',
-            'npwp' => 'required',
-            'email' => 'required',
-            'pic' => 'required',
-            'akun_hutang' => 'required',
-            'bank' => 'required',
-            'cabang' => 'required',
-            'no_rek' => 'required',
-            'nama_rek' => 'required',
-            'no_pictel' => 'required',
+            'tanggal' => 'required',
+            'judul' => 'required',
+            'keterangan' => 'required',
+            'header' => 'required',
+            'kode_klp' => 'required'
         ]);
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'admginas-master/konten?kode_konten='.$id,[
+                $response = $client->request('PUT',  config('api.url').'admginas-master/konten',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_konten' => $request->kode_konten,
-                        'nama' => $request->nama,
-                        'alamat' => $request->alamat,
-                        'alamat2' => $request->alamat2,
-                        'no_tel' => $request->no_tel,
-                        'no_fax' => $request->no_fax,
-                        'npwp' => $request->npwp,
-                        'email' => $request->email,
-                        'pic' => $request->pic,
-                        'akun_hutang' => $request->akun_hutang,
-                        'bank' => $request->bank,
-                        'cabang' => $request->cabang,
-                        'no_rek' => $request->no_rek,
-                        'nama_rek' => $request->nama_rek,
-                        'no_pictel' => $request->no_pictel,
-                        'bank_trans' => '-',
-                        'kode_klpkonten' => '-',
-                        'penilaian' => '-',
-                        'spek' => '-',
+                        'id' => $id,
+                        'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
+                        'judul' => $request->judul,
+                        'keterangan' => $request->keterangan,
+                        'flag_aktif' => '1',
+                        'header_url' => $request->header,
+                        'kode_klp' => $request->kode_klp,
+                        'tag' => $request->tag
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -280,10 +259,10 @@ class KontenController extends Controller
             }
     }
 
-    public function delete($id) {
+    public function destroy($id) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'admginas-master/konten?kode_konten='.$id,
+            $response = $client->request('DELETE',  config('api.url').'admginas-master/konten?id='.$id,
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
@@ -300,7 +279,7 @@ class KontenController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }

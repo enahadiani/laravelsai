@@ -1370,7 +1370,7 @@
                                                     <tr>
                                                         <td align="center" style="width:30%">Customer</td>
                                                         <td align="center" style="width:30%"></td>
-                                                        <td align="center" style="width:40%">Keuangan</td>
+                                                        <td align="center" style="width:40%">Penerima</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="">&nbsp;</td>

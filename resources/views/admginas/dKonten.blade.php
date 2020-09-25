@@ -205,7 +205,7 @@
                         <div class="form-group row">
                             <label for="keterangan" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
                             <div class="col-md-10 col-sm-12">
-                                <textarea class="form-control" id="keterangan" name="keterangan" required placeholder="Keterangan"></textarea>
+                                <textarea class="form-control" id="keterangan" name="keterangan" placeholder="Keterangan"></textarea>
                             </div>
                         </div>
                         <div class="form-group row ">
@@ -827,83 +827,24 @@
         ignore: [],
         rules: 
         {
-            kode_konten:{
-                required: true,
-                maxlength:10   
+            judul:{
+                required: true 
             },
-            nama:{
-                required: true,
-                maxlength:50   
+            tanggal:{
+                required: true
             },
-            no_tel:{
-                required: true,
-                number:true   
+            header:{
+                required: true 
             },
-            email:{
-                required: true,
-                email:true ,
-                maxlength:50  
-            },
-            alamat:
+            kode_klp:
             {
-                required: true,
-                maxlength:300
-            },
-            npwp:
-            {
-                required: true,
-                maxlength:50
-            },
-            pic:
-            {
-                required: true,
-                maxlength:50
-            },
-            alamat2:
-            {
-                required: true,
-                maxlength:200
-            },
-            bank:
-            {
-                required: true,
-                maxlength:50
-            }, 
-            cabang:
-            {
-                required: true,
-                maxlength:50
-            }, 
-            no_rek:
-            {
-                required: true,
-                maxlength:50
-            }, 
-            nama_rek:
-            {
-                required: true,
-                maxlength:50
-            },
-            no_fax:
-            {
-                required: true,
-                maxlength:50
-            },
-            no_pictel:
-            {
-                required: true,
-                maxlength:50
-            },
-            akun_hutang:
-            {
-                required: true,
-                maxlength:20
+                required: true
             }
         },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_konten').val();
+            var id = $('#id').val();
             if(parameter == "edit"){
                 var url = "{{ url('admginas-master/konten') }}/"+id;
                 var pesan = "updated";
