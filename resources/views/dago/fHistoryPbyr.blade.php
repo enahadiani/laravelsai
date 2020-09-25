@@ -933,7 +933,8 @@
                         $('#no_reg').val(line.no_reg);
                         $('#no_bukti').val(no_bukti);
                         $('#nama').val(line.nama);
-                        $('#tgl_berangkat').val(line.tgl_berangkat);	
+                        $('#tgl_berangkat').val(line.tgl_berangkat);
+                        $('#tanggal').val(line.tgl_bayar);	
                         $('#status_bayar')[0].selectize.setValue(line.status_bayar);
                         $('#kode_curr').val(line.kode_curr);
                         $('#kode_curr').trigger('change');
