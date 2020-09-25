@@ -994,10 +994,12 @@
                     $('#id').val(id);
                     $('#judul').val(result.data[0].judul);
                     $('#header').val(result.data[0].header_url);
+                    $('#label_header').val(result.data[0].nama_header); 
                     editor.then(editor => {
                         editor.setData(result.data[0].keterangan);//here i am 
                     });
                     $('#kode_klp').val(result.data[0].kode_klp); 
+                    $('#label_kode_klp').val(result.data[0].nama_klp); 
                     if(result.data[0].tag != "" && result.data[0].tag != null){
 
                         var tmp = result.data[0].tag.split(",");
@@ -1052,56 +1054,32 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode konten</td>
+                <td style='border:none'>ID Konten</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama konten</td>
-                <td>`+data.nama+`</td>
+                <td>Judul</td>
+                <td>`+data.judul+`</td>
             </tr>
             <tr>
-                <td>No Telp</td>
-                <td>`+data.no_tel+`</td>
+                <td>Tanggal Publish</td>
+                <td>`+data.tanggal+`</td>
             </tr>
             <tr>
-                <td>No Fax</td>
-                <td>`+data.no_fax+`</td>
+                <td>Header URL</td>
+                <td>`+data.header_url+`-`+data.nama_header+`</td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td>`+data.email+`</td>
+                <td>Keterangan</td>
+                <td>`+data.keterangan+`</td>
             </tr>
             <tr>
-                <td>No Telp PIC</td>
-                <td>`+data.no_pictel+`</td>
+                <td>Kelompok</td>
+                <td>`+data.kode_klp+`-`+data.nama_klp+`</td>
             </tr>
             <tr>
-                <td>Bank</td>
-                <td>`+data.bank+`</td>
-            </tr>
-            <tr>
-                <td>Cabang</td>
-                <td>`+data.cabang+`</td>
-            </tr>
-            <tr>
-                <td>No Rekening</td>
-                <td>`+data.no_rek+`</td>
-            </tr>
-            <tr>
-                <td>Nama Rekening</td>
-                <td>`+data.nama_rek+`</td>
-            </tr>
-            <tr>
-                <td>Alamat</td>
-                <td>`+data.alamat+`</td>
-            </tr>
-            <tr>
-                <td>Alamat NPWP</td>
-                <td>`+data.alamat2+`</td>
-            </tr>
-            <tr>
-                <td>Akun Hutang</td>
-                <td>`+data.akun_hutang+`</td>
+                <td>Tag</td>
+                <td>`+data.tag+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -1128,6 +1106,11 @@
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
+        editor.then(editor => {
+            editor.setData('');
+        })
+        $('#keterangan').val('');
+        
         $.ajax({
             type: 'GET',
             url: "{{ url('admginas-master/konten') }}/" + id,
@@ -1138,24 +1121,24 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_konten').attr('readonly', true);
-                    $('#kode_konten').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#alamat').val(result.data[0].alamat);
-                    $('#alamat2').val(result.data[0].alamat2);
-                    $('#email').val(result.data[0].email);
-                    $('#npwp').val(result.data[0].npwp);
-                    $('#pic').val(result.data[0].pic);
-                    $('#no_pictel').val(result.data[0].no_pictel);
-                    $('#no_tel').val(result.data[0].no_tel);
-                    $('#no_fax').val(result.data[0].no_fax);
-                    $('#bank').val(result.data[0].bank);
-                    $('#cabang').val(result.data[0].cabang);
-                    $('#no_rek').val(result.data[0].no_rek);
-                    $('#nama_rek').val(result.data[0].nama_rek);
-                    $('#akun_hutang').val(result.data[0].akun_hutang);
-                    getLabelAkun(result.data[0].akun_hutang);                    
+                    $('#judul').val(result.data[0].judul);
+                    $('#header').val(result.data[0].header_url);
+                    $('#label_header').val(result.data[0].nama_header);
+                    editor.then(editor => {
+                        editor.setData(result.data[0].keterangan);//here i am 
+                    });
+                    $('#kode_klp').val(result.data[0].kode_klp); 
+                    $('#label_kode_klp').val(result.data[0].nama_klp); 
+                    if(result.data[0].tag != "" && result.data[0].tag != null){
+
+                        var tmp = result.data[0].tag.split(",");
+                        if(tmp.length > 0){
+                            for(var i=0;i< tmp.length;i++){
+                                $('#tag').tagsinput('add', tmp[i]);
+                            }
+                        }
+                    }                      
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
