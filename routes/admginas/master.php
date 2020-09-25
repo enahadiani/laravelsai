@@ -19,3 +19,10 @@ Route::get('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@show');
 Route::post('kategori-galeri', 'AdmGinas\KategoriGaleriController@store');
 Route::put('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@update');
 Route::delete('kategori-galeri/{id}', 'AdmGinas\KategoriGaleriController@destroy');
+
+// Data Kontak //
+Route::get('kontak', 'AdmGinas\KontakController@index');
+Route::get('kontak/{id}', 'AdmGinas\KontakController@show');
+Route::post('kontak', 'AdmGinas\KontakController@store');
+Route::put('kontak/{id}', 'AdmGinas\KontakController@update');
+Route::delete('kontak/{id}', 'AdmGinas\KontakController@destroy');

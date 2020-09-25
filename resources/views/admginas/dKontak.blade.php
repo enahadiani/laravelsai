@@ -110,7 +110,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Konten</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Kontak</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -144,8 +144,8 @@
                         <thead>
                             <tr>
                                 <th width="15%">ID</th>
-                                <th width="20%">Tanggal</th>
                                 <th width="55%">Judul</th>
+                                <th width="20%">Status</th>
                                 <th width="0%">Tgl Input</th>
                                 <th width="10%" class="text-center">Aksi</th>
                             </tr>
@@ -182,24 +182,7 @@
                         <div class="form-group row  ">
                             <label for="judul" class="col-md-2 col-sm-12 col-form-label">Judul</label>
                             <div class="col-md-6 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Judul Konten" id="judul" name="judul" required>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal Publish</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="header" class="col-md-2 col-sm-12 col-form-label">Header</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="header" name="header" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_header" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                                <input class="form-control" type="text" placeholder="Judul Kontak" id="judul" name="judul" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -209,30 +192,18 @@
                             </div>
                         </div>
                         <div class="form-group row ">
-                            <label for="kode_klp" class="col-md-2 col-sm-12 col-form-label">Kelompok</label>
+                            <label for="latitude" class="col-md-2 col-sm-12 col-form-label">Latitude</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_klp" name="kode_klp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_klp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
+                                 <input class="form-control" type="text"  id="latitude" name="latitude" required>
+                                
+                            </div>      
                         </div>
-                        <!-- <div class="form-group row ">
-                            <label for="kode_kategori" class="col-md-2 col-sm-12 col-form-label">Kategori</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_kategori" name="kode_kategori" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_kategori" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div> -->
                         <div class="form-group row ">
-                            <label for="tag" class="col-md-2 col-sm-12 col-form-label">Tag</label>
-                            <div class="col-md-6 col-sm-12" >
-                                 <input class="form-control" type="text" data-role="tagsinput" id="tag" name="tag" >
-                            </div>
+                            <label for="longitude" class="col-md-2 col-sm-12 col-form-label">Longitude</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="longitude" name="longitude" required>
+                                
+                            </div>      
                         </div>
                     </div>
                 </div>
@@ -707,7 +678,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('admginas-master/konten') }}",
+            'url': "{{ url('admginas-master/kontak') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -741,7 +712,7 @@
         'columns': [
             { data: 'id' },
             { data: 'tanggal' },
-            { data: 'judul' },
+            { data: 'status' },
             { data: 'tgl_input' },
         ],
         order:[[3,'desc']],
@@ -792,7 +763,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Konten');
+        $('#judul-form').html('Tambah Data Kontak');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -855,11 +826,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "edit"){
-                var url = "{{ url('admginas-master/konten') }}/"+id;
+                var url = "{{ url('admginas-master/kontak') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('admginas-master/konten') }}";
+                var url = "{{ url('admginas-master/kontak') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -884,9 +855,7 @@
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
-                        $('[id^=label]').html('');
-                        $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data konten');
+                        $('#judul-form').html('Tambah Data Kontak');
                         $('#method').val('post');
                         $('#id').attr('readonly', false);
                         msgDialog({
@@ -934,13 +903,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('admginas-master/konten') }}/"+id,
+            url: "{{ url('admginas-master/kontak') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data konten ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Kontak ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -981,10 +950,10 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Konten');
+        $('#judul-form').html('Edit Data Kontak');
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/konten') }}/" + id,
+            url: "{{ url('admginas-master/kontak') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -994,22 +963,11 @@
                     $('#method').val('put');
                     $('#id').val(id);
                     $('#judul').val(result.data[0].judul);
-                    $('#header').val(result.data[0].header_url);
-                    $('#label_header').val(result.data[0].nama_header); 
                     editor.then(editor => {
                         editor.setData(result.data[0].keterangan);//here i am 
                     });
-                    $('#kode_klp').val(result.data[0].kode_klp); 
-                    $('#label_kode_klp').val(result.data[0].nama_klp); 
-                    if(result.data[0].tag != "" && result.data[0].tag != null){
-
-                        var tmp = result.data[0].tag.split(",");
-                        if(tmp.length > 0){
-                            for(var i=0;i< tmp.length;i++){
-                                $('#tag').tagsinput('add', tmp[i]);
-                            }
-                        }
-                    }            
+                    $('#latitude').val(result.data[0].latitude); 
+                    $('#longitude').val(result.data[0].longitude); 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -1023,9 +981,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#judul,#header,#keterangan,#kode_klp,#tag').keydown(function(e){
+    $('#judul,#keterangan,#latitude,#longitude').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['judul','header','keterangan','kode_klp','tag'];
+        var nxt = ['judul','keterangan','latitude','longitude'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1058,24 +1016,16 @@
                 <td>`+data.judul+`</td>
             </tr>
             <tr>
-                <td>Tanggal Publish</td>
-                <td>`+data.tanggal+`</td>
-            </tr>
-            <tr>
-                <td>Header URL</td>
-                <td>`+data.header_url+`-`+data.nama_header+`</td>
-            </tr>
-            <tr>
                 <td>Keterangan</td>
                 <td>`+data.keterangan+`</td>
             </tr>
             <tr>
-                <td>Kelompok</td>
-                <td>`+data.kode_klp+`-`+data.nama_klp+`</td>
+                <td>Latitude</td>
+                <td>`+data.latitude+`</td>
             </tr>
             <tr>
-                <td>Tag</td>
-                <td>`+data.tag+`</td>
+                <td>Longitude</td>
+                <td>`+data.longitude+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -1098,7 +1048,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data konten');
+        $('#judul-form').html('Edit Data Kontak');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -1109,7 +1059,7 @@
         
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/konten') }}/" + id,
+            url: "{{ url('admginas-master/kontak') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1119,22 +1069,11 @@
                     $('#method').val('put');
                     $('#id').val(id);
                     $('#judul').val(result.data[0].judul);
-                    $('#header').val(result.data[0].header_url);
-                    $('#label_header').val(result.data[0].nama_header);
                     editor.then(editor => {
                         editor.setData(result.data[0].keterangan);//here i am 
                     });
-                    $('#kode_klp').val(result.data[0].kode_klp); 
-                    $('#label_kode_klp').val(result.data[0].nama_klp); 
-                    if(result.data[0].tag != "" && result.data[0].tag != null){
-
-                        var tmp = result.data[0].tag.split(",");
-                        if(tmp.length > 0){
-                            for(var i=0;i< tmp.length;i++){
-                                $('#tag').tagsinput('add', tmp[i]);
-                            }
-                        }
-                    }                      
+                    $('#latitude').val(result.data[0].latitude); 
+                    $('#longitude').val(result.data[0].longitude);                 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
