@@ -842,6 +842,7 @@
                         editor.setData(result.data[0].keterangan);//here i am 
                     });
                     $('#kode_ktg').val(result.data[0].kode_ktg); 
+                    $('#label_kode_ktg').val(result.data[0].nama_ktg); 
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     var tmp = result.data[0].file_gambar.split("/"); 
                     var foto = "{{ config('api.url').'admginas-auth/storage' }}/"+tmp[3];
@@ -905,7 +906,7 @@
             </tr>
             <tr>
                 <td>Kategori</td>
-                <td>`+data.kode_ktg+`</td>
+                <td>`+data.kode_ktg+`-`+data.nama_ktg+`</td>
             </tr>
             <tr>
                 <td>Flag_aktif</td>
@@ -958,6 +959,7 @@
                     });
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);  
                     $('#kode_ktg').val(result.data[0].kode_ktg);  
+                    $('#label_kode_ktg').val(result.data[0].nama_ktg);
                     
                     var tmp = result.data[0].file_gambar.split("/"); 
                     var foto = "{{ config('api.url').'admginas-auth/storage' }}/"+tmp[3];
