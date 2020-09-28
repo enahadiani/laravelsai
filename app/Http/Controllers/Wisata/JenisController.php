@@ -69,7 +69,7 @@ class JenisController extends Controller
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_jenis' => $request->kode_bidang,
+                        'kode_jenis' => $request->kode_jenis,
                         'nama' => $request->nama,                        
                         'kode_bidang' => $request->kode_bidang                        
                     ]
@@ -131,7 +131,7 @@ class JenisController extends Controller
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
-                        'kode_bidang' => $request->kode_bidang,
+                        'kode_bidang' => $request->kode_jenis,
                         'nama' => $request->nama,
                         'kode_bidang' => $request->kode_bidang    
                     ]
