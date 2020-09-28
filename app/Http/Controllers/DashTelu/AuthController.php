@@ -294,7 +294,10 @@
                                     <a href='#' class='a_link' data-href='$this_link'>
                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                     </a>
-                                </li>";
+                                </li>
+                                
+                                </ul>
+                                </div>";
                             }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
                                 $sub[$level_nol].= " 
                                 <li class=''>
