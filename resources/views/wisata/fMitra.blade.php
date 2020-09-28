@@ -281,8 +281,8 @@
                                         <tr>
                                         <th width="5%" class="text-center">No</th>
                                         <th width="12%" class="text-center">Cek List</th>   
-                                        <th width="30%" class="text-center">Kode Bidang</th>
-                                        <th width="53%" class="text-center">Nama Bidang</th>                                                                                                                                   
+                                        <th width="30%" class="text-center">Kode Sub Jenis</th>
+                                        <th width="53%" class="text-center">Nama Sub Jenis</th>                                                                                                                                   
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -416,10 +416,10 @@
     // END EVENT CHANGE CHECKBOX //
 
     // GET DATA BIDANG //
-    function getDataBidang() {
+    function getDataSubJenis() {
         $.ajax({
             type:'GET',
-            url: "{{ url('wisata-master/bidang') }}",
+            url: "{{ url('wisata-master/subjenis') }}",
             dataType: 'json',
             async:false,
             success: function(result) {
@@ -432,7 +432,7 @@
                         row += "<tr>";
                         row += "<td>"+no+"</td>";
                         row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                        row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                        row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
                         row += "<td>"+data.nama+"</td>";
                         row += "</tr>";
                         no++;
@@ -720,7 +720,7 @@
         $('#kode_mitra').attr('readonly', false);        
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        getDataBidang();
+        getDataSubJenis();
     });
     // END BUTTON TAMBAH
     
@@ -883,20 +883,20 @@
                     getKecamatan(result.data[0].kecamatan);
                     var row = '';
                     var no = 1;
-                    for(var i=0;i<result.arrbid.length;i++){
-                        var data = result.arrbid[i];
+                    for(var i=0;i<result.arrsub.length;i++){
+                        var data = result.arrsub[i];
                         if(data.status == "CEK") {
                             row += "<tr>";
                             row += "<td>"+no+"</td>";
                             row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
                             row += "<td>"+data.nama+"</td>";
                             row += "</tr>";
                         } else {
                             row += "<tr>";
                             row += "<td>"+no+"</td>";
                             row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
                             row += "<td>"+data.nama+"</td>";
                             row += "</tr>";
                         }
@@ -991,7 +991,7 @@
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-delete-id').text();
+        var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
         $('#modal-delete-id').text(id);
         $('#modal-delete').modal('show');
@@ -1027,20 +1027,20 @@
                     getKecamatan(result.data[0].kecamatan);
                     var row = '';
                     var no = 1;
-                    for(var i=0;i<result.arrbid.length;i++){
-                        var data = result.arrbid[i];
+                    for(var i=0;i<result.arrsub.length;i++){
+                        var data = result.arrsub[i];
                         if(data.status == "CEK") {
                             row += "<tr>";
                             row += "<td>"+no+"</td>";
                             row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
                             row += "<td>"+data.nama+"</td>";
                             row += "</tr>";
                         } else {
                             row += "<tr>";
                             row += "<td>"+no+"</td>";
                             row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_bidang+"<input type='hidden' name='kode_bidang[]' value='"+data.kode_bidang+"'/></td>";
+                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
                             row += "<td>"+data.nama+"</td>";
                             row += "</tr>";
                         }

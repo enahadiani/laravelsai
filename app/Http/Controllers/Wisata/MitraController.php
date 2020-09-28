@@ -66,15 +66,15 @@ class MitraController extends Controller
             'pic' => 'required', 
             'no_hp' => 'required', 
             'status' => 'required',
-            'kode_bidang' => 'required|array',  
+            'kode_subjenis' => 'required|array',    
         ]);
 
         try {   
-                $arrBidang = array();
+                $arrSubjenis = array();
                 if(count($request->generate)) {
                     for($i=0;$i<count($request->generate);$i++) {
                         if($request->generate[$i] == "true") {
-                            $arrBidang[] = array('kode_bidang'=>$request->kode_bidang[$i]);
+                            $arrSubJenis[] = array('kode_subjenis'=>$request->kode_subjenis[$i]);
                         }
                     }
                 }
@@ -90,7 +90,7 @@ class MitraController extends Controller
                         'pic'=>$request->pic,
                         'no_hp'=>$request->no_hp,
                         'status'=>$request->status,
-                        'arrbidang'=>$arrBidang
+                        'arrsub'=>$arrSubJenis
                     );
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'wisata-master/mitra',[
@@ -154,15 +154,15 @@ class MitraController extends Controller
             'pic' => 'required', 
             'no_hp' => 'required', 
             'status' => 'required',
-            'kode_bidang' => 'required|array',  
+            'kode_subjenis' => 'required|array',  
         ]);
 
         try {   
-                $arrBidang = array();
+                $arrSubjenis = array();
                 if(count($request->generate)) {
                     for($i=0;$i<count($request->generate);$i++) {
                         if($request->generate[$i] == "true") {
-                            $arrBidang[] = array('kode_bidang'=>$request->kode_bidang[$i]);
+                            $arrSubJenis[] = array('kode_subjenis'=>$request->kode_subjenis[$i]);
                         }
                     }
                 }
@@ -177,7 +177,7 @@ class MitraController extends Controller
                     'pic'=>$request->pic,
                     'no_hp'=>$request->no_hp,
                     'status'=>$request->status,
-                    'arrbidang'=>$arrBidang
+                    'arrsub'=>$arrSubJenis
                 );
 
                 $client = new Client();
