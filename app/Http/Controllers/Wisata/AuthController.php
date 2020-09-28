@@ -242,6 +242,7 @@ class AuthController extends Controller
                                 </a>
                                 <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
                                     <ul class='list-unstyled inner-level-menu'>";
+
                             }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
                                 $sub[$level_nol].= " 
                                 <li class=''>
@@ -256,16 +257,19 @@ class AuthController extends Controller
                                     <a href='#' class='a_link' data-href='$this_link'>
                                         <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
                                     </a>
-                                </li>";
+                                </li>
+                                </ul>
+                                </div>";
                             }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
                                 $sub[$level_nol].= " 
-                                <li class=''>
-                                    <a href='#' class='a_link' data-href='$this_link'>
-                                        <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
-                                    </a>
-                                </li>
+                                    <li class=''>
+                                        <a href='#' class='a_link' data-href='$this_link'>
+                                            <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                        </a>
+                                    </li>
+                                    </ul>
                                 </div>
-                                </ul>";
+                                ";
                             }
                         }
                     }
