@@ -26,3 +26,21 @@ Route::get('kontak/{id}', 'AdmGinas\KontakController@show');
 Route::post('kontak', 'AdmGinas\KontakController@store');
 Route::put('kontak/{id}', 'AdmGinas\KontakController@update');
 Route::delete('kontak/{id}', 'AdmGinas\KontakController@destroy');
+
+// Data Galeri //
+Route::get('galeri', 'AdmGinas\GaleriController@index');
+Route::get('galeri/{id}', 'AdmGinas\GaleriController@show');
+Route::post('galeri', 'AdmGinas\GaleriController@store');
+Route::post('galeri/{id}', 'AdmGinas\GaleriController@update');
+Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');
+
+//Menu Web
+Route::get('menu-web','AdmGinas\MenuWebController@index');
+Route::post('menu-web','AdmGinas\MenuWebController@store');
+Route::put('menu-web','AdmGinas\MenuWebController@update');
+Route::delete('menu-web','AdmGinas\MenuWebController@destroy');
+Route::get('menu-web-form','AdmGinas\MenuWebController@getForm');
+Route::post('menu-web-move','AdmGinas\MenuWebController@simpanMove');
+
+
+
