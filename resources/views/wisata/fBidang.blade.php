@@ -443,7 +443,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -493,7 +493,7 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }

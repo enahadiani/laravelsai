@@ -107,7 +107,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Mitra</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Jenis</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -141,9 +141,10 @@
                     <table id="table-data" style='width:100%'>
                         <thead>
                             <tr>
-                                <th width="20%">Kode</th>
-                                <th width="30%">Nama</th>
-                                <th width="38%">Alamat</th>                                
+                                <th width="30%">Kode</th>
+                                <th width="58%">Nama</th>                                
+                                <th style="display: none"></th>                                
+                                <th style="display: none"></th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -167,7 +168,6 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator mb-2"></div>
-
                     <!-- FORM BODY -->
                     <div class="card-body pt-3 form-body">
                         <div class="form-group row " id="row-id">
@@ -177,168 +177,40 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                       
                         <div class="form-group row  ">
-                            <label for="kode_mitra" class="col-md-2 col-sm-12 col-form-label">Kode</label>
+                            <label for="kode_jenis" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Mitra" id="kode_mitra" name="kode_mitra" required>                                
-                            </div>                                                      
+                                <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis" required>                                
+                            </div>
+                            
                         </div>
 
                         <div class="form-group row ">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama Mitra</label>
-                            <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama Mitra" id="nama" name="nama" required>
+                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
                             </div>
                             <div class="col-md-2 col-sm-12">
                             </div>                            
                         </div>
 
                         <div class="form-group row ">
-                            <label for="alamat" class="col-md-2 col-sm-12 col-form-label">Alamat</label>
-                            <div class="col-md-10 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Alamat Mitra" id="alamat" name="alamat" required>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-
-                        <div class="form-group row ">
-                            <label for="kode_camat" class="col-md-2 col-sm-12 col-form-label">Kecamatan</label>
+                            <label for="kode_bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_camat" name="kode_camat" required>
+                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" data-input="cbbl" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
-                                <label id="label_kode_camat" style="margin-top: 10px;"></label>
+                                <label id="label_kode_bidang" style="margin-top: 10px;"></label>
                             </div>
                         </div>
 
-                        <div class="form-group row  ">
-                            <label for="no_tel" class="col-md-2 col-sm-12 col-form-label">No Telpon</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>
-                            </div>                            
-                        </div>
-
-                        <div class="form-group row  ">
-                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">PIC</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" required>                                
-                            </div>
-                            
-                            <div class="col-md-2 col-sm-12">
-                            </div>
-
-                            <label for="no_hp" class="col-md-2 col-sm-12 col-form-label">HP PIC</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="HP PIC" id="no_hp" name="no_hp" required>
-                            </div>                            
-                        </div>
-
-                        <div class="form-group row  ">
-                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">Website</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Website" id="website" name="website" required>                                
-                            </div>
-                            
-                            <div class="col-md-2 col-sm-12">
-                            </div>
-
-                            <label for="email" class="col-md-2 col-sm-12 col-form-label">Email</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Email" id="email" name="email" required>
-                            </div>                            
-                        </div>
-
-                        <div class="form-group row">                            
-                            <label for="status" class="col-md-2 col-sm-12 col-form-label">Status</label>
-                            <div class="col-md-3 col-sm-12">                            
-                                <select class='form-control' id="status" name="status" required>
-                                <option value=''>--- Pilih Status ---</option>
-                                <option value='Bintang'>Bintang</option>
-                                <option value='NonBintang'>NonBintang</option>
-                                <option value='NonHotel'>NonHotel</option>                                
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#btambah" role="tab" aria-selected="true"><span class="hidden-xs-down">Bidang Wisata</span></a> </li>                                
-                        </ul>
-                        <div class="tab-content tabcontent-border">
-                            <div class="tab-pane active" id="btambah" role="tabpanel">
-                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                    <style>
-                                    th,td{
-                                        padding:8px !important;
-                                        vertical-align:middle !important;
-                                    }
-                                    </style>
-                                    <table class="table table-striped table-bordered table-condensed" id="table-btambah">
-                                        <thead>
-                                        <tr>
-                                        <th width="5%" class="text-center">No</th>
-                                        <th width="12%" class="text-center">Cek List</th>   
-                                        <th width="30%" class="text-center">Kode Sub Jenis</th>
-                                        <th width="53%" class="text-center">Nama Sub Jenis</th>                                                                                                                                   
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>                            
-                        </div>
                     </div>
                 </div>
             </div>
         </div> 
     </form>
     <!-- END FORM INPUT -->
-
-    <!-- MODAL HAPUS -->    
-    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content" style="border-radius:1rem">
-                <div class="modal-body text-center pb-0" style="border:none">
-                    <span id="modal-delete-id" style="display:none"></span>
-                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
-                    <h1 style="font-weight:bold">Hapus Data</h1>
-                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
-                </div>
-                <div class="modal-footer" style="border:none">
-                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Mitra</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL HAPUS -->
-
-    <!-- MODAL PREVIEW -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div class="modal-header" style="display:block">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Mitra <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
-                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
-                </div>
-                <div class="modal-body" id="content-preview" style="height:450px">
-                    <table id="table-preview" class="table no-border">
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL PREVIEW -->
 
     <!-- MODAL CBBL -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
@@ -357,92 +229,59 @@
     </div>
     <!-- END MODAL CBBL -->
 
+    <!-- MODAL HAPUS -->    
+    <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content" style="border-radius:1rem">
+                <div class="modal-body text-center pb-0" style="border:none">
+                    <span id="modal-delete-id" style="display:none"></span>
+                    <i class="simple-icon-trash" style="font-size:40px;display:block"></i>
+                    <h1 style="font-weight:bold">Hapus Data</h1>
+                    <p class="mt-4">Data akan terhapus secara permanen dan kamu tidak bisa mengembalikannya</p>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Jenis</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL HAPUS -->
+
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div class="modal-header" style="display:block">
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Jenis <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="btn btn-primary float-right ml-2" id="btn-delete2" >Hapus</button>
+                    <button type="button" class="btn btn-primary float-right" id="btn-edit2" >Edit</button>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL PREVIEW -->
+
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-
-    //HELPER FUNCTION//
-    function getKecamatan(kode) {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('wisata-master/kecamatan') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        var data = result.daftar;
-                        var filter = data.filter(data => data.kode_camat == kode);
-                        if(filter.length > 0) {
-                            $('#kode_camat').val(filter[0].kode_camat);
-                            $('#kode_camat').attr('value',filter[0].kode_camat);
-                            $('#label_kode_camat').text(filter[0].nama);
-                        } else {
-                            $('#kode_camat').val('');
-                            $('#label_kode_camat').text('');
-                            $('#kode_camat').focus();
-                        }
-                    }
-                }
-            }
-        });
-    }
-    //END HELPER FUNCTION//
-
-    // EVENT CHANGE CHECKBOX //
-    $('#table-btambah').on('click', '.checkbox-generate', function(){
-        var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
-        var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
-        var row = $(this).closest('tr');
-        if(row.hasClass('generate')){
-            row.removeClass('generate');
-        }else{
-            row.addClass('generate');
-        }
-        
-        if($('#'+checkbox).is(':checked')) {
-            $('#'+input).val(true);
-        }else{
-            $('#'+input).val(false);
-        }
-    });
-    // END EVENT CHANGE CHECKBOX //
-
-    // GET DATA BIDANG //
-    function getDataSubJenis() {
-        $.ajax({
-            type:'GET',
-            url: "{{ url('wisata-master/subjenis') }}",
-            dataType: 'json',
-            async:false,
-            success: function(result) {
-                var row = "";
-                var no  = 1;
-                if(result.status) {
-                    $('#table-btambah tbody').empty();
-                    for(var i=0;i<result.daftar.length;i++) {
-                        var data = result.daftar[i];
-                        row += "<tr>";
-                        row += "<td>"+no+"</td>";
-                        row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                        row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                        row += "<td>"+data.nama+"</td>";
-                        row += "</tr>";
-                        no++;
-                    }
-                    $('#table-btambah tbody').append(row);
-                }
-            }
-        });
-    }
-    // END GET DATA BIDANG //
   
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
@@ -451,6 +290,13 @@
     var scrollform = document.querySelector('.form-body');
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
+
+    // EVENT LISTENER //
+    $('#kode_bidang').change(function(){
+        var par = $(this).val();
+        getBidang(par);
+    });
+    // END EVENT LISTENER //
 
 
     //LIST DATA
@@ -461,7 +307,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('wisata-master/mitra') }}",
+            'url': "{{ url('wisata-master/jenis') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -474,12 +320,14 @@
             }
         },
         'columnDefs': [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': [2,3], "visible": false, "searchable": false },
         ],
         'columns': [
-            { data: 'kode_mitra' },
+            { data: 'kode_jenis' },
             { data: 'nama' },
-            { data: 'alamat' }
+            { data: 'kode_bidang' },
+            { data: 'nama_bidang'}            
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -507,7 +355,6 @@
             '</select>'
         }
     });
-
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $("#searchData").on("keyup", function (event) {
@@ -520,7 +367,55 @@
     });
     // END LIST DATA
 
-    $('#status').selectize();
+    // FUNCTION HELPER //
+    function getBidang(kode) {
+        $.ajax({
+        type: 'GET',
+        url: "{{ url('wisata-master/getBidang') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){
+            if(result.status){
+                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                    var data = result.daftar;
+                    var filter = data.filter(data => data.kode_bidang == kode);
+                    if(filter.length > 0) {
+                        $('#kode_bidang').val(filter[0].kode_bidang);
+                        $('#label_kode_bidang').text(filter[0].nama);
+                    } else {
+                        $('#kode_bidang').val('');
+                        $('#label_kode_bidang').text('');
+                        $('#kode_bidang').focus();
+                    }
+                }
+            }
+        }
+        });
+    }
+    // END FUNCTION HELPER //
+
+    // BUTTON TAMBAH
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Jenis');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#method').val('post');  
+        $('[id^=label]').html('');
+        $('input[data-input="cbbl"]').val('');      
+        $('#saku-datatable').hide();
+        $('#kode_jenis').attr('readonly', false);
+        $('#saku-form').show();
+    });
+    // END BUTTON TAMBAH
+    
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+    });
+    // END BUTTON KEMBALI
 
     //SHOW FILTER POP UP//
     function showFilter(param,target1,target2){
@@ -531,35 +426,35 @@
         $target2 = target2;
             
         switch(par){
-        case 'kode_camat': 
+            case 'kode_bidang':
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('wisata-master/kecamatan') }}";
+                var toUrl = "{{ url('wisata-master/getBidang') }}";
                     var columns = [
-                        { data: 'kode_camat' },
+                        { data: 'kode_bidang' },
                         { data: 'nama' }
                     ];
                     
-                    var judul = "Daftar Kecamatan";
+                    var judul = "Daftar Bidang";
                     var jTarget1 = "val";
                     var jTarget2 = "text";
                     $target = "#"+$target;
                     $target2 = "#"+$target2;
                     $target3 = "";
                 break;
-        }
+            }
 
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
+            var header_html = '';
+            var width = ["30%","70%"];
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+            }
 
-        var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
+            var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
 
-        $('#modal-search .modal-body').html(table);
+            $('#modal-search .modal-body').html(table);
 
-        var searchTable = $("#table-search").DataTable({
+            var searchTable = $("#table-search").DataTable({
                 sDom: '<"row view-filter"<"col-sm-12"<f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
                 ajax: {
                     "url": toUrl,
@@ -603,7 +498,7 @@
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                 if(jTarget1 == "val"){
                     $($target).val(kode);
-                    $($target).attr('value',kode);
+                    // $($target).attr('value',kode);
                 }else{
                     $($target).text(kode);
                 }
@@ -689,8 +584,9 @@
                     $('#modal-search').modal('hide');
                 }
             })
-    }
+        }
     //END SHOW FILTER POP UP//
+    
     //EVENT TO CALL FILTER POP UP//
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
@@ -699,37 +595,7 @@
         target2 = par2;
         showFilter(par,target1,target2);
     });
-    //ENDEVENT TO CALL FILTER POP UP//    
-    //EVENT CHANGE//
-    $('#kode_camat').change(function(){
-        var par = $(this).val();
-        getKecamatan(par);
-    });
-    //END EVENT CHANGE//
-
-    // BUTTON TAMBAH
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('#id_edit').val('');
-        $('#kode_camat').val('');
-        $('[id^=label]').html('');
-        $('#judul-form').html('Tambah Data Mitra');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('#method').val('post');
-        $('#kode_mitra').attr('readonly', false);        
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        getDataSubJenis();
-    });
-    // END BUTTON TAMBAH
-    
-    // BUTTON KEMBALI
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-    // END BUTTON KEMBALI
+    //ENDEVENT TO CALL FILTER POP UP//
 
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
@@ -739,10 +605,10 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "edit"){
-                var url = "{{ url('wisata-master/mitra') }}/"+id;
+                var url = "{{ url('wisata-master/jenis') }}/"+id;
                 var pesan = "updated";
             }else{
-                var url = "{{ url('wisata-master/mitra') }}";
+                var url = "{{ url('wisata-master/jenis') }}";
                 var pesan = "saved";
             }
 
@@ -771,12 +637,12 @@
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
-                        $('#kode_camat').val('');
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Mitra');
+                        $('#judul-form').html('Tambah Data Jenis');
                         $('#method').val('post');
-                        $('#kode_mitra').attr('readonly', false);
+                        $('input[data-input="cbbl"]').val('');
+                        $('#kode_jenis').attr('readonly', false);
                     
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
@@ -809,7 +675,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('wisata-master/mitra') }}/"+id,
+            url: "{{ url('wisata-master/jenis') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -821,12 +687,12 @@
                         'success'
                     );
                     
-                    showNotification("top", "center", "success",'Hapus Data','Data Mitra ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Jenis ('+id+') berhasil dihapus ');
                     $('#modal-delete-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -856,12 +722,11 @@
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
-        $('#table-btambah tbody').empty();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Mitra');
+        $('#judul-form').html('Edit Data Jenis');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/mitra') }}/" + id,
+            url: "{{ url('wisata-master/jenis') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -869,45 +734,16 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_mitra').attr('readonly', true);
-                    $('#kode_mitra').val(id);
-                    $('#id').val(id);                    
-                    $('#nama').val(result.data[0].nama);        
-                    $('#alamat').val(result.data[0].alamat);        
-                    $('#no_tel').val(result.data[0].no_tel);        
-                    $('#pic').val(result.data[0].pic);        
-                    $('#no_hp').val(result.data[0].no_hp);        
-                    $('#website').val(result.data[0].website);        
-                    $('#email').val(result.data[0].email);        
-                    $('#status')[0].selectize.setValue(result.data[0].status);
-                    getKecamatan(result.data[0].kecamatan);
-                    var row = '';
-                    var no = 1;
-                    for(var i=0;i<result.arrsub.length;i++){
-                        var data = result.arrsub[i];
-                        if(data.status == "CEK") {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        } else {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        }
-                        no++;
-                    }
-                    $('#table-btambah tbody').append(row);
+                    $('#kode_jenis').attr('readonly', true);
+                    $('#kode_jenis').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);   
+                    getBidang(result.data[0].kode_bidang);                                 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -916,9 +752,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_mitra,#nama').keydown(function(e){
+    $('#kode_jenis,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_mitra','nama','alamat','kecamatan','no_tel','pic','no_hp','website','email','status'];
+        var nxt = ['kode_jenis','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -937,51 +773,26 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode Mitra</td>
+                <td style='border:none'>Kode Jenis</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Mitra</td>
+                <td>Nama Jenis</td>
                 <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Kode Bidang</td>
+                <td>`+data.kode_bidang+`</td>
+            </tr>
+            <tr>
+                <td>Nama Bidang</td>
+                <td>`+data.nama_bidang+`</td>
             </tr>            
-            <tr>
-                <td>Alamat</td>
-                <td>`+data.alamat+`</td>
-            </tr>
-            <tr>
-                <td>Kecamatan</td>
-                <td>`+data.kecamatan+`</td>
-            </tr>
-            <tr>
-                <td>No Telpon</td>
-                <td>`+data.no_tel+`</td>
-            </tr>
-            <tr>
-                <td>Contact Person</td>
-                <td>`+data.pic+`</td>
-            </tr>
-            <tr>
-                <td>No HP</td>
-                <td>`+data.no_hp+`</td>
-            </tr>
-            <tr>
-                <td>Website</td>
-                <td>`+data.website+`</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>`+data.email+`</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>`+data.status+`</td>
-            </tr>
-
             `;
             $('#table-preview tbody').html(html);
             
@@ -1000,12 +811,11 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
-        $('#table-btambah tbody').empty();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Mitra');
+        $('#judul-form').html('Edit Data Jenis');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/mitra') }}/" + id,
+            url: "{{ url('wisata-master/jenis') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -1013,46 +823,17 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_mitra').attr('readonly', true);
-                    $('#kode_mitra').val(id);
-                    $('#id').val(id);                    
-                    $('#nama').val(result.data[0].nama);        
-                    $('#alamat').val(result.data[0].alamat);        
-                    $('#no_tel').val(result.data[0].no_tel);        
-                    $('#pic').val(result.data[0].pic);        
-                    $('#no_hp').val(result.data[0].no_hp);        
-                    $('#website').val(result.data[0].website);        
-                    $('#email').val(result.data[0].email);        
-                    $('#status')[0].selectize.setValue(result.data[0].status);
-                    getKecamatan(result.data[0].kecamatan);
-                    var row = '';
-                    var no = 1;
-                    for(var i=0;i<result.arrsub.length;i++){
-                        var data = result.arrsub[i];
-                        if(data.status == "CEK") {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        } else {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        }
-                        no++;
-                    }
-                    $('#table-btambah tbody').append(row);
+                    $('#kode_jenis').attr('readonly', true);
+                    $('#kode_jenis').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    getBidang(result.data[0].kode_bidang);                                        
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
