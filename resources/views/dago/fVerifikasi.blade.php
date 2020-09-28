@@ -1100,7 +1100,7 @@
                             }
                         }
 
-                        var saldo = hargapaket - bayarPaket_lain;
+                        var saldo = hargapaket - bayarPaket_lain - diskon;
                         var saldot = parseFloat(res.data.totTambah) - bayarTambah_lain - diskon;						 
                         var saldom = parseFloat(res.data.totDok) - bayarDok_lain;		
                         $('#saldo_paket').val(format_number(saldo));
