@@ -151,7 +151,7 @@
                                 <th width="15%">No Bukti</th>
                                 <th width="15%">Mitra</th>
                                 <th width="38%">Alamat</th>
-                                <th width="15%">Bidang</th>                                
+                                <th width="15%">SubJenis</th>                                
                                 <th width="10%">Periode</th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
@@ -222,13 +222,13 @@
                         </div>
 
                         <div class="form-group row ">
-                            <label for="kode_bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
+                            <label for="kode_subjenis" class="col-md-2 col-sm-12 col-form-label">SubJenis</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_bidang" name="kode_bidang" data-input="cbbl" required readonly>
+                                 <input class="form-control" type="text"  id="kode_subjenis" name="kode_subjenis" data-input="cbbl" required readonly>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
-                                <label id="label_kode_bidang" style="margin-top: 10px;"></label>
+                                <label id="label_kode_subjenis" style="margin-top: 10px;"></label>
                             </div>
                         </div>
                         <div class="form-group row ">
@@ -389,8 +389,8 @@
                             $('#kode_mitra').attr('value',filter[0].kode_mitra);
                             $('#label_kode_mitra').text(filter[0].nama);
                             $('#alamat').val(filter[0].alamat);
-                            $('#kode_bidang').val('')
-                            $('#label_kode_bidang').text('')
+                            $('#kode_subjenis').val('')
+                            $('#label_kode_subjenis').text('')
                         } else {
                             $('#kode_mitra').val('');
                             $('#label_kode_mitra').text('');
@@ -474,10 +474,37 @@
             }
             });
         }
-        function getBidang(kodeMitra,kodeBidang) {
+        // function getBidang(kodeMitra,kodeBidang) {
+        //     $.ajax({
+        //     type: 'GET',
+        //     url: "{{ url('wisata-master/getMitraBid') }}",
+        //     dataType: 'json',
+        //     data:{'param':kodeMitra},
+        //     async:false,
+        //     success:function(result){
+        //         if(result.status){
+        //             if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+        //                 var data = result.daftar;
+        //                 var filter = data.filter(data => data.kode_bidang == kodeBidang);
+        //                 if(filter.length > 0) {
+        //                     $('#kode_bidang').val(filter[0].kode_bidang);
+        //                     $('#kode_bidang').attr('value',filter[0].kode_bidang);
+        //                     $('#label_kode_bidang').text(filter[0].nama);
+        //                 } else {
+        //                     $('#kode_bidang').val('');
+        //                     $('#label_kode_bidang').text('');
+        //                     $('#kode_bidang').focus();
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     });
+        // }
+
+        function getSubjenis(kodeMitra,kodeSub) {
             $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/getMitraBid') }}",
+            url: "{{ url('wisata-master/getMitraSub') }}",
             dataType: 'json',
             data:{'param':kodeMitra},
             async:false,
@@ -485,28 +512,29 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         var data = result.daftar;
-                        var filter = data.filter(data => data.kode_bidang == kodeBidang);
+                        var filter = data.filter(data => data.kode_subjenis == kodeSub);
                         if(filter.length > 0) {
-                            $('#kode_bidang').val(filter[0].kode_bidang);
-                            $('#kode_bidang').attr('value',filter[0].kode_bidang);
-                            $('#label_kode_bidang').text(filter[0].nama);
+                            $('#kode_subjenis').val(filter[0].kode_subjenis);
+                            $('#kode_subjenis').attr('value',filter[0].kode_subjenis);
+                            $('#label_kode_subjenis').text(filter[0].nama);
                         } else {
-                            $('#kode_bidang').val('');
-                            $('#label_kode_bidang').text('');
-                            $('#kode_bidang').focus();
+                            $('#kode_subjenis').val('');
+                            $('#label_kode_subjenis').text('');
+                            $('#kode_subjenis').focus();
                         }
                     }
                 }
             }
             });
         }
+
         function redirectFormTambah() {
             $('input[data-input="cbbl"]').val('');
             $('[id^=label]').html('');
             $('#row-id').hide();
             $('#tgl_kunjungan').attr('readonly', false);
             $('#kode_mitra').attr('readonly', false);
-            $('#kode_bidang').attr('readonly', true);
+            $('#kode_subjenis').attr('readonly', true);
             $('.search-item2').show();
             $('.selectize-control').not('.swal2-select').show();
             $('#table-btambah tbody').empty();
@@ -565,7 +593,7 @@
                 { data: 'no_bukti' },
                 { data: 'nama_mitra' },
                 { data: 'alamat' },
-                { data: 'nama_bidang' },
+                { data: 'nama_subjenis' },
                 { data: function(data) {
                     return NameBulan(parseInt(data.bulan)) +" "+ data.tahun
                 } }
@@ -614,11 +642,11 @@
             $('[id^=label]').html('');
             $('input[data-input="cbbl"]').val('');;
             $('#kode_mitra').attr('value','');
-            $('#kode_bidang').attr('value','');
+            $('#kode_subjenis').attr('value','');
             $('#row-id').hide();
             $('#tgl_kunjungan').attr('readonly', false);
             $('#kode_mitra').attr('readonly', false);
-            $('#kode_bidang').attr('readonly', true);
+            $('#kode_subjenis').attr('readonly', true);
             $('.search-item2').show();
             $('.selectize-control').show();
             $('#table-btambah tbody').empty();
@@ -675,16 +703,16 @@
                     $target2 = "#"+$target2;
                     $target3 = "";
                 break;
-            case 'kode_bidang':
+            case 'kode_subjenis':
                 header = ['Kode', 'Nama'];
                 par = mitra;
-                var toUrl = "{{ url('wisata-master/getMitraBid') }}";
+                var toUrl = "{{ url('wisata-master/getMitraSub') }}";
                     var columns = [
-                        { data: 'kode_bidang' },
+                        { data: 'kode_subjenis' },
                         { data: 'nama' }
                     ];
                     
-                    var judul = "Daftar Bidang";
+                    var judul = "Daftar SubJenis";
                     var jTarget1 = "val";
                     var jTarget2 = "text";
                     $target = "#"+$target;
@@ -958,8 +986,8 @@
                     <td>`+data.alamat+`</td>
                 </tr>
                 <tr>
-                    <td>Bidang</td>
-                    <td>`+data.nama_bidang+`</td>
+                    <td>SubJenis</td>
+                    <td>`+data.nama_subjenis+`</td>
                 </tr>
                 <tr>
                     <td>Periode</td>
@@ -999,7 +1027,7 @@
                         $('#method').val('put');
                         $('#tgl_kunjungan').attr('readonly', true);
                         $('#kode_mitra').attr('readonly', true);
-                        $('#kode_bidang').attr('readonly', true);
+                        $('#kode_subjenis').attr('readonly', true);
                         $('#bulan-input-text').show();
                         $('#tahun-input-text').show();
                         $('#bulan').hide();
@@ -1017,7 +1045,7 @@
                         $('#tahun-input-text').val(result.data[0].tahun);        
                         $('#bulan-input-text').val(NameBulan(result.data[0].bulan));
                         getMitra(result.data[0].kode_mitra);
-                        getBidang(result.data[0].kode_mitra,result.data[0].kode_bidang);
+                        getSubjenis(result.data[0].kode_mitra,result.data[0].kode_subjenis);
 
                         var row = '';
                         var no = 1;
@@ -1133,7 +1161,7 @@
                         $('#method').val('put');
                         $('#tgl_kunjungan').attr('readonly', true);
                         $('#kode_mitra').attr('readonly', true);
-                        $('#kode_bidang').attr('readonly', true);
+                        $('#kode_subjenis').attr('readonly', true);
                         $('#bulan-input-text').show();
                         $('#tahun-input-text').show();
                         $('#bulan').hide();
@@ -1151,7 +1179,7 @@
                         $('#tahun-input-text').val(result.data[0].tahun);        
                         $('#bulan-input-text').val(NameBulan(result.data[0].bulan));
                         getMitra(result.data[0].kode_mitra);
-                        getBidang(result.data[0].kode_mitra,result.data[0].kode_bidang);
+                        getSubjenis(result.data[0].kode_mitra,result.data[0].kode_subjenis);
 
                         var row = '';
                         var no = 1;

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 //Helper//
 Route::get('getMitra', 'Wisata\HelperController@getMitra');
 Route::get('getTglServer', 'Wisata\HelperController@getTglServer');
-Route::get('getMitraBid', 'Wisata\HelperController@getMitraBid');
+Route::get('getMitraSub', 'Wisata\HelperController@getMitraSub');
 Route::get('getBidang', 'Wisata\HelperController@getBidang');
 Route::get('getJenis', 'Wisata\HelperController@getJenis');
 Route::get('getTahunList', 'Wisata\HelperController@getTahunList');

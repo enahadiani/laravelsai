@@ -58,7 +58,7 @@ class KunjunganController extends Controller
         $this->validate($request, [
             'tgl_kunjungan' => 'required',
             'kode_mitra' => 'required',          
-            'kode_bidang' => 'required',          
+            'kode_subjenis' => 'required',          
             'tahun' => 'required',          
             'bulan' => 'required',         
             'tanggal' => 'required|array',         
@@ -81,7 +81,7 @@ class KunjunganController extends Controller
                 $data = array(
                     'tanggal' => $tanggal,
                     'kode_mitra' => $request->kode_mitra,
-                    'kode_bidang' => $request->kode_bidang,
+                    'kode_subjenis' => $request->kode_subjenis,
                     'tahun' => $request->tahun,
                     'bulan' => $request->bulan,
                     'arrtgl' => $arrTgl
@@ -141,7 +141,7 @@ class KunjunganController extends Controller
         $this->validate($request, [
             'tgl_kunjungan' => 'required',
             'kode_mitra' => 'required',          
-            'kode_bidang' => 'required',          
+            'kode_subjenis' => 'required',          
             'tahun' => 'required',          
             'bulan' => 'required',         
             'tanggal' => 'required|array',         
@@ -165,7 +165,7 @@ class KunjunganController extends Controller
                 'tanggal' => $tanggal,
                 'no_bukti'=>$request->no_bukti,
                 'kode_mitra' => $request->kode_mitra,
-                'kode_bidang' => $request->kode_bidang,
+                'kode_subjenis' => $request->kode_subjenis,
                 'tahun' => $request->tahun,
                 'bulan' => $request->bulan,
                 'arrtgl' => $arrTgl
