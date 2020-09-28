@@ -72,11 +72,11 @@
             return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
         }
 
-        public function getMitraBid(Request $request) {
+        public function getMitraSub(Request $request) {
             $kode = $request->param;
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'wisata-master/getMitraBid/'.$kode,[
+            $response = $client->request('GET',  config('api.url').'wisata-master/getMitraSub/'.$kode,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',
