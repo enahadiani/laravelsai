@@ -34,5 +34,13 @@ Route::post('galeri', 'AdmGinas\GaleriController@store');
 Route::post('galeri/{id}', 'AdmGinas\GaleriController@update');
 Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');
 
+//Menu Web
+Route::get('menu-web','AdmGinas\MenuWebController@index');
+Route::post('menu-web','AdmGinas\MenuWebController@store');
+Route::put('menu-web','AdmGinas\MenuWebController@update');
+Route::delete('menu-web','AdmGinas\MenuWebController@destroy');
+Route::get('menu-web-form','AdmGinas\MenuWebController@getForm');
+Route::post('menu-web-move','AdmGinas\MenuWebController@simpanMove');
+
 
 
