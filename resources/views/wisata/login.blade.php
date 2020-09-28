@@ -86,7 +86,8 @@
                     <div class="card auth-card" style="box-shadow:none">
                         <div class="form-side">
                             <a href="#">
-                                <span class="logo-single"></span>
+                                <img src="{{ asset('img/logo-wisata.png') }}" height="90" style="margin-bottom: 30px;" />
+                                {{-- <span class="logo-single"></span> --}}
                             </a>
                             <h6 class="mb-0">Masuk</h6>
                             <h6 class="mb-4">Selamat Datang

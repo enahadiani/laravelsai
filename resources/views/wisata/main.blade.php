@@ -328,7 +328,8 @@
 
 
         <a class="navbar-logo" href="#">
-            <span class="logo d-none d-xs-block"></span>
+            {{-- <span class="logo d-none d-xs-block"></span> --}}
+            <img class="d-none d-xs-block" src="{{ asset('img/logo-wisata.png') }}" height="50" />
             <span class="logo-mobile d-block d-xs-none"></span>
         </a>
 
