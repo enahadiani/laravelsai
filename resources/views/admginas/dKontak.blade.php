@@ -712,7 +712,7 @@
         'columns': [
             { data: 'id' },
             { data: 'tanggal' },
-            { data: 'status' },
+            { data: 'sts' },
             { data: 'tgl_input' },
         ],
         order:[[3,'desc']],
@@ -1026,6 +1026,10 @@
             <tr>
                 <td>Longitude</td>
                 <td>`+data.longitude+`</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>`+data.sts+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);

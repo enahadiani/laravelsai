@@ -70,7 +70,7 @@ class KontakController extends Controller
 
         try {   
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admginas-master/konten',[
+            $response = $client->request('POST',  config('api.url').'admginas-master/kontak',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
