@@ -622,7 +622,12 @@
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-primary');
                 var title = (data.title != undefined ? data.title : 'Tersimpan');
-                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
+                console.log(data.id);
+                if(data.id == null){
+                    var text = (data.text != undefined ? data.text : 'Data berhasil tersimpan</b>');
+                }else{
+                    var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
+                }
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
                 
@@ -730,12 +735,22 @@
                 break;
                 case 'simpan':
                     if (result.value) {
-                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                        if(data.id == null){
+                            showNotification("top", "center", "success",'Simpan Data','Data berhasil disimpan ');
+                        }else{
+
+                            showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                        }
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         //
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
-                        showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                        if(data.id == null){
+                            showNotification("top", "center", "success",'Simpan Data','Data berhasil disimpan ');
+                        }else{
+
+                            showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                        }
                     }
                 break;
                 case 'keluar':
