@@ -92,6 +92,46 @@
             return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
         }
 
+        public function getBidang(Request $request) {
+            $kode = $request->param;
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getBidang',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
+        public function getJenis(Request $request) {
+            $kode = $request->param;
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'wisata-master/getJenis',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['daftar' => $data['success']['data'], 'status' => true], 200);
+        }
+
         public function getTahunList() {
 
             $client = new Client();

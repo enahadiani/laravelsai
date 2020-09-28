@@ -107,7 +107,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Bidang</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Sub Jenis</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -143,6 +143,8 @@
                             <tr>
                                 <th width="30%">Kode</th>
                                 <th width="58%">Nama</th>                                
+                                <th style="display: none"></th>                                
+                                <th style="display: none"></th>                                
                                 <th width="12%" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -176,9 +178,9 @@
                             </div>
                         </div>
                         <div class="form-group row  ">
-                            <label for="kode_bidang" class="col-md-2 col-sm-12 col-form-label">Kode</label>
+                            <label for="kode_subjenis" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Bidang" id="kode_bidang" name="kode_bidang" required>                                
+                                <input class="form-control" type="text" placeholder="Kode Sub Jenis" id="kode_subjenis" name="kode_subjenis" required>                                
                             </div>
                             
                         </div>
@@ -192,12 +194,40 @@
                             </div>                            
                         </div>
 
+                        <div class="form-group row ">
+                            <label for="kode_jenis" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_jenis" name="kode_jenis" data-input="cbbl" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>
+                            <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
+                                <label id="label_kode_jenis" style="margin-top: 10px;"></label>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div> 
     </form>
     <!-- END FORM INPUT -->
+
+    <!-- MODAL CBBL -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;margin-bottom:10px"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL CBBL -->
 
     <!-- MODAL HAPUS -->    
     <div class="modal" tabindex="-1" role="dialog" id="modal-delete">
@@ -211,7 +241,7 @@
                 </div>
                 <div class="modal-footer" style="border:none">
                     <button type="button" class="btn btn-light" data-dismiss="modal" >Batal</button>
-                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Bidang</button>
+                    <button type="button" class="btn btn-primary" id="btn-ya" style="background:#FC3030">Hapus Data Sub Jenis</button>
                 </div>
             </div>
         </div>
@@ -223,7 +253,7 @@
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div class="modal-header" style="display:block">
-                    <h6 class="modal-title" style="position: absolute;">Preview Data Bidang <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
+                    <h6 class="modal-title" style="position: absolute;">Preview Data Jenis <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -261,6 +291,12 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
 
+    // EVENT LISTENER //
+    $('#kode_jenis').change(function(){
+        var par = $(this).val();
+        getJenis(par);
+    });
+    // END EVENT LISTENER //
 
     //LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -270,7 +306,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('wisata-master/bidang') }}",
+            'url': "{{ url('wisata-master/subjenis') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -283,11 +319,14 @@
             }
         },
         'columnDefs': [
-            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': [2,3], "visible": false, "searchable": false },
         ],
         'columns': [
-            { data: 'kode_bidang' },
-            { data: 'nama' }            
+            { data: 'kode_subjenis' },
+            { data: 'nama' },
+            { data: 'kode_jenis' },
+            { data: 'nama_jenis'}            
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
@@ -327,17 +366,45 @@
     });
     // END LIST DATA
 
+    // FUNCTION HELPER //
+    function getJenis(kode) {
+        $.ajax({
+        type: 'GET',
+        url: "{{ url('wisata-master/getJenis') }}",
+        dataType: 'json',
+        async:false,
+        success:function(result){
+            if(result.status){
+                if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                    var data = result.daftar;
+                    var filter = data.filter(data => data.kode_jenis == kode);
+                    if(filter.length > 0) {
+                        $('#kode_jenis').val(filter[0].kode_jenis);
+                        $('#label_kode_jenis').text(filter[0].nama);
+                    } else {
+                        $('#kode_jenis').val('');
+                        $('#label_kode_jenis').text('');
+                        $('#kode_jenis').focus();
+                    }
+                }
+            }
+        }
+        });
+    }
+    // END FUNCTION HELPER //
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Bidang');
+        $('#judul-form').html('Tambah Data Sub Jenis');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_bidang').attr('readonly', false);        
+        $('[id^=label]').html('');
+        $('input[data-input="cbbl"]').val('');        
         $('#saku-datatable').hide();
+        $('#kode_subjenis').attr('readonly', false);
         $('#saku-form').show();
     });
     // END BUTTON TAMBAH
@@ -349,6 +416,186 @@
     });
     // END BUTTON KEMBALI
 
+    //SHOW FILTER POP UP//
+    function showFilter(param,target1,target2){
+        var par = param;
+        var modul = '';
+        var header = [];
+        $target = target1;
+        $target2 = target2;
+            console.log({$target, $target2})
+        switch(par){
+            case 'kode_jenis':
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('wisata-master/getJenis') }}";
+                    var columns = [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ];
+                    
+                    var judul = "Daftar Jenis";
+                    var jTarget1 = "val";
+                    var jTarget2 = "text";
+                    $target = "#"+$target;
+                    $target2 = "#"+$target2;
+                    $target3 = "";
+                break;
+            }
+
+            var header_html = '';
+            var width = ["30%","70%"];
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+            }
+
+            var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
+
+            $('#modal-search .modal-body').html(table);
+
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": {'param':par},
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search').on('click','.check-item',function(){
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    // $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
+            });
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode).change();
+                        $($target).attr('value',kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    console.log($target3);
+                    $('#modal-search').modal('hide');
+                }
+            });
+
+            $(document).keydown(function(e) {
+                if (e.keyCode == 40){ //arrow down
+                    var tr = searchTable.$('tr.selected');
+                    tr.removeClass('selected');
+                    tr.next().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+                if (e.keyCode == 38){ //arrow up
+                    
+                    var tr = searchTable.$('tr.selected');
+                    searchTable.$('tr.selected').removeClass('selected');
+                    tr.prev().addClass('selected');
+                    // tr = searchTable.$('tr.selected');
+
+                }
+
+                if (e.keyCode == 13){
+                    var kode = $('tr.selected').find('td:nth-child(1)').text();
+                    var nama = $('tr.selected').find('td:nth-child(2)').text();
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $($target).text(kode);
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else{
+                        $($target2).text(nama);
+                    }
+                    
+                    if($target3 != ""){
+                        $($target3).text(nama);
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            })
+        }
+    //END SHOW FILTER POP UP//
+    
+    //EVENT TO CALL FILTER POP UP//
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+    //ENDEVENT TO CALL FILTER POP UP//
+
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
@@ -357,10 +604,10 @@
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
             if(parameter == "edit"){
-                var url = "{{ url('wisata-master/bidang') }}/"+id;
+                var url = "{{ url('wisata-master/subjenis') }}/"+id;
                 var pesan = "updated";
             }else{
-                var url = "{{ url('wisata-master/bidang') }}";
+                var url = "{{ url('wisata-master/subjenis') }}";
                 var pesan = "saved";
             }
 
@@ -391,9 +638,10 @@
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Bidang');
+                        $('#judul-form').html('Tambah Data Sub Jenis');
                         $('#method').val('post');
-                        $('#kode_bidang').attr('readonly', false);
+                        $('input[data-input="cbbl"]').val('');
+                        $('#kode_subjenis').attr('readonly', false);
                     
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
@@ -426,7 +674,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('wisata-master/bidang') }}/"+id,
+            url: "{{ url('wisata-master/subjenis') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -438,7 +686,7 @@
                         'success'
                     );
                     
-                    showNotification("top", "center", "success",'Hapus Data','Data Bidang ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Sub Jenis ('+id+') berhasil dihapus ');
                     $('#modal-delete-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -474,10 +722,10 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Bidang');
+        $('#judul-form').html('Edit Data Sub Jenis');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/bidang') }}/" + id,
+            url: "{{ url('wisata-master/subjenis') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -485,10 +733,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_bidang').attr('readonly', true);
-                    $('#kode_bidang').val(id);
+                    $('#kode_subjenis').attr('readonly', true);
+                    $('#kode_subjenis').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);                                    
+                    $('#nama').val(result.data[0].nama);   
+                    getJenis(result.data[0].kode_jenis);                                 
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -502,9 +751,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_bidang,#nama').keydown(function(e){
+    $('#kode_jenis,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_bidang','nama'];
+        var nxt = ['kode_jenis','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -528,12 +777,20 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode Bidang</td>
+                <td style='border:none'>Kode Jenis</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Bidang</td>
+                <td>Nama Jenis</td>
                 <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Kode Jenis</td>
+                <td>`+data.kode_jenis+`</td>
+            </tr>
+            <tr>
+                <td>Nama Jenis</td>
+                <td>`+data.nama_jenis+`</td>
             </tr>            
             `;
             $('#table-preview tbody').html(html);
@@ -544,7 +801,7 @@
     });
 
     $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-delete-id').text();
+        var id = $('#modal-preview-id').text();
         $('#modal-preview').modal('hide');
         $('#modal-delete-id').text(id);
         $('#modal-delete').modal('show');
@@ -554,10 +811,10 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Bidang');
+        $('#judul-form').html('Edit Data Sub Jenis');
         $.ajax({
             type: 'GET',
-            url: "{{ url('wisata-master/bidang') }}/" + id,
+            url: "{{ url('wisata-master/subjenis') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -565,10 +822,11 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_bidang').attr('readonly', true);
-                    $('#kode_bidang').val(id);
+                    $('#kode_subjenis').attr('readonly', true);
+                    $('#kode_subjenis').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);                                        
+                    $('#nama').val(result.data[0].nama);
+                    getJenis(result.data[0].kode_jenis);                                        
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

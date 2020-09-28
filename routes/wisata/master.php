@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Session;
 Route::get('getMitra', 'Wisata\HelperController@getMitra');
 Route::get('getTglServer', 'Wisata\HelperController@getTglServer');
 Route::get('getMitraBid', 'Wisata\HelperController@getMitraBid');
+Route::get('getBidang', 'Wisata\HelperController@getBidang');
+Route::get('getJenis', 'Wisata\HelperController@getJenis');
 Route::get('getTahunList', 'Wisata\HelperController@getTahunList');
 Route::get('getJumlahTgl/{tahun}/{bulan}', 'Wisata\HelperController@getJumlahTgl');
 
-// Data Vendor //
+// Data Bidang //
 Route::get('bidang', 'Wisata\BidangController@index');
 Route::get('bidang/{id}', 'Wisata\BidangController@getData');
 Route::post('bidang', 'Wisata\BidangController@store');
@@ -37,3 +39,17 @@ Route::get('kecamatan/{id}', 'Wisata\KecamatanController@getData');
 Route::post('kecamatan', 'Wisata\KecamatanController@store');
 Route::put('kecamatan/{id}', 'Wisata\KecamatanController@update');
 Route::delete('kecamatan/{id}', 'Wisata\KecamatanController@delete');
+
+// Data Jenis //
+Route::get('jenis', 'Wisata\JenisController@index');
+Route::get('jenis/{id}', 'Wisata\JenisController@getData');
+Route::post('jenis', 'Wisata\JenisController@store');
+Route::put('jenis/{id}', 'Wisata\JenisController@update');
+Route::delete('jenis/{id}', 'Wisata\JenisController@delete');
+
+// Data Jenis //
+Route::get('subjenis', 'Wisata\SubJenisController@index');
+Route::get('subjenis/{id}', 'Wisata\SubJenisController@getData');
+Route::post('subjenis', 'Wisata\SubJenisController@store');
+Route::put('subjenis/{id}', 'Wisata\SubJenisController@update');
+Route::delete('subjenis/{id}', 'Wisata\SubJenisController@delete');
