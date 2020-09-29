@@ -28,6 +28,8 @@ class WebController extends Controller
                 'loc' => $details->loc,
                 'region' => $details->region,
                 'negara' => $details->country,
+                'kode_lokasi' => '22',
+                'kode_pp' => '-',
                 'page' => 'Home'
             );
             $response = $client->request('POST',  config('api.url').'webginas/lab-log/webjava',[
