@@ -29,7 +29,7 @@ class WebController extends Controller
                 'negara' => $details->country,
                 'page' => 'Home'
             );
-            $response = $client->request('POST',  config('api.url').'webginas/lab-log',[
+            $response = $client->request('POST',  config('api.url').'webginas/lab-log/webginas',[
                 'form_params' => $ins
             ]);
         }

@@ -17,6 +17,7 @@ class WebController extends Controller
         $agen = getenv('HTTP_USER_AGENT');
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
         if($agen != false){
+            $client = new Client();
             $ins = array(
                 'nik'=>'visitor',
                 'tanggal' => date('Y-m-d H:i:s'),
@@ -28,7 +29,7 @@ class WebController extends Controller
                 'negara' => $details->country,
                 'page' => 'Home'
             );
-            $response = $client->request('POST',  config('api.url').'webginas/lab-log',[
+            $response = $client->request('POST',  config('api.url').'webginas/lab-log/webjava',[
                 'form_params' => $ins
             ]);
         }
