@@ -18,6 +18,7 @@ class WebController extends Controller
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
         if($agen != false){
             $client = new Client();
+            date_default_timezone_set('Asia/Jakarta');
             $ins = array(
                 'nik'=>'visitor',
                 'tanggal' => date('Y-m-d H:i:s'),
