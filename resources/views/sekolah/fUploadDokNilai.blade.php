@@ -362,6 +362,15 @@
                                 <input class="form-control" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
                             </div>
                         </div>
+                        <div class="form-group row ">
+                            <label for="kode_kd" class="col-md-2 col-sm-2 col-form-label">Kompetensi</label>
+                            <div class="col-md-3 col-sm-9" >
+                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required readonly>
+                            </div>
+                            <div class="col-md-7 col-sm-9 px-0" >
+                                <input id="label_kode_kd" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
+                        </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
                             <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a> </li> -->
@@ -634,6 +643,8 @@
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#label_kode_jenis').val(result.data[0].nama_jenis);
+                    $('#kode_kd').val(result.data[0].kode_kd);
+                    $('#label_kode_kd').val(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_dokumen.length > 0){

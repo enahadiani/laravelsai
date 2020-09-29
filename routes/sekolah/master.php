@@ -96,3 +96,9 @@ Route::get('hari-detail', 'Sekolah\HariController@show');
 Route::post('hari', 'Sekolah\HariController@store');
 Route::put('hari', 'Sekolah\HariController@update');
 Route::delete('hari', 'Sekolah\HariController@destroy');
+
+Route::get('kd', 'Sekolah\KdController@index');
+Route::get('kd-detail', 'Sekolah\KdController@show');
+Route::post('kd', 'Sekolah\KdController@store');
+Route::put('kd', 'Sekolah\KdController@update');
+Route::delete('kd', 'Sekolah\KdController@destroy');
