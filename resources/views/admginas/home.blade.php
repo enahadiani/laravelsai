@@ -48,7 +48,8 @@
             <div class="row">
                 <div class="col-md-12 mb-0">
                     <div class="card">
-                        <div class="position-absolute card-top-buttons">
+
+                        <!-- <div class="position-absolute card-top-buttons">
 
                             <button class="btn btn-header-light icon-button" type="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,14 +60,29 @@
                                 <a class="dropdown-item" href="#">Sales</a>
                                 <a class="dropdown-item" href="#">Orders</a>
                                 <a class="dropdown-item" href="#">Refunds</a>
-                            </div>
+                            </div> 
+                            
 
-                        </div>
+                        </div> -->
 
                         <div class="card-body" style="height:350px">
-                            <h5 class="card-title">Trafik</h5>
+                            <h5 class="card-title" style="position:absolute">Trafik</h5>
+                            <ul role="tablist" style="border: none;float:right;margin-bottom:10px" class="nav nav-tabs col-md-3 col-sm-12 px-0 justify-content-end">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#day" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Day</b></span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#month" role="tab" aria-selected="false"><span class="hidden-xs-down"><b>Month</b></span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#year" role="tab" aria-selected="true"><span class="hidden-xs-down"><b>Year</b></span></a> </li>
+                            </ul>
                             <div class="dashboard-line-chart chart" style="height:250px">
-                                <canvas id="trafikChart"></canvas>
+                                <div class="tab-content tabcontent-border p-0">
+                                    <div class="tab-pane active" id="day" role="tabpanel">
+                                        <canvas id="trafikChart"></canvas>
+                                    </div>
+                                    <div class="tab-pane" id="month" role="tabpanel">
+                                        
+                                    </div>
+                                    <div class="tab-pane" id="year" role="tabpanel">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
