@@ -2,6 +2,32 @@
 .form-group{
     margin-bottom:15px !important;
 }
+.hidden{
+    display:none;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+#print-area
+{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+#print-area h3, #print-area h6
+{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.datepicker{
+    padding: inherit !important;
+}
+
+@media print{
+    #print-area
+    {
+        background: white;color: black !important;
+        padding:0 50px;
+    }
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
@@ -268,10 +294,15 @@
                 </div>
             <!--</body></html>-->
             `;
-            w.document.write(html);
-            setTimeout(function(){
-                w.print();
-                w.close();
-            }, 1500);
+            // w.document.write(html);
+            // setTimeout(function(){
+            //     w.print();
+            //     w.close();
+            // }, 1500);
+        $('#print-area').printThis({
+            importCSS: true,            // import parent page css
+            importStyle: true,         // import style tags
+            printContainer: true,       // print outer container/$.selector
+        });
     });
     </script>
