@@ -782,6 +782,7 @@
             if(parameter == "edit"){
                 var url = "{{ url('wisata-master/mitra') }}/"+id;
                 var pesan = "updated";
+                console.log('edit')
             }else{
                 var url = "{{ url('wisata-master/mitra') }}";
                 var pesan = "saved";
@@ -912,7 +913,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
                     $('#id').val(id);                    
@@ -922,7 +923,9 @@
                     $('#pic').val(result.data[0].pic);        
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
-                    $('#email').val(result.data[0].email);        
+                    $('#email').val(result.data[0].email);  
+                    $('#coor_x').val(result.data[0].coor_x);        
+                    $('#coor_y').val(result.data[0].coor_y);      
                     $('#status')[0].selectize.setValue(result.data[0].status);
                     getKecamatan(result.data[0].kecamatan);
                     var row = '';
@@ -947,6 +950,22 @@
                         no++;
                     }
                     $('#table-btambah tbody').append(row);
+                    
+                    if(result.arrdok.length > 0) {
+                        var no = 1;
+                        var row = '';
+                        for(var i=0;i<result.arrdok.length;i++) {
+                            var data = result.arrdok[i];
+                            row += "<tr class='row-upload'>";
+                            row += "<td class='no-upload text-center'>"+no+"</td>";
+                            row += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size:18px;'><i class='simple-icon-trash'></i></a>&nbsp;<a class='download-item' title='Download' style='cursor:pointer; font-size:18px;' href='https://api.simkug.com/api/wisata-auth/storage/"+data.file_dok+"' target='_blank'><i class='iconsminds-data-download'></i></a></td>";
+                            row += "<td><span>"+data.nama+"</span><input type='hidden' name='nama_file[]' value='"+data.file_dok+"' class='inp-file_dok' readonly></td>";
+                            row += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                            row += "</tr>";
+                        }
+                        $('#upload-grid tbody').append(row);
+                    }
+
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -1068,6 +1087,8 @@
                     $('#no_hp').val(result.data[0].no_hp);        
                     $('#website').val(result.data[0].website);        
                     $('#email').val(result.data[0].email);        
+                    $('#coor_x').val(result.data[0].coor_x);        
+                    $('#coor_y').val(result.data[0].coor_y);        
                     $('#status')[0].selectize.setValue(result.data[0].status);
                     getKecamatan(result.data[0].kecamatan);
                     var row = '';
@@ -1092,6 +1113,22 @@
                         no++;
                     }
                     $('#table-btambah tbody').append(row);
+
+                    if(result.arrdok.length > 0) {
+                        var no = 1;
+                        var row = '';
+                        for(var i=0;i<result.arrdok.length;i++) {
+                            var data = result.arrdok[i];
+                            row += "<tr class='row-upload'>";
+                            row += "<td class='no-upload text-center'>"+no+"</td>";
+                            row += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size:18px;'><i class='simple-icon-trash'></i></a>&nbsp;<a class='download-item' title='Download' style='cursor:pointer; font-size:18px;' href='https://api.simkug.com/api/wisata-auth/storage/"+data.file_dok+"' target='_blank'><i class='iconsminds-data-download'></i></a></td>";
+                            row += "<td><span>"+data.nama+"</span><input type='hidden' name='nama_file[]' value='"+data.file_dok+"' class='inp-file_dok' readonly></td>";
+                            row += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                            row += "</tr>";
+                        }
+                        $('#upload-grid tbody').append(row);
+                    }
+                    
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
@@ -1111,9 +1148,9 @@
         var input = "";
         input += "<tr class='row-upload'>";
         input += "<td class='no-upload text-center'>"+no+"</td>";
-        input += "<td class='text-center'><a class='hapus-item' style='cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;</td>";
+        input += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size=18px;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;</td>";
         input += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
-        input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+        input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
         input += "</tr>";
         $('#upload-grid tbody').append(input);
     });

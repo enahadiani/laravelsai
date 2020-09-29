@@ -23,7 +23,7 @@ Route::delete('bidang/{id}', 'Wisata\BidangController@delete');
 Route::get('mitra', 'Wisata\MitraController@index');
 Route::get('mitra/{id}', 'Wisata\MitraController@getData');
 Route::post('mitra', 'Wisata\MitraController@store');
-Route::put('mitra/{id}', 'Wisata\MitraController@update');
+Route::post('mitra/{id}', 'Wisata\MitraController@update');
 Route::delete('mitra/{id}', 'Wisata\MitraController@delete');
 
 // Data Kunjungan //
