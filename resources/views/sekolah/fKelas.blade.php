@@ -107,9 +107,9 @@
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;">
+                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
                     <h5 style="position:absolute;top: 25px;">Data Kelas</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                    <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
@@ -522,10 +522,10 @@
                 "targets": [5],
                 "visible": false,
                 "searchable": false
-            },
-            {
-                'targets': 6, data: null, 'defaultContent': action_html 
             }
+            // {
+            //     'targets': 6, data: null, 'defaultContent': action_html 
+            // }
         ],
         'columns': [
             { data: 'kode_kelas' },

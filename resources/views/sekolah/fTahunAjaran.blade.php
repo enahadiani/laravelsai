@@ -108,9 +108,9 @@
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;">
+                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
                     <h5 style="position:absolute;top: 25px;">Data Tahun Ajaran</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                    <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
@@ -149,7 +149,7 @@
                                     <th>Tgl Selesai</th>
                                     <th>Status</th>
                                     <th>Tgl Input</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -686,8 +686,8 @@
               { data: 'tgl_mulai' },
               { data: 'tgl_akhir' },
               { data: 'sts' },
-              { data: 'tgl_input' },
-              { data: 'action' }
+              { data: 'tgl_input' }
+            //   { data: 'action' }
         ],
         'columnDefs': [
             {
@@ -703,10 +703,10 @@
                 "targets": [6],
                 "visible": false,
                 "searchable": false
-            },
-            {
-                'targets': 7, data: null, 'defaultContent': action_html,'className':'text-center' 
             }
+            // {
+            //     'targets': 7, data: null, 'defaultContent': action_html,'className':'text-center' 
+            // }
         ],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
