@@ -75,7 +75,7 @@ class AuthController extends Controller
                             Session::put('jabatan','Admin CMS');
                             Session::put('nikUser',$res[0]["nik"].'_'.time());
                             // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
-                            $tmp = explode("_",$res[0]["path_view"]);
+                            $tmp = explode("_",$res[0]["id_form"]);
                             if(isset($tmp[2])){
                                 $dash = $tmp[2];
                             }else{

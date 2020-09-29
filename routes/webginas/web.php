@@ -16,51 +16,101 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/form/{id}', function ($id) {
-    return view('webginas.'.$id);
+    $param['view'] = 'webginas.'.$id;
+    $param['data'] = [];
+    $param['menu'] = $id;
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/form/{id}/{kode}/{name}', function ($id,$kode,$name) {
-    
-    $data['page'] = $kode;
-    return view('webginas.'.$id,$data);
+    $param['view'] = 'webginas.'.$id;
+    $param['data'] = array('page' => $kode);
+    $param['menu'] = $id;
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
+    // $data['page'] = $kode;
+    // return view('webginas.'.$id,$data);
 });
 
 Route::get('/news/{page}', function ($page) {
     
-    $data['page'] = $page;
-    return view('webginas.article',$data);
+    // $data['page'] = $page;
+    // return view('webginas.article',$data);
+    $param['view'] = 'webginas.article';
+    $param['data'] = array('page' => $page);
+    $param['menu'] = 'daftar article';
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/news/{page}/{bulan}/{tahun}', function ($page,$bulan,$tahun) {
     
-    $data['page'] = $page;
-    $data['bulan'] = $bulan;
-    $data['tahun'] = $tahun;
-    return view('webginas.article',$data);
+    // $data['page'] = $page;
+    // $data['bulan'] = $bulan;
+    // $data['tahun'] = $tahun;
+    // return view('webginas.article',$data);
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('page' => $page,'tahun'=>$tahun,'bulan'=>$bulan);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/news-categories', function (Request $request) {
     
-    $data['jenis'] = 'categories';
-    $data['str'] = $request->str;
-    return view('webginas.article',$data);
+    // $data['jenis'] = 'categories';
+    // $data['str'] = $request->str;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('jenis' => 'categories','str'=>$request->str);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/news-search', function (Request $request) {
     
-    $data['jenis'] = 'string';
-    $data['str'] = $request->str;
-    return view('webginas.article',$data);
+    // $data['jenis'] = 'string';
+    // $data['str'] = $request->str;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('jenis' => 'string','str'=>$request->str);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('read-item/{id}', function ($id) {
-    $data['id'] = $id;
-    return view('webginas.vItem',$data);
+    // $data['id'] = $id;
+    // return view('webginas.vItem',$data);
+    
+    $param['view'] = 'webginas.vItem';
+    $param['data'] = array('id' => $id);
+    $param['menu'] = 'daftar article';
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('watch/{id}', function ($id) {
-    $data['id'] = $id;
-    return view('webginas.watch',$data);
+    // $data['id'] = $id;
+    // return view('webginas.watch',$data);
+    
+    $param['view'] = 'webginas.watch';
+    $param['data'] = array('id' => $id);
+    $param['menu'] = 'watch video';
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/', 'Webginas\WebController@index');
@@ -77,30 +127,58 @@ Route::get('/watch-data', 'Webginas\WebController@getWatch');
 
 Route::get('/article/{page}', function ($page) {
     
-    $data['page'] = $page;
-    return view('webginas.article',$data);
+    // $data['page'] = $page;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['data'] = array('page' => $page);
+    $param['menu'] = 'daftar article';
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/article/{page}/{bulan}/{tahun}', function ($page,$bulan,$tahun) {
     
-    $data['page'] = $page;
-    $data['bulan'] = $bulan;
-    $data['tahun'] = $tahun;
-    return view('webginas.article',$data);
+    // $data['page'] = $page;
+    // $data['bulan'] = $bulan;
+    // $data['tahun'] = $tahun;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('page' => $page,'tahun'=>$tahun,'bulan'=>$bulan);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/article-categories', function (Request $request) {
     
-    $data['jenis'] = 'categories';
-    $data['str'] = $request->str;
-    return view('webginas.article',$data);
+    // $data['jenis'] = 'categories';
+    // $data['str'] = $request->str;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('jenis' => 'categories','str'=>$request->str);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 Route::get('/article-search', function (Request $request) {
     
-    $data['jenis'] = 'string';
-    $data['str'] = $request->str;
-    return view('webginas.article',$data);
+    // $data['jenis'] = 'string';
+    // $data['str'] = $request->str;
+    // return view('webginas.article',$data);
+    
+    $param['view'] = 'webginas.article';
+    $param['menu'] = 'daftar article';
+    $param['data'] = array('jenis' => 'string','str'=>$request->str);
+    $res = app('App\Http\Controllers\Webginas\WebController')->showView($param);
+
+    return $res;
 });
 
 

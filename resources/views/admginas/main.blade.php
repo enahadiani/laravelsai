@@ -374,6 +374,8 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/chartjs-plugin-datalabels.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
@@ -544,7 +546,8 @@
 
     <main>
         <div class="container-fluid">
-            <div class="body-content"></div>
+            <div class="body-content">
+            </div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
