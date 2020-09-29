@@ -312,21 +312,20 @@ class MitraController extends Controller
                         $send_data = array_merge($send_data,$fields_dok,$fields_nama_dok);
                     }
             }
-            var_dump($send_data);
-            // $client = new Client();
-            // $response = $client->request('POST',  config('api.url').'wisata-master/mitra',[
-            //         'headers' => [
-            //             'Authorization' => 'Bearer '.Session::get('token'),
-            //             'Accept'  => 'application/json',
-            //         ],
-            //         'multipart' => $send_data
-            //     ]);
-            // if ($response->getStatusCode() == 200) { // 200 OK
-            //     $response_data = $response->getBody()->getContents();
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'wisata-master/mitraupdate',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'  => 'application/json',
+                    ],
+                    'multipart' => $send_data
+                ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
                     
-            //     $data = json_decode($response_data,true);
-            //     return response()->json(['data' => $data], 200);  
-            // }
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
