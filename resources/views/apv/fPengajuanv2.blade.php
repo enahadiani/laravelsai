@@ -295,7 +295,7 @@
         var parts = str_num.split('.');
         number = parts.join('');
         number = number.replace('Rp', '');
-        // number = number.replace(',', '.');
+        number = number.replace(',', '.');
         return +number;
     }
 
@@ -852,7 +852,7 @@
             e.preventDefault();
             var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
             var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
+            var grand = parseFloat(sub+((ppn/100)*sub)).toFixed(0);
             $(this).closest('tr').find('.inp-grand_total').val(grand);
             hitungBrg();
         // }
