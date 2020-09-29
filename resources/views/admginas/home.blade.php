@@ -1,3 +1,12 @@
+    <style>
+        .icon-cards-row .card-text {
+            height: 30px;
+            line-height: 18px;
+        }
+        .icon-cards-row .card-body {
+            padding: .5rem .5rem;
+        }
+    </style>
     <div class="row">
         <div class="col-lg-12 col-xl-12">
             <div class="icon-cards-row">
