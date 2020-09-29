@@ -23,7 +23,7 @@ class WebController extends Controller
             $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
             dump($agen);
             dump($details);
-            return view('webginas.templateWeb');
+            // return view('webginas.templateWeb');
         // }
         
     }
