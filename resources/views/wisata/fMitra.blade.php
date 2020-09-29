@@ -198,9 +198,7 @@
                             <label for="alamat" class="col-md-2 col-sm-12 col-form-label">Alamat</label>
                             <div class="col-md-10 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Alamat Mitra" id="alamat" name="alamat" required>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
+                            </div>                           
                         </div>
 
                         <div class="form-group row ">
@@ -237,7 +235,7 @@
                         </div>
 
                         <div class="form-group row  ">
-                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">Website</label>
+                            <label for="website" class="col-md-2 col-sm-12 col-form-label">Website</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Website" id="website" name="website" required>                                
                             </div>
@@ -263,9 +261,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="coor_x" class="col-md-2 col-sm-12 col-form-label">Koordinat X</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Koordinat X" id="coor_x" name="coor_x" required>
+                            </div>                           
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="coor_y" class="col-md-2 col-sm-12 col-form-label">Koordinat Y</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Koordinat Y" id="coor_y" name="coor_y" required>
+                            </div>                           
+                        </div>
 
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#btambah" role="tab" aria-selected="true"><span class="hidden-xs-down">Bidang Wisata</span></a> </li>                                
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bupload" role="tab" aria-selected="true"><span class="hidden-xs-down">Upload</span></a> </li>                                
                         </ul>
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="btambah" role="tabpanel">
