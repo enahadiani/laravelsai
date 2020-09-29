@@ -13,18 +13,26 @@ class WebController extends Controller
 
     public function index()
     {
-        // // return view('login');
-        // if(!Session::get('login')){
-        //     return redirect('saku/login')->with('alert','Kamu harus login dulu');
-        // }
-        // else{
-            $ip = $_SERVER['REMOTE_ADDR'];
-            $agen = getenv('HTTP_USER_AGENT');
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            // dump($agen);
-            // dump($details);
-            return view('webginas.templateWeb');
-        // }
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $agen = getenv('HTTP_USER_AGENT');
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        if($agen != false){
+            $ins = array(
+                'nik'=>'visitor',
+                'tanggal' => date('Y-m-d H:i:s'),
+                'ip' => $ip,
+                'agen' => $agen,
+                'kota' => $details->city,
+                'loc' => $details->loc,
+                'region' => $details->region,
+                'negara' => $details->country,
+                'page' => 'Home'
+            );
+            $response = $client->request('POST',  config('api.url').'webginas/lab-log',[
+                'form_params' => $ins
+            ]);
+        }
+        return view('webginas.templateWeb');
         
     }
 
