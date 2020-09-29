@@ -2,6 +2,32 @@
 .form-group{
     margin-bottom:15px !important;
 }
+.hidden{
+    display:none;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+#print-area
+{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+#print-area h3, #print-area h6
+{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.datepicker{
+    padding: inherit !important;
+}
+
+@media print{
+    #print-area
+    {
+        background: white;color: black !important;
+        padding:0 50px;
+    }
+}
 </style>
     <div class="container-fluid mt-3">
         <div class="row" id="saku-datatable">
@@ -234,47 +260,53 @@
 
     $('#slide-print').on('click','#btn-aju-print',function(e){
         e.preventDefault();
-        var w=window.open();
-        var html =`<html><head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <meta name="description" content="">
-                <meta name="author" content="">
-                <title>SAKU | Sistem Akuntansi Keuangan Digital</title>
-                <link href="{{ asset('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
-                <!-- Dashboard 1 Page CSS -->
-                <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
-                <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-                <!-- SAI CSS -->
-                <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
+        // var w=window.open();
+        // var html =`<html><head>
+        //         <meta charset="utf-8">
+        //         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        //         <meta name="viewport" content="width=device-width, initial-scale=1">
+        //         <meta name="description" content="">
+        //         <meta name="author" content="">
+        //         <title>SAKU | Sistem Akuntansi Keuangan Digital</title>
+        //         <link href="{{ asset('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
+        //         <!-- Dashboard 1 Page CSS -->
+        //         <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
+        //         <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
+        //         <!-- SAI CSS -->
+        //         <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
                 
-            </head>
-            <!--
-            <body class="skin-default fixed-layout" >-->
-                <div id="main-wrapper" style='color:black'>
-                    <div class="page-wrapper" style='min-height: 674px;margin: 0;padding: 10px;background: white;color: black !important;'>
-                        <section class="content" id='ajax-content-section' style='color:black !important'>
-                            <div class="container-fluid mt-3">
-                                <div class="row" id="slide-print">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">`+$('#print-area').html()+`
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            <!--</body></html>-->
-            `;
-            w.document.write(html);
-            setTimeout(function(){
-                w.print();
-                w.close();
-            }, 1500);
+        //     </head>
+        //     <!--
+        //     <body class="skin-default fixed-layout" >-->
+        //         <div id="main-wrapper" style='color:black'>
+        //             <div class="page-wrapper" style='min-height: 674px;margin: 0;padding: 10px;background: white;color: black !important;'>
+        //                 <section class="content" id='ajax-content-section' style='color:black !important'>
+        //                     <div class="container-fluid mt-3">
+        //                         <div class="row" id="slide-print">
+        //                             <div class="col-md-12">
+        //                                 <div class="card">
+        //                                     <div class="card-body">`+$('#print-area').html()+`
+        //                                     </div>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     </div>
+        //                 </section>
+        //             </div>
+        //         </div>
+        //     <!--</body></html>-->
+        //     `;
+        //     w.document.write(html);
+        //     setTimeout(function(){
+        //         w.print();
+        //         w.close();
+        //     }, 1500);
+
+        $('#print-area').printThis({
+            importCSS: true,            // import parent page css
+            importStyle: true,         // import style tags
+            printContainer: true,       // print outer container/$.selector
+        });
     });
 
 

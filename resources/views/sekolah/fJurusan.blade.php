@@ -107,9 +107,9 @@
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;">
+                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
                     <h5 style="position:absolute;top: 25px;">Data Jurusan</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                    <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
@@ -145,7 +145,7 @@
                                     <th>Nama</th>
                                     <th>Kode PP</th>
                                     <th>Tgl Input</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -399,10 +399,10 @@
                 "targets": [3],
                 "visible": false,
                 "searchable": false
-            },
-            {
-                'targets': 4, data: null, 'defaultContent': action_html 
             }
+            // {
+            //     'targets': 4, data: null, 'defaultContent': action_html 
+            // }
         ],
         'columns': [
             { data: 'kode_jur' },
