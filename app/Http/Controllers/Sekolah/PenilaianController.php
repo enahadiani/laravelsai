@@ -90,6 +90,7 @@
                 'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
+                'kode_kd' => 'required',
                 'nis'=>'required|array',
                 'nilai'=>'required|array'
             ]);
@@ -116,6 +117,7 @@
                         'kode_kelas' => $request->kode_kelas,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_jenis'=>$request->kode_jenis,
+                        'kode_kd'=>$request->kode_kd,
                         'nis'=>$request->nis,
                         'nilai'=>$det_nilai
                     ]
@@ -147,6 +149,7 @@
                 'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
+                'kode_kd'=>'required',
                 'nis'=>'required|array',
                 'nilai'=>'required|array'
             ]);
@@ -174,6 +177,7 @@
                         'kode_kelas' => $request->kode_kelas,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_jenis'=>$request->kode_jenis,
+                        'kode_kd' => $request->kode_kd,
                         'nis'=>$request->nis,
                         'nilai'=>$det_nilai
                     ]
@@ -315,6 +319,40 @@
             } 
             
         }
+
+        
+        public function getKD(Request $request) {
+            try{
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian-kd',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_matpel' => $request->kode_matpel
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
+            }
+
+        }
+
     
         public function getNilaiTmp(Request $request)
         {

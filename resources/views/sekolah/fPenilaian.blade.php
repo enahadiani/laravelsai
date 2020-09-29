@@ -363,6 +363,16 @@
                                 <input class="form-control" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="kode_kd" class="col-md-2 col-sm-2 col-form-label">Kompentensi</label>
+                            <div class="col-md-3 col-sm-9" >
+                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>
+                            <div class="col-md-7 col-sm-9 px-0" >
+                                <input id="label_kode_kd" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
+                        </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
                             <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a> </li> -->
@@ -735,6 +745,25 @@
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val()};
             break;
+            case 'kode_kd': 
+                header = ['Kode KD', 'Nama'];
+                var toUrl = "{{ url('sekolah-trans/penilaian-kd') }}";
+                var columns = [
+                    { data: 'kode_kd' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Kompetensi";
+                var jTarget1 = "val";
+                var pilih = "kompetensi";
+                var jTarget1 = "val";
+                var jTarget2 = "val";
+                $target = "#"+$target;
+                $target2 = "#"+$target2;
+                $target3 = "";
+                $target4 = "";
+                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val()};
+            break;
             case 'kode_jenis': 
                 header = ['Kode Jenis', 'Nama'];
                 var toUrl = "{{ url('sekolah-master/jenis-penilaian') }}";
@@ -1067,6 +1096,8 @@
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#label_kode_jenis').val(result.data[0].nama_jenis);
+                    $('#kode_kd').val(result.data[0].kode_kd);
+                    $('#label_kode_kd').val(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
@@ -1243,6 +1274,10 @@
                             <td>`+result.data[0].kode_jenis+`-`+result.data[0].nama_jenis+`</td>
                         </tr>
                         <tr>
+                            <td>Komptensi Dasar</td>
+                            <td>`+result.data[0].kode_kd+`-`+result.data[0].nama_kd+`</td>
+                        </tr>
+                        <tr>
                             <td>Penilaian ke - </td>
                             <td>`+result.data[0].jumlah+`</td>
                         </tr>
@@ -1336,6 +1371,8 @@
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#label_kode_jenis').val(result.data[0].nama_jenis);
+                    $('#kode_kd').val(result.data[0].kode_kd);
+                    $('#label_kode_kd').val(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
