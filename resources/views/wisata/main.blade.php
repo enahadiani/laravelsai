@@ -252,8 +252,10 @@
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
-    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script>
+    {{-- <script src="{{ asset('asset_elite/highcharts2.js') }}"></script> --}}
+    {{-- <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script> --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
