@@ -66,39 +66,106 @@ class MitraController extends Controller
             'pic' => 'required', 
             'no_hp' => 'required', 
             'status' => 'required',
+            'coor_x' => 'required',
+            'coor_y' => 'required',
             'kode_subjenis' => 'required|array',    
         ]);
 
         try {   
+                $fields_dok = array();
+                $send_data = array();
+                $fields_nama_dok = array();
                 $arrSubjenis = array();
+
+                $fields = [
+                        [
+                            'name' => 'kode_mitra',
+                            'contents' => $request->kode_mitra,
+                        ],
+                        [
+                            'name' => 'nama',
+                            'contents' => $request->nama,
+                        ],
+                        [
+                            'name' => 'alamat',
+                            'contents' => $request->alamat,
+                        ],
+                        [
+                            'name' => 'no_tel',
+                            'contents' => $request->no_tel,
+                        ],
+                        [
+                            'name' => 'kecamatan',
+                            'contents' => $request->kode_camat,
+                        ],
+                        [
+                            'name' => 'website',
+                            'contents' => $request->website,
+                        ],
+                        [
+                            'name' => 'email',
+                            'contents' => $request->email,
+                        ],
+                        [
+                            'name' => 'pic',
+                            'contents' => $request->email,
+                        ],
+                        [
+                            'name' => 'no_hp',
+                            'contents' => $request->no_hp,
+                        ],
+                        [
+                            'name' => 'status',
+                            'contents' => $request->status,
+                        ],
+                        [
+                            'name' => 'coor_x',
+                            'contents' => $request->coor_x,
+                        ],
+                        [
+                            'name' => 'coor_y',
+                            'contents' => $request->coor_y,
+                        ],
+                    ];
+                
                 if(count($request->generate)) {
                     for($i=0;$i<count($request->generate);$i++) {
                         if($request->generate[$i] == "true") {
-                            $arrSubJenis[] = array('kode_subjenis'=>$request->kode_subjenis[$i]);
+                            $arrSubJenis[] = array('name'=> 'arrsub[][kode_subjenis]','contents'=> $request->kode_subjenis[$i]);
                         }
                     }
+                    $send_data = array_merge($fields, $arrSubJenis);
                 }
-
-                $data = array(
-                        'kode_mitra'=>$request->kode_mitra,
-                        'nama'=>$request->nama,
-                        'alamat'=>$request->alamat,
-                        'no_tel'=>$request->no_tel,
-                        'kecamatan'=>$request->kode_camat,
-                        'website'=>$request->website,
-                        'email'=>$request->email,
-                        'pic'=>$request->pic,
-                        'no_hp'=>$request->no_hp,
-                        'status'=>$request->status,
-                        'arrsub'=>$arrSubJenis
-                    );
+                
+                $cek = $request->file_dok;
+                if(!empty($cek)){
+                    if(count($request->file_dok) > 0) {
+                        for($i=0;$i<count($request->file_dok);$i++){
+                            $image_path = $request->file('file_dok')[$i]->getPathname();
+                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                            $fields_dok[$i] = array(
+                                'name'     => 'file[]',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            $fields_nama_dok[$i] = array(
+                                'name' => 'nama_file[]',
+                                'contents' => $image_org
+                            );
+                        }
+                        $send_data = array_merge($send_data,$fields_dok,$fields_nama_dok);
+                    }
+                }
+                // var_dump($send_data);
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'wisata-master/mitra',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'  => 'application/json',
+                        'Accept'  => 'application/json',
                     ],
-                    'body' => json_encode($data)
+                    'multipart' => $send_data
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();

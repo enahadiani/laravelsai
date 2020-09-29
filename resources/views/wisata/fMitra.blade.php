@@ -101,6 +101,19 @@
             font-size: .75rem;
             height: 31px;
         }
+         .btn-light2{
+            background:#F8F8F8;
+            color:#D4D4D4;
+        }
+
+        .btn-light2:hover{
+            color:#131113;
+        }
+
+        .btn-light2:active{
+            color: #131113;
+            background-color: #d8d8d8;
+        }
     </style>
     <!-- LIST DATA -->
     <div class="row mb-3" id="saku-datatable">
@@ -204,7 +217,7 @@
                         <div class="form-group row ">
                             <label for="kode_camat" class="col-md-2 col-sm-12 col-form-label">Kecamatan</label>
                             <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_camat" name="kode_camat" required>
+                                 <input class="form-control" type="text"  id="kode_camat" name="kode_camat" data-input="cbbl" required>
                                  <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-4 col-sm-12" style="border-bottom: 1px solid #d7d7d7;">
@@ -301,7 +314,21 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>                            
+                            </div>   
+                            <div class="tab-pane" id="bupload" role="tabpanel">
+                                <table class="table table-bordered table-condensed gridexample" id="upload-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;margin-top:5px;">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th width="3%">No</th>
+                                            <th width="10%"></th>
+                                            <th width="20%">Nama File Upload</th>
+                                            <th width="25%">Upload File</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                            </div>                         
                         </div>
                     </div>
                 </div>
@@ -725,10 +752,12 @@
         $('#id_edit').val('');
         $('#kode_camat').val('');
         $('[id^=label]').html('');
+        $('#upload-grid tbody').empty();
         $('#judul-form').html('Tambah Data Mitra');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
+        $('input[data-input="cbbl"]').val('');
         $('#kode_mitra').attr('readonly', false);        
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -786,7 +815,9 @@
                         $('#kode_camat').val('');
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
+                        $('input[data-input="cbbl"]').val('');
                         $('#judul-form').html('Tambah Data Mitra');
+                        $('#upload-grid tbody').empty();
                         $('#method').val('post');
                         $('#kode_mitra').attr('readonly', false);
                     
@@ -867,6 +898,7 @@
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#upload-grid tbody').empty();
         // $iconLoad.show();
         $('#table-btambah tbody').empty();
         $('#form-tambah').validate().resetForm();
@@ -1013,6 +1045,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#table-btambah tbody').empty();
+        $('#upload-grid tbody').empty();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Mitra');
         $.ajax({
@@ -1071,4 +1104,31 @@
         });
     });
 
+    // ADD ROW UPLOAD EVENT //
+    $('#form-tambah').on('click', '.add-row', function(){
+        var no=$('#upload-grid .row-upload:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-upload'>";
+        input += "<td class='no-upload text-center'>"+no+"</td>";
+        input += "<td class='text-center'><a class='hapus-item' style='cursor:pointer;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;</td>";
+        input += "<td><span>-</span><input type='hidden' name='nama_file[]' value='-' class='inp-file_dok' readonly></td>";
+        input += "<td><input type='file' name='file_dok[]' required  class='inp-file_dok'></td>";
+        input += "</tr>";
+        $('#upload-grid tbody').append(input);
+    });
+    // END ADD ROW UPLOAD EVENT
+
+    // DELETE UPLOAD ROW //
+    $('#upload-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-upload').each(function(){
+            var nom = $(this).closest('tr').find('.no-upload');
+            nom.html(no);
+            no++;
+        });
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+    // END DELETE UPLOAD ROW //
     </script>
