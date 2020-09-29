@@ -1,8 +1,4 @@
     <div class="row">
-        <div class="col-12">
-            <h1>Dashboard</h1>
-            <div class="separator mb-5"></div>
-        </div>
         <div class="col-lg-12 col-xl-12">
             <div class="icon-cards-row">
                 <div class="glide dashboard-numbers">
@@ -41,7 +37,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12 mb-0">
                     <div class="card">
                         <div class="position-absolute card-top-buttons">
 
@@ -58,9 +54,9 @@
 
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body" style="height:350px">
                             <h5 class="card-title">Trafik</h5>
-                            <div class="dashboard-line-chart chart">
+                            <div class="dashboard-line-chart chart" style="height:250px">
                                 <canvas id="trafikChart"></canvas>
                             </div>
                         </div>
