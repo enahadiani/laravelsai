@@ -18,6 +18,11 @@ class WebController extends Controller
         //     return redirect('saku/login')->with('alert','Kamu harus login dulu');
         // }
         // else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $agen = getenv('HTTP_USER_AGENT');
+            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+            dump($agen);
+            dump($details);
             return view('webginas.templateWeb');
         // }
         
