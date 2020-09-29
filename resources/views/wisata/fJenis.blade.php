@@ -109,6 +109,15 @@
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;">Data Jenis</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
+                    <div class="dropdown float-right" style="padding-right: 5px;">
+                        <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="simple-icon-share-alt mr-1"></i> Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="" style="padding-right:1.75rem;padding-left:1.75rem">
@@ -143,9 +152,9 @@
                             <tr>
                                 <th width="30%">Kode</th>
                                 <th width="58%">Nama</th>                                
-                                <th style="display: none"></th>                                
-                                <th style="display: none"></th>                                
-                                <th width="12%" class="text-center">Aksi</th>
+                                <th style="display: none" class="action"></th>                                
+                                <th style="display: none" class="action"></th>                                
+                                <th width="12%" class="text-center action">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -321,7 +330,7 @@
         },
         'columnDefs': [
             {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
-            {'targets': [2,3], "visible": false, "searchable": false },
+            {'targets': [2,3], "visible": false, "searchable": false, 'className': 'action' },
         ],
         'columns': [
             { data: 'kode_jenis' },
@@ -839,5 +848,30 @@
             }
         });
     });
+
+    // EXPORT EXCEL //
+    $('#sai-rpt-excel').click(function(){
+        $('#saku-datatable #table-data').table2excel({
+            exclude: ".action",
+            name: "Jenis_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Jenis_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            preserveColors: false, // set to true if you want background colors and font colors preserved
+        });
+    });
+    // END EXPORT EXCEL //
+
+    // EXPORT PDF //
+    $('#sai-rpt-print').click(function(){
+        $('#table-data').printThis({
+            removeInline: true,
+            beforePrint: function() {
+                dataTable.column(4).visible(false)
+            },
+            afterPrint: function() {
+                dataTable.column(4).visible(true)
+            }
+        });
+    });
+    // END EXPORT PDF //
 
     </script>
