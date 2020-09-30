@@ -198,7 +198,7 @@
                             </div>   
                         
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama Mitra</label>
-                            <div class="col-md-5 col-sm-12">
+                            <div class="col-md-6 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Mitra" id="nama" name="nama" required>
                             </div>
 
