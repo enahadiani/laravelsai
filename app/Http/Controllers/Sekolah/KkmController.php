@@ -174,7 +174,7 @@
 
             try{
                 $fields = array (
-                    'kode_kkm' => $kode_kkm,
+                    'kode_kkm' => $request->kode_kkm,
                     'kode_ta' => $request->kode_ta,
                     'kode_tingkat' => $request->kode_tingkat,
                     'kode_jur' => $request->kode_jur,
