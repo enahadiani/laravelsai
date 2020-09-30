@@ -339,7 +339,8 @@
                     ],
                     'query' => [
                         'kode_pp' => $request->kode_pp,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_kd' => $request->kode_kd
                     ]
                 ]);
         

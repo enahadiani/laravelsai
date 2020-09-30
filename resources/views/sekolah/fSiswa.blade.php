@@ -881,6 +881,10 @@
             $('#btn-save').attr('type','submit');
             $('#form-tambah')[0].reset();
             $('#form-tambah').validate().resetForm();
+            if("{{ Session::get('kodePP') }}" != ""){
+                $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                $('#kode_pp').trigger('change');
+            }
             $('#nis').attr('readonly', false);
             $('#input-param tbody').html('');
             $('#saku-datatable').hide();

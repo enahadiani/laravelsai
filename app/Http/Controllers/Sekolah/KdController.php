@@ -44,7 +44,8 @@
                     ],
                     'query' => [
                         'kode_pp' => $kode_pp,
-                        'kode_matpel'     => $request->kode_matpel
+                        'kode_matpel'     => $request->kode_matpel,
+                        'kode_kd'     => $request->kode_kd
                     ]
                 ]);
     

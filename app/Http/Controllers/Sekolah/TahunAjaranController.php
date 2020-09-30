@@ -33,6 +33,7 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'flag_aktif' => $request->flag_aktif,
+                        'kode_ta' => $request->kode_ta,
                     ]
                 ]);
 

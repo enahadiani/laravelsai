@@ -31,7 +31,8 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_pp' => $kode_pp
+                        'kode_pp' => $kode_pp,
+                        'kode_matpel' => $request->kode_matpel
                     ]
                 ]);
 

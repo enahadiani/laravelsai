@@ -977,6 +977,60 @@
         });
     }
 
+    function getKD(id,pp=null,kode_matpel=null){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-trans/penilaian-kd') }}",
+            dataType: 'json',
+            data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_kd').val(result.daftar[0].kode_kd);
+                         $('#label_kode_kd').val(result.daftar[0].nama);
+                    }else{
+                        $('#kode_kd').val('');
+                        $('#label_kode_kd').val('');
+                        $('#kode_kd').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getTA(id,pp=null){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/tahun-ajaran') }}",
+            dataType: 'json',
+            data:{kode_pp:pp,kode_ta:kode},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                         $('#kode_ta').val(result.daftar[0].kode_ta);
+                         $('#label_kode_ta').val(result.daftar[0].nama);
+                    }else{
+                        $('#kode_ta').val('');
+                        $('#label_kode_ta').val('');
+                        $('#kode_ta').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     function getMatpel(id,pp=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
@@ -1200,6 +1254,10 @@
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
         $('#id').val('');
         $('#input-nilai tbody').html('');
         $('#saku-datatable').hide();
@@ -1992,6 +2050,42 @@
             $('#label-file').html(error);
             $('#label-file').addClass('error');
         }
+    });
+
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);   
+    });
+
+    $('#form-tambah').on('change', '#kode_ta', function(){
+        var par = $(this).val();
+        var pp = $('#kode_pp').val();
+        getTA(par,pp);
+    });
+
+    $('#form-tambah').on('change', '#kode_kelas', function(){
+        var pp = $('#kode_pp').val();
+        var par = $(this).val();
+        getKelas(par,pp);
+    });
+
+    $('#form-tambah').on('change', '#kode_matpel', function(){
+        var par = $(this).val();
+        var pp = $('#kode_pp').val();
+        getMatpel(par,pp);
+    });
+
+    $('#form-tambah').on('change', '#kode_jenis', function(){
+        var par = $(this).val();
+        var pp = $('#kode_pp').val();
+        getJenisPenilaian(par,pp);
+    });
+
+    $('#form-tambah').on('change', '#kode_kd', function(){
+        var par = $(this).val();
+        var pp = $('#kode_pp').val();
+        var matpel = $('#kode_matpel').val();
+        getKD(par,pp,matpel);
     });
 
     
