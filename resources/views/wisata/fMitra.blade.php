@@ -204,8 +204,7 @@
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Mitra" id="nama" name="nama" required>
                             </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div> 
+                            
 
                         </div>
 
