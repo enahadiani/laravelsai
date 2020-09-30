@@ -229,7 +229,16 @@
                             <label for="no_tel" class="col-md-2 col-sm-12 col-form-label">No Telpon</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>
-                            </div>                            
+                            </div>    
+                            <label for="status" class="col-md-2 col-sm-12 col-form-label">Status</label>
+                            <div class="col-md-3 col-sm-12">                            
+                                <select class='form-control' id="status" name="status" required>
+                                <option value=''>--- Pilih Status ---</option>
+                                <option value='Bintang'>Bintang</option>
+                                <option value='NonBintang'>NonBintang</option>
+                                <option value='NonHotel'>NonHotel</option>                                
+                                </select>
+                            </div>                        
                         </div>
 
                         <div class="form-group row  ">
@@ -262,7 +271,7 @@
                             </div>                            
                         </div>
 
-                        <div class="form-group row">                            
+                        <!-- <div class="form-group row">                            
                             <label for="status" class="col-md-2 col-sm-12 col-form-label">Status</label>
                             <div class="col-md-3 col-sm-12">                            
                                 <select class='form-control' id="status" name="status" required>
@@ -272,7 +281,7 @@
                                 <option value='NonHotel'>NonHotel</option>                                
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <label for="coor_x" class="col-md-2 col-sm-12 col-form-label">Koordinat X</label>
