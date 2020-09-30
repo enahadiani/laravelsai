@@ -147,7 +147,7 @@
                                     <th>Jurusan</th>
                                     <th>PP</th>
                                     <th>Tgl Input</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>

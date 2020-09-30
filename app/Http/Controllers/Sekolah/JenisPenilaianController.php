@@ -50,32 +50,36 @@
             }
         }
 
-        public function getJenisUjian()
+        public function show(Request $request)
         {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai-all',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
+            $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_pp' => $request->kode_pp,
+                    'kode_jenis' => $request->kode_jenis
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
             
                 $data = json_decode($response_data,true);
-                $data = $data["success"]["data"];
+                $data = $data["success"];
             }
-            return response()->json(['daftar' => $data, 'status' => true], 200);
+            return response()->json(['data' => $data], 200);
         }
 
-        public function save(Request $request) {
+        public function store(Request $request) {
 
             $this->validate($request, [
-            'kode_jenis' => 'required',
-            'nama' => 'required',
-            'kode_pp' => 'required',
-            'flag_aktif' => 'required',
+                'kode_jenis' => 'required',
+                'nama' => 'required',
+                'kode_pp' => 'required',
+                'flag_aktif' => 'required',
             ]);
 
             try {
@@ -92,7 +96,6 @@
                         'kode_pp' => $request->kode_pp,
                     ]
                 ]);
-                // var_dump('Sukses');
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                     
@@ -101,7 +104,6 @@
                 }
 
             } catch (BadResponseException $ex) {
-                // var_dump('Gagal');
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
                 $data['message'] = $res['message'];
@@ -111,39 +113,11 @@
 
         }
 
-        public function getJenisPenilaian($kode_jenis,$kode_pp) {
-            try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis."&kode_pp=".$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
-            }
-            return response()->json(['data' => $data], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
-        }
-
-        }
-
         public function update(Request $request, $kode_jenis) {
             $this->validate($request, [
-            'nama' => 'required',
-            'kode_pp' => 'required',
-            'flag_aktif' => 'required',
+                'nama' => 'required',
+                'kode_pp' => 'required',
+                'flag_aktif' => 'required',
             ]);
 
             try {
@@ -175,24 +149,24 @@
             }
         }
 
-        public function delete($kode_jenis,$kode_pp) {
+        public function destroy($kode_jenis,$kode_pp) {
             try{
-            $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
-            }
-            return response()->json(['data' => $data], 200); 
+                $client = new Client();
+                $response = $client->request('DELETE',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
             
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
