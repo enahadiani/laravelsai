@@ -623,6 +623,7 @@
                             control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_divisi}]);
                         }
                     }
+                    console.log(result.kode_divisi);
                     if(result.kode_divisi !== 'undefined'){
                         control.setValue(result.kode_divisi);
                     }                    
