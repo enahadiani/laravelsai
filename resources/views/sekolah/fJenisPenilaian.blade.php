@@ -492,7 +492,7 @@
     });
     
     // END BUTTON UPDATE
-    
+
     $('#form-tambah').on('click', '.search-item2', function(){
         console.log(this);
         var par = $(this).closest('div').find('input').attr('name');
@@ -858,7 +858,7 @@
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var kode = $(this).closest('tr').find('td:eq(0)').html();      
-        var temp = $(this).closest('tr').find('td').eq(1).html().split('-');
+        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
         var kode_pp = temp[0]; 
 
         msgDialog({

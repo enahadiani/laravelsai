@@ -157,18 +157,20 @@
             </div>
         </div>
     </div>
-    <div class="row" id="saku-form" style="display:none;">
-        <div class="col-sm-12" style="height: 90px;">
-            <div class="card">
-                <form id="form-tambah" style=''>
-                    <div class="card-body pb-0">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Mata Pelajaran
-                        <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        </h4>
-                        <hr>
+    
+    <!-- FORM INPUT -->
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-sm-12" style="height: 90px;">
+                <div class="card">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="card-body pt-0" style='min-height:471px'>
+                    <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body pt-3 form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -176,36 +178,36 @@
                             </div>
                         </div>
                         <div class="form-group row ">
-                            <label for="koed_matpel" class="col-3 col-form-label">Kode</label>
-                            <div class="col-3">
+                            <label for="koed_matpel" class="col-md-2 col-sm-12 col-form-label">Kode</label>
+                            <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Kode Mata Pelajaran" id="kode_matpel" name="kode_matpel">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nama" class="col-3 col-form-label">Nama</label>
-                            <div class="col-9">
+                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
+                            <div class="col-md-10 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Mata Pelajaran" id="nama" name="nama">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="keterangan" class="col-3 col-form-label">Keterangan</label>
-                            <div class="col-9">
+                            <label for="keterangan" class="col-md-2 col-sm-12 col-form-label">Keterangan</label>
+                            <div class="col-md-10 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Keterangan Mata Pelajaran" id="keterangan" name="keterangan">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                            <div class="input-group col-3">
-                                <input type='text' name="kode_pp" id="kode_pp" class="form-control" value="" required>
-                                    <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                            </div>
-                            <div class="col-6">
-                                <label id="label_kode_pp" style="margin-top: 10px;"></label>
+                        <div class="form-group row ">
+                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="sifat" class="col-3 col-form-label">Sifat</label>
-                            <div class="col-3">
+                            <label for="sifat" class="col-md-2 col-sm-12 col-form-label">Sifat</label>
+                            <div class="col-md-3 col-sm-12">
                                 <select class='form-control selectize' id="sifat" name="sifat">
                                 <option value='' disabled>--- Pilih Sifat ---</option>
                                 <option value='WAJIB'>WAJIB</option>
@@ -214,8 +216,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="flag_aktif" class="col-3 col-form-label">Flag Proses</label>
-                            <div class="col-3">
+                            <label for="flag_aktif" class="col-md-2 col-sm-12 col-form-label">Flag Proses</label>
+                            <div class="col-md-3 col-sm-12">
                                 <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                 <option value='' disabled>--- Pilih Status Aktif ---</option>
                                 <option value='1'>Aktif</option>
@@ -224,10 +226,10 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <!-- <div id='mySidepanel' class='sidepanel close'>
         <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
@@ -271,121 +273,52 @@
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
 
     <script>
-        var $iconLoad = $('.preloader');
-        var $target = "";
-        var $target2 = "";
-
-        $.ajaxSetup({
+    var $iconLoad = $('.preloader');
+    var $target = "";
+    var $target2 = "";
+    
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-        });
-
-        function openFilter() {
-            var element = $('#mySidepanel');
-            
-            var x = $('#mySidepanel').attr('class');
-            var y = x.split(' ');
-            if(y[1] == 'close'){
-                element.removeClass('close');
-                element.addClass('open');
-            }else{
-                element.removeClass('open');
-                element.addClass('close');
+    });
+    
+    function openFilter() {
+        var element = $('#mySidepanel');
+        
+        var x = $('#mySidepanel').attr('class');
+        var y = x.split(' ');
+        if(y[1] == 'close'){
+            element.removeClass('close');
+            element.addClass('open');
+        }else{
+            element.removeClass('open');
+            element.addClass('close');
+        }
+    }
+    
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
             }
-        }
-
-        function last_add(param,isi){
-            var rowIndexes = [];
-            dataTable.rows( function ( idx, data, node ) {             
-                if(data[param] === isi){
-                    rowIndexes.push(idx);                  
-                }
-                return false;
-            }); 
-            dataTable.row(rowIndexes).select();
-            $('.selected td:eq(0)').addClass('last-add');
-            console.log('last-add');
-            setTimeout(function() {
-                console.log('timeout');
-                $('.selected td:eq(0)').removeClass('last-add');
-                dataTable.row(rowIndexes).deselect();
-            }, 1000 * 60 * 10);
-        }
-
-        $('.sidepanel').on('click', '#btnClose', function(e){
-            e.preventDefault();
-            openFilter();
-        });
-
-        function getPP(){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var select2 = $('#kode_pp2').selectize();
-                            select2 = select2[0];
-                            var control2 = select2.selectize;
-                            for(i=0;i<result.daftar.length;i++){
-                                control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp + '-' + result.daftar[i].nama}]);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-    getPP();
-
-    function getDataPP(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_pp').val(result.daftar[0].kode_pp);
-                            $('#label_kode_pp').text(result.daftar[0].nama);
-                        }else{
-                            alert('Kode PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
-                        }
-                    }
-                }
-            });
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
     }
-
-    function getLabelDataPP(id){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_pp === id){
-                                $('#label_kode_pp').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
-                        }else{
-                            alert('Kode PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
-                        }
-                    }
-                }
-            });
-    }
+    
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
+    });
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
@@ -476,24 +409,45 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
 
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
+     // BUTTON TAMBAH
+     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
-        $('#id_edit').val('');
+        $('#judul-form').html('Tambah Data Mata Pelajaran');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
-        $('#kode_matpel').attr('readonly', false);
-        $('#method').val('post');
-        $('#label_kode_pp').text('');
+        $('#form-tambah').validate().resetForm();
         $('#flag_aktif')[0].selectize.setValue('');
         $('#sifat')[0].selectize.setValue('');
+        $('#method').val('post');
+        $('#id_edit').val('');
+        $('#kode_matpel').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        // $('#form-tambah #add-row').click();
     });
+    // END BUTTON TAMBAH
 
-     $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
     });
+    
+    // END BUTTON KEMBALI
+
+    // BUTTON UPDATE
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_vendor').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    
+    // END BUTTON UPDATE
 
     $('#form-tambah').on('click', '.search-item2', function(){
         console.log(this);
@@ -503,6 +457,60 @@
         target2 = par2;
         showFilter(par,target1,target2);
     });
+    // BAGIAN CBBL 
+    var $target = "";
+    var $target2 = "";
+    function getPP(id=null){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            data:{'kode_pp':kode},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        $('#kode_pp').val(result.daftar[0].kode_pp);
+                        $('#label_kode_pp').val(result.daftar[0].nama);
+                    }else{
+                        // alert('Kode Akun tidak valid');
+                        $('#kode_pp').val('');
+                        $('#label_kode_pp').val('');
+                        $('#kode_pp').focus();
+                    }
+                }
+            }
+        });
+    }
+    
+    function getLabelPP(no){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            data:{'kode_pp':no},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(var i=0;i<=result.daftar.length;i++){   
+                            if(result.daftar[i].kode_pp === no){
+                                $('#label_kode_pp').val(result.daftar[i].nama);
+                                break;
+                            }
+                        }
+                    }else{
+                        alert('Kode PP tidak valid');
+                        $('#label_kode_pp').val('');
+                        $('#kode_pp').val('');
+                        $('#kode_pp').focus();
+                    }
+                }
+            }
+        });
+    }
 
     function showFilter(param,target1,target2){
         var par = param;
@@ -514,7 +522,7 @@
         switch(par){
         case 'kode_pp': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('sekolah/getPP') }}";
+            var toUrl = "{{ url('sekolah-master/pp') }}";
                 var columns = [
                     { data: 'kode_pp' },
                     { data: 'nama' }
@@ -522,7 +530,7 @@
                 
                 var judul = "Daftar PP";
                 var jTarget1 = "val";
-                var jTarget2 = "text";
+                var jTarget2 = "val";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
@@ -530,22 +538,19 @@
         }
 
         var header_html = '';
+        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
-            header_html +=  "<th>"+header[i]+"</th>";
+            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
-        header_html +=  "<th></th>";
 
-        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        var table = "<table width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
 
         $('#modal-search .modal-body').html(table);
 
         var searchTable = $("#table-search").DataTable({
-            // fixedHeader: true,
-            // "scrollY": "300px",
-            // "processing": true,
-            // "serverSide": true,
-            "ajax": {
+            sDom: '<"row view-filter"<"col-sm-12"<f><"clearfix">>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            ajax: {
                 "url": toUrl,
                 "data": {'param':par},
                 "type": "GET",
@@ -554,15 +559,30 @@
                     return json.daftar;
                 }
             },
-            "columnDefs": [{
-                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-            }],
-            'columns': columns
-            // "iDisplayLength": 25,
+            columns: columns,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
+
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
+            },
         });
 
-        // searchTable.$('tr.selected').removeClass('selected');
-        $('#table-search tbody').find('tr:first').addClass('selected');
         $('#modal-search .modal-title').html(judul);
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
@@ -571,6 +591,7 @@
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
             if(jTarget1 == "val"){
+                $($target).val(kode);
                 $($target).attr('value',kode);
             }else{
                 $($target).text(kode);
@@ -589,28 +610,6 @@
             $('#modal-search').modal('hide');
         });
 
-        $('#table-search tbody').on('dblclick','tr',function(){
-            console.log('dblclick');
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-            }else{
-                $($target).text(kode);
-            }
-
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
-
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            $('#modal-search').modal('hide');
-        });
-
         $('#table-search tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -618,6 +617,26 @@
             else {
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(jTarget1 == "val"){
+                    $($target).val(kode);
+                    $($target).attr('value',kode);
+                }else{
+                    $($target).text(kode);
+                }
+
+                if(jTarget2 == "val"){
+                    $($target2).val(nama);
+                }else{
+                    $($target2).text(nama);
+                }
+
+                if($target3 != ""){
+                    $($target3).text(nama);
+                }
+                console.log($target3);
+                $('#modal-search').modal('hide');
             }
         });
 
@@ -661,166 +680,344 @@
         })
     }
 
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
-        getDataPP(par);
+        getPP(par);
     });
 
+    // END BAGIAN CBBL
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
-        e.preventDefault();
-        var parameter = $('#id_edit').val();
-        var id = $('#kode_matpel').val();
-        if(parameter == "edit"){
-            var url = "{{ url('/sekolah/postMatpel') }}/"+id;
-            var pesan = "updated";
-        }else{
-            var url = "{{ url('/sekolah/postMatpel') }}";
-            var pesan = "saved";
-        }
-
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-                        $('#saku-datatable').show();
-                        $('#saku-form').hide();
-                 
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('/sekolah/login') }}";
-                    }) 
-                }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
-                }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
+    
+    // TRIGGER ENTER
+    $('#kode_matpel,#nama,#keterangan,#kode_pp,#sifat,#flag_aktif').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_matpel','nama','keterangan','kode_pp','sifat','flag_aktif'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            if(idx == 5 || idx == 6){
+                $('#'+nxt[idx])[0].selectize.focus();
+            }else{
+                
+                $('#'+nxt[idx]).focus();
             }
-        });
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
     });
+    // END TRIGGER ENTER
 
-    $('#saku-datatable').on('click','#btn-delete',function(e){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
-                var kode_pp = temp[0]; 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('sekolah/deleteMatpel') }}/"+kode +"/"+ kode_pp,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('sekolah/login') }}";
-                            })
+    //BUTTON SIMPAN /SUBMIT
+     $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            kode_matpel:
+            {
+                required: true,
+                maxlength:10   
+            },
+            nama:
+            {
+                required: true,
+                maxlength:50   
+            },
+            keterangan:
+            {
+                required: true,
+                maxlength:100 
+            },
+            flag_aktif:
+            {
+                required: true
+            },
+            sifat:
+            {
+                required: true
+            },
+            kode_pp:
+            {
+                required: true,
+                maxlength:10 
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#kode_matpel').val();
+            if(parameter == "edit"){
+                var url = "{{ url('sekolah-master/matpel') }}";
+                var pesan = "updated";
+            }else{
+                var url = "{{ url('sekolah-master/matpel') }}";
+                var pesan = "saved";
+            }
+
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Mata Pelajaran');
+                        $('#method').val('post');
+                        $('#kode_matpel').attr('readonly', false);
+                        msgDialog({
+                            id:result.data.kode_matpel,
+                            type:'simpan'
+                        });
+                        last_add("kode_matpel",result.data.kode_matpel);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    }else{
+                        if(result.data.kode_matpel == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'Kode ta sudah digunakan'
+                            });
                         }else{
+
                             Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
                             })
                         }
                     }
-                });
-                
-            }else{
-                return false;
-            }
-        })
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
     });
+    // END BUTTON SIMPAN
 
+    // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
         var kode_pp = temp[0]; 
-        $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        
+        $('#judul-form').html('Edit Data Mata Pelajaran');
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah/getMatpel') }}/" + id + "/" + kode_pp,
+            url: "{{ url('sekolah-master/matpel-detail') }}",
             dataType: 'json',
+            data:{'kode_matpel':id,'kode_pp':kode_pp},
             async:false,
             success:function(res){
-                var result= res.data;
+                var result = res.data;
                 if(result.status){
-                    console.log(result);
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
                     $('#kode_matpel').val(id);
+                    $('#method').val('put');
                     $('#kode_matpel').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
                     $('#keterangan').val(result.data[0].keterangan);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#sifat')[0].selectize.setValue(result.data[0].sifat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
-                    getLabelDataPP(kode_pp);
+                    $('#sifat')[0].selectize.setValue(result.data[0].sifat);
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#kode_pp').trigger('change');
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
-                    })
-                }
-                $iconLoad.hide();
             }
         });
+    });
+
+    // END BUTTON EDIT
+
+    // BUTTON HAPUS DATA
+    function hapusData(id,kode){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('sekolah-master/matpel') }}",
+            dataType: 'json',
+            data:{'kode_matpel':id,'kode_pp':kode},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success","Hapus Data","Data Mata Pelajaran ("+id+") kode pp "+kode+" berhasil dihapus ");
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td:eq(0)').html();      
+        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+        var kode_pp = temp[0]; 
+
+        msgDialog({
+            id: kode,
+            kode: kode_pp,
+            type:'hapus'
+        });
+    });
+
+    // PREVIEW saat klik di list data
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 3){
+
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var html = `<tr>
+                <td style='border:none'>Kode Mata Pelajaran</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Nama Mata Pelajaran</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>PP</td>
+                <td>`+data.pp+`</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>`+data.flag_aktif+`</td>
+            </tr>
+            <tr>
+                <td>Sifat</td>
+                <td>`+data.sifat+`</td>
+            </tr>
+            <tr>
+                <td>Tgl Input</td>
+                <td>`+data.tgl_input+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-id').text(id);
+            $('#modal-preview-kode').text(data.pp);
+            $('#modal-preview').modal('show');
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        var temp= $('#modal-preview-kode').text().split("-");
+        var kode_pp = temp[0]; 
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            kode:kode,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        var temp= $('#modal-preview-kode').text().split("-");
+        var kode_pp = temp[0]; 
+        $('#form-tambah').validate().resetForm();
+        
+        $('#judul-form').html('Edit Data Mata Pelajaran');
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/matpel-detail') }}",
+            dataType: 'json',
+            data:{'kode_matpel':id,'kode_pp':kode_pp},
+            async:false,
+            success:function(res){
+                var result = res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#kode_matpel').val(id);
+                    $('#method').val('put');
+                    $('#kode_matpel').attr('readonly', true);
+                    $('#nama').val(result.data[0].nama);
+                    $('#keterangan').val(result.data[0].keterangan);
+                    $('#sifat')[0].selectize.setValue(result.data[0].sifat);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#kode_pp').trigger('change');
+                    $('#row-id').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        // $('#dropdownAksi').dropdown('toggle');
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
     });
 
     </script>

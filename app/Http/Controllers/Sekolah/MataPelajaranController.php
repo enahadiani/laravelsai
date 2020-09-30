@@ -96,51 +96,57 @@
 
         }
 
-        public function getMataPelajaran($kode_matpel,$kode_pp) {
+        public function show(Request $request) {
             try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel."&kode_pp=".$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/mata-pelajaran',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_matpel' => $request->kode_matpel
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                $data['message'] = $res['message'];
+                $data['status'] = false;
+                return response()->json(['data' => $data], 200);
             }
-            return response()->json(['data' => $data], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
-            $data['status'] = false;
-            return response()->json(['data' => $data], 200);
-        }
 
         }
 
-        public function update(Request $request, $kode_matpel) {
-           $this->validate($request, [
-            'nama' => 'required',
-            'keterangan' => 'required',
-            'sifat' => 'required',
-            'kode_pp' => 'required',
-            'flag_aktif' => 'required',
+        public function update(Request $request) {
+            $this->validate($request, [
+                'kode_matpel' => 'required',
+                'nama' => 'required',
+                'keterangan' => 'required',
+                'sifat' => 'required',
+                'kode_pp' => 'required',
+                'flag_aktif' => 'required',
             ]);
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/mata-pelajaran',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
+                        'kode_matpel' => $request->kode_matpel,
                         'nama' => $request->nama,
                         'keterangan' => $request->keterangan,
                         'sifat' => $request->sifat,
@@ -148,7 +154,6 @@
                         'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
-                // var_dump('Sukses');
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                     
@@ -164,25 +169,29 @@
             }
         }
 
-        public function delete($kode_matpel,$kode_pp) {
+        public function destroy(Request $request) {
             try{
-            $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'sekolah/mata-pelajaran?kode_matpel='.$kode_matpel.'&kode_pp='.$kode_pp,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-    
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
+                $client = new Client();
+                $response = $client->request('DELETE',  config('api.url').'sekolah/mata-pelajaran',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_matpel' => $request->kode_matpel
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"];
+                }
+                return response()->json(['data' => $data], 200); 
                 
-                $data = json_decode($response_data,true);
-                $data = $data["success"];
-            }
-            return response()->json(['data' => $data], 200); 
-            
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
