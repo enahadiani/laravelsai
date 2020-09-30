@@ -230,6 +230,10 @@
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="No Telpon" id="no_tel" name="no_tel" required>
                             </div>    
+
+                            <div class="col-md-2 col-sm-12">
+                            </div>
+                            
                             <label for="status" class="col-md-2 col-sm-12 col-form-label">Status</label>
                             <div class="col-md-3 col-sm-12">                            
                                 <select class='form-control' id="status" name="status" required>
