@@ -329,7 +329,7 @@
             }
         },
         'columnDefs': [
-            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center action' },
             {'targets': [2,3], "visible": false, "searchable": false, 'className': 'action' },
         ],
         'columns': [
