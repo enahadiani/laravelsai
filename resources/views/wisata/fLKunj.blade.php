@@ -158,6 +158,32 @@ function getBulan($bulan) {
                                     <form id="form-filter">
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>mitra</p>
+                                            <label for="mitra" class="col-md-2 col-sm-12 col-form-label">Destinasi</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-from" readonly value="Menampilkan semua destinasi">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>bidang</p>
                                             <label for="bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                                             <div class="col-md-2 col-sm-12" >
@@ -184,14 +210,14 @@ function getBulan($bulan) {
                                             </div>
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>mitra</p>
-                                            <label for="mitra" class="col-md-2 col-sm-12 col-form-label">Destinasi</label>
+                                            <p class="kunci" hidden>jenis</p>
+                                            <label for="jenis" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='jenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-from" readonly value="Menampilkan semua destinasi">
+                                                    <input type="text" class="form-control border-right-0 " name="jenis[]" id="jenis-from" readonly value="Menampilkan semua jenis">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -202,7 +228,33 @@ function getBulan($bulan) {
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="jenis[]" id="jenis-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>subjenis</p>
+                                            <label for="subjenis" class="col-md-2 col-sm-12 col-form-label">Sub Jenis</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='subjenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="subjenis[]" id="subjenis-from" readonly value="Menampilkan semua subjenis">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="subjenis[]" id="subjenis-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -402,6 +454,20 @@ function getBulan($bulan) {
             to : "",
             toname : "",
         }
+        var jenis = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+        var subjenis = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
         var bulan = {
             type : "=",
             from : "{{ date('m') }}",
@@ -493,6 +559,38 @@ function getBulan($bulan) {
                     var field = eval("mitra");
                     var display = "name";
                     var kunci = "mitra";
+                    var orderby = [[0,"desc"]];
+                break;
+                case 'jenis[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('wisata-master/jenis') }}";
+                    var columns = [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ];
+                    var judul = "Daftar Jenis <span class='modal-subtitle'></span>";
+                    var pilih = "jenis";
+                    $target = $target;
+                    $target2 = target2;
+                    var field = eval("jenis");
+                    var display = "name";
+                    var kunci = "jenis";
+                    var orderby = [[0,"desc"]];
+                break;
+                case 'subjenis[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('wisata-master/subjenis') }}";
+                    var columns = [
+                        { data: 'kode_subjenis' },
+                        { data: 'nama' }
+                    ];
+                    var judul = "Daftar Sub Jenis <span class='modal-subtitle'></span>";
+                    var pilih = "subjenis";
+                    $target = $target;
+                    $target2 = target2;
+                    var field = eval("subjenis");
+                    var display = "name";
+                    var kunci = "subjenis";
                     var orderby = [[0,"desc"]];
                 break;
                 case 'bulan[]': 
@@ -948,6 +1046,12 @@ function getBulan($bulan) {
                         }else if(kunci == "mitra"){
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
+                        } else if(kunci == "jenis"){
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
+                        } else if(kunci == "subjenis"){
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
+                            $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname); 
                         } else if(kunci == "bulan"){
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val(field.fromname);
                             $aktif.closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to input').val(field.toname);
@@ -1016,6 +1120,12 @@ function getBulan($bulan) {
             $formData.append("mitra[]",mitra.type);
             $formData.append("mitra[]",mitra.from);
             $formData.append("mitra[]",mitra.to);
+            $formData.append("jenis[]",mitra.type);
+            $formData.append("jenis[]",mitra.from);
+            $formData.append("jenis[]",mitra.to);
+            $formData.append("subjenis[]",mitra.type);
+            $formData.append("subjenis[]",mitra.from);
+            $formData.append("jenis[]",mitra.to);
             $formData.append("bulan[]",bulan.type);
             $formData.append("bulan[]",bulan.from);
             $formData.append("bulan[]",bulan.to);
