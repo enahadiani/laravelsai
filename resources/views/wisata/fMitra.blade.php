@@ -196,12 +196,9 @@
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Kode Mitra" id="kode_mitra" name="kode_mitra" required>                                
                             </div>   
-
-                            <div class="col-md-1 col-sm-12">
-                            </div>     
-
+                        
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama Mitra</label>
-                            <div class="col-md-4 col-sm-12">
+                            <div class="col-md-5 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Mitra" id="nama" name="nama" required>
                             </div>
 
