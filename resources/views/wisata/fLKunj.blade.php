@@ -187,7 +187,7 @@ function getBulan($bulan) {
                                             <p class="kunci" hidden>bidang</p>
                                             <label for="bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='bidang[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='bidang[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -213,7 +213,7 @@ function getBulan($bulan) {
                                             <p class="kunci" hidden>jenis</p>
                                             <label for="jenis" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='jenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='jenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -239,7 +239,7 @@ function getBulan($bulan) {
                                             <p class="kunci" hidden>subjenis</p>
                                             <label for="subjenis" class="col-md-2 col-sm-12 col-form-label">Sub Jenis</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='subjenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='subjenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
