@@ -161,7 +161,7 @@ function getBulan($bulan) {
                                             <p class="kunci" hidden>mitra</p>
                                             <label for="mitra" class="col-md-2 col-sm-12 col-form-label">Destinasi</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
@@ -323,9 +323,9 @@ function getBulan($bulan) {
                         <div class="col-12 col-sm-12">
                             <div class="collapse" id="collapsePaging">
                                 <div class="px-4 py-0 row"  style="min-height:63px">
-                                    <label class="col-sm-1 pr-0" style="padding-top: 0;margin:auto">Menampilkan</label>
-                                    <div class='col-sm-2 pl-0' style='padding-top: 0;margin:auto'>
-                                        <select name="show" id="show" class="" style='border:none'>
+                                    <div class='col-sm-3' style='padding-top: 0;margin:auto; padding-left:10px;'>
+                                    <label class="pr-0" style="padding-top: 0;margin:auto;display:inline;">Menampilkan</label>
+                                        <select name="show" id="show" class="" style='border:none;display:inline;'>
                                             <option value="10">10 per halaman</option>
                                             <option value="25">25 per halaman</option>
                                             <option value="50">50 per halaman</option>
@@ -1120,12 +1120,12 @@ function getBulan($bulan) {
             $formData.append("mitra[]",mitra.type);
             $formData.append("mitra[]",mitra.from);
             $formData.append("mitra[]",mitra.to);
-            $formData.append("jenis[]",mitra.type);
-            $formData.append("jenis[]",mitra.from);
-            $formData.append("jenis[]",mitra.to);
-            $formData.append("subjenis[]",mitra.type);
-            $formData.append("subjenis[]",mitra.from);
-            $formData.append("jenis[]",mitra.to);
+            $formData.append("jenis[]",jenis.type);
+            $formData.append("jenis[]",jenis.from);
+            $formData.append("jenis[]",jenis.to);
+            $formData.append("subjenis[]",subjenis.type);
+            $formData.append("subjenis[]",subjenis.from);
+            $formData.append("subjenis[]",subjenis.to);
             $formData.append("bulan[]",bulan.type);
             $formData.append("bulan[]",bulan.from);
             $formData.append("bulan[]",bulan.to);
@@ -1148,6 +1148,12 @@ function getBulan($bulan) {
             $formData.append("mitra[]",mitra.type);
             $formData.append("mitra[]",mitra.from);
             $formData.append("mitra[]",mitra.to);
+            $formData.append("jenis[]",jenis.type);
+            $formData.append("jenis[]",jenis.from);
+            $formData.append("jenis[]",jenis.to);
+            $formData.append("subjenis[]",subjenis.type);
+            $formData.append("subjenis[]",subjenis.from);
+            $formData.append("subjenis[]",subjenis.to);
             $formData.append("bulan[]",bulan.type);
             $formData.append("bulan[]",bulan.from);
             $formData.append("bulan[]",bulan.to);

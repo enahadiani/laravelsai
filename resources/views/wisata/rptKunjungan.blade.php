@@ -37,12 +37,24 @@
             </style>
 
             `;
+            console.log(res);
+            console.log(data);
             var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN DATA KUNJUNGAN",'','')+`
-                <table class='table table-bordered info-table'>
+            html+=`<h4 class='text-center'>LAPORAN DATA KUNJUNGAN</h4>
+                   <h5 class='text-center'>${res.res.bulan} ${res.res.tahun}</h5>
+            `; if(typeof res.res.bidang != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.bidang}</h5>`;
+               }
+               if(typeof res.res.jenis != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.jenis}</h5>`;
+               }
+               if(typeof res.res.subjenis != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.subjenis}</h5>`;
+               }
+            html+= `<table class='table table-bordered info-table'>
                     <tr>
+                        <th style='text-align:center;'>Kode Mitra</th>
                         <th style='text-align:center;'>Nama Mitra</th>
-                        <th style='text-align:center;'>Nama Bidang</th>
                         <th style='text-align:center;'>Jumlah</th>
                     </tr>`;
                     if(from != undefined){
@@ -53,10 +65,12 @@
                     for (var i=0; i < data.length ; i++)
                     {
                         var line  = data[i];
+                        var kunjungan = sepNum(parseFloat(line.kunjungan));
+                        var jumlah = kunjungan.slice(0, -3);
                         html +=`<tr>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama_mitra+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama_bidang+`</td>
-                            <td class='isi_laporan' style='text-align: right;'>`+sepNum(parseFloat(line.jumlah))+`</td>
+                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.kode_mitra+`</td>
+                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama+`</td>
+                            <td class='isi_laporan' style='text-align: right;'>`+jumlah+`</td>
                         </tr>`;
                         no++;
                     }
