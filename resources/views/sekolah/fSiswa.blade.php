@@ -1383,7 +1383,7 @@
                                 $('.td'+target3).click();
                             }else{
 
-                                $("#input-jurnal td").removeClass("px-0 py-0 aktif");
+                                $("#input-param td").removeClass("px-0 py-0 aktif");
                                 $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
 
                                 $('.'+target1).closest('tr').find('.search-akun').hide();

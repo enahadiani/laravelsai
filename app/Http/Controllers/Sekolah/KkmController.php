@@ -49,7 +49,7 @@
             }
         }
 
-        public function save(Request $request) {
+        public function store(Request $request) {
             $this->validate($request, [
                 'kode_ta' => 'required',
                 'kode_tingkat' => 'required',
@@ -97,14 +97,18 @@
 
         }
 
-        public function getKkm($kode_kkm,$kode_pp) {
+        public function show(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/kkm?kode_kkm='.$kode_kkm."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/kkm',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kkm' => $request->kode_kkm
                     ]
                 ]);
         
@@ -124,14 +128,18 @@
             }
         }
 
-        public function delete($kode_kkm,$kode_pp) {
+        public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/kkm?kode_kkm='.$kode_kkm.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/kkm',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kkm' => $request->kode_kkm
                     ]
                 ]);
         
@@ -151,9 +159,10 @@
             }
         }
 
-        public function update(Request $request, $kode_kkm)
+        public function update(Request $request)
         {
             $this->validate($request, [
+                'kode_kkm' => 'required',
                 'kode_ta' => 'required',
                 'kode_tingkat' => 'required',
                 'kode_jur' => 'required',
@@ -165,7 +174,7 @@
 
             try{
                 $fields = array (
-                    'kode_kkm' => $kode_kkm,
+                    'kode_kkm' => $request->kode_kkm,
                     'kode_ta' => $request->kode_ta,
                     'kode_tingkat' => $request->kode_tingkat,
                     'kode_jur' => $request->kode_jur,

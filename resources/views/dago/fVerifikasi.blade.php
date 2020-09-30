@@ -201,7 +201,7 @@
 
                                         <label for="kurs" class="col-3 col-form-label">Kurs</label>
                                         <div class="col-3">
-                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs">
+                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -838,11 +838,10 @@
     });
 
     
-    $('#kode_curr').on('change', function(){
-        var kode_curr = $(this).val();
-        getKurs(kode_curr);
-        
-    });
+    // $('#kode_curr').on('change', function(){
+    //     var kode_curr = $(this).val();
+    //     getKurs(kode_curr);
+    // });
 
     $('#input-biaya').on('click', 'td', function(){
         var idx = $(this).index();
@@ -972,7 +971,7 @@
                         $('#status_bayar')[0].selectize.setValue(line.status_bayar);
                         $('#tgl_berangkat').val(line.tgl_berangkat);	
                         $('#kode_curr').val(line.kode_curr);
-                        $('#kode_curr').trigger('change');
+                        $('#kurs').val(line.kurs);
                         $('#paket').val(line.paket);
                         var hargapaket = parseFloat(line.harga_tot).toFixed(0);
                         var akunTitip = line.kode_akun;
@@ -1101,7 +1100,7 @@
                         }
 
                         var saldo = hargapaket - bayarPaket_lain - diskon;
-                        var saldot = parseFloat(res.data.totTambah) - bayarTambah_lain - diskon;						 
+                        var saldot = parseFloat(res.data.totTambah) - bayarTambah_lain;						 
                         var saldom = parseFloat(res.data.totDok) - bayarDok_lain;		
                         $('#saldo_paket').val(format_number(saldo));
                         $('#saldo_biaya').val(format_number(saldot));

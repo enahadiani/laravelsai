@@ -49,7 +49,7 @@
             }
         }
 
-        public function save(Request $request) {
+        public function store(Request $request) {
             $this->validate($request, [
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
@@ -92,14 +92,18 @@
 
         }
 
-        public function getGuruMatpel($nik,$kode_pp) {
+        public function show(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel?nik_guru='.$nik."&kode_pp=".$kode_pp,
+                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nik_guru' => $request->nik_guru,
+                        'kode_pp' => $request->kode_pp,
                     ]
                 ]);
         
@@ -119,14 +123,18 @@
             }
         }
 
-        public function delete($nik,$kode_pp) {
+        public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/guru-matpel?nik_guru='.$nik.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/guru-matpel',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nik_guru' => $request->nik_guru,
+                        'kode_pp' => $request->kode_pp,
                     ]
                 ]);
         
@@ -146,9 +154,9 @@
             }
         }
 
-        public function update(Request $request, $nik)
+        public function update(Request $request)
         {
-        $this->validate($request, [
+            $this->validate($request, [
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',

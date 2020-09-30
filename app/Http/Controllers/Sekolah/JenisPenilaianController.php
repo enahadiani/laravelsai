@@ -113,8 +113,9 @@
 
         }
 
-        public function update(Request $request, $kode_jenis) {
+        public function update(Request $request) {
             $this->validate($request, [
+                'kode_jenis' => 'required',
                 'nama' => 'required',
                 'kode_pp' => 'required',
                 'flag_aktif' => 'required',
@@ -122,12 +123,13 @@
 
             try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis,[
+                $response = $client->request('PUT',  config('api.url').'sekolah/jenis-nilai',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
+                        'kode_jenis' => $request->kode_jenis,
                         'nama' => $request->nama,
                         'flag_aktif' => $request->flag_aktif,
                         'kode_pp' => $request->kode_pp,
@@ -149,14 +151,18 @@
             }
         }
 
-        public function destroy($kode_jenis,$kode_pp) {
+        public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/jenis-nilai?kode_jenis='.$kode_jenis.'&kode_pp='.$kode_pp,
+                $response = $client->request('DELETE',  config('api.url').'sekolah/jenis-nilai',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' =>[
+                        'kode_pp' => $request->kode_pp,
+                        'kode_jenis' => $request->kode_jenis
                     ]
                 ]);
         
