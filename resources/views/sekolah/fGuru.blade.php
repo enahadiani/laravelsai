@@ -1,4 +1,5 @@
-<style>
+    <!-- STYLE TAMBAHAN -->
+    <style>
         th,td{
             padding:8px !important;
             vertical-align:middle !important;
@@ -6,6 +7,7 @@
         .search-item2{
             cursor:pointer;
         }
+
         input.error{
             border:1px solid #dc3545;
         }
@@ -22,6 +24,7 @@
         {
             float:right;
         }
+
         .form-body 
         {
             position: relative;
@@ -33,14 +36,17 @@
             position: relative;
             overflow: auto;
         }
-        
+        .hidden{
+            display:none;
+        }
+
+        .datetime-reset-button {
+            margin-right: 20px !important;
+            margin-top: 3px !important;
+        }
         #table-search
         {
             border-collapse:collapse !important;
-        }
-
-        .hidden{
-            display:none;
         }
 
         #table-search_filter label, #table-search_filter input
@@ -61,17 +67,11 @@
         justify-content: center; }
 
         .dataTables_wrapper .paginate_button.page-item {
-            padding-left: 5px;
-            padding-right: 5px; 
-        }
-
-        .dataTables_length select {
-            border: 0;
-            background: none;
-            box-shadow: none;
-            border:none;
-            width:120px !important;
-            transition-duration: 0.3s; 
+        padding-left: 5px;
+        padding-right: 5px; }
+        .px-0{
+            padding-left: 2px !important;
+            padding-right: 2px !important;
         }
 
         #table-data_filter label
@@ -82,6 +82,7 @@
         {
             width:inherit;
         }
+        
         #searchData
         {
             font-size: .75rem;
@@ -93,6 +94,30 @@
         .dropdown-aksi > .dropdown-item{
             font-size : 0.7rem;
         }
+
+        .btn-light2{
+            background:#F8F8F8;
+            color:#D4D4D4;
+        }
+
+        .btn-light2:hover{
+            color:#131113;
+        }
+
+        .btn-light2:active{
+            color: #131113;
+            background-color: #d8d8d8;
+        }
+
+        .custom-file-label::after{
+            content:"Cari berkas" !important;
+            border-left:0;
+            color: var(--theme-color-1) !important;
+        }
+        .focus{
+            /* border:none !important; */
+            box-shadow:none !important;
+        }
         .last-add::before{
             content: "***";
             background: var(--theme-color-1);
@@ -103,7 +128,64 @@
             left: -5px;
         }
 
+        th{
+            vertical-align:middle !important;
+        }
+        /* #input-matpel td{
+            padding:0 !important;
+        } */
+        #input-matpel .selectize-input.focus, #input-matpel input.form-control, #input-matpel .custom-file-label
+        {
+            border:1px solid black !important;
+            border-radius:0 !important;
+        }
+
+        #input-matpel .selectize-input
+        {
+            border-radius:0 !important;
+        } 
+
+        .modal-header .close {
+            padding: 1rem;
+            margin: -1rem 0 -1rem auto;
+        }
+        .check-item{
+            cursor:pointer;
+        }
+        .selected{
+            cursor:pointer;
+            /* background:#4286f5 !important; */
+            /* color:white; */
+        }
+        #input-matpel td:not(:nth-child(1)):not(:nth-child(9)):hover
+        {
+            /* background: var(--theme-color-6) !important;
+            color:white; */
+            background:#f8f8f8;
+            color:black;
+        }
+        #input-matpel input:hover,
+        #input-matpel .selectize-input:hover,
+        {
+            width:inherit;
+        }
+        #input-matpel ul.typeahead.dropdown-menu
+        {
+            width:max-content !important;
+        }
+        #input-matpel td
+        {
+            /* overflow:hidden !important; */
+            height:37.2px !important;
+            padding:0px !important;
+        }
+
+        #input-matpel span
+        {
+            padding:0px 10px !important;
+        }
     </style>
+    <!-- END STYLE -->
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
@@ -157,47 +239,49 @@
             </div>
         </div>
     </div>
-    <div class="row" id="saku-form" style="display:none;">
-        <div class="col-sm-12">
-            <div class="card" style="min-height:560px !important">
-                <form id="form-tambah" style=''>
-                    <div class="card-body pb-0">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Guru Mata Pelajaran
-                        <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        </h4>
-                        <hr>
+
+    <!-- FORM  -->
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
+        <div class="row" id="saku-form" style="display:none;">
+            <div class="col-sm-12">
+                <div class="card">
+                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="card-body pt-0" style='min-height:471px'>
+                    <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body pt-3 form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_pp" class="col-3 col-form-label">Kode PP</label>
-                            <div class="input-group col-3">
-                                <input type='text' name="kode_pp" id="kode_pp" class="form-control" required>
-                                    <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
+                        <div class="form-group row ">
+                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
-                                <div class="col-6">
-                                    <label id="label_kode_pp" style="margin-top: 10px;"></label>
-                                </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="nik_guru" class="col-md-2 col-sm-12 col-form-label">NIK Guru</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="nik_guru" name="nik_guru" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_nik_guru" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nik_guru" class="col-3 col-form-label">NIK Guru</label>
-                            <div class="input-group col-3">
-                                <input type='text' name="nik_guru" id="nik_guru" class="form-control" required>
-                                    <i class='fa fa-search search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;"></i>
-                            </div>
-                                <div class="col-6">
-                                    <label id="label_nik_guru" style="margin-top: 10px;"></label>
-                                </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="flag_aktif" class="col-3 col-form-label">Status</label>
-                            <div class="col-3">
+                            <label for="flag_aktif" class="col-md-2 col-sm-12 col-form-label">Status</label>
+                            <div class="col-md-3 col-sm-12">
                                 <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                     <option value='' disabled>--- Pilih Status Aktif ---</option>
                                     <option value='1'>Aktif</option>
@@ -205,101 +289,46 @@
                                 </select>
                             </div>
                         </div>
-                        <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
-                            <a class='badge badge-secondary' type="button" href="#" id="copy-row" data-toggle="tooltip" title="copy row"><i class='fa fa-copy' style='font-size:18px'></i></a>&nbsp;
-                            <!-- <a class='badge badge-secondary' type="button" href="#" id="delete-row"><i class='fa fa-trash' style='font-size:18px'></i></a>&nbsp; -->
-                            <a class='badge badge-secondary' type="button" href="#" data-id="0" id="add-row" data-toggle="tooltip" title="add-row" style='font-size:18px'><i class='fa fa-plus-square'></i></a>
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-matpel" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Matpel</span></a> </li>
+                        </ul>
+                        <div class="tab-content tabcontent-border col-12 p-0 mb-2">
+                            <div class="tab-pane active" id="data-matpel" role="tabpanel">
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                </div>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-matpel" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:10%">Kode Matpel</th>
+                                                <th style="width:20%">Nama Matpel</th>
+                                                <th style="width:10%">Kode Status</th>
+                                                <th style="width:17%">Nama Status</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                            <style>
-                                th{
-                                    vertical-align:middle !important;
-                                }
-                                /* #input-jurnal td{
-                                    padding:0 !important;
-                                } */
-                                #input-jurnal .selectize-input, #input-jurnal .form-control, #input-jurnal .custom-file-label{
-                                    border:0 !important;
-                                    border-radius:0 !important;
-                                }
-                                .modal-header .close {
-                                    padding: 1rem;
-                                    margin: -1rem 0 -1rem auto;
-                                }
-                                .check-item{
-                                    cursor:pointer;
-                                }
-                                .selected{
-                                    cursor:pointer;
-                                    background:#4286f5 !important;
-                                    color:white;
-                                }
-                                #input-jurnal td:hover{
-                                    background:#f4d180 !important;
-                                    color:white;
-                                }
-                                #input-jurnal td{
-                                    overflow:hidden !important;
-                                }
-
-                                #input-jurnal td:nth-child(4){
-                                    overflow:unset !important;
-                                }
-                            </style>
-                            <table class="table table-striped table-bordered table-condensed gridexample" id="input-matpel" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                            <thead style="background:#ff9500;color:white">
-                                <tr>
-                                    <th style="width:3%">No</th>
-                                    <th style="width:10%">Kode Matpel</th>
-                                    <th style="width:20%">Nama Matpel</th>
-                                    <th style="width:10%">Kode Status</th>
-                                    <th style="width:12%">Nama Status</th>
-                                    <th style="width:10%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            </table>
-                        </div>
-                      
-                        <!-- <button type="button" href="#" id="add-row" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Tambah Data</button> -->
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <!-- <div id='mySidepanel' class='sidepanel close'>
-        <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-        <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_pp">Kode PP</label>
-                    <select name="kode_pp" id="kode_pp2" class="form-control">
-                    <option value="">Pilih PP</option>
-                    </select>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-            </div>
-        </div>
-        </form>
-    </div> -->
-
-    <!-- MODAL SEARCH AKUN-->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog" role="document" style="max-width:600px">
+    </form>
+     <!-- MODAL SEARCH-->
+     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> 
                 </div>
                 <div class="modal-body">
                     
@@ -308,174 +337,106 @@
         </div>
     </div>
     <!-- END MODAL -->
-    <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
 
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
+            <div class="modal-content" style="border-radius:0.75em">
+                <div class="modal-header py-0" style="display:block;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Siswa <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL PREVIEW -->
+
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
-        var $iconLoad = $('.preloader');
-        var $target = "";
-        var $target2 = "";
-
-        $.ajaxSetup({
+    var $iconLoad = $('.preloader');
+    var $target = "";
+    var $target2 = "";
+    
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
-        });
-
-        function last_add(param,isi){
-            var rowIndexes = [];
-            dataTable.rows( function ( idx, data, node ) {             
-                if(data[param] === isi){
-                    rowIndexes.push(idx);                  
-                }
-                return false;
-            }); 
-            dataTable.row(rowIndexes).select();
-            $('.selected td:eq(0)').addClass('last-add');
-            console.log('last-add');
-            setTimeout(function() {
-                console.log('timeout');
-                $('.selected td:eq(0)').removeClass('last-add');
-                dataTable.row(rowIndexes).deselect();
-            }, 1000 * 60 * 10);
-        }
-
-        function openFilter() {
-            var element = $('#mySidepanel');
-            
-            var x = $('#mySidepanel').attr('class');
-            var y = x.split(' ');
-            if(y[1] == 'close'){
-                element.removeClass('close');
-                element.addClass('open');
-            }else{
-                element.removeClass('open');
-                element.addClass('close');
+    });
+    
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
             }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        setTimeout(function() {
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+    
+    function openFilter() {
+        var element = $('#mySidepanel');
+        
+        var x = $('#mySidepanel').attr('class');
+        var y = x.split(' ');
+        if(y[1] == 'close'){
+            element.removeClass('close');
+            element.addClass('open');
+        }else{
+            element.removeClass('open');
+            element.addClass('close');
         }
-
-        $('.sidepanel').on('click', '#btnClose', function(e){
-            e.preventDefault();
-            openFilter();
-        });
-
-        function getPP(){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            var select2 = $('#kode_pp2').selectize();
-                            select2 = select2[0];
-                            var control2 = select2.selectize;
-                            for(i=0;i<result.daftar.length;i++){
-                                control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp + '-' + result.daftar[i].nama}]);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-    getPP();
-
-    function getDataPP(id=null){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            $('#kode_pp').val(result.daftar[0].kode_pp);
-                            $('#label_kode_pp').text(result.daftar[0].nama);
-                        }else{
-                            alert('Kode PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
-                        }
-                    }
-                }
-            });
     }
 
-    function getLabelDataPP(id){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            for(var i=0;i<=result.daftar.length;i++){   
-                            if(result.daftar[i].kode_pp === id){
-                                $('#label_kode_pp').text(result.daftar[i].nama);
-                                break;
-                              }
-                            }
-                        }else{
-                            alert('Kode PP tidak valid');
-                            $('#kode_pp').val('');
-                            $('#kode_pp').focus();
-                        }
-                    }
-                }
-            });
+    function hitungTotalRow(){
+        var total_row = $('#input-matpel tbody tr').length;
+        $('#total-row').html(total_row+' Baris');
     }
+        
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
+    });
 
-    function getNIKGuru(id=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{url('/sekolah/getNIKGuru')}}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#nik_guru').val(result.daftar[0].nik);
-                         $('#label_nik_guru').text(result.daftar[0].nama);
-                    }else{
-                        alert('NIK tidak valid');
-                        $('#nik_guru').val('');
-                        $('#nik_guru').focus();
-                    }
-                }
-            }
-        });
-    }
+    // INISIASI AWAL FORM
 
-    function getLabelNIKGuru(pp,nik){
-        $.ajax({
-            type: 'GET',
-            url: "{{url('/sekolah/getNIKGuru')}}/"+pp,
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                      for(var i = 0;i<=result.daftar.length;i++){  
-                        if(result.daftar[i].nik === nik){
-                            $('#label_nik_guru').text(result.daftar[i].nama);
-                            break;
-                         }
-                     }
-                    }else{
-                        alert('NIK tidak valid');
-                        $('#nik_guru').val('');
-                        $('#nik_guru').focus();
-                    }
-                }
-            }
-        });
-    }
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
 
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+
+    $('.selectize').selectize();
     $('[data-toggle="tooltip"]').tooltip(); 
 
+    // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = $('#table-data').DataTable({
         destroy: true,
@@ -563,74 +524,96 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
 
+    // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
         $('#method').val('post');
+        $('#judul-form').html('Tambah Data Guru Mata Pelajaran');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
-        $('#label_kode_pp').text('');
-        $('#label_nik_guru').text('');
+        $('#form-tambah').validate().resetForm();
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
         $('#input-matpel tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        $('#flag_aktif')[0].selectize.setValue('');
-        // $('#form-tambah #add-row').click();
+        hitungTotalRow();
     });
-
-     $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
+    // END BUTTON TAMBAH
+    
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
     });
-
-    $('#form-tambah').on('click', '.search-item2', function(){
-
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+    // END BUTTON KEMBALI
+    
+    
+    // BUTTON UPDATE DATA
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#nis').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
     });
+    // END BUTTON UPDATE
 
-        function showFilter(param,target1,target2){
+    // CBBL
+    function showFilter(param,target1,target2){
         var par = param;
-        var pp  = $('#kode_pp').val();
+        
         var modul = '';
         var header = [];
         $target = target1;
         $target2 = target2;
+        var parameter = {'param':par};
         
         switch(par){
-            case 'kode_status[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sekolah/getDaftarStatusGuru') }}";
-                var columns = [
-                    { data: 'kode_status' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Matpel";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-            break;
             case 'kode_matpel[]': 
                 header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sekolah/getDataMatpel') }}";
+                var toUrl = "{{ url('sekolah-master/matpel') }}";
                 var columns = [
                     { data: 'kode_matpel' },
                     { data: 'nama' }
                 ];
-                var judul = "Daftar Matpel";
+                var judul = "Daftar Mata Pelajaran";
+                var pilih = "parameter";
+                var jTarget1 = "val";
+                var jTarget2 = "val";
+                $target = "."+$target;
+                $target2 = "."+$target2;
+                $target3 = "";
+                $target4 = ".td-status";
+                parameter = {'kode_pp':$('#kode_pp').val()};
+            break;
+            case 'kode_status[]': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/status-guru') }}";
+                var columns = [
+                    { data: 'kode_status' },
+                    { data: 'nama' }
+                ];
+                var judul = "Daftar Status";
+                var pilih = "parameter";
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
+                $target4 = "";
+                parameter = {'kode_pp':$('#kode_pp').val()};
             break;
             case 'kode_pp': 
-            header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('sekolah/getPP') }}";
+                header = ['Kode PP', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/pp') }}";
                 var columns = [
                     { data: 'kode_pp' },
                     { data: 'nama' }
@@ -638,114 +621,84 @@
                 
                 var judul = "Daftar PP";
                 var jTarget1 = "val";
-                var jTarget2 = "text";
+                var pilih = "pp";
+                var jTarget2 = "val";
                 $target = "#"+$target;
+                $target3 = ".td"+$target2;
                 $target2 = "#"+$target2;
                 $target3 = "";
+                $target4 = "";
             break;
             case 'nik_guru': 
-            if(pp === ''){
-                alert('PP harus dipilih dahulu');
-            }else {
-            header = ['NIK', 'Nama'];
-            var toUrl = "{{ url('sekolah/getNIKGuru') }}/"+pp;
+                header = ['NIK', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/guru-nik') }}";
                 var columns = [
                     { data: 'nik' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar NIK Guru";
+                var judul = "Daftar Guru";
                 var jTarget1 = "val";
-                var jTarget2 = "text";
+                var pilih = "nik";
+                var jTarget2 = "val";
                 $target = "#"+$target;
+                $target3 = ".td"+$target2;
                 $target2 = "#"+$target2;
-                $target3 = "";
-            }
+                $target4 = "";
+                parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
             break;
         }
-
+        
         var header_html = '';
+        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
-            header_html +=  "<th>"+header[i]+"</th>";
+            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
-        header_html +=  "<th></th>";
-
-        var table = "<table class='table table-bordered table-striped' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+        
+        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
         table += "<tbody></tbody></table>";
-
+        
         $('#modal-search .modal-body').html(table);
-
+        
         var searchTable = $("#table-search").DataTable({
-            // fixedHeader: true,
-            // "scrollY": "300px",
-            // "processing": true,
-            // "serverSide": true,
-            "ajax": {
+            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            ajax: {
                 "url": toUrl,
-                "data": {'param':par},
+                "data": parameter,
                 "type": "GET",
                 "async": false,
                 "dataSrc" : function(json) {
                     return json.daftar;
                 }
             },
-            "columnDefs": [{
-                "targets": 2, "data": null, "defaultContent": "<a class='check-item'><i class='fa fa-check'></i></a>"
-            }],
-            'columns': columns
-            // "iDisplayLength": 25,
+            columns: columns,
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+                
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
+            },
         });
-
-        // searchTable.$('tr.selected').removeClass('selected');
-        $('#table-search tbody').find('tr:first').addClass('selected');
+        
         $('#modal-search .modal-title').html(judul);
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
-
-        $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).attr('value',kode);
-            }else{
-                $($target).text(kode);
-            }
-
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
-
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            console.log($target3);
-            $('#modal-search').modal('hide');
-        });
-
-        $('#table-search tbody').on('dblclick','tr',function(){
-            console.log('dblclick');
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-            }else{
-                $($target).text(kode);
-            }
-
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                $($target2).text(nama);
-            }
-
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            $('#modal-search').modal('hide');
-        });
-
         $('#table-search tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -753,35 +706,17 @@
             else {
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
-            }
-        });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
                 
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
+                var dtrow = searchTable.row(this).data();  
+                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+               
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                 }else{
                     $($target).text(kode);
                 }
-
+                
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
                 }else{
@@ -789,36 +724,333 @@
                 }
                 
                 if($target3 != ""){
-                    $($target3).text(nama);
+                    $($target3).click();
+                }
+                
+                if($target4 != ""){
+                    if(par == "kode_matpel[]"){
+                        $($target).closest('tr').find($target4).click();
+                        setTimeout(function() {  $($target).parents("tr").find(".inp-status").focus(); }, 50);
+                    }
+                    else{
+                        $($target4).click();
+                    }
                 }
                 $('#modal-search').modal('hide');
+            }
+        });
+    }
+    
+    function getPP(id){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            data:{kode_pp : kode},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        $('#kode_pp').val(result.daftar[0].kode_pp);
+                        $('#label_kode_pp').val(result.daftar[0].nama);
+                    }else{
+                        $('#kode_pp').val('');
+                        $('#label_kode_pp').val('');
+                        $('#kode_pp').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+    
+    function getNIKGuru(id){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        kode_pp = $('#kode_pp').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/sekolah-master/guru-nik') }}",
+            dataType: 'json',
+            data:{kode_pp : kode_pp, nik_guru: kode},
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        $('#nik_guru').val(result.data[0].nik_guru);
+                        $('#label_nik_guru').val(result.data[0].nama);
+                    }else{
+                        $('#nik_guru').val('');
+                        $('#label_nik_guru').val('');
+                        $('#nik_guru').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+    
+    function getMatpel(id,target1,target2,target3,jenis){
+        var tmp = id.split(" - ");
+        var kode = tmp[0];
+        var kode_pp = $('#kode_pp').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/matpel') }}",
+            dataType: 'json',
+            data:{kode_matpel:kode,kode_pp:kode_pp},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.td'+target3).click();
+                        }else{
+                            
+                            $("#input-matpel td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+                            
+                            $('.'+target1).closest('tr').find('.search-matpel').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+                            
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).click();
+                        }
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode Param tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
+    function getStatus(id,target1,target2,target3,jenis){
+        var tmp = id.split(" - ");
+        var kode = tmp[0];
+        var kode_pp = $('#kode_pp').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/status-guru') }}",
+            dataType: 'json',
+            data:{kode_status:kode,kode_pp:kode_pp},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.td'+target3).click();
+                        }else{
+                            
+                            $("#input-matpel td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+                            
+                            $('.'+target1).closest('tr').find('.search-status').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+                            
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).click();
+                        }
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Kode Param tidak valid');
+                    }
+                }
+            }
+        });
+    }
+    
+    $('#form-tambah').on('change', '#kode_pp', function(){
+        var par = $(this).val();
+        getPP(par);
+    });
+    
+    $('#form-tambah').on('change', '#nik_guru', function(){
+        var par = $(this).val();
+        var pp = $('#kode_pp').val();
+        getNIKGuru(par,pp);
+    });
+    
+    $('#form-tambah').on('click', '.search-item2', function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
+        target1 = par;
+        target2 = par2;
+        showFilter(par,target1,target2);
+    });
+    
+    // END CBBL
+    function hideUnselectedRow() {
+        $('#input-matpel > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                
+                var kode_matpel = $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").val();
+                var nama = $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").val();
+                var kode_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val();
+                var nama_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val();
+                
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").val(kode_matpel);
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-matpel").text(kode_matpel);
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").val(nama);
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nmatpel").text(nama);
+                
+                $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val(kode_status);
+                $('#input-status > tbody > tr:eq('+index+') > td').find(".td-status").text(kode_status);
+                $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val(nama_status);
+                $('#input-status > tbody > tr:eq('+index+') > td').find(".td-nstatus").text(nama_status);
+                
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-matpel").show();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".search-matpel").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nmatpel").show();
+                
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-status").show();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".search-status").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nstatus").hide();
+                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nstatus").show();
             }
         })
     }
 
-    $('#form-tambah').on('change', '#kode_pp', function(){
-        var par = $(this).val();
-        getDataPP(par);
+    $('#input-matpel').on('keydown','.inp-matpel, .inp-nmatpel, .inp-status,.inp-nstatus',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-matpel','.inp-nmatpel','.inp-status','.inp-nstatus'];
+        var nxt2 = ['.td-matpel','.td-nmatpel','.td-status','.td-nstatus'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-1;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    var noidx = $(this).parents("tr").find(".no-matpel").text();
+                    var kode = $(this).val();
+                    var target1 = "matpelke"+noidx;
+                    var target2 = "nmatpelke"+noidx;
+                    getMatpel(kode,target1,target2,null,'tab');                    
+                break;
+                case 1:
+                    $("#input-matpel td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find('.search-status').show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();                        
+                break;
+                case 2:
+                    var noidx = $(this).parents("tr").find(".no-matpel").text();
+                    var kode = $(this).val();
+                    var target1 = "statuske"+noidx;
+                    var target2 = "nstatuske"+noidx;
+                    getStatus(kode,target1,target2,null,'tab');  
+                break;
+                case 3:
+                    $("#input-matpel td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+
+                    var cek = $(this).parents('tr').next('tr').find('.td-matpel');
+                    if(cek.length > 0){
+                        cek.click();
+                    }else{
+                        $('.add-row').click();
+                    }
+                break;
+                default:
+                break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
     });
 
-    $('#form-tambah').on('change', '#nik_guru', function(){
-        var par = $(this).val();
-        getNikGuru(par);
-    });
-
-    $('#form-tambah').on('click', '#add-row', function(){
+    $('#form-tambah').on('click', '.add-row', function(){
         var no=$('#input-matpel .row-matpel:last').index();
         no=no+2;
         var input = "";
         input += "<tr class='row-matpel'>";
         input += "<td class='no-matpel text-center'>"+no+"</td>";
-        input += "<td><span class='td-matpel tdmatpelke"+no+"'></span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nmatpel tdnmmatpelke"+no+"'></span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmmatpelke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-status tdstatuske"+no+"'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nstatus tdnmstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nmstatuske"+no+" hidden'  value='' readonly></td>";
-        input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'></span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'></span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nstatus tdnstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='' readonly></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-matpel tbody').append(input);
+        hitungTotalRow();
+        hideUnselectedRow();
         $('#input-matpel td').removeClass('px-0 py-0 aktif');
         $('#input-matpel tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
         $('#input-matpel tbody tr:last').find(".inp-matpel").show();
@@ -827,7 +1059,7 @@
         $('#input-matpel tbody tr:last').find(".inp-matpel").focus();
     });
 
-     $('#input-matpel').on('click', '.hapus-item', function(){
+    $('#input-matpel').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
         no=1;
         $('.row-matpel').each(function(){
@@ -835,17 +1067,14 @@
             nom.html(no);
             no++;
         });
+        hitungTotalRow();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
 
     $('#input-matpel tbody').on('click', 'tr', function(){
-        if ( $(this).hasClass('selected-row') ) {
-            $(this).removeClass('selected-row');
-        }
-        else {
-            $('#input-matpel tbody tr').removeClass('selected-row');
-            $(this).addClass('selected-row');
-        }
+        $(this).addClass('selected-row');
+        $('#input-matpel tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
     });
 
     $('#input-matpel').on('click', 'td', function(){
@@ -966,124 +1195,6 @@
         }
     });
 
-    function getMatpel(id,target1,target2,jenis){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/sekolah/getMatpel') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        if(jenis == 'change'){
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                        }else{
-
-                            $("#input-matpel td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
-
-                            $('.'+target1).closest('tr').find('.search-matpel').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
-                            $('.'+target1).hide();
-                            $('.td'+target1).show();
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                        }
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
-                    })
-                }
-                else{
-                    if(jenis == 'change'){
-
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }else{
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }
-                    alert('Kode akun tidak valid');
-                }
-            }
-        });
-    }
-
-    function getStatusGuru(id,target1,target2,jenis){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/sekolah/getStatusGuru') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.data.status){
-                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
-                        if(jenis == 'change'){
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                        }else{
-
-                            $("#input-matpel td").removeClass("px-0 py-0 aktif");
-                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
-
-                            $('.'+target1).closest('tr').find('.search-matpel').hide();
-                            $('.'+target1).val(id);
-                            $('.td'+target1).text(id);
-                            $('.'+target1).hide();
-                            $('.td'+target1).show();
-
-                            $('.'+target2).val(result.data.data[0].nama);
-                            $('.td'+target2).text(result.data.data[0].nama);
-                            $('.'+target2).show();
-                            $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                        }
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
-                    })
-                }
-                else{
-                    if(jenis == 'change'){
-
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }else{
-                        $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.td'+target2).text('');
-                        $('.'+target1).focus();
-                    }
-                    alert('Kode akun tidak valid');
-                }
-            }
-        });
-    }
-
     $('.nav-control').on('click', '#copy-row', function(){
         if($(".selected-row").length != 1){
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
@@ -1098,187 +1209,398 @@
             var input = "";
             input += "<tr class='row-matpel'>";
             input += "<td class='no-matpel text-center'>"+no+"</td>";
-            input += "<td ><span class='td-matpel tdmatpelke"+no+"'>"+kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+kode_matpel+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nmatpel tdnmmatpelke"+no+"'>"+nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmmatpelke"+no+" hidden'  value='"+nama_matpel+"' readonly></td>";
-            input += "<td><span class='td-status tdstatuske"+no+"'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nstatus tdnmstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nmstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
-            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+            input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+nama_matpel+"' readonly></td>";
+            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-matpel tbody').append(input);
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
     });
 
-    $('#saku-form').on('submit', '#form-tambah', function(e){
-        e.preventDefault();
-        var id = $('#nik_guru').val();
-        var parameter = $('#id_edit').val();
-        if(parameter == "edit"){
-            var url = "{{ url('/sekolah/postGuruMatpel') }}/"+id;
-            var pesan = "updated";
-        }else{
-            var url = "{{ url('/sekolah/postGuruMatpel') }}";
-            var pesan = "saved";
-        }
+    // END GRID
 
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $.ajax({
-            type: 'POST', 
-            url: url,
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    // location.reload();
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Great Job!',
-                        'Your data has been '+pesan,
-                        'success'
-                        )
-                        $('#saku-datatable').show();
-                        $('#saku-form').hide();
-                 
-                }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('/sekolah/login') }}";
-                    }) 
-                }else{
+    // BUTTON SIMPAN
+    
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            kode_pp:{
+                required: true,
+                maxlength:10  
+            },
+            nik_guru:
+            {
+                required: true
+            },
+            flag_aktif:
+            {
+                required: true,
+                maxlength:1
+            }
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#nik_guru').val();
+            
+            if(parameter == "edit"){
+                var url = "{{ url('sekolah-master/guru-matpel') }}";
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('sekolah-master/guru-matpel') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+            
+            var formData = new FormData(form);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('[id^=label]').html('');
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Guru Mata Pelajaran');
+                        $('#input-matpel tbody').html('');
+                        $('#method').val('post');
+                        msgDialog({
+                            id:result.data.nik_guru,
+                            type:'simpan'
+                        });
+                        last_add("nik_guru",result.data.nik_guru);
+                        
+                        
+                    }else if(!result.data.status && result.data.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                             footer: '<a href>'+result.data.message+'</a>'
                         })
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
                 }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+
+    // END SIMPAN
+
+    // BUTTON DELETE
+    function hapusData(id,kode_pp){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('sekolah-master/guru-matpel') }}",
+            dataType: 'json',
+            data: {nik_guru : id, kode_pp : kode_pp},
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Guru Matpel ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
             }
         });
-    });
-
+    }
+    
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html();      
-                var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
-                var kode_pp = temp[0]; 
-                $.ajax({
-                    type: 'DELETE',
-                    url: "{{ url('sekolah/deleteGuruMatpel') }}/"+kode +"/"+ kode_pp,
-                    dataType: 'json',
-                    async:false,
-                    success:function(result){
-                        if(result.data.status){
-                            dataTable.ajax.reload();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your data has been deleted.',
-                                'success'
-                            )
-                        }else if(!result.data.status && result.data.message == "Unauthorized"){
-                            Swal.fire({
-                                title: 'Session telah habis',
-                                text: 'harap login terlebih dahulu!',
-                                icon: 'error'
-                            }).then(function() {
-                                window.location.href = "{{ url('sekolah/login') }}";
-                            })
-                        }else{
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                            })
-                        }
-                    }
-                });
-                
-            }else{
-                return false;
-            }
-        })
-    });
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-        var tmp= $(this).closest('tr').find('td').eq(2).html();
-        var tmp = tmp.split("-");
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
         var kode_pp = tmp[0];
-        $iconLoad.show();
+        msgDialog({
+            id: kode,
+            kode: kode_pp,
+            type:'hapus'
+        });
+    });
+    
+    // END DELETE
+
+    // BUTTON EDIT
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        $('#form-tambah').validate().resetForm();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Guru Mata Peljaran');
+        var id= $(this).closest('tr').find('td').eq(0).html(); 
+        var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+        var kode_pp = tmp[0];
+        
         $.ajax({
             type: 'GET',
-            url: "{{url('/sekolah/getGuruMatpel')}}/"+id+"/"+kode_pp,
+            url: "{{ url('sekolah-master/guru-matpel-detail') }}",
             dataType: 'json',
+            data:{nik_guru: id, kode_pp:kode_pp},
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
-                    console.log(result);
                     $('#id_edit').val('edit');
                     $('#method').val('put');
+                    $('#nik_guru').val(id);
+                    $('#nik_guru').attr('readonly', true);
+                    $('#label_nik_guru').val(result.data[0].nama_guru);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#nik_guru').val(result.data[0].nik_guru);
+                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
-                    getLabelDataPP(kode_pp);
-                    getLabelNIKGuru(kode_pp,id);
-                    if(res.data.data_detail.length > 0){
-                        var input = '';
+                    var input = "";
+                    $('#input-matpel tbody').html('');
+                    if(result.data_detail.length > 0){
                         var no=1;
                         for(var i=0;i<result.data_detail.length;i++){
-                            var line =result.data_detail[i];
+                            var line = result.data_detail[i];
                             input += "<tr class='row-matpel'>";
                             input += "<td class='no-matpel text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-matpel tdmatpelke"+no+"'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nmatpel tdnmmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
-                            input += "<td ><span class='td-status tdstatuske"+no+"'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top: 5px;'><i class='fa fa-search' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nstatus tdnmstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nmstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
-                            input += "<td class='text-center'><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a>&nbsp;</td>";
+                            input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
+                            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
-        
                             no++;
                         }
-                        $('#input-matpel tbody').html(input);                        
+                        $('#input-matpel tbody').append(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
                     }
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    hitungTotalRow();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('saku/login') }}";
-                    })
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 }
-                $iconLoad.hide();
             }
         });
     });
+    // END EDIT
+
+     // PREVIEW saat klik di list data
+
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 3){
+            
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+            var kode_pp = tmp[0];
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('sekolah-master/guru-matpel-detail') }}",
+                dataType: 'json',
+                data:{nik_guru: id, kode_pp:kode_pp},
+                async:false,
+                success:function(res){
+                    var result= res.data;
+                    if(result.status){
+                        var line = result.data[0];
+                        var html = `
+                        <tr>
+                            <td>PP</td>
+                            <td>`+line.kode_pp+` - `+line.nama_pp+`</td>
+                        </tr>
+                        <tr>
+                            <td>NIK Guru</td>
+                            <td>`+line.nik_guru+` - `+line.nama_guru+`</td>
+                        </tr>
+                        <tr>
+                        <td>Status</td>
+                            <td>`+line.flag_aktif+` - `+line.nama_status+`</td>
+                        </tr>
+                        <tr>
+                            <td colspan='2'>
+                                <table id='table-param-preview' class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Kode Matpel</th>
+                                            <th style="width:22%">Nama Matpel</th>
+                                            <th style="width:10%">Kode Status</th>
+                                            <th style="width:20%">Nama Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        `;
+                        $('#table-preview tbody').html(html);
+                        var det = ``;
+                        if(result.data_detail.length > 0){
+                            var input = '';
+                            var no=1;
+                            for(var i=0;i<result.data_detail.length;i++){
+                                var line2 =result.data_detail[i];
+                                input += "<tr>";
+                                input += "<td>"+no+"</td>";
+                                input += "<td >"+line2.kode_matpel+"</td>";
+                                input += "<td >"+line2.nama_matpel+"</td>";
+                                input += "<td >"+line2.kode_status+"</td>";
+                                input += "<td >"+line2.nama_status+"</td>";
+                                input += "</tr>";
+                                no++;
+                            }
+                            $('#table-param-preview tbody').html(input);
+                        }
+                        $('#modal-preview-id').text(id);
+                        $('#modal-preview-kode').text(line.kode_pp);
+                        $('#modal-preview').modal('show');
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    }
+                }
+            });
+        }
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        var kode = $('#modal-preview-kode').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            kode:kode,
+            type:'hapus'
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        $('#form-tambah').validate().resetForm();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Guru Mata Pelajaran');
+        var id= $('#modal-preview-id').text(); 
+        var kode_pp = $('#modal-preview-kode').text();
+        
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-master/guru-matpel-detail') }}",
+            dataType: 'json',
+            data:{nik_guru: id, kode_pp:kode_pp},
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#nik_guru').val(id);
+                    $('#nik_guru').attr('readonly', true);
+                    $('#label_nik_guru').val(result.data[0].nama_guru);
+                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#label_kode_pp').val(result.data[0].nama_pp);
+                    $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
+                    var input = "";
+                    $('#input-matpel tbody').html('');
+                    if(result.data_detail.length > 0){
+                        var no=1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line = result.data_detail[i];
+                            input += "<tr class='row-matpel'>";
+                            input += "<td class='no-matpel text-center'>"+no+"</td>";
+                            input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
+                            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-matpel tbody').append(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+                    }
+                    $('#row-id').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    hitungTotalRow();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    });
+
+    $('.modal-header').on('click','#btn-cetak',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').addClass('hidden');
+        $('.dropdown-ke2').removeClass('hidden');
+    });
+
+    $('.modal-header').on('click','#btn-cetak2',function(e){
+        e.stopPropagation();
+        $('.dropdown-ke1').removeClass('hidden');
+        $('.dropdown-ke2').addClass('hidden');
+    });
+    // END PREVIEW
+
+    // HANDLER untuk enter dan tab
+    $('#kode_pp,#nik_guru,#flag_aktif').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['kode_pp','nik_guru','flag_aktif'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            $('#'+nxt[idx]).focus();
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
+    });
+    // END
 
     </script>

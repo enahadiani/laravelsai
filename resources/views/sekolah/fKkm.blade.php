@@ -1701,7 +1701,7 @@
     // HANDLER untuk enter dan tab
     $('#kode_pp,#kode_ta,#kode_tingkat,#kode_jur,#flag_aktif').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nis','id_bank','nama','kode_pp','kode_ta','kode_tingkat','kode_jur','flag_aktif'];
+        var nxt = ['kode_pp','kode_ta','kode_tingkat','kode_jur','flag_aktif'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

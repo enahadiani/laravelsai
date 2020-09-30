@@ -16,14 +16,17 @@
             }
         }
 
-        public function getNIKGuru($kode_pp) {
+        public function getNIKGuru(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru-nik?kode_pp='.$kode_pp,[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
+                $response = $client->request('GET',  config('api.url').'sekolah/guru-nik',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp
+                    ]
                 ]);
 
                 if ($response->getStatusCode() == 200) { // 200 OK

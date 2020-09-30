@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('pp', 'Sekolah\PPController@getPP');
 Route::get('tingkatan', 'Sekolah\TingkatanController@getTingkatan');
-Route::get('nik-guru/{kode_pp}', 'Sekolah\GuruController@getNIKGuru');
+Route::get('guru-nik', 'Sekolah\GuruController@getNIKGuru');
 
 Route::get('tahun-ajaran', 'Sekolah\TahunAjaranController@index');
 Route::get('tahun-ajaran-detail', 'Sekolah\TahunAjaranController@show');
