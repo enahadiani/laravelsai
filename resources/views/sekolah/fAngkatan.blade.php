@@ -132,8 +132,8 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                            <div class="input-group-append" id="filter-btn">
+                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
                             </div>
                         </div>
                     </div>
@@ -226,30 +226,8 @@
             </div>
         </div>
     </div>
-    <!-- <div id='mySidepanel' class='sidepanel close'>
-        <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-        <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_pp2">Kode PP</label>
-                    <select name="kode_pp" id="kode_pp2" class="form-control">
-                    <option value="">Pilih PP</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-            </div>
-        </div>
-        </form>
-    </div> -->
-     
-
-    <!-- MODAL SEARCH AKUN-->
+   
+    <!-- MODAL SEARCH-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
@@ -266,6 +244,43 @@
         </div>
     </div>
     <!-- END MODAL -->
+
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row">
+                            <label>Kode PP</label>
+                            <select class="form-control" data-width="100%" name="filter_kode_pp" id="filter_kode_pp">
+                                <option value='' disabled>Pilih Kode PP</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label>Status</label>
+                            <select class="form-control selectize" data-width="100%" name="filter_status" id="filter_status">
+                                <option value='' disabled>Pilih Status</option>
+                                <option value='AKTIF' selected>AKTIF</option>
+                                <option value='NONAKTIF'>NONAKTIF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
@@ -273,73 +288,74 @@
     var $iconLoad = $('.preloader');
     var $target = "";
     var $target2 = "";
-        
-        setHeightForm();
-        
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            }
-        });
-        
-        function openFilter() {
-            var element = $('#mySidepanel');
-            
-            var x = $('#mySidepanel').attr('class');
-            var y = x.split(' ');
-            if(y[1] == 'close'){
-                element.removeClass('close');
-                element.addClass('open');
-            }else{
-                element.removeClass('open');
-                element.addClass('close');
-            }
+
+    $('.selectize').selectize();
+    var jum_filter = $('#modalFilter .form-group.row ').length;
+    $('#jum-filter').text(jum_filter);
+
+    setHeightForm();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
+    });
+
+    function openFilter() {
+        var element = $('#mySidepanel');
         
-        function last_add(param,isi){
-            var rowIndexes = [];
-            dataTable.rows( function ( idx, data, node ) {             
-                if(data[param] === isi){
-                    rowIndexes.push(idx);                  
-                }
-                return false;
-            }); 
-            dataTable.row(rowIndexes).select();
-            $('.selected td:eq(0)').addClass('last-add');
-            console.log('last-add');
-            setTimeout(function() {
-                console.log('timeout');
-                $('.selected td:eq(0)').removeClass('last-add');
-                dataTable.row(rowIndexes).deselect();
-            }, 1000 * 60 * 10);
+        var x = $('#mySidepanel').attr('class');
+        var y = x.split(' ');
+        if(y[1] == 'close'){
+            element.removeClass('close');
+            element.addClass('open');
+        }else{
+            element.removeClass('open');
+            element.addClass('close');
         }
-        
-        
-        $('.sidepanel').on('click', '#btnClose', function(e){
-            e.preventDefault();
-            openFilter();
-        });
-        
-        function getPP(){
-            $.ajax({
-                type: 'GET',
-                url: "{{ url('sekolah/getPP') }}",
-                dataType: 'json',
-                async:false,
-                success:function(result){    
-                    if(result.status){
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            // var select2 = $('#kode_pp2').selectize();
-                            // select2 = select2[0];
-                            // var control2 = select2.selectize;
-                            for(i=0;i<result.daftar.length;i++){
-                                control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp + '-' + result.daftar[i].nama}]);
-                            }
+    }
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+        console.log('last-add');
+        setTimeout(function() {
+            console.log('timeout');
+            $('.selected td:eq(0)').removeClass('last-add');
+            dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+
+
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
+    });
+    
+    function getPP(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah/getPP') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp + '-' + result.daftar[i].nama}]);
                         }
                     }
                 }
-            });
-        }
+            }
+        });
+    }
 
     // getPP();
 
@@ -527,6 +543,56 @@
         var selText = $(this).val();
         dataTable.page.len(parseInt(selText)).draw();
     });
+
+    var $dtPP = new Array();
+
+    function getTAPp() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                
+                var select = $('#filter_kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status) {
+                    
+                    for(i=0;i<result.daftar.length;i++){
+                        // $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        control.addOption([{text:result.daftar[i].kode_pp+'-'+result.daftar[i].nama, value:result.daftar[i].kode_pp+'-'+result.daftar[i].nama}]);
+                        // $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                    }
+
+                    if("{{ Session::get('kodePP') }}" != ""){
+                        control.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
+                    }
+                    
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getTAPp();
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
@@ -897,5 +963,59 @@ $('#saku-form').on('submit', '#form-tambah', function(e){
             }
         });
     });
+
+    
+    // FILTER
+    $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var kode_pp = $('#filter_kode_pp').val();
+                var status = $('#filter_status').val();
+                var col_kode_pp = data[1];
+                var col_status = data[4];
+                if(kode_pp != "" && status != ""){
+                    if(kode_pp == col_kode_pp && status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp !="" && status == "") {
+                    if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp == "" && status != ""){
+                    if(status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
+            }
+        );
+        dataTable.draw();
+        $.fn.dataTable.ext.search.pop();
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#filter_kode_pp')[0].selectize.setValue('');
+        $('#filter_status')[0].selectize.setValue('');
+        
+    });
+    
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+    $('#btn-tampil').click();
 
     </script>

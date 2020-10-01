@@ -19,11 +19,7 @@
         public function index(Request $request)
         {
             try{
-                if(isset($request->kode_pp) && $request->kode_pp != ""){
-                    $kode_pp = $request->kode_pp;
-                }else{
-                    $kode_pp = Session::get('kodePP');
-                }
+                
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/angkatan-all',[
                     'headers' => [
@@ -31,7 +27,7 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_pp' => $kode_pp
+                        'kode_pp' => $request->kode_pp
                     ]
                 ]);
     

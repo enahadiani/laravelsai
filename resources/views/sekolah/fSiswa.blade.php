@@ -201,9 +201,9 @@
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;">
+                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
                     <h5 style="position:absolute;top: 25px;">Data Siswa</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button>
+                    <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
@@ -393,27 +393,7 @@
         </div>
     </form>
     <!-- END FORM -->
-    <!-- <div id='mySidepanel' class='sidepanel close'>
-        <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-        <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_pp2">Kode PP</label>
-                    <select name="kode_pp" id="kode_pp2" class="form-control">
-                    <option value="">Pilih PP</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-            </div>
-        </div>
-        </form>
-    </div> -->
+   
     <!-- MODAL SEARCH-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
@@ -465,6 +445,41 @@
         </div>
     </div>
     <!-- END MODAL PREVIEW -->
+
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group">
+                            <label>Kode PP</label>
+                            <select class="form-control" data-width="100%" name="filter_kode_pp" id="filter_kode_pp">
+                                <option value='#'>Pilih Kode PP</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" data-width="100%" name="filter_status" id="filter_status">
+                                <option value='#'>Pilih Status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
