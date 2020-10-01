@@ -1167,4 +1167,24 @@ function getBulan($bulan) {
             $('#saku-report #canvasPreview').load(xurl);
         });
     //END LOAD REPORT//
+
+// EXCEL EXPORT //
+    $("#sai-rpt-excel").click(function(e) {
+        e.preventDefault();
+        $("#saku-report #canvasPreview").table2excel({
+            // exclude: ".excludeThisClass",
+            name: "Kunjungan_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Kunjungan_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            preserveColors: false // set to true if you want background colors and font colors preserved
+        });
+    });
+    //END EXCEL REPORT //
+
+    // EXPORT PDF //
+    $('#sai-rpt-print').click(function(){
+        $('#saku-report #canvasPreview').printThis({
+            removeInline: true
+        });
+    });
+    // END EXPORT PDF //
     </script>
