@@ -54,8 +54,8 @@
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
-                'kode_matpel' => 'required|array',
-                'kode_status'=>'required|array'
+                'kode_matpel' => 'required|array'
+                // 'kode_status'=>'required|array'
             ]);
 
             try{                
@@ -63,8 +63,8 @@
                     'kode_pp' => $request->kode_pp,
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
-                    'kode_matpel' => $request->kode_matpel,
-                    'kode_status' => $request->kode_status
+                    'kode_matpel' => $request->kode_matpel
+                    // 'kode_status' => $request->kode_status
                   );
     
                 $client = new Client();
@@ -160,8 +160,8 @@
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
-                'kode_matpel' => 'required|array',
-                'kode_status'=>'required|array'
+                'kode_matpel' => 'required|array'
+                // 'kode_status'=>'required|array'
             ]);
 
             try{
@@ -169,8 +169,8 @@
                     'kode_pp' => $request->kode_pp,
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
-                    'kode_matpel' => $request->kode_matpel,
-                    'kode_status' => $request->kode_status
+                    'kode_matpel' => $request->kode_matpel
+                    // 'kode_status' => $request->kode_status
                   );
         
                 $client = new Client();

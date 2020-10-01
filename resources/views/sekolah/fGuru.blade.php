@@ -303,10 +303,8 @@
                                         <thead style="background:#F8F8F8">
                                             <tr>
                                                 <th style="width:3%">No</th>
-                                                <th style="width:10%">Kode Matpel</th>
-                                                <th style="width:20%">Nama Matpel</th>
-                                                <th style="width:10%">Kode Status</th>
-                                                <th style="width:17%">Nama Status</th>
+                                                <th style="width:20%">Kode Matpel</th>
+                                                <th style="width:72%">Nama Matpel</th>
                                                 <th style="width:5%"></th>
                                             </tr>
                                         </thead>
@@ -693,9 +691,9 @@
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
+                $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
-                $target3 = "";
-                $target4 = ".td-status";
+                $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val()};
             break;
             case 'kode_status[]': 
@@ -831,15 +829,15 @@
                     $($target3).click();
                 }
                 
-                if($target4 != ""){
-                    if(par == "kode_matpel[]"){
-                        $($target).closest('tr').find($target4).click();
-                        setTimeout(function() {  $($target).parents("tr").find(".inp-status").focus(); }, 50);
-                    }
-                    else{
-                        $($target4).click();
-                    }
-                }
+                // if($target4 != ""){
+                //     if(par == "kode_matpel[]"){
+                //         $($target).closest('tr').find($target4).click();
+                //         setTimeout(function() {  $($target).parents("tr").find(".inp-status").focus(); }, 50);
+                //     }
+                //     else{
+                //         $($target4).click();
+                //     }
+                // }
                 $('#modal-search').modal('hide');
             }
         });
@@ -1049,18 +1047,18 @@
                 
                 var kode_matpel = $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").val();
                 var nama = $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").val();
-                var kode_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val();
-                var nama_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val();
+                // var kode_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val();
+                // var nama_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val();
                 
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").val(kode_matpel);
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-matpel").text(kode_matpel);
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").val(nama);
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nmatpel").text(nama);
                 
-                $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val(kode_status);
-                $('#input-status > tbody > tr:eq('+index+') > td').find(".td-status").text(kode_status);
-                $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val(nama_status);
-                $('#input-status > tbody > tr:eq('+index+') > td').find(".td-nstatus").text(nama_status);
+                // $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val(kode_status);
+                // $('#input-status > tbody > tr:eq('+index+') > td').find(".td-status").text(kode_status);
+                // $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val(nama_status);
+                // $('#input-status > tbody > tr:eq('+index+') > td').find(".td-nstatus").text(nama_status);
                 
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-matpel").hide();
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-matpel").show();
@@ -1068,19 +1066,19 @@
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nmatpel").hide();
                 $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nmatpel").show();
                 
-                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
-                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-status").show();
-                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".search-status").hide();
-                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nstatus").hide();
-                $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nstatus").show();
+                // $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
+                // $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-status").show();
+                // $('#input-matpel > tbody > tr:eq('+index+') > td').find(".search-status").hide();
+                // $('#input-matpel > tbody > tr:eq('+index+') > td').find(".inp-nstatus").hide();
+                // $('#input-matpel > tbody > tr:eq('+index+') > td').find(".td-nstatus").show();
             }
         })
     }
 
-    $('#input-matpel').on('keydown','.inp-matpel, .inp-nmatpel, .inp-status,.inp-nstatus',function(e){
+    $('#input-matpel').on('keydown','.inp-matpel, .inp-nmatpel',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-matpel','.inp-nmatpel','.inp-status','.inp-nstatus'];
-        var nxt2 = ['.td-matpel','.td-nmatpel','.td-status','.td-nstatus'];
+        var nxt = ['.inp-matpel','.inp-nmatpel'];
+        var nxt2 = ['.td-matpel','.td-nmatpel'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1095,26 +1093,26 @@
                     var target2 = "nmatpelke"+noidx;
                     getMatpel(kode,target1,target2,null,'tab');                    
                 break;
+                // case 1:
+                //     $("#input-matpel td").removeClass("px-0 py-0 aktif");
+                //     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                //     $(this).closest('tr').find(nxt[idx]).val(isi);
+                //     $(this).closest('tr').find(nxt2[idx]).text(isi);
+                //     $(this).closest('tr').find(nxt[idx]).hide();
+                //     $(this).closest('tr').find(nxt2[idx]).show();
+                //     $(this).closest('tr').find(nxt[idx_next]).show();
+                //     $(this).closest('tr').find('.search-status').show();
+                //     $(this).closest('tr').find(nxt2[idx_next]).hide();
+                //     $(this).closest('tr').find(nxt[idx_next]).focus();                        
+                // break;
+                // case 2:
+                //     var noidx = $(this).parents("tr").find(".no-matpel").text();
+                //     var kode = $(this).val();
+                //     var target1 = "statuske"+noidx;
+                //     var target2 = "nstatuske"+noidx;
+                //     getStatus(kode,target1,target2,null,'tab');  
+                // break;
                 case 1:
-                    $("#input-matpel td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find('.search-status').show();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();                        
-                break;
-                case 2:
-                    var noidx = $(this).parents("tr").find(".no-matpel").text();
-                    var kode = $(this).val();
-                    var target1 = "statuske"+noidx;
-                    var target2 = "nstatuske"+noidx;
-                    getStatus(kode,target1,target2,null,'tab');  
-                break;
-                case 3:
                     $("#input-matpel td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
@@ -1148,8 +1146,8 @@
         input += "<td class='no-matpel text-center'>"+no+"</td>";
         input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'></span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'></span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nstatus tdnstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='' readonly></td>";
+        // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        // input += "<td><span class='td-nstatus tdnstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-matpel tbody').append(input);
@@ -1194,8 +1192,8 @@
         
                 var kode_matpel = $(this).parents("tr").find(".inp-matpel").val();
                 var nama_matpel = $(this).parents("tr").find(".inp-nmatpel").val();
-                var kode_status = $(this).parents("tr").find(".inp-status").val();
-                var nama_status = $(this).parents("tr").find(".inp-nstatus").val();
+                // var kode_status = $(this).parents("tr").find(".inp-status").val();
+                // var nama_status = $(this).parents("tr").find(".inp-nstatus").val();
                 var no = $(this).parents("tr").find(".no-guru").text();
                 $(this).parents("tr").find(".inp-matpel").val(kode_matpel);
                 $(this).parents("tr").find(".td-matpel").text(kode_matpel);
@@ -1223,33 +1221,33 @@
                     $(this).parents("tr").find(".td-nmatpel").show();
                 }
         
-                $(this).parents("tr").find(".inp-status").val(kode_status);
-                $(this).parents("tr").find(".td-status").text(kode_status);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-status").show();
-                    $(this).parents("tr").find(".td-status").hide();
-                    $(this).parents("tr").find(".search-status").show();
-                    $(this).parents("tr").find(".inp-status").focus();
-                }else{
+                // $(this).parents("tr").find(".inp-status").val(kode_status);
+                // $(this).parents("tr").find(".td-status").text(kode_status);
+                // if(idx == 3){
+                //     $(this).parents("tr").find(".inp-status").show();
+                //     $(this).parents("tr").find(".td-status").hide();
+                //     $(this).parents("tr").find(".search-status").show();
+                //     $(this).parents("tr").find(".inp-status").focus();
+                // }else{
                     
-                    $(this).parents("tr").find(".inp-status").hide();
-                    $(this).parents("tr").find(".td-status").show();
-                    $(this).parents("tr").find(".search-status").hide();
-                }
+                //     $(this).parents("tr").find(".inp-status").hide();
+                //     $(this).parents("tr").find(".td-status").show();
+                //     $(this).parents("tr").find(".search-status").hide();
+                // }
         
                 
-                $(this).parents("tr").find(".inp-nstatus").val(nama_status);
-                $(this).parents("tr").find(".td-nstatus").text(nama_status);
-                if(idx == 4){
+                // $(this).parents("tr").find(".inp-nstatus").val(nama_status);
+                // $(this).parents("tr").find(".td-nstatus").text(nama_status);
+                // if(idx == 4){
                     
-                    $(this).parents("tr").find(".inp-nstatus").show();
-                    $(this).parents("tr").find(".td-nstatus").hide();
-                    $(this).parents("tr").find(".inp-nstatus").focus();
-                }else{
+                //     $(this).parents("tr").find(".inp-nstatus").show();
+                //     $(this).parents("tr").find(".td-nstatus").hide();
+                //     $(this).parents("tr").find(".inp-nstatus").focus();
+                // }else{
                     
-                    $(this).parents("tr").find(".inp-nstatus").hide();
-                    $(this).parents("tr").find(".td-nstatus").show();
-                }
+                //     $(this).parents("tr").find(".inp-nstatus").hide();
+                //     $(this).parents("tr").find(".td-nstatus").show();
+                // }
             }
         }
     });
@@ -1306,8 +1304,8 @@
         }else{
             var kode_matpel = $('#input-matpel tbody tr.selected-row').find(".inp-matpel").val();
             var nama_matpel = $('#input-matpel tbody tr.selected-row').find(".inp-nmatpel").val();
-            var kode_status = $('#input-matpel tbody tr.selected-row').find(".inp-status").val();
-            var nama_status = $('#input-matpel tbody tr.selected-row').find(".inp-nstatus").val();
+            // var kode_status = $('#input-matpel tbody tr.selected-row').find(".inp-status").val();
+            // var nama_status = $('#input-matpel tbody tr.selected-row').find(".inp-nstatus").val();
             var no=$('#input-matpel .row-matpel:last').index();
             no=no+2;
             var input = "";
@@ -1315,8 +1313,8 @@
             input += "<td class='no-matpel text-center'>"+no+"</td>";
             input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+nama_matpel+"' readonly></td>";
-            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
+            // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-matpel tbody').append(input);
@@ -1498,8 +1496,8 @@
                             input += "<td class='no-matpel text-center'>"+no+"</td>";
                             input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
-                            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
+                            // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
@@ -1527,7 +1525,7 @@
      // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 4){
             
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
@@ -1562,9 +1560,7 @@
                                         <tr>
                                             <th style="width:3%">No</th>
                                             <th style="width:10%">Kode Matpel</th>
-                                            <th style="width:22%">Nama Matpel</th>
-                                            <th style="width:10%">Kode Status</th>
-                                            <th style="width:20%">Nama Status</th>
+                                            <th style="width:87%">Nama Matpel</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1584,8 +1580,8 @@
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line2.kode_matpel+"</td>";
                                 input += "<td >"+line2.nama_matpel+"</td>";
-                                input += "<td >"+line2.kode_status+"</td>";
-                                input += "<td >"+line2.nama_status+"</td>";
+                                // input += "<td >"+line2.kode_status+"</td>";
+                                // input += "<td >"+line2.nama_status+"</td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -1649,8 +1645,8 @@
                             input += "<td class='no-matpel text-center'>"+no+"</td>";
                             input += "<td><span class='td-matpel tdmatpelke"+no+" tooltip-span'>"+line.kode_matpel+"</span><input type='text' name='kode_matpel[]' class='form-control inp-matpel matpelke"+no+" hidden' value='"+line.kode_matpel+"' required='' style='z-index: 1;position: relative;'  id='matpelkode"+no+"'><a href='#' class='search-item search-matpel hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nmatpel tdnmatpelke"+no+"'>"+line.nama_matpel+"</span><input type='text' name='nama_matpel[]' class='form-control inp-nmatpel nmatpelke"+no+" hidden'  value='"+line.nama_matpel+"' readonly></td>";
-                            input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
+                            // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
