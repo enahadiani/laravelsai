@@ -28,6 +28,8 @@
                     'query' => [
                         'kode_bidang' => $request->bidang,
                         'kode_mitra' => $request->mitra,
+                        'kode_jenis' => $request->jenis,
+                        'kode_subjenis' => $request->subjenis,
                         'bulan' => $request->bulan,
                         'tahun' => $request->tahun
                     ]
