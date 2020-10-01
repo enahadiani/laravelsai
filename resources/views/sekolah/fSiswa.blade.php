@@ -224,8 +224,8 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                            <div class="input-group-append" id="filter-btn">
+                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
                             </div>
                         </div>
                     </div>
@@ -240,6 +240,7 @@
                                     <th>PP</th>
                                     <th>Angkatan</th>
                                     <th>Kelas</th>
+                                    <th>Status</th>
                                     <th>Tgl Input</th>
                                     <!-- <th>Aksi</th> -->
                                 </tr>
@@ -459,22 +460,22 @@
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label>Kode PP</label>
-                            <select class="form-control" data-width="100%" name="filter_kode_pp" id="filter_kode_pp">
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
                                 <option value='#'>Pilih Kode PP</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label>Status</label>
-                            <select class="form-control" data-width="100%" name="filter_status" id="filter_status">
+                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
                                 <option value='#'>Pilih Status</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
                     </div>
                 </form>
             </div>
@@ -626,6 +627,112 @@
         $('[data-toggle="tooltip"]').tooltip(); 
         // END 
 
+        
+        var $dtPP = new Array();
+        
+        function getTAPp() {
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-master/pp') }}",
+                dataType: 'json',
+                async: false,
+                success: function(result) {
+                    
+                    var select = $('#inp-filter_kode_pp').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    control.clearOptions();
+                    if(result.status) {
+                        
+                        for(i=0;i<result.daftar.length;i++){
+                            // $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                            control.addOption([{text:result.daftar[i].kode_pp+'-'+result.daftar[i].nama, value:result.daftar[i].kode_pp+'-'+result.daftar[i].nama}]);
+                            $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                        }
+                        
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            control.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
+                            getTASts("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}")
+                        }
+                        
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+        
+        getTAPp();
+        jumFilter();
+
+        function getTASts(kode_pp = null) {
+            var tmp = kode_pp.split("-");
+            kode_pp = tmp[0];
+            $.ajax({
+                type:'GET',
+                url:"{{ url('sekolah-master/status-siswa') }}",
+                dataType: 'json',
+                data: {kode_pp:kode_pp},
+                async: false,
+                success: function(result) {
+                    
+                    var select = $('#inp-filter_status').selectize();
+                    select = select[0];
+                    var control = select.selectize;
+                    control.clearOptions();
+                    if(result.status) {
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].nama}]); 
+                        }
+                        control.setValue('Aktif');
+                    }else if(!result.status && result.message == "Unauthorized"){
+                        window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                    } else{
+                        alert(result.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {       
+                    if(jqXHR.status == 422){
+                        var msg = jqXHR.responseText;
+                    }else if(jqXHR.status == 500) {
+                        var msg = "Internal server error";
+                    }else if(jqXHR.status == 401){
+                        var msg = "Unauthorized";
+                        window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    }else if(jqXHR.status == 405){
+                        var msg = "Route not valid. Page not found";
+                    }
+                    
+                }
+            });
+        }
+        
+        // getTASts();
+
+        $('#inp-filter_kode_pp').change(function(){
+            getTASts($(this).val());
+            jumFilter();
+        });
+
+        $('#inp-filter_status').change(function(){
+            jumFilter();
+        });
+
         // LIST DATA
         var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
         var dataTable = $('#table-data').DataTable({
@@ -633,7 +740,7 @@
             bLengthChange: false,
             sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             "ordering": true,
-            "order": [[5, "desc"]],
+            "order": [[6, "desc"]],
             'ajax': {
                 'url': "{{url('sekolah-trans/siswa')}}",
                 'async':false,
@@ -660,7 +767,7 @@
                     }
                 },
                 {
-                    "targets": [5],
+                    "targets": [6],
                     "visible": false,
                     "searchable": false
                 },
@@ -674,6 +781,7 @@
                 { data: 'pp' },
                 { data: 'kode_akt' },
                 { data: 'kode_kelas' },
+                { data: 'nama_status' },
                 { data: 'tgl_input' },
             ],
             drawCallback: function () {
@@ -2509,5 +2617,58 @@
 
             showFilter(par,target1,target2);
         });
+        
+        // FILTER
+        $('#modalFilter').on('submit','#form-filter',function(e){
+            e.preventDefault();
+            $.fn.dataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    var kode_pp = $('#inp-filter_kode_pp').val();
+                    var status = $('#inp-filter_status').val();
+                    var col_kode_pp = data[2];
+                    var col_status = data[5];
+                    if(kode_pp != "" && status != ""){
+                        if(kode_pp == col_kode_pp && status == col_status){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else if(kode_pp !="" && status == "") {
+                        if(kode_pp == col_kode_pp){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else if(kode_pp == "" && status != ""){
+                        if(status == col_status){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        return true;
+                    }
+                }
+            );
+            dataTable.draw();
+            $.fn.dataTable.ext.search.pop();
+        });
 
+        $('#btn-reset').click(function(e){
+            e.preventDefault();
+            $('#inp-filter_kode_pp')[0].selectize.setValue('');
+            $('#inp-filter_status')[0].selectize.setValue('');
+            jumFilter();
+        });
+        
+        $('#filter-btn').click(function(){
+            $('#modalFilter').modal('show');
+        });
+
+        $("#btn-close").on("click", function (event) {
+            event.preventDefault();
+            $('#modalFilter').modal('hide');
+        });
+
+        $('#btn-tampil').click();
     </script>

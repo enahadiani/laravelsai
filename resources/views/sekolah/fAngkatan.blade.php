@@ -260,13 +260,13 @@
                     <div class="modal-body" style="border:none">
                         <div class="form-group row">
                             <label>Kode PP</label>
-                            <select class="form-control" data-width="100%" name="filter_kode_pp" id="filter_kode_pp">
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
                                 <option value='' disabled>Pilih Kode PP</option>
                             </select>
                         </div>
                         <div class="form-group row">
                             <label>Status</label>
-                            <select class="form-control selectize" data-width="100%" name="filter_status" id="filter_status">
+                            <select class="form-control selectize" data-width="100%" name="inp-filter_status" id="inp-filter_status">
                                 <option value='' disabled>Pilih Status</option>
                                 <option value='AKTIF' selected>AKTIF</option>
                                 <option value='NONAKTIF'>NONAKTIF</option>
@@ -290,8 +290,6 @@
     var $target2 = "";
 
     $('.selectize').selectize();
-    var jum_filter = $('#modalFilter .form-group.row ').length;
-    $('#jum-filter').text(jum_filter);
 
     setHeightForm();
 
@@ -554,7 +552,7 @@
             async: false,
             success: function(result) {
                 
-                var select = $('#filter_kode_pp').selectize();
+                var select = $('#inp-filter_kode_pp').selectize();
                 select = select[0];
                 var control = select.selectize;
                 control.clearOptions();
@@ -593,6 +591,7 @@
     }
 
     getTAPp();
+    jumFilter();
 
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
@@ -970,8 +969,8 @@ $('#saku-form').on('submit', '#form-tambah', function(e){
         e.preventDefault();
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
-                var kode_pp = $('#filter_kode_pp').val();
-                var status = $('#filter_status').val();
+                var kode_pp = $('#inp-filter_kode_pp').val();
+                var status = $('#inp-filter_status').val();
                 var col_kode_pp = data[1];
                 var col_status = data[4];
                 if(kode_pp != "" && status != ""){
@@ -1003,9 +1002,15 @@ $('#saku-form').on('submit', '#form-tambah', function(e){
 
     $('#btn-reset').click(function(e){
         e.preventDefault();
-        $('#filter_kode_pp')[0].selectize.setValue('');
-        $('#filter_status')[0].selectize.setValue('');
+        $('#inp-filter_kode_pp')[0].selectize.setValue('');
+        $('#inp-filter_status')[0].selectize.setValue('');
+        jumFilter()
         
+    });
+
+    $('[name^=inp-filter]').change(function(e){
+        e.preventDefault();
+        jumFilter();
     });
     
     $('#filter-btn').click(function(){
