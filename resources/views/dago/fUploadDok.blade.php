@@ -80,7 +80,7 @@
                             <div class="form-group row">
                                 <label for="upload_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="upload_tgl_terima" name="upload_tgl_terima" required value='<?=date('Y-m-d')?>'>
+                                    <input class="form-control datepicker" type="text" id="upload_tgl_terima" name="upload_tgl_terima" required value='<?=date('d/m/Y')?>'>
                                 </div>
                             </div>
                             
@@ -213,6 +213,11 @@
     $('#form-upload-reg').on('click', '#btn-upload-kembali', function(){
         $('#saku-data-reg').show();
         $('#form-upload-reg').hide();
+    });
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
     });
     
     $('#saku-data-reg').on('click','#btn-upload',function(e){
