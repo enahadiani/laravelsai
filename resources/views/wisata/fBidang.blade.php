@@ -194,7 +194,7 @@
 
                         <div class="form-group row ">
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-12">
+                            <div class="col-md-5 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
                             </div>
                             <div class="col-md-2 col-sm-12">
