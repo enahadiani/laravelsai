@@ -130,8 +130,8 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                            <div class="input-group-append" id="filter-btn">
+                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
                             </div>
                         </div>
                     </div>
@@ -144,6 +144,7 @@
                                     <th>Kode</th>
                                     <th>Nama</th>
                                     <th>Kode PP</th>
+                                    <th>Status</th>
                                     <th>Tgl Input</th>
                                     <th>Action</th>
                                 </tr>
@@ -230,29 +231,7 @@
             </div>
         </div>
     </form>
-
-    <!-- <div id='mySidepanel' class='sidepanel close'>
-        <h3 style='margin-bottom:20px;position: absolute;'>Filter Data</h3>
-        <a href='#' id='btnClose'><i class="float-right ti-close" style="margin-top: 10px;margin-right: 10px;"></i></a>
-        <form id="formFilter2" style='margin-top:50px'>
-        <div class="row" style="margin-left: -5px;">
-            <div class="col-sm-12">
-                <div class="form-group" style='margin-bottom:0'>
-                    <label for="kode_pp2">Kode PP</label>
-                    <select name="kode_pp" id="kode_pp2" class="form-control">
-                    <option value="">Pilih PP</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary" style="margin-left: 6px;margin-top: 28px;"><i class="fa fa-search" id="btnPreview2"></i> Preview</button>
-            </div>
-        </div>
-        </form>
-    </div> -->
-    <!-- MODAL SEARCH AKUN-->
+    <!-- MODAL SEARCH-->
     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog" role="document" style="max-width:600px">
             <div class="modal-content">
@@ -269,9 +248,78 @@
         </div>
     </div>
     <!-- END MODAL -->
-    <script src="{{ asset('asset_elite/sai.js') }}"></script>
-    <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
+            <div class="modal-content" style="border-radius:0.75em">
+                <div class="modal-header py-0" style="display:block;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Jenis Penilaian <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
 
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:520px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL PREVIEW -->
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row">
+                            <label>Kode PP</label>
+                            <select class="form-control" data-width="100%" name="filter_kode_pp" id="filter_kode_pp">
+                                <option value='' disabled>Pilih Kode PP</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label>Status</label>
+                            <select class="form-control selectize" data-width="100%" name="filter_status" id="filter_status">
+                                <option value='' disabled>Pilih Status</option>
+                                <option value='AKTIF' selected>AKTIF</option>
+                                <option value='NONAKTIF'>NONAKTIF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -283,6 +331,11 @@
         }
     });
     
+    
+    $('.selectize').selectize();
+    var jum_filter = $('#modalFilter .form-group.row ').length;
+    $('#jum-filter').text(jum_filter);
+
     function openFilter() {
         var element = $('#mySidepanel');
         
@@ -322,13 +375,63 @@
 
     $('[data-toggle="tooltip"]').tooltip(); 
 
+    var $dtPP = new Array();
+
+    function getTAPp() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                
+                var select = $('#filter_kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status) {
+                    
+                    for(i=0;i<result.daftar.length;i++){
+                        // $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        control.addOption([{text:result.daftar[i].kode_pp+'-'+result.daftar[i].nama, value:result.daftar[i].kode_pp+'-'+result.daftar[i].nama}]);
+                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                    }
+
+                    if("{{ Session::get('kodePP') }}" != ""){
+                        control.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
+                    }
+                    
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getTAPp();
+
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = $('#table-data').DataTable({
         destroy: true,
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[3, "desc"]],
+        "order": [[4, "desc"]],
         'ajax': {
             'url': "{{url('sekolah-master/matpel')}}",
             'async':false,
@@ -355,16 +458,17 @@
                 }
             },
             {
-                "targets": [3],
+                "targets": [4],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 4, data: null, 'defaultContent': action_html }
+            {'targets': 5, data: null, 'defaultContent': action_html }
         ],
         'columns': [
             { data: 'kode_matpel' },
             { data: 'nama' },
             { data: 'pp' },
+            { data: 'flag_aktif' },
             { data: 'tgl_input' },
         ],
         drawCallback: function () {
@@ -917,6 +1021,7 @@
     // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
+        console.log('klik');
         if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
@@ -1019,5 +1124,59 @@
         $('.dropdown-ke1').removeClass('hidden');
         $('.dropdown-ke2').addClass('hidden');
     });
+
+     
+    // FILTER
+    $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var kode_pp = $('#filter_kode_pp').val();
+                var status = $('#filter_status').val();
+                var col_kode_pp = data[2];
+                var col_status = data[3];
+                if(kode_pp != "" && status != ""){
+                    if(kode_pp == col_kode_pp && status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp !="" && status == "") {
+                    if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp == "" && status != ""){
+                    if(status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
+            }
+        );
+        dataTable.draw();
+        $.fn.dataTable.ext.search.pop();
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#filter_kode_pp')[0].selectize.setValue('');
+        $('#filter_status')[0].selectize.setValue('');
+        
+    });
+    
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+    $('#btn-tampil').click();
 
     </script>
