@@ -212,7 +212,7 @@ class PembayaranController extends Controller
             }
 
             $fields = array (
-                'tanggal' => $this->reverseDate($request->tanggal."/","-"),
+                'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                 'no_reg' => $request->no_reg,
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
