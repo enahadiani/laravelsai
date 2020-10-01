@@ -113,7 +113,7 @@
                             <div class="form-group row mt-2">
                                 <label for="tgl_input" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" id="tgl_input" name="tgl_input" placeholder="dd-mm-yyyy" required value="{{ date('d-m-Y')}}">
+                                    <input class="form-control datepicker" type="text" id="tgl_input" name="tgl_input" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
                                 </div>
                                 <label for="periode" class="col-3 col-form-label">Periode</label>
                                 <div class="col-3">
@@ -212,7 +212,7 @@
                                 </div>
                                 <label for="tgl_berangkat" class="col-3 col-form-label">Tgl Berangkat</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" readonly type="text" id="tgl_berangkat" name="tgl_berangkat" placeholder="dd-mm-yyyy" >
+                                    <input class="form-control datepicker" readonly type="text" id="tgl_berangkat" name="tgl_berangkat" placeholder="dd/mm/yyyy" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -457,7 +457,7 @@
                             <div class="form-group row">
                                 <label for="upload_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" id="upload_tgl_terima" placeholder="dd-mm-yyyy"  name="upload_tgl_terima" required value="{{ date('d-m-Y') }}">
+                                    <input class="form-control datepicker" type="text" id="upload_tgl_terima" placeholder="dd/mm/yyyy"  name="upload_tgl_terima" required value="{{ date('d/m/Y') }}">
                                 </div>
                             </div>
                             
@@ -548,7 +548,7 @@
                             <div class="form-group row">
                                 <label for="group_tgl_terima" class="col-3 col-form-label">Tgl Terima</label>
                                 <div class="col-3">
-                                    <input class="form-control datepicker" type="text" id="group_tgl_terima" placeholder="dd-mm-yyyy" name="group_tgl_terima" required value="{{ date('d-m-Y') }}">
+                                    <input class="form-control datepicker" type="text" id="group_tgl_terima" placeholder="dd/mm/yyyy" name="group_tgl_terima" required value="{{ date('d/m/Y') }}">
                                 </div>
                             </div>
                             

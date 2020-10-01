@@ -25,6 +25,11 @@ class PembayaranController extends Controller
         return $num;
     }
 
+    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+        $arr = explode($org_sep, $ymd_or_dmy_date);
+        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+    }
+
     public function __contruct(){
         if(!Session::get('login')){
             return redirect('dago-auth/login')->with('alert','Session telah habis !');
@@ -99,7 +104,8 @@ class PembayaranController extends Controller
 
     public function getKurs(Request $request){
         $this->validate($request,[
-            'kode_curr' => 'required'
+            'kode_curr' => 'required',
+            'tgl_bayar' => 'required'
         ]);
         try {
             $client = new Client();
@@ -109,7 +115,8 @@ class PembayaranController extends Controller
                     'Accept'     => 'application/json',
                 ],
                 'query' =>[
-                    'kode_curr' => $request->kode_curr
+                    'kode_curr' => $request->kode_curr,
+                    'tgl_bayar' => $this->reverseDate($request->tgl_bayar,"/","-")
                 ]
 
             ]);
@@ -163,7 +170,7 @@ class PembayaranController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required|date_format:Y-m-d',
+            'tanggal' => 'required|date_format:d/m/Y',
             'no_reg' => 'required',
             'nama' => 'required',
             'deskripsi' => 'required',
@@ -175,7 +182,7 @@ class PembayaranController extends Controller
             'akun_tambah' => 'required',
             'akun_dokumen' => 'required',
             'paket' => 'required',
-            'tgl_berangkat' => 'required|date_format:Y-m-d',
+            'tgl_berangkat' => 'required|date_format:d/m/Y',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
             'total_bayar' => 'required',
             'bayar_paket' => 'required',
@@ -205,7 +212,7 @@ class PembayaranController extends Controller
             }
 
             $fields = array (
-                'tanggal' => $request->tanggal,
+                'tanggal' => $this->reverseDate($request->tanggal."/","-"),
                 'no_reg' => $request->no_reg,
                 'nama' => $request->nama,
                 'deskripsi' => $request->deskripsi,
@@ -219,7 +226,7 @@ class PembayaranController extends Controller
                 'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
                 'jenis' => 'NORMAL',
-                'tgl_berangkat' => $request->tgl_berangkat,
+                'tgl_berangkat' =>  $this->reverseDate($request->tgl_berangkat,"/","-"),
                 'status_bayar' => $request->status_bayar,
                 'total_bayar' => $this->joinNum($request->total_bayar),
                 'bayar_paket' => $this->joinNum($request->bayar_paket),
@@ -362,7 +369,7 @@ class PembayaranController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required|date_format:Y-m-d',
+            'tanggal' => 'required|date_format:d/m/Y',
             'no_reg' => 'required',
             'nama' => 'required',
             'no_bukti' => 'required',
@@ -376,7 +383,7 @@ class PembayaranController extends Controller
             'akun_dokumen' => 'required',
             'paket' => 'required',
             'jenis' => 'required',
-            'tgl_berangkat' => 'required|date_format:Y-m-d',
+            'tgl_berangkat' => 'required|date_format:d/m/Y',
             'status_bayar' => 'required|in:TUNAI,TRANSFER',
             'total_bayar' => 'required',
             'bayar_paket' => 'required',
@@ -406,7 +413,7 @@ class PembayaranController extends Controller
             }
 
             $fields = array (
-                'tanggal' => $request->tanggal,
+                'tanggal' =>  $this->reverseDate($request->tanggal,"/","-"),
                 'no_reg' => $request->no_reg,
                 'nama' => $request->nama,
                 'no_bukti' => $request->no_bukti,
@@ -421,7 +428,7 @@ class PembayaranController extends Controller
                 'akun_dokumen' => $request->akun_dokumen,
                 'paket' => $request->paket,
                 'jenis' => $request->jenis,
-                'tgl_berangkat' => $request->tgl_berangkat,
+                'tgl_berangkat' => $this->reverseDate($request->tgl_berangkat,"/","-"),
                 'status_bayar' => $request->status_bayar,
                 'total_bayar' => $this->joinNum($request->total_bayar),
                 'bayar_paket' => $this->joinNum($request->bayar_paket),

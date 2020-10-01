@@ -93,10 +93,17 @@ class UploadDokController extends Controller
             $fields = array();
             $data = array();
             for($i=0;$i<count($name);$i++){
-                $fields_data[$i] = array(
-                    'name'     => $name2[$i],
-                    'contents' => $req[$name[$i]],
-                );   
+                if($name[$i] == 'upload_tgl_terima'){
+                    $fields_data[$i] = array(
+                        'name'     => $name2[$i],
+                        'contents' => $this->reverseDate($req[$name[$i]],"/","-"),
+                    );   
+                }else{
+                    $fields_data[$i] = array(
+                        'name'     => $name2[$i],
+                        'contents' => $req[$name[$i]],
+                    );   
+                }
                 $data[$i] = $name[$i];
             }
            

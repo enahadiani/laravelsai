@@ -158,7 +158,7 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-3 col-form-label">Tanggal</label>
                                 <div class="col-3">
-                                    <input class="form-control" type="date" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
+                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd/mm/yyyy" value="{{ date('d/m/Y') }}" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -225,7 +225,7 @@
 
                                         <label for="kurs" class="col-3 col-form-label">Kurs</label>
                                         <div class="col-3">
-                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs">
+                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -396,6 +396,19 @@
 <script>
     
     $('#show').selectize();
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+    });
+    
+    function reverseDateNew(date_str, separator, newseparator){
+        if(typeof separator === 'undefined'){separator = '-'}
+        date_str = date_str.split(' ');
+        var str = date_str[0].split(separator);
+
+        return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
     function terbilang2(kode_curr){
         if(kode_curr == "IDR"){
             var ket_curr = " rupiah";
@@ -740,16 +753,16 @@
         });
     }
 
-    function getKurs(curr){
+    function getKurs(curr,tgl_bayar){
         $.ajax({
             type: 'GET',
             url: "{{ url('dago-trans/pembayaran-kurs') }}",
             dataType: 'json',
-            data:{'kode_curr':curr},
+            data:{'kode_curr':curr,'tgl_bayar':tgl_bayar},
             async:false,
             success:function(result){    
                 if(result.status){
-                    if(typeof result.kurs !== 'undefined'){
+                    if(typeof kode_curr !== 'undefined'){
                         $('#kurs').val(format_number(result.kurs));
                     }else{
                         $('#kurs').val(1);
@@ -977,7 +990,15 @@
 
     $('#kode_curr').on('change', function(){
         var kode_curr = $(this).val();
-        getKurs(kode_curr);
+        var tanggal = $('#tanggal').val();
+        getKurs(kode_curr,tanggal);
+        
+    });
+
+    $('#tanggal').on('change', function(){
+        var kode_curr = $('#kode_curr').val();
+        var tanggal = $('#tanggal').val();
+        getKurs(kode_curr,tanggal);
         
     });
 
@@ -1002,7 +1023,7 @@
                     $('#nama').val(line.nama);
                     $('#kode_curr').val(line.kode_curr);
                     $('#kode_curr').trigger('change');
-                    $('#tgl_berangkat').val(line.tgl_berangkat);						
+                    $('#tgl_berangkat').val(reverseDateNew(line.tgl_berangkat,"-","/"));						
                     $('#paket').val(line.paket);
                     var hargapaket = parseFloat(line.harga_tot);
                     var akunTitip = line.kode_akun;
