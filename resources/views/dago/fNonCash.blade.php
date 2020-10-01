@@ -225,7 +225,7 @@
 
                                         <label for="kurs" class="col-3 col-form-label">Kurs</label>
                                         <div class="col-3">
-                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs">
+                                        <input class="form-control currency " type="text" value="0" id="kurs" name="kurs" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -1003,7 +1003,7 @@
         getKurs(kode_curr,tanggal);
         
     });
-    
+
     $('#saiweb_container').on('click', '.web_datatable_bayar', function(){
                       // getset value
         var kode = $(this).closest('tr').find('td:eq(0)').text();
