@@ -1376,6 +1376,7 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        $('#btn-tampil').click();    
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
@@ -1427,7 +1428,8 @@
             async:false,
             success:function(result){
                 if(result.data.status){
-                    dataTable.ajax.reload();                    
+                    dataTable.ajax.reload(); 
+                    $('#btn-tampil').click();                       
                     showNotification("top", "center", "success",'Hapus Data','Data Guru Matpel ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');

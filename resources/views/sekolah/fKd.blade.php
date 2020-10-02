@@ -966,7 +966,8 @@
             async:false,
             success:function(result){
                 if(result.data.status){
-                    dataTable.ajax.reload();                    
+                    dataTable.ajax.reload();  
+                    $('#btn-tampil').click();                      
                     showNotification("top", "center", "success",'Hapus Data','Data KD ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
@@ -1227,7 +1228,7 @@
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
-
+                            $('#btn-tampil').click();    
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
                             $('#row-id').hide();

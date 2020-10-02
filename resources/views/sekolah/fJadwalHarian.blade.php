@@ -1100,6 +1100,7 @@
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();
+                    $('#btn-tampil').click();    
                     Swal.fire(
                         'Great Job!',
                         'Data Berhasil '+pesan,
@@ -1150,6 +1151,7 @@
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
+                            $('#btn-tampil').click();    
                             Swal.fire(
                                 'Deleted!',
                                 'Your data has been deleted.',

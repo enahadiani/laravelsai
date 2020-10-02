@@ -1141,12 +1141,28 @@
     if(form !="" || form != "-"){
         loadForm("{{ url('sekolah-auth/form')}}/"+form)
     }
+
+    console.log(form);
     
     $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
+        var url = "{{ url('sekolah-auth/form')}}/"+form;
+        console.log(url);
+        if(form == "" || form == "-"){
+            // alert('Form dilock!');
+            return false;
+        }else{
+            loadForm(url);
+            
+        }
+    });
+
+    $('.main-menu').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
         var url = "{{ url('sekolah-auth/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){

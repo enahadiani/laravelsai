@@ -928,6 +928,7 @@
                 if(result.data.status){
                     // location.reload();
                     dataTable.ajax.reload();
+                    $('#btn-tampil').click();    
                     Swal.fire(
                         'Great Job!',
                         'Your data has been '+pesan,
@@ -981,6 +982,7 @@
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
+                            $('#btn-tampil').click();    
                             Swal.fire(
                                 'Deleted!',
                                 'Your data has been deleted.',
