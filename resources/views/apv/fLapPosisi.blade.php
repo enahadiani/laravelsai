@@ -365,6 +365,15 @@
         }
     }
 
+    function sepNumPas(x){
+        var num = parseInt(x);
+        var parts = num.toString().split('.');
+        var len = num.toString().length;
+        // parts[1] = parts[1]/(Math.pow(10, len));
+        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
+        return parts.join(',');
+    }
+
     var $formData = "";
     $('.card-body').on('submit', '#formFilter', function(e){
         e.preventDefault();

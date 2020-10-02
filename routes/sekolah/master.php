@@ -102,3 +102,9 @@ Route::get('kd-detail', 'Sekolah\KdController@show');
 Route::post('kd', 'Sekolah\KdController@store');
 Route::put('kd', 'Sekolah\KdController@update');
 Route::delete('kd', 'Sekolah\KdController@destroy');
+
+Route::get('guru-multi-kelas', 'Sekolah\GuruMatpelController@index');
+Route::get('guru-multi-kelas-detail', 'Sekolah\GuruMatpelController@show');
+Route::post('guru-multi-kelas', 'Sekolah\GuruMatpelController@store');
+Route::put('guru-multi-kelas', 'Sekolah\GuruMatpelController@update');
+Route::delete('guru-multi-kelas', 'Sekolah\GuruMatpelController@destroy');
