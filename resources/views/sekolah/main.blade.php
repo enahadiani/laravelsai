@@ -1254,6 +1254,18 @@
         var tinggi = content-header-subheader-50;
         $('#content-lap').css('height',tinggi);
     }
+
+    function setHeightDash(){
+        var header = 60;
+        var subheader = 50;
+        var content = window.innerHeight;
+        var tinggi = content-header-subheader-50;
+        $('#content-chart').css('height',tinggi-150);
+        $('#content-pesan').css('height',tinggi);
+        $('#content-pesan-detail').css('height',tinggi-130);
+        var psdet = document.querySelector('#content-pesan-detail');
+        var pspsdet = new PerfectScrollbar(psdet,{suppressScrollX:true});
+    }
     
     function setHeightForm(){
         var header = 70;
@@ -1286,6 +1298,9 @@
     $( window ).resize(function() {
         if($('#content-lap').length > 0){
             setHeightReport();
+        }
+        if($('#content-chart').length > 0){
+            setHeightDash();
         }
         setHeightForm();
     });
