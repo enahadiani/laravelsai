@@ -738,6 +738,7 @@
                             hapusData(data.id,data.kode);
                         }
                         else if(data.param != undefined){
+                            console.log(data.param);
                             hapusData(data.param);
                         }
                         else{
