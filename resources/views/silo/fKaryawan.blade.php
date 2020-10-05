@@ -418,7 +418,7 @@
                         <div class="form-group row">
                             <label>Regional</label>
                             <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
-                                <option value='#'>Pilih Regional</option>
+                                <option value=''>Pilih Regional</option>
                             </select>
                         </div>
                     </div>
@@ -510,9 +510,9 @@
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                             control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
-
+                        console.log("{{ Session::get('kodePP') }}")
                         if("{{ Session::get('kodePP') }}" != ""){
-                            control2.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
+                            control2.setValue("{{ Session::get('kodePP') }}");
                         }
                     }
                 }
