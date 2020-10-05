@@ -16,14 +16,6 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
-        return redirect('admginas-auth/login');
-    }else{
-        return view('admginas.'.$id);
-    }
-});
-
-Route::get('/form/{id}', function ($id) {
-    if(!Session::has('isLoggedIn')){
         // return redirect('dash-telu/login');
         return view('admginas.sesi');
     }else{

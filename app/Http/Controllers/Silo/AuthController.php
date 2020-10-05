@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Apv;
+namespace App\Http\Controllers\Silo;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,16 +10,14 @@ use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController extends Controller
 {
-    public $link = 'https://api.simkug.com/api/apv';
-
     public function index()
     {
         // return view('login');
         if(!Session::get('login')){
-            return redirect('apv/login')->with('alert','Kamu harus login dulu');
+            return redirect('silo-auth/login');
         }
         else{
-            return view('apv.main');
+            return view('silo.main');
         }
         
     }
@@ -93,36 +91,35 @@ class AuthController extends Controller
                         }
                     }
                     
-                    return redirect('apv/');
+                    return redirect('silo-auth/');
                 }else{
-                    return redirect('apv/login')->with('alert','Password atau NIK, Salah !');
+                    return redirect('silo-auth/login')->with('alert','Password atau NIK, Salah !');
                 }
             
             }else if($response->getStatusCode() == 401){
-                return redirect('apv/login')->with('alert','Password atau NIK, Salah !');
+                return redirect('silo-auth/login')->with('alert','Password atau NIK, Salah !');
             }
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return redirect('apv/login')->with('alert',$res["message"]);
+            return redirect('silo-auth/login')->with('alert',$res["message"]);
         }
         
     }
 
     public function login(){
-        return view('apv.login');
+        return view('silo.login');
     }
 
     public function logout(){
         Session::flush();
-        return redirect('apv/login')->with('alert','Kamu sudah logout');
+        return redirect('silo-auth/login')->with('alert','Kamu sudah logout');
     }
 
     public function getMenu(){
         $client = new Client();
         $kodemenu = Session::get('kodeMenu');
-        $success['kode_menu'] = $kodemenu;
         $response = $client->request('GET',  config('api.url').'apv/side-menu/'.$kodemenu,[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
@@ -133,120 +130,167 @@ class AuthController extends Controller
         $hasil = "";
         if ($response->getStatusCode() == 200) { // 200 OK
             $response_data = $response->getBody()->getContents();
-            $success['response'] = $response_data;
             
             $data = json_decode($response_data,true);
-            $daftar_menu = $data['success']['data'];
-            if(count($daftar_menu) > 0){
-                
-                $pre_prt = 0;
+            $main_menu = $data['success']['data'];
+                $main = "<div class='scroll'>
+                <ul class='list-unstyled'>";
+                $submenu = "<div class='scroll'>";
+                $pre_prt = 1;
                 $parent_array = array();
-                for($i=0; $i<count($daftar_menu); $i++){
-                    $forms = str_replace("_","/", $daftar_menu[$i]['form']);
-                    $this_lv = $daftar_menu[$i]['level_menu']; 
-                    $forms = explode("/",$forms);
-                    if(ISSET($forms[2])){
+                $hasil = "";
+                $kode = array(); 
+                if(count($main_menu) > 0){
+                    for($i=0; $i<count($main_menu); $i++){
+                        $forms = str_replace("_","/", $main_menu[$i]['form']);
+                        $this_lv = $main_menu[$i]['level_menu']; 
+                        $forms = explode("/",$forms);
+                        if(ISSET($forms[2])){
+                            $this_link = $forms[2];
+                        }else{
+                            $this_link = "";
+                        }
+                        
+                        if($this_lv == 0){
+                            if(!ISSET($main_menu[$i-1]['level_menu'])){
+                                $prev_lv2 = 0; 
+                            }else{
+                                $prev_lv2 = $main_menu[$i-1]['level_menu'];
+                            }
+                    
+                            if(!ISSET($main_menu[$i+1]['level_menu'])){
+                                $next_lv2 = $main_menu[$i]['level_menu'];
+                            }else{
+                                $next_lv2 = $main_menu[$i+1]['level_menu']; //t1 nv=1
+                            }
+                            $level_nol = 'sub'.$main_menu[$i]['kode_menu'];
+                            $sub[$level_nol] = "";
+                            array_push($kode,$level_nol);
+                            if($next_lv2 > 0){
+                                if(Session::get('menu') == "menu-main-hidden"){
+                                    $active = "active";
+                                }else{
+                                    $active = "";
+                                }
+                                $main .=" 
+                                <li class='$active'>
+                                        <a href='#main".$main_menu[$i]['kode_menu']."'>
+                                        <i class='".$main_menu[$i]['icon']."'></i>
+                                            <span>".$main_menu[$i]['nama']."</span>
+                                        </a>
+                                </li>";
 
-                        $this_link = $forms[2];
-                    }else{
-                        $this_link = "";
-                    }
-            
-                    if(!ISSET($daftar_menu[$i-1]['level_menu'])){
-                        $prev_lv = 0; // t1 pv=0
-                    }else{
-                        $prev_lv = $daftar_menu[$i-1]['level_menu'];
-                    }
-            
-                    if(!ISSET($daftar_menu[$i+1]['level_menu'])){
-                        $next_lv = $daftar_menu[$i]['level_menu'];
-                    }else{
-                        $next_lv = $daftar_menu[$i+1]['level_menu']; //t1 nv=1
-                    }
-                    
-                    if($daftar_menu[$i]['level_menu']=="0"){
-                        if($daftar_menu[$i]['icon'] != "" && $daftar_menu[$i]['icon'] != null){
-                            $icon="<i class='menu-icon ".$daftar_menu[$i]['icon']."'></i>";
+                                $submenu .= "<ul class='list-unstyled' data-link='main".$main_menu[$i]['kode_menu']."' id='sub".$main_menu[$i]['kode_menu']."'></ul>";
+                            }else{
+                                $main .=" 
+                                <li>
+                                        <a href='#' data-href='$this_link' class='a_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i>
+                                            <span>".$main_menu[$i]['nama']."</span>
+                                        </a>
+                                </li>";
+                                $submenu .="";
+                            }
                         }else{
-                            $icon="<i class='menu-icon fa fa-home'></i> ";
-                        }
-                        
-                    }else{
-                        if($daftar_menu[$i]['icon'] != "" && $daftar_menu[$i]['icon'] != null){
-                            $icon="<i class='menu-icon ".$daftar_menu[$i]['icon']."'></i>";
-                        }else{
-                            $icon="";
-                        }
-                    }
+                            if(!ISSET($main_menu[$i-1]['level_menu'])){
+                                $prev_lv = 1; 
+                            }else{
+                                $prev_lv = $main_menu[$i-1]['level_menu'];
+                            }
                     
-                    // Sintaks Menu Level 0 dan Tanpa Anak
-                    if($this_lv == 0 AND $next_lv == 0){
-                        $hasil.="
-                        <li>
-                        <a href='#' class='a_link' data-href='$this_link'>
-                        $icon
-                        <span class='hide-menu'>".$daftar_menu[$i]['nama']."</span></a>
-                        </li>
-                        ";
-                        
-                    }
-                    // Sintaks Menu Level 0 dan beranak
-                    else if($this_lv == 0 AND $next_lv > 0){
-                        $hasil.="
-                        <li class='treeview'>
-                        <a href='#' data-href='$this_link' class='has-arrow waves-effect waves-dark a_link' aria-expanded='false'>
-                        <i class='icon-notebook'></i> <span class='hide-menu'>".$daftar_menu[$i]['nama']."</span>
-                        </a>
-                        <ul class='collapse' id='sai_adminlte_menu_".$daftar_menu[$i]['kode_menu']."' aria-expanded='false'>
-                        ";
-                    }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv < $next_lv){
-                        $hasil.= " 
-                        <li class='treeview'>
-                        <a href='#javascript:void($i)' data-href='$this_link' class='waves-effect waves-dark a_link'>
-                        $icon
-                        <span>".$daftar_menu[$i]['nama']."a</span>
-                        <span class='pull-right-container'>
-                        <i class='fa fa-angle-right pull-right'></i>
-                        </span>
-                        </a>
-                        <ul class='collapse list-unstyled' id='javascript:void($i)'>";
-                    }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
-                        $hasil.= " 
-                        <li class=''>
-                        <a href='#' data-href='$this_link' class='a_link'>
-                        $icon
-                        <span>".$daftar_menu[$i]['nama'] ."</span>
-                        </a>
-                        </li>";
-                    }else if($this_lv > $prev_lv AND $this_lv > $next_lv){
-                        $hasil.= " 
-                        <li >
-                        <a href='#' data-href='$this_link' class='a_link'>
-                        $icon
-                        <span>".$daftar_menu[$i]['nama']."</span>
-                        </a>
-                        </li>";
-                    }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
-                        $hasil.= " 
-                        <li >
-                        <a href='#' data-href='$this_link' class='a_link'>
-                        $icon
-                        <span>".$daftar_menu[$i]['nama']."</span>
-                        </a>
-                        </li>
-                        </ul>";
+                            if(!ISSET($main_menu[$i+1]['level_menu'])){
+                                $next_lv = $main_menu[$i]['level_menu'];
+                            }else{
+                                $next_lv = $main_menu[$i+1]['level_menu']; //t1 nv=1
+                            }
+                            
+                            // Sintaks Menu Level 0 dan Tanpa Anak
+                            if($this_lv == 1 AND $next_lv == 1){
+                                
+                                $sub[$level_nol] .= "
+                                <li class=''>
+                                    <a href='#' class='a_link' data-href='$this_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                    </a>
+                                </li>
+                                ";
+                                
+                            }
+                            // Sintaks Menu Level 1 dan beranak
+                            else if($this_lv == 1 AND $next_lv > 1){
+                                $sub[$level_nol] .="
+                                <li>
+                                <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
+                                    aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
+                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                </a>
+                                <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
+                                    <ul class='list-unstyled inner-level-menu'>
+
+                                ";
+                            }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv < $next_lv){
+                                $sub[$level_nol].= " 
+                                <li>
+                                <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
+                                    aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
+                                    <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                </a>
+                                <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
+                                    <ul class='list-unstyled inner-level-menu'>";
+                            }else if(($this_lv > $prev_lv OR $this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv == $next_lv){
+                                $sub[$level_nol].= " 
+                                <li class=''>
+                                    <a href='#' class='a_link' data-href='$this_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                    </a>
+                                </li>
+                                ";
+                            }else if($this_lv > $prev_lv AND $this_lv > $next_lv){
+                                $sub[$level_nol].= " 
+                                <li class=''>
+                                    <a href='#' class='a_link' data-href='$this_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                    </a>
+                                </li>                                
+                                </ul>
+                                </div>";
+                            }else if(($this_lv == $prev_lv OR $this_lv < $prev_lv) AND $this_lv > $next_lv){
+                                $sub[$level_nol].= " 
+                                <li class=''>
+                                    <a href='#' class='a_link' data-href='$this_link'>
+                                        <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                    </a>
+                                </li>
+                                </div>
+                                </ul>";
+                            }
+                        }
                     }
                 }
-            }
+                $main .="
+                    </ul>
+                </div>";
                 
+                // $str = file_get_contents('http://localhost:8080/laravelsai/public/data.json');
+                // $menu = json_decode($str, true);
+                // $allmenu = $menu['allmenu'];
+                    
+
+                // $output = $this->buildMenu($allmenu);
+
+            $submenu .="</div>";
+
+
             $success['status'] = true;
-            $success['hasil'] = $hasil;
-    
+            $success['main_menu'] = $main;
+            $success['sub_menu'] = $submenu;
+            $success['subdata'] = $sub;
+            $success['kode_menu'] = $kode;
+        
         }else{
             $success['status'] = true;
-            $success['hasil'] = "" ;
-        }
-                
+            $success['main_menu'] = "" ;
+        }                
         return response()->json([$success], 200);     
     }
 
