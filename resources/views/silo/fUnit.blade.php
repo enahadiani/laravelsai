@@ -706,7 +706,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('post');
+                    $('#method').val('put');
                     $('#kode').attr('readonly', true);
                     $('#kode').val(id);
                     $('#id').val(id);
