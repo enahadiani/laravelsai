@@ -367,15 +367,17 @@
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group row">
-                            <label>Kode PP</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
-                                <option value='#'>Pilih Kode PP</option>
+                            <label>Kode Jabatan</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_jab" id="inp-filter_kode_jab">
+                                <option value=''>Pilih Kode Jabatan</option>
                             </select>
                         </div>
                         <div class="form-group row">
                             <label>Status</label>
                             <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='#'>Pilih Status</option>
+                                <option value=''>Pilih Status</option>
+                                <option value='AKTIF'>AKTIF</option>
+                                <option value='NONAKTIF'>NONAKTIF</option>
                             </select>
                         </div>
                     </div>
@@ -392,6 +394,8 @@
     // SET UP FORM //
     var $iconLoad = $('.preloader');
     var selectStatus = $('#status').selectize();
+    var selectJabatan = $('#inp-filter_kode_jab').selectize();
+    var selectStatusFilter = $('#inp-filter_status').selectize();
 
     $.ajaxSetup({
         headers: {
@@ -407,8 +411,36 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
+    function getJabatan(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/jabatan') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.daftar;    
+                if(res.status){
+                    var select = selectJabatan[0]
+                    var control = select.selectize;
+                    if(typeof result !== 'undefined' && result.length>0){
+                        for(i=0;i<result.length;i++){
+                            control.addOption([{text:result[i].kode_jab + ' - ' + result[i].nama, value:result[i].kode_jab}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+    getJabatan();
+    jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //
+    $('#inp-filter_kode_jab').change(function(){
+        jumFilter();
+    });
+    $('#inp-filter_status').change(function(){
+        jumFilter();
+    });
     // END EVENT CHANGE //
     // LIST DATA
      var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -634,7 +666,7 @@
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Karyawan');
+        $('#judul-form').html('Edit Data Jabatan');
         $.ajax({
             type: 'GET',
             url: "{{ url('apv/jabatan') }}/" + id,
@@ -644,7 +676,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('post');
+                    $('#method').val('put');
                     $('#kode').attr('readonly', true);
                     $('#kode').val(id);
                     $('#id').val(id);
@@ -664,12 +696,12 @@
 
     // PREVIEW saat klik di list data //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 3){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var status = data.flag_status;
             var html = `<tr>
-                <td style='border:none'>NIK</td>
+                <td style='border:none'>Kode Jabatan</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
@@ -677,20 +709,8 @@
                 <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Kode Regional</td>
-                <td>`+data.kode_pp+`</td>
-            </tr>
-            <tr>
-                <td>Kode Jabatan</td>
-                <td>`+data.kode_jab+`</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>`+data.email+`</td>
-            </tr>
-            <tr>
-                <td>No Telepon</td>
-                <td>`+data.no_telp+`</td>
+                <td>Status</td>
+                <td>`+data.flag_aktif+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -704,13 +724,13 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Karyawan');
+        $('#judul-form').html('Edit Data Jabatan');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/karyawan') }}/" + id,
+            url: "{{ url('apv/jabatan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -783,6 +803,63 @@
     });
 
     // END BUTTON HAPUS
+
+    // FILTER DATA //
+     $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var kode_jab = $('#inp-filter_kode_jab').val();
+                var status = $('#inp-filter_status').val();
+                var col_kode_jab = data[0];
+                var col_status  = data[2];
+                if(kode_jab != "" && status != ""){
+                    if(kode_jab == col_kode_jab && status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_jab !="" && status == "") {
+                    if(kode_jab == col_kode_jab){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_jab =="" && status != "") {
+                    if(status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                else{
+                    return true;
+                }
+            }
+        );
+        dataTable.draw();
+        $.fn.dataTable.ext.search.pop();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#inp-filter_kode_jab')[0].selectize.setValue('');
+        $('#inp-filter_status')[0].selectize.setValue('');
+        jumFilter();
+    });
+        
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-tampil').click();
+    // END FILTER DATA //
 
     $('#kode,#nama,#status').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);

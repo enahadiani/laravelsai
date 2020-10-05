@@ -1018,13 +1018,7 @@
             function( settings, data, dataIndex ) {
                 var kode_pp = $('#inp-filter_regional').val();
                 var col_kode_pp = data[2];
-                if(kode_pp){
-                    if(kode_pp == col_kode_pp){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_pp !="") {
+                if(kode_pp != ""){
                     if(kode_pp == col_kode_pp){
                         return true;
                     }else{
