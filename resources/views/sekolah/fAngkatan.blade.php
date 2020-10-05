@@ -1000,6 +1000,7 @@ $('#saku-form').on('submit', '#form-tambah', function(e){
         );
         dataTable.draw();
         $.fn.dataTable.ext.search.pop();
+        $('#modalFilter').modal('hide');
     });
 
     $('#btn-reset').click(function(e){

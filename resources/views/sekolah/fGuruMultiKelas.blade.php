@@ -1791,6 +1791,7 @@
         );
         dataTable.draw();
         $.fn.dataTable.ext.search.pop();
+        $('#modalFilter').modal('hide');
     });
 
     $("[name^=inp-filter]").change(function(){
