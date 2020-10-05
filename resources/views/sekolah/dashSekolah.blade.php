@@ -54,7 +54,7 @@
                 <input class="form-control" type="text" placeholder="Cari siswa atau kelas" >    
             </div>
             <div class="card-body pt-0 scroll" id="content-pesan-detail">
-                <div class="d-flex flex-row mb-3 border-bottom justify-content-between">
+                <!-- <div class="d-flex flex-row mb-3 border-bottom justify-content-between">
                     <a href="#">
                     <img src="{{ asset('asset_elite/images/user.png') }}" alt="Mayra Sibley" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
                     </a>
@@ -68,37 +68,7 @@
                         offline to maximise the long tail.
                         </p>
                     </div>
-                </div>
-                <div class="d-flex flex-row mb-3 border-bottom justify-content-between">
-                    <a href="#">
-                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Mayra Sibley" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
-                    </a>
-                    <div class="pl-3 flex-grow-1">
-                        <a href="#">
-                        <p class="font-weight-medium mb-0 ">Mimi Carreira</p>
-                        <p class="text-muted mb-0 text-small">01/01/2020 13:52:00</p>
-                        </a>
-                        <p class="mt-3">
-                        Taking seamless key performance indicators
-                        offline to maximise the long tail.
-                        </p>
-                    </div>
-                </div>
-                <div class="d-flex flex-row mb-3 border-bottom justify-content-between">
-                    <a href="#">
-                    <img src="{{ asset('asset_elite/images/user.png') }}" alt="Mayra Sibley" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
-                    </a>
-                    <div class="pl-3 flex-grow-1">
-                        <a href="#">
-                        <p class="font-weight-medium mb-0 ">Mimi Carreira</p>
-                        <p class="text-muted mb-0 text-small">01/01/2020 13:52:00</p>
-                        </a>
-                        <p class="mt-3">
-                        Taking seamless key performance indicators
-                        offline to maximise the long tail.
-                        </p>
-                    </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>  
@@ -182,4 +152,40 @@ function getNilaiRatarata(kode_kelas=null){
         }
     })
 }
+
+function getHistoryPesan(kode_pp){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('sekolah-dash/pesan-history') }}",
+        dataType:"JSON",
+        data:{kode_pp:kode_pp},
+        success:function(res){
+            var result = res.data;
+            var html = '';
+            if(result.status){
+                if(result.data.length > 0){
+                    for(var i=0; i < result.data.length; i++){
+                        var line = result.data[i];
+                        html +=`<div class="d-flex flex-row mb-3 border-bottom justify-content-between">
+                            <a href="#">
+                            <img src="{{ asset('asset_elite/images/user.png') }}" alt="`+line.nama+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
+                            </a>
+                            <div class="pl-3 flex-grow-1">
+                                <a href="#">
+                                <p class="font-weight-medium mb-0 ">`+line.nama+`</p>
+                                <p class="text-muted mb-0 text-small">`+line.tgl+` `+line.jam+`</p>
+                                </a>
+                                <p class="mt-3">
+                                `+line.pesan+`
+                                </p>
+                            </div>
+                        </div>`;
+                    }
+                }
+            }
+            $('#content-pesan-detail').html(html);
+        }
+    });
+}
+getHistoryPesan("{{ Session::get('kodePP') }}");
 </script>
