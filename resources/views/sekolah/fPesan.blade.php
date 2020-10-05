@@ -266,7 +266,7 @@
                                     <th>Deskripsi</th>
                                     <th>Tgl Input</th>
                                     <th>Kode PP</th>
-                                    <th class="text-center">Aksi</th>
+                                    <!-- <th class="text-center">Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -602,8 +602,8 @@
                 "targets": [5],
                 "visible": false,
                 "searchable": true
-            },
-            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            }
+            // {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'no_bukti' },
@@ -1177,12 +1177,14 @@
             
             var param = $('#id').val();
             var id = $('#no_bukti').val();
+            var tmp = $('#inp-filter_kode_pp').val().split('-');
             // $iconLoad.show();
             if(param == "edit"){
                 var url = "{{ url('sekolah-trans/pesan') }}";
             }else{
                 var url = "{{ url('sekolah-trans/pesan') }}";
             }
+            formData.append('kode_pp', tmp[0]);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1277,13 +1279,12 @@
 
     // GRID JURNAL  
     
-    $('.custom-file-input').on('change',function(){
+    $('#input-dok').on('change','.custom-file-input',function(){
         //get the file name
-        console.log('ok');
         var fileName = $(this).val();
         //replace the "Choose a file" label
         $(this).next('.custom-file-label').html(fileName);
-    })
+    });
 
     $('#form-tambah').on('click', '.add-row', function(){
         var no=$('#input-dok .row-dok:last').index();
@@ -1294,7 +1295,7 @@
         input += "<td><span class='td-nama_file_seb tdnmfilesebke"+no+" tooltip-span'>-</span><input type='text' name='nama_file_seb[]' class='form-control inp-nama_file_seb nmfilesebke"+no+" hidden'  value='-' readonly></td>";
         input+=` <td><div class="input-group col-md-10 col-sm-12">
                     <div class="custom-file">
-                    <input type="file" name="file_dok" class="custom-file-input" id="file_dok">
+                    <input type="file" name="file_dok[]" class="custom-file-input" id="file_dok">
                     <label class="custom-file-label" for="file_dok"></label>
                     </div>
                 </div></td>`;
