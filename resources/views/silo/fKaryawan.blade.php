@@ -289,7 +289,7 @@
                         <div class="form-group row ">
                             <label for="regional" class="col-md-2 col-sm-12 col-form-label">Regional</label>
                             <div class="col-md-3 col-sm-12" >
-                                <select class='form-control' id="regional" name="regional">
+                                <select class='form-control' id="regional" name="kode_pp">
                                     <option value=''>--- Pilih Regional ---</option>
                                 </select>
                             </div>
@@ -297,7 +297,7 @@
                         <div class="form-group row ">
                             <label for="kota" class="col-md-2 col-sm-12 col-form-label">Kota</label>
                             <div class="col-md-3 col-sm-12" >
-                                <select class='form-control' id="kota" name="kota">
+                                <select class='form-control' id="kota" name="kode_kota">
                                     <option value=''>--- Pilih Kota ---</option>
                                 </select>
                             </div>
@@ -305,7 +305,7 @@
                         <div class="form-group row ">
                             <label for="divisi" class="col-md-2 col-sm-12 col-form-label">Divisi</label>
                             <div class="col-md-3 col-sm-12" >
-                                <select class='form-control' id="divisi" name="divisi">
+                                <select class='form-control' id="divisi" name="kode_divisi">
                                     <option value=''>--- Pilih Divisi ---</option>
                                 </select>
                             </div>
@@ -313,7 +313,7 @@
                         <div class="form-group row ">
                             <label for="jabatan" class="col-md-2 col-sm-12 col-form-label">Jabatan</label>
                             <div class="col-md-3 col-sm-12" >
-                                <select class='form-control' id="jabatan" name="jabatan">
+                                <select class='form-control' id="jabatan" name="kode_jab">
                                     <option value=''>--- Pilih Jabatan ---</option>
                                 </select>
                             </div>
@@ -327,7 +327,7 @@
                         <div class="form-group row">
                             <label for="telp" class="col-md-2 col-sm-12 col-form-label">No Telp</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Telp" id="telp" name="telp">
+                                <input class="form-control" type="text" placeholder="No Telp" id="telp" name="no_telp">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -371,7 +371,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Siswa <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Karyawan <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -450,6 +450,13 @@
         }
     });
     // END SET UP FORM //
+    // PLUGIN SCROLL di bagian preview dan form input
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
     function getPP(){
         $.ajax({
@@ -521,7 +528,6 @@
             dataType: 'json',
             async:false,
             success:function(res){
-                console.log(res)
                 var result= res.daftar;    
                 if(res.status){
                     var select = selectJabatan[0]
@@ -649,4 +655,196 @@
     });
     // END BUTTON TAMBAH
 
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+
+    $('#saku-form').on('click', '#btn-update', function(){
+        var kode = $('#kode_fs').val();
+        msgDialog({
+            id:kode,
+            type:'edit'
+        });
+    });
+    // END BUTTON KEMBALI
+
+    //BUTTON SIMPAN /SUBMIT
+    $('#form-tambah').validate({
+        ignore: [],
+        rules: 
+        {
+            nik:{
+                required: true,   
+            },
+            nama:{
+                required: true,   
+            },
+            regional:{
+                required: true,   
+            },
+            jabatan:{
+                required: true,   
+            },
+            divisi:{
+                required: true,   
+            },
+            kota:{
+                required: true,   
+            },
+            email:{
+                required: true,   
+            },
+            telp:{
+                required: true,   
+            },
+        },
+        errorElement: "label",
+        submitHandler: function (form) {
+            var parameter = $('#id_edit').val();
+            var id = $('#nik').val();
+            if(parameter == "edit"){
+                var url = "{{ url('apv/karyawan') }}/"+id;
+                var pesan = "updated";
+                var text = "Perubahan data "+id+" telah tersimpan";
+            }else{
+                var url = "{{ url('apv/karyawan') }}";
+                var pesan = "saved";
+                var text = "Data tersimpan dengan kode "+id;
+            }
+
+            var formData = new FormData(form);
+            var tmp = $('#kota option:selected').text();
+            tmp = tmp.split("-");
+            var nama_kota = tmp[1];
+            formData.append('nama_kota',nama_kota);
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]); 
+            }
+            
+            $.ajax({
+                type: 'POST', 
+                url: url,
+                dataType: 'json',
+                data: formData,
+                async:false,
+                contentType: false,
+                cache: false,
+                processData: false, 
+                success:function(result){
+                    if(result.data.status){
+                        dataTable.ajax.reload();
+                        var kode = $('#nik').val();
+                        $('#row-id').hide();
+                        $('#form-tambah')[0].reset();
+                        $('#form-tambah').validate().resetForm();
+                        $('#id_edit').val('');
+                        $('#judul-form').html('Tambah Data Karyawan');
+                        $('#method').val('post');
+                        $('#kode_fs').attr('readonly', false);
+                        msgDialog({
+                            id:kode,
+                            type:'simpan'
+                        });
+                        last_add("nik",kode);
+                    }else if(!result.data.status && result.data.message === "Unauthorized"){
+                    
+                        window.location.href = "{{ url('/silo-auth/sesi-habis') }}";
+                        
+                    }else{
+                        if(result.data.kode == "-" && result.data.jenis != undefined){
+                            msgDialog({
+                                id: id,
+                                type: result.data.jenis,
+                                text:'NIK sudah digunakan'
+                            });
+                        }else{
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    }
+                },
+                fail: function(xhr, textStatus, errorThrown){
+                    alert('request failed:'+textStatus);
+                }
+            });
+            // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+        },
+        errorPlacement: function (error, element) {
+            var id = element.attr("id");
+            $("label[for="+id+"]").append("<br/>");
+            $("label[for="+id+"]").append(error);
+        }
+    });
+    // END BUTTON SIMPAN
+
+    // PREVIEW saat klik di list data //
+    $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 6){
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            var status = data.flag_status;
+            var html = `<tr>
+                <td style='border:none'>NIK</td>
+                <td style='border:none'>`+id+`</td>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                <td>`+data.nama+`</td>
+            </tr>
+            <tr>
+                <td>Kode Regional</td>
+                <td>`+data.kode_pp+`</td>
+            </tr>
+            <tr>
+                <td>Kode Jabatan</td>
+                <td>`+data.kode_jab+`</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>No Telepon</td>
+                <td>`+data.no_telp+`</td>
+            </tr>
+            `;
+            $('#table-preview tbody').html(html);
+            
+            $('#modal-preview-id').text(id);
+            $('#modal-preview').modal('show');
+        }
+    });
+    // END PREVIEW saat klik di list data //
+    $('#nik,#nama,#regional,#kota,#divisi,#jabatan,#file_gambar').keydown(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['nik','nama','regional','kota','divisi','jabatan','file_gambar'];
+        if (code == 13 || code == 40) {
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx++;
+            if(idx == 2 || idx == 3){
+                $('#'+nxt[idx])[0].selectize.focus();
+            }else{
+                
+                $('#'+nxt[idx]).focus();
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+            if(idx != -1){ 
+                $('#'+nxt[idx]).focus();
+            }
+        }
+    });
     </script>
