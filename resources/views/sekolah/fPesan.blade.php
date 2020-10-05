@@ -266,7 +266,7 @@
                                     <th>Deskripsi</th>
                                     <th>Tgl Input</th>
                                     <th>Kode PP</th>
-                                    <!-- <th class="text-center">Aksi</th> -->
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -602,8 +602,8 @@
                 "targets": [5],
                 "visible": false,
                 "searchable": true
-            }
-            // {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            },
+            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'no_bukti' },
@@ -882,14 +882,14 @@
     function hapusData(id,kode){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('sekolah-trans/penilaian') }}",
+            url: "{{ url('sekolah-trans/pesan') }}",
             dataType: 'json',
             data:{kode_pp:kode,no_bukti:id},
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Penilaian ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Pesan ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -909,8 +909,12 @@
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var id = $(this).closest('tr').find('td').eq(0).html();
-        var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
-        var kode_pp = tmp[0];
+        var data = dataTable.row( $(this).parents('tr') ).data();
+        console.log(data)
+        
+        
+        // var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
+        var kode_pp = data['kode_pp'];
         msgDialog({
             id: id,
             kode: kode_pp,

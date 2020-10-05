@@ -45,7 +45,9 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_matpel'     => $request->kode_matpel,
-                        'kode_kd'     => $request->kode_kd
+                        'kode_kelas'     => $request->kode_kelas,
+                        'kode_kd'     => $request->kode_kd,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
     
@@ -75,7 +77,9 @@
                     ],
                     'query' => [
                         'kode_matpel' => $request->kode_matpel,
-                        'kode_pp' => $request->kode_pp
+                        'kode_kelas' => $request->kode_kelas,
+                        'kode_pp' => $request->kode_pp,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
     
@@ -99,6 +103,8 @@
 
             $this->validate($request, [
                 'kode_matpel' => 'required',
+                'kode_kelas' => 'required',
+                'kode_sem' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
@@ -114,6 +120,8 @@
                     ],
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -140,6 +148,8 @@
             
             $this->validate($request, [
                 'kode_matpel' => 'required',
+                'kode_kelas' => 'required',
+                'kode_sem' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
@@ -161,6 +171,8 @@
                     ],
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -191,7 +203,9 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_mapel' => $request->kode_mapel,
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp
                     ]
 
@@ -208,7 +222,7 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
+                $data['message'] = $res["message"];
                 $data['status'] = false;
                 return response()->json(['data' => $data], 200);
             }
