@@ -512,6 +512,7 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     
     $('.selectize').selectize();
+    $('[id^=label]').attr('readonly',true);
     // END 
 
     // LIST DATA

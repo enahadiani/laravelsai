@@ -102,7 +102,6 @@
             top: -2px;
             left: -5px;
         }
-
     </style>
     <div class="row" id="saku-datatable">
         <div class="col-12">
@@ -179,6 +178,16 @@
                             </div>
                         </div>
                         <div class="form-group row ">
+                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
                             <label for="koed_matpel" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Kode Mata Pelajaran" id="kode_matpel" name="kode_matpel">
@@ -196,16 +205,7 @@
                                 <input class="form-control" type="text" placeholder="Keterangan Mata Pelajaran" id="keterangan" name="keterangan">
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
+                       
                         <div class="form-group row">
                             <label for="sifat" class="col-md-2 col-sm-12 col-form-label">Sifat</label>
                             <div class="col-md-3 col-sm-12">
@@ -331,10 +331,8 @@
         }
     });
     
-    
     $('.selectize').selectize();
-    var jum_filter = $('#modalFilter .form-group.row ').length;
-    $('#jum-filter').text(jum_filter);
+    $('[id^=label]').attr('readonly',true);
 
     function openFilter() {
         var element = $('#mySidepanel');
@@ -525,6 +523,10 @@
         $('#flag_aktif')[0].selectize.setValue('');
         $('#sifat')[0].selectize.setValue('');
         $('#method').val('post');
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
         $('#id_edit').val('');
         $('#kode_matpel').attr('readonly', false);
         $('#saku-datatable').hide();
@@ -897,6 +899,10 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Mata Pelajaran');
                         $('#method').val('post');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         $('#kode_matpel').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode_matpel,

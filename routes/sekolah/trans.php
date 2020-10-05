@@ -23,3 +23,7 @@ Route::get('penilaian-dok', 'Sekolah\PenilaianController@showDokUpload');
 Route::post('penilaian-dok', 'Sekolah\PenilaianController@storeDokumen');
 Route::delete('penilaian-dok', 'Sekolah\PenilaianController@deleteDokumen');
 Route::get('penilaian-kd', 'Sekolah\PenilaianController@getKD');
+
+Route::get('pesan', 'Sekolah\PesanController@index');
+Route::get('pesan-detail', 'Sekolah\PesanController@show');
+Route::post('pesan', 'Sekolah\PesanController@store');

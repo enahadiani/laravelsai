@@ -425,18 +425,6 @@
     var $target = "";
     var $target2 = "";
 
-    function jumFilter(){
-        var jum = $("[name^=inp-filter]").filter(function(){
-            return this.value.trim() != '';
-        }).length;
-        console.log(jum)
-        if(jum > 0){
-            $('#jum-filter').text(jum);
-        }else{
-            $('#jum-filter').text('');
-        }
-    }
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -444,6 +432,7 @@
     });
 
     $('.selectize').selectize();
+    $('[id^=label]').attr('readonly',true);
     
     function last_add(param,isi){
         var rowIndexes = [];
@@ -1426,6 +1415,10 @@
                         $('#judul-form').html('Tambah Data Guru Multi Kelas');
                         $('#input-kelas tbody').html('');
                         $('#method').val('post');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         msgDialog({
                             id:result.data.nik_guru,
                             type:'simpan'

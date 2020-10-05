@@ -540,6 +540,7 @@
     var psscroll = new PerfectScrollbar(scroll);
     
     $('.selectize').selectize();
+    $('[id^=label]').attr('readonly',true);
     // END 
 
     var $dtPP = new Array();
@@ -874,10 +875,16 @@
 
     // END CBBL
 
-    $('#kode_pp,#kode_matpel').change(function(){
+    $('#kode_pp').change(function(){
+        var kode_pp = $('#kode_pp').val(); 
+        // var kode_matpel = $('#kode_matpel').val(); 
+        getPP(kode_pp);
+    });
+
+    $('#kode_matpel').change(function(){
         var kode_pp = $('#kode_pp').val(); 
         var kode_matpel = $('#kode_matpel').val(); 
-        
+        getMatpel(kode_matpel,kode_pp);
     });
 
     // BUTTON EDIT
@@ -1009,6 +1016,10 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#input-kd tbody').html('');
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
         $('#saku-datatable').hide();
         $('#saku-form').show();
         hitungTotalRow();
@@ -1237,8 +1248,11 @@
                             $('#id').val('');
                             $('#input-kd tbody').html('');
                             $('[id^=label]').html('');
+                            if("{{ Session::get('kodePP') }}" != ""){
+                                $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                                $('#kode_pp').trigger('change');
+                            }
                             hitungTotalRow();
-
                             msgDialog({
                                 id:result.data.kode,
                                 type:'simpan'

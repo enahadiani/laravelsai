@@ -536,6 +536,7 @@
 
     getTAPp();
     jumFilter();
+    $('[id^=label]').attr('readonly',true);
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -1385,6 +1386,10 @@
                         $('#judul-form').html('Tambah Data Guru Mata Pelajaran');
                         $('#input-matpel tbody').html('');
                         $('#method').val('post');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         msgDialog({
                             id:result.data.nik_guru,
                             type:'simpan'

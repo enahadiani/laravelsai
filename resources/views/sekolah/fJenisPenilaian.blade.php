@@ -178,6 +178,16 @@
                                 <input type="hidden" id="method" name="_method" value="post">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
+                            <div class="col-md-3 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
+                        </div>
                         <div class="form-group row ">
                             <label for="kode_jenis" class="col-md-2 col-sm-12 col-form-label">Kode</label>
                             <div class="col-md-3 col-sm-12">
@@ -186,18 +196,8 @@
                         </div>
                         <div class="form-group row">
                             <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-9 col-sm-12">
+                            <div class="col-md-3 col-sm-12">
                                 <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                        <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -341,6 +341,7 @@
     });
     
     $('.selectize').selectize();
+    $('[id^=label]').attr('readonly',true);
 
     function openFilter() {
         var element = $('#mySidepanel');
@@ -555,6 +556,10 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
         $('#id_edit').val('');
         $('#flag_aktif')[0].selectize.setValue('');
         $('#kode_jenis').attr('readonly', false);
@@ -840,6 +845,10 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Jenis Penilaian');
                         $('#method').val('post');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         $('#kode_jenis').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,

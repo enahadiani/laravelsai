@@ -367,6 +367,11 @@
         .periode-label,.lokasi-label{
             color:#B7B7B7;
         }
+
+        input[id^=label]:read-only {
+            background: none;
+            pointer-events: none;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";

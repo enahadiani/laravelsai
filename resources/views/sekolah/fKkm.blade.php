@@ -455,8 +455,7 @@
     });
 
     $('.selectize').selectize();
-    var jum_filter = $('#modalFilter .form-group.row ').length;
-    $('#jum-filter').text(jum_filter);
+    $('[id^=label]').attr('readonly',true);
     
     function openFilter() {
         var element = $('#mySidepanel');
@@ -1446,6 +1445,10 @@
                         $('#judul-form').html('Tambah Data KKM');
                         $('#input-kkm tbody').html('');
                         $('#method').val('post');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         msgDialog({
                             id:result.data.kode_kkm,
                             type:'simpan'

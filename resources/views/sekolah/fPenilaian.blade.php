@@ -591,6 +591,7 @@
     var psscroll = new PerfectScrollbar(scroll);
     
     $('.selectize').selectize();
+    $('[id^=label]').attr('readonly',true);
     // END 
 
     // LIST DATA
@@ -1541,6 +1542,10 @@
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('[id^=label]').html('');
+                            if("{{ Session::get('kodePP') }}" != ""){
+                                $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                                $('#kode_pp').trigger('change');
+                            }
                             hitungTotalRow();
 
                             msgDialog({
