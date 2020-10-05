@@ -272,6 +272,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id" name="id">
                             </div>
                         </div>
                         <div class="form-group row ">
@@ -745,7 +746,11 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Karyawan');
                         $('#method').val('post');
-                        $('#kode_fs').attr('readonly', false);
+                        $('#nik').attr('readonly', false);
+                        $('#regional')[0].selectize.setValue('');
+                        $('#kota')[0].selectize.setValue('');
+                        $('#divisi')[0].selectize.setValue('');
+                        $('#jabatan')[0].selectize.setValue('');
                         msgDialog({
                             id:kode,
                             type:'simpan'
@@ -787,6 +792,49 @@
     });
     // END BUTTON SIMPAN
 
+    // BUTTON EDIT TABLE //
+    $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        $('#form-tambah').validate().resetForm();
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $('#judul-form').html('Edit Data Karyawan');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/karyawan') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#nik').attr('readonly', true);
+                    $('#nik').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#regional')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#kota')[0].selectize.setValue(selectKota[0].selectize.search(""+result.data[0].kota+"").items[0].id);
+                    $('#divisi')[0].selectize.setValue(result.data[0].kode_divisi);
+                    $('#jabatan')[0].selectize.setValue(result.data[0].kode_jab);
+                    $('#email').val(result.data[0].email);
+                    $('#telp').val(result.data[0].no_telp);
+                    if(result.data[0].file_gambar !== '-'){
+                        var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
+                        $('.preview').html(html);              
+                    }    
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
+    // END BUTTON TABLE EDIT //
+
     // PREVIEW saat klik di list data //
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 6){
@@ -824,7 +872,100 @@
             $('#modal-preview').modal('show');
         }
     });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Karyawan');
+        
+        $('#btn-save').attr('type','button');
+        $('#btn-save').attr('id','btn-update');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/karyawan') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#nik').attr('readonly', true);
+                    $('#nik').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#regional')[0].selectize.setValue(result.data[0].kode_pp);
+                    $('#kota')[0].selectize.setValue(selectKota[0].selectize.search(""+result.data[0].kota+"").items[0].id);
+                    $('#divisi')[0].selectize.setValue(result.data[0].kode_divisi);
+                    $('#jabatan')[0].selectize.setValue(result.data[0].kode_jab);
+                    $('#email').val(result.data[0].email);
+                    $('#telp').val(result.data[0].no_telp);
+                    if(result.data[0].file_gambar !== '-'){
+                        var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
+                        $('.preview').html(html);              
+                    }    
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
+
+    $('.modal-header').on('click','#btn-delete2',function(e){
+        var id = $('#modal-preview-id').text();
+        $('#modal-preview').modal('hide');
+        msgDialog({
+            id:id,
+            type:'hapus'
+        });
+    });
     // END PREVIEW saat klik di list data //
+
+    
+    // BUTTON HAPUS DATA
+    function hapusData(id){
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('apv/karyawan') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status){
+                    dataTable.ajax.reload();                    
+                    showNotification("top", "center", "success",'Hapus Data','Data Flag AKun ('+id+') berhasil dihapus ');
+                    $('#modal-pesan-id').html('');
+                    $('#table-delete tbody').html('');
+                    $('#modal-pesan').modal('hide');
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href>'+result.data.message+'</a>'
+                    });
+                }
+            }
+        });
+    }
+
+    $('#saku-datatable').on('click','#btn-delete',function(e){
+        var kode = $(this).closest('tr').find('td').eq(0).html();
+        msgDialog({
+            id: kode,
+            type:'hapus'
+        });
+    });
+
+    // END BUTTON HAPUS
+
     $('#nik,#nama,#regional,#kota,#divisi,#jabatan,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
         var nxt = ['nik','nama','regional','kota','divisi','jabatan','file_gambar'];
