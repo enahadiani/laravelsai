@@ -510,7 +510,6 @@
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                             control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
-                        console.log("{{ Session::get('kodePP') }}")
                         if("{{ Session::get('kodePP') }}" != ""){
                             control2.setValue("{{ Session::get('kodePP') }}");
                         }

@@ -615,7 +615,7 @@
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Karyawan');
+                        $('#judul-form').html('Tambah Data Jabatan');
                         $('#method').val('post');
                         $('#kode').attr('readonly', false);
                         $('#status')[0].selectize.setValue('');
