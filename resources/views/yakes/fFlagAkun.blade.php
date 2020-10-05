@@ -360,7 +360,6 @@
     });
     // END LIST DATA
 
-
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
