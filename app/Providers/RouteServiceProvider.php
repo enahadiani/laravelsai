@@ -80,7 +80,7 @@ class RouteServiceProvider extends ServiceProvider
         
         $this->mapAdmGinasRoutes();
 
-        //
+        $this->mapSiloRoutes();
     }
 
     /**
@@ -419,6 +419,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admginas/report.php'));
+   
+    }
+
+    protected function mapSiloRoutes()
+    {
+        Route::prefix('silo-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/silo/auth.php'));
+
+        Route::prefix('silo-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/silo/dash.php'));
+    
+        Route::prefix('silo-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/silo/master.php'));
+    
+        Route::prefix('silo-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/silo/trans.php'));
+    
+        Route::prefix('silo-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/silo/report.php'));
    
     }
 
