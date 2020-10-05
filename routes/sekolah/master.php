@@ -108,3 +108,9 @@ Route::get('guru-multi-kelas-detail', 'Sekolah\GuruMultiKelasController@show');
 Route::post('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@store');
 Route::put('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@update');
 Route::delete('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@destroy');
+
+Route::get('guru', 'Sekolah\GuruController@index');
+Route::get('guru-detail', 'Sekolah\GuruController@show');
+Route::post('guru', 'Sekolah\GuruController@store');
+Route::put('guru', 'Sekolah\GuruController@update');
+Route::delete('guru', 'Sekolah\GuruController@destroy');
