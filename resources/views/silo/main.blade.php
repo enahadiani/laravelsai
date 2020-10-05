@@ -1258,6 +1258,17 @@
             });
         }
 
+        function jumFilter(){
+            var jum = $("[name^=inp-filter]").filter(function(){
+                return this.value.trim() != '';
+            }).length;
+            if(jum > 0){
+                $('#jum-filter').text(jum);
+            }else{
+                $('#jum-filter').text('');
+            }
+        }
+
         
 
     </script>
