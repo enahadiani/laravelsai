@@ -2654,7 +2654,7 @@
             );
             dataTable.draw();
             $.fn.dataTable.ext.search.pop();
-        $('#modalFilter').modal('hide');
+            $('#modalFilter').modal('hide');
         });
 
         $('#btn-reset').click(function(e){
