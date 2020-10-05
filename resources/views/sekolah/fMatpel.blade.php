@@ -211,8 +211,8 @@
                             <div class="col-md-3 col-sm-12">
                                 <select class='form-control selectize' id="sifat" name="sifat">
                                 <option value='' disabled>--- Pilih Sifat ---</option>
-                                <option value='WAJIB'>WAJIB</option>
-                                <option value='TAMBAHAN'>TAMBAHAN</option>
+                                <option value='0'>NASIONAL</option>
+                                <option value='1'>MUATAN LOKAL</option>
                                 </select>
                             </div>
                         </div>
@@ -1025,7 +1025,7 @@
 
     $('#table-data tbody').on('click','td',function(e){
         console.log('klik');
-        if($(this).index() != 3){
+        if($(this).index() != 4){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
