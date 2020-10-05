@@ -27,3 +27,4 @@ Route::get('penilaian-kd', 'Sekolah\PenilaianController@getKD');
 Route::get('pesan', 'Sekolah\PesanController@index');
 Route::get('pesan-detail', 'Sekolah\PesanController@show');
 Route::post('pesan', 'Sekolah\PesanController@store');
+Route::delete('pesan', 'Sekolah\PesanController@destroy');

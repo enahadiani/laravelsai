@@ -87,7 +87,12 @@
                             // Session::put('periode','201905');
                             
                             $tmp = explode("_",$res[0]["path_view"]);
-                            $dash = $tmp[2];
+                            if(isset($tmp[2])){
+                                
+                                $dash = $tmp[2];
+                            }else{
+                                $dash = "-";
+                            }
                             Session::put('dash',$dash);
                             Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                         }
