@@ -30,15 +30,15 @@
         <div class="card bg-primary" style="height:130px">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-ms-12">
                         <p class="mb-1">Murid</p>
                         <h2 class="mb-0" style="font-weight:bold">912</h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-ms-12">
                         <p class="mb-1">Siswa tidak mendapat nilai</p>
                         <h2 class="mb-0" style="font-weight:bold">0</h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-ms-12">
                         <p class="mb-1">Pelaksanaan tidak lengkat</p>
                         <h2 class="mb-0" style="font-weight:bold">0</h2>
                     </div>

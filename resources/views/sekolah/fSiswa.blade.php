@@ -769,7 +769,7 @@
                 {
                     "targets": [6],
                     "visible": false,
-                    "searchable": false
+                    "searchable": true
                 },
                 // {
                 //     'targets': 6, data: null, 'defaultContent': action_html 
