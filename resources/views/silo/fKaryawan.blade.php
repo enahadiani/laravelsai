@@ -416,15 +416,9 @@
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group row">
-                            <label>Kode PP</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
-                                <option value='#'>Pilih Kode PP</option>
-                            </select>
-                        </div>
-                        <div class="form-group row">
-                            <label>Status</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='#'>Pilih Status</option>
+                            <label>Regional</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
+                                <option value='#'>Pilih Regional</option>
                             </select>
                         </div>
                     </div>
@@ -441,6 +435,7 @@
     // SET UP FORM //
     var $iconLoad = $('.preloader');
     var selectRegional = $('#regional').selectize();
+    var selectRegionalFilter = $('#inp-filter_regional').selectize();
     var selectKota = $('#kota').selectize();
     var selectDivisi = $('#divisi').selectize();
     var selectJabatan = $('#jabatan').selectize();
@@ -450,6 +445,45 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+
+    function openFilter() {
+        var element = $('#mySidepanel');
+            
+        var x = $('#mySidepanel').attr('class');
+        var y = x.split(' ');
+        if(y[1] == 'close'){
+            element.removeClass('close');
+            element.addClass('open');
+        }else{
+            element.removeClass('open');
+            element.addClass('close');
+        }
+    }
+
+    function last_add(param,isi){
+        var rowIndexes = [];
+        dataTable.rows( function ( idx, data, node ) {             
+            if(data[param] === isi){
+                rowIndexes.push(idx);                  
+            }
+            return false;
+        }); 
+        dataTable.row(rowIndexes).select();
+        $('.selected td:eq(0)').addClass('last-add');
+            console.log('last-add');
+            setTimeout(function() {
+                console.log('timeout');
+                $('.selected td:eq(0)').removeClass('last-add');
+                dataTable.row(rowIndexes).deselect();
+        }, 1000 * 60 * 10);
+    }
+    
+    $('.sidepanel').on('click', '#btnClose', function(e){
+        e.preventDefault();
+        openFilter();
+    });
+
+    $('[data-toggle="tooltip"]').tooltip(); 
     // END SET UP FORM //
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
@@ -468,10 +502,17 @@
             success:function(result){    
                 if(result.status){
                     var select = selectRegional[0];
+                    var select2 = selectRegionalFilter[0];
                     var control = select.selectize;
+                    var control2 = select2.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                            control2.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                        }
+
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            control2.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
                         }
                     }
                 }
@@ -546,11 +587,15 @@
     getPP();
     getDivisi();
     getJabatan();
+    jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //
     $('#regional').change(function(){
         var value = $(this).val();
         getKota(value);
+    });
+    $('#inp-filter_regional').change(function(){
+        jumFilter();
     });
     // END EVENT CHANGE //
     // LIST DATA
@@ -965,6 +1010,53 @@
     });
 
     // END BUTTON HAPUS
+
+    // FILTER DATA //
+     $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var kode_pp = $('#inp-filter_regional').val();
+                var col_kode_pp = data[2];
+                if(kode_pp){
+                    if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp !="") {
+                    if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
+            }
+        );
+        dataTable.draw();
+        $.fn.dataTable.ext.search.pop();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#inp-filter_regional')[0].selectize.setValue('');
+        jumFilter();
+    });
+        
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-tampil').click();
+    // END FILTER DATA //
 
     $('#nik,#nama,#regional,#kota,#divisi,#jabatan,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
