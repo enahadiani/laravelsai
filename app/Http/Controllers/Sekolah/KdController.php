@@ -46,8 +46,8 @@
                         'kode_pp' => $kode_pp,
                         'kode_matpel'     => $request->kode_matpel,
                         'kode_tingkat'     => $request->kode_tingkat,
-                        'kode_kd'     => $request->kode_kd
-                        // 'kode_sem' => $request->kode_sem
+                        'kode_kd'     => $request->kode_kd,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
     
@@ -78,8 +78,8 @@
                     'query' => [
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
-                        'kode_pp' => $request->kode_pp
-                        // 'kode_sem' => $request->kode_sem
+                        'kode_pp' => $request->kode_pp,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
     
@@ -104,7 +104,7 @@
             $this->validate($request, [
                 'kode_matpel' => 'required',
                 'kode_tingkat' => 'required',
-                // 'kode_sem' => 'required',
+                'kode_sem' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
@@ -121,7 +121,7 @@
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
-                        // 'kode_sem' => $request->kode_sem,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -149,7 +149,7 @@
             $this->validate($request, [
                 'kode_matpel' => 'required',
                 'kode_tingkat' => 'required',
-                // 'kode_sem' => 'required',
+                'kode_sem' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
@@ -172,7 +172,7 @@
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
-                        // 'kode_sem' => $request->kode_sem,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -205,7 +205,7 @@
                     'query' => [
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
-                        // 'kode_sem' => $request->kode_sem,
+                        'kode_sem' => $request->kode_sem,
                         'kode_pp' => $request->kode_pp
                     ]
 

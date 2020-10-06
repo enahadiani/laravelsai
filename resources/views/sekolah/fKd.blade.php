@@ -263,7 +263,7 @@
                                     <th>Kode Matpel</th>
                                     <th>Kode PP</th>
                                     <th>Kode Tingkat</th>
-                                    <!-- <th>Kode Sem</th> -->
+                                    <th>Kode Sem</th>
                                     <th>Tgl Input</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -328,7 +328,7 @@
                                 <input id="label_kode_tingkat" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
-                        <!-- <div class="form-group row">
+                        <div class="form-group row">
                             <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
                             <div class="col-md-3 col-sm-9">
                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
@@ -337,7 +337,7 @@
                                 <option value='2'>GENAP</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kd" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Kompetensi</span></a> </li>
                         </ul>
@@ -650,20 +650,20 @@
                 }
             },
             {
-                "targets": [3],
+                "targets": [4],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'kode_matpel' },
             { data: 'pp' },
             { data: 'kode_tingkat' },
-            // { data: 'kode_sem' },
+            { data: 'kode_sem' },
             { data: 'tgl_input' }
         ],
-        order:[[3,'desc']],
+        order:[[4,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -969,7 +969,7 @@
         var tmp= $(this).closest('tr').find('td').eq(1).html().split("-");
         var kode_pp = tmp[0];
         var kode_tingkat =  $(this).closest('tr').find('td').eq(2).html();
-        // var kode_sem =  $(this).closest('tr').find('td').eq(3).html();
+        var kode_sem =  $(this).closest('tr').find('td').eq(3).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Kompetensi Dasar');
@@ -980,7 +980,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/kd-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
+            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -993,7 +993,7 @@
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
                     $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
-                    // $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
+                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
                         var input = '';
@@ -1079,10 +1079,10 @@
         var tmp = $(this).closest('tr').find('td').eq(1).html().split("-");
         var kode_pp = tmp[0];
         var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
-        // var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+        var kode_sem = $(this).closest('tr').find('td').eq(3).html();
         msgDialog({
             id: id,
-            param: {kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
+            param: {kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
             type:'hapus'
         });
     });
@@ -1137,12 +1137,12 @@
             var tmp = $(this).closest('tr').find('td').eq(1).html().split("-");
             var kode_pp = tmp[0];
             var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
-            // var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+            var kode_sem = $(this).closest('tr').find('td').eq(3).html();
 
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sekolah-master/kd-detail') }}",
-                data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
+                data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -1161,6 +1161,10 @@
                         <tr>
                             <td>Tingkat</td>
                             <td>`+result.data[0].kode_tingkat+`-`+result.data[0].nama_tingkat+`</td>
+                        </tr>
+                        <tr>
+                            <td>Semester</td>
+                            <td>`+result.data[0].kode_sem+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1213,11 +1217,11 @@
         var id = $('#modal-preview-id').text();
         var kode_pp = $('#modal-preview-kode').text();
         var kode_tingkat = $('#modal-preview-ref1').text();
-        // var kode_sem = $('#modal-preview-ref2').text();
+        var kode_sem = $('#modal-preview-ref2').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
-            param:{kode_matpel:id,kode_tingkat:kode_tingkat,kode_pp:kode_pp},
+            param:{kode_matpel:id,kode_tingkat:kode_tingkat,kode_pp:kode_pp,kode_sem:kode_sem},
             type:'hapus'
         });
     });
@@ -1226,7 +1230,7 @@
         var id= $('#modal-preview-id').text();
         var kode_pp = $('#modal-preview-kode').text();
         var kode_tingkat = $('#modal-preview-ref1').text();
-        // var kode_sem = $('#modal-preview-ref2').text();
+        var kode_sem = $('#modal-preview-ref2').text();
         $('#judul-form').html('Edit Data Kompetensi Dasar');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -1237,7 +1241,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/kd-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
+            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -1251,7 +1255,7 @@
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
                     $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
-                    // $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
+                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
                         var input = '';
@@ -1389,9 +1393,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#kode_pp,#kode_matpel').keydown(function(e){
+    $('#kode_pp,#kode_matpel,#kode_tingkat,#kode_sem').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_pp','kode_matpel'];
+        var nxt = ['kode_pp','kode_matpel','kode_tingkat','kode_sem'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
