@@ -1297,9 +1297,9 @@
     });
     //END SHOW CBBL//
 
-    $('#nik,#nama,#regional,#kota,#divisi,#jabatan,#file_gambar').keydown(function(e){
+    $('#nik,#nama,#kode_pp,#kode_kota,#kode_divisi,#kode_jab,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama','regional','kota','divisi','jabatan','file_gambar'];
+        var nxt = ['nik','nama','kode_pp','kode_kota','kode_divisi','kode_jab','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
