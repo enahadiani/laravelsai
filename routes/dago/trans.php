@@ -66,6 +66,7 @@ Route::get('verifikasi','Dago\VerifikasiController@index');
 Route::get('verifikasi-edit','Dago\VerifikasiController@edit');
 Route::put('verifikasi','Dago\VerifikasiController@update');
 Route::get('verifikasi-histori','Dago\VerifikasiController@histori');
+Route::delete('verifikasi','Dago\VerifikasiController@destroy');
 
 //UploadDok
 Route::get('upload-dok','Dago\UploadDokController@index');

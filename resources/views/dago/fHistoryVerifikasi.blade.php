@@ -94,6 +94,7 @@
                                                     <th>No Terima</th>
                                                     <th>No Reg</th>
                                                     <th>No Jurnal</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -250,6 +251,13 @@
                 "render": function ( data, type, row, meta ) {
                     return "<a href='#' title='Edit' class='lap-jurnal' data-no_bukti='"+row.no_kb+"'>"+row.no_kb+"</a>";
                 }
+            },
+            {
+                "targets": 9,
+                "data": null,
+                "render": function ( data, type, row, meta ) {
+                    return "<a href='#' title='Hapus' class='badge badge-danger' id='btn-delete'><i class='fa fa-trash'></i></a>";
+                }
             }
         ]
     });
@@ -320,5 +328,58 @@
         $('#print-area').printThis();
     });
    
+    $('#saiweb_container').on('click','#btn-delete',function(e){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                var kode = $(this).closest('tr').find('td:eq(0)').html();     
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('dago-trans/verifikasi') }}",
+                    dataType: 'json',
+                    async:false,
+                    data: {'no_bukti':kode},
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {       
+                        if(jqXHR.status==422){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+jqXHR.responseText+'</a>'
+                            })
+                        }
+                    }
+                });
+                
+            }else{
+                return false;
+            }
+        })
+    });
 
 </script>

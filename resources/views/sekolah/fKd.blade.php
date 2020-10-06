@@ -262,8 +262,8 @@
                                 <tr>
                                     <th>Kode Matpel</th>
                                     <th>Kode PP</th>
-                                    <th>Kode Kelas</th>
-                                    <th>Kode Sem</th>
+                                    <th>Kode Tingkat</th>
+                                    <!-- <th>Kode Sem</th> -->
                                     <th>Tgl Input</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -319,16 +319,16 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kode_kelas" class="col-md-2 col-sm-2 col-form-label">Kelas</label>
+                            <label for="kode_tingkat" class="col-md-2 col-sm-2 col-form-label">Tingkat</label>
                             <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_kelas" name="kode_kelas" required>
+                                <input class="form-control" type="text"  id="kode_tingkat" name="kode_tingkat" required>
                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
                             <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_kelas" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                                <input id="label_kode_tingkat" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
                             <div class="col-md-3 col-sm-9">
                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
@@ -337,7 +337,7 @@
                                 <option value='2'>GENAP</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <ul class="nav nav-tabs col-12 " role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kd" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Kompetensi</span></a> </li>
                         </ul>
@@ -650,20 +650,20 @@
                 }
             },
             {
-                "targets": [4],
+                "targets": [3],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 4, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
-            { data: 'kode_mapel' },
+            { data: 'kode_matpel' },
             { data: 'pp' },
-            { data: 'kode_kelas' },
-            { data: 'kode_sem' },
+            { data: 'kode_tingkat' },
+            // { data: 'kode_sem' },
             { data: 'tgl_input' }
         ],
-        order:[[4,'desc']],
+        order:[[3,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -747,17 +747,17 @@
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val()};
             break;
-            case 'kode_kelas': 
-                header = ['Kode Kelas', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/kelas') }}";
+            case 'kode_tingkat': 
+                header = ['Kode Tingkat', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/tingkatan') }}";
                 var columns = [
-                    { data: 'kode_kelas' },
+                    { data: 'kode_tingkat' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar Kelas";
+                var judul = "Daftar Tingkat";
                 var jTarget1 = "val";
-                var pilih = "kelas";
+                var pilih = "tingkat";
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "#"+$target;
@@ -916,24 +916,24 @@
         });
     }
 
-    function getKelas(id,pp=null){
+    function getTingkat(id,pp=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-master/kelas') }}",
+            url: "{{ url('sekolah-master/tingkatan') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_kelas:kode},
+            data:{kode_pp:pp,kode_tingkat:kode},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_kelas').val(result.daftar[0].kode_kelas);
-                         $('#label_kode_kelas').val(result.daftar[0].nama);
+                         $('#kode_tingkat').val(result.daftar[0].kode_tingkat);
+                         $('#label_kode_tingkat').val(result.daftar[0].nama);
                     }else{
-                        $('#kode_kelas').val('');
-                        $('#label_kode_kelas').val('');
-                        $('#kode_kelas').focus();
+                        $('#kode_tingkat').val('');
+                        $('#label_kode_tingkat').val('');
+                        $('#kode_tingkat').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -957,10 +957,10 @@
         getMatpel(kode_matpel,kode_pp);
     });
 
-    $('#kode_kelas').change(function(){
+    $('#kode_tingkat').change(function(){
         var kode_pp = $('#kode_pp').val(); 
-        var kode_kelas = $('#kode_kelas').val(); 
-        getKelas(kode_kelas,kode_pp);
+        var kode_tingkat = $('#kode_tingkat').val(); 
+        getTingkat(kode_tingkat,kode_pp);
     });
 
     // BUTTON EDIT
@@ -968,8 +968,8 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         var tmp= $(this).closest('tr').find('td').eq(1).html().split("-");
         var kode_pp = tmp[0];
-        var kode_kelas =  $(this).closest('tr').find('td').eq(2).html();
-        var kode_sem =  $(this).closest('tr').find('td').eq(3).html();
+        var kode_tingkat =  $(this).closest('tr').find('td').eq(2).html();
+        // var kode_sem =  $(this).closest('tr').find('td').eq(3).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Kompetensi Dasar');
@@ -980,7 +980,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/kd-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_matpel:id,kode_kelas:kode_kelas,kode_sem:kode_sem},
+            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -989,11 +989,11 @@
                     $('#method').val('put');
                     $('#kode_pp').val(result.data[0].kode_pp);
                     $('#label_kode_pp').val(result.data[0].nama_pp);
-                    $('#kode_matpel').val(result.data[0].kode_mapel);
+                    $('#kode_matpel').val(result.data[0].kode_matpel);
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
-                    $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
-                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
+                    $('#kode_tingkat').val(result.data[0].kode_tingkat);
+                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
+                    // $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
                         var input = '';
@@ -1078,11 +1078,11 @@
         var id = $(this).closest('tr').find('td').eq(0).html();
         var tmp = $(this).closest('tr').find('td').eq(1).html().split("-");
         var kode_pp = tmp[0];
-        var kode_kelas = $(this).closest('tr').find('td').eq(2).html();
-        var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+        var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
+        // var kode_sem = $(this).closest('tr').find('td').eq(3).html();
         msgDialog({
             id: id,
-            param: {kode_pp:kode_pp,kode_matpel:id,kode_kelas:kode_kelas,kode_sem:kode_sem},
+            param: {kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
             type:'hapus'
         });
     });
@@ -1136,13 +1136,13 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(1).html().split("-");
             var kode_pp = tmp[0];
-            var kode_kelas = $(this).closest('tr').find('td').eq(2).html();
-            var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+            var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
+            // var kode_sem = $(this).closest('tr').find('td').eq(3).html();
 
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sekolah-master/kd-detail') }}",
-                data:{kode_pp:kode_pp,kode_matpel:id,kode_kelas:kode_kelas,kode_sem:kode_sem},
+                data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -1156,11 +1156,11 @@
                         </tr>
                         <tr>
                             <td>Mata Pelajaran</td>
-                            <td>`+result.data[0].kode_mapel+`-`+result.data[0].nama_matpel+`</td>
+                            <td>`+result.data[0].kode_matpel+`-`+result.data[0].nama_matpel+`</td>
                         </tr>
                         <tr>
-                            <td>Kelas</td>
-                            <td>`+result.data[0].kode_kelas+`-`+result.data[0].nama_kelas+`</td>
+                            <td>Tingkat</td>
+                            <td>`+result.data[0].kode_tingkat+`-`+result.data[0].nama_tingkat+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1196,8 +1196,8 @@
                         }
                         $('#modal-preview-id').text(id);
                         $('#modal-preview-kode').text(result.data[0].kode_pp);
-                        $('#modal-preview-ref1').text(result.data[0].kode_kelas);
-                        $('#modal-preview-ref2').text(result.data[0].kode_Sem);
+                        $('#modal-preview-ref1').text(result.data[0].kode_tingkat);
+                        // $('#modal-preview-ref2').text(result.data[0].kode_Sem);
                         $('#modal-preview').modal('show');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -1212,12 +1212,12 @@
     $('.modal-header').on('click','#btn-delete2',function(e){
         var id = $('#modal-preview-id').text();
         var kode_pp = $('#modal-preview-kode').text();
-        var kode_kelas = $('#modal-preview-ref1').text();
-        var kode_sem = $('#modal-preview-ref2').text();
+        var kode_tingkat = $('#modal-preview-ref1').text();
+        // var kode_sem = $('#modal-preview-ref2').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
-            param:{kode_matpel:id,kode_kelas:kode_kelas,kode_pp:kode_pp,kode_sem:kode_sem},
+            param:{kode_matpel:id,kode_tingkat:kode_tingkat,kode_pp:kode_pp},
             type:'hapus'
         });
     });
@@ -1225,8 +1225,8 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         var kode_pp = $('#modal-preview-kode').text();
-        var kode_kelas = $('#modal-preview-ref1').text();
-        var kode_sem = $('#modal-preview-ref2').text();
+        var kode_tingkat = $('#modal-preview-ref1').text();
+        // var kode_sem = $('#modal-preview-ref2').text();
         $('#judul-form').html('Edit Data Kompetensi Dasar');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -1237,7 +1237,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/kd-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_matpel:id,kode_kelas:kode_kelas,kode_sem:kode_sem},
+            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -1247,11 +1247,11 @@
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
                     $('#label_kode_pp').val(result.data[0].nama_pp);
-                    $('#kode_matpel').val(result.data[0].kode_mapel);
+                    $('#kode_matpel').val(result.data[0].kode_matpel);
                     $('#label_kode_matpel').val(result.data[0].nama_matpel);
-                    $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
-                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
+                    $('#kode_tingkat').val(result.data[0].kode_tingkat);
+                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
+                    // $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
                         var input = '';

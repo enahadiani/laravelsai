@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pesan-history', 'Sekolah\PesanController@historyPesan');
+Route::get('rata2-nilai', 'Sekolah\PesanController@rata2Nilai');
