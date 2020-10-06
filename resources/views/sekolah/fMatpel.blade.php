@@ -213,6 +213,7 @@
                                 <option value='' disabled>--- Pilih Sifat ---</option>
                                 <option value='0'>NASIONAL</option>
                                 <option value='1'>MUATAN LOKAL</option>
+                                <option value='2'>EKSKUL</option>
                                 </select>
                             </div>
                         </div>

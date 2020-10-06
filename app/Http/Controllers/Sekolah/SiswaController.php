@@ -44,6 +44,7 @@
                     ],
                     'query' => [
                         'kode_pp' => $kode_pp,
+                        'nis' => $request->nis,
                         'kode_kelas'     => $request->kode_kelas
                     ]
                 ]);
