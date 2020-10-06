@@ -548,9 +548,10 @@
             async:false,
             success:function(res){
                 var result= res.data;
+                console.log(result)
                 if(result.status){
                      if(typeof result.data !== 'undefined' && result.data.length>0){
-                        var data = result.daftar;
+                        var data = result.data;
                         var filter = data.filter(data => data.kode_kota == kode);
                         if(filter.length > 0) {
                             $('#kode_kota').val(filter[0].kode_kota);
@@ -603,9 +604,7 @@
                 if(res.status){
                      if(typeof result !== 'undefined' && result.length>0){
                         var data = result;
-                        console.log(data)
                         var filter = data.filter(data => data.kode_jab == kode);
-                        console.log({kode,filter})
                         if(filter.length > 0) {
                             $('#kode_jab').val(filter[0].kode_jab);
                             $('#label_kode_jab').val(filter[0].nama);
@@ -815,7 +814,7 @@
             var tmp = $('#kota option:selected').text();
             tmp = tmp.split("-");
             var nama_kota = tmp[1];
-            formData.append('nama_kota',nama_kota);
+            formData.append('kota',nama_kota);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -905,7 +904,7 @@
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     getPP(result.data[0].kode_pp);
-                    // getKota(result.data[0].kode_pp, result.data[0].kota);
+                    getKota(result.data[0].kode_pp, result.data[0].id_kota);
                     getDivisi(result.data[0].kode_divisi);
                     getJabatan(result.data[0].kode_jab)
                     $('#email').val(result.data[0].email);
@@ -987,7 +986,7 @@
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
                     getDivisi(result.data[0].kode_pp);
-                    getKota(result.data[0].kode_pp, result.data[0].kode_kota);
+                    getKota(result.data[0].kode_pp, result.data[0].id_kota);
                     getDivisi(result.data[0].kode_divisi);
                     getJabatan(result.data[0].kode_jab)
                     $('#email').val(result.data[0].email);
