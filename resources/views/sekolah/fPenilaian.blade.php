@@ -763,7 +763,7 @@
                 $target2 = "#"+$target2;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val()};
             break;
             case 'kode_jenis': 
                 header = ['Kode Jenis', 'Nama'];
@@ -978,14 +978,14 @@
         });
     }
 
-    function getKD(id,pp=null,kode_matpel=null){
+    function getKD(id,pp=null,kode_matpel=null,kode_kelas=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-trans/penilaian-kd') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode},
+            data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode,kode_kelas:kode_kelas},
             async:false,
             success:function(result){    
                 if(result.status){
