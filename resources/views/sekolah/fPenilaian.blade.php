@@ -890,7 +890,7 @@
                     $($target).text(kode);
                 }
 
-                console.log(jTarget2);
+                console.log($target2);
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
                 }else if(jTarget2 == "title"){
@@ -1633,7 +1633,13 @@
         var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
         target1 = par;
         target2 = par2;
-        showFilter(par,target1,target2);
+        if(par == "kode_pp"){
+
+            showFilter(par,target1,"label_kode_pp");
+        }else{
+        
+            showFilter(par,target1,target2);
+        }
     });
 
     // $('#form-tambah').on('change', '#nik_periksa', function(){
