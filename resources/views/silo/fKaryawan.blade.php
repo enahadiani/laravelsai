@@ -527,7 +527,6 @@
                     var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            console.log(result.daftar[i]);
                             control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
                         }
                     }
@@ -800,16 +799,16 @@
             nama:{
                 required: true,   
             },
-            regional:{
+            kode_pp:{
                 required: true,   
             },
-            jabatan:{
+            kode_jab:{
                 required: true,   
             },
-            divisi:{
+            kode_divisi:{
                 required: true,   
             },
-            kota:{
+            kode_kota:{
                 required: true,   
             },
             email:{
@@ -1007,7 +1006,7 @@
                     $('#nik').val(id);
                     $('#id').val(id);
                     $('#nama').val(result.data[0].nama);
-                    getDivisi(result.data[0].kode_pp);
+                    getPP(result.data[0].kode_pp);
                     getKota(result.data[0].kode_pp, result.data[0].id_kota);
                     getDivisi(result.data[0].kode_divisi);
                     getJabatan(result.data[0].kode_jab)
@@ -1050,7 +1049,7 @@
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Flag AKun ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Karyawan ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
