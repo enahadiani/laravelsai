@@ -305,10 +305,8 @@
                             <label for="kode_pp" class="col-md-2 col-sm-2 col-form-label">Kode PP</label>
                             <div class="col-md-3 col-sm-9" >
                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
+                                <img src="{{ asset('img/question.svg') }}" class="hidden" id="label_kode_pp" style="width: 15px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 55px;cursor:pointer">
                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -358,19 +356,22 @@
                             <div class="col-md-2 col-sm-9 px-0" >
                                 <input id="label_kode_jenis" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
                             </div>
-                            <label for="penilaian_ke" class="col-md-2 col-sm-2 col-form-label"> Penilaian Ke</label>
+                            <label for="penilaian_ke" class="col-md-2 col-sm-2 col-form-label hidden"> Penilaian Ke</label>
                             <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
+                                <input class="form-control hidden" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="kode_kd" class="col-md-2 col-sm-2 col-form-label">Kompentensi</label>
+                            <label for="kode_kd" class="col-md-2 col-sm-2 col-form-label">Kode KD</label>
                             <div class="col-md-3 col-sm-9" >
                                 <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
-                            <div class="col-md-7 col-sm-9 px-0" >
-                                <input id="label_kode_kd" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-2 col-sm-2">Nama KD</label>
+                            <div class="col-md-6 col-sm-12" >
+                                <textarea id="nama_kd" class="form-control"></textarea>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -702,7 +703,7 @@
                 var judul = "Daftar PP";
                 var pilih = "pp";
                 var jTarget1 = "val";
-                var jTarget2 = "val";
+                var jTarget2 = "title";
                 $target = "#"+$target;
                 $target2 = "#"+$target2;
                 $target3 = "";
@@ -758,9 +759,9 @@
                 var jTarget1 = "val";
                 var pilih = "kompetensi";
                 var jTarget1 = "val";
-                var jTarget2 = "val";
+                var jTarget2 = "text";
                 $target = "#"+$target;
-                $target2 = "#"+$target2;
+                $target2 = "#nama_kd";
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val()};
@@ -889,8 +890,12 @@
                     $($target).text(kode);
                 }
 
+                console.log(jTarget2);
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
+                }else if(jTarget2 == "title"){
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
                 }else{
                     $($target2).text(nama);
                 }
@@ -927,6 +932,16 @@
     function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
+
+        if(kode == ""){
+            // $('#kode_pp').val('');
+            $('#label_kode_pp').attr('title','');
+            if( !$('#label_kode_pp').hasClass('hidden')){
+                $('#label_kode_pp').addClass('hidden');
+            }
+            // $('#kode_pp').focus();
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/pp') }}",
@@ -937,10 +952,14 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#kode_pp').val(result.daftar[0].kode_pp);
-                         $('#label_kode_pp').val(result.daftar[0].nama);
+                         $('#label_kode_pp').attr('title',result.daftar[0].nama);
+                         $('#label_kode_pp').removeClass('hidden');
                     }else{
                         $('#kode_pp').val('');
-                        $('#label_kode_pp').val('');
+                        $('#label_kode_pp').attr('title','');
+                        if( !$('#label_kode_pp').hasClass('hidden')){
+                            $('#label_kode_pp').addClass('hidden');
+                        }
                         $('#kode_pp').focus();
                     }
                 }
@@ -991,10 +1010,10 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#kode_kd').val(result.daftar[0].kode_kd);
-                         $('#label_kode_kd').val(result.daftar[0].nama);
+                         $('#nama_kd').text(result.daftar[0].nama);
                     }else{
-                        $('#kode_kd').val('');
-                        $('#label_kode_kd').val('');
+                        // $('#kode_kd').val('');
+                        $('#nama_kd').text('');
                         $('#kode_kd').focus();
                     }
                 }
@@ -2090,7 +2109,8 @@
         var par = $(this).val();
         var pp = $('#kode_pp').val();
         var matpel = $('#kode_matpel').val();
-        getKD(par,pp,matpel);
+        var kelas = $('#kode_kelas').val();
+        getKD(par,pp,matpel,kelas);
     });
 
     
