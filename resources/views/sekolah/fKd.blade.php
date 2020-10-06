@@ -478,14 +478,14 @@
                                 <option value='' disabled>Pilih Kode PP</option>
                             </select>
                         </div>
-                        <!-- <div class="form-group row">
-                            <label>Status</label>
-                            <select class="form-control selectize" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='' disabled>Pilih Status</option>
-                                <option value='AKTIF' selected>AKTIF</option>
-                                <option value='NONAKTIF'>NONAKTIF</option>
+                        <div class="form-group row">
+                            <label>Semester</label>
+                            <select class="form-control selectize" data-width="100%" name="inp-filter_kode_sem" id="inp-filter_kode_sem">
+                                <option value='' disabled>Pilih Semester</option>
+                                <option value='1' selected>GANJIL</option>
+                                <option value='2'>GENAP</option>
                             </select>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -1661,11 +1661,23 @@
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 var kode_pp = $('#inp-filter_kode_pp').val();
-                // var status = $('#inp-filter_status').val();
+                var kode_sem = $('#inp-filter_kode_sem').val();
                 var col_kode_pp = data[1];
-                // var col_status = data[5];
-                if(kode_pp != "" ){
+                var col_kode_sem = data[3];
+                if(kode_pp != "" && kode_sem != ""){
+                    if(kode_pp == col_kode_pp && kode_sem == col_kode_sem){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp !="" && kode_sem == "") {
                     if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp == "" && kode_sem != ""){
+                    if(kode_sem == col_kode_sem){
                         return true;
                     }else{
                         return false;
