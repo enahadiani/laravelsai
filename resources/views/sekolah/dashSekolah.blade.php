@@ -23,7 +23,7 @@
         <div class="card mb-4" id="content-chart">
             <div class="card-body">
                 <h5 style="font-weight:bold;">Overview Nilai Rata-rata</h5>
-                <div class="chart-nilai">
+                <div id="chart-nilai" style="height:250px !important">
                 </div>
             </div>
         </div>
@@ -79,12 +79,43 @@
 // var psdet = document.querySelector('#content-pesan-detail');
 // var pspsdet = new PerfectScrollbar(psdet);
 
+function sepNum(x){
+    if(!isNaN(x)){
+        if (typeof x === undefined || !x || x == 0) { 
+            return 0;
+        }else if(!isFinite(x)){
+            return 0;
+        }else{
+            var x = parseFloat(x).toFixed(2);
+            // console.log(x);
+            var tmp = x.toString().split('.');
+            // console.dir(tmp);
+            var y = tmp[1].substr(0,2);
+            var z = tmp[0]+'.'+y;
+            var parts = z.split('.');
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+            return parts.join(',');
+        }
+    }else{
+        return 0;
+    }
+}
+function sepNumPas(x){
+    var num = parseInt(x);
+    var parts = num.toString().split('.');
+    var len = num.toString().length;
+    // parts[1] = parts[1]/(Math.pow(10, len));
+    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
+    return parts.join(',');
+}
+
 setHeightDash();
-function getNilaiRatarata(kode_kelas=null){
+function getNilaiRatarata(kode_pp=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('sekolah-dash/nilai-rata-rata') }}",
+        url:"{{ url('sekolah-dash/rata2-nilai') }}",
         dataType:"JSON",
+        data:{kode_pp:kode_pp},
         success:function(result){
             Highcharts.chart('chart-nilai', {
                 chart: {
@@ -114,7 +145,7 @@ function getNilaiRatarata(kode_kelas=null){
                         dataLabels: {
                             enabled: true,
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                return '<b>'+sepNumPas(this.y)+'</b>';
                             }
                         },
                         enableMouseTracking: false
@@ -127,7 +158,7 @@ function getNilaiRatarata(kode_kelas=null){
                             crop: false,
                             overflow: 'none',
                             formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
+                                return '<b>'+sepNumPas(this.y)+'</b>';
                             }
                         },
                         enableMouseTracking: false
@@ -188,4 +219,5 @@ function getHistoryPesan(kode_pp){
     });
 }
 getHistoryPesan("{{ Session::get('kodePP') }}");
+getNilaiRatarata("{{ Session::get('kodePP') }}");
 </script>
