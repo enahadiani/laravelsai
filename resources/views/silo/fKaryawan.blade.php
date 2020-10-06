@@ -460,6 +460,7 @@
     <script type="text/javascript">
     // SET UP FORM //
     var $iconLoad = $('.preloader');
+    var selectRegional = $('#inp-filter_regional').selectize();
 
     $.ajaxSetup({
         headers: {
@@ -514,6 +515,27 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
+    function getPPFilter() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/unit') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.status){
+                    var select = selectRegional[0];
+                    var control = select.selectize;
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            console.log(result.daftar[i]);
+                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     function getPP(kode){
         $.ajax({
             type: 'GET',
@@ -619,6 +641,7 @@
         });
     }
 
+    getPPFilter();
     jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //

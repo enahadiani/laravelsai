@@ -203,7 +203,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Data Karyawan</h5>
+                    <h5 style="position:absolute;top: 25px;">Data Kota</h5>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -236,12 +236,9 @@
                         <table id="table-data" style='width:100%'>                                    
                             <thead>
                                 <tr>
-                                    <th>NIK</th>
+                                    <th>Kode Kota</th>
                                     <th>Nama</th>
                                     <th>Kode Regional</th>
-                                    <th>Kode Jab</th>
-                                    <th>Email</th>
-                                    <th>No Telp</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -276,9 +273,9 @@
                             </div>
                         </div>
                         <div class="form-group row ">
-                            <label for="nis" class="col-md-2 col-sm-12 col-form-label">NIK</label>
+                            <label for="nis" class="col-md-2 col-sm-12 col-form-label">Kode Kota</label>
                             <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik">
+                                <input class="form-control" type="text" placeholder="NIK" id="kode" name="kode_kota">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -295,36 +292,6 @@
                             </div>                            
                             <div class="col-md-2 col-sm-12 px-0" >
                                 <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_kota" class="col-md-2 col-sm-12 col-form-label">Kota</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_kota" name="kode_kota" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_kota" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_divisi" class="col-md-2 col-sm-12 col-form-label">Divisi</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_divisi" name="kode_divisi" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_divisi" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_jab" class="col-md-2 col-sm-12 col-form-label">Jabatan</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text" id="kode_jab" name="kode_jab" data-input="cbbl" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_jab" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -514,6 +481,10 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
+    function getPPFilter() {
+
+    }
+
     function getPP(kode){
         $.ajax({
             type: 'GET',
@@ -618,7 +589,7 @@
             }
         });
     }
-
+    getPPFilter();
     jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //
