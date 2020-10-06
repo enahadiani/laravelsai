@@ -811,9 +811,8 @@
             }
 
             var formData = new FormData(form);
-            var tmp = $('#kota option:selected').text();
-            tmp = tmp.split("-");
-            var nama_kota = tmp[1];
+            var tmp = $('#label_kode_kota').val();
+            var nama_kota = tmp;
             formData.append('kota',nama_kota);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
