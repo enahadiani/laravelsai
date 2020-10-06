@@ -228,4 +228,40 @@ class VerifikasiController extends Controller
         }
     }
 
+    public function destroy(Request $request)
+    {
+
+        $this->validate($request, [
+            'no_bukti' => 'required'
+        ]);
+
+        try{
+            $client = new Client();
+            $response = $client->request('DELETE', config('api.url').'dago-trans/verifikasi?no_bukti='.$request->no_bukti,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->no_bukti
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = "FAILED";
+            return response()->json(['data' => $data], 200);
+        }
+    
+    }
+
 }
