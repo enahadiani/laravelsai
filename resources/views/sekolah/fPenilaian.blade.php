@@ -308,25 +308,18 @@
                                 <img src="{{ asset('img/question.svg') }}" class="hidden" id="label_kode_pp" style="width: 15px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 55px;cursor:pointer">
                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
                             </div>
-                        </div>
-                        <div class="form-group row">
+                            <div class="col-md-2 col-sm-12"></div>
                             <label for="kode_ta" class="col-md-2 col-sm-2 col-form-label">Tahun Ajaran</label>
                             <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_ta" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                            <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
-                            <div class="col-md-3 col-sm-9">
-                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                <option value=''>--- Pilih Semester ---</option>
-                                <option value='1' selected>GANJIL</option>
-                                <option value='2'>GENAP</option>
-                                </select>
+                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                <!-- <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i> -->
                             </div>
                         </div>
+                        <!-- <div class="form-group row"> -->
+                            <!-- <div class="col-md-2 col-sm-9 px-0" >
+                                <input id="label_kode_ta" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div> -->
+                        <!-- </div> -->
                         <div class="form-group row">
                             <label for="kode_kelas" class="col-md-2 col-sm-2 col-form-label">Kelas</label>
                             <div class="col-md-3 col-sm-9" >
@@ -335,6 +328,14 @@
                             </div>
                             <div class="col-md-2 col-sm-9 px-0" >
                                 <input id="label_kode_kelas" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            </div>
+                            <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
+                            <div class="col-md-3 col-sm-9">
+                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                <option value=''>--- Pilih Semester ---</option>
+                                <option value='1' selected>GANJIL</option>
+                                <option value='2'>GENAP</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1024,23 +1025,21 @@
         });
     }
 
-    function getTA(id,pp=null){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
+    function getTA(pp=null){
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/tahun-ajaran') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_ta:kode},
+            data:{kode_pp:pp,flag_aktif:1},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                          $('#kode_ta').val(result.daftar[0].kode_ta);
-                         $('#label_kode_ta').val(result.daftar[0].nama);
+                        //  $('#label_kode_ta').val(result.daftar[0].nama);
                     }else{
                         $('#kode_ta').val('');
-                        $('#label_kode_ta').val('');
+                        // $('#label_kode_ta').val('');
                         $('#kode_ta').focus();
                     }
                 }
@@ -2084,7 +2083,8 @@
 
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
-        getPP(par);   
+        getPP(par);  
+        getTA(par);
     });
 
     $('#form-tambah').on('change', '#kode_ta', function(){
