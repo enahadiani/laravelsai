@@ -1013,6 +1013,21 @@
         });
     }
 
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_kode_matpel span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
     function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
@@ -1077,6 +1092,7 @@
                         $('.info-name_kode_kelas span').text(result.daftar[0].nama);
                         var width = $('#kode_kelas').width()-$('#search_kode_kelas').width()-10;
                         var height =$('#kode_kelas').height();
+                        var pos =$('#kode_kelas').position();
                         $('.info-name_kode_kelas').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_kelas').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
@@ -1167,6 +1183,7 @@
                         $('.info-name_kode_matpel span').text(result.daftar[0].nama);
                         var width = $('#kode_matpel').width()-$('#search_kode_matpel').width()-10;
                         var height =$('#kode_matpel').height();
+                        var pos =$('#kode_matpel').position();
                         $('.info-name_kode_matpel').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_matpel').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
@@ -1278,18 +1295,12 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
-                    console.log(result.data[0].nama_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
@@ -1333,6 +1344,11 @@
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
+                    showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama_jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1398,6 +1414,10 @@
         $('#nama_kd').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
@@ -1559,16 +1579,11 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
@@ -1613,6 +1628,10 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
+                    showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama_jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1717,7 +1736,11 @@
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('#nama_kd').text('');
-                            $('[id^=label]').html('');
+                            $('[id^=label]').html('');                            
+                            $('.input-group-prepend').addClass('hidden');
+                            $('span[class^=info-name]').addClass('hidden');
+                            $('.info-icon-hapus').addClass('hidden');
+                            $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
                                 $('#kode_pp').trigger('change');
