@@ -336,7 +336,7 @@
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
-                        <div class="card" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
+                        <div class="card" style='box-shadow:none !important;border:0 !important;border-radius:0'>
                             <div class="card-body">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <div class="form-group row" id="row-id">
@@ -443,7 +443,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mt-3" style='box-shadow:none !important;border:0 !important'>
+                        <div class="card mt-3" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
