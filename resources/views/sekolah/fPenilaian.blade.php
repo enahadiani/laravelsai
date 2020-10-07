@@ -429,9 +429,11 @@
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
                                         </div>
-                                        <label for="kode_kd">Kode KD</label>
-                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                        <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 14px;"></i>
+                                        <div>
+                                            <label for="kode_kd">Kode KD</label>
+                                            <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            <i class='simple-icon-magnifier search-item2' style="top: 102px;right: 14px;"></i>
+                                        </div>
                                     </div>
                                     <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
