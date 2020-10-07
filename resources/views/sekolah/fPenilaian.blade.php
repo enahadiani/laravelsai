@@ -331,7 +331,7 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator"></div>
-                    <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important'>
+                    <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
                         <div class="card" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <input type="hidden" id="method" name="_method" value="post">
