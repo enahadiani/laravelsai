@@ -238,6 +238,7 @@
             background: #e9ecef !important;
             border: 1px solid #e9ecef !important;
             border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
         }
 
         span[class^=info-name]{
@@ -374,12 +375,16 @@
                                     <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_ta">Tahun Ajaran</label>
-                                        <input class="form-control" type="text"  id="kode_ta2" name="kode_ta" required readonly>
+                                        <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
                                     </div>
                                     <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_ta">Tahun Ajaran</label>
-                                        <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                        <label for="kode_sem">Semester</label>
+                                        <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                        <option value=''>--- Pilih Semester ---</option>
+                                        <option value='1' selected>GANJIL</option>
+                                        <option value='2'>GENAP</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -399,16 +404,6 @@
                                     </div>
                                     <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_sem">Semester</label>
-                                        <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                        <option value=''>--- Pilih Semester ---</option>
-                                        <option value='1' selected>GANJIL</option>
-                                        <option value='2'>GENAP</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_matpel">Kode Matpel</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -422,8 +417,7 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
+                                    <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_jenis">Jenis Penilaian</label>
                                         <div class="input-group">
@@ -445,8 +439,7 @@
                                         <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
                                         <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 14px;"></i>
                                     </div>
-                                </div>
-                                <div class="form-row">
+                                    <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-6 col-sm-12">
                                         <label for="nama_kd" >Nama KD</label>
                                         <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
