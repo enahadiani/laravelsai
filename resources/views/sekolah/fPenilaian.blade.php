@@ -5,7 +5,7 @@
         }
         .search-item2{
             cursor:pointer;
-            font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: -5px;right: 25px;background: white;padding: 5px 0 5px 5px;z-index: 1001;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
 
         input.error{
@@ -189,7 +189,7 @@
         #input-nilai td
         {
             overflow:hidden !important;
-            height:37.2px !important;
+            height:calc(1.3rem + 1rem) !important;
             padding:0px !important;
         }
         
@@ -201,14 +201,17 @@
         #input-nilai input,#input-nilai .selectize-input
         {
             overflow:hidden !important;
-            height:35px !important;
         }
 
         #input-dok td
         {
             overflow:hidden !important;
-            height:37.2px !important;
+            height:calc(1.3rem + 1rem) !important;
             padding:0px !important;
+        }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
         }
         
         #input-dok span
@@ -219,30 +222,59 @@
         #input-dok input,#input-dok .selectize-input
         {
             overflow:hidden !important;
-            height:35px !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control {
+            border-radius: 0.5rem !important;
         }
 
         .input-group-prepend > span {
             margin: 5px;padding: 0 5px;
-            background: #ffb703 !important;
-            border: 1px solid #ffb703 !important;
-            border-radius: 0.25rem;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
         }
 
         span[class^=info-name]{
-            cursor:pointer;font-size: 12px; margin-top: 10px; margin-left: 5px; position: absolute; top: -5px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            line-height:22px;
 
         }
 
         .info-icon-hapus{
             font-size: 14px;
             position: absolute;
-            top: 11px;
-            right: 50px;
-            z-index: 1000;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
         }
         
     </style>
@@ -272,9 +304,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -310,162 +342,166 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style='border:none !important;box-shadow:none !important'>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="separator mb-2"></div>
-                    <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_pp" class="col-md-2 col-sm-2 col-form-label">Kode PP</label>
-                            <div class="input-group col-md-3 col-sm-12">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
+                    <div class="separator"></div>
+                    <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='box-shadow:none !important;border:0 !important;border-radius:0'>
+                            <div class="card-body">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <div class="form-group row" id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                        <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control label-kode_pp" placeholder="Kode PP"  id="kode_pp" name="kode_pp" value="" title="">
-                                <span class="info-name_kode_pp hidden">
-                                    <span></span> 
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-12"></div>
-                            <label for="kode_ta" class="col-md-2 col-sm-2 col-form-label">Tahun Ajaran</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_kelas" class="col-md-2 col-sm-2 col-form-label">Kelas</label>
-                            <div class="input-group col-md-3 col-sm-12">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
-                                </div>
-                                <input type="text" class="form-control label-kode_kelas" placeholder="Kode Kelas"  id="kode_kelas" name="kode_kelas" value="" title="">
-                                <span class="info-name_kode_kelas hidden">
-                                    <span></span> 
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-12"></div>
-                            <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
-                            <div class="col-md-3 col-sm-9">
-                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                <option value=''>--- Pilih Semester ---</option>
-                                <option value='1' selected>GANJIL</option>
-                                <option value='2'>GENAP</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_matpel" class="col-md-2 col-sm-2 col-form-label">Matpel</label>
-                            <div class="input-group col-md-3 col-sm-12">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
-                                </div>
-                                <input type="text" class="form-control label-kode_matpel" placeholder="Kode Matpel"  id="kode_matpel" name="kode_matpel" value="" title="">
-                                <span class="info-name_kode_matpel hidden">
-                                    <span></span> 
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_jenis" class="col-md-2 col-sm-2 col-form-label">Jenis Penilaian</label>
-                            <div class="input-group col-md-3 col-sm-12">
-                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                    <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
-                                </div>
-                                <input type="text" class="form-control label-kode_jenis" placeholder="Jenis Penilaian"  id="kode_jenis" name="kode_jenis" value="" title="">
-                                <span class="info-name_kode_jenis hidden">
-                                    <span></span> 
-                                </span>
-                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
-                            </div>
-                            <label for="penilaian_ke" class="col-md-2 col-sm-2 col-form-label hidden"> Penilaian Ke</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control hidden" type="text"  id="penilaian_ke" name="penilaian_ke" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_kd" class="col-md-2 col-sm-2 col-form-label">Kode KD</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                <i class='simple-icon-magnifier search-item2'></i>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-2 col-sm-2">Nama KD</label>
-                            <div class="col-md-6 col-sm-12" >
-                                <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-nilai" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
-                                    <div class="dropdown d-inline-block mx-0">
-                                        <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            <a class="dropdown-item" id="download-template" >Download Template</a>
-                                            <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_pp">Kode PP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                         </div>
                                     </div>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_ta">Tahun Ajaran</label>
+                                        <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                    </div>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_sem">Semester</label>
+                                        <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                        <option value=''>--- Pilih Semester ---</option>
+                                        <option value='1' selected>GANJIL</option>
+                                        <option value='2'>GENAP</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-nilai" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:20%">NIS</th>
-                                            <th style="width:55%">Nama</th>
-                                            <th style="width:17%">Nilai</th>
-                                            <th width="5%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_kelas">Kode Kelas</label>
+                                        <div class="input-group" style="margin-bottom:1rem">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
+                                            <span class="info-name_kode_kelas hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
+                                        </div>
+                                        <label for="kode_matpel">Kode Matpel</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                            <span class="info-name_kode_matpel hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_jenis">Jenis Penilaian</label>
+                                        <div class="input-group" style="margin-bottom:1rem">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
+                                            <span class="info-name_kode_jenis hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
+                                        </div>
+                                        <div>
+                                            <label for="kode_kd">Kode KD</label>
+                                            <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            <i class='simple-icon-magnifier search-item2' style="top: 102px;right: 14px;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="nama_kd" >Nama KD</label>
+                                        <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:110px"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- <div class="tab-pane" id="data-dok" role="tabpanel">
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="10%">NIS</th>
-                                                <th width="20%">Nama</th>
-                                                <th width="20%">Nama Dokumen</th>
-                                                <th width="20%">Nama File Upload</th>
-                                                <th width="20%">Upload File</th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                        </div>
+                        <div class="card mt-3" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="data-nilai" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                            <div class="dropdown d-inline-block mx-0">
+                                                <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
+                                                <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <a class="dropdown-item" id="download-template" >Download Template</a>
+                                                    <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
+                                                </div>
+                                            </div>
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-nilai" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%">No</th>
+                                                    <th style="width:20%">NIS</th>
+                                                    <th style="width:55%">Nama</th>
+                                                    <th style="width:17%">Nilai</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="tab-pane" id="data-dok" role="tabpanel">
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
+                                                <thead>
+                                                    <tr>
+                                                        <th width="5%">No</th>
+                                                        <th width="10%">NIS</th>
+                                                        <th width="20%">Nama</th>
+                                                        <th width="20%">Nama Dokumen</th>
+                                                        <th width="20%">Nama File Upload</th>
+                                                        <th width="20%">Upload File</th>
+                                                        <th width="5%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div> -->
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -937,7 +973,11 @@
                     $($target2).text(nama);
                 }else{
                     var width= $('#'+par).width()-$('#search_'+par).width()-10;
-                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10);
+                    var pos =$('#'+par).position();
+                    var height = $('#'+par).height();
+                    console.log(par);
+                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
                     $($target2+' span').text(nama);
                     $($target2).attr("title",nama);
                     $($target2).removeClass('hidden');
@@ -973,6 +1013,21 @@
         });
     }
 
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_kode_matpel span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
     function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
@@ -990,14 +1045,16 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#kode_pp').val(result.daftar[0].kode_pp);
-                        $('#kode_pp').css('border-left','0');
+                        $('#kode_pp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                         $('.info-code_kode_pp').text(result.daftar[0].kode_pp).parent('div').removeClass('hidden');
                         $('.info-code_kode_pp').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_pp').removeClass('hidden');
                         $('.info-name_kode_pp').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_pp span').text(result.daftar[0].nama);
                         var width = $('#kode_pp').width()-$('#search_kode_pp').width()-10;
-                        $('.info-name_kode_pp').width(width);
+                        var pos =$('#kode_pp').position();
+                        var height =$('#kode_pp').height();
+                        $('.info-name_kode_pp').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_pp').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1027,14 +1084,16 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#kode_kelas').val(result.daftar[0].kode_kelas);
-                        $('#kode_kelas').css('border-left','0');
+                        $('#kode_kelas').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                         $('.info-code_kode_kelas').text(result.daftar[0].kode_kelas).parent('div').removeClass('hidden');
                         $('.info-code_kode_kelas').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_kelas').removeClass('hidden');
                         $('.info-name_kode_kelas').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_kelas span').text(result.daftar[0].nama);
                         var width = $('#kode_kelas').width()-$('#search_kode_kelas').width()-10;
-                        $('.info-name_kode_kelas').width(width);
+                        var height =$('#kode_kelas').height();
+                        var pos =$('#kode_kelas').position();
+                        $('.info-name_kode_kelas').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_kelas').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1116,14 +1175,16 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#kode_matpel').val(result.daftar[0].kode_matpel);
-                        $('#kode_matpel').css('border-left','0');
+                        $('#kode_matpel').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                         $('.info-code_kode_matpel').text(result.daftar[0].kode_matpel).parent('div').removeClass('hidden');
                         $('.info-code_kode_matpel').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_matpel').removeClass('hidden');
                         $('.info-name_kode_matpel').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_matpel span').text(result.daftar[0].nama);
                         var width = $('#kode_matpel').width()-$('#search_kode_matpel').width()-10;
-                        $('.info-name_kode_matpel').width(width);
+                        var height =$('#kode_matpel').height();
+                        var pos =$('#kode_matpel').position();
+                        $('.info-name_kode_matpel').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_matpel').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1152,14 +1213,16 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#kode_jenis').val(result.daftar[0].kode_jenis);
-                        $('#kode_jenis').css('border-left','0');
+                        $('#kode_jenis').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                         $('.info-code_kode_jenis').text(result.daftar[0].kode_jenis).parent('div').removeClass('hidden');
                         $('.info-code_kode_jenis').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_jenis').removeClass('hidden');
                         $('.info-name_kode_jenis').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_jenis span').text(result.daftar[0].nama);
                         var width = $('#kode_jenis').width()-$('#search_kode_jenis').width()-10;
-                        $('.info-name_kode_jenis').width(width);
+                        var pos =$('#kode_jenis').position();
+                        var height =$('#kode_jenis').height();
+                        $('.info-name_kode_jenis').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_jenis').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1232,18 +1295,12 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
-                    console.log(result.data[0].nama_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
@@ -1254,7 +1311,7 @@
                             var line =result.data_detail[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1287,6 +1344,11 @@
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
+                    showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama_jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1352,6 +1414,10 @@
         $('#nama_kd').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
@@ -1513,16 +1579,11 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                     $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
@@ -1534,7 +1595,7 @@
                             var line =result.data_detail[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1567,6 +1628,10 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
+                    showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama_jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1671,7 +1736,11 @@
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('#nama_kd').text('');
-                            $('[id^=label]').html('');
+                            $('[id^=label]').html('');                            
+                            $('.input-group-prepend').addClass('hidden');
+                            $('span[class^=info-name]').addClass('hidden');
+                            $('.info-icon-hapus').addClass('hidden');
+                            $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
                                 $('#kode_pp').trigger('change');
@@ -1885,7 +1954,7 @@
             var input = "";
             input += "<tr class='row-nilai'>";
             input += "<td class='no-nilai text-center'>"+no+"</td>";
-            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1938,12 +2007,12 @@
     //         var input = "";
     //         input += "<tr class='row-jurnal'>";
     //         input += "<td class='no-jurnal text-center'>"+no+"</td>";
-    //         input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+    //         input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
     //         input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
     //         input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
     //         input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
     //         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-    //         input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+    //         input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
     //         input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
     //         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
     //         input += "</tr>";
@@ -2203,7 +2272,7 @@
         var par = $(this).closest('div').find('input').attr('name');
         $('#'+par).val('');
         $('#'+par).attr('readonly',false);
-        $('#'+par).css('border-left','1px solid #d7d7d7');
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
         $('.info-code_'+par).parent('div').addClass('hidden');
         $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
@@ -2266,7 +2335,7 @@
                             var line =result.detail[i];
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
