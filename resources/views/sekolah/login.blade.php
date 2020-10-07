@@ -61,6 +61,9 @@
         {
             top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
         }
+        .btn{
+            border-radius: 8px !important;
+        }
         
     </style>
 
