@@ -5,7 +5,7 @@
         }
         .search-item2{
             cursor:pointer;
-            font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: -5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 1001;
+            font-size: 18px;margin-left:5px;position: absolute;top: 1px;right: 5px;background: white;padding: 5px 0 5px 5px;z-index: 1001;height:27px;
         }
 
         input.error{
@@ -230,7 +230,7 @@
         }
 
         span[class^=info-name]{
-            cursor:pointer;font-size: 12px; margin-top: 10px;position: absolute; top: -5px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
+            cursor:pointer;font-size: 12px;position: absolute; top: 1px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -238,11 +238,27 @@
         }
 
         .info-icon-hapus{
-            font-size: 14px;
+            font-size: 15px;
             position: absolute;
-            top: 11px;
-            right: 40px;
+            top: 7px;
+            right: 30px;
             z-index: 1000;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3em + .8rem);
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3em + .8rem);
+            line-height: 23px;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
         }
         
     </style>
@@ -412,7 +428,7 @@
                             <div class="form-group col-md-3 col-sm-12">
                                 <label for="kode_kd">Kode KD</label>
                                 <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                <i class='simple-icon-magnifier search-item2' style="top: 22px;right: 14px;"></i>
+                                <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 10px;"></i>
                             </div>
                         </div>
                         <div class="form-row">
@@ -947,7 +963,8 @@
                 }else{
                     var width= $('#'+par).width()-$('#search_'+par).width()-10;
                     var pos =$('#'+par).position();
-                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css('left',pos.left);
+                    var height = $('#'+par).height();
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
                     $($target2+' span').text(nama);
                     $($target2).attr("title",nama);
                     $($target2).removeClass('hidden');
@@ -1008,7 +1025,8 @@
                         $('.info-name_kode_pp span').text(result.daftar[0].nama);
                         var width = $('#kode_pp').width()-$('#search_kode_pp').width()-10;
                         var pos =$('#kode_pp').position();
-                        $('.info-name_kode_pp').width(width).css('left',pos.left);
+                        var height =$('#kode_pp').height();
+                        $('.info-name_kode_pp').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_pp').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1045,8 +1063,8 @@
                         $('.info-name_kode_kelas').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_kelas span').text(result.daftar[0].nama);
                         var width = $('#kode_kelas').width()-$('#search_kode_kelas').width()-10;
-                        var pos =$('#kode_kelas').position();
-                        $('.info-name_kode_kelas').width(width).css('left',pos.left);
+                        var height =$('#kode_kelas').height();
+                        $('.info-name_kode_kelas').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_kelas').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1135,8 +1153,8 @@
                         $('.info-name_kode_matpel').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_matpel span').text(result.daftar[0].nama);
                         var width = $('#kode_matpel').width()-$('#search_kode_matpel').width()-10;
-                        var pos =$('#kode_matpel').position();
-                        $('.info-name_kode_matpel').width(width).css('left',pos.left);
+                        var height =$('#kode_matpel').height();
+                        $('.info-name_kode_matpel').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_matpel').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{
@@ -1173,7 +1191,8 @@
                         $('.info-name_kode_jenis span').text(result.daftar[0].nama);
                         var width = $('#kode_jenis').width()-$('#search_kode_jenis').width()-10;
                         var pos =$('#kode_jenis').position();
-                        $('.info-name_kode_jenis').width(width).css('left',pos.left);
+                        var height =$('#kode_jenis').height();
+                        $('.info-name_kode_jenis').width(width).css({'left':pos.left,'height':height});
                         $('.info-name_kode_jenis').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
                     }else{

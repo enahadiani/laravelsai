@@ -372,6 +372,10 @@
             background: none;
             pointer-events: none;
         }
+
+        .btn{
+            border-radius: 8px !important;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
