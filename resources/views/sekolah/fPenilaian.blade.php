@@ -209,6 +209,10 @@
             height:calc(1.3rem + 0.8rem) !important;
             padding:0px !important;
         }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 0.8rem) !important;
+        }
         
         #input-dok span
         {
@@ -228,7 +232,7 @@
         }
 
         span[class^=info-name]{
-            cursor:pointer;font-size: 12px;position: absolute; top: 1px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -238,20 +242,20 @@
         .info-icon-hapus{
             font-size: 15px;
             position: absolute;
-            top: 7px;
+            top: 8.5px;
             right: 30px;
             z-index: 1000;
         }
 
         .form-control {
             padding: 0.1rem 0.5rem; 
-            height: calc(1.3em + .8rem);
+            height: calc(1.3rem + .8rem);
         }
 
         .selectize-input {
             min-height: unset !important;
             padding: 0.1rem 0.5rem; 
-            height: calc(1.3em + .8rem);
+            height: calc(1.3rem + .8rem);
             line-height: 23px;
         }
 
