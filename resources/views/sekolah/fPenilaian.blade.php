@@ -5,7 +5,7 @@
         }
         .search-item2{
             cursor:pointer;
-            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 1001;height:27px;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
 
         input.error{
@@ -242,7 +242,7 @@
         }
 
         span[class^=info-name]{
-            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 1000; width: 180.883px;background:white;
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -255,7 +255,7 @@
             position: absolute;
             top: 10px;
             right: 35px;
-            z-index: 1000;
+            z-index: 3;
         }
 
         .form-control {
@@ -391,7 +391,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_kelas">Kode Kelas</label>
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin-bottom:1rem">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
                                             </div>
@@ -402,9 +402,6 @@
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1 col-sm-12"></div>
-                                    <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_matpel">Kode Matpel</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -421,7 +418,7 @@
                                     <div class="col-md-1 col-sm-12"></div>
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_jenis">Jenis Penilaian</label>
-                                        <div class="input-group">
+                                        <div class="input-group" style="margin-bottom:1rem">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
                                             </div>
@@ -432,18 +429,14 @@
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_kd">Kode KD</label>
                                         <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
                                         <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 14px;"></i>
                                     </div>
                                     <div class="col-md-1 col-sm-12"></div>
-                                    <div class="form-group col-md-6 col-sm-12">
+                                    <div class="form-group col-md-3 col-sm-12">
                                         <label for="nama_kd" >Nama KD</label>
-                                        <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
+                                        <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:110px"></textarea>
                                     </div>
                                 </div>
                             </div>
