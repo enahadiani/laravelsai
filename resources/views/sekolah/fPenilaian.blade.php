@@ -324,171 +324,179 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card" style='border:none !important;box-shadow:none !important'>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="separator mb-2"></div>
-                    <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_pp">Kode PP</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
+                    <div class="separator"></div>
+                    <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important'>
+                        <div class="card" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <div class="form-group row" id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                        <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
                                     </div>
-                                    <input type="text" class="form-control label-kode_pp" placeholder="Kode PP"  id="kode_pp" name="kode_pp" value="" title="">
-                                    <span class="info-name_kode_pp hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                 </div>
-                            </div>
-                            <div class="col-md-1 col-sm-12"></div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_ta">Tahun Ajaran</label>
-                                <input class="form-control" type="text"  id="kode_ta2" name="kode_ta" required readonly>
-                            </div>
-                            <div class="col-md-1 col-sm-12"></div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_ta">Tahun Ajaran</label>
-                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_kelas">Kode Kelas</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
-                                    </div>
-                                    <input type="text" class="form-control label-kode_kelas" placeholder="Kode Kelas"  id="kode_kelas" name="kode_kelas" value="" title="">
-                                    <span class="info-name_kode_kelas hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-1 col-sm-12"></div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_sem">Semester</label>
-                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                <option value=''>--- Pilih Semester ---</option>
-                                <option value='1' selected>GANJIL</option>
-                                <option value='2'>GENAP</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_matpel">Kode Matpel</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
-                                    </div>
-                                    <input type="text" class="form-control label-kode_matpel" placeholder="Kode Matpel"  id="kode_matpel" name="kode_matpel" value="" title="">
-                                    <span class="info-name_kode_matpel hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_jenis">Jenis Penilaian</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
-                                    </div>
-                                    <input type="text" class="form-control label-kode_jenis" placeholder="Jenis Penilaian"  id="kode_jenis" name="kode_jenis" value="" title="">
-                                    <span class="info-name_kode_jenis hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_kd">Kode KD</label>
-                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                <i class='simple-icon-magnifier search-item2' style="top: 24px;right: 10px;"></i>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="nama_kd" >Nama KD</label>
-                                <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-nilai" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
-                                    <div class="dropdown d-inline-block mx-0">
-                                        <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
-                                        <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            <a class="dropdown-item" id="download-template" >Download Template</a>
-                                            <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_pp">Kode PP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_pp" placeholder="Kode PP"  id="kode_pp" name="kode_pp" value="" title="">
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                         </div>
                                     </div>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_ta">Tahun Ajaran</label>
+                                        <input class="form-control" type="text"  id="kode_ta2" name="kode_ta" required readonly>
+                                    </div>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_ta">Tahun Ajaran</label>
+                                        <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                    </div>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-nilai" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:20%">NIS</th>
-                                            <th style="width:55%">Nama</th>
-                                            <th style="width:17%">Nilai</th>
-                                            <th width="5%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_kelas">Kode Kelas</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_kelas" placeholder="Kode Kelas"  id="kode_kelas" name="kode_kelas" value="" title="">
+                                            <span class="info-name_kode_kelas hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 col-sm-12"></div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_sem">Semester</label>
+                                        <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                        <option value=''>--- Pilih Semester ---</option>
+                                        <option value='1' selected>GANJIL</option>
+                                        <option value='2'>GENAP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_matpel">Kode Matpel</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_matpel" placeholder="Kode Matpel"  id="kode_matpel" name="kode_matpel" value="" title="">
+                                            <span class="info-name_kode_matpel hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_jenis">Jenis Penilaian</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_jenis" placeholder="Jenis Penilaian"  id="kode_jenis" name="kode_jenis" value="" title="">
+                                            <span class="info-name_kode_jenis hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="kode_kd">Kode KD</label>
+                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                        <i class='simple-icon-magnifier search-item2' style="top: 24px;right: 10px;"></i>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <label for="nama_kd" >Nama KD</label>
+                                        <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- <div class="tab-pane" id="data-dok" role="tabpanel">
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="10%">NIS</th>
-                                                <th width="20%">Nama</th>
-                                                <th width="20%">Nama Dokumen</th>
-                                                <th width="20%">Nama File Upload</th>
-                                                <th width="20%">Upload File</th>
-                                                <th width="5%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                        </div>
+                        <div class="card mt-3" style='box-shadow:none !important;border:0 !important'>
+                            <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
+                            </ul>
+                            <div class="card-body">
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="data-nilai" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                            <div class="dropdown d-inline-block mx-0">
+                                                <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
+                                                <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <a class="dropdown-item" id="download-template" >Download Template</a>
+                                                    <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
+                                                </div>
+                                            </div>
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-nilai" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%">No</th>
+                                                    <th style="width:20%">NIS</th>
+                                                    <th style="width:55%">Nama</th>
+                                                    <th style="width:17%">Nilai</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="tab-pane" id="data-dok" role="tabpanel">
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed" id="input-dok" style='width:100%'>
+                                                <thead>
+                                                    <tr>
+                                                        <th width="5%">No</th>
+                                                        <th width="10%">NIS</th>
+                                                        <th width="20%">Nama</th>
+                                                        <th width="20%">Nama Dokumen</th>
+                                                        <th width="20%">Nama File Upload</th>
+                                                        <th width="20%">Upload File</th>
+                                                        <th width="5%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div> -->
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
