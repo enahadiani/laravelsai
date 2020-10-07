@@ -409,7 +409,7 @@
                         <div class="form-group row">
                             <label for="" class="col-md-2 col-sm-2">Nama KD</label>
                             <div class="col-md-6 col-sm-12" >
-                                <textarea id="nama_kd" class="form-control"></textarea>
+                                <textarea id="nama_kd" name="nama_kd" class="form-control"></textarea>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -1214,7 +1214,8 @@
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
-                    $('#label_kode_kd').val(result.data[0].nama_kd);
+                    console.log(result.data[0].nama_kd);
+                    $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
@@ -1319,6 +1320,7 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#input-nilai tbody').html('');
+        $('#nama_kd').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         if("{{ Session::get('kodePP') }}" != ""){
@@ -1493,7 +1495,7 @@
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#label_kode_jenis').val(result.data[0].nama_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
-                    $('#label_kode_kd').val(result.data[0].nama_kd);
+                    $('#nama_kd').text(result.data[0].nama_kd);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
@@ -1603,6 +1605,7 @@
                             $('#judul-form').html('Tambah Data Penilaian Siswa');
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
+                            $('#nama_kd').text('');
                             $('[id^=label]').html('');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
