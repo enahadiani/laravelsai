@@ -440,10 +440,10 @@
                             </div>
                         </div>
                         <div class="card mt-3" style='box-shadow:none !important;border:0 !important'>
-                            <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
-                            </ul>
                             <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
+                                </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
                                     <div class="tab-pane active" id="data-nilai" role="tabpanel">
                                         <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
