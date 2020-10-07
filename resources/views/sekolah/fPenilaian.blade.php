@@ -799,7 +799,7 @@
                 $target2 = "#nama_kd";
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val(),kode_sem:$('#kode_sem').val()};
             break;
             case 'kode_jenis': 
                 header = ['Kode Jenis', 'Nama'];
@@ -997,7 +997,6 @@
                         $('.info-name_kode_pp').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_pp span').text(result.daftar[0].nama);
                         var width = $('#kode_pp').width()-$('#search_kode_pp').width()-10;
-                        console.log(width);
                         $('.info-name_kode_pp').width(width);
                         $('.info-name_kode_pp').closest('div').find('.info-icon-hapus').removeClass('hidden');
                         
@@ -1027,11 +1026,21 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_kelas').val(result.daftar[0].kode_kelas);
-                         $('#label_kode_kelas').val(result.daftar[0].nama);
+                        $('#kode_kelas').val(result.daftar[0].kode_kelas);
+                        $('#kode_kelas').css('border-left','0');
+                        $('.info-code_kode_kelas').text(result.daftar[0].kode_kelas).parent('div').removeClass('hidden');
+                        $('.info-code_kode_kelas').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_kelas').removeClass('hidden');
+                        $('.info-name_kode_kelas').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_kelas span').text(result.daftar[0].nama);
+                        var width = $('#kode_kelas').width()-$('#search_kode_kelas').width()-10;
+                        $('.info-name_kode_kelas').width(width);
+                        $('.info-name_kode_kelas').closest('div').find('.info-icon-hapus').removeClass('hidden');
+                        
                     }else{
+                        $('#kode_kelas').attr('readonly',false);
+                        $('#kode_kelas').css('border-left','1px solid #d7d7d7');
                         $('#kode_kelas').val('');
-                        $('#label_kode_kelas').val('');
                         $('#kode_kelas').focus();
                     }
                 }
@@ -1042,14 +1051,14 @@
         });
     }
 
-    function getKD(id,pp=null,kode_matpel=null,kode_kelas=null){
+    function getKD(id,pp=null,kode_matpel=null,kode_kelas=null,kode_sem=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-trans/penilaian-kd') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode,kode_kelas:kode_kelas},
+            data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode,kode_kelas:kode_kelas,kode_sem:kode_sem},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -1106,11 +1115,21 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_matpel').val(result.daftar[0].kode_matpel);
-                         $('#label_kode_matpel').val(result.daftar[0].nama);
+                        $('#kode_matpel').val(result.daftar[0].kode_matpel);
+                        $('#kode_matpel').css('border-left','0');
+                        $('.info-code_kode_matpel').text(result.daftar[0].kode_matpel).parent('div').removeClass('hidden');
+                        $('.info-code_kode_matpel').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_matpel').removeClass('hidden');
+                        $('.info-name_kode_matpel').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_matpel span').text(result.daftar[0].nama);
+                        var width = $('#kode_matpel').width()-$('#search_kode_matpel').width()-10;
+                        $('.info-name_kode_matpel').width(width);
+                        $('.info-name_kode_matpel').closest('div').find('.info-icon-hapus').removeClass('hidden');
+                        
                     }else{
+                        $('#kode_matpel').attr('readonly',false);
+                        $('#kode_matpel').css('border-left','1px solid #d7d7d7');
                         $('#kode_matpel').val('');
-                        $('#label_kode_matpel').val('');
                         $('#kode_matpel').focus();
                     }
                 }
@@ -1132,11 +1151,21 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_jenis').val(result.daftar[0].kode_jenis);
-                         $('#label_kode_jenis').val(result.daftar[0].nama);
+                        $('#kode_jenis').val(result.daftar[0].kode_jenis);
+                        $('#kode_jenis').css('border-left','0');
+                        $('.info-code_kode_jenis').text(result.daftar[0].kode_jenis).parent('div').removeClass('hidden');
+                        $('.info-code_kode_jenis').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_jenis').removeClass('hidden');
+                        $('.info-name_kode_jenis').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_jenis span').text(result.daftar[0].nama);
+                        var width = $('#kode_jenis').width()-$('#search_kode_jenis').width()-10;
+                        $('.info-name_kode_jenis').width(width);
+                        $('.info-name_kode_jenis').closest('div').find('.info-icon-hapus').removeClass('hidden');
+                        
                     }else{
+                        $('#kode_jenis').attr('readonly',false);
+                        $('#kode_jenis').css('border-left','1px solid #d7d7d7');
                         $('#kode_jenis').val('');
-                        $('#label_kode_jenis').val('');
                         $('#kode_jenis').focus();
                     }
                 }
@@ -1564,6 +1593,42 @@
     // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
+        rules: 
+        {
+            kode_pp:
+            {
+                required: true,
+                maxlength:10   
+            },
+            kode_kelas:
+            {
+                required: true
+            },
+            kode_matpel:
+            {
+                required: true
+            },
+            kode_jenis:
+            {
+                required: true
+            },
+            kode_ta:
+            {
+                required: true
+            },
+            kode_sem:
+            {
+                required: true
+            },
+            kode_kd:
+            {
+                required: true
+            },
+            nama_kd:
+            {
+                required: true
+            }
+        },
         errorElement: "label",
         submitHandler: function (form) {
 
