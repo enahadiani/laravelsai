@@ -98,6 +98,7 @@
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
                 'kode_kd' => 'required',
+                'nama_kd' => 'required',
                 'nis'=>'required|array',
                 'nilai'=>'required|array'
             ]);
@@ -125,6 +126,7 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_jenis'=>$request->kode_jenis,
                         'kode_kd'=>$request->kode_kd,
+                        'nama_kd'=>$request->nama_kd,
                         'nis'=>$request->nis,
                         'nilai'=>$det_nilai
                     ]
@@ -157,6 +159,7 @@
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
                 'kode_kd'=>'required',
+                'nama_kd'=>'required',
                 'nis'=>'required|array',
                 'nilai'=>'required|array'
             ]);
@@ -185,6 +188,7 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_jenis'=>$request->kode_jenis,
                         'kode_kd' => $request->kode_kd,
+                        'nama_kd' => $request->nama_kd,
                         'nis'=>$request->nis,
                         'nilai'=>$det_nilai
                     ]
@@ -341,7 +345,8 @@
                         'kode_pp' => $request->kode_pp,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_kelas' => $request->kode_kelas,
-                        'kode_kd' => $request->kode_kd
+                        'kode_kd' => $request->kode_kd,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
         
