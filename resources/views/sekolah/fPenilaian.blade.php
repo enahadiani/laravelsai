@@ -239,6 +239,7 @@
             border: 1px solid #e9ecef !important;
             border-radius: 0.25rem !important;
             color: var(--theme-color-1);
+            font-weight:bold;
         }
 
         span[class^=info-name]{
