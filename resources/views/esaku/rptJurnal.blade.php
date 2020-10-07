@@ -1,17 +1,17 @@
 <script type="text/javascript">
     function drawLap(formData){
-       saiPostLoad('esaku-report/lap-jurnal', null, formData, null, function(res){
-           if(res.result.length > 0){
-
+        saiPostLoad('esaku-report/lap-jurnal', null, formData, null, function(res){
+            if(res.result.length > 0){
+                
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
-              
-           }else{
+                
+            }else{
                 $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
-           }
-       });
-   }
+            }
+        });
+    }
 
    drawLap($formData);
 
