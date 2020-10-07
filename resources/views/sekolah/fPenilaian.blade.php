@@ -246,6 +246,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            line-height:22px;
 
         }
 
@@ -302,9 +303,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -364,7 +365,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
                                             </div>
-                                            <input type="text" class="form-control label-kode_pp" placeholder="Kode PP"  id="kode_pp" name="kode_pp" value="" title="">
+                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                             <span class="info-name_kode_pp hidden">
                                                 <span></span> 
                                             </span>
@@ -394,7 +395,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
                                             </div>
-                                            <input type="text" class="form-control label-kode_kelas" placeholder="Kode Kelas"  id="kode_kelas" name="kode_kelas" value="" title="">
+                                            <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
                                             <span class="info-name_kode_kelas hidden">
                                                 <span></span> 
                                             </span>
@@ -409,7 +410,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
                                             </div>
-                                            <input type="text" class="form-control label-kode_matpel" placeholder="Kode Matpel"  id="kode_matpel" name="kode_matpel" value="" title="">
+                                            <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
                                             <span class="info-name_kode_matpel hidden">
                                                 <span></span> 
                                             </span>
@@ -424,7 +425,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
                                             </div>
-                                            <input type="text" class="form-control label-kode_jenis" placeholder="Jenis Penilaian"  id="kode_jenis" name="kode_jenis" value="" title="">
+                                            <input type="text" class="form-control label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
                                             <span class="info-name_kode_jenis hidden">
                                                 <span></span> 
                                             </span>
