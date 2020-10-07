@@ -428,7 +428,7 @@
                             <div class="form-group col-md-3 col-sm-12">
                                 <label for="kode_kd">Kode KD</label>
                                 <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 10px;"></i>
+                                <i class='simple-icon-magnifier search-item2' style="top: 24px;right: 10px;"></i>
                             </div>
                         </div>
                         <div class="form-row">
