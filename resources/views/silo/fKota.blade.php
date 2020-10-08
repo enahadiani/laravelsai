@@ -883,7 +883,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
