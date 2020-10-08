@@ -1986,6 +1986,7 @@
             dataType: 'json',
             async:false,
             success:function(res){
+                console.log(res);
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
@@ -2085,7 +2086,26 @@
                             });
                             no++;
                         }
+                        if(result.data_dokumen.length > 0) {
+                            var input = "";  
+                            var no = 1;
+                            for(var i=0;i<result.data_dokumen.length;i++) { 
+                                var data = result.data_dokumen[i];
+                                input += "<tr class='row-upload'>";
+                                input += "<td class='no-upload text-center'>"+no+"</td>";
+                                input += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size=18px;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;<a class='download-item' title='Download' style='cursor:pointer; font-size:18px;' href='http://api.simkug.com/api/apv/storage/"+data.file_dok+"' target='_blank'><i class='iconsminds-data-download'></i></a></td>";
+                                input += "<td><input type='text' name='nama_file[]' value='"+data.nama+"' class='form-control inp-file_dok'></td>";
+                                input += "<td><span>"+data.file_dok+"</span><input type='hidden' name='nama_dok[]' value='"+data.file_dok+"' class='inp-file_dok' readonly></td>";
+                                input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+                                input += "</tr>";
+
+                                no++;
+                            }
+                            $('#input-grid-dokumen tbody').html(input);
+                        }
                     }
+                    hitungTotalRowBarang();
+                    hitungTotalRowDokumen();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
