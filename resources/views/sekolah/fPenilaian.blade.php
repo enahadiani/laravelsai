@@ -308,7 +308,7 @@
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
                             <div class="input-group-append" >
-                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -1800,7 +1800,7 @@
                             $('.input-group-prepend').addClass('hidden');
                             $('span[class^=info-name]').addClass('hidden');
                             $('.info-icon-hapus').addClass('hidden');
-                            $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                            $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
                                 $('#kode_pp').trigger('change');
@@ -1871,15 +1871,6 @@
 
         var par = $(this).closest('div').find('input').attr('name');
         showFilter(par);
-        // target1 = par;
-        // target2 = par2;
-        // if(par == "label_kode_pp"){
-
-        //     showFilter(par,"kode_pp","info_kode_pp");
-        // }else{
-        
-        //     showFilter(par,target1,target2);
-        // }
     });
 
     // $('#form-tambah').on('change', '#nik_periksa', function(){

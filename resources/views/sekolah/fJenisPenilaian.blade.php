@@ -192,7 +192,7 @@
                             <input type="text" class="form-control" placeholder="Search..."
                                 aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
                             <div class="input-group-append" >
-                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -721,16 +721,6 @@
     });
     
     // END BUTTON UPDATE
-
-    $('#form-tambah').on('click', '.search-item2', function(){
-        console.log(this);
-        var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('label').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
-    });
-
     
     function showFilter(param,target1,target2){
         var par = param;
@@ -740,7 +730,7 @@
         $target2 = target2;
         
         switch(par){
-        case 'kode_pp': 
+            case 'kode_pp': 
             header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sekolah-master/pp') }}";
                 var columns = [
@@ -808,45 +798,6 @@
         $('#modal-search').modal('show');
         searchTable.columns.adjust().draw();
 
-        $('#table-search').on('click','.check-item',function(){
-            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-            console.log(jTarget1);
-            console.log(jTarget2);
-            if(jTarget1 == "val"){
-                $($target).val(kode);
-                $($target).attr('value',kode);
-            }else{
-                $('#'+par).css('border-left',0);
-                $('#'+par).val(kode);
-                $($target).text(kode);
-                $($target).attr("title",nama);
-                $($target).parents('div').removeClass('hidden');
-            }
-
-            if(jTarget2 == "val"){
-                $($target2).val(nama);
-            }else{
-                
-                console.log('sini2');
-                var width= $('#'+par).width()-$('#search_'+par).width()-10;
-                var pos =$('#'+par).position();
-                var height = $('#'+par).height();
-                console.log(par);
-                $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-                $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
-                $($target2+' span').text(nama);
-                $($target2).attr("title",nama);
-                $($target2).removeClass('hidden');
-                $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
-            }
-
-            if($target3 != ""){
-                $($target3).text(nama);
-            }
-            $('#modal-search').modal('hide');
-        });
-
         $('#table-search tbody').on('click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -860,61 +811,36 @@
                     $($target).val(kode);
                     $($target).attr('value',kode);
                 }else{
+                    $('#'+par).css('border-left',0);
+                    $('#'+par).val(kode);
                     $($target).text(kode);
+                    $($target).attr("title",nama);
+                    $($target).parents('div').removeClass('hidden');
                 }
 
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
                 }else{
-                    $($target2).text(nama);
+                    
+                    console.log('sini2');
+                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                    var pos =$('#'+par).position();
+                    var height = $('#'+par).height();
+                    console.log(par);
+                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                    $($target2+' span').text(nama);
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
                 }
 
                 if($target3 != ""){
                     $($target3).text(nama);
                 }
-                console.log($target3);
                 $('#modal-search').modal('hide');
             }
         });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
-                
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-                
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        })
     }
 
     $('#form-tambah').on('click', '.search-item2', function(){
@@ -936,8 +862,6 @@
         $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
     });
-
-
 
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
@@ -1005,7 +929,7 @@
                         $('.input-group-prepend').addClass('hidden');
                         $('span[class^=info-name]').addClass('hidden');
                         $('.info-icon-hapus').addClass('hidden');
-                        $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                        $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
