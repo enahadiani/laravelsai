@@ -4,9 +4,6 @@
             padding:8px !important;
             vertical-align:middle !important;
         }
-        .search-item2{
-            cursor:pointer;
-        }
         input.error{
             border:1px solid #dc3545;
         }
@@ -103,6 +100,70 @@
             top: -2px;
             left: -5px;
         }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control 
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
+
+        .search-item2{
+            cursor:pointer;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
+        }
     </style>
     <div class="row" id="saku-datatable">
         <div class="col-12">
@@ -129,9 +190,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -178,33 +239,39 @@
                                 <input type="hidden" id="method" name="_method" value="post">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <label for="kode_pp">PP</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                    <span class="info-name_kode_pp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_jenis" class="col-md-2 col-sm-12 col-form-label">Kode</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Jenis" id="kode_jenis" name="kode_jenis">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <label for="kode_jenis">Kode Jenis</label>
+                                <input class="form-control" type="text" id="kode_jenis" name="kode_jenis">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama Jenis" id="nama" name="nama">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <label for="nama">Nama Penilaian</label>
+                                <input class="form-control" type="text" id="nama" name="nama">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="flag_aktif" class="col-md-2 col-sm-12 col-form-label">Flag Proses</label>
-                            <div class="col-md-3 col-sm-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <label for="flag_aktif">Status Penilaian</label>
                                 <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                <option value='' disabled> Pilih Flag </option>
                                 <option value='1'>Aktif</option>
                                 <option value='0'>Non Aktif</option>
                                 </select>
@@ -380,26 +447,46 @@
         openFilter();
     });
     
-    function getPP(id=null){
+    function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
+
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/pp') }}",
             dataType: 'json',
-            data:{'kode_pp':kode},
+            data:{kode_pp:kode},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         $('#kode_pp').val(result.daftar[0].kode_pp);
-                        $('#label_kode_pp').val(result.daftar[0].nama);
+                        $('#kode_pp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $('.info-code_kode_pp').text(result.daftar[0].kode_pp).parent('div').removeClass('hidden');
+                        $('.info-code_kode_pp').attr('title',result.daftar[0].nama);
+                        $('.info-code_kode_pp').tooltip('dispose');
+                        $('.info-code_kode_pp').tooltip();
+                        $('.info-name_kode_pp').removeClass('hidden');
+                        $('.info-name_kode_pp').attr('title',result.daftar[0].nama);
+                        $('.info-name_kode_pp span').text(result.daftar[0].nama);
+                        var width = $('#kode_pp').width()-$('#search_kode_pp').width()-10;
+                        var pos =$('#kode_pp').position();
+                        var height =$('#kode_pp').height();
+                        $('.info-name_kode_pp').width(width).css({'left':pos.left,'height':height});
+                        $('.info-name_kode_pp').closest('div').find('.info-icon-hapus').removeClass('hidden');
+                        
                     }else{
-                        // alert('Kode Akun tidak valid');
+                        $('#kode_pp').attr('readonly',false);
+                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
                         $('#kode_pp').val('');
-                        $('#label_kode_pp').val('');
                         $('#kode_pp').focus();
                     }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 }
             }
         });
@@ -453,6 +540,21 @@
                 
             }
         });
+    }
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
     }
 
     getTAPp();
@@ -610,18 +712,19 @@
         switch(par){
         case 'kode_pp': 
             header = ['Kode', 'Nama'];
-            var toUrl = "{{ url('sekolah-master/pp') }}";
+                var toUrl = "{{ url('sekolah-master/pp') }}";
                 var columns = [
                     { data: 'kode_pp' },
                     { data: 'nama' }
                 ];
-                
                 var judul = "Daftar PP";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var pilih = "pp";
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
+                $target4 = "";
             break;
         }
 
@@ -682,13 +785,26 @@
                 $($target).val(kode);
                 $($target).attr('value',kode);
             }else{
+                $('#'+par).css('border-left',0);
+                $('#'+par).val(kode);
                 $($target).text(kode);
+                $($target).attr("title",nama);
+                $($target).parents('div').removeClass('hidden');
             }
 
             if(jTarget2 == "val"){
                 $($target2).val(nama);
             }else{
-                $($target2).text(nama);
+                var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                var pos =$('#'+par).position();
+                var height = $('#'+par).height();
+                console.log(par);
+                $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                $($target2+' span').text(nama);
+                $($target2).attr("title",nama);
+                $($target2).removeClass('hidden');
+                $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
             }
 
             if($target3 != ""){
@@ -770,10 +886,7 @@
 
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        showFilter(par);
     });
 
     $('#form-tambah').on('change', '#kode_pp', function(){
@@ -894,9 +1007,10 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
         var kode_pp = temp[0]; 
-        $('#form-tambah').validate().resetForm();
         
         $('#judul-form').html('Edit Data Jenis Penilaian');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
@@ -916,10 +1030,10 @@
                     $('#nama').val(result.data[0].nama);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#kode_pp').trigger('change');
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
                 }
@@ -1023,9 +1137,10 @@
         var id= $('#modal-preview-id').text();
         var temp= $('#modal-preview-kode').text().split("-");
         var kode_pp = temp[0]; 
-        $('#form-tambah').validate().resetForm();
         
         $('#judul-form').html('Edit Data Jenis Penilaian');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
@@ -1045,10 +1160,10 @@
                     $('#nama').val(result.data[0].nama);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#kode_pp').trigger('change');
                     $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
                     $('#modal-preview').modal('hide');
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
