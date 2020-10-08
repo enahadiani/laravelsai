@@ -2514,9 +2514,9 @@
     });
     //END SHOW CBBL//
 
-    $('#kode,#nama,#kode_pp').keydown(function(e){
+    $('#tanggal,#waktu,#kode_pp,#kode_kota,#no_dokumen,#kegiatan,#dasar,#pic,#nik_ver,#total').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode','nama','kode_pp'];
+        var nxt = ['tanggal','waktu','kode_pp','kode_kota','no_dokumen','kegiatan','dasar','pic','nik_ver','total'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
