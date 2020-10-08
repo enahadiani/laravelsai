@@ -965,7 +965,7 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
         var kode_pp = temp[0]; 
-        $('#judul-form').html('Edit Data Jenis Penilaian');
+        $('#judul-form').html('Edit Data Guru');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
