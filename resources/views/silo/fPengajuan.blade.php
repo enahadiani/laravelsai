@@ -2124,20 +2124,36 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
-                <td style='border:none'>Kode Role</td>
-                <td style='border:none'>`+data.kode_role+`</td>
+                <td style='border:none'>No Bukti</td>
+                <td style='border:none'>`+data.no_bukti+`</td>
             </tr>
             <tr>
-                <td>Nama</td>
-                <td>`+data.nama+`</td>
+                <td>No Dokumen</td>
+                <td>`+data.no_dokumen+`</td>
             </tr>
             <tr>
-                <td>Kode Regional</td>
-                <td>`+data.kode_pp+`</td>
+                <td>Regional</td>
+                <td>`+data.nama_pp+`</td>
             </tr>
             <tr>
-                <td>Modul</td>
-                <td>`+data.modul+`</td>
+                <td>Waktu</td>
+                <td>`+reverseDateNew(data.waktu,'-','/')+`</td>
+            </tr>
+            <tr>
+                <td>Kegiatan</td>
+                <td>`+data.kegiatan+`</td>
+            </tr>
+            <tr>
+                <td>Posisi</td>
+                <td>`+data.posisi+`</td>
+            </tr>
+            <tr>
+                <td>Nilai Pengadaan</td>
+                <td>`+toRp(data.nilai)+`</td>
+            </tr>
+            <tr>
+                <td>Nilai Finish</td>
+                <td>`+toRp(data.nilai_finish)+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
