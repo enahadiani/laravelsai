@@ -1,10 +1,8 @@
-    <style>
+   <!-- CSS tambahan -->
+   <style>
         th,td{
             padding:8px !important;
             vertical-align:middle !important;
-        }
-        .search-item2{
-            cursor:pointer;
         }
         input.error{
             border:1px solid #dc3545;
@@ -103,6 +101,69 @@
             left: -5px;
         }
 
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control 
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
+
+        .search-item2{
+            cursor:pointer;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
+        }
     </style>
     <div class="row" id="saku-datatable">
         <div class="col-12">
@@ -129,9 +190,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>

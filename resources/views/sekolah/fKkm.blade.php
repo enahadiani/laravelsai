@@ -620,9 +620,7 @@
         }); 
         dataTable.row(rowIndexes).select();
         $('.selected td:eq(0)').addClass('last-add');
-        console.log('last-add');
         setTimeout(function() {
-            console.log('timeout');
             $('.selected td:eq(0)').removeClass('last-add');
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
@@ -812,7 +810,7 @@
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
-            getTA("{{ Session::get('kodePP') }}");
+            // getTA("{{ Session::get('kodePP') }}");
         }
         hitungTotalRow();
     });
@@ -847,7 +845,8 @@
         $('.info-name_'+kode).removeClass('hidden');
         $('.info-name_'+kode).attr('title',isi_nama);
         $('.info-name_'+kode+' span').text(isi_nama);
-        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var search = ($('#search_'+kode).width() == undefined ? 0 : $('#search_'+kode).width());
+        var width = $('#'+kode).width()-search-10;
         var height =$('#'+kode).height();
         var pos =$('#'+kode).position();
         $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
@@ -1009,6 +1008,7 @@
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 
+                
                 var dtrow = searchTable.row(this).data();  
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
@@ -1033,7 +1033,6 @@
                     var width= $('#'+par).width()-$('#search_'+par).width()-10;
                     var pos =$('#'+par).position();
                     var height = $('#'+par).height();
-                    console.log(par);
                     $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                     $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
                     $($target2+' span').text(nama);
@@ -1054,6 +1053,10 @@
                     else{
                         $($target4).click();
                     }
+                }
+
+                if(par == "kode_pp"){
+                    getTA(kode);
                 }
                 $('#modal-search').modal('hide');
             }
@@ -1103,10 +1106,10 @@
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         showInfoField('kode_ta',result.daftar[0].kode_ta,result.daftar[0].nama);
                     }else{
-                        // $('#kode_ta').attr('readonly',false);
-                        $('#kode_ta').css('border-left','1px solid #d7d7d7');
+                        $('#kode_ta').attr('style','border-left:1px solid #d7d7d7;border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                        $('.info-code_kode_ta').parent('div').addClass('hidden');
+                        $('.info-name_kode_ta').addClass('hidden');
                         $('#kode_ta').val('');
-                        $('#kode_ta').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -1237,6 +1240,8 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
+        console.log('bres');
+        getTA(par);
     });
     
     // $('#form-tambah').on('change', '#kode_ta', function(){
@@ -1286,7 +1291,6 @@
             var idx_next = idx+1;
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
-            console.log(idx);
             switch (idx) {
                 case 0:
                     var noidx = $(this).parents("tr").find(".no-kkm").text();
@@ -1367,7 +1371,6 @@
 
     $('#form-tambah').on('click', '.add-row', function(){
         var kode_pp = $('#kode_pp').val();
-        console.log('klik')
         if(kode_pp != "" ){
             var no=$('#input-kkm .row-kkm:last').index();
             no=no+2;
@@ -1496,12 +1499,12 @@
         }
 
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        console.log(tmp);
+
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
 
         tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        console.log(tmp);
+
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
 
@@ -1626,7 +1629,7 @@
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
-                            getTA();
+                            // getTA("{{ Session::get('kodePP') }}");
                         }
                         msgDialog({
                             id:result.data.kode_kkm,
