@@ -241,40 +241,60 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_pp">PP</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_pp">PP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                        </div>
                                     </div>
-                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                    <span class="info-name_kode_pp hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
-                                <label for="kode_jenis">Kode Jenis</label>
-                                <input class="form-control" type="text" id="kode_jenis" name="kode_jenis">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_jenis">Kode Jenis</label>
+                                        <input class="form-control" type="text" id="kode_jenis" name="kode_jenis">
+                                    </div>
+                                    <div class="col-md-2 col-sm-12"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
-                                <label for="nama">Nama Penilaian</label>
-                                <input class="form-control" type="text" id="nama" name="nama">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="nama">Nama Penilaian</label>
+                                        <input class="form-control" type="text" id="nama" name="nama">
+                                    </div>
+                                    <div class="col-md-2 col-sm-12"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
-                                <label for="flag_aktif">Status Penilaian</label>
-                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                <option value='' disabled> Pilih Flag </option>
-                                <option value='1'>Aktif</option>
-                                <option value='0'>Non Aktif</option>
-                                </select>
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="flag_aktif">Status Penilaian</label>
+                                        <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                        <option value='' disabled> Pilih Flag </option>
+                                        <option value='1'>Aktif</option>
+                                        <option value='0'>Non Aktif</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -409,6 +429,12 @@
     
     $('.selectize').selectize();
     $('[id^=label]').attr('readonly',true);
+
+    var scrollform = document.querySelector('.form-body');
+    var psscrollform = new PerfectScrollbar(scrollform);
+    
+    var scroll = document.querySelector('#content-preview');
+    var psscroll = new PerfectScrollbar(scroll);
 
     function openFilter() {
         var element = $('#mySidepanel');
@@ -658,15 +684,19 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        if("{{ Session::get('kodePP') }}" != ""){
-            $('#kode_pp').val("{{ Session::get('kodePP') }}");
-            $('#kode_pp').trigger('change');
-        }
         $('#id_edit').val('');
         $('#flag_aktif')[0].selectize.setValue('');
         $('#kode_jenis').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+        }
     });
     // END BUTTON TAMBAH
 
@@ -781,6 +811,8 @@
         $('#table-search').on('click','.check-item',function(){
             var kode = $(this).closest('tr').find('td:nth-child(1)').text();
             var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            console.log(jTarget1);
+            console.log(jTarget2);
             if(jTarget1 == "val"){
                 $($target).val(kode);
                 $($target).attr('value',kode);
@@ -795,6 +827,8 @@
             if(jTarget2 == "val"){
                 $($target2).val(nama);
             }else{
+                
+                console.log('sini2');
                 var width= $('#'+par).width()-$('#search_'+par).width()-10;
                 var pos =$('#'+par).position();
                 var height = $('#'+par).height();
@@ -810,7 +844,6 @@
             if($target3 != ""){
                 $($target3).text(nama);
             }
-            console.log($target3);
             $('#modal-search').modal('hide');
         });
 
@@ -894,6 +927,17 @@
         getPP(par);
     });
 
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+
 
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
@@ -958,6 +1002,10 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Jenis Penilaian');
                         $('#method').val('post');
+                        $('.input-group-prepend').addClass('hidden');
+                        $('span[class^=info-name]').addClass('hidden');
+                        $('.info-icon-hapus').addClass('hidden');
+                        $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
@@ -1030,7 +1078,7 @@
                     $('#nama').val(result.data[0].nama);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#row-id').show();
+                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
@@ -1088,7 +1136,7 @@
     // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 4){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -1160,7 +1208,7 @@
                     $('#nama').val(result.data[0].nama);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#row-id').show();
+                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
@@ -1178,6 +1226,7 @@
         $('.dropdown-ke2').removeClass('hidden');
         console.log('ok');
     });
+
 
     $('.modal-header').on('click','#btn-cetak2',function(e){
         // $('#dropdownAksi').dropdown('toggle');
