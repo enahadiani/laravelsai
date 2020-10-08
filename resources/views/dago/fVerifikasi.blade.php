@@ -971,7 +971,7 @@
                         $('#status_bayar')[0].selectize.setValue(line.status_bayar);
                         $('#tgl_berangkat').val(line.tgl_berangkat);	
                         $('#kode_curr').val(line.kode_curr);
-                        $('#kurs').val(line.kurs);
+                        $('#kurs').val(format_number(line.kurs));
                         $('#paket').val(line.paket);
                         var hargapaket = parseFloat(line.harga_tot).toFixed(0);
                         var akunTitip = line.kode_akun;

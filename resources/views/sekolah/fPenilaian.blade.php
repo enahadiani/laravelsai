@@ -229,7 +229,8 @@
             border-bottom-left-radius: 0.5rem;
         }
 
-        .input-group > .form-control {
+        .input-group > .form-control 
+        {
             border-radius: 0.5rem !important;
         }
 
@@ -240,6 +241,7 @@
             border-radius: 0.25rem !important;
             color: var(--theme-color-1);
             font-weight:bold;
+            cursor:pointer;
         }
 
         span[class^=info-name]{
@@ -361,10 +363,10 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_pp">Kode PP</label>
+                                        <label for="kode_pp">PP</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title=""></span>
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
                                             <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                             <span class="info-name_kode_pp hidden">
@@ -374,24 +376,21 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 col-sm-12"></div>
+                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_ta">Tahun Ajaran</label>
                                         <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
                                     </div>
-                                    <div class="col-md-1 col-sm-12"></div>
+                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_sem">Semester</label>
-                                        <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                        <option value=''>--- Pilih Semester ---</option>
-                                        <option value='1' selected>GANJIL</option>
-                                        <option value='2'>GENAP</option>
-                                        </select>
+                                        <label for="kode_kd">Kompetensi Dasar</label>
+                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                        <i class='simple-icon-magnifier search-item2' style="top: 102px;right: 14px;"></i>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_kelas">Kode Kelas</label>
+                                        <label for="kode_kelas">Kelas</label>
                                         <div class="input-group" style="margin-bottom:1rem">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
@@ -403,7 +402,7 @@
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
                                         </div>
-                                        <label for="kode_matpel">Kode Matpel</label>
+                                        <label for="kode_matpel">Mata Pelajaran</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
@@ -416,7 +415,7 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 col-sm-12"></div>
+                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_jenis">Jenis Penilaian</label>
                                         <div class="input-group" style="margin-bottom:1rem">
@@ -431,15 +430,22 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
                                         </div>
                                         <div>
-                                            <label for="kode_kd">Kode KD</label>
-                                            <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                            <i class='simple-icon-magnifier search-item2' style="top: 102px;right: 14px;"></i>
+                                            <label for="kode_sem">Semester</label>
+                                            <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                            <option value=''>--- Pilih Semester ---</option>
+                                            <option value='1' selected>GANJIL</option>
+                                            <option value='2'>GENAP</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 col-sm-12"></div>
+                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="nama_kd" >Nama KD</label>
                                         <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:110px"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="pelaksanaan" >Pelaksaan</label>
+                                        <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:110px"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1020,7 +1026,7 @@
         $('.info-code_'+kode).attr('title',isi_nama);
         $('.info-name_'+kode).removeClass('hidden');
         $('.info-name_'+kode).attr('title',isi_nama);
-        $('.info-name_kode_matpel span').text(isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
         var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
         var height =$('#'+kode).height();
         var pos =$('#'+kode).position();
@@ -1048,6 +1054,8 @@
                         $('#kode_pp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                         $('.info-code_kode_pp').text(result.daftar[0].kode_pp).parent('div').removeClass('hidden');
                         $('.info-code_kode_pp').attr('title',result.daftar[0].nama);
+                        $('.info-code_kode_pp').tooltip('dispose');
+                        $('.info-code_kode_pp').tooltip();
                         $('.info-name_kode_pp').removeClass('hidden');
                         $('.info-name_kode_pp').attr('title',result.daftar[0].nama);
                         $('.info-name_kode_pp span').text(result.daftar[0].nama);
@@ -1417,7 +1425,7 @@
         $('.input-group-prepend').addClass('hidden');
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
-        $('.input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
