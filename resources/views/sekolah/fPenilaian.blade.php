@@ -363,89 +363,133 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_pp">PP</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_pp">PP</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <span class="info-name_kode_pp hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                            <span class="info-name_kode_pp hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_ta">Tahun Ajaran</label>
-                                        <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_ta">Tahun Ajaran</label>
+                                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_kd">Kompetensi Dasar</label>
-                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                        <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 14px;"></i>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_kd">Kompetensi Dasar</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 24px;"></i>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_kelas">Kelas</label>
-                                        <div class="input-group" style="margin-bottom:1rem">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_kelas">Kelas</label>
+                                                <div class="input-group" style="margin-bottom:1rem">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
+                                                    </div>
+                                                    <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
+                                                    <span class="info-name_kode_kelas hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
-                                            <span class="info-name_kode_kelas hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_kelas"></i>
+                                            <div class="col-md-2 col-sm-12"></div>
                                         </div>
-                                        <label for="kode_matpel">Mata Pelajaran</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_matpel">Mata Pelajaran</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
+                                                    </div>
+                                                    <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                                    <span class="info-name_kode_matpel hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
-                                            <span class="info-name_kode_matpel hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                            <div class="col-md-2 col-sm-12"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_jenis">Jenis Penilaian</label>
+                                                <div class="input-group" style="margin-bottom:1rem">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
+                                                    </div>
+                                                    <input type="text" class="form-control label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
+                                                    <span class="info-name_kode_jenis hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_sem">Semester</label>
+                                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                                <option value=''>--- Pilih Semester ---</option>
+                                                <option value='1' selected>GANJIL</option>
+                                                <option value='2'>GENAP</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12"></div>
                                         </div>
                                     </div>
                                     <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="kode_jenis">Jenis Penilaian</label>
-                                        <div class="input-group" style="margin-bottom:1rem">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="nama_kd" >Isi KD</label>
+                                                <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px"></textarea>
                                             </div>
-                                            <input type="text" class="form-control label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
-                                            <span class="info-name_kode_jenis hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
-                                        </div>
-                                        <div>
-                                            <label for="kode_sem">Semester</label>
-                                            <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                            <option value=''>--- Pilih Semester ---</option>
-                                            <option value='1' selected>GANJIL</option>
-                                            <option value='2'>GENAP</option>
-                                            </select>
+                                            <div class="col-md-2 col-sm-12"></div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="nama_kd" >Isi KD</label>
-                                        <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px"></textarea>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <label for="pelaksanaan" >Pelaksaan</label>
-                                        <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px"></textarea>
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="pelaksanaan" >Pelaksaan</label>
+                                                <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px"></textarea>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
