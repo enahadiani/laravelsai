@@ -1310,6 +1310,7 @@
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
+                    $('#pelaksanaan').text(result.data[0].pelaksanaan);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
@@ -1420,6 +1421,7 @@
         $('#id').val('');
         $('#input-nilai tbody').html('');
         $('#nama_kd').text('');
+        $('#pelaksanaan').text('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -1502,6 +1504,10 @@
                         <tr>
                             <td>Komptensi Dasar</td>
                             <td>`+result.data[0].kode_kd+`-`+result.data[0].nama_kd+`</td>
+                        </tr>
+                        <tr>
+                            <td>Pelaksanaan</td>
+                            <td>`+result.data[0].pelaksanaan+`</td>
                         </tr>
                         <tr>
                             <td>Penilaian ke - </td>
@@ -1594,6 +1600,7 @@
                     $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
+                    $('#pelaksanaan').text(result.data[0].pelaksanaan);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_detail.length > 0){
@@ -1744,6 +1751,7 @@
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('#nama_kd').text('');
+                            $('#pelaksanaan').text('');
                             $('[id^=label]').html('');                            
                             $('.input-group-prepend').addClass('hidden');
                             $('span[class^=info-name]').addClass('hidden');
