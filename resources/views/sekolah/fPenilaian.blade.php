@@ -385,7 +385,7 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="kode_kd">Kompetensi Dasar</label>
                                         <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                        <i class='simple-icon-magnifier search-item2' style="top: 102px;right: 14px;"></i>
+                                        <i class='simple-icon-magnifier search-item2' style="top: 28px;right: 14px;"></i>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -440,12 +440,12 @@
                                     </div>
                                     <!-- <div class="col-md-1 col-sm-12"></div> -->
                                     <div class="form-group col-md-3 col-sm-12">
-                                        <label for="nama_kd" >Nama KD</label>
-                                        <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:110px"></textarea>
+                                        <label for="nama_kd" >Isi KD</label>
+                                        <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px"></textarea>
                                     </div>
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="pelaksanaan" >Pelaksaan</label>
-                                        <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:110px"></textarea>
+                                        <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px"></textarea>
                                     </div>
                                 </div>
                             </div>
