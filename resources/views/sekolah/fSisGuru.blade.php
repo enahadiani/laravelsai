@@ -268,7 +268,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-sm-12">
                                         <label for="nik">NIK Guru</label>
-                                        <input class="form-control" type="text" placeholder="NIK Guru" id="nik" name="nik">
+                                        <input class="form-control" type="text" id="nik" name="nik">
                                     </div>
                                     <div class="col-md-2 col-sm-12"></div>
                                 </div>
@@ -277,7 +277,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-sm-12">
                                         <label for="nama">Nama</label>
-                                        <input class="form-control" type="text" placeholder="Nama Guru" id="nama" name="nama">
+                                        <input class="form-control" type="text" id="nama" name="nama">
                                     </div>
                                     <div class="col-md-2 col-sm-12"></div>
                                 </div>
@@ -288,7 +288,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-sm-12">
                                         <label for="no_hp">No HP</label>
-                                        <input class="form-control" type="text" placeholder="No HP Guru" id="no_hp" name="no_hp">
+                                        <input class="form-control" type="text" id="no_hp" name="no_hp">
                                     </div>
                                     <div class="col-md-2 col-sm-12"></div>
                                 </div>
@@ -298,7 +298,7 @@
                                     <div class="col-md-10 col-sm-12">
                                         <label for="flag_aktif">Status Guru</label>
                                         <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                        <option value='' disabled> Pilih Status </option>
                                         <option value='1'>Aktif</option>
                                         <option value='0'>Non Aktif</option>
                                         </select>
@@ -694,8 +694,8 @@
     });
     // END BUTTON TAMBAH
 
-        // BUTTON KEMBALI
-        $('#saku-form').on('click', '#btn-kembali', function(){
+    // BUTTON KEMBALI
+    $('#saku-form').on('click', '#btn-kembali', function(){
         var kode = null;
         msgDialog({
             id:kode,
