@@ -387,12 +387,12 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="">
+                                            <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
                                             <span class="info-name_kode_ta hidden">
                                                 <span></span> 
                                             </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_ta"></i>
+                                            <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
+                                            <i class="simple-icon-magnifier search-item2 hidden" id="search_kode_ta"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-sm-12">
@@ -812,6 +812,7 @@
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
+            getTA("{{ Session::get('kodePP') }}");
         }
         hitungTotalRow();
     });
@@ -1089,24 +1090,20 @@
             }
         });
     }
-    
-    function getTA(id){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        kode_pp = $('#kode_pp').val();
+
+    function getTA(pp=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-master/tahun-ajaran-detail') }}",
+            url: "{{ url('sekolah-master/tahun-ajaran') }}",
             dataType: 'json',
-            data:{kode_pp : kode_pp, kode_ta: kode},
+            data:{kode_pp:pp,flag_aktif:1},
             async:false,
-            success:function(res){
-                var result = res.data;    
+            success:function(result){    
                 if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('kode_ta',result.daftar[0].kode_ta,result.daftar[0].nama);
                     }else{
-                        $('#kode_ta').attr('readonly',false);
+                        // $('#kode_ta').attr('readonly',false);
                         $('#kode_ta').css('border-left','1px solid #d7d7d7');
                         $('#kode_ta').val('');
                         $('#kode_ta').focus();
@@ -1242,11 +1239,11 @@
         getPP(par);
     });
     
-    $('#form-tambah').on('change', '#kode_ta', function(){
-        var par = $(this).val();
-        var pp = $('#kode_pp').val();
-        getTA(par,pp);
-    });
+    // $('#form-tambah').on('change', '#kode_ta', function(){
+    //     var par = $(this).val();
+    //     var pp = $('#kode_pp').val();
+    //     getTA(par,pp);
+    // });
     
     $('#form-tambah').on('change', '#kode_jur', function(){
         var par = $(this).val();
@@ -1629,6 +1626,7 @@
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
+                            getTA();
                         }
                         msgDialog({
                             id:result.data.kode_kkm,
@@ -1908,11 +1906,8 @@
                     $('#kode_pp').val(result.data[0].kode_pp);
                     $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_jur').val(result.data[0].kode_jur);
-                    $('#label_kode_jur').val(result.data[0].nama_jur);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
-                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     var input = "";
                     $('#input-kkm tbody').html('');
