@@ -326,7 +326,7 @@
                         <div class="form-group row">
                             <label for="dokumen" class="col-md-2 col-sm-12 col-form-label">No Dokumen</label>
                             <div class="col-md-5 col-sm-12">
-                                <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" readonly>
+                                <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -469,76 +469,6 @@
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dokumen" ></span></a>
                                 </div>
                                 <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <style>
-                                        th{
-                                            vertical-align:middle !important;
-                                        }
-                                        /* #input-grid td{
-                                            padding:0 !important;
-                                        } */
-                                        #input-grid-dokumen .selectize-input.focus, #input-grid-dokumen input.form-control, #input-grid-dokumen .custom-file-label
-                                        {
-                                            border:1px solid black !important;
-                                            border-radius:0 !important;
-                                        }
-
-                                        #input-grid-dokumen .selectize-input
-                                        {
-                                            border-radius:0 !important;
-                                        } 
-                                        
-                                        .modal-header .close {
-                                            padding: 1rem;
-                                            margin: -1rem 0 -1rem auto;
-                                        }
-                                        .check-item{
-                                            cursor:pointer;
-                                        }
-                                        .selected{
-                                            cursor:pointer;
-                                            /* background:#4286f5 !important; */
-                                            /* color:white; */
-                                        }
-                                        #input-grid-dokumen td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                        {
-                                            /* background: var(--theme-color-6) !important;
-                                            color:white; */
-                                            background:#f8f8f8;
-                                            color:black;
-                                        }
-                                        #input-grid-dokumen input:hover,
-                                        #input-grid-dokumen .selectize-input:hover,
-                                        {
-                                            width:inherit;
-                                        }
-                                        #input-grid-dokumen ul.typeahead.dropdown-menu
-                                        {
-                                            width:max-content !important;
-                                        }
-                                        #input-grid-dokumen td
-                                        {
-                                            overflow:hidden !important;
-                                            height:37.2px !important;
-                                            padding:0px !important;
-                                        }
-
-                                        #input-grid-dokumen span
-                                        {
-                                            padding:0px 10px !important;
-                                        }
-
-                                        #input-grid-dokumen input,#input-grid-dokumen .selectize-input
-                                        {
-                                            overflow:hidden !important;
-                                            height:35px !important;
-                                        }
-
-
-                                        #input-grid-dokumen td:nth-child(4)
-                                        {
-                                            overflow:unset !important;
-                                        }
-                                    </style>
                                     <table class="table table-bordered table-condensed gridexample" id="input-grid-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
@@ -551,7 +481,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     </table>
-                                    <a type="button" href="#" data-id="0" title="add-row-dokumen" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    <a type="button" href="#" data-id="0" title="add-row-dokumen" class="add-row-dokumen btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-grid-catatan" role="tabpanel">
@@ -769,6 +699,7 @@
     var selectModul= $('#inp-filter_modul').selectize();
     var selectModulForm = $('#modul').selectize();
     var $dtKlpBarang = [];
+    var kelBarang = [];
 
     $.ajaxSetup({
         headers: {
@@ -837,6 +768,11 @@
     function hitungTotalRowBarang(){
         var total_row = $('#input-grid-barang tbody tr').length;
         $('#total-row-barang').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowDokumen(){
+        var total_row = $('#input-grid-dokumen tbody tr').length;
+        $('#total-row-dokumen').html(total_row+' Baris');
     }
 
     function hitungTotalRowDokumen(){
@@ -1066,6 +1002,21 @@
         hitungTotalRowBarang();
     }
 
+    function addRowGridUpload() {
+        var no=$('#input-grid-dokumen .row-grid:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-upload'>";
+        input += "<td class='no-upload text-center'>"+no+"</td>";
+        input += "<td class='text-center'><a class='hapus-item' title='Hapus' style='cursor:pointer; font-size=18px;'><i class='simple-icon-trash'></i></a>&nbsp;&nbsp;</td>";
+        input += "<td><input type='text' name='nama_file[]' value='-' class='form-control inp-file_dok'></td>";
+        input += "<td><span>-</span><input type='hidden' name='nama_dok[]' value='-' class='inp-file_dok' readonly></td>";
+        input += "<td><input type='file' name='file_dok[]' class='inp-file_dok'></td>";
+        input += "</tr>";
+        $('#input-grid-dokumen tbody').append(input);
+        hitungTotalRowDokumen();
+    }
+
     function openFilter() {
         var element = $('#mySidepanel');
             
@@ -1161,6 +1112,11 @@
                 }
             }
         });
+    }
+
+    function getOneKlpBarang(id) {
+        var filter = $dtKlpBarang.filter(data => data.id == id);
+        return filter[0];
     }
 
     function getPP(kode){
@@ -1330,6 +1286,9 @@
     });
     $('#form-tambah').on('click', '.add-row-barang', function(){
         addRowGridBarang();
+    });
+    $('#form-tambah').on('click', '.add-row-dokumen', function(){
+        addRowGridUpload();
     });
     $('#input-grid-barang tbody').on('click', 'tr', function(){
         $(this).addClass('selected-row');
@@ -1896,22 +1855,34 @@
         ignore: [],
         rules: 
         {
-            kode_role:{
+            tanggal:{
                 required: true,   
             },
-            nama:{
-                required: true,   
-            },
-            modul:{
+            waktu:{
                 required: true,   
             },
             kode_pp:{
                 required: true,   
             },
-            atas:{
+            kode_kota:{
                 required: true,   
             },
-            bawah:{
+            no_dokumen:{
+                required: true,   
+            },
+            kegiatan:{
+                required: true,   
+            },
+            dasar:{
+                required: true,   
+            },
+            pic:{
+                required: true,   
+            },
+            nik_ver:{
+                required: true,   
+            },
+            total:{
                 required: true,   
             },
         },
@@ -1920,11 +1891,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode').val();
             if(parameter == "edit"){
-                var url = "{{ url('apv/role') }}/"+id;
+                var url = "{{ url('apv/juskeb') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('apv/role') }}";
+                var url = "{{ url('apv/juskeb') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -1945,19 +1916,21 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-                        $('#input-grid tbody').empty();
+                        $('#input-grid-barang tbody').empty();
+                        $('#input-grid-dokumen tbody').empty();
+                        $('#input-grid-catatan tbody').empty();
                         dataTable.ajax.reload();
                         var kode = $('#kode').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Role');
+                        $('#judul-form').html('Tambah Data Pengajuan');
                         $('#method').val('post');
                         $('#kode').attr('readonly', false);
                         $('input[data-input="cbbl"]').val('');
                         $('[id^=label]').html('');
-                        addRowDefault();
+                        addRowGridBarang();
                         msgDialog({
                             id:kode,
                             type:'simpan'
@@ -2009,46 +1982,56 @@
         $('#judul-form').html('Edit Data Role');
         $.ajax({
             type: 'GET',
-            url: "{{ url('apv/role') }}/" + id,
+            url: "{{ url('apv/juskeb') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#kode').attr('readonly', true);
-                    $('#kode').val(id);
+                    $('#method').val('post');
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#atas').val(parseFloat(result.data[0].atas));
-                    $('#bawah').val(parseFloat(result.data[0].bawah));
-                    $('#modul')[0].selectize.setValue(result.data[0].modul);
+                    $('#tanggal').val(reverseDateNew(result.data[0].tanggal,'-','/'));
+                    $('#waktu').val(reverseDateNew(result.data[0].waktu,'-','/'));
                     getPP(result.data[0].kode_pp);
-                    if(result.data2.length > 0) {
+                    getKota(result.data[0].kode_kota, result.data[0].kode_pp);
+                    getNIK(result.data[0].nik_ver);
+                    $('#no_dokumen').val(result.data[0].no_dokumen);
+                    $('#kegiatan').val(result.data[0].kegiatan);
+                    $('#dasar').val(result.data[0].dasar);
+                    $('#pic').val(result.data[0].pemakai);
+                    $('#total').val(parseFloat(result.data[0].nilai));
+                    if(result.data_detail.length > 0) {
                         var input = "";  
                         var no = 1;
-                        for(var i=0;i<result.data2.length;i++) {
-                            var data = result.data2[i];
+                        for(var i=0;i<result.data_detail.length;i++) {
+                            var data = result.data_detail[i];
+                            var barang = getOneKlpBarang(result.data_detail[0].barang_klp); 
                             input += "<tr class='row-grid'>";
                             input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td><span class='td-kode tdjabatanke"+no+" tooltip-span'>"+data.kode_role+"</span><input autocomplete='off' type='text' name='kode_jab[]' class='form-control inp-kode jabatanke"+no+" hidden' value='"+data.kode_role+"' required='' style='z-index: 1;position: relative;'  id='jabatankode"+no+"'><a href='#' class='search-item search-jabatan hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama tdnmjabatanke"+no+" tooltip-span'>"+data.kode_role+"</span><input autocomplete='off' type='text' name='nama_jab[]' class='form-control inp-nama nmjabatanke"+no+" hidden'  value='"+data.kode_role+"' readonly></td>";
+                            input += "<td><span class='td-kode tdbarangke"+no+" tooltip-span'>"+data.barang_klp+"</span><input autocomplete='off' type='text' name='barang_klp[]' class='form-control inp-kode barangke"+no+" hidden' value='"+data.barang_klp+"' required='' style='z-index: 1;position: relative;'  id='barangkode"+no+"'><a href='#' class='search-item search-barang hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama tdnmbarangke"+no+" tooltip-span'>"+barang.name+"</span><input autocomplete='off' type='text' name='barang_nama[]' class='form-control inp-nama nmbarangke"+no+" hidden'  value='"+barang.name+"' readonly></td>";
+                            input += "<td><span class='td-desk tddeskke"+no+" tooltip-span'>"+data.barang+"</span><input autocomplete='off' type='text' name='barang[]' class='form-control inp-desk deskke"+no+" hidden'  value='"+data.barang+"' required></td>";
+                            input += "<td class='text-right'><span class='td-harga tdhrgke"+no+" tooltip-span'>"+toRp(parseFloat(data.harga))+"</span><input autocomplete='off' type='text' name='harga[]' class='form-control inp-harga hargake"+no+" hidden'  value='"+toRp(parseFloat(data.harga))+"' required></td>";
+                            input += "<td class='text-right'><span class='td-qty tdqtyke"+no+" tooltip-span'>"+toRp(parseFloat(data.jumlah))+"</span><input autocomplete='off' type='text' name='qty[]' class='form-control inp-qty qtyke"+no+" hidden'  value='"+toRp(parseFloat(data.jumlah))+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilaike"+no+" tooltip-span'>"+toRp(parseFloat(data.nilai))+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilaike"+no+" hidden'  value='"+toRp(parseFloat(data.nilai))+"' required readonly></td>";
+                            input += "<td class='text-right'><span class='td-ppn tdppnke"+no+" tooltip-span'>"+toRp(parseFloat(data.ppn))+"</span><input autocomplete='off' type='text' name='ppn[]' class='form-control inp-ppn ppnke"+no+" hidden'  value='"+toRp(parseFloat(data.ppn))+"' required></td>";
+                            input += "<td class='text-right'><span class='td-grand tdgrandke"+no+" tooltip-span'>"+toRp(parseFloat(data.grand_total))+"</span><input autocomplete='off' type='text' name='grand_total[]' class='form-control inp-grand grandke"+no+" hidden'  value='"+toRp(parseFloat(data.grand_total))+"' required readonly></td>";
                             input += "</tr>";
 
                             no++;   
                         }
-                        $('#input-grid tbody').html(input);
+                        $('#input-grid-barang tbody').html(input);
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
                             }
                         });
                         var no = 1;
-                        for(var i=0;i<result.data2.length;i++) {
-                            $('#jabatankode'+no).typeahead({
-                                source:$dtJabatan,
+                        for(var i=0;i<result.data_detail.length;i++) {
+                             $('#barangkode'+no).typeahead({
+                                source:$dtKlpBarang,
                                 displayText:function(item){
                                     return item.id+' - '+item.name;
                                 },
@@ -2059,6 +2042,46 @@
                                 afterSelect: function (item) {
                                     console.log(item.id);
                                 }
+                            });
+                            $('.hargake'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.qtyke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.nilaike'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.ppnke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            $('.grandke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
                             });
                             no++;
                         }
@@ -2077,7 +2100,7 @@
 
     // PREVIEW saat klik di list data //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 5){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var html = `<tr>
@@ -2196,18 +2219,18 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('apv/role') }}/"+id,
+            url: "{{ url('apv/juskeb') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Role ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Pengajuan ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('silo-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
