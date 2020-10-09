@@ -649,18 +649,15 @@
                     </div>
                     <div class="modal-body" style="border:none">
                         <div class="form-group row">
-                            <label>Regional</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
-                                <option value=''>--- Pilih Regional ---</option>
+                            <label>No Bukti</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_bukti" id="inp-filter_bukti">
+                                <option value=''>--- Pilih No Bukti ---</option>
                             </select>
                         </div>
                         <div class="form-group row">
-                            <label>Modul</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_modul" id="inp-filter_modul">
-                                <option value=''>--- Pilih Modul ---</option>
-                                <option value='Justifikasi Kebutuhan'>Justifikasi Kebutuhan</option>
-                                <option value='Justifikasi Pengadaan'>Justifikasi Pengadaan</option>
-                                <option value='Verifikasi'>Verifikasi</option>
+                            <label>Regional</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
+                                <option value=''>--- Pilih Regional ---</option>
                             </select>
                         </div>
                     </div>
@@ -696,8 +693,7 @@
     var userPP = "{{ Session::get('kodePP') }}";
     var $iconLoad = $('.preloader');
     var selectRegional = $('#inp-filter_regional').selectize();
-    var selectModul= $('#inp-filter_modul').selectize();
-    var selectModulForm = $('#modul').selectize();
+    var selectBukti = $('#inp-filter_bukti').selectize();
     var $dtKlpBarang = [];
     var kelBarang = [];
 
@@ -1085,7 +1081,27 @@
                     var control = select.selectize;
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
                         for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
+                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].nama}]);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getBuktiFilter() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/juskeb') }}",
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.status){
+                    var select = selectBukti[0];
+                    var control = select.selectize;
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].no_bukti + ' - ' + result.daftar[i].no_bukti, value:result.daftar[i].no_bukti}]);
                         }
                     }
                 }
@@ -1261,6 +1277,8 @@
     }
 
     getKlpBarang();
+    getPPFilter();
+    getBuktiFilter();
     jumFilter();
     // END FUNCTION GET DATA //
     // EVENT CHANGE //
@@ -2295,23 +2313,23 @@
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 var kode_pp = $('#inp-filter_regional').val();
-                var modul = $('#inp-filter_modul').val();
-                var col_kode_pp = data[1];
-                var col_modul = data[5];
-                if(kode_pp != "" && modul != ""){
-                    if(kode_pp == col_kode_pp && modul == col_modul){
+                var bukti = $('#inp-filter_bukti').val();
+                var col_kode_pp = data[2];
+                var col_bukti = data[0];
+                if(kode_pp != "" && bukti != ""){
+                    if(kode_pp == col_kode_pp && bukti == col_bukti){
                         return true;
                     }else{
                         return false;
                     }
-                }else if(kode_pp != "" && modul == ""){
+                }else if(kode_pp != "" && bukti == ""){
                     if(kode_pp == col_kode_pp) {
                         return true;
                     } else {
                         return false;
                     }
-                }else if(kode_pp == "" && modul != ""){
-                    if(modul == col_modul) {
+                }else if(kode_pp == "" && bukti != ""){
+                    if(bukti == col_bukti) {
                         return true;
                     } else {
                         return false;
@@ -2329,7 +2347,7 @@
     $('#btn-reset').click(function(e){
         e.preventDefault();
         $('#inp-filter_regional')[0].selectize.setValue('');
-        $('#inp-filter_modul')[0].selectize.setValue('');
+        $('#inp-filter_bukti')[0].selectize.setValue('');
         jumFilter();
     });
         
