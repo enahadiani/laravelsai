@@ -332,7 +332,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                                     <span class="info-name_kode_pp hidden">
                                                         <span></span> 
                                                     </span>
@@ -352,7 +352,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
+                                                    <input type="text" class="form-control input-label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
                                                     <span class="info-name_kode_ta hidden">
                                                         <span></span> 
                                                     </span>
@@ -373,7 +373,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_matpel" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
                                                     <span class="info-name_kode_matpel hidden">
                                                         <span></span> 
                                                     </span>
@@ -393,7 +393,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_kelas" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
                                                     <span class="info-name_kode_kelas hidden">
                                                         <span></span> 
                                                     </span>
@@ -464,7 +464,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Matpel Khusus <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span><span id="modal-preview-ref" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Matpel Khusus <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span><span id="modal-preview-ref" style="display:none"></span><span id="modal-preview-ref2" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -767,7 +767,7 @@
         $('.input-group-prepend').addClass('hidden');
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
-        $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
@@ -860,7 +860,7 @@
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/kelas-khusus') }}";
+                var toUrl = "{{ url('sekolah-master/kelas') }}";
                 var columns = [
                     { data: 'kode_kelas' },
                     { data: 'nama' }
@@ -1070,7 +1070,7 @@
         kode_pp = $('#kode_pp').val();
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-master/kelas-khusus') }}",
+            url: "{{ url('/sekolah-master/kelas') }}",
             dataType: 'json',
             data:{kode_pp : kode_pp, kode_kelas: kode},
             async:false,
@@ -1245,6 +1245,7 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
+        getTA(par);
     });
     
     $('#form-tambah').on('change', '#nik_guru', function(){
@@ -1255,10 +1256,7 @@
     
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        showFilter(par);
     });
     
     // END CBBL
@@ -1611,16 +1609,16 @@
                         $('.input-group-prepend').addClass('hidden');
                         $('span[class^=info-name]').addClass('hidden');
                         $('.info-icon-hapus').addClass('hidden');
-                        $('.form-group > .input-group > input ').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                        $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
                         }
                         msgDialog({
-                            id:result.data.nik_guru,
+                            id:result.data.kode_matpel,
                             type:'simpan'
                         });
-                        last_add("nik_guru",result.data.nik_guru);
+                        last_add("kode_matpel",result.data.kode_matpel);
                         
                         
                     }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -1661,7 +1659,7 @@
                 if(result.data.status){
                     dataTable.ajax.reload(); 
                     $('#btn-tampil').click();                       
-                    showNotification("top", "center", "success",'Hapus Data','Data Siswa Matpel Khusus ('+param.nik_guru+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Siswa Matpel Khusus ('+param.kode_matpel+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -1693,6 +1691,15 @@
         });
     });
     
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
     // END DELETE
 
     // BUTTON EDIT
@@ -1856,8 +1863,8 @@
         var kode_ta = $('#modal-preview-ref2').text();
         $('#modal-preview').modal('hide');
         msgDialog({
-            id:id,
-            param:{kode_kelas:kode_kelas,kode_pp:kode_pp,kode_matpel:matpel,kode_ta:kode_ta},
+            id:kode_matpel,
+            param:{kode_kelas:kode_kelas,kode_pp:kode_pp,kode_matpel:kode_matpel,kode_ta:kode_ta},
             type:'hapus'
         });
     });
@@ -1875,7 +1882,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/sis-matpel-khusus-detail') }}",
             dataType: 'json',
-            data:{kode_kelas:kode_kelas,kode_pp:kode_pp,kode_matpel:matpel,kode_ta:kode_ta},
+            data:{kode_kelas:kode_kelas,kode_pp:kode_pp,kode_matpel:kode_matpel,kode_ta:kode_ta},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -1913,6 +1920,7 @@
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
                     showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama_ta);
                     showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);

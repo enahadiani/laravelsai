@@ -371,7 +371,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                                     <span class="info-name_kode_pp hidden">
                                                         <span></span> 
                                                     </span>
@@ -391,7 +391,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
+                                                    <input type="text" class="form-control input-label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
                                                     <span class="info-name_kode_ta hidden">
                                                         <span></span> 
                                                     </span>

@@ -52,7 +52,8 @@
         public function store(Request $request) {
             $this->validate($request, [
                 'kode_pp' => 'required',
-                'nik_guru' => 'required',
+                'kode_ta' => 'required',
+                'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'nis'=>'required|array'
             ]);
@@ -60,9 +61,10 @@
             try{                
                 $fields = array (
                     'kode_pp' => $request->kode_pp,
-                    'nik_guru' => $request->nik_guru,
-                    'flag_aktif' => 1,
+                    'kode_ta' => $request->kode_ta,
                     'kode_matpel' => $request->kode_matpel,
+                    'kode_kelas' => $request->kode_kelas,
+                    // 'flag_aktif' => 1,
                     'nis' => $request->nis
                   );
     
@@ -101,9 +103,10 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'nik_guru' => $request->nik_guru,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas
                     ]
                 ]);
         
@@ -133,9 +136,10 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'nik_guru' => $request->nik_guru,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas
                     ]
                 ]);
         
@@ -159,7 +163,8 @@
         {
             $this->validate($request, [
                 'kode_pp' => 'required',
-                'nik_guru' => 'required',
+                'kode_ta' => 'required',
+                'kode_kelas' => 'required',
                 // 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
                 'nis'=>'required|array'
@@ -168,8 +173,9 @@
             try{
                 $fields = array (
                     'kode_pp' => $request->kode_pp,
-                    'nik_guru' => $request->nik_guru,
-                    'flag_aktif' => 1,
+                    'kode_ta' => $request->kode_ta,
+                    'kode_kelas' => $request->kode_kelas,
+                    // 'flag_aktif' => 1,
                     'kode_matpel' => $request->kode_matpel,
                     'nis' => $request->nis
                   );
