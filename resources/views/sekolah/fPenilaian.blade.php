@@ -344,15 +344,15 @@
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
-                <div class="card" style='border:none !important;box-shadow:none !important'>
+                <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator"></div>
-                    <div class="card-body form-body" style='background:#f8f8f8;box-shadow:none !important;border:0 !important;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
-                        <div class="card" style='box-shadow:none !important;border:0 !important;border-radius:0'>
+                    <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='border-radius:0'>
                             <div class="card-body">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <div class="form-group row" id="row-id">
@@ -370,7 +370,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                                     <span class="info-name_kode_pp hidden">
                                                         <span></span> 
                                                     </span>
@@ -413,7 +413,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_kelas" readonly="readonly" title=""></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
+                                                    <input type="text" class="form-control inp-label-kode_kelas" id="kode_kelas" name="kode_kelas" value="" title="">
                                                     <span class="info-name_kode_kelas hidden">
                                                         <span></span> 
                                                     </span>
@@ -430,7 +430,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_matpel" readonly="readonly" title=""></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                                    <input type="text" class="form-control inp-label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
                                                     <span class="info-name_kode_matpel hidden">
                                                         <span></span> 
                                                     </span>
@@ -450,7 +450,7 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
                                                     </div>
-                                                    <input type="text" class="form-control label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
+                                                    <input type="text" class="form-control inp-label-kode_jenis"  id="kode_jenis" name="kode_jenis" value="" title="">
                                                     <span class="info-name_kode_jenis hidden">
                                                         <span></span> 
                                                     </span>
@@ -494,7 +494,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mt-3" style='box-shadow:none !important;border:0 !important;border-top-left-radius:0;border-top-right-radius:0'>
+                        <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
                             <div class="card-body">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-nilai" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Nilai</span></a> </li>
@@ -1421,7 +1421,7 @@
         $('.input-group-prepend').addClass('hidden');
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
-        $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
@@ -1750,7 +1750,7 @@
                             $('.input-group-prepend').addClass('hidden');
                             $('span[class^=info-name]').addClass('hidden');
                             $('.info-icon-hapus').addClass('hidden');
-                            $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+                            $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
                                 $('#kode_pp').trigger('change');

@@ -348,137 +348,145 @@
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="separator mb-2"></div>
+                    <div class="separator"></div>
                     <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
-                                <input type="hidden" id="method" name="_method" value="post">
-                                <input class="form-control" type="text" id="kode_kkm" name="kode_kkm" readonly hidden>
+                    <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='border-radius:0'>
+                            <div class="card-body">
+                                <div class="form-group row" id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                        <input type="hidden" id="method" name="_method" value="post">
+                                        <input class="form-control" type="text" id="kode_kkm" name="kode_kkm" readonly hidden>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_pp">PP</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <span class="info-name_kode_pp hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_ta">Tahun Ajaran</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
+                                                    <span class="info-name_kode_ta hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
+                                                    <i class="simple-icon-magnifier search-item2 hidden" id="search_kode_ta"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_jur">Jurusan</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_jur" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_jur" id="kode_jur" name="kode_jur" value="" title="">
+                                                    <span class="info-name_kode_jur hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_jur"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_tingkat">Tingkat</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_tingkat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_tingkat" id="kode_tingkat" name="kode_tingkat" value="" title="">
+                                                    <span class="info-name_kode_tingkat hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_tingkat"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="flag_aktif">Status</label>
+                                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                                <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                                <option value='1'>Aktif</option>
+                                                <option value='0'>Non Aktif</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="kode_pp">PP</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                            <span class="info-name_kode_pp hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                        <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kkm" role="tab" aria-selected="true"><span class="hidden-xs-down">Data KKM</span></a> </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0 mb-2">
+                                    <div class="tab-pane active" id="data-kkm" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-kkm" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                                <thead style="background:#F8F8F8">
+                                                    <tr>
+                                                        <th style="width:3%">No</th>
+                                                        <th style="width:10%">Kode Matpel</th>
+                                                        <th style="width:32%">Nama Matpel</th>
+                                                        <th style="width:20%">KKM</th>
+                                                        <th style="width:5%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 col-sm-12">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="kode_ta">Tahun Ajaran</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
-                                            <span class="info-name_kode_ta hidden">
-                                                <span></span> 
-                                            </span>
-                                            <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
-                                            <i class="simple-icon-magnifier search-item2 hidden" id="search_kode_ta"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="kode_jur">Jurusan</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_jur" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control label-kode_jur" id="kode_jur" name="kode_jur" value="" title="">
-                                            <span class="info-name_kode_jur hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jur"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="kode_tingkat">Tingkat</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_tingkat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control label-kode_tingkat" id="kode_tingkat" name="kode_tingkat" value="" title="">
-                                            <span class="info-name_kode_tingkat hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_tingkat"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="flag_aktif">Status</label>
-                                        <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled>--- Pilih Status Aktif ---</option>
-                                        <option value='1'>Aktif</option>
-                                        <option value='0'>Non Aktif</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kkm" role="tab" aria-selected="true"><span class="hidden-xs-down">Data KKM</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0 mb-2">
-                            <div class="tab-pane active" id="data-kkm" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
-                                </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-kkm" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                        <thead style="background:#F8F8F8">
-                                            <tr>
-                                                <th style="width:3%">No</th>
-                                                <th style="width:10%">Kode Matpel</th>
-                                                <th style="width:32%">Nama Matpel</th>
-                                                <th style="width:20%">KKM</th>
-                                                <th style="width:5%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
                         </div>
@@ -806,7 +814,7 @@
         $('.input-group-prepend').addClass('hidden');
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
-        $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
@@ -1624,7 +1632,7 @@
                         $('.input-group-prepend').addClass('hidden');
                         $('span[class^=info-name]').addClass('hidden');
                         $('.info-icon-hapus').addClass('hidden');
-                        $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+                        $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
