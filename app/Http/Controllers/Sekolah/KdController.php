@@ -47,7 +47,8 @@
                         'kode_matpel'     => $request->kode_matpel,
                         'kode_tingkat'     => $request->kode_tingkat,
                         'kode_kd'     => $request->kode_kd,
-                        'kode_sem' => $request->kode_sem
+                        'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
     
@@ -79,7 +80,8 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
                         'kode_pp' => $request->kode_pp,
-                        'kode_sem' => $request->kode_sem
+                        'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
     
@@ -106,6 +108,7 @@
                 'kode_tingkat' => 'required',
                 'kode_sem' => 'required',
                 'kode_pp' => 'required',
+                'kode_ta' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
             ]);
@@ -122,6 +125,7 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
                         'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -150,6 +154,8 @@
                 'kode_matpel' => 'required',
                 'kode_tingkat' => 'required',
                 'kode_sem' => 'required',
+                'kode_tingkat' => 'required',
+                'kode_ta' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
                 'nama' => 'array'
@@ -173,6 +179,7 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
                         'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
                         'nama' => $request->nama
@@ -206,6 +213,7 @@
                         'kode_matpel' => $request->kode_matpel,
                         'kode_tingkat' => $request->kode_tingkat,
                         'kode_sem' => $request->kode_sem,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp
                     ]
 
