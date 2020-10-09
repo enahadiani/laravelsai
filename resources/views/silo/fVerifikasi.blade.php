@@ -1,903 +1,693 @@
-<style>
-.form-group{
-    margin-bottom:15px !important;
-}
-</style>
-    <div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
-            <div class="col-12">
-                <div class="card" style="min-height:560px">
-                    <div class="card-body">    
-                        <h4 class="card-title">Data Verifikasi Justifikasi Kebutuhan
-                        </h4>
-                        <hr>
-                        <div class="table-responsive ">
-                            <table id="table-aju" class="table table-bordered table-striped" style='width:100%'>
-                                <thead>
-                                    <tr>
-                                        <th>No Bukti</th>
-                                        <th>No Dokumen</th>
-                                        <th>Regional</th>
-                                        <th>Waktu</th>
-                                        <th>Kegiatan</th>
-                                        <th>Dasar</th>
-                                        <th>Nilai</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                
-                                </tbody>
-                            </table>
+{{-- Referensi folder sekolah form fSiswa --}}
+    <!-- STYLE TAMBAHAN -->
+    <style>
+        th,td{
+            padding:8px !important;
+            vertical-align:middle !important;
+        }
+        .search-item2{
+            cursor:pointer;
+        }
+
+        input.error{
+            border:1px solid #dc3545;
+        }
+        label.error{
+            color:#dc3545;
+            margin:0;
+        }
+        #table-data_paginate,#table-search_paginate
+        {
+            margin-top:0 !important;
+        }
+
+        #table-data_paginate ul,#table-search_paginate ul
+        {
+            float:right;
+        }
+
+        .form-body 
+        {
+            position: relative;
+            overflow: auto;
+        }
+
+        #content-delete
+        {
+            position: relative;
+            overflow: auto;
+        }
+        .hidden{
+            display:none;
+        }
+
+        .datetime-reset-button {
+            margin-right: 20px !important;
+            margin-top: 3px !important;
+        }
+        #table-search
+        {
+            border-collapse:collapse !important;
+        }
+
+        #table-search_filter label, #table-search_filter input
+        {
+            width:100%;
+        }
+
+        .dataTables_wrapper .paginate_button.previous {
+        margin-right: 0px; }
+
+        .dataTables_wrapper .paginate_button.next {
+        margin-left: 0px; }
+
+        div.dataTables_wrapper div.dataTables_paginate {
+        margin-top: 25px; }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center; }
+
+        .dataTables_wrapper .paginate_button.page-item {
+        padding-left: 5px;
+        padding-right: 5px; }
+        .px-0{
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+        }
+
+        #table-data_filter label
+        {
+            width:100%;
+        }
+        #table-data_filter label input
+        {
+            width:inherit;
+        }
+        
+        #searchData
+        {
+            font-size: .75rem;
+            height: 31px;
+        }
+        .dropdown-toggle::after {
+            display:none;
+        }
+        .dropdown-aksi > .dropdown-item{
+            font-size : 0.7rem;
+        }
+
+        .btn-light2{
+            background:#F8F8F8;
+            color:#D4D4D4;
+        }
+
+        .btn-light2:hover{
+            color:#131113;
+        }
+
+        .btn-light2:active{
+            color: #131113;
+            background-color: #d8d8d8;
+        }
+
+        .custom-file-label::after{
+            content:"Cari berkas" !important;
+            border-left:0;
+            color: var(--theme-color-1) !important;
+        }
+        .focus{
+            /* border:none !important; */
+            box-shadow:none !important;
+        }
+        .last-add::before{
+            content: "***";
+            background: var(--theme-color-1);
+            border-radius: 50%;
+            font-size: 3px;
+            position: relative;
+            top: -2px;
+            left: -5px;
+        }
+
+        th{
+            vertical-align:middle !important;
+        }
+        /* #input-param td{
+            padding:0 !important;
+        } */
+        #input-param .selectize-input.focus, #input-param input.form-control, #input-param .custom-file-label
+        {
+            border:1px solid black !important;
+            border-radius:0 !important;
+        }
+
+        #input-param .selectize-input
+        {
+            border-radius:0 !important;
+        } 
+
+        .modal-header .close {
+            padding: 1rem;
+            margin: -1rem 0 -1rem auto;
+        }
+        .check-item{
+            cursor:pointer;
+        }
+        .selected{
+            cursor:pointer;
+            /* background:#4286f5 !important; */
+            /* color:white; */
+        }
+        #input-param td:not(:nth-child(1)):not(:nth-child(9)):hover
+        {
+            /* background: var(--theme-color-6) !important;
+            color:white; */
+            background:#f8f8f8;
+            color:black;
+        }
+        #input-param input:hover,
+        #input-param .selectize-input:hover,
+        {
+            width:inherit;
+        }
+        #input-param ul.typeahead.dropdown-menu
+        {
+            width:max-content !important;
+        }
+        #input-param td
+        {
+            /* overflow:hidden !important; */
+            height:37.2px !important;
+            padding:0px !important;
+        }
+
+        #input-param span
+        {
+            padding:0px 10px !important;
+        }
+
+        .btn-light2{
+            background:#F8F8F8;
+            color:#D4D4D4;
+        }
+
+        .btn-light2:hover{
+            color:#131113;
+        }
+
+        .btn-light2:active{
+            color: #131113;
+            background-color: #d8d8d8;
+        }
+
+        /* #input-param input,#input-param .selectize-input
+        {
+            overflow:hidden !important;
+            height:35px !important;
+        } */
+
+        /* #input-param td:nth-child(4)
+        {
+            overflow:unset !important;
+        } */
+    </style>
+    <!-- END STYLE -->
+    <!-- LIST DATA -->
+    <div class="row" id="saku-datatable">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
+                    <h5 style="position:absolute;top: 25px;">Data Pengajuan</h5>
+                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
+                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
+                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
+                        <div class="page-countdata">
+                            <label>Menampilkan 
+                            <select style="border:none" id="page-count">
+                                <option value="10">10 per halaman</option>
+                                <option value="25">25 per halaman</option>
+                                <option value="50">50 per halaman</option>
+                                <option value="100">100 per halaman</option>
+                            </select>
+                            </label>
                         </div>
+                    </div>
+                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Search..."
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
+                            <div class="input-group-append" id="filter-btn">
+                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="min-height: 560px !important;padding-top:0;">                    
+                    <div class="table-responsive ">
+                        <table id="table-data" style='width:100%'>                                    
+                            <thead>
+                                <tr>
+                                    <th>No Bukti</th>
+                                    <th>No Dokumen</th>
+                                    <th>Regional</th>
+                                    <th class="th-remove">Waktu</th>
+                                    <th class="th-remove">Kegiatan</th>
+                                    <th class="th-remove">Posisi</th>
+                                    <th>Nilai Pengadaan</th>
+                                    <th>Nilai Finish</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- END LIST DATA -->
+    <!-- FORM  -->
+    <form id="form-tambah" class="tooltip-label-right" novalidate>
         <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
-                    <form class="form" id="form-tambah">
-                        <div class="card-body pb-0 title-form">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Verifikasi Justifikasi Kebutuhan
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                            </h4>
-                            <hr>
-                        </div>
-                        <div class="card-body table-responsive pt-0 body-form">
-                            <div class="form-group row mt-2">
-                                <label for="nama" class="col-3 col-form-label">Tanggal</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Status</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="status" name="status" required>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Keterangan</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">No Aju</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="No Pengajuan" id="no_aju" name="no_aju" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                            <label for="nama" class="col-3 col-form-label">Kode Regional</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="kode_pp" name="kode_pp" readonly>
-                                    </select>
-                                    <input class="form-control" type="hidden" id="kode_pp2" name="kode_pp2" readonly>
-                                </div>
-                                <label for="nama" class="col-3 col-form-label">Kode Kota</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" id="kode_kota" name="kode_kota" readonly>
-                                    <input class="form-control" type="hidden" id="kode_divisi" name="kode_divisi" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Waktu</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Kegiatan</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan" name="kegiatan" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Dasar</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Dasar" id="dasar" name="dasar" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Total Barang</label>
-                                <div class="col-3">
-                                    <input class="form-control text-right" type="text"  id="total" name="total" readonly>
-                                </div>
-                            </div>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
-                            </ul>
-                            <div class="tab-content tabcontent-border" style='margin-bottom:10px'>
-                                <div class="tab-pane active" id="det" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-grid2">
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="15%">Kelompok Barang</th>
-                                                <th width="15%">Deskripsi</th>
-                                                <th width="10%">Harga</th>
-                                                <th width="7%">Qty</th>
-                                                <th width="15%">Subtotal</th>
-                                                <th width="10%">PPN</th>
-                                                <th width="20%">Grand Total</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="dok" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-dok">
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="30%">Nama Dokumen</th>
-                                                <th width="20%">Nama File</th>
-                                                <th width="30%">Upload</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="catt" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-histori">
-                                        <thead>
-                                            <tr>
-                                                <th width="5%">No</th>
-                                                <th width="20%">NIK</th>
-                                                <th width="30%">Nama</th>
-                                                <th width="15%">Status</th>
-                                                <th width="30%">Keterangan Approval</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" id="slide-print" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
-                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
+                    <div class="separator mb-2"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body pt-3 form-body">
+                        <div class="form-group row" id="row-id">
+                            <div class="col-9">
+                                <input class="form-control" type="hidden" id="id_edit" name="id_edit">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id" name="id">
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>     
-    
-    <script>
-    
-    setHeightForm();
-    function sepNum(x){
-        var num = parseFloat(x).toFixed(0);
-        var parts = num.toString().split(".");
-        var len = num.toString().length;
-        // parts[1] = parts[1]/(Math.pow(10, len));
-        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,"$1.");
-        return parts.join(",");
-    }
-
-    function toRp(num){
-        if(num < 0){
-            return "("+sepNum(num * -1)+")";
-        }else{
-            return sepNum(num);
-        }
-    }
-
-    function toNilai(str_num){
-        var parts = str_num.split('.');
-        number = parts.join('');
-        number = number.replace('Rp', '');
-        // number = number.replace(',', '.');
-        return +number;
-    }
-
-    function hitungBrg(){
-        $('#total').val(0);
-        total= 0;
-        $('.row-barang').each(function(){
-            var sub = toNilai($(this).closest('tr').find('.inp-grand_total').val());
-            var this_val = sub;
-            total += +this_val;
-            
-            $('#total').val(sepNum(total));
-        });
-    }
-
-    function getNamaBulan(no_bulan){
-        switch (no_bulan){
-            case 1 : case '1' : case '01': bulan = "Januari"; break;
-            case 2 : case '2' : case '02': bulan = "Februari"; break;
-            case 3 : case '3' : case '03': bulan = "Maret"; break;
-            case 4 : case '4' : case '04': bulan = "April"; break;
-            case 5 : case '5' : case '05': bulan = "Mei"; break;
-            case 6 : case '6' : case '06': bulan = "Juni"; break;
-            case 7 : case '7' : case '07': bulan = "Juli"; break;
-            case 8 : case '8' : case '08': bulan = "Agustus"; break;
-            case 9 : case '9' : case '09': bulan = "September"; break;
-            case 10 : case '10' : case '10': bulan = "Oktober"; break;
-            case 11 : case '11' : case '11': bulan = "November"; break;
-            case 12 : case '12' : case '12': bulan = "Desember"; break;
-            default: bulan = null;
-        }
-
-        return bulan;
-    }
-
-    function getStatus(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/verifikasi_status') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                var select = $('#status').selectize();
-                select = select[0];
-                var control = select.selectize;
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].status + ' - ' + result.daftar[i].nama, value:result.daftar[i].status}]);
-                        }
-                        control.setValue('V');
-                    }
-                }
-            }
-        });
-    }
-
-    function getBarangKlp(param,barang_klp=null){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/apv/barang-klp') }}",
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result = res.data;    
-                if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        var select = $('.'+param).selectize();
-                        select = select[0];
-                        var control = select.selectize;
-                        for(i=0;i<result.data.length;i++){
-                            control.addOption([{text:result.data[i].nama, value:result.data[i].kode_barang}]);
-                        }
-                        if(barang_klp != null){
-                            control.setValue(barang_klp);
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    function printLap(id){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/verifikasi_preview') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){ 
-                var result = res.data;
-                if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                       
-                        
-                        var html=`<div class="row">
-                                <div class="col-12" style='text-align:center;margin-bottom:20px'>
-                                    <h3>TANDA TERIMA</h3>
+                        <div class="form-group row ">
+                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal Pengajuan</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{date('d/m/Y')}}">
+                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="waktu" class="col-md-2 col-sm-2 col-form-label">Tanggal Pengajuan</label>
+                            <div class="col-md-3 col-sm-9">
+                                <input class='form-control datepicker' type="text" id="waktu" name="waktu" value="{{date('d/m/Y')}}">
+                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Regional</label>
+                            <div class="col-md-2 col-sm-12" >
+                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" data-input="cbbl" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="kode_kota" class="col-md-2 col-sm-12 col-form-label">Kota</label>
+                            <div class="col-md-2 col-sm-12" >
+                                 <input class="form-control" type="text" id="kode_kota" name="kode_kota" data-input="cbbl" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_kode_kota" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dokumen" class="col-md-2 col-sm-12 col-form-label">No Dokumen</label>
+                            <div class="col-md-5 col-sm-12">
+                                <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kegiatan" class="col-md-2 col-sm-12 col-form-label">Justifikasi Kebutuhan</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Justifikasi Kebutahan" id="kegiatan" name="kegiatan">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dasar" class="col-md-2 col-sm-12 col-form-label">Dasar/Latar Belakang</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="Dasar/Latar Belakang" id="dasar" name="dasar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pic" class="col-md-2 col-sm-12 col-form-label">PIC</label>
+                            <div class="col-md-10 col-sm-12">
+                                <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic">
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="nik_ver" class="col-md-2 col-sm-12 col-form-label">NIK Verifikasi</label>
+                            <div class="col-md-2 col-sm-12" >
+                                 <input class="form-control" type="text" id="nik_ver" name="nik_ver" data-input="cbbl" required>
+                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                            </div>                            
+                            <div class="col-md-2 col-sm-12 px-0" >
+                                <input id="label_nik_ver" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;" readonly/>
+                            </div>
+                        </div>
+                        <div class="form-group row ">
+                            <label for="atas" class="col-md-2 col-sm-12 col-form-label">Total Barang</label>
+                            <div class="col-md-3 col-sm-12">
+                                <input class="form-control currency" type="text" placeholder="Total Barang" id="total" name="total" readonly>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-grid-dokumen" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-grid-catatan" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
+                        </ul>
+                         <div class="tab-content tabcontent-border col-12 p-0">
+                            <div class="tab-pane active" id="data-grid-barang" role="tabpanel">
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-barang" ></span></a>
                                 </div>
-                                <div class="col-12">
-                                    <table class="table no-border" width="100%" id='table-m'>
-                                        <tbody>
-                                            <tr>
-                                                <td width="25">No Bukti</td>
-                                                <td width="75%" >: `+result.data[0].no_bukti+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>No Justifikasi Kebutuhan</td>
-                                                <td>: `+result.data[0].no_juskeb+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tanggal</td>
-                                                <td>: `+result.data[0].tanggal+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>PP</td>
-                                                <td>: `+result.data[0].kode_pp+` - `+result.data[0].nama_pp+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Keterangan</td>
-                                                <td>: `+result.data[0].kegiatan+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nilai</td>
-                                                <td>: `+sepNumX(parseFloat(result.data[0].nilai))+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td height='20px'>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan='2'>Bandung, `+result.data[0].tgl.substr(0,2)+' '+getNamaBulan(result.data[0].tgl.substr(3,2))+' '+result.data[0].tgl.substr(6,4)+`</td>
-                                            </tr>
-                                            <tr>
-                                                <td>DIbuat Oleh:</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Yang Menerima</td>
-                                                <td class='text-center'>Yang Menyetujui</td>
-                                            </tr>
-                                            <tr>
-                                                <td height='80px'>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td class='text-center'>`+result.data[0].nik_user+`</td>
-                                            </tr>
-                                        </tbody>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th{
+                                            vertical-align:middle !important;
+                                        }
+                                        /* #input-grid td{
+                                            padding:0 !important;
+                                        } */
+                                        #input-grid-barang .selectize-input.focus, #input-grid-barang input.form-control, #input-grid-barang .custom-file-label
+                                        {
+                                            border:1px solid black !important;
+                                            border-radius:0 !important;
+                                        }
+
+                                        #input-grid-barang .selectize-input
+                                        {
+                                            border-radius:0 !important;
+                                        } 
+                                        
+                                        .modal-header .close {
+                                            padding: 1rem;
+                                            margin: -1rem 0 -1rem auto;
+                                        }
+                                        .check-item{
+                                            cursor:pointer;
+                                        }
+                                        .selected{
+                                            cursor:pointer;
+                                            /* background:#4286f5 !important; */
+                                            /* color:white; */
+                                        }
+                                        #input-grid-barang td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        {
+                                            /* background: var(--theme-color-6) !important;
+                                            color:white; */
+                                            background:#f8f8f8;
+                                            color:black;
+                                        }
+                                        #input-grid-barang input:hover,
+                                        #input-grid-barang .selectize-input:hover,
+                                        {
+                                            width:inherit;
+                                        }
+                                        #input-grid-barang ul.typeahead.dropdown-menu
+                                        {
+                                            width:max-content !important;
+                                        }
+                                        #input-grid-barang td
+                                        {
+                                            overflow:hidden !important;
+                                            height:37.2px !important;
+                                            padding:0px !important;
+                                        }
+
+                                        #input-grid-barang span
+                                        {
+                                            padding:0px 10px !important;
+                                        }
+
+                                        #input-grid-barang input,#input-grid-barang .selectize-input
+                                        {
+                                            overflow:hidden !important;
+                                            height:35px !important;
+                                        }
+
+
+                                        #input-grid-barang td:nth-child(4)
+                                        {
+                                            overflow:unset !important;
+                                        }
+                                    </style>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:3%"></th>
+                                            <th style="width:7%">Kode</th>
+                                            <th style="width:10%">Nama</th>
+                                            <th style="width:15%">Deskripsi</th>
+                                            <th style="width:12%">Harga</th>
+                                            <th style="width:10%">Qty</th>
+                                            <th style="width:12%">Subtotal</th>
+                                            <th style="width:12%">PPN</th>
+                                            <th style="width:12%">Grand Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row-barang" class="add-row-barang btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-grid-dokumen" role="tabpanel">
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-dokumen" ></span></a>
+                                </div>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-dokumen" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:5%"></th>
+                                            <th style="width:15%">Nama Dokumen</th>
+                                            <th style="width:15%">Nama File Upload</th>
+                                            <th style="width:12%">Upload File</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row-dokumen" class="add-row-dokumen btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-grid-catatan" role="tabpanel">
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-catatan" ></span></a>
+                                </div>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th{
+                                            vertical-align:middle !important;
+                                        }
+                                        /* #input-grid td{
+                                            padding:0 !important;
+                                        } */
+                                        #input-grid-catatan .selectize-input.focus, #input-grid-catatan input.form-control, #input-grid-catatan .custom-file-label
+                                        {
+                                            border:1px solid black !important;
+                                            border-radius:0 !important;
+                                        }
+
+                                        #input-grid-catatan .selectize-input
+                                        {
+                                            border-radius:0 !important;
+                                        } 
+                                        
+                                        .modal-header .close {
+                                            padding: 1rem;
+                                            margin: -1rem 0 -1rem auto;
+                                        }
+                                        .check-item{
+                                            cursor:pointer;
+                                        }
+                                        .selected{
+                                            cursor:pointer;
+                                            /* background:#4286f5 !important; */
+                                            /* color:white; */
+                                        }
+                                        #input-grid-catatan td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        {
+                                            /* background: var(--theme-color-6) !important;
+                                            color:white; */
+                                            background:#f8f8f8;
+                                            color:black;
+                                        }
+                                        #input-grid-catatan input:hover,
+                                        #input-grid-catatan .selectize-input:hover,
+                                        {
+                                            width:inherit;
+                                        }
+                                        #input-grid-catatan ul.typeahead.dropdown-menu
+                                        {
+                                            width:max-content !important;
+                                        }
+                                        #input-grid-catatan td
+                                        {
+                                            overflow:hidden !important;
+                                            height:37.2px !important;
+                                            padding:0px !important;
+                                        }
+
+                                        #input-grid-catatan span
+                                        {
+                                            padding:0px 10px !important;
+                                        }
+
+                                        #input-grid-catatan input,#input-grid-catatan .selectize-input
+                                        {
+                                            overflow:hidden !important;
+                                            height:35px !important;
+                                        }
+
+
+                                        #input-grid-catatan td:nth-child(4)
+                                        {
+                                            overflow:unset !important;
+                                        }
+                                    </style>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid-catatan" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:3%"></th>
+                                            <th style="width:14%">NIK</th>
+                                            <th style="width:15%">Nama</th>
+                                            <th style="width:8%">Status</th>
+                                            <th style="width:20%">Keterangan Approval</th>
+                                            <th style="width:10%">No App</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
                                     </table>
                                 </div>
-                            </div>`;
-                            $('#print-area').html(html);
-                            $('#slide-print').show();
-                            $('#saku-datatable').hide();
-                            $('#saku-form').hide();
-                    }
-                }
-            }
-        });
-    }
-
-    function getPP(){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/unit') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                var select = $('#kode_pp').selectize();
-                select = select[0];
-                var control = select.selectize;
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    getStatus();
-    getPP();
-
-    
-    var $iconLoad = $('.preloader');
-
-    var action_html = "<a href='#' title='Edit' class='badge badge-info' id='btn-edit'><i class='fas fa-pencil-alt'></i></a>";
-    var dataTable = $('#table-aju').DataTable({
-        // 'processing': true,
-        // 'serverSide': true,
-        'ajax': {
-            'url': "{{ url('apv/verifikasi') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('apv/logout') }}";
-                    })
-                    return [];
-                }  
-            }
-        },
-        'columnDefs': [
-            {   
-                'targets': 7, data: null, 'defaultContent': action_html 
-            },
-            {   'targets': 6, 
-                'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
-            }
-        ],
-        'columns': [
-            { data: 'no_bukti' },
-            { data: 'no_dokumen' },
-            { data: 'nama_pp' },
-            { data: 'waktu' },
-            { data: 'kegiatan' },
-            { data: 'dasar' },
-            { data: 'nilai' }
-        ]
-    });
-
-    $('#slide-print').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#slide-print').hide();
-    });
-
-    $('#saku-datatable').on('click','#btn-print',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
-        printLap(id);
-    });
-
-    $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
-
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('apv/verifikasi') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result = res.data;
-                if(result.status){
-                    // $('#no_bukti').val(result.no_app);
-                    $('#no_aju').val(result.data[0].no_bukti);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
-                    $('#kode_pp')[0].selectize.setValue(result.data[0].kode_pp);
-                    $('#kode_pp')[0].selectize.disable();
-                    $('#kode_pp2').val(result.data[0].kode_pp);
-                    $('#kode_kota').val(result.data[0].kode_kota);
-                    $('#kode_divisi').val(result.data[0].kode_divisi);
-                    $('#waktu').val(result.data[0].waktu);
-                    $('#kegiatan').val(result.data[0].kegiatan);
-                    $('#dasar').val(result.data[0].dasar);
-                    $('#total').val(toRp(result.data[0].nilai));
-                    $('#input-grid2 tbody').html('');
-                    $('#input-dok tbody').html('');
-                    var input="";
-                    var no=1;
-                    if(result.data_detail.length > 0){
-
-                        for(var x=0;x<result.data_detail.length;x++){
-                            var line = result.data_detail[x];
-
-                            input += "<tr class='row-barang'>";
-                            input += "<td class='no-barang'>"+no+"</td>";
-                            input += "<td ><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
-                            input += "<td ><input type='text' name='barang[]' class='form-control inp-brg' value='"+line.barang+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control inp-hrg currency'  value='"+toRp(line.harga)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control inp-qty currency'  value='"+toRp(line.jumlah)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control inp-sub currency' readonly value='"+toRp(line.nilai)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control inp-ppn currency' value='"+toRp(line.ppn)+"' required></td>";
-                            input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control inp-grand_total currency' readonly value='"+toRp(line.grand_total)+"' required></td>";
-                            input += "<td ><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></a></td>";
-                            input += "</tr>";
-                            no++;
-                        }
-                    }
-
-                    var input2 = "";
-                    var no=1;
-                    if(result.data_dokumen.length > 0){
-
-                        for(var i=0;i< result.data_dokumen.length;i++){
-                            var line2 = result.data_dokumen[i];
-                            input2 += "<tr class='row-dok'>";
-                            input2 += "<td width='5%'  class='no-dok'>"+no+"</td>";
-                            input2 += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='"+line2.nama+"' required></td>";
-                            input2 += "<td width='30%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='"+line2.file_dok+"' readonly></td>";
-                            input2 += "<td width='30%'>"+
-                            "<input type='file' name='file_dok[]' class='inp-file_dok'>"+
-                            "</td>";
-                            input2 += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></a><a class='btn btn-success btn-sm down-dok' style='font-size:8px' href='http://api.simkug.com/api/apv/storage/"+line2.file_dok+"' target='_blank'><i class='fa fa-download fa-1'></i></a></td>";
-                            input2 += "</tr>";
-                            no++;
-                        }
-                    }
-
-                    $('#input-grid2 tbody').html(input);
-                    var no =1;
-                    for(var i=0;i<result.data_detail.length;i++){
-                        var line =result.data_detail[i];
-                        getBarangKlp('barang_klpke'+no);
-                        $('.barang_klpke'+no)[0].selectize.setValue(line.barang_klp);
-                        no++;
-                    }
-                    $('#input-dok tbody').html(input2);
-                    $('.currency').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
-                    $('#form-tambah').on('change','.inp-file_dok',function(e){
-                        e.preventDefault();
-                        $(this).closest('tr').find('.inp-nama').val('-');
-                    });
-
-                    var input = '';
-                    var no =1;
-                    $('#input-histori tbody').html('');
-                    if(result.data_histori.length > 0){
-                        for(var x=0;x<result.data_histori.length;x++){
-                            var line = result.data_histori[x];
-                            input += `<tr class='row-his'>
-                            <td>`+no+`</td>
-                            <td>`+line.nik+`</td>
-                            <td>`+line.nama+`</td>
-                            <td>`+line.status+`</td>
-                            <td>`+line.keterangan+`</td>
-                            </tr>`;
-                            no++;
-                        }
-                    }
-                    
-                    $('#input-histori tbody').html(input);
-                     
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                } else if(!result.status && result.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('apv/login') }}";
-                    })
-                }
-            }
-        });
-    });
-
-    $('#saku-form').on('click', '#btn-kembali', function(){
-        $('#saku-datatable').show();
-        $('#saku-form').hide();
-    });
-
-    $('#saku-form').on('submit', '#form-tambah', function(e){
-    e.preventDefault();
-        var formData = new FormData(this);
-        for(var pair of formData.entries()) {
-            console.log(pair[0]+ ', '+ pair[1]); 
-        }
-        
-        $iconLoad.show();
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('apv/verifikasi') }}",
-            dataType: 'json',
-            data: formData,
-            async:false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            success:function(result){
-                // alert('Input data '+result.message);
-                if(result.data.status){
-                    dataTable.ajax.reload();
-                    Swal.fire(
-                        'Saved!',
-                        'Your data has been saved.'+result.data.message,
-                        'success'
-                    )
-                    printLap(result.data.no_bukti);
-                }
-                else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('apv/login') }}";
-                    })
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
-                }
-                $iconLoad.hide();
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            }
-        });     
-    });
-    
-
-    $('.inp-hrg').inputmask("numeric", {
-        radixPoint: ",",
-        groupSeparator: ".",
-        digits: 2,
-        autoGroup: true,
-        rightAlign: true,
-        oncleared: function () { self.Value(''); }
-    });
-
-    $('#slide-print').on('click','#btn-aju-print',function(e){
-        e.preventDefault();
-        var w=window.open();
-        var html =`<html><head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <meta name="description" content="">
-                <meta name="author" content="">
-                <title>SAKU | Sistem Akuntansi Keuangan Digital</title>
-                <link href="{{ asset('asset_elite/dist/css/style.min.css') }}" rel="stylesheet">
-                <!-- Dashboard 1 Page CSS -->
-                <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
-                <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-                <!-- SAI CSS -->
-                <link href="{{ asset('asset_elite/dist/css/sai.css" rel="stylesheet">
-                
-            </head>
-            <!--
-            <body class="skin-default fixed-layout" >-->
-                <div id="main-wrapper" style='color:black'>
-                    <div class="page-wrapper" style='min-height: 674px;margin: 0;padding: 10px;background: white;color: black !important;'>
-                        <section class="content" id='ajax-content-section' style='color:black !important'>
-                            <div class="container-fluid mt-3">
-                                <div class="row" id="slide-print">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">`+$('#print-area').html()+`
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
-            <!--</body></html>-->
-            `;
-            w.document.write(html);
-            setTimeout(function(){
-                w.print();
-                w.close();
-            }, 1500);
-    });
+            </div>
+        </div>
+    </form>
+    <!-- END FORM -->
+   
+    <!-- MODAL SEARCH-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <span aria-hidden="true">&times;</span>
+                    </button> 
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL -->
 
-    $('#saku-form').on('click', '#add-row', function(){
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
+            <div class="modal-content" style="border-radius:0.75em">
+                <div class="modal-header py-0" style="display:block;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Pengajuan <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL PREVIEW -->
 
-        var no=$('#input-grid2 .row-barang:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-barang'>";
-        input += "<td class='no-barang'>"+no+"</td>";
-        input += "<td><select name='barang_klp[]' class='form-control inp-barang_klp barang_klpke"+no+"' value='' required></select></td>";
-        input += "<td><input type='text' name='barang[]' class='form-control inp-brg' value='' required></td>";
-        input += "<td style='text-align:right'><input type='text' name='harga[]' class='form-control currency inp-hrg'  value='0' required></td>";
-        input += "<td style='text-align:right'><input type='text' name='qty[]' class='form-control currency inp-qty'  value='0' required></td>";
-        input += "<td style='text-align:right'><input type='text' name='nilai[]' class='form-control currency inp-sub' readonly value='0' required></td>";
-        input += "<td style='text-align:right'><input type='text' name='ppn[]' class='form-control currency inp-ppn' value='0' required></td>";
-        input += "<td style='text-align:right'><input type='text' name='grand_total[]' class='form-control currency inp-grand_total' readonly value='0' required></td>";
-        input += "<td><a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-        input += "</tr>";
-        $('#input-grid2 tbody').append(input);
-        getBarangKlp('barang_klpke'+no);
-        $('.currency').inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#input-grid2 tbody tr:last').find('.inp-brg').focus();
-    });
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row">
+                            <label>Regional</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
+                                <option value=''>--- Pilih Regional ---</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label>Modul</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_modul" id="inp-filter_modul">
+                                <option value=''>--- Pilih Modul ---</option>
+                                <option value='Justifikasi Kebutuhan'>Justifikasi Kebutuhan</option>
+                                <option value='Justifikasi Pengadaan'>Justifikasi Pengadaan</option>
+                                <option value='Verifikasi'>Verifikasi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    $('#input-grid2').on('keydown', '.inp-brg', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            $(this).closest('tr').find('.inp-hrg').focus();
-        }
-    });
-
-    $('#input-grid2').on('keydown', '.inp-hrg', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-qty').focus();
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var nppn = toNilai(ppn)/100;
-            var grand = sub+(nppn*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-
-            hitungBrg();
-        }
-    });
-
-    $('#input-grid2').on('change', '.inp-hrg', function(e){
-        // if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-qty').focus();
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var nppn = toNilai(ppn)/100;
-            var grand = sub+(nppn*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-        // }
-    });
-
-    $('#input-grid2').on('keydown', '.inp-qty', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var nppn = toNilai(ppn)/100;
-            var grand = sub+(nppn*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-            $('#add-row').click();
-        }
-    });
-
-    $('#input-grid2').on('change', '.inp-qty', function(e){
-        // if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var hrg = $(this).closest('tr').find('.inp-hrg').val();
-            var qty = $(this).closest('tr').find('.inp-qty').val();
-            var sub = toNilai(hrg)*toNilai(qty);
-            $(this).closest('tr').find('.inp-sub').val(sub);
-            var ppn = $(this).closest('tr').find('.inp-ppn').val();
-            var nppn = toNilai(ppn)/100;
-            var grand = sub+(nppn*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-        // }
-    });
-
-
-    $('#input-grid2').on('keydown', '.inp-ppn', function(e){
-        if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-            $('#add-row').click();
-        }
-    });
-
-    $('#input-grid2').on('change', '.inp-ppn', function(e){
-        // if (e.which == 13 || e.which == 9) {
-            e.preventDefault();
-            var sub = toNilai($(this).closest('tr').find('.inp-sub').val());
-            var ppn = toNilai($(this).closest('tr').find('.inp-ppn').val());
-            var grand = sub+((ppn/100)*sub);
-            $(this).closest('tr').find('.inp-grand_total').val(grand);
-            hitungBrg();
-        // }
-    });
-        
-    $('#saku-form').on('click', '#add-row-dok', function(){
-        // $('.modal-title').html('Tambah Dokumen');
-        // $('#modal-id-dok').val(0);
-        // $('#modal-dok-nama').val('');
-        // $('#modal-dok').modal('show');
-        var no=$('#input-dok .row-dok:last').index();
-        no=no+2;
-        var input="";
-        input = "<tr class='row-dok'>";
-        input += "<td width='5%'  class='no-dok'>"+no+"</td>";
-        input += "<td width='30%'><input type='text' name='nama_dok[]' class='form-control inp-dok' value='' required></td>";
-        input += "<td width='20%'><input type='text' name='nama_file[]' class='form-control inp-nama' value='-' readonly required></td>";
-        input += "<td width='30%'>"+"<input type='file' name='file_dok[]' required >"+"</td>";
-        input += "<td width='5%'><a class='btn btn-danger btn-sm hapus-dok' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
-        input += "</tr>";
-        $('#input-dok tbody').append(input);
-    });
-
-
-    $('#input-grid2').on('click', '.hapus-item', function(){
-        $(this).closest('tr').remove();
-        no=1;
-        $('.row-barang').each(function(){
-            var nom = $(this).closest('tr').find('.no-barang');
-            nom.html(no);
-            no++;
-        });
-        hitungBrg();
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-
-
-    $('#input-dok').on('click', '.hapus-dok', function(){
-        $(this).closest('tr').remove();
-        no=1;
-        $('.row-dok').each(function(){
-            var nom = $(this).closest('tr').find('.no-dok');
-            nom.html(no);
-            no++;
-        });
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-
-    $('#input-dok').on('change','input[type=file]',function(e){
-        
-        e.preventDefault();
-        var i = $(this).parents('tr').index()+1;
-        var file = $(this)[0].files[0].size;
-        var sizekb = Math.round(file / 1024,2);
-        var sizemb = Math.round(sizekb / 1024,2);
-        if(sizekb > 10240){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="#" class="text-danger">File Dokumen ke '+i+' tidak valid, ukuran file '+sizemb+'MB. Batas Maksimum upload 10MB </a>'
-            });
-            $(this).replaceWith($(this).val('').clone(true));
-        }
-    })
-
-    </script>
+    
+    <!-- MODAL CBBL -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <span aria-hidden="true">&times;</span>
+                    </button> 
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL CBBL -->
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
