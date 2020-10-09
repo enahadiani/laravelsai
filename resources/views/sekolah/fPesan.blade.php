@@ -5,8 +5,9 @@
         }
         .search-item2{
             cursor:pointer;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
+            
         }
-
         input.error{
             border:1px solid #dc3545;
         }
@@ -220,6 +221,81 @@
             overflow:hidden !important;
             height:35px !important;
         }
+
+        
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+        
+        #input-dok span
+        {
+            padding:0px 10px !important;
+        }
+        
+        #input-dok input,#input-dok .selectize-input
+        {
+            overflow:hidden !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .readonly{
+            background: #e9ecef !important;
+        }
+
+        
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
+
         
     </style>
     <!-- LIST DATA -->
@@ -290,66 +366,106 @@
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="separator mb-2"></div>
-                    <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="jenis" class="col-md-2 col-sm-2 col-form-label">Jenis</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class='form-control selectize' id="jenis" name="jenis">
-                                <option value=''>--- Pilih Jenis ---</option>
-                                <option value='Siswa'>Siswa</option>
-                                <option value='Kelas'>Kelas</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>
-                            <label for="kontak" class="col-md-2 col-sm-2 col-form-label">Kontak</label>
-                            <div class="col-md-3 col-sm-12" >
-                                <input class="form-control" type="text"  id="kontak" name="kontak" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="judul" class="col-md-2 col-sm-2 col-form-label">Judul</label>
-                            <div class="col-md-10 col-sm-12" >
-                                <input class="form-control" type="text"  id="judul" name="judul" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Deskripsi</label>
-                            <div class="col-md-10 col-sm-12" >
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-dok" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                    <div class="separator"></div>
+                    <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='border-radius:0'>
+                            <div class="card-body">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <div class="form-group row hidden" id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                        <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
+                                    </div>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:44%">Path File</th>
-                                            <th width="43%">Upload File</th>
-                                            <th width="10%">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="jenis">Kepada</label>
+                                                <select class='form-control selectize' id="jenis" name="jenis">
+                                                <option value=''>--- Pilih ---</option>
+                                                <option value='Siswa'>Siswa</option>
+                                                <option value='Kelas'>Kelas</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kontak">Kontak</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kontak" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kontak" id="kontak" name="kontak" value="" title="">
+                                                    <span class="info-name_kontak">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kontak"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="judul">Judul</label>
+                                                <input class="form-control" type="text"  id="judul" name="judul" required>
+                                            </div>
+                                            <!-- <div class="col-md-2 col-sm-12">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="deskripsi">Deskripsi</label>
+                                                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                                            </div>
+                                            <!-- <div class="col-md-2 col-sm-12">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> 
+                                    </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="data-dok" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%">No</th>
+                                                    <th style="width:44%">Path File</th>
+                                                    <th width="43%">Upload File</th>
+                                                    <th width="10%">Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -466,6 +582,21 @@
         return num;
     }
 
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
     function reverseDate2(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
         if(typeof newseparator === 'undefined'){newseparator = '-'}
@@ -476,7 +607,7 @@
     }
 
     function hitungTotalRow(){
-        var total_row = $('#input-nilai tbody tr').length;
+        var total_row = $('#input-dok tbody tr').length;
         $('#total-row').html(total_row+' Baris');
     }
 
@@ -651,8 +782,47 @@
 
     // END LIST DATA
 
+    function getKontak(id,pp=null,jenis){
+
+        if(jenis == "Siswa"){
+
+            var toUrl = "{{ url('sekolah-trans/siswa') }}";
+            var param = {kode_pp:pp,nis:id};
+        }else{  
+            var toUrl = "{{ url('sekolah-master/kelas') }}";
+            var param = {kode_pp:pp,kode_kelas:id};
+           
+        }
+        $.ajax({
+            type: 'GET',
+            url: toUrl,
+            dataType: 'json',
+            data:param,
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == "Siswa"){
+                            showInfoField('kontak',result.daftar[0].nis,result.daftar[0].nama);
+                        }else{
+                            showInfoField('kontak',result.daftar[0].kode_kelas,result.daftar[0].nama);
+                        }
+                    }else{
+                        $('#kontak').attr('readonly',false);
+                        $('#kontak').css('border-left','1px solid #d7d7d7');
+                        $('#kontak').val('');
+                        $('#kontak').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
     // CBBL
-    function showFilter(param,target1,target2){
+    function showFilter(param,target1=null,target2=null){
         var par = param;
 
         var modul = '';
@@ -682,10 +852,10 @@
                     var judul = "Daftar Kelas";
                     var pilih = "kelas";
                 }
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "";
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
                 var tmp = $('#inp-filter_kode_pp').val().split('-');
@@ -757,13 +927,31 @@
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                 }else{
+                    $('#'+par).css('border-left',0);
+                    $('#'+par).val(kode);
                     $($target).text(kode);
+                    $($target).attr("title",nama);
+                    $($target).parents('div').removeClass('hidden');
                 }
 
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
-                }else{
+                }else if(jTarget2 == "title"){
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                }else if(jTarget2 == "text2"){
                     $($target2).text(nama);
+                }else{
+                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                    var pos =$('#'+par).position();
+                    var height = $('#'+par).height();
+                    console.log(par);
+                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                    $($target2+' span').text(nama);
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
                 }
 
                 if($target3 != ""){
@@ -790,84 +978,88 @@
     
     // END CBBL
 
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tmp= $(this).closest('tr').find('td').eq(6).html().split("-");
-        var kode_pp = tmp[0];
+        var data = dataTable.row( $(this).parents('tr') ).data();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Penilaian Siswa');
+        $('#judul-form').html('Edit Data Pesan');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/penilaian-detail') }}",
+            url: "{{ url('sekolah-trans/pesan-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,no_bukti:id},
+            data:{no_bukti:id, kode_pp:data.kode_pp},
             async:false,
             success:function(res){
                 var result= res.data;
                 if(result.status){
                     $('#id').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#no_bukti').val(id);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
-                    $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
-                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
-                    $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
-                    $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
-                    $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
-                    $('#kode_kd').val(result.data[0].kode_kd);
-                    $('#label_kode_kd').val(result.data[0].nama_kd);
-                    $('#penilaian_ke').val(result.data[0].jumlah);
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#kontak').val(result.data[0].kontak);
+                    $('#judul').val(result.data[0].judul);
+                    $('#deskripsi').text(result.data[0].pesan);
                 
-                    if(result.data_detail.length > 0){
+                    if(result.data_dok.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.data_detail.length;i++){
-                            var line =result.data_detail[i];
-                            input += "<tr class='row-nilai'>";
-                            input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-        
+                        for(var i=0;i<result.data_dok.length;i++){
+                            var line =result.data_dok[i];
+                            input += "<tr class='row-dok'>";
+                            input += "<td class='no-dok text-center'>"+no+"</td>";
+
+                            var dok = "{{ config('api.url').'sekolah/storage' }}/"+line.file_dok;
+                            input += "<td><span class='td-nama_file_seb tdnmfileke"+no+" tooltip-span'>"+line.file_dok+"</span><input type='text' name='nama_file_seb[]' class='form-control inp-nama_file_seb nmfileke"+no+" hidden'  value='"+line.file_dok+"' readonly></td>";
+                            if(line.file_dok == "-" || line.file_dok == ""){
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                </td>`;
+                            }else{
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                </td>`;
+                            }
+                            input+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.file_dok != "-"){
+                                   var link =`<a class='download-dok' style='font-size:18px' href='`+dok+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' style='font-size:18px' href='#' title='Hapus Dokumen'><i class='simple-icon-trash'></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            input+=link+"</td></tr>";
                             no++;
                         }
-                        $('#input-nilai tbody').html(input);
+                        $('#input-dok tbody').html(input);
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
                             }
-                        })
-                        no= 1;
-                        for(var i=0;i<result.data_detail.length;i++){
-                            var line =result.data_detail[i];
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
+                        });
                         
                     }
                     hitungTotalRow();
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    // showInfoField('kontak',result.data[0].kontak,result.data[0].nama_kontak);
+                    getKontak(result.data[0].kontak,data.kode_pp,result.data[0].jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -936,6 +1128,11 @@
         $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        
         hitungTotalRow();
     });
     // END BUTTON TAMBAH
@@ -969,7 +1166,7 @@
             var kode_pp = tmp[0];
             $.ajax({
                 type: 'GET',
-                url: "{{ url('sekolah-trans/penilaian-detail') }}",
+                url: "{{ url('sekolah-trans/pesan-detail') }}",
                 data:{kode_pp:kode_pp,no_bukti:id},
                 dataType: 'json',
                 async:false,
@@ -1074,7 +1271,7 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         var kode_pp= $('#modal-preview-kode').text();
-        $('#judul-form').html('Edit Data Penilaian Siswa');
+        $('#judul-form').html('Edit Data Pesan');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
@@ -1082,7 +1279,7 @@
         $('#btn-save').attr('id','btn-update');
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/penilaian-detail') }}",
+            url: "{{ url('sekolah-trans/pesan-detail') }}",
             dataType: 'json',
             data:{kode_pp:kode_pp,no_bukti:id},
             async:false,
@@ -1090,63 +1287,58 @@
                 var result= res.data;
                 if(result.status){
                     $('#id').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#no_bukti').val(id);
-                    $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
-                    $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
-                    $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
-                    $('#kode_kelas').val(result.data[0].kode_kelas);
-                    $('#label_kode_kelas').val(result.data[0].nama_kelas);
-                    $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
-                    $('#kode_jenis').val(result.data[0].kode_jenis);
-                    $('#label_kode_jenis').val(result.data[0].nama_jenis);
-                    $('#kode_kd').val(result.data[0].kode_kd);
-                    $('#label_kode_kd').val(result.data[0].nama_kd);
-                    $('#penilaian_ke').val(result.data[0].jumlah);
+                    $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#kontak').val(result.data[0].kontak);
+                    $('#judul').val(result.data[0].judul);
+                    $('#deskripsi').text(result.data[0].pesan);
                 
-                    if(result.data_detail.length > 0){
+                    if(result.data_dok.length > 0){
                         var input = '';
                         var no=1;
-                        for(var i=0;i<result.data_detail.length;i++){
-                            var line =result.data_detail[i];
-                            input += "<tr class='row-nilai'>";
-                            input += "<td class='no-nilai text-center'>"+no+"</td>";
-                            input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-        
+                        for(var i=0;i<result.data_dok.length;i++){
+                            input += "<tr class='row-dok'>";
+                            input += "<td class='no-dok text-center'>"+no+"</td>";
+
+                            var dok = "{{ config('api.url').'sekolah/storage' }}/"+line.file_dok;
+                            input += "<td><span class='td-nama_file_seb tdnmfileke"+no+" tooltip-span'>"+line.file_dok+"</span><input type='text' name='nama_file_seb[]' class='form-control inp-nama_file_seb nmfileke"+no+" hidden'  value='"+line.file_dok+"' readonly></td>";
+                            if(line.file_dok == "-" || line.file_dok == ""){
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                </td>`;
+                            }else{
+                                input+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                </td>`;
+                            }
+                            input+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.file_dok != "-"){
+                                   var link =`<a class='download-dok' style='font-size:18px' href='`+dok+`'target='_blank' title='Download'><i class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' style='font-size:18px' href='#' title='Hapus Dokumen'><i class='simple-icon-trash'></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            input+=link+"</td></tr>";
                             no++;
                         }
-                        $('#input-nilai tbody').html(input);
+                        $('#input-dok tbody').html(input);
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
                             }
-                        })
-                        no= 1;
-                        for(var i=0;i<result.data_detail.length;i++){
-                            var line =result.data_detail[i];
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
+                        });
                         
                     }
                     hitungTotalRow();
-                    $('#modal-preview').modal('hide');
+                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                    showInfoField('kontak',result.data[0].kontak,result.data[0].nama_kontak);
+                   
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1184,7 +1376,7 @@
             var tmp = $('#inp-filter_kode_pp').val().split('-');
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('sekolah-trans/pesan') }}";
+                var url = "{{ url('sekolah-trans/pesan-ubah') }}";
             }else{
                 var url = "{{ url('sekolah-trans/pesan') }}";
             }
@@ -1210,10 +1402,17 @@
                         $('#form-tambah').validate().resetForm();
                         $('#row-id').hide();
                         $('#method').val('post');
-                        $('#judul-form').html('Tambah Data Penilaian Siswa');
+                        $('#judul-form').html('Tambah Data Pesan');
                         $('#id').val('');
                         $('#input-nilai tbody').html('');
-                        $('[id^=label]').html('');
+                        $('.input-group-prepend').addClass('hidden');
+                        $('span[class^=info-name]').addClass('hidden');
+                        $('.info-icon-hapus').addClass('hidden');
+                        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+                        if("{{ Session::get('kodePP') }}" != ""){
+                            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+                            $('#kode_pp').trigger('change');
+                        }
                         hitungTotalRow();
                         
                         msgDialog({
@@ -1275,10 +1474,7 @@
     $('#form-tambah').on('click', '.search-item2', function(){
 
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        showFilter(par);
     });
 
     // GRID JURNAL  
@@ -1297,12 +1493,7 @@
         input += "<tr class='row-dok'>";
         input += "<td class='no-dok text-center'>"+no+"</td>";
         input += "<td><span class='td-nama_file_seb tdnmfilesebke"+no+" tooltip-span'>-</span><input type='text' name='nama_file_seb[]' class='form-control inp-nama_file_seb nmfilesebke"+no+" hidden'  value='-' readonly></td>";
-        input+=` <td><div class="input-group col-md-10 col-sm-12">
-                    <div class="custom-file">
-                    <input type="file" name="file_dok[]" class="custom-file-input" id="file_dok">
-                    <label class="custom-file-label" for="file_dok"></label>
-                    </div>
-                </div></td>`;
+        input+=` <td><input type="file" name="file_dok[]" id="file_dok"></td>`;
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "</tr>";
         $('#input-dok tbody').append(input);        
