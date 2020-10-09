@@ -104,6 +104,7 @@
                     'query' => [
                         'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
+                        'flag_aktif' => $request->flag_aktif,
                     ]
                 ]);
         

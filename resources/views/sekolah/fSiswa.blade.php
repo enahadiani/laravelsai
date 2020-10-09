@@ -4,10 +4,6 @@
             padding:8px !important;
             vertical-align:middle !important;
         }
-        .search-item2{
-            cursor:pointer;
-        }
-
         input.error{
             border:1px solid #dc3545;
         }
@@ -24,7 +20,6 @@
         {
             float:right;
         }
-
         .form-body 
         {
             position: relative;
@@ -36,17 +31,14 @@
             position: relative;
             overflow: auto;
         }
-        .hidden{
-            display:none;
-        }
-
-        .datetime-reset-button {
-            margin-right: 20px !important;
-            margin-top: 3px !important;
-        }
+        
         #table-search
         {
             border-collapse:collapse !important;
+        }
+
+        .hidden{
+            display:none;
         }
 
         #table-search_filter label, #table-search_filter input
@@ -67,11 +59,17 @@
         justify-content: center; }
 
         .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
-        .px-0{
-            padding-left: 2px !important;
-            padding-right: 2px !important;
+            padding-left: 5px;
+            padding-right: 5px; 
+        }
+
+        .dataTables_length select {
+            border: 0;
+            background: none;
+            box-shadow: none;
+            border:none;
+            width:120px !important;
+            transition-duration: 0.3s; 
         }
 
         #table-data_filter label
@@ -82,7 +80,6 @@
         {
             width:inherit;
         }
-        
         #searchData
         {
             font-size: .75rem;
@@ -94,30 +91,6 @@
         .dropdown-aksi > .dropdown-item{
             font-size : 0.7rem;
         }
-
-        .btn-light2{
-            background:#F8F8F8;
-            color:#D4D4D4;
-        }
-
-        .btn-light2:hover{
-            color:#131113;
-        }
-
-        .btn-light2:active{
-            color: #131113;
-            background-color: #d8d8d8;
-        }
-
-        .custom-file-label::after{
-            content:"Cari berkas" !important;
-            border-left:0;
-            color: var(--theme-color-1) !important;
-        }
-        .focus{
-            /* border:none !important; */
-            box-shadow:none !important;
-        }
         .last-add::before{
             content: "***";
             background: var(--theme-color-1);
@@ -128,73 +101,69 @@
             left: -5px;
         }
 
-        th{
-            vertical-align:middle !important;
-        }
-        /* #input-param td{
-            padding:0 !important;
-        } */
-        #input-param .selectize-input.focus, #input-param input.form-control, #input-param .custom-file-label
-        {
-            border:1px solid black !important;
-            border-radius:0 !important;
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
         }
 
-        #input-param .selectize-input
-        {
-            border-radius:0 !important;
-        } 
-
-        .modal-header .close {
-            padding: 1rem;
-            margin: -1rem 0 -1rem auto;
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
         }
-        .check-item{
+
+        .input-group > .form-control 
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
             cursor:pointer;
         }
-        .selected{
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
+
+        .search-item2{
             cursor:pointer;
-            /* background:#4286f5 !important; */
-            /* color:white; */
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
-        #input-param td:not(:nth-child(1)):not(:nth-child(9)):hover
-        {
-            /* background: var(--theme-color-6) !important;
-            color:white; */
-            background:#f8f8f8;
-            color:black;
-        }
-        #input-param input:hover,
-        #input-param .selectize-input:hover,
-        {
-            width:inherit;
-        }
-        #input-param ul.typeahead.dropdown-menu
-        {
-            width:max-content !important;
-        }
-        #input-param td
-        {
-            /* overflow:hidden !important; */
-            height:37.2px !important;
-            padding:0px !important;
-        }
-
-        #input-param span
-        {
-            padding:0px 10px !important;
-        }
-
-        /* #input-param input,#input-param .selectize-input
-        {
-            overflow:hidden !important;
-            height:35px !important;
-        } */
-
-        /* #input-param td:nth-child(4)
-        {
-            overflow:unset !important;
-        } */
     </style>
     <!-- END STYLE -->
     <!-- LIST DATA -->
@@ -223,9 +192,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>

@@ -489,20 +489,7 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#kode_pp').val(result.daftar[0].kode_pp);
-                        $('#kode_pp').attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-                        $('.info-code_kode_pp').text(result.daftar[0].kode_pp).parent('div').removeClass('hidden');
-                        $('.info-code_kode_pp').attr('title',result.daftar[0].nama);
-                        $('.info-code_kode_pp').tooltip('dispose');
-                        $('.info-code_kode_pp').tooltip();
-                        $('.info-name_kode_pp').removeClass('hidden');
-                        $('.info-name_kode_pp').attr('title',result.daftar[0].nama);
-                        $('.info-name_kode_pp span').text(result.daftar[0].nama);
-                        var width = $('#kode_pp').width()-$('#search_kode_pp').width()-10;
-                        var pos =$('#kode_pp').position();
-                        var height =$('#kode_pp').height();
-                        $('.info-name_kode_pp').width(width).css({'left':pos.left,'height':height});
-                        $('.info-name_kode_pp').closest('div').find('.info-icon-hapus').removeClass('hidden');
+                        showInfoField('kode_pp',result.daftar[0].kode_pp,result.daftar[0].nama);
                         
                     }else{
                         $('#kode_pp').attr('readonly',false);

@@ -6,6 +6,7 @@
         }
         .search-item2{
             cursor:pointer;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
 
         input.error{
@@ -127,24 +128,20 @@
             top: -2px;
             left: -5px;
         }
-
         th{
             vertical-align:middle !important;
         }
-        /* #input-kkm td{
-            padding:0 !important;
-        } */
-        #input-kkm .selectize-input.focus, #input-kkm input.form-control, #input-kkm .custom-file-label
+        #input-kkm .selectize-input.focus, #input-kkm input.form-control, #input-kkm .custom-file-label,  #input-dok .selectize-input.focus, #input-dok input.form-control, #input-dok .custom-file-label
         {
             border:1px solid black !important;
             border-radius:0 !important;
         }
-
-        #input-kkm .selectize-input
+        
+        #input-kkm .selectize-input,  #input-dok .selectize-input
         {
             border-radius:0 !important;
         } 
-
+        
         .modal-header .close {
             padding: 1rem;
             margin: -1rem 0 -1rem auto;
@@ -157,44 +154,132 @@
             /* background:#4286f5 !important; */
             /* color:white; */
         }
-        #input-kkm td:not(:nth-child(1)):not(:nth-child(9)):hover
+        #input-kkm td:not(:nth-child(1)):not(:nth-child(5)):hover
         {
-            /* background: var(--theme-color-6) !important;
-            color:white; */
             background:#f8f8f8;
             color:black;
         }
+
+        #input-dok td:not(:nth-child(1)):not(:nth-child(7)):hover
+        {
+            background:#f8f8f8;
+            color:black;
+        }
+
         #input-kkm input:hover,
         #input-kkm .selectize-input:hover,
         {
             width:inherit;
         }
+
+        #input-dok input:hover,
+        #input-dok .selectize-input:hover,
+        {
+            width:inherit;
+        }
+
         #input-kkm ul.typeahead.dropdown-menu
+        {
+            width:max-content !important;
+        }
+
+        #input-dok ul.typeahead.dropdown-menu
         {
             width:max-content !important;
         }
         #input-kkm td
         {
-            /* overflow:hidden !important; */
-            height:37.2px !important;
+            overflow:hidden !important;
+            height:calc(1.3rem + 1rem) !important;
             padding:0px !important;
         }
-
+        
         #input-kkm span
         {
             padding:0px 10px !important;
         }
-
-        /* #input-kkm input,#input-kkm .selectize-input
+        
+        #input-kkm input,#input-kkm .selectize-input
         {
             overflow:hidden !important;
-            height:35px !important;
-        } */
+        }
 
-        /* #input-kkm td:nth-child(4)
+        #input-dok td
         {
-            overflow:unset !important;
-        } */
+            overflow:hidden !important;
+            height:calc(1.3rem + 1rem) !important;
+            padding:0px !important;
+        }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+        
+        #input-dok span
+        {
+            padding:0px 10px !important;
+        }
+        
+        #input-dok input,#input-dok .selectize-input
+        {
+            overflow:hidden !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control 
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
+        
     </style>
     <!-- END STYLE -->
     <div class="row" id="saku-datatable">
@@ -222,9 +307,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -273,54 +358,102 @@
                                 <input class="form-control" type="text" id="kode_kkm" name="kode_kkm" readonly hidden>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_pp" class="col-md-2 col-sm-12 col-form-label">Kode PP</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_pp">PP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                            <span class="info-name_kode_pp hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_ta">Tahun Ajaran</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
+                                            <span class="info-name_kode_ta hidden">
+                                                <span></span> 
+                                            </span>
+                                            <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
+                                            <i class="simple-icon-magnifier search-item2 hidden" id="search_kode_ta"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_ta" class="col-md-2 col-sm-2 col-form-label">Tahun Ajaran</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
+                        <div class="form-row">
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_jur">Jurusan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_jur" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_jur" id="kode_jur" name="kode_jur" value="" title="">
+                                            <span class="info-name_kode_jur hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jur"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_ta" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="kode_tingkat">Tingkat</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_kode_tingkat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control label-kode_tingkat" id="kode_tingkat" name="kode_tingkat" value="" title="">
+                                            <span class="info-name_kode_tingkat hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_tingkat"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_tingkat" class="col-md-2 col-sm-12 col-form-label">Tingkat</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_tingkat" name="kode_tingkat" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_tingkat" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row ">
-                            <label for="kode_jur" class="col-md-2 col-sm-12 col-form-label">Jurusan</label>
-                            <div class="col-md-3 col-sm-12" >
-                                 <input class="form-control" type="text"  id="kode_jur" name="kode_jur" required>
-                                 <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>                            
-                            <div class="col-md-2 col-sm-12 px-0" >
-                                <input id="label_kode_jur" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="flag_aktif" class="col-md-2 col-sm-12 col-form-label">Status</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                    <option value='' disabled>--- Pilih Status Aktif ---</option>
-                                    <option value='1'>Aktif</option>
-                                    <option value='0'>Non Aktif</option>
-                                </select>
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="flag_aktif">Status</label>
+                                        <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                        <option value='' disabled>--- Pilih Status Aktif ---</option>
+                                        <option value='1'>Aktif</option>
+                                        <option value='0'>Non Aktif</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
@@ -487,9 +620,7 @@
         }); 
         dataTable.row(rowIndexes).select();
         $('.selected td:eq(0)').addClass('last-add');
-        console.log('last-add');
         setTimeout(function() {
-            console.log('timeout');
             $('.selected td:eq(0)').removeClass('last-add');
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
@@ -669,13 +800,18 @@
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
-        if("{{ Session::get('kodePP') }}" != ""){
-            $('#kode_pp').val("{{ Session::get('kodePP') }}");
-            $('#kode_pp').trigger('change');
-        }
         $('#input-kkm tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        if("{{ Session::get('kodePP') }}" != ""){
+            $('#kode_pp').val("{{ Session::get('kodePP') }}");
+            $('#kode_pp').trigger('change');
+            // getTA("{{ Session::get('kodePP') }}");
+        }
         hitungTotalRow();
     });
     // END BUTTON TAMBAH
@@ -700,9 +836,25 @@
         });
     });
     // END BUTTON UPDATE
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var search = ($('#search_'+kode).width() == undefined ? 0 : $('#search_'+kode).width());
+        var width = $('#'+kode).width()-search-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
     
     // CBBL
-    function showFilter(param,target1,target2){
+    function showFilter(param,target1=null,target2=null){
         var par = param;
         
         var modul = '';
@@ -738,11 +890,10 @@
                 ];
                 
                 var judul = "Daftar PP";
-                var jTarget1 = "val";
-                var pilih = "pp";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
             break;
@@ -755,11 +906,10 @@
                 ];
                 
                 var judul = "Daftar Tahun Ajaran";
-                var jTarget1 = "val";
-                var pilih = "tahun ajaran";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
@@ -772,12 +922,11 @@
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar JUrusan";
-                var jTarget1 = "val";
-                var pilih = "jurusan";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var judul = "Daftar Jurusan";
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val()};
@@ -791,11 +940,10 @@
                 ];
                 
                 var judul = "Daftar Tingkat";
-                var jTarget1 = "val";
-                var pilih = "tingkat";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val()};
@@ -860,19 +1008,37 @@
                 searchTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 
+                
                 var dtrow = searchTable.row(this).data();  
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                 }else{
+                    $('#'+par).css('border-left',0);
+                    $('#'+par).val(kode);
                     $($target).text(kode);
+                    $($target).attr("title",nama);
+                    $($target).parents('div').removeClass('hidden');
                 }
-                
+
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
-                }else{
+                }else if(jTarget2 == "title"){
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                }else if(jTarget2 == "text2"){
                     $($target2).text(nama);
+                }else{
+                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                    var pos =$('#'+par).position();
+                    var height = $('#'+par).height();
+                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                    $($target2+' span').text(nama);
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
                 }
                 
                 if($target3 != ""){
@@ -888,6 +1054,10 @@
                         $($target4).click();
                     }
                 }
+
+                if(par == "kode_pp"){
+                    getTA(kode);
+                }
                 $('#modal-search').modal('hide');
             }
         });
@@ -896,20 +1066,24 @@
     function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
+
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/pp') }}",
             dataType: 'json',
-            data:{kode_pp : kode},
+            data:{kode_pp:kode},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#kode_pp').val(result.daftar[0].kode_pp);
-                        $('#label_kode_pp').val(result.daftar[0].nama);
+                        showInfoField('kode_pp',result.daftar[0].kode_pp,result.daftar[0].nama);
                     }else{
+                        $('#kode_pp').attr('readonly',false);
+                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
                         $('#kode_pp').val('');
-                        $('#label_kode_pp').val('');
                         $('#kode_pp').focus();
                     }
                 }
@@ -919,27 +1093,23 @@
             }
         });
     }
-    
-    function getTA(id){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        kode_pp = $('#kode_pp').val();
+
+    function getTA(pp=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-master/tahun-ajaran-detail') }}",
+            url: "{{ url('sekolah-master/tahun-ajaran') }}",
             dataType: 'json',
-            data:{kode_pp : kode_pp, kode_ta: kode},
+            data:{kode_pp:pp,flag_aktif:1},
             async:false,
-            success:function(res){
-                var result = res.data;    
+            success:function(result){    
                 if(result.status){
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        $('#kode_ta').val(result.data[0].kode_ta);
-                        $('#label_kode_ta').val(result.data[0].nama);
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('kode_ta',result.daftar[0].kode_ta,result.daftar[0].nama);
                     }else{
+                        $('#kode_ta').attr('style','border-left:1px solid #d7d7d7;border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                        $('.info-code_kode_ta').parent('div').addClass('hidden');
+                        $('.info-name_kode_ta').addClass('hidden');
                         $('#kode_ta').val('');
-                        $('#label_kode_ta').val('');
-                        $('#kode_ta').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -963,11 +1133,11 @@
                 var result = res.data;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
-                        $('#kode_jur').val(result.data[0].kode_jur);
-                        $('#label_kode_jur').val(result.data[0].nama);
+                        showInfoField('kode_jur',result.data[0].kode_jur,result.data[0].nama);
                     }else{
+                        $('#kode_jur').attr('readonly',false);
+                        $('#kode_jur').css('border-left','1px solid #d7d7d7');
                         $('#kode_jur').val('');
-                        $('#label_kode_jur').val('');
                         $('#kode_jur').focus();
                     }
                 }
@@ -990,12 +1160,12 @@
             async:false,
             success:function(result){    
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        $('#kode_tingkat').val(result.daftar[0].kode_tingkat);
-                        $('#label_kode_tingkat').val(result.daftar[0].nama);
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('kode_tingkat',result.data[0].kode_tingkat,result.data[0].nama);
                     }else{
+                        $('#kode_tingkat').attr('readonly',false);
+                        $('#kode_tingkat').css('border-left','1px solid #d7d7d7');
                         $('#kode_tingkat').val('');
-                        $('#label_kode_tingkat').val('');
                         $('#kode_tingkat').focus();
                     }
                 }
@@ -1070,13 +1240,14 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
+        getTA(par);
     });
     
-    $('#form-tambah').on('change', '#kode_ta', function(){
-        var par = $(this).val();
-        var pp = $('#kode_pp').val();
-        getTA(par,pp);
-    });
+    // $('#form-tambah').on('change', '#kode_ta', function(){
+    //     var par = $(this).val();
+    //     var pp = $('#kode_pp').val();
+    //     getTA(par,pp);
+    // });
     
     $('#form-tambah').on('change', '#kode_jur', function(){
         var par = $(this).val();
@@ -1093,10 +1264,17 @@
     
     $('#form-tambah').on('click', '.search-item2', function(){
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        showFilter(par);
+    });
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
     });
     
     // END CBBL
@@ -1112,7 +1290,6 @@
             var idx_next = idx+1;
             var kunci = $(this).closest('td').index()+1;
             var isi = $(this).val();
-            console.log(idx);
             switch (idx) {
                 case 0:
                     var noidx = $(this).parents("tr").find(".no-kkm").text();
@@ -1193,7 +1370,6 @@
 
     $('#form-tambah').on('click', '.add-row', function(){
         var kode_pp = $('#kode_pp').val();
-        console.log('klik')
         if(kode_pp != "" ){
             var no=$('#input-kkm .row-kkm:last').index();
             no=no+2;
@@ -1322,12 +1498,12 @@
         }
 
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        console.log(tmp);
+
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
 
         tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        console.log(tmp);
+
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
 
@@ -1445,9 +1621,14 @@
                         $('#judul-form').html('Tambah Data KKM');
                         $('#input-kkm tbody').html('');
                         $('#method').val('post');
+                        $('.input-group-prepend').addClass('hidden');
+                        $('span[class^=info-name]').addClass('hidden');
+                        $('.info-icon-hapus').addClass('hidden');
+                        $('[class*=label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                         if("{{ Session::get('kodePP') }}" != ""){
                             $('#kode_pp').val("{{ Session::get('kodePP') }}");
                             $('#kode_pp').trigger('change');
+                            // getTA("{{ Session::get('kodePP') }}");
                         }
                         msgDialog({
                             id:result.data.kode_kkm,
@@ -1549,13 +1730,9 @@
                     $('#kode_kkm').val(id);
                     $('#kode_kkm').attr('readonly', true);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_jur').val(result.data[0].kode_jur);
-                    $('#label_kode_jur').val(result.data[0].nama_jur);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
-                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     var input = "";
                     $('#input-kkm tbody').html('');
@@ -1591,9 +1768,13 @@
                             no++;
                         }
                     }
-                    $('#row-id').show();
+                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama_ta);
+                    showInfoField('kode_jur',result.data[0].kode_jur,result.data[0].nama_jur);
+                    showInfoField('kode_tingkat',result.data[0].kode_tingkat,result.data[0].nama_tingkat);
                     hitungTotalRow();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -1607,7 +1788,7 @@
      // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 6){
             
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(4).html().split("-");
@@ -1727,11 +1908,8 @@
                     $('#kode_pp').val(result.data[0].kode_pp);
                     $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_ta').val(result.data[0].kode_ta);
-                    $('#label_kode_ta').val(result.data[0].nama_ta);
                     $('#kode_jur').val(result.data[0].kode_jur);
-                    $('#label_kode_jur').val(result.data[0].nama_jur);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
-                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     var input = "";
                     $('#input-kkm tbody').html('');
@@ -1768,7 +1946,7 @@
                             no++;
                         }
                     }
-                    $('#row-id').show();
+                    // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');
