@@ -1240,7 +1240,6 @@
     $('#form-tambah').on('change', '#kode_pp', function(){
         var par = $(this).val();
         getPP(par);
-        console.log('bres');
         getTA(par);
     });
     

@@ -54,8 +54,8 @@
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
-                'kode_matpel' => 'required|array'
-                // 'kode_status'=>'required|array'
+                'kode_matpel' => 'required|array',
+                'kode_ta'=>'required'
             ]);
 
             try{                
@@ -63,8 +63,8 @@
                     'kode_pp' => $request->kode_pp,
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
-                    'kode_matpel' => $request->kode_matpel
-                    // 'kode_status' => $request->kode_status
+                    'kode_matpel' => $request->kode_matpel,
+                    'kode_ta' => $request->kode_ta
                   );
     
                 $client = new Client();
@@ -104,6 +104,7 @@
                     'query' => [
                         'nik_guru' => $request->nik_guru,
                         'kode_pp' => $request->kode_pp,
+                        'kode_ta' => $request->kode_ta,
                     ]
                 ]);
         
@@ -135,6 +136,7 @@
                     'query' => [
                         'nik_guru' => $request->nik_guru,
                         'kode_pp' => $request->kode_pp,
+                        'kode_ta' => $request->kode_ta,
                     ]
                 ]);
         
@@ -160,8 +162,8 @@
                 'kode_pp' => 'required',
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
-                'kode_matpel' => 'required|array'
-                // 'kode_status'=>'required|array'
+                'kode_matpel' => 'required|array',
+                'kode_ta'=>'required'
             ]);
 
             try{
@@ -169,8 +171,8 @@
                     'kode_pp' => $request->kode_pp,
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
-                    'kode_matpel' => $request->kode_matpel
-                    // 'kode_status' => $request->kode_status
+                    'kode_matpel' => $request->kode_matpel,
+                    'kode_ta' => $request->kode_ta
                   );
         
                 $client = new Client();
