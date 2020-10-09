@@ -115,8 +115,8 @@ Route::post('guru', 'Sekolah\GuruController@store');
 Route::put('guru', 'Sekolah\GuruController@update');
 Route::delete('guru', 'Sekolah\GuruController@destroy');
 
-Route::get('guru-matpel-khusus', 'Sekolah\GuruMatpelKhususController@index');
-Route::get('guru-matpel-khusus-detail', 'Sekolah\GuruMatpelKhususController@show');
-Route::post('guru-matpel-khusus', 'Sekolah\GuruMatpelKhususController@store');
-Route::put('guru-matpel-khusus', 'Sekolah\GuruMatpelKhususController@update');
-Route::delete('guru-matpel-khusus', 'Sekolah\GuruMatpelKhususController@destroy');
+Route::get('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@index');
+Route::get('sis-matpel-khusus-detail', 'Sekolah\SisMatpelKhususController@show');
+Route::post('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@store');
+Route::put('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@update');
+Route::delete('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@destroy');

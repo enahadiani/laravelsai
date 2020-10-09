@@ -222,6 +222,10 @@
             height:35px !important;
         }
 
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+
         .input-group-prepend{
             border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.5rem;

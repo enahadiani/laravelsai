@@ -716,7 +716,7 @@
     
     // END BUTTON UPDATE
     
-    function showFilter(param,target1,target2){
+    function showFilter(param,target1=null,target2=null){
         var par = param;
         var modul = '';
         var header = [];
@@ -816,11 +816,10 @@
                     $($target2).val(nama);
                 }else{
                     
-                    console.log('sini2');
                     var width= $('#'+par).width()-$('#search_'+par).width()-10;
                     var pos =$('#'+par).position();
                     var height = $('#'+par).height();
-                    console.log(par);
+
                     $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
                     $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
                     $($target2+' span').text(nama);
@@ -829,7 +828,6 @@
                     $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
                 }
 
-                console.log($target3);
                 $('#modal-search').modal('hide');
             }
         });

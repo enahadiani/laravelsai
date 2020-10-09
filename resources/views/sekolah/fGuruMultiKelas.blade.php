@@ -185,6 +185,10 @@
         {
             padding:0px 10px !important;
         }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
         
         .input-group-prepend{
             border-top-left-radius: 0.5rem;
@@ -304,7 +308,7 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
