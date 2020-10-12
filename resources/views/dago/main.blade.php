@@ -156,6 +156,7 @@
 
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     <!-- Tiny Editor -->

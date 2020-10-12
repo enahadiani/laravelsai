@@ -249,8 +249,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -289,8 +289,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -408,8 +408,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -449,8 +449,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -490,8 +490,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -532,8 +532,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]
@@ -573,8 +573,8 @@ class Laporan2Controller extends Controller
                 ],
                 'query' => [
                     'periode' => $request->periode,
-                    'no_paket' => $request->no_paket,
-                    'no_jadwal' => $request->no_jadwal,
+                    'no_paket' => $request->paket,
+                    'no_jadwal' => $request->jadwal,
                     'no_reg' => $request->no_reg,
                     'no_peserta' => $request->no_peserta
                 ]

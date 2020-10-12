@@ -562,7 +562,13 @@
                         'periode[2]' : periode.to,
                         'paket[0]' : paket.type,
                         'paket[1]' : paket.from,
-                        'paket[2]' : paket.to
+                        'paket[2]' : paket.to,
+                        'jadwal[0]' : jadwal.type,
+                        'jadwal[1]' : jadwal.from,
+                        'jadwal[2]' : jadwal.to,
+                        'no_peserta[0]' : no_peserta.type,
+                        'no_peserta[1]' : no_peserta.from,
+                        'no_peserta[2]' : no_peserta.to
                     }
                     var orderby = [];
                 break;
