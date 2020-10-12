@@ -157,84 +157,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>paket</p>
-                                            <label for="paket" class="col-md-2 col-sm-12 col-form-label">Paket</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='paket[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="paket[]" id="paket-from" readonly value="Menampilkan semua paket">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="paket[]" id="paket_to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>jadwal</p>
-                                            <label for="jadwal" class="col-md-2 col-sm-12 col-form-label">Jadwal</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='jadwal[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="jadwal[]" id="jadwal-from" readonly value="Menampilkan semua jadwal">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="jadwal[]" id="jadwal_to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>no_peserta</p>
-                                            <label for="no_peserta" class="col-md-2 col-sm-12 col-form-label">Peserta</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='no_peserta[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="no_peserta[]" id="no_peserta-from" readonly value="Menampilkan semua peserta">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="no_peserta[]" id="no_peserta_to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>no_reg</p>
                                             <label for="no_reg" class="col-md-2 col-sm-12 col-form-label">Registrasi</label>
@@ -255,6 +178,32 @@
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
                                                     <input type="text" class="form-control border-right-0 " name="no_reg[]" id="no_reg_to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>no_terima</p>
+                                            <label for="no_terima" class="col-md-2 col-sm-12 col-form-label">No Terima</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='no_terima[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="no_terima[]" id="no_terima-from" readonly value="Menampilkan semua registrasi">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="no_terima[]" id="no_terima_to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -392,30 +341,13 @@
             to : "",
             toname : "",
         }
-        var paket = {
+        var no_terima = {
             type : "all",
             from : "",
             fromname : "",
             to : "",
             toname : "",
         }
-
-        var jadwal = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-
-        var no_peserta = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-
         var no_reg = {
             type : "all",
             from : "",
@@ -475,72 +407,30 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'paket[]': 
-                    header = ['No Paket','Keterangan'];
-                    var toUrl = "{{ url('dago-report/filter2-paket') }}";
+                case 'no_terima[]': 
+                    header = ['No Terima','No Reg'];
+                    var toUrl = "{{ url('dago-report/filter2-terima') }}";
                     var columns = [
-                        { data: 'no_paket' },
-                        { data: 'nama' }
+                        { data: 'no_kwitansi' },
+                        { data: 'no_reg' }
                     ];
-                    header_pilih = ['Kode','Keterangan','Action'];
+                    header_pilih = ['No Terima','No Reg','Action'];
                     var judul = "Daftar Paket <span class='modal-subtitle'></span>";
                     var pilih = "paket";
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("paket");
-                    var kunci = "paket";
+                    var field = eval("no_terima");
+                    var kunci = "no_terima";
                     var orderby = [];
-                break;
-                case 'jadwal[]': 
-                    header = ['No Jadwal','Keterangan'];
-                    var toUrl = "{{ url('dago-report/filter2-jadwal') }}";
-                    var columns = [
-                        { data: 'no_jadwal' },
-                        { data: 'tgl_berangkat' }
-                    ];
-                    header_pilih = ['No Jadwal','Keterangan','Action'];
-                    var judul = "Daftar Jadwal <span class='modal-subtitle'></span>";
-                    var pilih = "jadwal";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("jadwal");
-                    var kunci = "jadwal";
                     parameter = {
                         'periode[0]' : periode.type,
                         'periode[1]' : periode.from,
                         'periode[2]' : periode.to,
-                        'paket[0]' : paket.type,
-                        'paket[1]' : paket.from,
-                        'paket[2]' : paket.to
+                        'no_reg[0]' : no_reg.type,
+                        'no_reg[1]' : no_reg.from,
+                        'no_reg[2]' : no_reg.to
                     }
-                    var orderby = [];
-                break;
-                case 'no_peserta[]': 
-                    header = ['No Peserta','Nama'];
-                    var toUrl = "{{ url('dago-report/filter2-peserta') }}";
-                    var columns = [
-                        { data: 'no_peserta' },
-                        { data: 'nama' }
-                    ];
-                    header_pilih = ['No Peserta','Keterangan','Action'];
-                    var judul = "Daftar Peserta <span class='modal-subtitle'></span>";
-                    var pilih = "no_peserta";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("no_peserta");
-                    var kunci = "no_peserta";
-                    parameter = {
-                        'periode[0]' : periode.type,
-                        'periode[1]' : periode.from,
-                        'periode[2]' : periode.to,
-                        'paket[0]' : paket.type,
-                        'paket[1]' : paket.from,
-                        'paket[2]' : paket.to
-                    }
-                    var orderby = [];
                 break;
                 case 'no_reg[]': 
                     header = ['No Reg'];
@@ -559,16 +449,7 @@
                     parameter = {
                         'periode[0]' : periode.type,
                         'periode[1]' : periode.from,
-                        'periode[2]' : periode.to,
-                        'paket[0]' : paket.type,
-                        'paket[1]' : paket.from,
-                        'paket[2]' : paket.to,
-                        'jadwal[0]' : jadwal.type,
-                        'jadwal[1]' : jadwal.from,
-                        'jadwal[2]' : jadwal.to,
-                        'no_peserta[0]' : no_peserta.type,
-                        'no_peserta[1]' : no_peserta.from,
-                        'no_peserta[2]' : no_peserta.to
+                        'periode[2]' : periode.to
                     }
                     var orderby = [];
                 break;
@@ -1057,23 +938,17 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("paket[]",paket.type);
-            $formData.append("paket[]",paket.from);
-            $formData.append("paket[]",paket.to);
-            $formData.append("jadwal[]",jadwal.type);
-            $formData.append("jadwal[]",jadwal.from);
-            $formData.append("jadwal[]",jadwal.to);
-            $formData.append("no_peserta[]",no_peserta.type);
-            $formData.append("no_peserta[]",no_peserta.from);
-            $formData.append("no_peserta[]",no_peserta.to);
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);
+            $formData.append("no_terima[]",no_terima.type);
+            $formData.append("no_terima[]",no_terima.from);
+            $formData.append("no_terima[]",no_terima.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dago-auth/form/rptFormRegBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptTerimaBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1082,22 +957,16 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("paket[]",paket.type);
-            $formData.append("paket[]",paket.from);
-            $formData.append("paket[]",paket.to);
-            $formData.append("jadwal[]",jadwal.type);
-            $formData.append("jadwal[]",jadwal.from);
-            $formData.append("jadwal[]",jadwal.to);
-            $formData.append("no_peserta[]",no_peserta.type);
-            $formData.append("no_peserta[]",no_peserta.from);
-            $formData.append("no_peserta[]",no_peserta.to);
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);
+            $formData.append("no_terima[]",no_terima.type);
+            $formData.append("no_terima[]",no_terima.from);
+            $formData.append("no_terima[]",no_terima.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dago-auth/form/rptFormRegBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptTerimaBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1117,8 +986,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "FormReg_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "FormReg_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "LapTerima_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "LapTerima_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
