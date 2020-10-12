@@ -1005,15 +1005,9 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("paket[]",paket.type);
-            $formData.append("paket[]",paket.from);
-            $formData.append("paket[]",paket.to);
-            $formData.append("jadwal[]",jadwal.type);
-            $formData.append("jadwal[]",jadwal.from);
-            $formData.append("jadwal[]",jadwal.to);
-            $formData.append("no_peserta[]",no_peserta.type);
-            $formData.append("no_peserta[]",no_peserta.from);
-            $formData.append("no_peserta[]",no_peserta.to);
+            $formData.append("no_kwitansi[]",no_kwitansi.type);
+            $formData.append("no_kwitansi[]",no_kwitansi.from);
+            $formData.append("no_kwitansi[]",paket.to);
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);

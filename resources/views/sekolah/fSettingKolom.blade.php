@@ -311,12 +311,12 @@
                                         <div class="row">
                                             <div class="col-md-12 col-xs-12">
                                                 <div class="row">
-                                                    <div class="form-group col-md-9 col-xs-12">
-                                                        <label for="kode_pp">col-md-9</label>
-                                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                                    </div>
                                                     <div class="form-group col-md-3 col-xs-12">
                                                         <label for="kode_pp">col-md-3</label>
+                                                        <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                    </div>
+                                                    <div class="form-group col-md-9 col-xs-12">
+                                                        <label for="kode_pp">col-md-9</label>
                                                         <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
                                                     </div>
                                                 </div>
