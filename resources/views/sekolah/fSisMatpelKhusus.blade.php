@@ -860,7 +860,7 @@
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/kelas') }}";
+                var toUrl = "{{ url('sekolah-master/kelas-khusus') }}";
                 var columns = [
                     { data: 'kode_kelas' },
                     { data: 'nama' }
@@ -873,7 +873,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {'kode_pp':$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val(),flag_aktif:1};
             break;
             case 'kode_ta': 
                 header = ['Kode', 'Nama'];
@@ -1070,7 +1070,7 @@
         kode_pp = $('#kode_pp').val();
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sekolah-master/kelas') }}",
+            url: "{{ url('/sekolah-master/kelas-khusus') }}",
             dataType: 'json',
             data:{kode_pp : kode_pp, kode_kelas: kode},
             async:false,
