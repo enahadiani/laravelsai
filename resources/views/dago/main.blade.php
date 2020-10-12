@@ -33,6 +33,7 @@
     <link href="{{ asset('asset_elite/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('asset_elite/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
+    
     <!-- Select 2 -->
     <link href="{{ asset('asset_elite/node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- SAI CSS -->
@@ -49,6 +50,8 @@
 
     <!-- Tagify -->
     <link rel="stylesheet" href="{{ asset('asset_elite/tagify/dist/tagify.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
+    
     <style>
      .navbar-header{
             width:270px;
@@ -139,7 +142,9 @@
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     
     <!-- This is data table -->
-    <script src="{{ asset('asset_elite/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <!-- <script src="{{ asset('asset_elite/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script> -->
+    
+    <script src="{{ asset('asset_dore/js/vendor/datatables.min.js') }}"></script>
    
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
@@ -151,7 +156,8 @@
 
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script>
-
+    
+    <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     <!-- Tiny Editor -->
     <script src="{{ asset('asset_elite/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>

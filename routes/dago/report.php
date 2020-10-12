@@ -29,6 +29,11 @@ Route::get('filter2-paket','Dago\FilterController@getFilter2Paket');
 Route::get('filter2-jadwal','Dago\FilterController@getFilter2Jadwal');
 Route::get('filter2-noreg','Dago\FilterController@getFilter2NoReg');
 Route::get('filter2-peserta','Dago\FilterController@getFilter2Peserta');
+Route::get('filter2-kwitansi','Dago\FilterController@getFilter2Kwitansi');
+Route::get('filter2-jk','Dago\FilterController@getFilter2JK');
+Route::get('filter2-terima','Dago\FilterController@getFilter2Terima');
+Route::get('filter2-periode-bayar','Dago\FilterController@getFilter2PeriodeBayar');
+
 
 //Pihak ketiga
 
@@ -50,5 +55,22 @@ Route::post('lap-detail-bayar','Dago\LaporanController@getDetailBayar');
 Route::post('lap-kartu-pembayaran','Dago\LaporanController@getKartuPembayaran');
 Route::post('lap-terima','Dago\LaporanController@getTerima');
 Route::post('lap-jurnal','Dago\LaporanController@getJurnal');
+
+Route::post('lap-mku-operasional','Dago\LaporanController@getMkuOperasional');
+Route::post('lap-mku-keuangan','Dago\LaporanController@getMkuKeuangan');
+Route::post('lap-paket','Dago\LaporanController@getPaket');
+Route::post('lap-dokumen','Dago\LaporanController@getDokumen');
+Route::post('lap-jamaah','Dago\LaporanController@getJamaah');
+
+Route::post('lap2-form-registrasi','Dago\Laporan2Controller@getFormRegistrasi');
+Route::post('lap2-registrasi','Dago\Laporan2Controller@getRegistrasi');
+Route::post('lap2-pembayaran','Dago\Laporan2Controller@getPembayaran');
+Route::post('lap2-rekap-saldo','Dago\Laporan2Controller@getRekapSaldo');
+Route::post('lap2-detail-saldo','Dago\Laporan2Controller@getDetailSaldo');
+Route::post('lap2-detail-tagihan','Dago\Laporan2Controller@getDetailTagihan');
+Route::post('lap2-detail-bayar','Dago\Laporan2Controller@getDetailBayar');
+Route::post('lap2-kartu-pembayaran','Dago\Laporan2Controller@getKartuPembayaran');
+Route::post('lap2-terima','Dago\Laporan2Controller@getTerima');
+Route::post('lap2-jurnal','Dago\Laporan2Controller@getJurnal');
 
 

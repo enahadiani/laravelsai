@@ -312,7 +312,34 @@ class FilterController extends Controller
         try{
             $client = new Client();
     
-            $response = $client->request('GET',  config('api.url').'toko-report/filter2-periode',[
+            $response = $client->request('GET',  config('api.url').'dago-report/filter2-periode',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res['message'], 'status'=>false], 200);
+        } 
+    }
+
+    public function getFilter2Paket(Request $request) {
+        try{
+            $client = new Client();
+    
+            $response = $client->request('GET',  config('api.url').'dago-report/filter2-paket',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -335,32 +362,183 @@ class FilterController extends Controller
         } 
     }
 
-    public function getFilter2Paket(Request $request) {
+    function getFilter2Jadwal(Request $request){
         try{
             $client = new Client();
-    
-            $response = $client->request('GET',  config('api.url').'toko-report/filter2-paket',[
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-jadwal',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'periode' => $request->periode
+                    'periode' => $request->periode,
+                    'paket' => $request->paket
                 ]
             ]);
     
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-            
+                
                 $data = json_decode($response_data,true);
+                $data = $data["data"];
             }
-            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         } 
     }
+
+    function getFilter2NoReg(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-noreg',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode,
+                    'paket' => $request->paket,
+                    'jadwal' => $request->jadwal,
+                    'no_peserta' => $request->no_peserta
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    function getFilter2Peserta(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-peserta',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $request->periode,
+                    'paket' => $request->paket,
+                    'jadwal' => $request->jadwal,
+                    'no_reg'=> $request->no_reg
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    function getFilter2JK(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-jk',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_peserta' => $request->peserta
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    function getFilter2Kwitansi(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-kwitansi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'periode' => $request->periode,
+                    'no_reg' => $request->no_reg
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    function getFilter2Terima(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'dago-report/filter2-terima',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'periode' => $request->periode,
+                    'no_reg' => $request->no_reg
+                ]
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true ,'message'=>'success'], 200); 
+            
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
 
 
     
