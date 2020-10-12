@@ -1069,6 +1069,20 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
+    function generateDok(tanggal,nama_pp,nama_kota){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/generate-dok') }}",
+            dataType: 'json',
+            data:{'tanggal':tanggal,'kode_pp':nama_pp,'kode_kota':nama_kota},
+            async:false,
+            success:function(res){
+                console.log(res);
+                $('#dokumen').val(res.no_dokumen);
+            }
+        });
+    }
+    
     function getPPFilter() {
         $.ajax({
             type: 'GET',
@@ -1287,9 +1301,17 @@
         getPP(value);
     });
     $('#kode_kota').change(function(){
+        var tanggal = $('#tanggal').val();
         var kode_pp = $('#kode_pp').val();
         var value = $(this).val();
         getKota(value,kode_pp);
+        generateDok(tanggal,kode_pp,value)
+    });
+    $('#tanggal').change(function(){
+        var kode_pp = $('#kode_pp').val();
+        var kode_kota = $('#kode_kota').val();
+        var value = $(this).val();
+        generateDok(value,kode_pp,kode_kota)
     });
     $('#nik_ver').change(function(){
         var kode_pp = $('#kode_pp').val();
