@@ -2892,7 +2892,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('apv/logout') }}";
+                        window.location.href = "{{ url('silo-auth/logout') }}";
                     })
                 } else{
                     var html = `
