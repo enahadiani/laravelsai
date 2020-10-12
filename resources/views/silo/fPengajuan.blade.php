@@ -603,7 +603,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2 btn-kembali" id="btn-kembali-history" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-light ml-2 btn-kembali" id="btn-kembali-history" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                         <div class="profiletimeline mt-5">
                         </div>
                     </div>
@@ -614,8 +614,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2 btn-kembali" id="btn-kembali-print" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-light ml-2 btn-kembali" id="btn-kembali-print" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <button type="button" id="btn-aju-print" class="btn btn-primary" style="float:right;" ><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
                         </div>
                     </div>
