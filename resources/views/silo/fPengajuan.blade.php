@@ -599,11 +599,22 @@
                 </div>
             </div>
         </div>
+        <div class="row" id="slide-history" style="display:none;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-secondary ml-2 btn-kembali" id="btn-kembali-history" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <div class="profiletimeline mt-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row" id="slide-print" style="display:none;">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2 btn-kembali" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        <button type="button" class="btn btn-secondary ml-2 btn-kembali" id="btn-kembali-print" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
                         </div>
@@ -1838,7 +1849,7 @@
     });
     // END EVENT CHANGE //
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Print'  id='btn-print'><i class='simple-icon-printer' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='History'  id='btn-history'><i class='simple-icon-reload' style='font-size:18px'></i></a>";
     var dataTable = $('#table-data').DataTable({
             destroy: true,
             bLengthChange: false,
@@ -1957,6 +1968,18 @@
     // END BUTTON TAMBAH
 
     // BUTTON KEMBALI
+    $('#slide-history').on('click', '.btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+        $('#slide-history').hide();
+    });
+
+    $('#slide-print').on('click', '.btn-kembali', function(){
+        $('#saku-datatable').show();
+        $('#saku-form').hide();
+        $('#slide-print').hide();
+    });
+
     $('#saku-form').on('click', '.btn-kembali', function(){
         var kode = null;
         msgDialog({
@@ -2375,6 +2398,12 @@
     });
     // END PREVIEW saat klik di list data //
 
+    // BUTTON PRINT //
+    $('#saku-datatable').on('click','#btn-print',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        printAju(id);
+    });
+    // END BUTTON PRINT //
     
     // BUTTON HAPUS DATA
     function hapusData(id){
@@ -2815,6 +2844,79 @@
         });
     }
     // END PRINT PREVIEW //
+
+    // HISTORY //
+     $('#saku-datatable').on('click','#btn-history',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('apv/juskeb_history') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        var html='';
+                        
+                        for(var i=0;i<result.data.length;i++){
+                            if(result.data[i].color == 'green'){
+                                var color = '#00c292';
+                            }else{
+                                var color = '#03a9f3';
+                            }
+                            
+                            html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid `+color+`;border-radius: 50%;background: `+color+`;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
+                                </div>
+                                <div class="sl-right">
+                                    <div><a href="javascript:void(0)" class="link">`+result.data[i].nama+`</a> <span class="sl-date">`+result.data[i].tanggal+` (`+result.data[i].status+`)</span>
+                                    <div class="row mt-3 mb-2">
+                                        <div class="col-md-6">No Bukti : </div>
+                                        <div class="col-md-6">`+result.data[i].no_bukti+`</div>
+                                        <div class="col-md-6">Catatan : </div>
+                                        <div class="col-md-6">`+result.data[i].keterangan+`</div>
+                                    </div>
+                            </div>
+                            </div>
+                            <hr>`;
+                        }
+                        
+                        $('.profiletimeline').html(html);
+                        $('#slide-history').show();
+                        $('#saku-datatable').hide();
+                        $('#saku-form').hide();
+                    }
+                } else if(!result.status && result.message == "Unauthorized"){
+                    Swal.fire({
+                        title: 'Session telah habis',
+                        text: 'harap login terlebih dahulu!',
+                        icon: 'error'
+                    }).then(function() {
+                        window.location.href = "{{ url('apv/logout') }}";
+                    })
+                } else{
+                    var html = `
+                    <div class="sl-item"> 
+                        <div class="sl-left" style="margin-left: 0px;"> 
+                            <div style="padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="simple-icon-envelope-letter"></i> 
+                            </div> 
+                        </div>
+                        <div class="sl-right">
+                            Belum ada proses approval.
+                            <br>
+                            <br>
+                        <div>
+                    </div>
+                    <hr>`;
+                    $('.profiletimeline').html(html);
+                    $('#slide-history').show();
+                    $('#saku-datatable').hide();
+                    $('#saku-form').hide();
+                }
+            }
+        });
+    });
+    // END HISTORY //
 
     $('#tanggal,#waktu,#kode_pp,#kode_kota,#no_dokumen,#kegiatan,#dasar,#pic,#nik_ver,#total').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
