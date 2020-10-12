@@ -32,7 +32,8 @@
                     ],
                     'query' => [
                         'kode_pp' => $kode_pp,
-                        'kode_jenis' => $request->kode_jenis
+                        'kode_jenis' => $request->kode_jenis,
+                        'flag_aktif' => $request->flag_aktif
                     ]
                 ]);
     

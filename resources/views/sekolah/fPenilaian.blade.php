@@ -908,7 +908,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
             break;
             case 'kode_ta': 
                 header = ['Kode TA', 'Nama'];
@@ -1144,6 +1144,9 @@
     function getKD(id,pp=null,kode_matpel=null,kode_kelas=null,kode_sem=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        if(id == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-trans/penilaian-kd') }}",
@@ -1226,7 +1229,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/jenis-penilaian') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_jenis:kode},
+            data:{kode_pp:pp,kode_jenis:kode,flag_aktif:1},
             async:false,
             success:function(result){    
                 if(result.status){
