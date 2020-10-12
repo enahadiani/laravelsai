@@ -886,6 +886,11 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),kode_matpel:$('#kode_matpel').val(),kode_kelas:$('#kode_kelas').val(),kode_sem:$('#kode_sem').val()};
+                if(parameter.kode_pp == "" || parameter.kode_matpel == ""  || parameter.kode_kelas == "" || parameter.kode_sem == ""){
+                    return false;
+                    // break;
+                }
+               
             break;
             case 'kode_jenis': 
                 header = ['Kode Jenis', 'Nama'];
