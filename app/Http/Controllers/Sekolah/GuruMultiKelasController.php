@@ -55,6 +55,7 @@
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
+                'kode_ta' => 'required',
                 'kode_kelas'=>'required|array'
             ]);
 
@@ -64,8 +65,9 @@
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
+                    'kode_ta' => $request->kode_ta,
                     'kode_kelas' => $request->kode_kelas
-                  );
+                );
     
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'sekolah/guru-multi-kelas',[
@@ -105,6 +107,7 @@
                         'nik_guru' => $request->nik_guru,
                         'kode_pp' => $request->kode_pp,
                         'kode_matpel' => $request->kode_matpel,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
         
@@ -136,7 +139,8 @@
                     'query' => [
                         'nik_guru' => $request->nik_guru,
                         'kode_pp' => $request->kode_pp,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_ta' => $request->kode_ta
                     ]
                 ]);
         
@@ -163,6 +167,7 @@
                 'nik_guru' => 'required',
                 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
+                'kode_ta' => 'required',
                 'kode_kelas'=>'required|array'
             ]);
 
@@ -172,6 +177,7 @@
                     'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
+                    'kode_ta' => $request->kode_ta,
                     'kode_kelas' => $request->kode_kelas
                   );
         

@@ -461,7 +461,6 @@
                 ];
     
                 $fields_foto = array();
-                $fields_nama_file = array();
                 $fields_nama_file_seb = array();
                 $fields_nama_nis = array();
                 $cek = $request->file_dok;
@@ -471,7 +470,7 @@
     
                     if(count($request->file_dok) > 0){
     
-                        for($i=0;$i<count($request->nama_dok);$i++){
+                        for($i=0;$i<count($request->nis);$i++){
                             if(isset($request->file('file_dok')[$i])){
                                 $image_path = $request->file('file_dok')[$i]->getPathname();
                                 $image_mime = $request->file('file_dok')[$i]->getmimeType();
@@ -488,11 +487,6 @@
                                 'name'     => 'nis[]',
                                 'contents' => $request->nis[$i],
                             );
-                            $nama_file = $request->nama_dok[$i];
-                            $fields_nama_file[$i] = array(
-                                'name'     => 'nama_file[]',
-                                'contents' => $nama_file,
-                            );
                             
                             $fields_nama_file_seb[$i] = array(
                                 'name'     => 'nama_file_seb[]',
@@ -500,7 +494,6 @@
                             );
                         }
                         $send_data = array_merge($send_data,$fields_foto);
-                        $send_data = array_merge($send_data,$fields_nama_file);
                         $send_data = array_merge($send_data,$fields_nama_file_seb);
                         $send_data = array_merge($send_data,$fields_nama_nis);
                     }

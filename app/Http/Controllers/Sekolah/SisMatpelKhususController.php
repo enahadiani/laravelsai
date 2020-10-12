@@ -8,7 +8,7 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
 
-    class GuruMatpelKhususController extends Controller {
+    class SisMatpelKhususController extends Controller {
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -25,7 +25,7 @@
                 //     $kode_pp = Session::get('kodePP');
                 // }
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel-khusus-all',[
+                $response = $client->request('GET',  config('api.url').'sekolah/sis-matpel-khusus-all',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -52,7 +52,8 @@
         public function store(Request $request) {
             $this->validate($request, [
                 'kode_pp' => 'required',
-                'nik_guru' => 'required',
+                'kode_ta' => 'required',
+                'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'nis'=>'required|array'
             ]);
@@ -60,14 +61,15 @@
             try{                
                 $fields = array (
                     'kode_pp' => $request->kode_pp,
-                    'nik_guru' => $request->nik_guru,
-                    'flag_aktif' => 1,
+                    'kode_ta' => $request->kode_ta,
                     'kode_matpel' => $request->kode_matpel,
+                    'kode_kelas' => $request->kode_kelas,
+                    // 'flag_aktif' => 1,
                     'nis' => $request->nis
                   );
     
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'sekolah/guru-matpel-khusus',[
+                $response = $client->request('POST',  config('api.url').'sekolah/sis-matpel-khusus',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'
@@ -94,16 +96,17 @@
         public function show(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/guru-matpel-khusus',
+                $response = $client->request('GET',  config('api.url').'sekolah/sis-matpel-khusus',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'nik_guru' => $request->nik_guru,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas
                     ]
                 ]);
         
@@ -126,16 +129,17 @@
         public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah/guru-matpel-khusus',
+                $response = $client->request('DELETE',  config('api.url').'sekolah/sis-matpel-khusus',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'nik_guru' => $request->nik_guru,
+                        'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas
                     ]
                 ]);
         
@@ -159,7 +163,8 @@
         {
             $this->validate($request, [
                 'kode_pp' => 'required',
-                'nik_guru' => 'required',
+                'kode_ta' => 'required',
+                'kode_kelas' => 'required',
                 // 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
                 'nis'=>'required|array'
@@ -168,14 +173,15 @@
             try{
                 $fields = array (
                     'kode_pp' => $request->kode_pp,
-                    'nik_guru' => $request->nik_guru,
-                    'flag_aktif' => 1,
+                    'kode_ta' => $request->kode_ta,
+                    'kode_kelas' => $request->kode_kelas,
+                    // 'flag_aktif' => 1,
                     'kode_matpel' => $request->kode_matpel,
                     'nis' => $request->nis
                   );
         
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'sekolah/guru-matpel-khusus',[
+                $response = $client->request('PUT',  config('api.url').'sekolah/sis-matpel-khusus',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Content-Type'     => 'application/json'

@@ -5,6 +5,7 @@
         }
         .search-item2{
             cursor:pointer;
+            font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
 
         input.error{
@@ -220,6 +221,65 @@
             overflow:hidden !important;
             height:35px !important;
         }
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            height:calc(1.3rem + 1rem) !important;
+        }
+
+        .input-group-prepend{
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .input-group > .form-control 
+        {
+            border-radius: 0.5rem !important;
+        }
+
+        .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #e9ecef !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.25rem !important;
+            color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        span[class^=info-name]{
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+
+        }
+
+        .info-icon-hapus{
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 35px;
+            z-index: 3;
+        }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem;
+        }
+
+        .selectize-input {
+            min-height: unset !important;
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            line-height: 30px;
+            border-radius: 0.5rem;
+        }
+
+        label{
+            margin-bottom: 0.2rem;
+        }
         
     </style>
     <!-- LIST DATA -->
@@ -248,9 +308,9 @@
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
+                            <div class="input-group-append" >
+                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
                     </div>
@@ -264,6 +324,7 @@
                                     <th>Kode PP</th>
                                     <th>Kode Tingkat</th>
                                     <th>Kode Sem</th>
+                                    <th>Kode TA</th>
                                     <th>Tgl Input</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -289,78 +350,145 @@
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
-                    <div class="separator mb-2"></div>
-                    <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
-                        <div class="form-group row" id="row-id">
-                            <div class="col-9">
-                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_pp" class="col-md-2 col-sm-2 col-form-label">Kode PP</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_pp" name="kode_pp" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_pp" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_matpel" class="col-md-2 col-sm-2 col-form-label">Matpel</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_matpel" name="kode_matpel" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_matpel" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_tingkat" class="col-md-2 col-sm-2 col-form-label">Tingkat</label>
-                            <div class="col-md-3 col-sm-9" >
-                                <input class="form-control" type="text"  id="kode_tingkat" name="kode_tingkat" required>
-                                <i class='simple-icon-magnifier search-item2' style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;"></i>
-                            </div>
-                            <div class="col-md-2 col-sm-9 px-0" >
-                                <input id="label_kode_tingkat" class="form-control" style="border:none;border-bottom: 1px solid #d7d7d7;"/>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="kode_sem" class="col-md-2 col-sm-2 col-form-label">Semester</label>
-                            <div class="col-md-3 col-sm-9">
-                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                <option value=''>--- Pilih Semester ---</option>
-                                <option value='1' selected>GANJIL</option>
-                                <option value='2'>GENAP</option>
-                                </select>
-                            </div>
-                        </div>
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kd" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Kompetensi</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-kd" role="tabpanel">
-                                <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
-                                    
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                    <div class="separator"></div>
+                    <!-- FORM BODY -->
+                    <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                        <div class="card" style='border-radius:0'>
+                            <div class="card-body">
+                                <input type="hidden" id="method" name="_method" value="post">
+                                <div class="form-group row" id="row-id">
+                                    <div class="col-9">
+                                        <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                                        <input class="form-control" type="text" id="no_bukti" name="no_bukti" readonly hidden>
+                                    </div>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-kd" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:10%">Kode KD</th>
-                                            <th style="width:82%">Keterangan</th>
-                                            <th width="5%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
-                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_pp">PP</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
+                                                    <span class="info-name_kode_pp hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_ta">Tahun Ajaran</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_ta" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_ta" id="kode_ta" name="kode_ta" value="" title="" readonly>
+                                                    <span class="info-name_kode_ta hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-magnifier search-item2 hidden" id="search_kode_ta"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_matpel">Mata Pelajaran</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_matpel" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                                    <span class="info-name_kode_matpel hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_tingkat">Tingkat Sekolah</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_tingkat" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_tingkat" id="kode_tingkat" name="kode_tingkat" value="" title="">
+                                                    <span class="info-name_kode_tingkat hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_tingkat"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_sem">Semester</label>
+                                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                                <option value=''>--- Pilih Semester ---</option>
+                                                <option value='1' selected>GANJIL</option>
+                                                <option value='2'>GENAP</option>
+                                                </select>
+                                                
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
+                            <div class="card-body">
+                                <ul class="nav nav-tabs col-12 " role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-kd" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Kompetensi</span></a> </li>
+                                </ul>
+                                <div class="tab-content tabcontent-border col-12 p-0">
+                                    <div class="tab-pane active" id="data-kd" role="tabpanel">
+                                        <div class='col-xs-12 nav-control' style="padding: 0px 5px;">
+                                            
+                                            <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                        </div>
+                                        <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                            <table class="table table-bordered table-condensed gridexample" id="input-kd" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                            <thead style="background:#F8F8F8">
+                                                <tr>
+                                                    <th style="width:3%">No</th>
+                                                    <th style="width:10%">Kode KD</th>
+                                                    <th style="width:82%">Keterangan</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                            </table>
+                                            <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -393,7 +521,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Kompetensi Dasar <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span><span id="modal-preview-ref1" style="display:none"></span><span id="modal-preview-ref2" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Kompetensi Dasar <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span><span id="modal-preview-ref1" style="display:none"></span><span id="modal-preview-ref2" style="display:none"></span><span id="modal-preview-ref3" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -650,20 +778,21 @@
                 }
             },
             {
-                "targets": [4],
+                "targets": [5],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'kode_matpel' },
             { data: 'pp' },
             { data: 'kode_tingkat' },
             { data: 'kode_sem' },
+            { data: 'kode_ta' },
             { data: 'tgl_input' }
         ],
-        order:[[4,'desc']],
+        order:[[5,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -701,8 +830,24 @@
 
     // END LIST DATA
 
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var search = ($('#search_'+kode).width() == undefined ? 0 : $('#search_'+kode).width());
+        var width = $('#'+kode).width()-search-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
+
     // CBBL
-    function showFilter(param,target1,target2){
+    function showFilter(param,target1=null,target2=null){
         var par = param;
 
         var modul = '';
@@ -713,42 +858,40 @@
         
         switch(par){
             case 'kode_pp': 
-                header = ['Kode', 'Nama'];
+                header = ['Kode PP', 'Nama'];
                 var toUrl = "{{ url('sekolah-master/pp') }}";
                 var columns = [
                     { data: 'kode_pp' },
                     { data: 'nama' }
                 ];
+                
                 var judul = "Daftar PP";
-                var pilih = "pp";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
             break;
-            case 'kode_matpel': 
-                header = ['Kode Matpel', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/matpel') }}";
+            case 'kode_ta': 
+                header = ['Kode Tahun Ajaran', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/tahun-ajaran') }}";
                 var columns = [
-                    { data: 'kode_matpel' },
+                    { data: 'kode_ta' },
                     { data: 'nama' }
                 ];
                 
-                var judul = "Daftar Matpel";
-                var jTarget1 = "val";
-                var pilih = "matpel";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var judul = "Daftar Tahun Ajaran";
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
             break;
             case 'kode_tingkat': 
-                header = ['Kode Tingkat', 'Nama'];
+                header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('sekolah-master/tingkatan') }}";
                 var columns = [
                     { data: 'kode_tingkat' },
@@ -756,15 +899,30 @@
                 ];
                 
                 var judul = "Daftar Tingkat";
-                var jTarget1 = "val";
-                var pilih = "tingkat";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "#"+$target;
-                $target2 = "#"+$target2;
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val()};
+            break;
+            case 'kode_matpel': 
+                header = ['Kode', 'Nama'];
+                var toUrl = "{{ url('sekolah-master/matpel') }}";
+                var columns = [
+                    { data: 'kode_matpel' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Mata Pelajaran";
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
+                $target3 = "";
+                $target4 = "";
+                parameter = {'kode_pp':$('#kode_pp').val()};
             break;
         }
 
@@ -832,29 +990,38 @@
                 if(jTarget1 == "val"){
                     $($target).val(kode);
                 }else{
+                    $('#'+par).css('border-left',0);
+                    $('#'+par).val(kode);
                     $($target).text(kode);
+                    $($target).attr("title",nama);
+                    $($target).parents('div').removeClass('hidden');
                 }
 
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
-                }else{
+                }else if(jTarget2 == "title"){
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                }else if(jTarget2 == "text2"){
                     $($target2).text(nama);
+                }else{
+                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                    var pos =$('#'+par).position();
+                    var height = $('#'+par).height();
+                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                    $($target2+' span').text(nama);
+                    $($target2).attr("title",nama);
+                    $($target2).removeClass('hidden');
+                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
                 }
-
+                
                 if($target3 != ""){
-                    $($target3).text(nama);
+                    $($target3).click();
                 }
 
-                if($target4 != ""){
-                    if($target4 != ""){
-                        if(par == "nis[]"){
-                            $($target).closest('tr').find($target4).click();
-                            setTimeout(function() {  $($target).parents("tr").find(".inp-nilai").focus(); }, 50);
-                        }
-                        else{
-                            $($target).closest('tr').find($target4).click();
-                        }
-                    }
+                if(par == "kode_pp"){
+                    getTA(kode);
                 }
                
                 $('#modal-search').modal('hide');
@@ -862,9 +1029,14 @@
         });
     }
 
+
     function getPP(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
+
+        if(kode == ""){
+            return false;
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/pp') }}",
@@ -874,11 +1046,11 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_pp').val(result.daftar[0].kode_pp);
-                         $('#label_kode_pp').val(result.daftar[0].nama);
+                        showInfoField('kode_pp',result.daftar[0].kode_pp,result.daftar[0].nama);
                     }else{
+                        $('#kode_pp').attr('readonly',false);
+                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
                         $('#kode_pp').val('');
-                        $('#label_kode_pp').val('');
                         $('#kode_pp').focus();
                     }
                 }
@@ -889,24 +1061,52 @@
         });
     }
 
-    function getMatpel(id,pp=null){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
+    function getTA(pp=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-master/matpel') }}",
+            url: "{{ url('sekolah-master/tahun-ajaran') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_matpel:kode},
+            data:{kode_pp:pp,flag_aktif:1},
             async:false,
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_matpel').val(result.daftar[0].kode_matpel);
-                         $('#label_kode_matpel').val(result.daftar[0].nama);
+                        showInfoField('kode_ta',result.daftar[0].kode_ta,result.daftar[0].nama);
                     }else{
-                        $('#kode_matpel').val('');
-                        $('#label_kode_matpel').val('');
-                        $('#kode_matpel').focus();
+                        $('#kode_ta').attr('style','border-left:1px solid #d7d7d7;border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+                        $('.info-code_kode_ta').parent('div').addClass('hidden');
+                        $('.info-name_kode_ta').addClass('hidden');
+                        $('#kode_ta').val('');
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+    
+    
+    function getTingkat(id){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        kode_pp = $('#kode_pp').val();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/sekolah-master/tingkatan') }}",
+            dataType: 'json',
+            data:{kode_pp : kode_pp, kode_tingkat: kode},
+            async:false,
+            success:function(res){
+                var result = res.data;    
+                if(result.status){
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('kode_tingkat',result.data[0].kode_tingkat,result.data[0].nama);
+                    }else{
+                        $('#kode_tingkat').attr('readonly',false);
+                        $('#kode_tingkat').css('border-left','1px solid #d7d7d7');
+                        $('#kode_tingkat').val('');
+                        $('#kode_tingkat').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -916,24 +1116,24 @@
         });
     }
 
-    function getTingkat(id,pp=null){
-        var tmp = id.split(" - ");
+    function getMatpel(id,pp){
+        var tmp = pp.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-master/tingkatan') }}",
+            url: "{{ url('sekolah-master/matpel') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_tingkat:kode},
+            data:{kode_pp : kode, kode_matpel: id},
             async:false,
             success:function(result){    
                 if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                         $('#kode_tingkat').val(result.daftar[0].kode_tingkat);
-                         $('#label_kode_tingkat').val(result.daftar[0].nama);
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        showInfoField('kode_matpel',result.data[0].nik,result.data[0].nama);
                     }else{
-                        $('#kode_tingkat').val('');
-                        $('#label_kode_tingkat').val('');
-                        $('#kode_tingkat').focus();
+                        $('#kode_matpel').attr('readonly',false);
+                        $('#kode_matpel').css('border-left','1px solid #d7d7d7');
+                        $('#kode_matpel').val('');
+                        $('#kode_matpel').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -947,8 +1147,8 @@
 
     $('#kode_pp').change(function(){
         var kode_pp = $('#kode_pp').val(); 
-        // var kode_matpel = $('#kode_matpel').val(); 
         getPP(kode_pp);
+        getTA(kode_pp);
     });
 
     $('#kode_matpel').change(function(){
@@ -970,6 +1170,7 @@
         var kode_pp = tmp[0];
         var kode_tingkat =  $(this).closest('tr').find('td').eq(2).html();
         var kode_sem =  $(this).closest('tr').find('td').eq(3).html();
+        var kode_ta =  $(this).closest('tr').find('td').eq(4).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Edit Data Kompetensi Dasar');
@@ -980,7 +1181,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/kd-detail') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
+            data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem,kode_ta:kode_ta},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -988,11 +1189,9 @@
                     $('#id').val('edit');
                     $('#method').val('put');
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
-                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
+                    $('#kode_ta').val(result.data[0].kode_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
@@ -1034,6 +1233,10 @@
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama_ta);
+                    showInfoField('kode_tingkat',result.data[0].kode_tingkat,result.data[0].nama_tingkat);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1080,9 +1283,10 @@
         var kode_pp = tmp[0];
         var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
         var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+        var kode_ta = $(this).closest('tr').find('td').eq(4).html();
         msgDialog({
             id: id,
-            param: {kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
+            param: {kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem,kode_ta:kode_ta},
             type:'hapus'
         });
     });
@@ -1099,12 +1303,16 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#input-kd tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+        $('.input-group-prepend').addClass('hidden');
+        $('span[class^=info-name]').addClass('hidden');
+        $('.info-icon-hapus').addClass('hidden');
+        $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         if("{{ Session::get('kodePP') }}" != ""){
             $('#kode_pp').val("{{ Session::get('kodePP') }}");
             $('#kode_pp').trigger('change');
         }
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
         hitungTotalRow();
     });
     // END BUTTON TAMBAH
@@ -1131,18 +1339,19 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 4){
+        if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(1).html().split("-");
             var kode_pp = tmp[0];
             var kode_tingkat = $(this).closest('tr').find('td').eq(2).html();
             var kode_sem = $(this).closest('tr').find('td').eq(3).html();
+            var kode_ta = $(this).closest('tr').find('td').eq(4).html();
 
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sekolah-master/kd-detail') }}",
-                data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem},
+                data:{kode_pp:kode_pp,kode_matpel:id,kode_tingkat:kode_tingkat,kode_sem:kode_sem,kode_ta:kode_ta},
                 dataType: 'json',
                 async:false,
                 success:function(res){
@@ -1153,6 +1362,10 @@
                         <tr>
                             <td>PP</td>
                             <td>`+result.data[0].kode_pp+`-`+result.data[0].nama_pp+`</td>
+                        </tr>
+                        <tr>
+                            <td>Tahun Ajaran</td>
+                            <td>`+result.data[0].kode_ta+`-`+result.data[0].nama_ta+`</td>
                         </tr>
                         <tr>
                             <td>Mata Pelajaran</td>
@@ -1201,7 +1414,8 @@
                         $('#modal-preview-id').text(id);
                         $('#modal-preview-kode').text(result.data[0].kode_pp);
                         $('#modal-preview-ref1').text(result.data[0].kode_tingkat);
-                        // $('#modal-preview-ref2').text(result.data[0].kode_Sem);
+                        $('#modal-preview-ref2').text(result.data[0].kode_sem);
+                        $('#modal-preview-ref3').text(result.data[0].kode_ta);
                         $('#modal-preview').modal('show');
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -1218,10 +1432,11 @@
         var kode_pp = $('#modal-preview-kode').text();
         var kode_tingkat = $('#modal-preview-ref1').text();
         var kode_sem = $('#modal-preview-ref2').text();
+        var kode_ta = $('#modal-preview-ref3').text();
         $('#modal-preview').modal('hide');
         msgDialog({
             id:id,
-            param:{kode_matpel:id,kode_tingkat:kode_tingkat,kode_pp:kode_pp,kode_sem:kode_sem},
+            param:{kode_matpel:id,kode_tingkat:kode_tingkat,kode_pp:kode_pp,kode_sem:kode_sem,kode_ta:kode_ta},
             type:'hapus'
         });
     });
@@ -1231,6 +1446,7 @@
         var kode_pp = $('#modal-preview-kode').text();
         var kode_tingkat = $('#modal-preview-ref1').text();
         var kode_sem = $('#modal-preview-ref2').text();
+        var kode_ta = $('#modal-preview-ref3').text();
         $('#judul-form').html('Edit Data Kompetensi Dasar');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -1250,11 +1466,9 @@
                     $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#label_kode_pp').val(result.data[0].nama_pp);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#label_kode_matpel').val(result.data[0].nama_matpel);
                     $('#kode_tingkat').val(result.data[0].kode_tingkat);
-                    $('#label_kode_tingkat').val(result.data[0].nama_tingkat);
+                    $('#kode_ta').val(result.data[0].kode_ta);
                     $('#kode_sem')[0].selectize.setValue(result.data[0].kode_sem);
                 
                     if(result.data_detail.length > 0){
@@ -1283,6 +1497,10 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama_ta);
+                    showInfoField('kode_ta',result.data[0].kode_ta,result.data[0].nama_ta);
+                    showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1350,7 +1568,10 @@
                             $('#judul-form').html('Tambah Data Kompetensi Dasar Siswa');
                             $('#id').val('');
                             $('#input-kd tbody').html('');
-                            $('[id^=label]').html('');
+                            $('.input-group-prepend').addClass('hidden');
+                            $('span[class^=info-name]').addClass('hidden');
+                            $('.info-icon-hapus').addClass('hidden');
+                            $('[class*=input-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
                             if("{{ Session::get('kodePP') }}" != ""){
                                 $('#kode_pp').val("{{ Session::get('kodePP') }}");
                                 $('#kode_pp').trigger('change');
@@ -1393,9 +1614,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#kode_pp,#kode_matpel,#kode_tingkat,#kode_sem').keydown(function(e){
+    $('#kode_pp,#kode_ta,#kode_matpel,#kode_tingkat,#kode_sem').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_pp','kode_matpel','kode_tingkat','kode_sem'];
+        var nxt = ['kode_pp','kode_ta','kode_matpel','kode_tingkat','kode_sem'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1417,12 +1638,8 @@
     // END ENTER FIELD FORM
 
     $('#form-tambah').on('click', '.search-item2', function(){
-
         var par = $(this).closest('div').find('input').attr('name');
-        var par2 = $(this).closest('div').siblings('div').find('input').attr('id');
-        target1 = par;
-        target2 = par2;
-        showFilter(par,target1,target2);
+        showFilter(par);
     });
 
     // GRID 
@@ -1510,6 +1727,16 @@
             var idx = nxt.indexOf(e.target.id);
             idx--;
         }
+    });
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
     });
 
     $('#form-tambah').on('click', '.add-row', function(){
