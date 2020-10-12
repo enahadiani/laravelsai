@@ -112,7 +112,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h5 id="judul-form" style="position:absolute;top:25px">Setting Form</h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -127,29 +127,99 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="row">
+                                <div class="col-md-11 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                </div>
+                                                <div class="col-md-3 col-xs-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-xs-12">
+                                    <div class="row">
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-xs-12">
+                                    <div class="row">
+                                    </div>
+                                </div>
+                                <div class="col-md-11 col-xs-12">
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-3 col-sm-12">
-                                        <label for="kode_pp">col-md-3</label>
-                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-12">
-                                        <label for="kode_pp">col-md-3</label>
-                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                    </div>
-                                    <div class="col-md-3 col-sm-12">
-                                        <label for="kode_pp">col-md-3</label>
-                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
-                                    </div>
-                                    <div class="col-md-3 col-sm-12">
-                                        <label for="kode_pp">col-md-3</label>
-                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
