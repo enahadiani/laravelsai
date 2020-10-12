@@ -120,3 +120,9 @@ Route::get('sis-matpel-khusus-detail', 'Sekolah\SisMatpelKhususController@show')
 Route::post('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@store');
 Route::put('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@update');
 Route::delete('sis-matpel-khusus', 'Sekolah\SisMatpelKhususController@destroy');
+
+Route::get('kelas-khusus', 'Sekolah\KelasKhususController@index');
+Route::get('kelas-khusus-detail', 'Sekolah\KelasKhususController@show');
+Route::post('kelas-khusus', 'Sekolah\KelasKhususController@store');
+Route::put('kelas-khusus', 'Sekolah\KelasKhususController@update');
+Route::delete('kelas-khusus', 'Sekolah\KelasKhususController@destroy');
