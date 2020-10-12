@@ -55,7 +55,7 @@
             $this->validate($request, [
                 'kode_matpel' => 'required',
                 'nama' => 'required',
-                'keterangan' => 'required',
+                // 'keterangan' => 'required',
                 'sifat' => 'required',
                 'kode_pp' => 'required',
                 'flag_aktif' => 'required',
@@ -71,7 +71,7 @@
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
                         'nama' => $request->nama,
-                        'keterangan' => $request->keterangan,
+                        'keterangan' => '-',
                         'sifat' => $request->sifat,
                         'kode_pp' => $request->kode_pp,
                         'flag_aktif' => $request->flag_aktif,
@@ -132,7 +132,7 @@
             $this->validate($request, [
                 'kode_matpel' => 'required',
                 'nama' => 'required',
-                'keterangan' => 'required',
+                // 'keterangan' => 'required',
                 'sifat' => 'required',
                 'kode_pp' => 'required',
                 'flag_aktif' => 'required',
@@ -148,7 +148,7 @@
                     'form_params' => [
                         'kode_matpel' => $request->kode_matpel,
                         'nama' => $request->nama,
-                        'keterangan' => $request->keterangan,
+                        'keterangan' => '-',
                         'sifat' => $request->sifat,
                         'kode_pp' => $request->kode_pp,
                         'flag_aktif' => $request->flag_aktif,

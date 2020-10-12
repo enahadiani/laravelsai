@@ -308,7 +308,7 @@
                             </div>
 
                         </div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-10 col-sm-12">
@@ -318,7 +318,7 @@
                                     <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -860,9 +860,9 @@
 
     
     // TRIGGER ENTER
-    $('#kode_matpel,#nama,#keterangan,#kode_pp,#sifat,#flag_aktif').keydown(function(e){
+    $('#kode_pp,#kode_matpel,#nama,#sifat,#flag_aktif').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_matpel','nama','keterangan','kode_pp','sifat','flag_aktif'];
+        var nxt = ['kode_pp','kode_matpel','nama','sifat','flag_aktif'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -899,11 +899,11 @@
                 required: true,
                 maxlength:50   
             },
-            keterangan:
-            {
-                required: true,
-                maxlength:100 
-            },
+            // keterangan:
+            // {
+            //     required: true,
+            //     maxlength:100 
+            // },
             flag_aktif:
             {
                 required: true
@@ -1029,7 +1029,7 @@
                     $('#method').val('put');
                     $('#kode_matpel').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    $('#keterangan').val(result.data[0].keterangan);
+                    // $('#keterangan').val(result.data[0].keterangan);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#sifat')[0].selectize.setValue(result.data[0].sifat);
                     $('#kode_pp').val(result.data[0].kode_pp);
@@ -1165,7 +1165,7 @@
                     $('#method').val('put');
                     $('#kode_matpel').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    $('#keterangan').val(result.data[0].keterangan);
+                    // $('#keterangan').val(result.data[0].keterangan);
                     $('#sifat')[0].selectize.setValue(result.data[0].sifat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
