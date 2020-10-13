@@ -346,6 +346,7 @@
                                     <th>Kode Matpel</th>
                                     <th>Kode Semester</th>
                                     <th>Kode PP</th>
+                                    <th>Progress</th>
                                     <th>Tgl Input</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -599,7 +600,41 @@
         </div>
     </div>
     <!-- END MODAL -->
-
+    
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row">
+                            <label>Kode PP</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
+                                <option value='#'>Pilih Kode PP</option>
+                            </select>
+                        </div>
+                        <!-- <div class="form-group row">
+                            <label>Status</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
+                                <option value='#'>Pilih Status</option>
+                            </select>
+                        </div> -->
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
@@ -661,6 +696,8 @@
     
     $('.selectize').selectize();
     $('[id^=label]').attr('readonly',true);
+    
+    jumFilter();
     // END 
 
     // LIST DATA
@@ -671,7 +708,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('sekolah-trans/penilaian') }}",
+            'url': "{{ url('sekolah-trans/penilaian-dok-list') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -696,11 +733,24 @@
                 }
             },
             {
-                "targets": [7],
+                "targets": [8],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 8, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {   'targets': [7],
+                'className': 'text-right',
+                // 'render': $.fn.dataTable.render.number( '.', ',', 1, '' )
+                "render": function ( data, type, row, meta ) {
+                    if(row.persen > 0){
+                        return sepNum(row.persen)+'%';
+                    }else if (row.persen == 100){
+                        return '100%';
+                    }else{
+                        return '0%';
+                    }
+                }
+            }, 
+            {'targets': 9, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'no_bukti' },
@@ -710,9 +760,10 @@
             { data: 'kode_matpel' },
             { data: 'kode_sem' },
             { data: 'kode_pp' },
+            { data: 'persen' },
             { data: 'tgl_input' }
         ],
-        order:[[7,'desc']],
+        order:[[8,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -945,6 +996,56 @@
         });
     }
 
+    var $dtPP = new Array();
+
+    function getTAPp() {
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sekolah-master/pp') }}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                
+                var select = $('#inp-filter_kode_pp').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status) {
+                    
+                    for(i=0;i<result.daftar.length;i++){
+                        // $dtPP[i] = {kode_pp:result.daftar[i].kode_pp};  
+                        control.addOption([{text:result.daftar[i].kode_pp+'-'+result.daftar[i].nama, value:result.daftar[i].kode_pp+'-'+result.daftar[i].nama}]);
+                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                    }
+
+                    if("{{ Session::get('kodePP') }}" != ""){
+                        control.setValue("{{ Session::get('kodePP').'-'.Session::get('namaPP') }}");
+                    }
+                    
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    getTAPp();
+
     $('#kode_pp,#kode_ta,#kode_sem,#kode_kelas,#kode_matpel,#kode_jenis').change(function(){
         var kode_pp = $('#kode_pp').val(); 
         var kode_ta = $('#kode_ta').val(); 
@@ -1092,7 +1193,7 @@
                 processData: false, 
                 success:function(result){
                     if(result.data.status){
-
+                        dataTable.ajax.reload();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('#row-id').hide();
@@ -1207,4 +1308,49 @@
             return false;
         }       
     });
+
+    
+    // FILTER
+    $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var tmp = $('#inp-filter_kode_pp').val().split("-");
+                var kode_pp = tmp[0];
+                // var status = $('#inp-filter_status').val();
+                var col_kode_pp = data[6];
+                // var col_status = data[5];
+                if(kode_pp != "" ){
+                    if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return true;
+                }
+            }
+        );
+        dataTable.draw();
+        $.fn.dataTable.ext.search.pop();
+        $('#modalFilter').modal('hide');
+    });
+    
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#inp-filter_kode_pp')[0].selectize.setValue('');
+        $('#inp-filter_status')[0].selectize.setValue('');
+        jumFilter();
+    });
+    
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+    
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+    
+    $('#btn-tampil').click();
     </script>
