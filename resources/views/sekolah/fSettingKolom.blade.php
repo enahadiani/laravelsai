@@ -164,6 +164,10 @@
             cursor:pointer;
             font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
+        .form-row > .col, .form-row > [class*="col-"] {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
     </style>
    
     <!-- FORM INPUT -->
@@ -186,7 +190,7 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="col-md-6 col-xs-12">
                                 <div class="row">
                                     <div class="col-md-11 col-xs-12">
@@ -221,10 +225,6 @@
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="row">
-                                    <!-- <div class="col-md-1 col-xs-12">
-                                        <div class="row">
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-12 col-xs-12">
                                         <div class="row">
                                             <div class="col-md-12 col-xs-12">
@@ -392,6 +392,134 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="form-row">                           
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <label for="kode_pp">col-md-3</label>
+                                                <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">col-md-6</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">col-md-6</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">col-md-6</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp">col-md-6</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-12">
+                                        <label for="kode_pp">col-md-9</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="kode_pp">col-md-3</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-12">
+                                        <label for="kode_pp">col-md-9</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                    <div class="col-md-3 col-sm-12">
+                                        <label for="kode_pp">col-md-3</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="kode_pp">col-md-12</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <label for="kode_pp">col-md-12</label>
+                                       <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required>
                                     </div>
                                 </div>
                             </div>
