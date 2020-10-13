@@ -66,6 +66,7 @@ Route::post('lap2-form-registrasi','Dago\Laporan2Controller@getFormRegistrasi');
 Route::post('lap2-registrasi','Dago\Laporan2Controller@getRegistrasi');
 Route::post('lap2-pembayaran','Dago\Laporan2Controller@getPembayaran');
 Route::post('lap2-mku-operasional','Dago\Laporan2Controller@getMkuOperasional');
+Route::post('lap2-mku-keuangan','Dago\Laporan2Controller@getMkuKeuangan');
 Route::post('lap2-rekap-saldo','Dago\Laporan2Controller@getRekapSaldo');
 Route::post('lap2-detail-saldo','Dago\Laporan2Controller@getDetailSaldo');
 Route::post('lap2-detail-tagihan','Dago\Laporan2Controller@getDetailTagihan');
