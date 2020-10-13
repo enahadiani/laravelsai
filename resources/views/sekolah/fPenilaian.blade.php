@@ -2218,7 +2218,7 @@
                             var nik_user = "{{ Session::get('nikUser') }}";
                             var nik = "{{ Session::get('userLog') }}";
 
-                            var link = "{{ config('api.url').'sekolah/penilaian-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=non&kode_pp="+$('#kode_pp').val()+"&kode_kelas="+$('#kode_kelas').val();
+                            var link = "{{ config('api.url').'sekolah/penilaian-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=non&kode_pp="+$('#kode_pp').val()+"&kode_kelas="+$('#kode_kelas').val()+"&kode_matpel="+$('.info-name_kode_matpel > span ').text()+"&kode_jenis="+$('#kode_jenis').val()+"&kode_kd="+$('#kode_kd').val()+"&kode_sem="+$('#kode_sem option:selected').text();
 
                             $('.pesan-upload-judul').html('Gagal upload!');
                             $('.pesan-upload-judul').removeClass('text-success');
@@ -2401,7 +2401,7 @@
         var kode_lokasi = "{{ Session::get('lokasi') }}";
         var nik_user = "{{ Session::get('nikUser') }}";
         var nik = "{{ Session::get('userLog') }}";
-        var link = "{{ config('api.url').'sekolah/penilaian-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=template&kode_pp="+$('#kode_pp').val()+"&kode_kelas="+$('#kode_kelas').val();
+        var link = "{{ config('api.url').'sekolah/penilaian-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=template&kode_pp="+$('#kode_pp').val()+"&kode_kelas="+$('#kode_kelas').val()+"&kode_matpel="+$('.info-name_kode_matpel > span ').text()+"&kode_jenis="+$('#kode_jenis').val()+"&kode_kd="+$('#kode_kd').val()+"&kode_sem="+$('#kode_sem option:selected').text();
         window.open(link, '_blank'); 
     })
     
