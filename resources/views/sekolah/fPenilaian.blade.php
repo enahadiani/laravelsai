@@ -507,7 +507,7 @@
                                                 <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                    <a class="dropdown-item" id="download-template" >Download Template</a>
+                                                    <a class="dropdown-item" href='#' id="download-template" >Download Template</a>
                                                     <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                                 </div>
                                             </div>
