@@ -185,14 +185,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>no_kwitansi</p>
-                                            <label for="no_kwitansi" class="col-md-2 col-sm-12 col-form-label">No Kwitansi</label>
+                                            <p class="kunci" hidden>no_kb</p>
+                                            <label for="no_kb" class="col-md-2 col-sm-12 col-form-label">No Kwitansi</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='no_kwitansi[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='no_kb[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="no_kwitansi[]" id="no_kwitansi-from" readonly value="Menampilkan semua kwitansi">
+                                                    <input type="text" class="form-control border-right-0 " name="no_kb[]" id="no_kb-from" readonly value="Menampilkan semua kwitansi">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -203,7 +203,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="no_kwitansi[]" id="no_kwitansi_to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="no_kb[]" id="no_kb_to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -341,7 +341,7 @@
             to : "",
             toname : "",
         }
-        var no_kwitansi = {
+        var no_kb = {
             type : "all",
             from : "",
             fromname : "",
@@ -407,7 +407,7 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'no_kwitansi[]': 
+                case 'no_kb[]': 
                     header = ['No Kwitansi','No Reg'];
                     var toUrl = "{{ url('dago-report/filter2-kwitansi') }}";
                     var columns = [
@@ -420,8 +420,8 @@
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("no_kwitansi");
-                    var kunci = "no_kwitansi";
+                    var field = eval("no_kb");
+                    var kunci = "no_kb";
                     var orderby = [];
                     parameter = {
                         'periode[0]' : periode.type,
@@ -941,9 +941,9 @@
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);
-            $formData.append("no_kwitansi[]",no_kwitansi.type);
-            $formData.append("no_kwitansi[]",no_kwitansi.from);
-            $formData.append("no_kwitansi[]",no_kwitansi.to);
+            $formData.append("no_kb[]",no_kb.type);
+            $formData.append("no_kb[]",no_kb.from);
+            $formData.append("no_kb[]",no_kb.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -960,9 +960,9 @@
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);
-            $formData.append("no_kwitansi[]",no_kwitansi.type);
-            $formData.append("no_kwitansi[]",no_kwitansi.from);
-            $formData.append("no_kwitansi[]",no_kwitansi.to);
+            $formData.append("no_kb[]",no_kb.type);
+            $formData.append("no_kb[]",no_kb.from);
+            $formData.append("no_kb[]",no_kb.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1005,9 +1005,9 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_kwitansi[]",no_kwitansi.type);
-            $formData.append("no_kwitansi[]",no_kwitansi.from);
-            $formData.append("no_kwitansi[]",paket.to);
+            $formData.append("no_kb[]",no_kb.type);
+            $formData.append("no_kb[]",no_kb.from);
+            $formData.append("no_kb[]",paket.to);
             $formData.append("no_reg[]",no_reg.type);
             $formData.append("no_reg[]",no_reg.from);
             $formData.append("no_reg[]",no_reg.to);
