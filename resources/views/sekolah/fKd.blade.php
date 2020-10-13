@@ -479,7 +479,7 @@
                                                 <tr>
                                                     <th style="width:3%">No</th>
                                                     <th style="width:10%">Kode KD</th>
-                                                    <th style="width:82%">Keterangan</th>
+                                                    <th style="width:82%">Deskripsi</th>
                                                     <th width="5%"></th>
                                                 </tr>
                                             </thead>

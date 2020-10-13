@@ -204,6 +204,8 @@
                                     <th>Nama</th>
                                     <th>Kode PP</th>
                                     <th>Status</th>
+                                    <th>Sifat</th>
+                                    <th>Kode Sifat</th>
                                     <th>Tgl Input</th>
                                     <th>Action</th>
                                 </tr>
@@ -285,9 +287,9 @@
                                         <label for="nama">Sifat</label>
                                         <select class='form-control selectize' id="sifat" name="sifat">
                                         <option value='' disabled>Pilih Sifat</option>
-                                        <option value='0'>NASIONAL</option>
-                                        <option value='1'>MUATAN LOKAL</option>
-                                        <option value='2'>EKSKUL</option>
+                                        <option value='0'>Nasional</option>
+                                        <option value='1'>Muatan Lokal</option>
+                                        <option value='2'>Khusus</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 col-sm-12"></div>
@@ -401,6 +403,15 @@
                                 <option value='' disabled>Pilih Status</option>
                                 <option value='AKTIF' selected>AKTIF</option>
                                 <option value='NONAKTIF'>NONAKTIF</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label>Sifat</label>
+                            <select class="form-control selectize" data-width="100%" name="inp-filter_sifat" id="inp-filter_sifat" value="">
+                                <option value='' disabled selected>Pilih Sifat</option>
+                                <option value='0'>Nasional</option>
+                                <option value='1'>Muatan Lokal</option>
+                                <option value='2'>Khusus</option>
                             </select>
                         </div>
                     </div>
@@ -538,7 +549,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[4, "desc"]],
+        "order": [[6, "desc"]],
         'ajax': {
             'url': "{{url('sekolah-master/matpel')}}",
             'async':false,
@@ -565,17 +576,24 @@
                 }
             },
             {
-                "targets": [4],
+                "targets": [5],
+                "visible": false,
+                "searchable": true
+            },
+            {
+                "targets": [6],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 5, data: null, 'defaultContent': action_html }
+            {'targets': 7, data: null, 'defaultContent': action_html }
         ],
         'columns': [
             { data: 'kode_matpel' },
             { data: 'nama' },
             { data: 'pp' },
             { data: 'flag_aktif' },
+            { data: 'nama_sifat' },
+            { data: 'sifat' },
             { data: 'tgl_input' },
         ],
         drawCallback: function () {
@@ -1114,7 +1132,7 @@
             </tr>
             <tr>
                 <td>Sifat</td>
-                <td>`+data.sifat+`</td>
+                <td>`+data.nama_sifat+`</td>
             </tr>
             <tr>
                 <td>Tgl Input</td>
@@ -1203,27 +1221,58 @@
             function( settings, data, dataIndex ) {
                 var kode_pp = $('#inp-filter_kode_pp').val();
                 var status = $('#inp-filter_status').val();
+                var sifat = $('#inp-filter_sifat').val();
                 var col_kode_pp = data[2];
                 var col_status = data[3];
-                if(kode_pp != "" && status != ""){
-                    if(kode_pp == col_kode_pp && status == col_status){
+                var col_sifat = data[5];
+                if(kode_pp != "" && status != "" && sifat != ""){
+                    if(kode_pp == col_kode_pp && status == col_status && sifat == col_sifat){
                         return true;
                     }else{
                         return false;
                     }
-                }else if(kode_pp !="" && status == "") {
+                }else if(kode_pp !="" && status == "" && sifat == "") {
                     if(kode_pp == col_kode_pp){
                         return true;
                     }else{
                         return false;
                     }
-                }else if(kode_pp == "" && status != ""){
+                }else if(kode_pp == "" && status != "" && sifat == ""){
                     if(status == col_status){
                         return true;
                     }else{
                         return false;
                     }
-                }else{
+                }
+                else if(kode_pp == "" && status == "" && sifat != ""){
+                    if(sifat == col_sifat){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                else if(kode_pp != "" && status != "" && sifat == ""){
+                    if(kode_pp == col_kode_pp && status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                else if(kode_pp == "" && status != "" && sifat != ""){
+                    if(sifat == col_sifat && status == col_status){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                else if(kode_pp != "" && status == "" && sifat != ""){
+                    if(sifat == col_sifat && kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                else{
                     return true;
                 }
             }
@@ -1237,6 +1286,7 @@
         e.preventDefault();
         $('#inp-filter_kode_pp')[0].selectize.setValue('');
         $('#inp-filter_status')[0].selectize.setValue('');
+        $('#inp-filter_sifat')[0].selectize.setValue('');
         jumFilter();
         
     });

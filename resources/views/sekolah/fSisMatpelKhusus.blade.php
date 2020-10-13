@@ -856,7 +856,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {'kode_pp':$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val(),'sifat':2};
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
@@ -1100,7 +1100,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/matpel') }}",
             dataType: 'json',
-            data:{kode_pp : kode, kode_matpel: id},
+            data:{kode_pp : kode, kode_matpel: id,sifat:2},
             async:false,
             success:function(result){    
                 if(result.status){
