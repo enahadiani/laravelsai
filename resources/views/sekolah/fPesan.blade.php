@@ -130,13 +130,13 @@
         th{
             vertical-align:middle !important;
         }
-        #input-nilai .selectize-input.focus, #input-nilai input.form-control, #input-nilai .custom-file-label,  #input-dok .selectize-input.focus, #input-dok input.form-control, #input-dok .custom-file-label
+        #input-dok .selectize-input.focus, #input-dok input.form-control, #input-dok .custom-file-label,  #input-dok .selectize-input.focus, #input-dok input.form-control, #input-dok .custom-file-label
         {
             border:1px solid black !important;
             border-radius:0 !important;
         }
         
-        #input-nilai .selectize-input,  #input-dok .selectize-input
+        #input-dok .selectize-input,  #input-dok .selectize-input
         {
             border-radius:0 !important;
         } 
@@ -153,7 +153,7 @@
             /* background:#4286f5 !important; */
             /* color:white; */
         }
-        #input-nilai td:not(:nth-child(1)):not(:nth-child(5)):hover
+        #input-dok td:not(:nth-child(1)):not(:nth-child(5)):hover
         {
             background:#f8f8f8;
             color:black;
@@ -165,8 +165,8 @@
             color:black;
         }
 
-        #input-nilai input:hover,
-        #input-nilai .selectize-input:hover,
+        #input-dok input:hover,
+        #input-dok .selectize-input:hover,
         {
             width:inherit;
         }
@@ -177,7 +177,7 @@
             width:inherit;
         }
 
-        #input-nilai ul.typeahead.dropdown-menu
+        #input-dok ul.typeahead.dropdown-menu
         {
             width:max-content !important;
         }
@@ -186,19 +186,19 @@
         {
             width:max-content !important;
         }
-        #input-nilai td
+        #input-dok td
         {
             overflow:hidden !important;
             height:37.2px !important;
             padding:0px !important;
         }
         
-        #input-nilai span
+        #input-dok span
         {
             padding:0px 10px !important;
         }
         
-        #input-nilai input,#input-nilai .selectize-input
+        #input-dok input,#input-dok .selectize-input
         {
             overflow:hidden !important;
             height:35px !important;
@@ -400,7 +400,7 @@
                                                     <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kontak" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control input-label-kontak" id="kontak" name="kontak" value="" title="">
+                                                    <input type="text" class="form-control inp-label-kontak" id="kontak" name="kontak" value="" title="">
                                                     <span class="info-name_kontak">
                                                         <span></span> 
                                                     </span>
@@ -417,7 +417,7 @@
                                     <div class="form-group col-md-12 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">
-                                                <label for="judul">Judul</label>
+                                                <label for="judul">Judul Pesan</label>
                                                 <input class="form-control" type="text"  id="judul" name="judul" required>
                                             </div>
                                             <!-- <div class="col-md-2 col-sm-12">
@@ -429,7 +429,7 @@
                                     <div class="form-group col-md-12 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12">
-                                                <label for="deskripsi">Deskripsi</label>
+                                                <label for="deskripsi">Isi Pesan</label>
                                                 <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
                                             </div>
                                             <!-- <div class="col-md-2 col-sm-12">
@@ -1015,8 +1015,9 @@
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
                 
+                    var input = '';
+                    $('#input-dok tbody').html(input);
                     if(result.data_dok.length > 0){
-                        var input = '';
                         var no=1;
                         for(var i=0;i<result.data_dok.length;i++){
                             var line =result.data_dok[i];
@@ -1125,6 +1126,8 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
+        $('#jenis')[0].selectize.setValue('');
+        $('#pesan').text('');
         $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -1404,7 +1407,9 @@
                         $('#method').val('post');
                         $('#judul-form').html('Tambah Data Pesan');
                         $('#id').val('');
-                        $('#input-nilai tbody').html('');
+                        $('#jenis')[0].selectize.setValue('');
+                        $('#pesan').text('');
+                        $('#input-dok tbody').html('');
                         $('.input-group-prepend').addClass('hidden');
                         $('span[class^=info-name]').addClass('hidden');
                         $('.info-icon-hapus').addClass('hidden');

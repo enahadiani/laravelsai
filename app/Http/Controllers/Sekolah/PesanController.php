@@ -125,7 +125,8 @@
                         'contents' => $request->kode_pp,
                     ]
                 ];
-    
+                
+                $send_data = $fields;
                 $fields_foto = array();
                 $fields_nama_file = array();
                 
@@ -150,7 +151,7 @@
                                 'contents' => $nama_file_seb,
                             );
                         }
-                        $send_data = array_merge($fields,$fields_foto);
+                        $send_data = array_merge($send_data,$fields_foto);
                         $send_data = array_merge($send_data,$fields_nama_file_seb);
                     }
                 }
@@ -221,6 +222,8 @@
                         'contents' => $request->kode_pp,
                     ]
                 ];
+
+                $send_data = $fields;
     
                 $fields_foto = array();
                 $fields_nama_file = array();
@@ -249,7 +252,7 @@
                                 'contents' => $request->nama_file[$i],
                             );
                         }
-                        $send_data = array_merge($fields,$fields_foto);
+                        $send_data = array_merge($send_data,$fields_foto);
                         $send_data = array_merge($send_data,$fields_nama_file_seb);
                     }
                 }
@@ -281,7 +284,7 @@
         public function destroy(Request $request) {
             try{
                 $client = new Client();
-                $response = $client->request('DELETE',  config('api.url').'sekolah-master/pesan',
+                $response = $client->request('DELETE',  config('api.url').'sekolah/pesan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
@@ -298,7 +301,7 @@
                     
                     $data = json_decode($response_data,true);
                 }
-                return response()->json(['data' => $data], 200); 
+                return response()->json(['data' => $data['success']], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
