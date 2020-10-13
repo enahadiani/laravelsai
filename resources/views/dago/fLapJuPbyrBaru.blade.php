@@ -109,7 +109,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-2 pb-2 px-2" style="min-height:51px">
-                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Pembayaran</h5>
+                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Jurnal Pembayaran</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -157,33 +157,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>no_reg</p>
-                                            <label for="no_reg" class="col-md-2 col-sm-12 col-form-label">Registrasi</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='no_reg[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="no_reg[]" id="no_reg-from" readonly value="Menampilkan semua registrasi">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="no_reg[]" id="no_reg_to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>no_kb</p>
                                             <label for="no_kb" class="col-md-2 col-sm-12 col-form-label">No Kwitansi</label>
@@ -348,13 +322,6 @@
             to : "",
             toname : "",
         }
-        var no_reg = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
         var $aktif = "";
         
         $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -427,31 +394,7 @@
                         'periode[0]' : periode.type,
                         'periode[1]' : periode.from,
                         'periode[2]' : periode.to,
-                        'no_reg[0]' : no_reg.type,
-                        'no_reg[1]' : no_reg.from,
-                        'no_reg[2]' : no_reg.to
                     }
-                break;
-                case 'no_reg[]': 
-                    header = ['No Reg'];
-                    var toUrl = "{{ url('dago-report/filter2-noreg') }}";
-                    var columns = [
-                        { data: 'no_reg' }
-                    ];
-                    header_pilih = ['No Reg','Action'];
-                    var judul = "Daftar Registrasi <span class='modal-subtitle'></span>";
-                    var pilih = "no_reg";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("no_reg");
-                    var kunci = "no_reg";
-                    parameter = {
-                        'periode[0]' : periode.type,
-                        'periode[1]' : periode.from,
-                        'periode[2]' : periode.to
-                    }
-                    var orderby = [];
                 break;
                 case 'periode[]': 
                     header = ['Periode', 'Nama'];
@@ -938,9 +881,6 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_reg[]",no_reg.type);
-            $formData.append("no_reg[]",no_reg.from);
-            $formData.append("no_reg[]",no_reg.to);
             $formData.append("no_kb[]",no_kb.type);
             $formData.append("no_kb[]",no_kb.from);
             $formData.append("no_kb[]",no_kb.to);
@@ -948,7 +888,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dago-auth/form/rptPbyrBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptJuPbyrBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -957,16 +897,13 @@
             $formData.append("periode[]",periode.type);
             $formData.append("periode[]",periode.from);
             $formData.append("periode[]",periode.to);
-            $formData.append("no_reg[]",no_reg.type);
-            $formData.append("no_reg[]",no_reg.from);
-            $formData.append("no_reg[]",no_reg.to);
             $formData.append("no_kb[]",no_kb.type);
             $formData.append("no_kb[]",no_kb.from);
             $formData.append("no_kb[]",no_kb.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dago-auth/form/rptPbyrBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptJuPbyrBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -986,8 +923,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "LapPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "LapPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "LapJuPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "LapJuPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
@@ -1008,9 +945,6 @@
             $formData.append("no_kb[]",no_kb.type);
             $formData.append("no_kb[]",no_kb.from);
             $formData.append("no_kb[]",no_kb.to);
-            $formData.append("no_reg[]",no_reg.type);
-            $formData.append("no_reg[]",no_reg.from);
-            $formData.append("no_reg[]",no_reg.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
