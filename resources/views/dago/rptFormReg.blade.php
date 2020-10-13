@@ -54,7 +54,7 @@
         var data = data;
         console.log(data.length);
         if(data.length > 0){
-            if(res.res.back){
+            if(res.back){
                 var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
                 <i class="fa fa-undo"></i> Back</button>`;
             }else{
@@ -257,4 +257,3 @@
         $('#pagination').append(`<li class="page-item all"><a href="#" class="page-link"><i class="far fa-list-alt"></i></a></li>`);
     }
 </script>
-   

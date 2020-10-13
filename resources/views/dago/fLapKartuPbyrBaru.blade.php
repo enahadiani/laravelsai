@@ -109,7 +109,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-2 pb-2 px-2" style="min-height:51px">
-                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Rekap Saldo</h5>
+                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Kartu Pembayaran</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -1082,7 +1082,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('dago-auth/form/rptRekapSaldoBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptKartuPbyrBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -1106,56 +1106,17 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('dago-auth/form/rptRekapSaldoBaru') }}";
+            xurl = "{{ url('dago-auth/form/rptKartuPbyrBaru') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
-    $('#saku-report #canvasPreview').on('click', '.tagihan', function(e){
+    $('#saku-report #canvasPreview').on('click', '.reg', function(e){
         e.preventDefault();
-        var no_reg = $(this).data('no_reg');
-        $formData.delete('no_reg');      
-        $formData.append('no_reg', no_reg);
-        $formData.delete('back');
-        $formData.append('back', true);
-        xurl = "{{ url('/dago-auth/form')}}/rptDetailTagihanBaru";
-        $('#saku-report #canvasPreview').load(xurl);
-        // drawLapReg(formData);
-    });
-
-    $('#saku-report #canvasPreview').on('click', '.bayar', function(e){
-        e.preventDefault();
-        var no_reg = $(this).data('no_reg');
-        
-        $formData.delete('no_reg');
-        $formData.append('no_reg', no_reg);
-        $formData.delete('back');
-        $formData.append('back', true);
-        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyrBaru";
-        
-        $('#saku-report #canvasPreview').load(xurl);
-        // drawLapReg(formData);
-    });
-
-    $('#saku-report #canvasPreview').on('click', '.saldo', function(e){
-        e.preventDefault();
-        var no_reg = $(this).data('no_reg');
-        
-        $formData.delete('no_reg');
-        $formData.append('no_reg', no_reg);
-        
-        $formData.delete('back');
-        $formData.append('back', true);
-        xurl = "{{ url('/dago-auth/form')}}/rptDetailSaldoBaru";
-        $('#saku-report #canvasPreview').load(xurl);
-        // drawLapReg(formData);
-    });
-
-    $('#content-lap').on('click', '.reg', function(e){
-        e.preventDefault();
-        var no_reg = $(this).data('no_reg');
+        var param = $(this).data('no_reg');
         var back = true;
-        $formData.delete('no_reg');
-        $formData.append('no_reg', no_reg);
+        
+        $formData.delete('param');
+        $formData.append('param', param);
 
         $formData.delete('back');
         $formData.append('back', back);
@@ -1167,13 +1128,15 @@
 
     $('#saku-report #canvasPreview').on('click', '.byr', function(e){
         e.preventDefault();
-        var no_reg = $(this).data('no_bayar');
+        var param = $(this).data('no_bayar');
         var back = true;
+        
         $formData.delete('no_bayar');
-        $formData.append('no_bayar', no_reg);
+        $formData.append('no_bayar', param);
 
         $formData.delete('back');
         $formData.append('back', back);
+        
         xurl = "{{ url('/dago-auth/form')}}/rptPbyrBaru";
         $('#saku-report #canvasPreview').load(xurl);
         // drawLapReg(formData);
@@ -1181,7 +1144,8 @@
 
     $('#saku-report #canvasPreview').on('click', '#btn-back', function(e){
         e.preventDefault();
-        xurl = "{{ url('/dago-auth/form')}}/rptRekapSaldoBaru";
+        $formData.delete('back');
+        xurl = "{{ url('/dago-auth/form')}}/rptKartuPbyrBaru";
         $('#saku-report #canvasPreview').load(xurl);
         // drawLapReg(formData);
     });
@@ -1202,8 +1166,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "LapRekapSaldo_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "LapRekapSaldo_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "LapKartuPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "LapKartuPbyr_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });

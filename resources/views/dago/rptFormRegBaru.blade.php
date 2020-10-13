@@ -54,13 +54,14 @@
         var data = data;
         console.log(data.length);
         if(data.length > 0){
-            if(res.back){
-                $('.navigation-lap').removeClass('hidden');
+            if(res.res.back){
+                var back= `<button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;">
+                <i class="fa fa-undo"></i> Back</button>`;
             }else{
-                $('.navigation-lap').addClass('hidden');
+                var back= ``;
             }
 
-            var mon_html = `<div align='center' style='padding:10px' id='sai-rpt-table-export-tbl-daftar-reg'>
+            var mon_html = `<div align='center' style='padding:10px' id='sai-rpt-table-export-tbl-daftar-reg'>`+back+`
                        `;
                     var arr_tl = [0,0,0,0,0,0,0,0,0];
                     var x=1;
@@ -253,4 +254,3 @@
         $('li.next a ').html("<i class='icon-arrow-right'></i>");
     }
 </script>
-   
