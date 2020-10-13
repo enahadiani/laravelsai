@@ -3,8 +3,6 @@
    body { font-size: 12pt !important }
  }
 </style>
-<div id='canvasPreview' style='font-size:12pt !important;'>
-</div>
 <script type="text/javascript">
 
     function reverseDateNew(date_str, separator, newseparator){
@@ -13,6 +11,26 @@
         var str = date_str[0].split(separator);
 
         return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
+    function getNamaBulan(no_bulan){
+        switch (no_bulan){
+            case 1 : case '1' : case '01': bulan = "Januari"; break;
+            case 2 : case '2' : case '02': bulan = "Februari"; break;
+            case 3 : case '3' : case '03': bulan = "Maret"; break;
+            case 4 : case '4' : case '04': bulan = "April"; break;
+            case 5 : case '5' : case '05': bulan = "Mei"; break;
+            case 6 : case '6' : case '06': bulan = "Juni"; break;
+            case 7 : case '7' : case '07': bulan = "Juli"; break;
+            case 8 : case '8' : case '08': bulan = "Agustus"; break;
+            case 9 : case '9' : case '09': bulan = "September"; break;
+            case 10 : case '10' : case '10': bulan = "Oktober"; break;
+            case 11 : case '11' : case '11': bulan = "November"; break;
+            case 12 : case '12' : case '12': bulan = "Desember"; break;
+            default: bulan = null;
+        }
+
+        return bulan;
     }
 
     function sepNum2(x){
@@ -63,13 +81,13 @@
 
     function drawLap(formData){
        saiPost('dago-report/lap2-pembayaran', null, formData, null, function(res){
-           if(res.result.length > 0){
+            if(res.result.length > 0){
                 $('#pagination').html('');
-                var show = $('#show')[0].selectize.getValue();
-                generatePagination('pagination',show,res);
-          
-              
-           }
+                var show = $('#show').val();
+                generatePaginationDore('pagination',show,res); 
+            }else{
+                $('#saku-report #canvasPreview').load("{{ url('dago-auth/form/blank') }}");
+            }
        });
    }
 
@@ -265,10 +283,7 @@
                mon_html+=`</div>`;
             }
         $('#canvasPreview').html(mon_html);
-        $('li.first a ').html("<i class='icon-control-start'></i>");
-        $('li.last a ').html("<i class='icon-control-end'></i>");
         $('li.prev a ').html("<i class='icon-arrow-left'></i>");
         $('li.next a ').html("<i class='icon-arrow-right'></i>");
-        $('#pagination').append(`<li class="page-item all"><a href="#" class="page-link"><i class="far fa-list-alt"></i></a></li>`);
     }
 </script>
