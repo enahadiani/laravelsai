@@ -128,7 +128,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Neraca</h5>
+                        <h5 style="position:absolute;top: 25px;">Laporan Penilaian</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -1056,247 +1056,45 @@
         $('#form-filter').submit(function(e){
             e.preventDefault();
             $formData = new FormData();
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("kode_pp[]",kode_pp.type);
+            $formData.append("kode_pp[]",kode_pp.from);
+            $formData.append("kode_pp[]",kode_pp.to);
+            $formData.append("kode_ta[]",kode_ta.type);
+            $formData.append("kode_ta[]",kode_ta.from);
+            $formData.append("kode_ta[]",kode_ta.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_matpel[]",kode_matpel.type);
+            $formData.append("kode_matpel[]",kode_matpel.from);
+            $formData.append("kode_matpel[]",kode_matpel.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('sekolah-auth/form/rptNeraca') }}";
+            xurl = "{{ url('sekolah-auth/form/rptNilai') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
         $('#show').change(function(e){
             $formData = new FormData();
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("kode_pp[]",kode_pp.type);
+            $formData.append("kode_pp[]",kode_pp.from);
+            $formData.append("kode_pp[]",kode_pp.to);
+            $formData.append("kode_ta[]",kode_ta.type);
+            $formData.append("kode_ta[]",kode_ta.from);
+            $formData.append("kode_ta[]",kode_ta.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_matpel[]",kode_matpel.type);
+            $formData.append("kode_matpel[]",kode_matpel.from);
+            $formData.append("kode_matpel[]",kode_matpel.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('sekolah-auth/form/rptNeraca') }}";
+            xurl = "{{ url('sekolah-auth/form/rptNilai') }}";
             $('#saku-report #canvasPreview').load(xurl);
-        });
-
-        // TRACE
-        $('#saku-report #canvasPreview').on('click', '.neraca-lajur', function(e){
-            e.preventDefault();
-            var kode_neraca = $(this).data('kode_neraca');
-            param_trace.kode_neraca = kode_neraca;
-            var back = true;
-            
-            $formData.delete('kode_neraca[]');
-            $formData.append('kode_neraca[]', "=");
-            $formData.append('kode_neraca[]', kode_neraca);
-            $formData.append('kode_neraca[]', "");
-
-            $formData.delete('trail[]');
-            $formData.append('trail[]', "=");
-            $formData.append('trail[]', "1");
-            $formData.append('trail[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
-            `);
-            xurl ="sekolah-auth/form/rptNrcLajur";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
-        e.preventDefault();
-            var kode_akun = $(this).data('kode_akun');
-            param_trace.kode_akun = kode_akun;
-            var back = true;
-            
-            $formData.delete('kode_akun[]');
-            $formData.append('kode_akun[]', "=");
-            $formData.append('kode_akun[]', kode_akun);
-            $formData.append('kode_akun[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
-            `);
-            xurl ="sekolah-auth/form/rptBukuBesar";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
-            e.preventDefault();
-            var no_bukti = $(this).data('no_bukti');
-            param_trace.no_bukti = no_bukti;
-            var back = true;
-            
-            $formData.delete('no_bukti[]');
-            $formData.append('no_bukti[]', "=");
-            $formData.append('no_bukti[]', no_bukti);
-            $formData.append('no_bukti[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
-            `);
-            xurl ="sekolah-auth/form/rptBuktiJurnal";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('.navigation-lap').on('click', '#btn-back', function(e){
-            e.preventDefault();
-            $formData.delete('periode[]');
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-
-            var aktif = $('.breadcrumb-item.active').attr('aria-current');
-
-            if(aktif == "neraca-lajur"){
-                xurl = "sekolah-auth/form/rptNeraca";
-                $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",kode_fs.type);
-                $formData.append("kode_fs[]",kode_fs.from);
-                $formData.append("kode_fs[]",kode_fs.to);
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca">Neraca</li>
-                `);
-                $('.navigation-lap').addClass('hidden');
-            }
-            else if(aktif == "buku-besar"){
-                xurl = "sekolah-auth/form/rptNrcLajur";
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
-                $formData.delete('kode_akun[]');
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
-                `);
-            }else if(aktif == "jurnal"){
-                xurl = "sekolah-auth/form/rptBukuBesar";
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
-                $formData.append("kode_akun[]","");
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
-                `);
-            }
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
-
-        $('.breadcrumb').on('click', '.klik-report', function(e){
-            e.preventDefault();
-            var tujuan = $(this).data('href');
-            $formData.delete('periode[]');
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            if(tujuan == "neraca"){
-                $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",kode_fs.type);
-                $formData.append("kode_fs[]",kode_fs.from);
-                $formData.append("kode_fs[]",kode_fs.to);
-                xurl = "sekolah-auth/form/rptNeraca";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
-                `);
-                $('.navigation-lap').addClass('hidden');
-            }else if(tujuan == "neraca-lajur"){
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
-                $formData.delete('kode_akun[]');
-                xurl = "sekolah-auth/form/rptNrcLajur";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
-                `);
-            }else if(tujuan == "buku-besar"){
-                
-                $formData.delete('kode_akun[]');
-                $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
-                $formData.append("kode_akun[]","");
-                xurl = "sekolah-auth/form/rptBukuBesar";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Neraca</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar"Buku Besar</li>
-                `);
-            }
-            $('#saku-report #canvasPreview').load(xurl);
-            
         });
 
         $('#sai-rpt-print').click(function(){
@@ -1331,18 +1129,18 @@
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            $formData.append("periode[]",periode.type);
-            $formData.append("periode[]",periode.from);
-            $formData.append("periode[]",periode.to);
-            $formData.append("kode_fs[]",kode_fs.type);
-            $formData.append("kode_fs[]",kode_fs.from);
-            $formData.append("kode_fs[]",kode_fs.to);
-            $formData.append("level[]",level.type);
-            $formData.append("level[]",level.from);
-            $formData.append("level[]",level.to);
-            $formData.append("format[]",format.type);
-            $formData.append("format[]",format.from);
-            $formData.append("format[]",format.to);
+            $formData.append("kode_pp[]",kode_pp.type);
+            $formData.append("kode_pp[]",kode_pp.from);
+            $formData.append("kode_pp[]",kode_pp.to);
+            $formData.append("kode_ta[]",kode_ta.type);
+            $formData.append("kode_ta[]",kode_ta.from);
+            $formData.append("kode_ta[]",kode_ta.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_matpel[]",kode_matpel.type);
+            $formData.append("kode_matpel[]",kode_matpel.from);
+            $formData.append("kode_matpel[]",kode_matpel.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
