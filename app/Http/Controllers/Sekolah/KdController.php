@@ -110,7 +110,8 @@
                 'kode_pp' => 'required',
                 'kode_ta' => 'required',
                 'kode_kd' => 'array',
-                'nama' => 'array'
+                'nama' => 'array',
+                'kkm' => 'array'
             ]);
 
             try {
@@ -128,7 +129,8 @@
                         'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
-                        'nama' => $request->nama
+                        'nama' => $request->nama,
+                        'kkm' => $request->kkm
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -158,7 +160,8 @@
                 'kode_ta' => 'required',
                 'kode_pp' => 'required',
                 'kode_kd' => 'array',
-                'nama' => 'array'
+                'nama' => 'array',
+                'kkm' => 'array'
             ]);
 
             try {
@@ -182,14 +185,15 @@
                         'kode_ta' => $request->kode_ta,
                         'kode_pp' => $request->kode_pp,
                         'kode_kd' => $request->kode_kd,
-                        'nama' => $request->nama
+                        'nama' => $request->nama,
+                        'kkm' => $request->kkm
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                     
                     $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data["success"]], 200);  
+                    return response()->json(['data' => $data["success"],'kkm'=>$request->kkm], 200);  
                 }
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

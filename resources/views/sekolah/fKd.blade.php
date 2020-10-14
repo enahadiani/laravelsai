@@ -527,7 +527,8 @@
                                                 <tr>
                                                     <th style="width:3%">No</th>
                                                     <th style="width:10%">Kode KD</th>
-                                                    <th style="width:82%">Deskripsi</th>
+                                                    <th style="width:62%">Deskripsi</th>
+                                                    <th style="width:20%">KKM</th>
                                                     <th width="5%"></th>
                                                 </tr>
                                             </thead>
@@ -1251,6 +1252,7 @@
                             input += "<td class='no-kd text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode_kd tdkode_kdke"+no+" tooltip-span'>"+line.kode_kd+"</span><input type='text' name='kode_kd[]' class='form-control inp-kode_kd kode_kdke"+no+" hidden'  value='"+line.kode_kd+"' ></td>";
                             input += "<td ><span class='td-nama tdnnamake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama[]' class='form-control inp-nama nnamake"+no+" hidden'  value='"+line.nama+"' ></td>";
+                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+line.kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+line.kkm+"' ></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
@@ -1265,7 +1267,7 @@
                         no= 1;
                         for(var i=0;i<result.data_detail.length;i++){
                             var line =result.data_detail[i];
-                            $('.nilke'+no).inputmask("numeric", {
+                            $('.kkmke'+no).inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
                                 digits: 2,
@@ -1434,7 +1436,8 @@
                                         <tr>
                                             <th style="width:3%">No</th>
                                             <th style="width:20%">Kode KD</th>
-                                            <th style="width:77%">Nama</th>
+                                            <th style="width:57%">Nama</th>
+                                            <th style="width:20%">KKM</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1454,6 +1457,7 @@
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line.kode_kd+"</td>";
                                 input += "<td >"+line.nama+"</td>";
+                                input += "<td >"+line.kkm+"</td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -1528,6 +1532,7 @@
                             input += "<td class='no-kd text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode_kd tdkode_kdke"+no+" tooltip-span'>"+line.kode_kd+"</span><input type='text' name='kode_kd[]' class='form-control inp-kode_kd kode_kdke"+no+" hidden'  value='"+line.kode_kd+"' ></td>";
                             input += "<td ><span class='td-nama tdnnamake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama[]' class='form-control inp-nama nnamake"+no+" hidden'  value='"+line.nama+"' ></td>";
+                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+line.kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+line.kkm+"' ></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;
@@ -1537,8 +1542,21 @@
                             title: function(){
                                 return $(this).text();
                             }
-                        })
+                        });
+                        
                         no= 1;
+                        for(var i=0;i<result.data_detail.length;i++){
+                            var line =result.data_detail[i];
+                            $('.kkmke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
                         
                     }
                     hitungTotalRow();
@@ -1701,16 +1719,21 @@
                 
                 var kode = $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kode_kd").val();
                 var nama = $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var kkm = $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kkm").val();
                
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kode_kd").val(kode);
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-kode_kd").text(kode);
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama);
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama);
+                $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kkm").val(kkm);
+                $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-kkm").text(kkm);
                 
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kode_kd").hide();
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-kode_kd").show();
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-kd > tbody > tr:eq('+index+') > td').find(".inp-kkm").hide();
+                $('#input-kd > tbody > tr:eq('+index+') > td').find(".td-kkm").show();
             }
         })
     }
@@ -1722,10 +1745,10 @@
     });
 
     
-    $('#input-kd').on('keydown','.inp-kode_kd, .inp-nama',function(e){
+    $('#input-kd').on('keydown','.inp-kode_kd, .inp-nama, .inp-kkm',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode_kd','.inp-nama'];
-        var nxt2 = ['.td-kode_kd','.td-nama'];
+        var nxt = ['.inp-kode_kd','.inp-nama','.inp-kkm'];
+        var nxt2 = ['.td-kode_kd','.td-nama','.td-kkm'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1758,6 +1781,23 @@
                         $(this).closest('tr').find(nxt2[idx]).text(isi);
                         $(this).closest('tr').find(nxt[idx]).hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
+
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                    }else{
+                        alert('Deskripsi yang dimasukkan tidak valid');
+                        return false;
+                    }
+                    break;
+                case 2:
+                    if(isi != "" && isi != 0){
+                        $("#input-kd td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
                         var cek = $(this).parents('tr').next('tr').find('.td-kode_kd');
                         if(cek.length > 0){
                             cek.click();
@@ -1766,7 +1806,7 @@
                         }
                         hitungTotalRow();
                     }else{
-                        alert('Keterangan yang dimasukkan tidak valid');
+                        alert('KKM yang dimasukkan tidak valid');
                         return false;
                     }
                     break;
@@ -1802,6 +1842,7 @@
             input += "<td class='no-kd text-center'>"+no+"</td>";
             input += "<td ><span class='td-kode_kd tdkode_kdke"+no+" tooltip-span'></span><input type='text' name='kode_kd[]' class='form-control inp-kode_kd kode_kdke"+no+" hidden'  value=''></td>";
             input += "<td ><span class='td-nama tdnnamake"+no+" tooltip-span'></span><input type='text' name='nama[]' class='form-control inp-nama nnamake"+no+" hidden'  value=''></td>";
+            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'></span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value=''></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
             $('#input-kd tbody').append(input);
@@ -1814,6 +1855,14 @@
             $('#input-kd tbody tr:last').find(".td-kode_kd").hide();
             $('#input-kd tbody tr:last').find(".inp-kode_kd").focus();
 
+            $('.inp-kkm').inputmask("numeric", {
+                radixPoint: ",",
+                groupSeparator: ".",
+                digits: 2,
+                autoGroup: true,
+                rightAlign: true,
+                onCleared: function () { self.Value(''); }
+            });
             $('.tooltip-span').tooltip({
                 title: function(){
                     return $(this).text();
@@ -1892,6 +1941,7 @@
         
                 var kode = $(this).parents("tr").find(".inp-kode_kd").val();
                 var nama = $(this).parents("tr").find(".inp-nama").val();
+                var kkm = $(this).parents("tr").find(".inp-kkm").val();
                 var no = $(this).parents("tr").find(".no-kd").text();
                 $(this).parents("tr").find(".inp-kode_kd").val(kode);
                 $(this).parents("tr").find(".td-kode_kd").text(kode);
@@ -1914,6 +1964,18 @@
                     
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
+                }
+
+                $(this).parents("tr").find(".inp-kkm").val(kkm);
+                $(this).parents("tr").find(".td-kkm").text(kkm);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-kkm").show();
+                    $(this).parents("tr").find(".td-kkm").hide();
+                    $(this).parents("tr").find(".inp-kkm").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-kkm").hide();
+                    $(this).parents("tr").find(".td-kkm").show();
                 }
                 hitungTotalRow();
             }
