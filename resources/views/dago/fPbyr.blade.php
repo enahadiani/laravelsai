@@ -400,6 +400,9 @@
         format: 'dd/mm/yyyy',
         autoclose: true,
     });
+
+    var $paket = 0;
+    var $room = 0;
     
     function reverseDateNew(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
@@ -817,10 +820,20 @@
 
         $('#bayar_tambahan').val(total_t);
         $('#bayar_dok').val(total_d);
-        $('#bayar_paket').val(format_number2(total_p));
-        var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
-        total = Math.round(total);
-        $('#total_bayar').val(total);
+        var kode_curr = $('#kode_curr').val();
+        if(kode_curr == "USD"){
+            $('#bayar_paket').val(format_number2(total_p));
+
+            var total =$paket+$room+toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+            total = Math.round(total);
+            $('#total_bayar').val(total);
+
+        }else{
+            $('#bayar_paket').val(format_number2(total_p));
+            var total =(toNilai($('#bayar_paket').val())) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+            total = Math.round(total);
+            $('#total_bayar').val(total);
+        }
         
     }
 
@@ -834,21 +847,27 @@
         if(jenis == "PAKET"){
             var saldo = toNilai($("[value=PAKET]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
+                $paket = konversi;
                 $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
+                $paket = 0;
                 alert('Nilai bayar melebihi saldo Paket');
                 $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }else if(jenis == "ROOM"){
+            
             var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
+                $room = konversi;
                 $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
+                
+                $room = 0;
                 alert('Nilai bayar melebihi saldo Room');
                 $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
@@ -1059,8 +1078,15 @@
                                 <td class='text-right hidden'>`+format_number(line3.jml)+`<input type='hidden' name='jenis_biaya[]' class='form-control inp-jenis_biaya' value='`+line3.jenis+`'></td>
                                 <td class='text-right'>`+format_number(line3.byr)+`<input type='hidden' name='nilai_biaya[]' class='form-control inp-nilai_biaya' value='`+format_number(line3.byr)+`'></td>
                                 <td class='text-right'>`+format_number(line3.saldo)+`<input type='hidden' name='saldo_det[]' class='form-control inp-saldo_det' value='`+format_number(line3.saldo)+`'></td>`;
+                            
+                            if(line.kode_curr == "USD" && (line3.kode_biaya == "PAKET" || line3.kode_biaya == "ROOM")){
+                                html+=`
+                                <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' readonly></td>`;
+                            }else{
+
                                 html+=`
                                 <td class='text-right'><span class='td-nbiaya_bayar tdnbiaya_bayarke`+no+`'>0</span><input type='text' name='nbiaya_bayar[]' class='form-control inp-nbiaya_bayar nbiaya_bayarke`+no+` hidden' value='0' ></td>`;
+                            }
                                 html+=`
                             </tr>`;
                             no++;
