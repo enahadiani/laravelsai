@@ -101,10 +101,11 @@
                                     <td>`+no+`</td>
                                     <td>`+line2.nis+`</td>
                                     <td>`+line2.nama+`</td>
-                                    <td>`+line2.n1+`</td>
-                                    <td>`+line2.n2+`</td>
-                                    <td>`+line2.n3+`</td>
+                                    <td class='text-right'>`+sepNumPas(line2.n1)+`</td>
+                                    <td class='text-right'>`+sepNumPas(line2.n2)+`</td>
+                                    <td class='text-right'>`+sepNumPas(line2.n3)+`</td>
                                 </tr>`;
+                                no++;
                             }
                         }
                         html+=det+`</table>
