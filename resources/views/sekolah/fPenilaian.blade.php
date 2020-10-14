@@ -445,6 +445,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_kd">KD</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_kd" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control input-label-kode_kd" id="kode_kd" name="kode_kd" value="" title="">
+                                                    <span class="info-name_kode_kd hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kd"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3 col-sm-12">
