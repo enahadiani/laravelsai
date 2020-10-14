@@ -112,6 +112,15 @@
             border-bottom-left-radius: 0.5rem;
         }
 
+        .readonly > .input-group-prepend{
+            background: #e9ecef !important;
+        }
+
+        .readonly > .search-item2{
+            background: #e9ecef !important;
+            cursor:not-allowed;
+        }
+
         .input-group > .form-control 
         {
             border-radius: 0.5rem !important;
@@ -127,12 +136,31 @@
             cursor:pointer;
         }
 
+        .readonly > .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #d7d7d7 !important;
+            border: 1px solid #d7d7d7 !important;
+            border-radius: 0.25rem !important;
+            color: black;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
         span[class^=info-name]{
             cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
             line-height:22px;
+        }
+
+        .readonly > span[class^=info-name] {
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+            background: #e9ecef !important;
 
         }
 
@@ -144,10 +172,19 @@
             z-index: 3;
         }
 
+        .readonly >  .info-icon-hapus{
+            display:none;
+        }
+
         .form-control {
             padding: 0.1rem 0.5rem; 
             height: calc(1.3rem + 1rem);
             border-radius:0.5rem;
+            
+        }
+
+        .readonly >  .form-control{
+            background: #e9ecef !important;
         }
 
         .selectize-input {
@@ -247,9 +284,13 @@
                                 <div class="row">
                                     <div class="col-md-10 col-sm-12">
                                         <label for="kode_pp">PP</label>
+                                        @if(Session::get('statusAdmin') == "A")
                                         <div class="input-group">
+                                        @else
+                                        <div class="input-group readonly">
+                                        @endif
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                <span class="input-group-text info-code_kode_pp" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
                                             <input type="text" class="form-control label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
                                             <span class="info-name_kode_pp hidden">
@@ -834,6 +875,10 @@
     }
 
     $('#form-tambah').on('click', '.search-item2', function(){
+        console.log($(this).css('cursor'));
+        if($(this).css('cursor') == "not-allowed"){
+            return false;
+        }
         var par = $(this).closest('div').find('input').attr('name');
         showFilter(par);
     });
