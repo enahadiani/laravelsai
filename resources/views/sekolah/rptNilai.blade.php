@@ -38,51 +38,85 @@
 
             `;
             var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN PENILAIAN",lokasi,'Periode '+periode.fromname)+`
-                    <table class='table table-bordered' width='100%'>
-                        <tr>
-                            <td class='text-center;' width='35%'>Deskripsi</td>
-                            <td class='text-center;' width='15%'>Jumlah</td>
-                            <td class='text-center;' width='35%'>Deskripsi</td>
-                            <td class='text-center;' width='15%'>Jumlah</td>
-                        </tr>
-                `;
-                    var det = "";
-                    for (var i=0; i < data.length ; i++)
-                    {
-                        var line  = data[i];
-                        var nilai1 = "";
-                        var nilai2 = "";
-                        if (line.tipe1 != "Header" && line.nama1 != "." && line.nama1 != "")
-                        {
-                            nilai1=sepNum(parseFloat(line.nilai1));
-                        }
-                        if (line.tipe2 != "Header" && line.nama2 != "." && line.nama2 != "")
-                        { 
-                            nilai2=sepNum(parseFloat(line.nilai2));
-                        }
-                        det +="<tr>";
-                        if (line.tipe1 == "Posting" && line.nilai1 != 0)
-                        {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
-                        }
-                        else
-                        {
-                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
-                        }
-                        det +=`<td valign='middle' class='isi_laporan' align='right'>`+nilai1+`</td>`;
+            html+=judul_lap("LAPORAN PENILAIAN",lokasi,'');
+            var logo = "{{ asset('img/tarbak30x30.png') }}";
+            for(var i=0;i<data.length;i++){
+                var line = data[i];
 
-                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
-                        {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
+                html+=`
+                <table class='table' style='width:80%'>
+                    <tr>
+                        <td colspan='9' >
+                            <table class='table table-borderless' style='width:100%'>
+                                <tr>
+                                    <td rowspan='4' style='width:20%'><img src='`+logo+`' style='width:100px'></td>
+                                    <td style='width:50%;text-align:center' >Daftar Nilai: `+line.nama_matpel+`</td>
+                                    <td style='width:10%'>&nbsp;</td>
+                                    <td style='width:10%'>&nbsp;</td>
+                                    <td style='width:5%'>&nbsp;</td>
+                                    <td style='width:5%'>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style=';text-align:center'>`+line.nama_ta+`</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style=';text-align:center'>Kelas: `+line.kode_kelas+`</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style=';text-align:center'>KKM : `+line.kkm+`</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='9' >
+                        `;
+                        var det = `<table class='table table-bordered table-striped' style='width:100%'>
+                        <tr>
+                            <th>No</th>
+                            <th>NIS</th>
+                            <th>Nama</th>
+                            <th>PH1</th>
+                            <th>PH2</th>
+                            <th>PH3</th>
+                        </tr>`;
+                        var no = 1;
+                        for(var x=0;x < res.detail.length; x++)
+                        {       
+                            var line2 = res.detail[x];
+                            if(line.kode_pp == line2.kode_pp && line.kode_kelas  == line2.kode_kelas && line.kode_matpel == line2.kode_matpel){
+                                det +=`<tr>
+                                    <td>`+no+`</td>
+                                    <td>`+line2.nis+`</td>
+                                    <td>`+line2.nama+`</td>
+                                    <td>`+line2.n1+`</td>
+                                    <td>`+line2.n2+`</td>
+                                    <td>`+line2.n3+`</td>
+                                </tr>`;
+                            }
                         }
-                        else
-                        {
-                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
-                        }
-                        det +="<td valign='middle' class='isi_laporan' align='right'>"+nilai2+"</td></tr>";
-                    }
-            html+=det+`</table>
+                        html+=det+`</table>
+                        </td>
+                    </tr>
+                </table>
+                
+                </br>
+                `;
+
+            }
+            html+=`
             </div>`;
         }
         $('#canvasPreview').html(html);

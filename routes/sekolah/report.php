@@ -8,3 +8,6 @@ Route::get('filter-ta','Sekolah\FilterController@getFilterTA');
 Route::get('filter-kelas','Sekolah\FilterController@getFilterKelas');
 Route::get('filter-matpel','Sekolah\FilterController@getFilterMatpel');
 
+
+Route::post('lap-nilai','Sekolah\LaporanController@getNilai');
+
