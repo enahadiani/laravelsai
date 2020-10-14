@@ -290,6 +290,7 @@
                                         <option value='0'>Nasional</option>
                                         <option value='1'>Muatan Lokal</option>
                                         <option value='2'>Khusus</option>
+                                        <option value='3'>Ekstrakulikuler</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 col-sm-12"></div>
