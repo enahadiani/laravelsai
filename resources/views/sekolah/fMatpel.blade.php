@@ -320,6 +320,15 @@
                                     <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
+                            <div class="form-group col-md-3 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-12">
+                                        <label for="singkatan">Singkatan</label>
+                                        <input class="form-control" type="text" id="singkatan" name="singkatan">
+                                    </div>
+                                    <div class="col-md-2 col-sm-12"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 col-sm-12">
@@ -962,11 +971,10 @@
                 required: true,
                 maxlength:50   
             },
-            // keterangan:
-            // {
-            //     required: true,
-            //     maxlength:100 
-            // },
+            singkatan:
+            {
+                required: true
+            },
             flag_aktif:
             {
                 required: true
@@ -1092,7 +1100,7 @@
                     $('#method').val('put');
                     $('#kode_matpel').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    // $('#keterangan').val(result.data[0].keterangan);
+                    $('#singkatan').val(result.data[0].singkatan);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#sifat')[0].selectize.setValue(result.data[0].sifat);
                     $('#kode_pp').val(result.data[0].kode_pp);
@@ -1155,11 +1163,16 @@
 
     $('#table-data tbody').on('click','td',function(e){
         console.log('klik');
-        if($(this).index() != 4){
+        if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var html = `<tr>
+            var html = `
+            <tr>
+                <td>PP</td>
+                <td>`+data.pp+`</td>
+            </tr>
+            <tr>
                 <td style='border:none'>Kode Mata Pelajaran</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
@@ -1168,8 +1181,8 @@
                 <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>PP</td>
-                <td>`+data.pp+`</td>
+                <td>Singkatan</td>
+                <td>`+data.singkatan+`</td>
             </tr>
             <tr>
                 <td>Status</td>
@@ -1228,7 +1241,7 @@
                     $('#method').val('put');
                     $('#kode_matpel').attr('readonly', true);
                     $('#nama').val(result.data[0].nama);
-                    // $('#keterangan').val(result.data[0].keterangan);
+                    $('#singkatan').val(result.data[0].singkatan);
                     $('#sifat')[0].selectize.setValue(result.data[0].sifat);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#kode_pp').val(result.data[0].kode_pp);
