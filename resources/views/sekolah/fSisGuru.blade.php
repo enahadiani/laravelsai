@@ -875,7 +875,7 @@
     }
 
     $('#form-tambah').on('click', '.search-item2', function(){
-        console.log($(this).css('cursor'));
+       
         if($(this).css('cursor') == "not-allowed"){
             return false;
         }
