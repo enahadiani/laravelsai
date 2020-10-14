@@ -193,7 +193,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data["success"],'kkm'=>$request->kkm], 200);  
+                    return response()->json(['data' => $data["success"]], 200);  
                 }
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

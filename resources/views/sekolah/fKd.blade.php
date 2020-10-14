@@ -1252,7 +1252,7 @@
                             input += "<td class='no-kd text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode_kd tdkode_kdke"+no+" tooltip-span'>"+line.kode_kd+"</span><input type='text' name='kode_kd[]' class='form-control inp-kode_kd kode_kdke"+no+" hidden'  value='"+line.kode_kd+"' ></td>";
                             input += "<td ><span class='td-nama tdnnamake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama[]' class='form-control inp-nama nnamake"+no+" hidden'  value='"+line.nama+"' ></td>";
-                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+line.kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+line.kkm+"' ></td>";
+                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+format_number(line.kkm)+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+parseFloat(line.kkm)+"' ></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
         
@@ -1457,7 +1457,7 @@
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line.kode_kd+"</td>";
                                 input += "<td >"+line.nama+"</td>";
-                                input += "<td >"+line.kkm+"</td>";
+                                input += "<td class='text-right'>"+format_number(line.kkm)+"</td>";
                                 input += "</tr>";
                                 no++;
                             }
@@ -1532,7 +1532,7 @@
                             input += "<td class='no-kd text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode_kd tdkode_kdke"+no+" tooltip-span'>"+line.kode_kd+"</span><input type='text' name='kode_kd[]' class='form-control inp-kode_kd kode_kdke"+no+" hidden'  value='"+line.kode_kd+"' ></td>";
                             input += "<td ><span class='td-nama tdnnamake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama[]' class='form-control inp-nama nnamake"+no+" hidden'  value='"+line.nama+"' ></td>";
-                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+line.kkm+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+line.kkm+"' ></td>";
+                            input += "<td class='text-right'><span class='td-kkm tdkkmke"+no+" tooltip-span'>"+format_number(line.kkm)+"</span><input type='text' name='kkm[]' class='form-control inp-kkm kkmke"+no+" hidden'  value='"+parseFloat(line.kkm)+"' ></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
                             no++;

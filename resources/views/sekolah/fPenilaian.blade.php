@@ -539,7 +539,7 @@
                                         <div class="row">
                                             <div class="col-md-10 col-sm-12">
                                                 <label for="nama_kd" >Isi KD</label>
-                                                <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px"></textarea>
+                                                <textarea id="nama_kd" name="nama_kd" readonly class="form-control" style="height:112px"></textarea>
                                             </div>
                                             <div class="col-md-2 col-sm-12"></div>
                                         </div>
