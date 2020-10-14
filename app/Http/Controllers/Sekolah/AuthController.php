@@ -72,15 +72,13 @@
                             Session::put('userLog',$res[0]["nik"]);
                             Session::put('namaUser',$res[0]["nama"]);
                             Session::put('statusAdmin',$res[0]["status_admin"]);
-                            Session::put('klpAkses',$res[0]["klp_akses"]);
                             Session::put('lokasi',$res[0]["kode_lokasi"]);
                             Session::put('namaLokasi',$res[0]["nmlok"]);
                             Session::put('kodePP',$res[0]["kode_pp"]);
                             Session::put('namaPP',$res[0]["nama_pp"]);
-                            Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
                             Session::put('foto',$res[0]["foto"]);
                             Session::put('logo',$res[0]["logo"]);
-                            Session::put('no_telp',$res[0]["no_telp"]);
+                            Session::put('no_hp',$res[0]["no_hp"]);
                             Session::put('jabatan',$res[0]["jabatan"]);
                             Session::put('periode',$data2["periode"][0]["periode"]);
                             Session::put('nikUser',$res[0]["nik"].'_'.time());
