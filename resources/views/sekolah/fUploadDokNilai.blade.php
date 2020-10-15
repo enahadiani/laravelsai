@@ -7,6 +7,7 @@
             cursor:pointer;
             font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
             background:#e9ecef;
+            display:none;
         }
 
         input.error{

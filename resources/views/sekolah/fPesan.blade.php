@@ -248,6 +248,7 @@
         .readonly > .search-item2{
             background: #e9ecef !important;
             cursor:not-allowed;
+            display:none;
         }
 
         .input-group > .form-control 
