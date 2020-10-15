@@ -1,3 +1,10 @@
+<style>
+    .separator2{
+        height:1rem;
+        background:#f8f8f8;
+        box-shadow: -1px 0px 1px 0px #d7d7d7;
+    }
+</style>
 <script type="text/javascript">
     function drawLap(formData){
         saiPostLoad('sekolah-report/lap-nilai', null, formData, null, function(res){
@@ -44,9 +51,8 @@
                 var line = data[i];
 
                 html+=`
-                <div class='card mb-3' style='border:none !important'>
-                    <div class='card-body'>
-                        <table class='table' style='width:80%'>
+               
+                        <table class='table table-borderless' style='width:80%'>
                             <tr>
                                 <td colspan='9' >
                                     <table class='table table-borderless' style='width:100%'>
@@ -113,12 +119,10 @@
                                 html+=det+`</table>
                                 </td>
                             </tr>
-                        </table>
-                        
-                        </br>
-                    </div>
-                </div>
-                `;
+                        </table>`;
+                        if(i != (data.length - 1)){
+                            html+=`<div class='separator2' style='height:1rem;background:#f8f8f8;box-shadow: 0px 0px 1px 0px #d7d7d7;'></div>`;
+                        }
 
             }
             html+=`

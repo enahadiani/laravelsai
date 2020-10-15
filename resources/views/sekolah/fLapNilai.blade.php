@@ -289,8 +289,8 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-2 hidden" id="saku-report">
-            <div class="col-12">
+        <div class="row mt-2 hidden scroll" id="saku-report">
+            <div class="col-12 pr-0">
                 <div class="card px-0 py-4" style="min-height:200px">
                     <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
@@ -378,6 +378,7 @@
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
@@ -449,6 +450,7 @@
             
             $('#btn-filter').addClass("hidden");
             $('#btn-export').addClass("hidden");
+            setHeightReport();
         });
         
         $('#btn-tutup').click(function(e){
@@ -458,6 +460,7 @@
             $('#btn-filter').removeClass("btn-light");
             $('#btn-filter').removeClass("hidden");
             $('#btn-export').removeClass("hidden");
+            setHeightReport();
         });
 
         $('#btn-tampil').click(function(e){
@@ -467,6 +470,7 @@
             $('#btn-filter').removeClass("btn-light");
             $('#btn-filter').removeClass("hidden");
             $('#btn-export').removeClass("hidden");
+            setHeightReport();
         });
 
         $('.selectize').selectize();
@@ -1078,6 +1082,7 @@
             $('#saku-report').removeClass('hidden');
             xurl = "{{ url('sekolah-auth/form/rptNilai') }}";
             $('#saku-report #canvasPreview').load(xurl);
+            setHeightReport();
         });
 
         $('#show').change(function(e){

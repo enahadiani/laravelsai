@@ -1257,11 +1257,13 @@
     // });
     
     function setHeightReport(){
-        var header = $('.topbar').height();
-        var subheader = $('#subFixbar').height();
+        var header = 60;
+        var subheader = $('#saku-filter').height();
         var content = window.innerHeight;
         var tinggi = content-header-subheader-50;
-        $('#content-lap').css('height',tinggi);
+        $('#saku-report').css('height',tinggi);
+        var psdet = document.querySelector('#saku-report');
+        var pspsdet = new PerfectScrollbar(psdet,{suppressScrollX:true});
     }
 
     function setHeightDash(){
@@ -1305,7 +1307,7 @@
     }
     
     $( window ).resize(function() {
-        if($('#content-lap').length > 0){
+        if($('#saku-report').length > 0){
             setHeightReport();
         }
         if($('#content-chart').length > 0){
