@@ -1940,16 +1940,24 @@
                             
                             last_add("no_bukti",result.data.no_bukti);
                         }
-                        else if(!result.data.status && result.data.message == 'Unauthorized'){
+                        else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
-                        }
-                        else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                        }else{
+                            if(result.data.jenis == 'duplicate'){
+                                msgDialog({
+                                    id: result.data.no_bukti,
+                                    type: result.data.jenis,
+                                    text: result.data.message
+                                });
+                            }else{
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                    footer: '<a href>'+result.data.message+'</a>'
+                                })
+                            }
                         }
                         $iconLoad.hide();
                     },
