@@ -930,7 +930,11 @@
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/kelas') }}";
+                if("{{ Session::get('statusAdmin') }}" == "G" ){
+                    var toUrl = "{{ url('sekolah-trans/penilaian-kelas') }}";
+                }else{
+                    var toUrl = "{{ url('sekolah-master/kelas') }}";
+                }
                 var columns = [
                     { data: 'kode_kelas' },
                     { data: 'nama' }
@@ -948,7 +952,11 @@
             break;
             case 'kode_matpel': 
                 header = ['Kode Matpel', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/matpel') }}";
+                if("{{ Session::get('statusAdmin') }}" == "G" ){
+                    var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
+                }else{
+                    var toUrl = "{{ url('sekolah-master/matpel') }}";
+                }
                 var columns = [
                     { data: 'kode_matpel' },
                     { data: 'nama' }
@@ -962,7 +970,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
-                parameter = {kode_pp:$('#kode_pp').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val()};
             break;
             case 'kode_kd': 
                 header = ['Kode KD', 'Nama'];
@@ -1213,9 +1221,14 @@
     function getKelas(id,pp=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        if("{{ Session::get('statusAdmin') }}" == "G" ){
+            var toUrl = "{{ url('sekolah-trans/penilaian-kelas') }}";
+        }else{
+            var toUrl = "{{ url('sekolah-master/kelas') }}";
+        }
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-master/kelas') }}",
+            url: toUrl,
             dataType: 'json',
             data:{kode_pp:pp,kode_kelas:kode},
             async:false,
@@ -1243,6 +1256,7 @@
         if(id == ""){
             return false;
         }
+
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-trans/penilaian-kd') }}",
@@ -1295,11 +1309,17 @@
     function getMatpel(id,pp=null){
         var tmp = id.split(" - ");
         kode = tmp[0];
+
+        if("{{ Session::get('statusAdmin') }}" == "G" ){
+            var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
+        }else{
+            var toUrl = "{{ url('sekolah-master/matpel') }}";
+        }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/matpel') }}",
             dataType: 'json',
-            data:{kode_pp:pp,kode_matpel:kode},
+            data:{kode_pp:pp,kode_matpel:kode,kode_kelas:$('#kode_kelas').val()},
             async:false,
             success:function(result){    
                 if(result.status){

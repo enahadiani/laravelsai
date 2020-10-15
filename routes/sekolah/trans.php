@@ -24,6 +24,8 @@ Route::post('penilaian-dok', 'Sekolah\PenilaianController@storeDokumen');
 Route::delete('penilaian-dok', 'Sekolah\PenilaianController@deleteDokumen');
 Route::get('penilaian-kd', 'Sekolah\PenilaianController@getKD');
 Route::get('penilaian-dok-list', 'Sekolah\PenilaianController@listUpload');
+Route::get('penilaian-kelas', 'Sekolah\PenilaianController@getKelas');
+Route::get('penilaian-matpel', 'Sekolah\PenilaianController@getMatpel');
 
 Route::get('pesan', 'Sekolah\PesanController@index');
 Route::get('pesan-detail', 'Sekolah\PesanController@show');

@@ -26,11 +26,8 @@
         public function index(Request $request)
         {
             try{
-                if(isset($request->kode_pp) && $request->kode_pp != ""){
-                    $kode_pp = $request->kode_pp;
-                }else{
-                    $kode_pp = Session::get('kodePP');
-                }
+                
+                $kode_pp = $request->kode_pp;
                 $client = new Client();
                 $response = $client->request('GET',  config('api.url').'sekolah/penilaian-all',[
                     'headers' => [
@@ -592,6 +589,66 @@
                 $data['message'] = $res['message'];
                 $data['status'] = false;
                 return response()->json(['data' => $data], 200);
+            }
+        }
+
+        public function getKelas(Request $request)
+        {
+            try{
+                
+                $kode_pp = $request->kode_pp;
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian-kelas',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $kode_pp
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            }
+        }
+
+        public function getMatpel(Request $request)
+        {
+            try{
+                
+                $kode_pp = $request->kode_pp;
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/penilaian-matpel',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $kode_pp
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
             }
         }
 
