@@ -449,7 +449,7 @@ function loadService(index,method,url,param={}){
                     var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
                     $('#pp').html(pp);
                     $('#jabatan').html(result.data[0].jabatan);
-                    $('#password').html(typePass(result.data[0].pass));
+                    $('#password').html(typePass(result.data[0].password));
                     break;
 
                 }
@@ -583,7 +583,7 @@ $('#file-foto').change(function(e){
                     alert('Update foto sukses!');
                     var foto = "{{ config('api.url').'sekolah/storage' }}/"+result.data.foto;
                     $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
-                    
+
                     loadForm("{{url('sekolah-auth/form/fProfile')}}");
 
                     $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
