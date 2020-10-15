@@ -340,6 +340,7 @@
                                     <th>Jenis</th>
                                     <th>Judul</th>
                                     <th>Deskripsi</th>
+                                    <th>Tipe</th>
                                     <th>Tgl Input</th>
                                     <th>Kode PP</th>
                                     <th class="text-center">Aksi</th>
@@ -381,11 +382,26 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-12">
+                                                <label for="tipe">Tipe</label>
+                                                <select class='form-control selectize' id="tipe" name="tipe">
+                                                <option value=''>--- Pilih ---</option>
+                                                <option value='Info'>Info</option>
+                                                <option value='Notif'>Notif</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
                                                 <label for="jenis">Kepada</label>
                                                 <select class='form-control selectize' id="jenis" name="jenis">
                                                 <option value=''>--- Pilih ---</option>
-                                                <option value='Siswa'>Siswa</option>
+                                                <option value='Semua'>Semua</option>
                                                 <option value='Kelas'>Kelas</option>
+                                                <option value='Siswa'>Siswa</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2 col-sm-12">
@@ -725,26 +741,27 @@
                 }
             },
             {
-                "targets": [4],
+                "targets": [5],
                 "visible": false,
                 "searchable": false
             },
             {
-                "targets": [5],
+                "targets": [6],
                 "visible": false,
                 "searchable": true
             },
-            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 7, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'no_bukti' },
             { data: 'jenis' },
             { data: 'judul' },
             { data: 'pesan' },
+            { data: 'tipe' },
             { data: 'tgl_input' },
             { data: 'kode_pp'}
         ],
-        order:[[4,'desc']],
+        order:[[5,'desc']],
         drawCallback: function () {
             $($(".dataTables_wrapper .pagination li:first-of-type"))
                 .find("a")
@@ -1011,6 +1028,7 @@
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#tipe')[0].selectize.setValue(result.data[0].tipe);
                     $('#kontak').val(result.data[0].kontak);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
@@ -1127,6 +1145,7 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#jenis')[0].selectize.setValue('');
+        $('#tipe')[0].selectize.setValue('');
         $('#pesan').text('');
         $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
@@ -1162,7 +1181,7 @@
 
     // PREVIEW DATA
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 4){
+        if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
@@ -1180,6 +1199,10 @@
                         var html = `<tr>
                             <td style='border:none'>No Bukti</td>
                             <td style='border:none'>`+id+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Tipe</td>
+                            <td style='border:none'>`+result.data[0].tipe+`</td>
                         </tr>
                         <tr>
                             <td>PP</td>
@@ -1293,6 +1316,7 @@
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
+                    $('#tipe')[0].selectize.setValue(result.data[0].tipe);
                     $('#kontak').val(result.data[0].kontak);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
@@ -1457,9 +1481,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
+    $('#tipe,#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['jenis','kontak','judul','deskripsi'];
+        var nxt = ['tipe','jenis','kontak','judul','deskripsi'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1533,7 +1557,7 @@
                 var tmp = $('#inp-filter_kode_pp').val().split("-");
                 var kode_pp = tmp[0];
                 // var status = $('#inp-filter_status').val();
-                var col_kode_pp = data[5];
+                var col_kode_pp = data[6];
                 // var col_status = data[5];
                 if(kode_pp != "" ){
                     if(kode_pp == col_kode_pp){

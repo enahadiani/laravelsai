@@ -95,7 +95,8 @@
                 'judul' => 'required',
                 'kontak' => 'required',
                 'deskripsi' => 'required',
-                'kode_pp' => 'required'
+                'kode_pp' => 'required',
+                'tipe' => 'required'
             ]);
                 
             try{
@@ -118,7 +119,7 @@
                     ],
                     [
                         'name' => 'tipe',
-                        'contents' => 'info',
+                        'contents' => $request->tipe,
                     ],
                     [
                         'name' => 'kode_pp',
@@ -188,7 +189,8 @@
                 'judul' => 'required',
                 'kontak' => 'required',
                 'deskripsi' => 'required',
-                'kode_pp' => 'required'
+                'kode_pp' => 'required',
+                'tipe' => 'required'
             ]);
                 
             try{
@@ -215,7 +217,7 @@
                     ],
                     [
                         'name' => 'tipe',
-                        'contents' => 'info',
+                        'contents' => $request->tipe,
                     ],
                     [
                         'name' => 'kode_pp',
