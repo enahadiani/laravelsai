@@ -31,6 +31,10 @@
         {
             border-collapse:collapse !important;
         }
+
+       .dataTables_paginate .paging_simple_numbers {
+            float:right;
+        }
         
         #table-search tbody tr:hover,#table-search2 tbody tr:hover
         {
@@ -51,39 +55,39 @@
 
   
         .page-item.next .page-link, .page-item.all .page-link {
-            background: #900604;
+            background: var(--theme-color-1);
             color: #fff;
-            border: 1px solid #900604; 
+            border: 1px solid var(--theme-color-1); 
         }
         .page-item.prev .page-link {
-            background: #900604;
-            border: 1px solid #900604;
+            background: var(--theme-color-1);
+            border: 1px solid var(--theme-color-1);
             color: #fff; 
         }
         .page-item.first .page-link, .page-item.last .page-link 
         {
             background: transparent;
-            color: #900604;
-            border: 1px solid #900604;
+            color: var(--theme-color-1);
+            border: 1px solid var(--theme-color-1);
             border-radius: 30px; 
         }
         .page-item.first .page-link:hover, .page-item.last .page-link:hover 
         {
-            background: #900604;
+            background: var(--theme-color-1);
             color: white;
-            border: 1px solid #900604; 
+            border: 1px solid var(--theme-color-1); 
         }
         .page-item .page-link:hover 
         {
             background-color: transparent;
-            border-color: #c20805;
-            color: #900604; 
+            border-color: var(--theme-color-1);
+            color: var(--theme-color-1); 
         }
         .page-item.active .page-link 
         {
             background: transparent;
-            border: 1px solid #900604;
-            color: #900604; 
+            border: 1px solid var(--theme-color-1);
+            color: var(--theme-color-1); 
         }
         .page-item.disabled .page-link 
         {
