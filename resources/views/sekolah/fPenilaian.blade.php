@@ -709,8 +709,9 @@
         </div>
     </div>
     <!--  -->
-     <!-- MODAL FILTER -->
-     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    
+    <!-- MODAL FILTER -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

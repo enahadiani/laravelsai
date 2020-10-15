@@ -236,28 +236,41 @@
         {
             overflow:hidden !important;
         }
-
         .input-group-prepend{
             border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.5rem;
         }
 
-        .input-group > .form-control
+        .readonly > .input-group-prepend{
+            background: #e9ecef !important;
+        }
+
+        .readonly > .search-item2{
+            background: #e9ecef !important;
+            cursor:not-allowed;
+        }
+
+        .input-group > .form-control 
         {
             border-radius: 0.5rem !important;
         }
 
-        .readonly{
-            background: #e9ecef !important;
-        }
-
-        
         .input-group-prepend > span {
             margin: 5px;padding: 0 5px;
             background: #e9ecef !important;
             border: 1px solid #e9ecef !important;
             border-radius: 0.25rem !important;
             color: var(--theme-color-1);
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        .readonly > .input-group-prepend > span {
+            margin: 5px;padding: 0 5px;
+            background: #d7d7d7 !important;
+            border: 1px solid #d7d7d7 !important;
+            border-radius: 0.25rem !important;
+            color: black;
             font-weight:bold;
             cursor:pointer;
         }
@@ -270,6 +283,16 @@
             line-height:22px;
         }
 
+        .readonly > span[class^=info-name] {
+            cursor:pointer;font-size: 12px;position: absolute; top: 3px; left: 52.36663818359375px; padding: 5px 0px 5px 5px; z-index: 2; width: 180.883px;background:white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height:22px;
+            background: #e9ecef !important;
+
+        }
+
         .info-icon-hapus{
             font-size: 14px;
             position: absolute;
@@ -278,10 +301,19 @@
             z-index: 3;
         }
 
+        .readonly >  .info-icon-hapus{
+            display:none;
+        }
+
         .form-control {
             padding: 0.1rem 0.5rem; 
             height: calc(1.3rem + 1rem);
             border-radius:0.5rem;
+            
+        }
+
+        .readonly >  .form-control{
+            background: #e9ecef !important;
         }
 
         .selectize-input {
@@ -294,9 +326,7 @@
 
         label{
             margin-bottom: 0.2rem;
-        }
-
-        
+        }        
     </style>
     <!-- LIST DATA -->
     <div class="row" id="saku-datatable">
@@ -1184,8 +1214,8 @@
         if($(this).index() != 5){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
-            var tmp = $(this).closest('tr').find('td').eq(6).html().split("-");
-            var kode_pp = tmp[0];
+            var data = dataTable.row( $(this).parents('tr') ).data();
+            var kode_pp = data.kode_pp;
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sekolah-trans/pesan-detail') }}",
@@ -1205,71 +1235,24 @@
                             <td style='border:none'>`+result.data[0].tipe+`</td>
                         </tr>
                         <tr>
-                            <td>PP</td>
-                            <td>`+result.data[0].kode_pp+`-`+result.data[0].nama_pp+`</td>
+                            <td style='border:none'>Kepada</td>
+                            <td style='border:none'>`+result.data[0].jenis+`</td>
                         </tr>
                         <tr>
-                            <td>Tahun Ajaran</td>
-                            <td>`+result.data[0].kode_ta+`-`+result.data[0].nama_ta+`</td>
+                            <td style='border:none'>Kontak</td>
+                            <td style='border:none'>`+result.data[0].kontak+`</td>
                         </tr>
                         <tr>
-                            <td>Semester</td>
-                            <td>`+result.data[0].kode_sem+`</td>
+                            <td style='border:none'>Judul</td>
+                            <td style='border:none'>`+result.data[0].judul+`</td>
                         </tr>
                         <tr>
-                            <td>Kelas</td>
-                            <td>`+result.data[0].kode_kelas+`-`+result.data[0].nama_kelas+`</td>
+                            <td style='border:none'>Pesan</td>
+                            <td style='border:none'>`+result.data[0].pesan+`</td>
                         </tr>
-                        <tr>
-                            <td>Mata Pelajaran</td>
-                            <td>`+result.data[0].kode_matpel+`-`+result.data[0].nama_matpel+`</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Penilaian</td>
-                            <td>`+result.data[0].kode_jenis+`-`+result.data[0].nama_jenis+`</td>
-                        </tr>
-                        <tr>
-                            <td>Komptensi Dasar</td>
-                            <td>`+result.data[0].kode_kd+`-`+result.data[0].nama_kd+`</td>
-                        </tr>
-                        <tr>
-                            <td>Penilaian ke - </td>
-                            <td>`+result.data[0].jumlah+`</td>
-                        </tr>
-                        <tr>
-                            <td colspan='2'>
-                                <table id='table-ju-preview' class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:20%">NIS</th>
-                                            <th style="width:57%">Nama Akun</th>
-                                            <th style="width:20%">Nilai</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>`;
+                        `;
                         
                         $('#table-preview tbody').html(html);
-                        var det = ``;
-                        if(result.data_detail.length > 0){
-                            var input = '';
-                            var no=1;
-                            for(var i=0;i<result.data_detail.length;i++){
-                                var line =result.data_detail[i];
-                                input += "<tr>";
-                                input += "<td>"+no+"</td>";
-                                input += "<td >"+line.nis+"</td>";
-                                input += "<td >"+line.nama+"</td>";
-                                input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
-                                input += "</tr>";
-                                no++;
-                            }
-                            $('#table-ju-preview tbody').html(input);
-                        }
                         $('#modal-preview-id').text(id);
                         $('#modal-preview-kode').text(result.data[0].kode_pp);
                         $('#modal-preview').modal('show');
@@ -1504,6 +1487,17 @@
 
         var par = $(this).closest('div').find('input').attr('name');
         showFilter(par);
+    });
+
+    $('#form-tambah').on('change','#jenis',function(){
+        if($(this).val() == "Semua"){
+            $('#kontak').parents('div').find('.input-group').addClass('readonly');
+            $('#kontak').val('-');
+        }else{
+            
+            $('#kontak').parents('div').find('.input-group').removeClass('readonly');
+            $('#kontak').val('');
+        }
     });
 
     // GRID JURNAL  

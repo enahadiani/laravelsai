@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('pesan-history', 'Sekolah\PesanController@historyPesan');
 Route::get('rata2-nilai', 'Sekolah\PesanController@rata2Nilai');
+Route::get('data-box', 'Sekolah\PesanController@getDataBox');
