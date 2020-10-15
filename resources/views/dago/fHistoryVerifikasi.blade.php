@@ -134,6 +134,10 @@
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
                         <button type="button" class="btn btn-info ml-2" id="btn-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
                         <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px;padding:10px;font-size:12pt !important'>
+                            <div id='canvasPreview' style='font-size:12pt !important;'>
+                            </div>
+                            <div class="script">
+                            </div>
                         </div>
                         
                     </div>
@@ -269,9 +273,11 @@
             $formData.delete(key);
         });
         var kode = $(this).data('no_kwitansi');
-        $formData.append("no_kwitansi", kode);
-        xurl = "{{ url('/dago-auth/form')}}/rptPbyr";
-        $('#print-area').load(xurl);
+        $formData.append("no_kwitansi[]", "=");
+        $formData.append("no_kwitansi[]", kode);
+        $formData.append("no_kwitansi[]", "");
+        xurl = "{{ url('/dago-auth/form')}}/rptPbyrBaru";
+        $('#print-area > .script').load(xurl);
         $('#slide-print').show();
         $('#web_datatable').hide();
     });  
@@ -283,9 +289,11 @@
         });
 
         var kode = $(this).data('no_kwitansi');
-        $formData.append("no_kwitansi", kode);
-        xurl = "{{ url('/dago-auth/form')}}/rptTerima";
-        $('#print-area').load(xurl);
+        $formData.append("no_kwitansi[]", "=");
+        $formData.append("no_kwitansi[]", kode);
+        $formData.append("no_kwitansi[]", "");
+        xurl = "{{ url('/dago-auth/form')}}/rptTerimaBaru";
+        $('#print-area > .script').load(xurl);
         $('#slide-print').show();
         $('#web_datatable').hide();
     });  
@@ -297,9 +305,11 @@
         });
 
         var kode = $(this).data('no_reg');
-        $formData.append("no_reg", kode);
-        xurl = "{{ url('/dago-auth/form')}}/rptFormReg";
-        $('#print-area').load(xurl);
+        $formData.append("no_reg[]", "=");
+        $formData.append("no_reg[]", kode);
+        $formData.append("no_reg[]", "");
+        xurl = "{{ url('/dago-auth/form')}}/rptFormRegBaru";
+        $('#print-area > .script').load(xurl);
         $('#slide-print').show();
         $('#web_datatable').hide();
     }); 
@@ -311,9 +321,11 @@
         });
 
         var kode = $(this).data('no_bukti');
-        $formData.append("no_bukti", kode);
-        xurl = "{{ url('/dago-auth/form')}}/rptJuPbyr";
-        $('#print-area').load(xurl);
+        $formData.append("no_bukti[]", "=");
+        $formData.append("no_bukti[]", kode);
+        $formData.append("no_bukti[]", "");
+        xurl = "{{ url('/dago-auth/form')}}/rptJuPbyrBaru";
+        $('#print-area > .script').load(xurl);
         $('#slide-print').show();
         $('#web_datatable').hide();
     });  
