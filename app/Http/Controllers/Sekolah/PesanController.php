@@ -95,8 +95,8 @@
                 'judul' => 'required',
                 'kontak' => 'required',
                 'deskripsi' => 'required',
-                'kode_pp' => 'required',
-                'tipe' => 'required'
+                'kode_pp' => 'required'
+                // 'tipe' => 'required'
             ]);
                 
             try{
@@ -117,10 +117,10 @@
                         'name' => 'pesan',
                         'contents' => $request->deskripsi,
                     ],
-                    [
-                        'name' => 'tipe',
-                        'contents' => $request->tipe,
-                    ],
+                    // [
+                    //     'name' => 'tipe',
+                    //     'contents' => $request->tipe,
+                    // ],
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,
@@ -189,8 +189,8 @@
                 'judul' => 'required',
                 'kontak' => 'required',
                 'deskripsi' => 'required',
-                'kode_pp' => 'required',
-                'tipe' => 'required'
+                'kode_pp' => 'required'
+                // 'tipe' => 'required'
             ]);
                 
             try{
@@ -215,10 +215,10 @@
                         'name' => 'pesan',
                         'contents' => $request->deskripsi,
                     ],
-                    [
-                        'name' => 'tipe',
-                        'contents' => $request->tipe,
-                    ],
+                    // [
+                    //     'name' => 'tipe',
+                    //     'contents' => $request->tipe,
+                    // ],
                     [
                         'name' => 'kode_pp',
                         'contents' => $request->kode_pp,

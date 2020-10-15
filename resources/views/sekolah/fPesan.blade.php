@@ -413,20 +413,6 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-12">
-                                                <label for="tipe">Tipe</label>
-                                                <select class='form-control selectize' id="tipe" name="tipe">
-                                                <option value=''>--- Pilih ---</option>
-                                                <option value='Info'>Info</option>
-                                                <option value='Notif'>Notif</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
                                                 <label for="jenis">Kepada</label>
                                                 <select class='form-control selectize' id="jenis" name="jenis">
                                                 <option value=''>--- Pilih ---</option>
@@ -833,13 +819,19 @@
     function getKontak(id,pp=null,jenis){
 
         if(jenis == "Siswa"){
-
-            var toUrl = "{{ url('sekolah-trans/siswa') }}";
+            if("{{ Session::get('statusAdmin') }}" == "G" ){
+                var toUrl = "{{ url('sekolah-trans/penilaian-siswa') }}";
+            }else{
+                var toUrl = "{{ url('sekolah-trans/siswa') }}";
+            }
             var param = {kode_pp:pp,nis:id};
         }else{  
-            var toUrl = "{{ url('sekolah-master/kelas') }}";
+            if("{{ Session::get('statusAdmin') }}" == "G" ){
+                var toUrl = "{{ url('sekolah-trans/penilaian-kelas') }}";
+            }else{
+                var toUrl = "{{ url('sekolah-master/kelas') }}";
+            }
             var param = {kode_pp:pp,kode_kelas:id};
-           
         }
         $.ajax({
             type: 'GET',
@@ -883,8 +875,11 @@
             case 'kontak': 
                 header = ['Kode', 'Nama'];
                 if($('#jenis')[0].selectize.getValue() == "Siswa"){
-
-                    var toUrl = "{{ url('sekolah-trans/siswa') }}";
+                    if("{{ Session::get('statusAdmin') }}" == "G" ){
+                        var toUrl = "{{ url('sekolah-trans/penilaian-siswa') }}";
+                    }else{
+                        var toUrl = "{{ url('sekolah-trans/siswa') }}";
+                    }
                     var columns = [
                         { data: 'nis' },
                         { data: 'nama' }
@@ -892,7 +887,11 @@
                     var judul = "Daftar Siswa";
                     var pilih = "siswa";
                 }else{  
-                    var toUrl = "{{ url('sekolah-master/kelas') }}";
+                    if("{{ Session::get('statusAdmin') }}" == "G" ){
+                        var toUrl = "{{ url('sekolah-trans/penilaian-kelas') }}";
+                    }else{
+                        var toUrl = "{{ url('sekolah-master/kelas') }}";
+                    }
                     var columns = [
                         { data: 'kode_kelas' },
                         { data: 'nama' }
@@ -1059,7 +1058,7 @@
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
-                    $('#tipe')[0].selectize.setValue(result.data[0].tipe);
+                    // $('#tipe')[0].selectize.setValue(result.data[0].tipe);
                     $('#kontak').val(result.data[0].kontak);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
@@ -1176,7 +1175,7 @@
         $('#form-tambah').validate().resetForm();
         $('#id').val('');
         $('#jenis')[0].selectize.setValue('');
-        $('#tipe')[0].selectize.setValue('');
+        // $('#tipe')[0].selectize.setValue('');
         $('#pesan').text('');
         $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
@@ -1300,7 +1299,7 @@
                     $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
-                    $('#tipe')[0].selectize.setValue(result.data[0].tipe);
+                    // $('#tipe')[0].selectize.setValue(result.data[0].tipe);
                     $('#kontak').val(result.data[0].kontak);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
@@ -1465,9 +1464,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tipe,#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
+    $('#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tipe','jenis','kontak','judul','deskripsi'];
+        var nxt = ['jenis','kontak','judul','deskripsi'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

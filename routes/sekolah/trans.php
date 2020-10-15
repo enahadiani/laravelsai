@@ -26,6 +26,7 @@ Route::get('penilaian-kd', 'Sekolah\PenilaianController@getKD');
 Route::get('penilaian-dok-list', 'Sekolah\PenilaianController@listUpload');
 Route::get('penilaian-kelas', 'Sekolah\PenilaianController@getKelas');
 Route::get('penilaian-matpel', 'Sekolah\PenilaianController@getMatpel');
+Route::get('penilaian-siswa', 'Sekolah\PenilaianController@getSiswa');
 
 Route::get('pesan', 'Sekolah\PesanController@index');
 Route::get('pesan-detail', 'Sekolah\PesanController@show');
