@@ -583,6 +583,7 @@ $('#file-foto').change(function(e){
                     alert('Update foto sukses!');
                     var foto = "{{ config('api.url').'sekolah/storage' }}/"+result.data.foto;
                     $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
+                    
                     loadForm("{{url('sekolah-auth/form/fProfile')}}");
 
                     $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
