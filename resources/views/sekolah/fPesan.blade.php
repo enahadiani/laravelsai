@@ -368,10 +368,10 @@
                             <thead>
                                 <tr>
                                     <th>No Bukti</th>
+                                    <th>Mata Pelajaran</th>
                                     <th>Jenis</th>
+                                    <th>Kontak</th>
                                     <th>Judul</th>
-                                    <th>Deskripsi</th>
-                                    <th>Tipe</th>
                                     <th>Tgl Input</th>
                                     <th>Kode PP</th>
                                     <th class="text-center">Aksi</th>
@@ -410,6 +410,26 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-10 col-sm-12">
+                                                <label for="kode_matpel">Mata Pelajaran</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_kode_matpel" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-kode_matpel" id="kode_matpel" name="kode_matpel" value="" title="">
+                                                    <span class="info-name_kode_matpel">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group col-md-3 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-10 col-sm-12">
@@ -582,12 +602,12 @@
                                 <option value='#'>Pilih Kode PP</option>
                             </select>
                         </div>
-                        <!-- <div class="form-group row">
-                            <label>Status</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='#'>Pilih Status</option>
+                        <div class="form-group row">
+                            <label>Matpel</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_matpel" id="inp-filter_matpel">
+                                <option value='#'>Pilih Matpel</option>
                             </select>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -724,11 +744,56 @@
         });
     }
 
+    function getMatpelFil(pp=null) {
+        if(pp= null){
+            pp = "{{ Session::get('kodePP') }}";
+        }
+        $.ajax({
+            type:'GET',
+            url:"{{ url('sekolah-report/filter-matpel') }}",
+            dataType: 'json',
+            data:{kode_pp:pp},
+            async: false,
+            success: function(result) {
+                
+                var select = $('#inp-filter_matpel').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status) {
+                    
+                    for(i=0;i<result.daftar.length;i++){
+                        control.addOption([{text:result.daftar[i].kode_matpel, value:result.daftar[i].kode_matpel}]);
+                    }
+                    
+                }else if(!result.status && result.message == "Unauthorized"){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                } else{
+                    alert(result.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
     getTAPp();
+    getMatpelFil();
     jumFilter();
 
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
     var dataTable = $("#table-data").DataTable({
         destroy: true,
@@ -773,10 +838,10 @@
         ],
         'columns': [
             { data: 'no_bukti' },
+            { data: 'kode_matpel' },
             { data: 'jenis' },
+            { data: 'kontak' },
             { data: 'judul' },
-            { data: 'pesan' },
-            { data: 'tipe' },
             { data: 'tgl_input' },
             { data: 'kode_pp'}
         ],
@@ -818,7 +883,7 @@
 
     // END LIST DATA
 
-    function getKontak(id,pp=null,jenis){
+    function getKontak(id,pp=null,jenis,kode_matpel){
 
         if(jenis == "Siswa"){
             if("{{ Session::get('statusAdmin') }}" == "G" ){
@@ -833,7 +898,7 @@
             }else{
                 var toUrl = "{{ url('sekolah-master/kelas') }}";
             }
-            var param = {kode_pp:pp,kode_kelas:id};
+            var param = {kode_pp:pp,kode_kelas:id,kode_matpel:kode_matpel};
         }
         $.ajax({
             type: 'GET',
@@ -854,6 +919,39 @@
                         $('#kontak').css('border-left','1px solid #d7d7d7');
                         $('#kontak').val('');
                         $('#kontak').focus();
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    function getMatpel(id,pp=null){
+
+        if("{{ Session::get('statusAdmin') }}" == "G" ){
+            var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
+        }else{
+            var toUrl = "{{ url('sekolah-trans/matpel') }}";
+        }
+        var param = {kode_pp:pp,kode_matpel:id};
+      
+        $.ajax({
+            type: 'GET',
+            url: toUrl,
+            dataType: 'json',
+            data:param,
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        showInfoField('kode_matpel',result.daftar[0].kode_matpel,result.daftar[0].nama);
+                    }else{
+                        $('#kode_matpel').attr('readonly',false);
+                        $('#kode_matpel').css('border-left','1px solid #d7d7d7');
+                        $('#kode_matpel').val('');
+                        $('#kode_matpel').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -901,6 +999,29 @@
                     var judul = "Daftar Kelas";
                     var pilih = "kelas";
                 }
+                var jTarget1 = "text";
+                var jTarget2 = "text";
+                $target = ".info-code_"+par;
+                $target2 = ".info-name_"+par;
+                $target3 = "";
+                $target4 = "";
+                var tmp = $('#inp-filter_kode_pp').val().split('-');
+                parameter = {kode_pp:tmp[0],kode_matpel:$('#kode_matpel').val()};
+            break;
+            case 'kode_matpel': 
+                header = ['Kode', 'Nama'];
+                if("{{ Session::get('statusAdmin') }}" == "G" ){
+                    var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
+                }else{
+                    var toUrl = "{{ url('sekolah-trans/matpel') }}";
+                }
+                var columns = [
+                    { data: 'kode_matpel' },
+                    { data: 'nama' }
+                ];
+                var judul = "Daftar Matpel";
+                var pilih = "matpel";
+
                 var jTarget1 = "text";
                 var jTarget2 = "text";
                 $target = ".info-code_"+par;
@@ -1062,6 +1183,7 @@
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis);
                     // $('#tipe')[0].selectize.setValue(result.data[0].tipe);
                     $('#kontak').val(result.data[0].kontak);
+                    $('#kode_matpel').val(result.data[0].kode_matpel);
                     $('#judul').val(result.data[0].judul);
                     $('#deskripsi').text(result.data[0].pesan);
                 
@@ -1109,7 +1231,7 @@
                     // $('#row-id').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
-                    // showInfoField('kontak',result.data[0].kontak,result.data[0].nama_kontak);
+                    showInfoField('matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
                     getKontak(result.data[0].kontak,data.kode_pp,result.data[0].jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -1235,6 +1357,10 @@
                         <tr>
                             <td style='border:none'>Tipe</td>
                             <td style='border:none'>`+result.data[0].tipe+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Mata Pelajaran</td>
+                            <td style='border:none'>`+result.data[0].nama_matpel+`</td>
                         </tr>
                         <tr>
                             <td style='border:none'>Kepada</td>
@@ -1466,9 +1592,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
+    $('#kode_matpel,#jenis,#kontak,#judul,#deskripsi').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['jenis','kontak','judul','deskripsi'];
+        var nxt = ['kode_matpel','jenis','kontak','judul','deskripsi'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1552,11 +1678,23 @@
             function( settings, data, dataIndex ) {
                 var tmp = $('#inp-filter_kode_pp').val().split("-");
                 var kode_pp = tmp[0];
-                // var status = $('#inp-filter_status').val();
+                var matpel = $('#inp-filter_matpel').val();
                 var col_kode_pp = data[6];
-                // var col_status = data[5];
-                if(kode_pp != "" ){
+                var col_matpel = data[1];
+                if(kode_pp != "" && matpel != ""){
+                    if(kode_pp == col_kode_pp && matpel == col_matpel){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp !="" && matpel == "") {
                     if(kode_pp == col_kode_pp){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(kode_pp == "" && matpel != ""){
+                    if(matpel == col_matpel){
                         return true;
                     }else{
                         return false;
@@ -1574,7 +1712,7 @@
     $('#btn-reset').click(function(e){
         e.preventDefault();
         $('#inp-filter_kode_pp')[0].selectize.setValue('');
-        $('#inp-filter_status')[0].selectize.setValue('');
+        $('#inp-filter_matpel')[0].selectize.setValue('');
         jumFilter();
     });
     
