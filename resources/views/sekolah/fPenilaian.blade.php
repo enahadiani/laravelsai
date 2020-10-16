@@ -1080,6 +1080,9 @@
 
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                if(kode == "No data available in table"){
+                    return false;
+                }
 
                 if(jTarget1 == "val"){
                     $($target).val(kode);
