@@ -65,6 +65,7 @@
                 ],
                 'query' => [
                     'kode_pp' => $request->kode_pp,
+                    'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
                 ]
             ]);
@@ -88,7 +89,29 @@
                 'query' => [
                     'kode_pp' => $request->kode_pp,
                     'kode_kelas' => $request->kode_kelas,
+                    'nik_guru' => $request->nik_guru,
                     'flag_aktif' => $request->flag_aktif,
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterGuru(Request $request) {
+            $client = new Client();
+
+            $response = $client->request('GET',  config('api.url').'sekolah/filter-guru',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_pp' => $request->kode_pp
                 ]
             ]);
 

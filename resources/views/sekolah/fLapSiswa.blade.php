@@ -1092,9 +1092,6 @@
             $formData.append("kode_kelas[]",kode_kelas.type);
             $formData.append("kode_kelas[]",kode_kelas.from);
             $formData.append("kode_kelas[]",kode_kelas.to);
-            $formData.append("kode_matpel[]",kode_matpel.type);
-            $formData.append("kode_matpel[]",kode_matpel.from);
-            $formData.append("kode_matpel[]",kode_matpel.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

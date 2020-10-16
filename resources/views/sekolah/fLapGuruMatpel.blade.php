@@ -626,16 +626,13 @@
                     $target = $target;
                     $target2 = target2;
                     var display = "kode";
-                    var field = eval("nik");
-                    var kunci = "nik";
+                    var field = eval("nik_guru");
+                    var kunci = "nik_guru";
                     var orderby = [];
                     parameter = {
                         'kode_pp[0]' : kode_pp.type,
                         'kode_pp[1]' : kode_pp.from,
-                        'kode_pp[2]' : kode_pp.to,
-                        'flag_aktif[0]' : '=',
-                        'flag_aktif[1]' : '1',
-                        'flag_aktif[2]' : ''
+                        'kode_pp[2]' : kode_pp.to
                     }
 
                 break;
@@ -1158,6 +1155,9 @@
             $formData.append("kode_kelas[]",kode_kelas.type);
             $formData.append("kode_kelas[]",kode_kelas.from);
             $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("nik_guru[]",nik_guru.type);
+            $formData.append("nik_guru[]",nik_guru.from);
+            $formData.append("nik_guru[]",nik_guru.to);
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
@@ -1181,6 +1181,9 @@
             $formData.append("kode_kelas[]",kode_kelas.type);
             $formData.append("kode_kelas[]",kode_kelas.from);
             $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("nik_guru[]",nik_guru.type);
+            $formData.append("nik_guru[]",nik_guru.from);
+            $formData.append("nik_guru[]",nik_guru.to);
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
@@ -1233,6 +1236,9 @@
             $formData.append("kode_kelas[]",kode_kelas.type);
             $formData.append("kode_kelas[]",kode_kelas.from);
             $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("nik_guru[]",nik_guru.type);
+            $formData.append("nik_guru[]",nik_guru.from);
+            $formData.append("nik_guru[]",nik_guru.to);
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
