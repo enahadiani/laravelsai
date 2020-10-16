@@ -960,8 +960,8 @@
         
         switch(par){
             case 'kontak': 
-                header = ['Kode', 'Nama'];
                 if($('#jenis')[0].selectize.getValue() == "Siswa"){
+                    header = ['Kode', 'Nama','Kelas'];  
                     if("{{ Session::get('statusAdmin') }}" == "G" ){
                         var toUrl = "{{ url('sekolah-trans/penilaian-siswa') }}";
                     }else{
@@ -969,11 +969,13 @@
                     }
                     var columns = [
                         { data: 'nis' },
-                        { data: 'nama' }
+                        { data: 'nama' },
+                        { data: 'kode_kelas' }
                     ];
                     var judul = "Daftar Siswa";
                     var pilih = "siswa";
                 }else{  
+                    header = ['Kode', 'Nama'];  
                     if("{{ Session::get('statusAdmin') }}" == "G" ){
                         var toUrl = "{{ url('sekolah-trans/penilaian-kelas') }}";
                     }else{
