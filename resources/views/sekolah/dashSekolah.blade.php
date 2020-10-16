@@ -13,35 +13,36 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2>
+        {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
+        <h2 style="position:absolute" class="text-primary">Perkembangan Siswa</h2>
         <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>
 <div class="row">
     <div class="col-12 col-md-8 col-xl-8 col-left" >
-        <div class="card mb-4" id="content-chart">
-            <div class="card-body">
-                <h5 style="font-weight:bold;">Overview Nilai Rata-rata</h5>
-                <div id="chart-nilai" style="height:250px !important">
-                </div>
-            </div>
-        </div>
-        <div class="card bg-primary" style="height:130px">
+        <div class="card bg-primary mb-4" style="height:130px">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4 col-ms-12">
-                        <p class="mb-1">Murid</p>
-                        <h2 class="mb-0" style="font-weight:bold" id="siswa"></h2>
+                        <p class="mb-1">Kelas</p>
+                        <h2 class="mb-0" style="font-weight:bold" id="kelas"></h2>
                     </div>
                     <div class="col-md-4 col-ms-12">
-                        <p class="mb-1">Siswa tidak mendapat nilai</p>
-                        <h2 class="mb-0" style="font-weight:bold" id="siswa_tdk"></h2>
+                        <p class="mb-1">Jumlah Siswa</p>
+                        <h2 class="mb-0" style="font-weight:bold" id="jml_siswa"></h2>
                     </div>
                     <div class="col-md-4 col-ms-12">
-                        <p class="mb-1">Pelaksanaan tidak lengkat</p>
-                        <h2 class="mb-0" style="font-weight:bold" id="pelaksanaan"></h2>
+                        <p class="mb-1">Tahun Ajaran</p>
+                        <h2 class="mb-0" style="font-weight:bold" id="tahun_ajaran"></h2>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4" id="content-chart">
+            <div class="card-body">
+                <h5 style="font-weight:bold;">Kompetensi Dasar</h5>
+                <div id="chart-nilai" style="height:250px !important">
                 </div>
             </div>
         </div>
@@ -72,6 +73,15 @@
             </div>
         </div>
     </div>  
+    <div class="col-12 col-md-8 col-xl-8 col-left" >
+        <div class="card" id="content-chart-kkm">
+            <div class="card-body">
+                <h5 style="font-weight:bold;">Jumlah siswa dibawah KKM</h5>
+                <div id="chart-nilai-kkm" style="height:250px !important">
+                </div>
+            </div>
+        </div>
+    </div>
        
 </div>
  <!-- MODAL FILTER -->
@@ -87,7 +97,7 @@
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group row">
+                        <div class="form-group row" style="display: none;">
                             <label>Kode PP</label>
                             <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
                                 <option value='#'>Pilih PP</option>
@@ -295,79 +305,79 @@ $('#form-filter').on('change','#inp-filter_kode_kelas',function(e){
     getFilterMatpel(kode_pp,kode_kelas);
 });
 
-function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
-    $.ajax({
-        type:"GET",
-        url:"{{ url('sekolah-dash/rata2-nilai') }}",
-        dataType:"JSON",
-        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
-        success:function(result){
-            Highcharts.chart('chart-nilai', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: null
-                },
-                credits:{
-                    enabled:false
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                xAxis: {
-                    categories:result.data.ctg
-                },
-                plotOptions: {
-                    spline: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+'</b>';
-                            }
-                        },
-                        enableMouseTracking: false
-                    },
-                    column: {
-                        dataLabels: {
-                            padding:0,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'none',
-                            formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+'</b>';
-                            }
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: result.data.series
-            });
+// function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
+//     $.ajax({
+//         type:"GET",
+//         url:"{{ url('sekolah-dash/rata2-nilai') }}",
+//         dataType:"JSON",
+//         data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+//         success:function(result){
+//             Highcharts.chart('chart-nilai', {
+//                 chart: {
+//                     type: 'spline'
+//                 },
+//                 title: {
+//                     text: null
+//                 },
+//                 credits:{
+//                     enabled:false
+//                 },
+//                 yAxis: {
+//                     title: {
+//                         text: ''
+//                     },
+//                     labels: {
+//                         formatter: function () {
+//                             return singkatNilai(this.value);
+//                         }
+//                     },
+//                 },
+//                 xAxis: {
+//                     categories:result.data.ctg
+//                 },
+//                 plotOptions: {
+//                     spline: {
+//                         dataLabels: {
+//                             enabled: true,
+//                             formatter: function () {
+//                                 return '<b>'+sepNumPas(this.y)+'</b>';
+//                             }
+//                         },
+//                         enableMouseTracking: false
+//                     },
+//                     column: {
+//                         dataLabels: {
+//                             padding:0,
+//                             allowOverlap:true,
+//                             enabled: true,
+//                             crop: false,
+//                             overflow: 'none',
+//                             formatter: function () {
+//                                 return '<b>'+sepNumPas(this.y)+'</b>';
+//                             }
+//                         },
+//                         enableMouseTracking: false
+//                     }
+//                 },
+//                 series: result.data.series
+//             });
 
-        },
-        error: function(jqXHR, textStatus, errorThrown) {       
-            if(jqXHR.status == 422){
-                var msg = jqXHR.responseText;
-            }else if(jqXHR.status == 500) {
-                var msg = "Internal server error";
-            }else if(jqXHR.status == 401){
-                var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
-            }else if(jqXHR.status == 405){
-                var msg = "Route not valid. Page not found";
-            }
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {       
+//             if(jqXHR.status == 422){
+//                 var msg = jqXHR.responseText;
+//             }else if(jqXHR.status == 500) {
+//                 var msg = "Internal server error";
+//             }else if(jqXHR.status == 401){
+//                 var msg = "Unauthorized";
+//                 window.location="{{ url('/dash-telu/sesi-habis') }}";
+//             }else if(jqXHR.status == 405){
+//                 var msg = "Route not valid. Page not found";
+//             }
             
-        }
-    })
-}
+//         }
+//     })
+// }
 
 function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
     $.ajax({
@@ -413,9 +423,24 @@ function getDataBox(kode_pp,kode_kelas,kode_matpel){
         success:function(res){
             var result = res.data;
             if(result.status){
-                $('#siswa').html(result.siswa);
-                $('#siswa_tdk').html(result.siswa_tdk);
-                $('#pelaksanaan').html(result.pelaksanaan);
+                $('#jml_siswa').html(result.siswa);
+                $('#kelas').html(kode_kelas);
+            }
+        }
+    });
+}
+
+function getTahunAjaran(kode_pp){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('sekolah-master/tahun-ajaran') }}",
+        dataType:"JSON",
+        data:{kode_pp:kode_pp},
+        success:function(res){
+            var result = res.daftar;
+            if(res.status){
+                var tahun_ajaran = result[result.length - 1].kode_ta;
+                $('#tahun_ajaran').html(tahun_ajaran)
             }
         }
     });
@@ -434,8 +459,9 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     $('#judul-kelas').html(nama_kelas);
     $('#judul-matpel').html(nama_matpel);
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
-    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
+    // getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
+    getTahunAjaran(kode_pp)
     $('#modalFilter').modal('hide');
 });
 
@@ -456,4 +482,159 @@ $("#btn-close").on("click", function (event) {
 });
 
 $('#btn-tampil').click();
+
+var range = [
+        ['A',40,75],
+        ['B',45,80],
+        ['C',20,65],
+        ['D',50,90],
+        ['E',30,70],
+        ['F',70,80],
+    ]
+var avg = [
+        ['A', 65],
+        ['B', 60],
+        ['C', 50],
+        ['D', 70],
+        ['E', 65],
+        ['F', 75],
+    ]
+Highcharts.chart('chart-nilai', {
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories:['KODE KD A','KODE KD B','KODE KD C','KODE KD D','KODE KD E','KODE KD F']
+        },
+
+        yAxis: {
+            title: {
+                text: "Nilai"
+            }
+        },
+        credits:{
+            enabled:false
+        },
+        series: [
+            {
+                name: 'Rata-rata',
+                data: avg,
+                zIndex: 1,
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[0]
+                }
+            },
+            {
+                name: 'Range',
+                data: range,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: Highcharts.getOptions().colors[0],
+                fillOpacity: 0.3,
+                zIndex: 0,
+                marker: {
+                    enabled: false
+                }
+            }
+        ]
+    });
+
+// Create the chart
+Highcharts.chart('chart-nilai-kkm', {
+    chart: {
+        type: 'column',
+        events:{
+            load: function() {
+                console.log(this.series[0].points)
+                Highcharts.each(this.series[0].points, function(p){
+                    console.log(p)
+                    if(p.y < 5) {
+                        p.update({
+                            color:'#DF212A',
+                        })
+                    } else {
+                        p.update({
+                            color:'#10156f',
+                        })
+                    }
+                })
+            }
+        }
+    },
+    title: {
+        text: null
+    },
+    subtitle: {
+        text: null
+    },
+    credits:{
+        enabled:false
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        categories: ['Kode KD A','Kode KD B','Kode KD C','Kode KD D','Kode KD E','Kode KD F'],
+        crosshair: true
+    },
+    yAxis: {
+        title: {
+            text: 'Presentase'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        },
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    },
+    series: [
+        {
+            name: "KKM",
+            colorByPoint: false,
+            data: [
+                {
+                    name: "Kode KD A",
+                    y: 6,
+                    color:'#aaff99'
+                },
+                {
+                    name: "Kode KD B",
+                    y: 10,
+                },
+                {
+                    name: "Kode KD C",
+                    y: 30,
+                },
+                {
+                    name: "Kode KD D",
+                    y: 4,
+                },
+                {
+                    name: "Kode KD E",
+                    y: 15,
+                },
+                {
+                    name: "Kode KD F",
+                    y: 20,
+                }
+            ],
+        }
+    ]
+});
 </script>
