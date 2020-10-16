@@ -1,4 +1,4 @@
-    <style>
+<style>
         td,th{
             padding:8px !important;
         }
@@ -151,7 +151,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Guru Kelas</h5>
+                        <h5 style="position:absolute;top: 25px;">Laporan Siswa</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -226,14 +226,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>nik_guru</p>
-                                            <label for="nik_guru" class="col-md-2 col-sm-12 col-form-label">NIK Guru</label>
+                                            <p class="kunci" hidden>kode_kelas</p>
+                                            <label for="kode_kelas" class="col-md-2 col-sm-12 col-form-label">Kelas</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='nik_guru[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                                <select name='kode_kelas[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="nik_guru[]" id="nik_guru-from" readonly value="Menampilkan semua guru">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-from" readonly value="Menampilkan semua kelas">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -244,7 +244,7 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="nik_guru[]" id="nik_guru-to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -393,7 +393,7 @@
             toname : "",
         }
 
-        var nik_guru = {
+        var kode_kelas = {
             type : "All",
             from : "",
             fromname : "",
@@ -403,12 +403,6 @@
 
         var $aktif = "";
 
-        var param_trace = {
-            periode : "",
-            kode_kelas : "",
-            kode_matpel : ""
-        };
-        
         function fnSpasi(level)
         {
             var tmp="";
@@ -538,68 +532,7 @@
                         'kode_pp[2]' : kode_pp.to,
                         'flag_aktif[0]' : '=',
                         'flag_aktif[1]' : '1',
-                        'flag_aktif[2]' : '',
-                        'nik_guru[0]' : nik_guru.type,
-                        'nik_guru[1]' : nik_guru.from,
-                        'nik_guru[2]' : nik_guru.to
-                    }
-
-                break;
-                case 'nik_guru[]': 
-                    header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('sekolah-report/filter-guru') }}";
-                    var columns = [
-                        { data: 'nik' },
-                        { data: 'nama' }
-                    ];
-                    header_pilih = ['Kode', 'Nama','Action'];
-                    var judul = "Daftar Guru <span class='modal-subtitle'></span>";
-                    var pilih = "Guru";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("nik");
-                    var kunci = "nik";
-                    var orderby = [];
-                    parameter = {
-                        'kode_pp[0]' : kode_pp.type,
-                        'kode_pp[1]' : kode_pp.from,
-                        'kode_pp[2]' : kode_pp.to,
-                        'flag_aktif[0]' : '=',
-                        'flag_aktif[1]' : '1',
                         'flag_aktif[2]' : ''
-                    }
-
-                break;
-                case 'kode_matpel[]': 
-                    header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('sekolah-report/filter-matpel') }}";
-                    var columns = [
-                        { data: 'kode_matpel' },
-                        { data: 'nama' }
-                    ];
-                    header_pilih = ['Kode', 'Nama','Action'];
-                    var judul = "Daftar Matpel <span class='modal-subtitle'></span>";
-                    var pilih = "Matpel";
-                    $target = $target;
-                    $target2 = target2;
-                    var display = "kode";
-                    var field = eval("kode_matpel");
-                    var kunci = "kode_matpel";
-                    var orderby = [];
-                    parameter = {
-                        'kode_pp[0]' : kode_pp.type,
-                        'kode_pp[1]' : kode_pp.from,
-                        'kode_pp[2]' : kode_pp.to,
-                        'flag_aktif[0]' : '=',
-                        'flag_aktif[1]' : '1',
-                        'flag_aktif[2]' : '',
-                        'kode_kelas[0]' : kode_kelas.type,
-                        'kode_kelas[1]' : kode_kelas.from,
-                        'kode_kelas[2]' : kode_kelas.to,
-                        'nik_guru[0]' : nik_guru.type,
-                        'nik_guru[1]' : nik_guru.from,
-                        'nik_guru[2]' : nik_guru.to
                     }
 
                 break;
@@ -1087,14 +1020,14 @@
             $formData.append("kode_ta[]",kode_ta.type);
             $formData.append("kode_ta[]",kode_ta.from);
             $formData.append("kode_ta[]",kode_ta.to);
-            $formData.append("nik_guru[]",nik_guru.type);
-            $formData.append("nik_guru[]",nik_guru.from);
-            $formData.append("nik_guru[]",nik_guru.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('sekolah-auth/form/rptGuruKelas') }}";
+            xurl = "{{ url('sekolah-auth/form/rptSiswa') }}";
             $('#saku-report #canvasPreview').load(xurl);
             setHeightReport();
         });
@@ -1110,13 +1043,10 @@
             $formData.append("kode_kelas[]",kode_kelas.type);
             $formData.append("kode_kelas[]",kode_kelas.from);
             $formData.append("kode_kelas[]",kode_kelas.to);
-            $formData.append("kode_matpel[]",kode_matpel.type);
-            $formData.append("kode_matpel[]",kode_matpel.from);
-            $formData.append("kode_matpel[]",kode_matpel.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('sekolah-auth/form/rptGuruKelas') }}";
+            xurl = "{{ url('sekolah-auth/form/rptSiswa') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 

@@ -134,6 +134,43 @@
            
         }
 
+        function getSiswa(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'sekolah/lap-siswa',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $request->kode_pp,
+                        'kode_kelas' => $request->kode_kelas
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
         function sendMail(Request $request){
             try{
                 
