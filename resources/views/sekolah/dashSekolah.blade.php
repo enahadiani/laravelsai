@@ -15,7 +15,7 @@
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
         <h2 style="position:absolute" class="text-primary">Perkembangan Siswa</h2>
-        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
+        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="border:1px solid black;font-size:1rem"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>
@@ -50,8 +50,8 @@
     <div class="col-12 col-md-4 col-xl-4 col-right">
         <div class="card" id="content-pesan">
             <div class="card-body" id="content-pesan-header" style="height:130px">
-                <h5 style="font-weight:bold;position:absolute">Pesan</h5>
-                <a href="#"><i class="simple-icon-plus text-primary float-right mb-3" style="font-size:20px"></i></a>
+                <h5 style="font-weight:bold;position:absolute;top:25px;">Pesan</h5>
+                <a href="#" id="tambah-pesan"><i class="simple-icon-plus text-primary float-right mb-3" style="font-size:20px"></i></a>
                 <input class="form-control" type="text" placeholder="Cari siswa atau kelas" >    
             </div>
             <div class="card-body pt-0 scroll" id="content-pesan-detail">
@@ -130,27 +130,20 @@
             </div>
         </div>
     </div>
+    {{-- Modal Pesan --}}
+    <div class="modal fade modal-top" id="modalPesan" tabindex="-1" role="dialog"
+    aria-labelledby="modalPesan" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               Test
+            </div>
+        </div>
+    </div>
+    {{-- End Modal Pesan --}}
 <script>
 
 // var psdet = document.querySelector('#content-pesan-detail');
 // var pspsdet = new PerfectScrollbar(psdet);
-var range = [
-        ['A',40,75],
-        ['B',45,80],
-        ['C',20,65],
-        ['D',50,90],
-        ['E',30,70],
-        ['F',70,80],
-    ]
-var avg = [
-        ['A', 65],
-        ['B', 60],
-        ['C', 50],
-        ['D', 70],
-        ['E', 65],
-        ['F', 75],
-    ]
-
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -346,9 +339,16 @@ function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
                 credits:{
                     enabled:false
                 },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                },
+                legend:{
+                    enabled:false
+                },
                 series: [
                     {
-                        name: 'Rata-rata',
+                        name: 'Nilai Rata-rata',
                         data: result.data.avg,
                         zIndex: 1,
                         marker: {
@@ -358,7 +358,7 @@ function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
                         }
                     },
                     {
-                        name: 'Range',
+                        name: 'Range Nilai',
                         data: result.data.range,
                         type: 'arearange',
                         lineWidth: 0,
@@ -402,7 +402,7 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                 if(result.data.length > 0){
                     for(var i=0; i < result.data.length; i++){
                         var line = result.data[i];
-                        html +=`<div class="d-flex flex-row mb-3 border-bottom justify-content-between">
+                        html +=`<div id="isi-pesan" class="d-flex flex-row mb-3 border-bottom justify-content-between">
                             <a href="#">
                             <img src="{{ asset('asset_elite/images/user.png') }}" alt="`+line.nama+`" class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall">
                             </a>
@@ -459,21 +459,34 @@ function getTahunAjaran(kode_pp){
 // FILTER
 $('#modalFilter').on('submit','#form-filter',function(e){
     e.preventDefault();
+    var icon = '<i class="simple-icon-arrow-down"></i>';
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
     var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
     var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
     var nama_kelas = $('#inp-filter_kode_kelas option:selected').text().split("-");
-    nama_kelas = nama_kelas[1];
+    var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
+    nama_kelas = nama_kelas[0];
+    nama_matpel = nama_matpel[1];
     var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
     nama_matpel = nama_matpel[1];
+    $('#filter-btn').html(`${nama_matpel} ${nama_kelas} ${icon}`);
     $('#judul-kelas').html(nama_kelas);
     $('#judul-matpel').html(nama_matpel);
+
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getTahunAjaran(kode_pp)
     $('#modalFilter').modal('hide');
 });
+
+$('#tambah-pesan').click(function(){
+    $('.body-content').load("{{url('sekolah-auth/form/fPesan')}}");
+})
+
+$('#content-pesan').on('click',' #content-pesan-detail > #isi-pesan', function() {
+    $('#modalPesan').modal('show');
+})
 
 $('#btn-reset').click(function(e){
     e.preventDefault();
