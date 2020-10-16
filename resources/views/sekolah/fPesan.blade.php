@@ -1715,6 +1715,11 @@
         $('#inp-filter_matpel')[0].selectize.setValue('');
         jumFilter();
     });
+
+    $('[name^=inp-filter]').change(function(e){
+        e.preventDefault();
+        jumFilter();
+    });
     
     $('#filter-btn').click(function(){
         $('#modalFilter').modal('show');
