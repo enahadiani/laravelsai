@@ -552,12 +552,13 @@
                     }
                 break;
                 case 'no_reg[]': 
-                    header = ['No Reg'];
+                    header = ['No Reg', 'Nama Peserta'];
                     var toUrl = "{{ url('dago-report/filter2-noreg') }}";
                     var columns = [
-                        { data: 'no_reg' }
+                        { data: 'no_reg' },
+                        { data: 'nama' }
                     ];
-                    header_pilih = ['No Reg','Action'];
+                    header_pilih = ['No Reg','Nama Peserta','Action'];
                     var judul = "Daftar Registrasi <span class='modal-subtitle'></span>";
                     var pilih = "no_reg";
                     $target = $target;
@@ -572,12 +573,12 @@
                         'no_paket[0]' : no_paket.type,
                         'no_paket[1]' : no_paket.from,
                         'no_paket[2]' : no_paket.to,
-                        'no_jadwalt[0]' : no_jadwal.type,
-                        'no_jadwal[1]' : no_jadwal.from,
-                        'no_jadwal[2]' : no_jadwal.to,
+                        'jadwal[0]' : jadwal.type,
+                        'jadwal[1]' : jadwal.from,
+                        'jadwal[2]' : jadwal.to,
                         'no_peserta[0]' : no_peserta.type,
                         'no_peserta[1]' : no_peserta.from,
-                        'no_peserta[2]' : no_peserta.to,
+                        'no_peserta[2]' : no_peserta.to
                     }
                     var orderby = [];
                 break;

@@ -543,12 +543,13 @@
                     var orderby = [];
                 break;
                 case 'no_reg[]': 
-                    header = ['No Reg'];
+                    header = ['No Reg', 'Nama Peserta'];
                     var toUrl = "{{ url('dago-report/filter2-noreg') }}";
                     var columns = [
-                        { data: 'no_reg' }
+                        { data: 'no_reg' },
+                        { data: 'nama' }
                     ];
-                    header_pilih = ['No Reg','Action'];
+                    header_pilih = ['No Reg','Nama Peserta','Action'];
                     var judul = "Daftar Registrasi <span class='modal-subtitle'></span>";
                     var pilih = "no_reg";
                     $target = $target;
