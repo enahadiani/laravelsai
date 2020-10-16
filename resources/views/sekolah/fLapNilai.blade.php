@@ -127,6 +127,16 @@
         .bootstrap-tagsinput input{
             width:auto !important;
         }
+
+        .separator2{
+            height:1rem;
+            background:#f8f8f8;
+            box-shadow: 0px 0px 1px 0px #d7d7d7;
+        }
+
+        .logo-lap{
+            width:100px
+        }
     </style>
         <div class="row" id="saku-filter">
             <div class="col-12">
@@ -1108,7 +1118,8 @@
 
         $('#sai-rpt-print').click(function(){
             $('#saku-report #canvasPreview').printThis({
-                removeInline: true
+                removeInline: true,
+                importStyle: true,
             });
         });
 

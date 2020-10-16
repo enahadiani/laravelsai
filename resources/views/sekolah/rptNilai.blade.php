@@ -57,7 +57,7 @@
                                 <td colspan='9' >
                                     <table class='table table-borderless' style='width:100%'>
                                         <tr>
-                                            <td rowspan='4' style='width:20%'><img src='`+logo+`' style='width:100px'></td>
+                                            <td rowspan='4' style='width:20%'><img src='`+logo+`' class='logo-lap'></td>
                                             <td style='width:50%;text-align:center' >Daftar Nilai: `+line.nama_matpel+`</td>
                                             <td style='width:10%'>&nbsp;</td>
                                             <td style='width:10%'>&nbsp;</td>
@@ -121,8 +121,9 @@
                             </tr>
                         </table>`;
                         if(i != (data.length - 1)){
-                            html+=`<div class='separator2' style='height:1rem;background:#f8f8f8;box-shadow: 0px 0px 1px 0px #d7d7d7;'></div>`;
+                            html+=`<div class='separator2'></div>`;
                         }
+                        html+=` <div class="page-break"></div>`;
 
             }
             html+=`
