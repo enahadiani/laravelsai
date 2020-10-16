@@ -134,6 +134,22 @@
 
 // var psdet = document.querySelector('#content-pesan-detail');
 // var pspsdet = new PerfectScrollbar(psdet);
+var range = [
+        ['A',40,75],
+        ['B',45,80],
+        ['C',20,65],
+        ['D',50,90],
+        ['E',30,70],
+        ['F',70,80],
+    ]
+var avg = [
+        ['A', 65],
+        ['B', 60],
+        ['C', 50],
+        ['D', 70],
+        ['E', 65],
+        ['F', 75],
+    ]
 
 function sepNum(x){
     if(!isNaN(x)){
@@ -305,79 +321,73 @@ $('#form-filter').on('change','#inp-filter_kode_kelas',function(e){
     getFilterMatpel(kode_pp,kode_kelas);
 });
 
-// function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
-//     $.ajax({
-//         type:"GET",
-//         url:"{{ url('sekolah-dash/rata2-nilai') }}",
-//         dataType:"JSON",
-//         data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
-//         success:function(result){
-//             Highcharts.chart('chart-nilai', {
-//                 chart: {
-//                     type: 'spline'
-//                 },
-//                 title: {
-//                     text: null
-//                 },
-//                 credits:{
-//                     enabled:false
-//                 },
-//                 yAxis: {
-//                     title: {
-//                         text: ''
-//                     },
-//                     labels: {
-//                         formatter: function () {
-//                             return singkatNilai(this.value);
-//                         }
-//                     },
-//                 },
-//                 xAxis: {
-//                     categories:result.data.ctg
-//                 },
-//                 plotOptions: {
-//                     spline: {
-//                         dataLabels: {
-//                             enabled: true,
-//                             formatter: function () {
-//                                 return '<b>'+sepNumPas(this.y)+'</b>';
-//                             }
-//                         },
-//                         enableMouseTracking: false
-//                     },
-//                     column: {
-//                         dataLabels: {
-//                             padding:0,
-//                             allowOverlap:true,
-//                             enabled: true,
-//                             crop: false,
-//                             overflow: 'none',
-//                             formatter: function () {
-//                                 return '<b>'+sepNumPas(this.y)+'</b>';
-//                             }
-//                         },
-//                         enableMouseTracking: false
-//                     }
-//                 },
-//                 series: result.data.series
-//             });
+function getNilaiRatarata(kode_pp=null,kode_kelas,kode_matpel){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('sekolah-dash/rata2-nilai-dashboard') }}",
+        dataType:"JSON",
+        data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
+        success:function(result){
+            Highcharts.chart('chart-nilai', {
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: result.data.ctg
+                },
 
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {       
-//             if(jqXHR.status == 422){
-//                 var msg = jqXHR.responseText;
-//             }else if(jqXHR.status == 500) {
-//                 var msg = "Internal server error";
-//             }else if(jqXHR.status == 401){
-//                 var msg = "Unauthorized";
-//                 window.location="{{ url('/dash-telu/sesi-habis') }}";
-//             }else if(jqXHR.status == 405){
-//                 var msg = "Route not valid. Page not found";
-//             }
+                yAxis: {
+                    title: {
+                        text: "Nilai"
+                    },
+                     min: 0,
+                     startOnTick: false
+                },
+                credits:{
+                    enabled:false
+                },
+                series: [
+                    {
+                        name: 'Rata-rata',
+                        data: result.data.avg,
+                        zIndex: 1,
+                        marker: {
+                            fillColor: 'white',
+                            lineWidth: 2,
+                            lineColor: Highcharts.getOptions().colors[0]
+                        }
+                    },
+                    {
+                        name: 'Range',
+                        data: result.data.range,
+                        type: 'arearange',
+                        lineWidth: 0,
+                        linkedTo: ':previous',
+                        color: Highcharts.getOptions().colors[0],
+                        fillOpacity: 0.3,
+                        zIndex: 0,
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                ]
+            })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-//         }
-//     })
-// }
+        }
+    })
+}
 
 function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
     $.ajax({
@@ -459,7 +469,7 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     $('#judul-kelas').html(nama_kelas);
     $('#judul-matpel').html(nama_matpel);
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
-    // getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
+    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
     getTahunAjaran(kode_pp)
     $('#modalFilter').modal('hide');
@@ -483,64 +493,6 @@ $("#btn-close").on("click", function (event) {
 
 $('#btn-tampil').click();
 
-var range = [
-        ['A',40,75],
-        ['B',45,80],
-        ['C',20,65],
-        ['D',50,90],
-        ['E',30,70],
-        ['F',70,80],
-    ]
-var avg = [
-        ['A', 65],
-        ['B', 60],
-        ['C', 50],
-        ['D', 70],
-        ['E', 65],
-        ['F', 75],
-    ]
-Highcharts.chart('chart-nilai', {
-        title: {
-            text: null
-        },
-        xAxis: {
-            categories:['KODE KD A','KODE KD B','KODE KD C','KODE KD D','KODE KD E','KODE KD F']
-        },
-
-        yAxis: {
-            title: {
-                text: "Nilai"
-            }
-        },
-        credits:{
-            enabled:false
-        },
-        series: [
-            {
-                name: 'Rata-rata',
-                data: avg,
-                zIndex: 1,
-                marker: {
-                    fillColor: 'white',
-                    lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[0]
-                }
-            },
-            {
-                name: 'Range',
-                data: range,
-                type: 'arearange',
-                lineWidth: 0,
-                linkedTo: ':previous',
-                color: Highcharts.getOptions().colors[0],
-                fillOpacity: 0.3,
-                zIndex: 0,
-                marker: {
-                    enabled: false
-                }
-            }
-        ]
-    });
 
 // Create the chart
 Highcharts.chart('chart-nilai-kkm', {
@@ -548,9 +500,7 @@ Highcharts.chart('chart-nilai-kkm', {
         type: 'column',
         events:{
             load: function() {
-                console.log(this.series[0].points)
                 Highcharts.each(this.series[0].points, function(p){
-                    console.log(p)
                     if(p.y < 5) {
                         p.update({
                             color:'#DF212A',

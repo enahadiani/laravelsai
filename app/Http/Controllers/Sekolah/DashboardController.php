@@ -20,7 +20,7 @@
             try{
 
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'sekolah/rata2-nilai',[
+                $response = $client->request('GET',  config('api.url').'sekolah/rata2-nilai-dashboard',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
