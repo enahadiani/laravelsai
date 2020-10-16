@@ -1013,7 +1013,7 @@
                 if("{{ Session::get('statusAdmin') }}" == "G" ){
                     var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
                 }else{
-                    var toUrl = "{{ url('sekolah-trans/matpel') }}";
+                    var toUrl = "{{ url('sekolah-master/matpel') }}";
                 }
                 var columns = [
                     { data: 'kode_matpel' },
