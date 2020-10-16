@@ -731,14 +731,15 @@
     }
 
     function getMatpelFil(pp=null) {
-        if(pp= null){
+        if(pp == null){
             pp = "{{ Session::get('kodePP') }}";
         }
+        var kode_pp = ["=",pp,""];
         $.ajax({
             type:'GET',
             url:"{{ url('sekolah-report/filter-matpel') }}",
             dataType: 'json',
-            data:{kode_pp:pp},
+            data:{kode_pp:kode_pp},
             async: false,
             success: function(result) {
                 
