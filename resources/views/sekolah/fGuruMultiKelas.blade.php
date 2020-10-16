@@ -364,9 +364,9 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_pp">PP</label>
                                                 @if(Session::get('statusAdmin') == "A")
                                                 <div class="input-group">
@@ -384,13 +384,7 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_ta">Tahun Ajaran</label>
                                                 @if(Session::get('statusAdmin') == "A")
                                                 <div class="input-group">
@@ -408,15 +402,13 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_ta"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="nik_guru">NIK Guru</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -430,13 +422,8 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_nik_guru"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
+                                                
                                                 <label for="kode_matpel">Mata Pelajaran</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -450,22 +437,17 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="flag_aktif">Status</label>
                                                 <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                                     <option value='' disabled>--- Pilih Status Aktif ---</option>
                                                     <option value='1'>Aktif</option>
                                                     <option value='0'>Non Aktif</option>
                                                 </select>
-                                                
-                                            </div>
-                                            <div class="col-md-2 col-sm-12">
                                             </div>
                                         </div>
                                     </div>

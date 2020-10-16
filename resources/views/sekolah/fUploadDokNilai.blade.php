@@ -385,9 +385,9 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_pp">PP</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden readonly" style="border: 1px solid #d7d7d7;">
@@ -397,40 +397,30 @@
                                                     <span class="info-name_kode_pp hidden readonly">
                                                         <span></span> 
                                                     </span>
-                                                    <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
                                                     <i class="simple-icon-magnifier search-item2-readonly" id="search_kode_pp"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_ta">Tahun Ajaran</label>
                                                 <input class="form-control" type="text"  id="kode_ta" name="kode_ta" required readonly>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_kd">Kompetensi Dasar</label>
                                                 <input class="form-control" type="text"  id="kode_kd" name="kode_kd" required readonly>
                                                 <i class='simple-icon-magnifier search-item2-readonly' style="top: 28px;right: 24px;"></i>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_kelas">Kelas</label>
                                                 <div class="input-group" style="margin-bottom:1rem">
                                                     <div class="input-group-prepend hidden readonly" style="border: 1px solid #d7d7d7;">
@@ -440,14 +430,9 @@
                                                     <span class="info-name_kode_kelas hidden readonly">
                                                         <span></span> 
                                                     </span>
-                                                    <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
+                                                    
                                                     <i class="simple-icon-magnifier search-item2-readonly" id="search_kode_kelas"></i>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
                                                 <label for="kode_matpel">Mata Pelajaran</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden readonly" style="border: 1px solid #d7d7d7;">
@@ -461,13 +446,7 @@
                                                     <i class="simple-icon-magnifier search-item2-readonly" id="search_kode_matpel"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_jenis">Jenis Penilaian</label>
                                                 <div class="input-group" style="margin-bottom:1rem">
                                                     <div class="input-group-prepend hidden readonly" style="border: 1px solid #d7d7d7;">
@@ -480,11 +459,6 @@
                                                     <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
                                                     <i class="simple-icon-magnifier search-item2-readonly" id="search_kode_jenis"></i>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
                                                 <label for="kode_sem">Semester</label>
                                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
                                                 <option value=''>--- Pilih Semester ---</option>
@@ -492,26 +466,18 @@
                                                 <option value='2'>GENAP</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2 col-sm-12"></div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-md-1 col-sm-12"></div> -->
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="nama_kd" >Isi KD</label>
                                                 <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px" readonly></textarea>
                                             </div>
-                                            <div class="col-md-2 col-sm-12"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="pelaksanaan" >Pelaksaan</label>
                                                 <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px" readonly></textarea>
                                             </div>
-                                            <div class="col-md-2 col-sm-12"></div>
                                         </div>
                                     </div>
                                 </div>

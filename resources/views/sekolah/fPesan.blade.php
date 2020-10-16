@@ -410,9 +410,9 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_matpel">Mata Pelajaran</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
@@ -426,13 +426,7 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="jenis">Kepada</label>
                                                 <select class='form-control selectize' id="jenis" name="jenis">
                                                 <option value=''>--- Pilih ---</option>
@@ -443,13 +437,11 @@
                                                 <option value='Siswa'>Siswa</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kontak">Kontak</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend" style="border: 1px solid #d7d7d7;">
@@ -463,8 +455,6 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kontak"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -475,8 +465,6 @@
                                                 <label for="judul">Judul Pesan</label>
                                                 <input class="form-control" type="text"  id="judul" name="judul" required>
                                             </div>
-                                            <!-- <div class="col-md-2 col-sm-12">
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -487,8 +475,6 @@
                                                 <label for="deskripsi">Isi Pesan</label>
                                                 <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
                                             </div>
-                                            <!-- <div class="col-md-2 col-sm-12">
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
