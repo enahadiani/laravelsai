@@ -281,9 +281,9 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="kode_pp">PP</label>
                                         @if(Session::get('statusAdmin') == "A")
                                         <div class="input-group">
@@ -301,43 +301,31 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="nik">NIK Guru</label>
                                         <input class="form-control" type="text" id="nik" name="nik">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="nama">Nama</label>
                                         <input class="form-control" type="text" id="nama" name="nama">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="no_hp">No HP</label>
                                         <input class="form-control" type="text" id="no_hp" name="no_hp">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="flag_aktif">Status Guru</label>
                                         <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                         <option value='' disabled> Pilih Status </option>
@@ -345,7 +333,6 @@
                                         <option value='0'>Non Aktif</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>

@@ -384,6 +384,11 @@
         .btn{
             border-radius: 8px !important;
         }
+        
+        .form-row > .col, .form-row > [class*="col-"] {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
