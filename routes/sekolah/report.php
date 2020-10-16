@@ -11,4 +11,5 @@ Route::get('filter-matpel','Sekolah\FilterController@getFilterMatpel');
 
 Route::post('lap-nilai','Sekolah\LaporanController@getNilai');
 Route::post('lap-guru-kelas','Sekolah\LaporanController@getGuruKelas');
+Route::post('lap-guru-matpel','Sekolah\LaporanController@getGuruMatpel');
 
