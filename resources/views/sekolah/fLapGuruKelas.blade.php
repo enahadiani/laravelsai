@@ -251,58 +251,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>kode_kelas</p>
-                                            <label for="kode_kelas" class="col-md-2 col-sm-12 col-form-label">Kelas</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_kelas[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-from" readonly value="Menampilkan semua kelas">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>kode_matpel</p>
-                                            <label for="kode_matpel" class="col-md-2 col-sm-12 col-form-label">Mata Pelajaran</label>
-                                            <div class="col-md-2 col-sm-12" >
-                                                <select name='kode_matpel[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
-                                            </div>
-                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="kode_matpel[]" id="kode_matpel-from" readonly value="Menampilkan semua mata pelajaran">
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
-                                                Sampai dengan
-                                            </div>
-                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
-                                                <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="kode_matpel[]" id="kode_matpel-to" readonly>
-                                                    <div class="input-group-append border-left-0">
-                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
                                         <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
                                     </form>
@@ -446,22 +394,6 @@
         }
 
         var nik_guru = {
-            type : "All",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-
-        var kode_kelas = {
-            type : "All",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-
-        var kode_matpel = {
             type : "All",
             from : "",
             fromname : "",

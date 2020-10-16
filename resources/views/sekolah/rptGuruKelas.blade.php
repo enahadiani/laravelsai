@@ -88,35 +88,11 @@
                     <td>`+no+`</td>
                     <td>`+line.nik+`</td>
                     <td>`+line.nama+`</td>
-                    <td>`+line.tugas_mengajar+`</td>`;
-                var dt_matpel = ``;
-                    for(var j=0;j<res.res.data_matpel.length;j++){
-                        var line2 = res.res.data_matpel[j];
-                        if(line2.nik == line.nik){
-                            if(dt_matpel == ''){
-                                dt_matpel +=line2.nama;
-                            }else{
-                                
-                                dt_matpel +=','+line2.nama;
-                            }
-                        }
-                    }
-                html+=`<td>`+dt_matpel+`</td>`;
-                var dt_kelas = ``;
-                    for(var k=0;k<res.res.data_kelas.length;k++){
-                        var line3 = res.res.data_kelas[k];
-                        if(line3.nik == line.nik){
-                            if(dt_kelas == ''){
-                                dt_kelas +=line3.nama;
-                            }else{
-                                
-                                dt_kelas +=','+line3.nama;
-                            }
-                        }
-                    } 
-                html+=`<td>`+dt_kelas+`</td>`;
-                html+=`<td>`+line.no_hp+`</td>`;
-                html+=`</tr>`;
+                    <td>`+line.tugas+`</td>
+                    <td>`+line.matpel+`</td>
+                    <td>`+line.kelas+`</td>
+                    <td>`+line.no_hp+`</td>
+                    </tr>`;
                 no++;
             }
             html+=`

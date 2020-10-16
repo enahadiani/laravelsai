@@ -69,9 +69,6 @@
                     ],
                     'query' => [
                         'kode_pp' => $request->kode_pp,
-                        'kode_ta' => $request->kode_ta,
-                        'kode_kelas' => $request->kode_kelas,
-                        'kode_matpel' => $request->kode_matpel,
                         'nik_guru' => $request->nik_guru
                     ]
                 ]);
@@ -80,7 +77,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $res = json_decode($response_data,true);
-                    $data = $res["data"];
+                    $data = $res['data'];
                 }
                 if(isset($request->back)){
                     $back = true;
