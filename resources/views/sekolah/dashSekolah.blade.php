@@ -131,11 +131,26 @@
         </div>
     </div>
     {{-- Modal Pesan --}}
-    <div class="modal fade modal-top" id="modalPesan" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modalPesan" tabindex="-1" role="dialog"
     aria-labelledby="modalPesan" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               Test
+               <div class="modal-header" style="text-align: center !important;">
+                   <h5 style="margin-left: 150px;margin-top:20px;margin-bottom:-20px;">Nama Pesan</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;min-width:120px;max-width:200px;">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+                        sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                    <div style="position:relative;margin-bottom:0;margin-left:135px;margin-top:auto;">
+                        <button id="modal-tambah-pesan" class="btn btn-outline-light text-primary" style="font-weight: bold;" type="button">Tambah Pesan</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -482,6 +497,11 @@ $('#modalFilter').on('submit','#form-filter',function(e){
 
 $('#tambah-pesan').click(function(){
     $('.body-content').load("{{url('sekolah-auth/form/fPesan')}}");
+})
+
+$('#modalPesan').on('click','#modal-tambah-pesan',function(){
+    $('.body-content').load("{{url('sekolah-auth/form/fPesan')}}");
+    $('#modalPesan').modal('hide');
 })
 
 $('#content-pesan').on('click',' #content-pesan-detail > #isi-pesan', function() {
