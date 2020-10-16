@@ -403,9 +403,9 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_pp">PP</label>
                                                 @if(Session::get('statusAdmin') == "A")
                                                 <div class="input-group">
@@ -423,13 +423,7 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_ta">Tahun Ajaran</label>
                                                 @if(Session::get('statusAdmin') == "A")
                                                 <div class="input-group">
@@ -447,15 +441,13 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_ta"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_matpel">Mata Pelajaran</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -469,13 +461,7 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_matpel"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-3 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_tingkat">Tingkat Sekolah</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -489,22 +475,17 @@
                                                     <i class="simple-icon-magnifier search-item2" id="search_kode_tingkat"></i>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2 col-sm-12">
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3 col-sm-12">
+                                    <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
-                                            <div class="col-md-10 col-sm-12">
+                                            <div class="col-md-6 col-sm-12">
                                                 <label for="kode_sem">Semester</label>
                                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
                                                 <option value=''>--- Pilih Semester ---</option>
                                                 <option value='1' selected>GANJIL</option>
                                                 <option value='2'>GENAP</option>
                                                 </select>
-                                                
-                                            </div>
-                                            <div class="col-md-2 col-sm-12">
                                             </div>
                                         </div>
                                     </div>

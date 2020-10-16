@@ -278,9 +278,9 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="kode_pp">PP</label>
                                         @if(Session::get('statusAdmin') == "A")
                                         <div class="input-group">
@@ -298,43 +298,35 @@
                                             <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="koed_matpel">Kode Mata Pelajaran</label>
                                         <input class="form-control" type="text" id="kode_matpel" name="kode_matpel">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="nama">Nama</label>
                                         <input class="form-control" type="text" id="nama" name="nama">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="singkatan">Singkatan</label>
                                         <input class="form-control" type="text" id="singkatan" name="singkatan">
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="nama">Sifat</label>
                                         <select class='form-control selectize' id="sifat" name="sifat">
                                         <option value='' disabled>Pilih Sifat</option>
@@ -344,12 +336,7 @@
                                         <option value='3'>Ekstrakulikuler</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="nama">Status Pelajaran</label>
                                         <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
                                         <option value='' disabled>Pilih Flag</option>
@@ -357,22 +344,9 @@
                                         <option value='0'>Non Aktif</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2 col-sm-12"></div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- <div class="form-row">
-                            <div class="form-group col-md-3 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-12">
-                                        <label for="keterangan">Isi KD</label>
-                                        <textarea class="form-control" id="keterangan" name="keterangan" style="height:120px"></textarea>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12"></div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
