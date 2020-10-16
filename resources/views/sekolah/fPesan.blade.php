@@ -416,7 +416,9 @@
                                                 <label for="jenis">Kepada</label>
                                                 <select class='form-control selectize' id="jenis" name="jenis">
                                                 <option value=''>--- Pilih ---</option>
+                                                @if(Session::get('statusAdmin') != "G")
                                                 <option value='Semua'>Semua</option>
+                                                @endif
                                                 <option value='Kelas'>Kelas</option>
                                                 <option value='Siswa'>Siswa</option>
                                                 </select>
