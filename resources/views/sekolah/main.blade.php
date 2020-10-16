@@ -339,10 +339,18 @@
             color:blue;
         }
 
+        .logo-lap{
+            width:100px
+        }
+
         @media print {
             .link-report{
                 color:unset;
             }
+        }
+
+        .page-break{
+            page-break-after:always !important;
         }
 
         .judul-nama{
