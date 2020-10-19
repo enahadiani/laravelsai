@@ -39,70 +39,70 @@
 
         public function cek_auth(Request $request)
         {
-        try {
-            $client = new Client();
-            $response = $client->request('POST',  config('api.url').'sekolah/login',[
-                'form_params' => [
-                    'nik' => $request->input('nik'),
-                    'password' => $request->input('password')
-                ]
-            ]);
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                $data = json_decode($response_data,true);
-                if($data["message"] == "success"){
-                    Session::put('token',$data["token"]);
-                    Session::put('login',TRUE);
-                    $response2 = $client->request('GET',  config('api.url').'sekolah/profile',[
-                        'headers' => [
-                            'Authorization' => 'Bearer '.$data["token"],
-                            'Accept'     => 'application/json',
-                        ]
-                    ]);
-            
-                    if ($response2->getStatusCode() == 200) { // 200 OK
-                        $response_data2 = $response2->getBody()->getContents();
-                        
-                        $data2 = json_decode($response_data2,true);
-                        $res = $data2['user'];
-                        if(count($res) > 0){
-                            Session::put('isLoggedIn',TRUE);
-                            // Session::put('dash','dashTelu');
-                            Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
-                            Session::put('userLog',$res[0]["nik"]);
-                            Session::put('namaUser',$res[0]["nama"]);
-                            Session::put('statusAdmin',$res[0]["status_admin"]);
-                            Session::put('lokasi',$res[0]["kode_lokasi"]);
-                            Session::put('namaLokasi',$res[0]["nmlok"]);
-                            Session::put('kodePP',$res[0]["kode_pp"]);
-                            Session::put('namaPP',$res[0]["nama_pp"]);
-                            Session::put('foto',$res[0]["foto"]);
-                            Session::put('logo',$res[0]["logo"]);
-                            Session::put('no_hp',$res[0]["no_hp"]);
-                            Session::put('jabatan',$res[0]["jabatan"]);
-                            Session::put('periode',$data2["periode"][0]["periode"]);
-                            Session::put('nikUser',$res[0]["nik"].'_'.time());
-                            // Session::put('periode','201905');
+            try {
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'sekolah/login',[
+                    'form_params' => [
+                        'nik' => $request->input('nik'),
+                        'password' => $request->input('password')
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    $data = json_decode($response_data,true);
+                    if($data["message"] == "success"){
+                        Session::put('token',$data["token"]);
+                        Session::put('login',TRUE);
+                        $response2 = $client->request('GET',  config('api.url').'sekolah/profile',[
+                            'headers' => [
+                                'Authorization' => 'Bearer '.$data["token"],
+                                'Accept'     => 'application/json',
+                            ]
+                        ]);
+                
+                        if ($response2->getStatusCode() == 200) { // 200 OK
+                            $response_data2 = $response2->getBody()->getContents();
                             
-                            $tmp = explode("_",$res[0]["path_view"]);
-                            if(isset($tmp[2])){
+                            $data2 = json_decode($response_data2,true);
+                            $res = $data2['user'];
+                            if(count($res) > 0){
+                                Session::put('isLoggedIn',TRUE);
+                                // Session::put('dash','dashTelu');
+                                Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
+                                Session::put('userLog',$res[0]["nik"]);
+                                Session::put('namaUser',$res[0]["nama"]);
+                                Session::put('statusAdmin',$res[0]["status_admin"]);
+                                Session::put('lokasi',$res[0]["kode_lokasi"]);
+                                Session::put('namaLokasi',$res[0]["nmlok"]);
+                                Session::put('kodePP',$res[0]["kode_pp"]);
+                                Session::put('namaPP',$res[0]["nama_pp"]);
+                                Session::put('foto',$res[0]["foto"]);
+                                Session::put('logo',$res[0]["logo"]);
+                                Session::put('no_hp',$res[0]["no_hp"]);
+                                Session::put('jabatan',$res[0]["jabatan"]);
+                                Session::put('periode',$data2["periode"][0]["periode"]);
+                                Session::put('nikUser',$res[0]["nik"].'_'.time());
+                                // Session::put('periode','201905');
                                 
-                                $dash = $tmp[2];
-                            }else{
-                                $dash = "-";
+                                $tmp = explode("_",$res[0]["path_view"]);
+                                if(isset($tmp[2])){
+                                    
+                                    $dash = $tmp[2];
+                                }else{
+                                    $dash = "-";
+                                }
+                                Session::put('dash',$dash);
+                                Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
+                                Session::put('kode_ta',(isset($data2["kode_ta"][0]["kode_ta"]) ? $data2["kode_ta"][0]["kode_ta"] : ""));
                             }
-                            Session::put('dash',$dash);
-                            Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
-                            Session::put('kode_ta',(isset($data2["kode_ta"][0]["kode_ta"]) ? $data2["kode_ta"][0]["kode_ta"] : ""));
                         }
+                        
+                        return redirect('sekolah-auth/');
+                        // var_dump('Sukses');
+                    }else{
+                        return redirect('sekolah-auth/login')->with('alert','Password atau NIK, Salah !');
                     }
-                    
-                    return redirect('sekolah-auth/');
-                    // var_dump('Sukses');
-                }else{
-                    return redirect('sekolah-auth/login')->with('alert','Password atau NIK, Salah !');
-                }
-            
+                
                 }else if($response->getStatusCode() == 401){
                     return redirect('sekolah-auth/login')->with('alert','Password atau NIK, Salah !');
                 }
@@ -110,8 +110,12 @@
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
-                // var_dump($res);
-                return redirect('sekolah-auth/login')->with('alert',$res["message"]);
+                if($response->getStatusCode() == 401){
+                    $message = "Username dan/atau password kamu salah, silahkan periksa dan ulangi lagi.";
+                }else{
+                    $message = $res["message"];
+                }
+                return redirect('sekolah-auth/login')->with('alert',$message);
             }
         
         }
