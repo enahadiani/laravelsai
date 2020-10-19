@@ -146,6 +146,8 @@ Route::get('filter-nodokumen','Apv\FilterController@getFilterNoDokumen');
 //Laporan
 Route::post('lap-posisi','Apv\LaporanController@getPosisi');
 Route::post('lap-catt-app','Apv\LaporanController@getCattApp');
+Route::post('lap-rekap-aju','Apv\LaporanController@getRekapAju');
+Route::post('lap-rekap-aju-det','Apv\LaporanController@getRekapAjuDetail');
 
 
 
