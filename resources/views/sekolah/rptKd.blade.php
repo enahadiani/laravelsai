@@ -80,9 +80,25 @@
             var no =1;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
-                html+=`<tr>
-                    <td>`+line.skode+`</td>
-                    <td>`+line.kode_sem+`</td>
+                var line3 = data[i-1];
+                html+=`<tr>`;
+                if(line3 != undefined){
+                    if(line.skode == line3.skode){
+                        html+=`<td></td>`;
+                    }else{
+                        html+=`<td>`+line.skode+`</td>`;
+                    }
+                    if(line.kode_sem == line3.kode_sem){
+                        html+=`<td></td>`;
+                    }else{
+                        html+=`<td>`+line.kode_sem+`</td>`;
+                    }
+                }else{
+
+                    html+=`<td>`+line.skode+`</td>`;
+                    html+=`<td>`+line.kode_sem+`</td>`;
+                }
+                html+=`
                     <td>`+line.kode_kd+` &nbsp; `+line.nama_kd+`</td>
                     </tr>`;
                 no++;
