@@ -26,11 +26,11 @@ Route::get('/', function () {
         case 'javaturbine.co.id' : 
             return redirect('webjava/');
         break;
-        // case 'trengginasjaya.com' :
-        // case 'http://www.trengginasjaya.com' : 
-        //     // echo $domain;
-        //     return redirect('webginas/');
-        // break;
+        case 'trengginasjaya.com' :
+        case 'www.trengginasjaya.com' : 
+            // echo $domain;
+            return redirect('webginas/');
+        break;
         default : 
             return view('welcome');
         break;
