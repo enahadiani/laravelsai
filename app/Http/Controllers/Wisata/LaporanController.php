@@ -95,7 +95,9 @@
                         'Accept'     => 'application/json',
                     ],
                     'query' => [
-                        'kode_mitra' => $request->mitra
+                        'kode_bidang' => $request->bidang,
+                        'kode_jenis' => $request->jenis,
+                        'kode_subjenis' => $request->subjenis,
                     ]
                 ]);
 

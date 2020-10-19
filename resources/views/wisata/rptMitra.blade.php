@@ -38,8 +38,17 @@
 
             `;
             var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN DATA DESTINASI",'','')+`
-                <table class='table table-bordered info-table'>
+            html+=`<h4 class='text-center'>LAPORAN DATA MITRA</h4>`;
+                if(typeof res.res.bidang != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.bidang}</h5>`;
+               }
+               if(typeof res.res.jenis != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.jenis}</h5>`;
+               }
+               if(typeof res.res.subjenis != 'undefined') {
+                html += `<h5 class='text-center'>${res.res.subjenis}</h5>`;
+               }
+            html+= `<table class='table table-bordered info-table'>
                     <tr>
                         <th style='text-align:center;'>Kode Destinasi</th>
                         <th style='text-align:center;'>Nama Destinasi</th>
