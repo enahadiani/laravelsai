@@ -81,11 +81,30 @@
                    </tr>
                 </thead>`;
             var no =1;
+            var arr_tingkat = new Array();
+            var rowspan=1;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
-                html+=`<tr>
-                    <td>`+line.kode_tingkat+`</td>
-                    <td>`+line.kode_kelas+`</td>
+                var line2 = data[i+1];
+                var line3 = data[i-1];
+                html+=`<tr>`;
+                if(line3 != undefined){
+                    if(line.kode_tingkat == line3.kode_tingkat){
+                        html+=`<td></td>`;
+                    }else{
+                        html+=`<td>`+line.kode_tingkat+`</td>`;
+                    }
+                    if(line.kode_kelas == line3.kode_kelas){
+                        html+=`<td></td>`;
+                    }else{
+                        html+=`<td>`+line.kode_kelas+`</td>`;
+                    }
+                }else{
+
+                    html+=`<td>`+line.kode_tingkat+`</td>`;
+                    html+=`<td>`+line.kode_kelas+`</td>`;
+                }
+                html+=`
                     <td>`+line.nama_matpel+`</td>
                     <td>`+line.skode+`</td>
                     <td>`+line.nama_guru+`</td>
