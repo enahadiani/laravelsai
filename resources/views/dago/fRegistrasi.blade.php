@@ -1608,6 +1608,7 @@
         $('#kode_pp').val(kode_pp);
         $('#kode_pp').trigger("change");
         $('#label_no_peserta').text('');
+        $('#data-jamaah').hide();
         $('#label_paket').text('');
         $('#label_jadwal').text('');
         $('#label_agen').text('');
@@ -2013,6 +2014,7 @@
                     $('#tgl_input').val(reverseDateNew(result.data.data[0].tgl_input,'-','/'));
                     $('#no_peserta').val(result.data.data[0].no_peserta);
                     $('#label_no_peserta').text(result.data.data[0].nama_peserta);
+                    $('#data-jamaah').show();
                     $('#paket').val(result.data.data[0].no_paket);
                     $('#label_paket').text(result.data.data[0].nama_paket);
                     $('#jadwal').val(result.data.data[0].no_jadwal);
