@@ -246,8 +246,6 @@
         onChange: function (){
             var kode_pp2 = $('#kode_pp2')[0].selectize.getValue();
             var kode_kota = $('#kode_kota')[0].selectize.getValue();
-            var no_bukti = $('#no_bukti2')[0].selectize.getValue();
-            var no_dokumen = $('#no_dokumen')[0].selectize.getValue();
             getKota(kode_pp2);
         }
     });
