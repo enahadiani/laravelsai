@@ -15,7 +15,7 @@
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
         <h2 style="position:absolute" class="text-primary">Perkembangan Siswa</h2>
-        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="border:1px solid black;font-size:1rem"></a>
+        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="width:370px;border:1px solid black;font-size:1rem;text-align:left;"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>
@@ -474,7 +474,7 @@ function getTahunAjaran(kode_pp){
 // FILTER
 $('#modalFilter').on('submit','#form-filter',function(e){
     e.preventDefault();
-    var icon = '<i class="simple-icon-arrow-down"></i>';
+    var icon = '<i class="simple-icon-arrow-down" style="float:right;right:0;margin-top:3px;"></i>';
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
     var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
     var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
