@@ -1610,10 +1610,22 @@
         if($(this).val() == "Semua"){
             $('#kontak').parents('div').find('.input-group').addClass('readonly');
             $('#kontak').val('-');
+            $('#kode_matpel').val('-');
+            $('#kontak').attr('readonly',true);
+            $('#kode_matpel').attr('readonly',true);
+            $('#kontak').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+            $('.info-code_kontak').parent('div').addClass('hidden');
+            $('.info-name_kontak').addClass('hidden');
+            $('#kode_matpel').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+            $('.info-code_kode_matpel').parent('div').addClass('hidden');
+            $('.info-name_kode_matpel').addClass('hidden');
+            $('.info-icon-hapus').addClass('hidden');
         }else{
-            
             $('#kontak').parents('div').find('.input-group').removeClass('readonly');
-            $('#kontak').val('');
+            $('#kontak').val(''); 
+            $('#kode_matpel').val('');
+            $('#kontak').attr('readonly',false);
+            $('#kode_matpel').attr('readonly',false);
         }
     });
 

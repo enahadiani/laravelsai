@@ -237,7 +237,7 @@ input.form-control{
                             <tbody>
                                 <tr>
                                     <td style="border-top: none;width:30%" >Username</td>
-                                    <td style="border-top: none;width:70%" class="nama" colspan="2"></td>
+                                    <td style="border-top: none;width:70%" class="nik" colspan="2"></td>
                                 </tr>
                                 <tr>
                                     <td style="width:30%">Password</td>
@@ -259,7 +259,7 @@ input.form-control{
                             <tbody>
                                 <tr>
                                     <td style="border-top: none;width:30%" >NIK</td>
-                                    <td style="border-top: none;width:70%" id="nik" colspan="2"></td>
+                                    <td style="border-top: none;width:70%" class="nik" colspan="2"></td>
                                 </tr>
                                 <tr>
                                     <td style="width:30%" >Jabatan</td>
@@ -443,7 +443,7 @@ function loadService(index,method,url,param={}){
                     $('#foto').html(img);
                     $('#foto-background').html(background);
                     $('.nama').html(result.data[0].nama);
-                    $('#nik').html(result.data[0].nik);
+                    $('.nik').html(result.data[0].nik);
                     $('#no_telp').html(result.data[0].no_hp);
                     $('#email').html(result.data[0].email);
                     var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
