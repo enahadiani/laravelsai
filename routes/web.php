@@ -15,23 +15,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $domain = $_SERVER['SERVER_NAME'];
-    switch ($domain){
-        case 'dwi.simkug.com' : 
-            return redirect('dago-auth/login');
-        break;
-        case 'silo.simkug.com' : 
-            return redirect('apv/login');
-        break;
-        case 'javaturbine.co.id' : 
-            return redirect('webjava');
-        break;
-        case 'trengginasjaya.com' : 
-            return redirect('webginas');
-        break;
-        default : 
-            return view('welcome');
-        break;
-    }
+    echo $domain;
+    // switch ($domain){
+    //     case 'dwi.simkug.com' : 
+    //         return redirect('dago-auth/login');
+    //     break;
+    //     case 'silo.simkug.com' : 
+    //         return redirect('apv/login');
+    //     break;
+    //     case 'javaturbine.co.id' : 
+    //         return redirect('webjava');
+    //     break;
+    //     case 'trengginasjaya.com' : 
+    //         return redirect('webginas');
+    //     break;
+    //     default : 
+    //         return view('welcome');
+    //     break;
+    // }
 });
 
 // Route::get('/midtrans', 'DonationController@index')->name('midtrans');
