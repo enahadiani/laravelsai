@@ -7,11 +7,7 @@
         .search-item2{
             cursor:pointer;
         }
-        .form-control[readonly]:focus {
-            background-color: #e9ecef;
-            opacity: 1;
-        }
-        
+
         input.error{
             border:1px solid #dc3545;
         }
@@ -40,21 +36,17 @@
             position: relative;
             overflow: auto;
         }
-        
+        .hidden{
+            display:none;
+        }
+
+        .datetime-reset-button {
+            margin-right: 20px !important;
+            margin-top: 3px !important;
+        }
         #table-search
         {
             border-collapse:collapse !important;
-        }
-        
-        #table-search tbody tr:hover
-        {
-            background:#E8E8E8 !important;
-            cursor:pointer;
-        }
-
-        #table-search tbody tr.selected
-        {
-            background:#E8E8E8 !important;
         }
 
         #table-search_filter label, #table-search_filter input
@@ -75,17 +67,11 @@
         justify-content: center; }
 
         .dataTables_wrapper .paginate_button.page-item {
-            padding-left: 5px;
-            padding-right: 5px; 
-        }
-
-        .dataTables_length select {
-            border: 0;
-            background: none;
-            box-shadow: none;
-            border:none;
-            width:120px !important;
-            transition-duration: 0.3s; 
+        padding-left: 5px;
+        padding-right: 5px; }
+        .px-0{
+            padding-left: 2px !important;
+            padding-right: 2px !important;
         }
 
         #table-data_filter label
@@ -96,12 +82,20 @@
         {
             width:inherit;
         }
+        
         #searchData
         {
             font-size: .75rem;
             height: 31px;
         }
-         .btn-light2{
+        .dropdown-toggle::after {
+            display:none;
+        }
+        .dropdown-aksi > .dropdown-item{
+            font-size : 0.7rem;
+        }
+
+        .btn-light2{
             background:#F8F8F8;
             color:#D4D4D4;
         }
@@ -113,6 +107,22 @@
         .btn-light2:active{
             color: #131113;
             background-color: #d8d8d8;
+        }
+
+        .custom-file-label::after{
+            content:"Cari berkas" !important;
+            border-left:0;
+            color: var(--theme-color-1) !important;
+        }
+        .focus{
+            /* border:none !important; */
+            box-shadow:none !important;
+        }
+        .kredit {
+            margin-top: -50px;
+        }
+        .nav-grid {
+            margin-top: -10px;
         }
     </style>
     <!-- LIST DATA -->
@@ -308,26 +318,93 @@
                         </ul>
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="btambah" role="tabpanel">
-                                <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                        <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                    </div>
+                                    <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
                                     <style>
-                                    th,td{
-                                        padding:8px !important;
-                                        vertical-align:middle !important;
-                                    }
+                                        th{
+                                            vertical-align:middle !important;
+                                        }
+                                        /* #input-grid td{
+                                            padding:0 !important;
+                                        } */
+                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
+                                        {
+                                            border:1px solid black !important;
+                                            border-radius:0 !important;
+                                        }
+
+                                        #input-grid .selectize-input
+                                        {
+                                            border-radius:0 !important;
+                                        } 
+                                        
+                                        .modal-header .close {
+                                            padding: 1rem;
+                                            margin: -1rem 0 -1rem auto;
+                                        }
+                                        .check-item{
+                                            cursor:pointer;
+                                        }
+                                        .selected{
+                                            cursor:pointer;
+                                            /* background:#4286f5 !important; */
+                                            /* color:white; */
+                                        }
+                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        {
+                                            /* background: var(--theme-color-6) !important;
+                                            color:white; */
+                                            background:#f8f8f8;
+                                            color:black;
+                                        }
+                                        #input-grid input:hover,
+                                        #input-grid .selectize-input:hover,
+                                        {
+                                            width:inherit;
+                                        }
+                                        #input-grid ul.typeahead.dropdown-menu
+                                        {
+                                            width:max-content !important;
+                                        }
+                                        #input-grid td
+                                        {
+                                            overflow:hidden !important;
+                                            height:37.2px !important;
+                                            padding:0px !important;
+                                        }
+
+                                        #input-grid span
+                                        {
+                                            padding:0px 10px !important;
+                                        }
+
+                                        #input-grid input,#input-grid .selectize-input
+                                        {
+                                            overflow:hidden !important;
+                                            height:35px !important;
+                                        }
+
+                                        #input-grid td:nth-child(5)
+                                        {
+                                            overflow:unset !important;
+                                        }
                                     </style>
-                                    <table class="table table-striped table-bordered table-condensed" id="table-btambah">
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;">
                                         <thead>
                                         <tr>
-                                        <th width="5%" class="text-center">No</th>
-                                        <th width="12%" class="text-center">Cek List</th>   
-                                        <th width="30%" class="text-center">Kode Sub Jenis</th>
-                                        <th width="53%" class="text-center">Nama Sub Jenis</th>                                                                                                                                   
+                                            <th width="5%" class="text-center">No</th>
+                                            <th width="12%" class="text-center"></th>   
+                                            <th width="30%" class="text-center">Kode Sub Jenis</th>
+                                            <th width="53%" class="text-center">Nama Sub Jenis</th>                                                                                                                                   
                                         </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
                                     </table>
-                                </div>
+                                        <a type="button" href="#" data-id="0" title="add-row" class="add-row-sub btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                    </div>
                             </div>   
                             <div class="tab-pane" id="bupload" role="tabpanel">
                                 <table class="table table-bordered table-condensed gridexample" id="upload-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;margin-top:5px;">
@@ -413,6 +490,7 @@
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
+    var $dtSub = [];
     // var $iconLoad = $('.preloader');
     setHeightForm();
     $.ajaxSetup({
@@ -420,6 +498,7 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
+    getDataSubJenis();
 
     //HELPER FUNCTION//
     function getKecamatan(kode) {
@@ -449,24 +528,357 @@
     }
     //END HELPER FUNCTION//
 
-    // EVENT CHANGE CHECKBOX //
-    $('#table-btambah').on('click', '.checkbox-generate', function(){
-        var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
-        var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
-        var row = $(this).closest('tr');
-        if(row.hasClass('generate')){
-            row.removeClass('generate');
-        }else{
-            row.addClass('generate');
-        }
+    // FUNCTION GRID //
+    function getNameRowSubJenis(value,target1,target2) {
+        var filter = $dtSub.filter(data => data.id = value);
+        $('.'+target1).val(filter[0].id);
+        $('.td'+target1).text(filter[0].id);
+        $('.'+target2).val(filter[0].name);
+        $('.td'+target2).text(filter[0].name);   
+    }
+
+    function getRowSubJenis(id,target1,target2,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('wisata-master/subjenis') }}",
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result = res.daftar;
+                if(res.status){
+                    if(typeof result !== 'undefined' && result.length>0){
+                        var data = result;
+                        var filter = data.filter(data => data.kode_subjenis == kode);
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+
+                            $('.'+target2).val(filter[0].nama);
+                            $('.td'+target2).text(filter[0].nama);
+                        }else{
+
+                            $("#input-grid-barang td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-subjenis').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(filter[0].nama);
+                            $('.td'+target2).text(filter[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                    }
+                }
+                else if(!result.daftar.status && result.daftar.message == 'Unauthorized'){
+                        window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('Sub Jenis tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
+    $('#form-tambah').on('click', '.add-row-sub', function(){
+        addRowGrid();
+    });
+
+    function hitungTotalRow(){
+        var total_row = $('#input-grid tbody tr').length;
+        $('#total-row').html(total_row+' Baris');
+    }
+
+    function addRowGridDefault() {
+        var no=$('#input-grid .row-grid:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-grid'>";
+        input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode tdsubjeniske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='kode_subjenis[]' class='form-control inp-kode subjeniske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='subjeniskode"+no+"'><a href='#' class='search-item search-subjenis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmsubjeniske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_subjenis[]' class='form-control inp-nama nmsubjeniske"+no+" hidden'  value='' readonly></td>";
+        input += "</tr>";
+
+        $('#input-grid tbody').append(input);
+        $('.row-grid:last').addClass('selected-row');
         
-        if($('#'+checkbox).is(':checked')) {
-            $('#'+input).val(true);
+        $('#subjeniskode'+no).typeahead({
+            source:$dtSub,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        hitungTotalRow();
+    }
+
+    function addRowGrid() {
+        var no=$('#input-grid .row-grid:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-grid'>";
+        input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode tdsubjeniske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='kode_subjenis[]' class='form-control inp-kode subjeniske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='subjeniskode"+no+"'><a href='#' class='search-item search-subjenis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmsubjeniske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_subjenis[]' class='form-control inp-nama nmsubjeniske"+no+" hidden'  value='' readonly></td>";
+        input += "</tr>";
+
+        $('#input-grid tbody').append(input);
+        $('.row-grid:last').addClass('selected-row');
+        $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+
+        $('#input-grid td').removeClass('px-0 py-0 aktif');
+        $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+        $('#input-grid tbody tr:last').find(".inp-kode").show();
+        $('#input-grid tbody tr:last').find(".td-kode").hide();
+        $('#input-grid tbody tr:last').find(".search-subjenis").show();
+        $('#input-grid tbody tr:last').find(".inp-kode").focus();
+        $('.tooltip-span').tooltip({
+            title: function(){
+                return $(this).text();
+            }
+        });
+
+        $('#subjeniskode'+no).typeahead({
+            source:$dtSub,
+            displayText:function(item){
+                return item.id+' - '+item.name;
+            },
+            autoSelect:false,
+            changeInputOnSelect:false,
+            changeInputOnMove:false,
+            selectOnBlur:false,
+            afterSelect: function (item) {
+                console.log(item.id);
+            }
+        });
+
+        hitungTotalRow();
+        hideUnselectedRow();
+    }
+
+    function hideUnselectedRow() {
+        $('#input-grid > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var kode_sub = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_sub = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_sub);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_sub);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_sub);
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_sub);
+
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-subjenis").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+            }
+        })
+    }
+
+    $('#input-grid tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
+    $('#input-grid').on('change', '.inp-kode', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents('tr').find('span.no-grid').text();
+        target1 = "subjeniske"+noidx;
+        target2 = "nmsubjeniske"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
+            var kode = $(this).val();
+            getRowSubJenis(kode,target1,target2,'change');
+            // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
-            $('#'+input).val(false);
+            alert('Sub Jenis yang dimasukkan tidak valid');
+            return false;
         }
     });
-    // END EVENT CHANGE CHECKBOX //
+
+    $('#input-grid').on('keypress', '.inp-kode', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
+                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-grid').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+                console.log(idx);
+                var kode_sub = $(this).parents("tr").find(".inp-kode").val();
+                var nama_sub = $(this).parents("tr").find(".inp-nama").val();
+                var no = $(this).parents("tr").find("span.no-grid").text();
+                $(this).parents("tr").find(".inp-kode").val(kode_sub);
+                $(this).parents("tr").find(".td-kode").text(kode_sub);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-subjenis").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-subjenis").hide();
+                    
+                }
+        
+                $(this).parents("tr").find(".inp-nama").val(nama_sub);
+                $(this).parents("tr").find(".td-nama").text(nama_sub);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-nama").show();
+                    $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+            }
+        }
+    });
+
+     $('#input-grid').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-grid').each(function(){
+            var nom = $(this).closest('tr').find('.no-grid');
+            nom.html(no);
+            no++;
+        });
+        hitungTotal();
+        hitungTotalRow();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-kode','.inp-nama'];
+        var nxt2 = ['.td-kode','.td-nama'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-2;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    var noidx = $(this).parents("tr").find("span.no-grid").text();
+                    var kode = $(this).val();
+                    var target1 = "subjeniske"+noidx;
+                    var target2 = "nmsubjeniske"+noidx;
+                    getRowSubJenis(kode,target1,target2,'tab');                    
+                    break;
+                case 1:
+                    $("#input-grid td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    
+                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                    if(cek.length > 0){
+                        cek.click();
+                    }else{
+                        $('.add-row-sub').click();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#input-grid').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        var modul = '';
+        var header = [];
+        
+        switch(par){
+            case 'kode_subjenis[]': 
+                var par2 = "nama_subjenis[]";
+            break;
+        }
+
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        console.log(tmp);
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        console.log(tmp);
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        showFilter(par,target1,target2);
+    });
+    // END FUNCTION GRID //
+
+    // // EVENT CHANGE CHECKBOX //
+    // $('#input-grid').on('click', '.checkbox-generate', function(){
+    //     var input    = $(this).closest('tr').find('input[type=hidden]').attr('id');
+    //     var checkbox = $(this).closest('tr').find('input[type=checkbox]').attr('id');
+    //     var row = $(this).closest('tr');
+    //     if(row.hasClass('generate')){
+    //         row.removeClass('generate');
+    //     }else{
+    //         row.addClass('generate');
+    //     }
+        
+    //     if($('#'+checkbox).is(':checked')) {
+    //         $('#'+input).val(true);
+    //     }else{
+    //         $('#'+input).val(false);
+    //     }
+    // });
+    // // END EVENT CHANGE CHECKBOX //
 
     // GET DATA BIDANG //
     function getDataSubJenis() {
@@ -476,21 +888,12 @@
             dataType: 'json',
             async:false,
             success: function(result) {
-                var row = "";
-                var no  = 1;
                 if(result.status) {
-                    $('#table-btambah tbody').empty();
                     for(var i=0;i<result.daftar.length;i++) {
-                        var data = result.daftar[i];
-                        row += "<tr>";
-                        row += "<td>"+no+"</td>";
-                        row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                        row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                        row += "<td>"+data.nama+"</td>";
-                        row += "</tr>";
-                        no++;
+                        $dtSub[i] = {id:result.daftar[i].kode_subjenis,name:result.daftar[i].nama};
                     }
-                    $('#table-btambah tbody').append(row);
+                } else {
+                    alert(result.message);
                 }
             }
         });
@@ -584,6 +987,23 @@
         $target2 = target2;
             
         switch(par){
+        case 'kode_subjenis[]': 
+                header = ['Kode Sub Jenis', 'Nama'];
+                var toUrl = "{{ url('wisata-master/subjenis') }}";
+                var columns = [
+                    { data: 'kode_subjenis' },
+                    { data: 'nama' }
+                ];
+                
+                var judul = "Daftar Sub Jenis";
+                var jTarget1 = "val";
+                var pilih = "subjenis";
+                var jTarget2 = "val";
+                $target = "."+$target;
+                $target3 = ".td"+$target2;
+                $target2 = "."+$target2;
+                $target4 = "2";
+            break;
         case 'kode_camat': 
                 header = ['Kode', 'Nama'];
                 var toUrl = "{{ url('wisata-master/kecamatan') }}";
@@ -598,6 +1018,7 @@
                     $target = "#"+$target;
                     $target2 = "#"+$target2;
                     $target3 = "";
+                    $target4 = "";
                 break;
         }
 
@@ -699,6 +1120,23 @@
                     if($target3 != ""){
                         $($target3).text(nama);
                     }
+
+                    if($target4 != ""){
+                    if($target4 == "2"){
+                        $($target).parents("tr").find(".inp-kode").val(kode);
+                        $($target).parents("tr").find(".td-kode").text(kode);
+                        $($target).parents("tr").find(".inp-kode").hide();
+                        $($target).parents("tr").find(".td-kode").show();
+                        $($target).parents("tr").find(".search-subjenis").hide();
+                        $($target).parents("tr").find(".inp-nama").show();
+                        $($target).parents("tr").find(".td-nama").hide();
+                       
+                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama").focus(); }, 100);
+                    } 
+                    else{
+                        $($target).closest('tr').find($target4).click();
+                    }
+                }
                     console.log($target3);
                     $('#modal-search').modal('hide');
                 }
@@ -767,6 +1205,7 @@
         $('#kode_camat').val('');
         $('[id^=label]').html('');
         $('#upload-grid tbody').empty();
+        $('#input-grid tbody').empty();
         $('#judul-form').html('Tambah Data Mitra');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -775,7 +1214,7 @@
         $('#kode_mitra').attr('readonly', false);        
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        getDataSubJenis();
+        addRowGridDefault();
     });
     // END BUTTON TAMBAH
     
@@ -833,8 +1272,10 @@
                         $('input[data-input="cbbl"]').val('');
                         $('#judul-form').html('Tambah Data Mitra');
                         $('#upload-grid tbody').empty();
+                        $('#input-grid tbody').empty();
                         $('#method').val('post');
                         $('#kode_mitra').attr('readonly', false);
+                        addRowGridDefault();
                     
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
@@ -915,7 +1356,7 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         $('#upload-grid tbody').empty();
         // $iconLoad.show();
-        $('#table-btambah tbody').empty();
+        $('#input-grid tbody').empty();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Mitra');
         $.ajax({
@@ -946,24 +1387,15 @@
                     var no = 1;
                     for(var i=0;i<result.arrsub.length;i++){
                         var data = result.arrsub[i];
-                        if(data.status == "CEK") {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        } else {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        }
+                        row += "<tr class='row-grid'>";
+                        row += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
+                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                        row += "<td><span class='td-kode tdsubjeniske"+no+" tooltip-span'>"+data.kode_subjenis+"</span><input autocomplete='off' type='text' name='kode_subjenis[]' class='form-control inp-kode subjeniske"+no+" hidden' value='"+data.kode_subjenis+"' required='' style='z-index: 1;position: relative;'  id='subjeniskode"+no+"'><a href='#' class='search-item search-subjenis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                        row += "<td><span class='td-nama tdnmsubjeniske"+no+" tooltip-span'>"+data.nama+"</span><input autocomplete='off' type='text' name='nama_subjenis[]' class='form-control inp-nama nmsubjeniske"+no+" hidden'  value='"+data.nama+"' readonly></td>";
+                        row += "</tr>";
                         no++;
                     }
-                    $('#table-btambah tbody').append(row);
+                    $('#input-grid tbody').append(row);
                     
                     if(result.arrdok.length > 0) {
                         var no = 1;
@@ -1077,7 +1509,7 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
-        $('#table-btambah tbody').empty();
+        $('#input-grid tbody').empty();
         $('#upload-grid tbody').empty();
         $('#form-tambah').validate().resetForm();
         $('#judul-form').html('Edit Data Mitra');
@@ -1090,7 +1522,7 @@
                 var result= res.data;
                 if(result.status){
                     $('#id_edit').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#kode_mitra').attr('readonly', true);
                     $('#kode_mitra').val(id);
                     $('#id').val(id);                    
@@ -1109,24 +1541,15 @@
                     var no = 1;
                     for(var i=0;i<result.arrsub.length;i++){
                         var data = result.arrsub[i];
-                        if(data.status == "CEK") {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"' checked><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='true'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        } else {
-                            row += "<tr>";
-                            row += "<td>"+no+"</td>";
-                            row += "<td style='text-align:center;vertical-align:middle;''><input type='checkbox' class='checkbox-generate' id='checkbox-"+no+"'><input type='hidden' name='generate[]' class='hidden' id='generate-ke"+no+"' value='false'></td>";
-                            row += "<td style='text-align:center;'>"+data.kode_subjenis+"<input type='hidden' name='kode_subjenis[]' value='"+data.kode_subjenis+"'/></td>";
-                            row += "<td>"+data.nama+"</td>";
-                            row += "</tr>";
-                        }
+                        row += "<tr class='row-grid'>";
+                        row += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span></td>";
+                        row += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                        row += "<td><span class='td-kode tdsubjeniske"+no+" tooltip-span'>"+data.kode_subjenis+"</span><input autocomplete='off' type='text' name='kode_subjenis[]' class='form-control inp-kode subjeniske"+no+" hidden' value='"+data.kode_subjenis+"' required='' style='z-index: 1;position: relative;'  id='subjeniskode"+no+"'><a href='#' class='search-item search-subjenis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                        row += "<td><span class='td-nama tdnmsubjeniske"+no+" tooltip-span'>"+data.nama+"</span><input autocomplete='off' type='text' name='nama_subjenis[]' class='form-control inp-nama nmsubjeniske"+no+" hidden'  value='"+data.nama+"' readonly></td>";
+                        row += "</tr>";
                         no++;
                     }
-                    $('#table-btambah tbody').append(row);
+                    $('#input-grid tbody').append(row);
 
                     if(result.arrdok.length > 0) {
                         var no = 1;

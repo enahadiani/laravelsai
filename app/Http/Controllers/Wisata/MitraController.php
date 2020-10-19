@@ -127,15 +127,27 @@ class MitraController extends Controller
                             'contents' => $request->coor_y,
                         ],
                     ];
-                
-                if(count($request->generate)) {
-                    for($i=0;$i<count($request->generate);$i++) {
-                        if($request->generate[$i] == "true") {
-                            $arrSubJenis[] = array('name'=> 'arrsub[][kode_subjenis]','contents'=> $request->kode_subjenis[$i]);
-                        }
+               
+                $field_subjenis = array();
+                if(count($request->kode_subjenis)) {
+                    for($i=0;$i<count($request->kode_subjenis);$i++) {
+                        $field_subjenis[$i] = array(
+                            'name' => 'arrsub[][kode_subjenis]',
+                            'contents' => $request->kode_subjenis[$i]
+                        );
                     }
-                    $send_data = array_merge($fields, $arrSubJenis);
+                    $send_data = array_merge($fields, $field_subjenis);
+                } else {
+                    $send_data = $fields;
                 }
+                // if(count($request->generate)) {
+                //     for($i=0;$i<count($request->generate);$i++) {
+                //         if($request->generate[$i] == "true") {
+                //             $arrSubJenis[] = array('name'=> 'arrsub[][kode_subjenis]','contents'=> $request->kode_subjenis[$i]);
+                //         }
+                //     }
+                //     $send_data = array_merge($fields, $arrSubJenis);
+                // }
                 
                 $cek = $request->file_dok;
                 if(!empty($cek)){
@@ -282,14 +294,18 @@ class MitraController extends Controller
                     ],
                 ];
                 
-            if(count($request->generate)) {
-                for($i=0;$i<count($request->generate);$i++) {
-                    if($request->generate[$i] == "true") {
-                            $arrSubJenis[] = array('name'=> 'arrsub[][kode_subjenis]','contents'=> $request->kode_subjenis[$i]);
+                $field_subjenis = array();
+                if(count($request->kode_subjenis)) {
+                    for($i=0;$i<count($request->kode_subjenis);$i++) {
+                        $field_subjenis[$i] = array(
+                            'name' => 'arrsub[][kode_subjenis]',
+                            'contents' => $request->kode_subjenis[$i]
+                        );
                     }
+                    $send_data = array_merge($fields, $field_subjenis);
+                } else {
+                    $send_data = $fields;
                 }
-                $send_data = array_merge($fields, $arrSubJenis);
-            }
                 
             $cek = $request->file_dok;
             if(!empty($cek)){

@@ -15,7 +15,7 @@
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
         <h2 style="position:absolute" class="text-primary">Perkembangan Siswa</h2>
-        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="border:1px solid black;font-size:1rem"></a>
+        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="width:370px;border:1px solid black;font-size:1rem;text-align:left;"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>
@@ -135,12 +135,12 @@
     aria-labelledby="modalPesan" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               <div class="modal-header" style="text-align: center !important;">
-                   <h5 style="margin-left: 150px;margin-top:20px;margin-bottom:-20px;">Nama Pesan</h5>
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+               <div class="modal-header" style="text-align: center;padding:3px !important;display:inline;">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:inline;"><span aria-hidden="true">×</span></button>
+                    <h5 style="margin-top:10px;">Nama Pesan</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;min-width:120px;max-width:200px;">
+                    <div class="card bg-primary p-2 float-right mb-3" style="min-height: 90px; max-height:auto;width:100%;">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
                         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
@@ -148,7 +148,7 @@
                         sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </div>
                     <div style="position:relative;margin-bottom:0;margin-left:135px;margin-top:auto;">
-                        <button id="modal-tambah-pesan" class="btn btn-outline-light text-primary" style="font-weight: bold;" type="button">Tambah Pesan</button>
+                        <button id="modal-tambah-pesan" class="btn btn-outline-light text-primary" style="font-weight: bold;border-radius:50px !important; box-shadow:  10px 10px 45px -13px rgba(0,0,0,0.75); !important;" type="button">Tambah Pesan</button>
                     </div>
                 </div>
             </div>
@@ -474,7 +474,7 @@ function getTahunAjaran(kode_pp){
 // FILTER
 $('#modalFilter').on('submit','#form-filter',function(e){
     e.preventDefault();
-    var icon = '<i class="simple-icon-arrow-down"></i>';
+    var icon = '<i class="simple-icon-arrow-down" style="float:right;right:0;margin-top:3px;"></i>';
     var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
     var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
     var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
