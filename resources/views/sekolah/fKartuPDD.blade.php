@@ -249,7 +249,7 @@
                     </div>
                     <div class="kartu-d mt-2">
                         <div class="row">
-                            <div class="col-sm-12 table-responsive">
+                            <div class="col-sm-12 table-responsive" style="max-height:300px">
                                 <table class="table table-bordered table-striped" id="table-detail">
                                     <thead>
                                         <tr>
@@ -381,6 +381,9 @@
     }
 
     getKartuPDD();
+    
+    var scrollform = document.querySelector('.table-responsive');
+    var psscrollform = new PerfectScrollbar(scrollform);
    
     $('#saku-datatable').on('click','#btn-print',function(e){
         e.preventDefault();
