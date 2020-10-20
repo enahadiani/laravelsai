@@ -15,7 +15,7 @@
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
         <h2 style="position:absolute" class="text-primary">Perkembangan Siswa</h2>
-        <a class="btn btn-outline-light float-right mb-2" href="#" id="filter-btn" style="width:370px;border:1px solid black;font-size:1rem;text-align:left;"></a>
+        <a class="btn btn-outline-light float-right bg-primary text-white mb-2" href="#" id="filter-btn" style="width:392px;border:1px solid black;font-size:1rem;text-align:left;"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
 </div>
