@@ -34,3 +34,6 @@ Route::post('pesan', 'Sekolah\PesanController@store');
 Route::post('pesan-ubah', 'Sekolah\PesanController@update');
 Route::delete('pesan', 'Sekolah\PesanController@destroy');
 Route::delete('pesan-dok', 'Sekolah\PesanController@deleteDokumen');
+
+Route::get('kartu-piutang', 'Sekolah\PiutangController@getKartuPiutang');
+Route::get('kartu-pdd', 'Sekolah\PiutangController@getKartuPDD');
