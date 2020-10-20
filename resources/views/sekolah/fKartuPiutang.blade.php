@@ -340,7 +340,7 @@
                                 tosaldo += saldo;
                                 detail +=`<tr>
                                     <td>`+no+`</td>
-                                    <td>`+line2.tanggal+`</td>
+                                    <td>`+line2.tgl+`</td>
                                     <td>`+line2.no_bukti+`</td>
                                     <td>`+line2.keterangan+`</td>
                                     <td>`+sepNumPas(line2.tagihan)+`</td>

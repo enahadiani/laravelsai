@@ -218,38 +218,47 @@
             <div class="row mb-4">
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Buku Penghubung.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fBukuPenghubung</p>
                     <p class="list-item-heading mb-3">Buku Penghubung</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Keuangan.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fKeuangan</p>
                     <p class="list-item-heading mb-3">Keuangan</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Kalender Akademik.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fKalenderAkademik</p>
                     <p class="list-item-heading mb-3">Kalender Akademik</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Absensi.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fAbsensi</p>
                     <p class="list-item-heading mb-3">Absensi</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Nilais.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fNilai</p>
                     <p class="list-item-heading mb-3">Nilai</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Jadwal Pelajaran.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fJadwalPelajaran</p>
                     <p class="list-item-heading mb-3">Jadwal Pelajaran</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Prestasis.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fPrestasi</p>
                     <p class="list-item-heading mb-3">Prestasi</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Report.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fRaport</p>
                     <p class="list-item-heading mb-3">Raport</p>
                 </div>
                 <div class="text-center col-sm-3 col-4 menu-icon">
                     <img alt="Profile" src="{{ asset('img/menu-siswa/Ekstrakulikuler.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fEkskul</p>
                     <p class="list-item-heading mb-3">Ekskul</p>
                 </div>
             </div>
@@ -326,5 +335,10 @@
         return parts.join(',');
     }
 
+    $('#saku-dashboard').on('click','.menu-icon',function(e){
+        e.preventDefault();
+        var form = $(this).find('.kode_form').html();
+        loadForm("{{url('sekolah-auth/form')}}/"+form);
+    });
 
     </script>
