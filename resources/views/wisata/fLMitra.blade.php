@@ -128,7 +128,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                        <h5 style="position:absolute;top: 25px;">Laporan Destinasi</h5>
+                        <h5 style="position:absolute;top: 25px;">Laporan Mitra</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -151,14 +151,14 @@
                                     <form id="form-filter">
                                         <h6>Filter</h6>
                                         <div class="form-group row sai-rpt-filter-entry-row">
-                                            <p class="kunci" hidden>mitra</p>
-                                            <label for="mitra" class="col-md-2 col-sm-12 col-form-label">Destinasi</label>
+                                            <p class="kunci" hidden>bidang</p>
+                                            <label for="bidang" class="col-md-2 col-sm-12 col-form-label">Bidang</label>
                                             <div class="col-md-2 col-sm-12" >
-                                                <select name='mitra[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option></select>
+                                                <select name='bidang[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
                                             </div>
                                             <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-from" readonly value="Menampilkan semua destinasi">
+                                                    <input type="text" class="form-control border-right-0 " name="bidang[]" id="bidang-from" readonly value="Menampilkan semua bidang">
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text"></a>
                                                     </div>
@@ -169,7 +169,59 @@
                                             </div>
                                             <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
                                                 <div class="input-group" >
-                                                    <input type="text" class="form-control border-right-0 " name="mitra[]" id="mitra-to" readonly>
+                                                    <input type="text" class="form-control border-right-0 " name="bidang[]" id="bidang-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>jenis</p>
+                                            <label for="jenis" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='jenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="jenis[]" id="jenis-from" readonly value="Menampilkan semua jenis">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="jenis[]" id="jenis-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>subjenis</p>
+                                            <label for="subjenis" class="col-md-2 col-sm-12 col-form-label">Sub Jenis</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='subjenis[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="subjenis[]" id="subjenis-from" readonly value="Menampilkan semua subjenis">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="subjenis[]" id="subjenis-to" readonly>
                                                     <div class="input-group-append border-left-0">
                                                     <a href="#" class="text-primary input-group-text search-item">ubah</a>
                                                     </div>
@@ -215,7 +267,7 @@
                         <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                             <ol class="breadcrumb py-0 my-0">
                                 <li class="breadcrumb-item active">
-                                    Data Destinasi
+                                    Data Mitra
                                 </li>
                             </ol>
                         </nav>            
@@ -303,7 +355,21 @@
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
             }
         });
-        var mitra = {
+        var bidang = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+        var jenis = {
+            type : "all",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+        var subjenis = {
             type : "all",
             from : "",
             fromname : "",
@@ -357,20 +423,52 @@
             target3 = tmp[1]+'name';
             
             switch(par){
-                case 'mitra[]': 
+                case 'bidang[]': 
                     header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('wisata-master/mitra') }}";
+                    var toUrl = "{{ url('wisata-master/bidang') }}";
                     var columns = [
-                        { data: 'kode_mitra' },
+                        { data: 'kode_bidang' },
                         { data: 'nama' }
                     ];
-                    var judul = "Daftar Mitra <span class='modal-subtitle'></span>";
-                    var pilih = "mitra";
+                    var judul = "Daftar Bidang <span class='modal-subtitle'></span>";
+                    var pilih = "bidang";
                     $target = $target;
                     $target2 = target2;
-                    var field = eval("mitra");
+                    var field = eval("bidang");
                     var display = "name";
-                    var kunci = "mitra";
+                    var kunci = "bidang";
+                    var orderby = [[0,"desc"]];
+                break;
+                case 'jenis[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('wisata-master/jenis') }}";
+                    var columns = [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ];
+                    var judul = "Daftar Jenis <span class='modal-subtitle'></span>";
+                    var pilih = "jenis";
+                    $target = $target;
+                    $target2 = target2;
+                    var field = eval("jenis");
+                    var display = "name";
+                    var kunci = "jenis";
+                    var orderby = [[0,"desc"]];
+                break;
+                case 'subjenis[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('wisata-master/subjenis') }}";
+                    var columns = [
+                        { data: 'kode_subjenis' },
+                        { data: 'nama' }
+                    ];
+                    var judul = "Daftar Sub Jenis <span class='modal-subtitle'></span>";
+                    var pilih = "subjenis";
+                    $target = $target;
+                    $target2 = target2;
+                    var field = eval("subjenis");
+                    var display = "name";
+                    var kunci = "subjenis";
                     var orderby = [[0,"desc"]];
                 break;
             }
@@ -733,7 +831,7 @@
                 $aktif = '';
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').removeClass('col-md-3');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from').addClass('col-md-8');
-                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua destinasi');
+                $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-from input').val('Menampilkan semua'+field);
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-to').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.sai-rpt-filter-sampai').addClass('hidden');
                 $(this).closest('div.sai-rpt-filter-entry-row').find('.input-group-text').removeClass('search-item');
@@ -847,9 +945,15 @@
         $('#form-filter').submit(function(e){
             e.preventDefault();
             $formData = new FormData();
-            $formData.append("mitra[]",mitra.type);
-            $formData.append("mitra[]",mitra.from);
-            $formData.append("mitra[]",mitra.to);
+            $formData.append("bidang[]",bidang.type);
+            $formData.append("bidang[]",bidang.from);
+            $formData.append("bidang[]",bidang.to);
+            $formData.append("jenis[]",jenis.type);
+            $formData.append("jenis[]",jenis.from);
+            $formData.append("jenis[]",jenis.to);
+            $formData.append("subjenis[]",subjenis.type);
+            $formData.append("subjenis[]",subjenis.from);
+            $formData.append("subjenis[]",subjenis.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -860,9 +964,15 @@
 
         $('#show').change(function(e){
             $formData = new FormData();
-            $formData.append("mitra[]",mitra.type);
-            $formData.append("mitra[]",mitra.from);
-            $formData.append("mitra[]",mitra.to);
+            $formData.append("bidang[]",bidang.type);
+            $formData.append("bidang[]",bidang.from);
+            $formData.append("bidang[]",bidang.to);
+            $formData.append("jenis[]",jenis.type);
+            $formData.append("jenis[]",jenis.from);
+            $formData.append("jenis[]",jenis.to);
+            $formData.append("subjenis[]",subjenis.type);
+            $formData.append("subjenis[]",subjenis.from);
+            $formData.append("subjenis[]",subjenis.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

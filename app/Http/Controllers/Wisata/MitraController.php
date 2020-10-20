@@ -108,7 +108,7 @@ class MitraController extends Controller
                         ],
                         [
                             'name' => 'pic',
-                            'contents' => $request->email,
+                            'contents' => $request->pic,
                         ],
                         [
                             'name' => 'no_hp',
@@ -274,7 +274,7 @@ class MitraController extends Controller
                     ],
                     [
                         'name' => 'pic',
-                        'contents' => $request->email,
+                        'contents' => $request->pic,
                     ],
                     [
                         'name' => 'no_hp',
