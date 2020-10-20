@@ -2,7 +2,8 @@
     
     function drawLap(formData){
         saiPostLoad('wisata-report/lap-mitra', null, formData, null, function(res){
-           if(res.result.length > 0){
+           console.log(res)
+           if(res.result){
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
@@ -17,7 +18,12 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        if(data.length > 0){
+        var grouping = data.reduce((initial, value) => {
+            initial[value.nama_bidang] = [...initial[value.nama_bidang] || [], value]
+            return initial
+        },{})
+        var convert = Object.entries(grouping);
+        if(convert.length > 0){
             if(res.back){
                 $('.navigation-lap').removeClass('hidden');
             }else{
@@ -48,31 +54,31 @@
                if(typeof res.res.subjenis != 'undefined') {
                 html += `<h5 class='text-center'>${res.res.subjenis}</h5>`;
                }
-            html+= `<table class='table table-bordered info-table'>
-                    <tr>
-                        <th style='text-align:center;'>Kode Destinasi</th>
-                        <th style='text-align:center;'>Nama Destinasi</th>
-                        <th style='text-align:center;'>Alamat</th>
-                        <th style='text-align:center;'>No Telp</th>
-                        <th style='text-align:center;'>PIC</th>
-                    </tr>`;
-                    if(from != undefined){
-                        var no=from+1;
-                    }else{
-                        var no=1;
-                    }
-                    for (var i=0; i < data.length ; i++)
-                    {
-                        var line  = data[i];
-                        html +=`<tr>
-                            <td class='isi_laporan' style='text-align:center;'>`+line.kode_mitra+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.alamat+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.no_tel+`</td>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.pic+`</td>
-                        </tr>`;
-                        no++;
-                    }
+            console.log(convert);
+            html+= `<table class='table table-bordered info-table'>`;
+            for(var i=0;i<convert.length;i++) {
+                html+= `<tr>`;
+                html+= `<th colspan="6">${convert[i][0]}</th>`;
+                html+= `</tr>`;
+                html+= `<tr>`;
+                html+= `<td style='text-align:center;'>Kode Mitra</td>`;
+                html+= `<td style='text-align:center;'>Nama</td>`;
+                html+= `<td style='text-align:center;'>Alamat</td>`;
+                html+= `<td style='text-align:center;'>No Telp</td>`;
+                html+= `<td style='text-align:center;'>PIC</td>`;
+                html+= `<td style='text-align:center;'>Kecamatan</td>`;
+                html+= `</tr>`;
+                for(var j=0;j<convert[i][1].length;j++) {
+                    html+= `<tr>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].kode_mitra}</td>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].nama}</td>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].alamat}</td>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].no_tel}</td>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].pic}</td>`;
+                    html+= `<td style='text-align:center;'>${convert[i][1][j].camat}</td>`;
+                    html+= `</tr>`;
+                }
+            }
             html+=`</table>`;
         }
         $('#canvasPreview').html(html);
