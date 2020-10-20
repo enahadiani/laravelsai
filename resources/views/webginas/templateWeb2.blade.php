@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="INSPIRO" />
-    <meta name="description" content="Themeforest Template Polo, html template">
+    <meta name="description" content="PT Trengginas Jaya">
     <link rel="icon" type="image/png" href="images/favicon.png">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Document title -->
@@ -76,6 +76,10 @@
 
         .heading-text.heading-section h2::before {
             background-color:#DD1F1A !important;
+        }
+
+        .inspiro-slider.arrows-dark .flickity-button:hover, .carousel.arrows-dark .flickity-button:hover {
+            background:#DD1F1A !important;
         }
         
     </style>
@@ -573,6 +577,16 @@
              </div>
          </section>
          <!-- end: Contact -->
+
+           <!-- Footer -->
+        <footer id="footer">
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; 2020 PT Trengginas Jaya. All Rights Reserved.</div>
+                </div>
+            </div>
+        </footer>
+        <!-- end: Footer -->
     </div>
     <!-- end: Body Inner -->
     <!-- Scroll top -->
