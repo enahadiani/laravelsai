@@ -213,6 +213,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="pic" class="col-3 col-form-label">PIC</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" id="pic" name="pic" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="nama" class="col-3 col-form-label">Total Barang</label>
                                 <div class="col-3">
                                     <input class="form-control text-right" type="text"  id="total" name="total" required readonly>
@@ -529,6 +535,11 @@
                                             </tr>
                                             <tr>
                                                 <td>4</td>
+                                                <td>PIC</td>
+                                                <td id='print-pic'>`+result.data[0].pic+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
                                                 <td>SAAT PENGGUNAAN</td>
                                                 <td id='print-waktu'>`+result.data[0].waktu.substr(8,2)+' '+getNamaBulan(result.data[0].waktu.substr(5,2))+' '+result.data[0].waktu.substr(0,4)+`</td>
                                             </tr>
@@ -965,6 +976,7 @@
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#total').val(toRp(result.data[0].nilai)); 
+                        $('#pic').val(result.data[0].pic); 
                         var input="";
                         var no=1;
                         if(result.data_detail.length > 0){
@@ -1079,6 +1091,7 @@
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
                         $('#total').val(toRp(result.data[0].nilai)); 
+                        $('#pic').val(result.data[0].pic); 
                         var input="";
                         var no=1;
                         if(result.data_detail.length > 0){

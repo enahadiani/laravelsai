@@ -463,6 +463,11 @@
                                             </tr>
                                             <tr>
                                                 <td>4</td>
+                                                <td>PIC</td>
+                                                <td id='print-pic'>`+result.data[0].pic+`</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
                                                 <td>SAAT PENGGUNAAN</td>
                                                 <td id='print-waktu'>`+result.data[0].waktu.substr(8,2)+' '+getNamaBulan(result.data[0].waktu.substr(5,2))+' '+result.data[0].waktu.substr(0,4)+`</td>
                                             </tr>
