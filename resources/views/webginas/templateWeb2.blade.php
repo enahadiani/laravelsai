@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="INSPIRO" />
+    <!-- <meta name="author" content="INSPIRO" /> -->
     <meta name="description" content="PT Trengginas Jaya">
     <link rel="icon" type="image/png" href="images/favicon.png">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -81,7 +81,10 @@
         .inspiro-slider.arrows-dark .flickity-button:hover, .carousel.arrows-dark .flickity-button:hover {
             background:#DD1F1A !important;
         }
-        
+        #scrollTop::after, #scrollTop::before 
+        {
+            background:#DD1F1A !important;
+        }
     </style>
 </head>
 
