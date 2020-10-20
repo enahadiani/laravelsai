@@ -249,7 +249,7 @@
                     </div>
                     <div class="kartu-d mt-2">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 table-responsive">
                                 <table class="table table-bordered table-striped" id="table-detail">
                                     <thead>
                                         <tr>
