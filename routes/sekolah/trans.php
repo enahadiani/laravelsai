@@ -37,3 +37,18 @@ Route::delete('pesan-dok', 'Sekolah\PesanController@deleteDokumen');
 
 Route::get('kartu-piutang', 'Sekolah\PiutangController@getKartuPiutang');
 Route::get('kartu-pdd', 'Sekolah\PiutangController@getKartuPDD');
+
+
+Route::get('penilaian-multiph', 'Sekolah\PenilaianMultiPHController@index');
+Route::get('penilaian-multiph-detail', 'Sekolah\PenilaianMultiPHController@show');
+Route::post('penilaian-multiph', 'Sekolah\PenilaianMultiPHController@store');
+Route::put('penilaian-multiph', 'Sekolah\PenilaianMultiPHController@update');
+Route::delete('penilaian-multiph', 'Sekolah\PenilaianMultiPHController@destroy');
+Route::get('penilaian-multiph-ke', 'Sekolah\PenilaianMultiPHController@getPenilaianKe');
+Route::post('import-multiph-excel', 'Sekolah\PenilaianMultiPHController@importExcel');
+Route::get('nilai-multiph-tmp', 'Sekolah\PenilaianMultiPHController@getNilaiTmp');
+Route::get('penilaian-multiph-dok', 'Sekolah\PenilaianMultiPHController@showDokUpload');
+Route::post('penilaian-multiph-dok', 'Sekolah\PenilaianMultiPHController@storeDokumen');
+Route::delete('penilaian-multiph-dok', 'Sekolah\PenilaianMultiPHController@deleteDokumen');
+Route::get('penilaian-multiph-kd', 'Sekolah\PenilaianMultiPHController@getKD');
+Route::get('penilaian-multiph-dok-list', 'Sekolah\PenilaianMultiPHController@listUpload');
