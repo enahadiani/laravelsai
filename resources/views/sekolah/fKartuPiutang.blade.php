@@ -221,7 +221,7 @@
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
-                            <div class="col-sm-2"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
+                            <div class="col-sm-2 text-center"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
                             <div class="col-sm-10">
                                 <h3><b>SEKOLAH DASAR TARUNA BAKTI</b></h3>
                                 <h6>Jl.L.L.R.E. Martadinata No.52 Bandung 40115</h6>
