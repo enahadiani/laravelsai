@@ -1133,7 +1133,9 @@
         var back = true;
         
         $formData.delete('no_bayar');
-        $formData.append('no_bayar', param);
+        $formData.append('no_kwitansi[]', "=");
+        $formData.append('no_kwitansi[]', param);
+        $formData.append('no_kwitansi[]', "");
 
         $formData.delete('back');
         $formData.append('back', back);
