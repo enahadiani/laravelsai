@@ -44,7 +44,7 @@
         }
 
         .logo{
-            background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
+            background:url("{{ asset('img/yakes-logo.jpeg') }}") no-repeat;
             background-size: 100px;
             background-position-x: center;
             background-position-y: center;
@@ -52,7 +52,7 @@
             height:35px;
         }
         .logo-mobile{
-            background:url("{{ asset('asset_elite/images/sai_icon/logo.png') }}") no-repeat;
+            background:url("{{ asset('img/yakeslogo.jpg') }}") no-repeat;
             background-size:30px;
             width:30px;
         }
