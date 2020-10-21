@@ -254,9 +254,27 @@ input.form-control{
             <div class="col-12 col-lg-7 col-xl-8 col-right">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 style="font-weight: bold;">Profile Pekerjaan</h5>
+                        <h5 style="font-weight: bold;" id="judul-profile"></h5>
                         <table class="table table-profile">
                             <tbody>
+                                @if(Session::get('statusAdmin') == "S")
+                                <tr>
+                                    <td style="border-top: none;width:30%" >NIS</td>
+                                    <td style="border-top: none;width:70%" class="nik" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Nama</td>
+                                    <td style="width:70%" class="nama" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Kelas</td>
+                                    <td style="width:70%" class="kelas" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%" >Sekolah</td>
+                                    <td style="width:70%" id="pp" colspan="2"></td>
+                                </tr>
+                                @else
                                 <tr>
                                     <td style="border-top: none;width:30%" >NIK</td>
                                     <td style="border-top: none;width:70%" class="nik" colspan="2"></td>
@@ -273,6 +291,7 @@ input.form-control{
                                     <td style="width:30%" >PP</td>
                                     <td style="width:70%" id="pp" colspan="2"></td>
                                 </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -440,15 +459,22 @@ function loadService(index,method,url,param={}){
                         var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="`+foto+`" />`;
                     }
 
-                    $('#foto').html(img);
-                    $('#foto-background').html(background);
                     $('.nama').html(result.data[0].nama);
                     $('.nik').html(result.data[0].nik);
                     $('#no_telp').html(result.data[0].no_hp);
                     $('#email').html(result.data[0].email);
                     var pp = result.data[0].kode_pp+` - `+result.data[0].nama_pp;
                     $('#pp').html(pp);
-                    $('#jabatan').html(result.data[0].jabatan);
+                    if("{{ Session::get('statusAdmin') }}" == "S"){
+                        $('.kelas').html(result.data[0].kode_kelas);
+                        $('#judul-profile').html('Profile Siswa');
+                    }else{
+                        $('#jabatan').html(result.data[0].jabatan);
+                        $('#judul-profile').html('Profile Pekerjaan');
+
+                    }
+                    $('#foto').html(img);
+                    $('#foto-background').html(background);
                     $('#password').html(typePass(result.data[0].password));
                     break;
 

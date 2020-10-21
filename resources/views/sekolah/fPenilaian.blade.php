@@ -1660,7 +1660,7 @@
                                         <tr>
                                             <th style="width:3%">No</th>
                                             <th style="width:20%">NIS</th>
-                                            <th style="width:57%">Nama Akun</th>
+                                            <th style="width:57%">Nama Siswa</th>
                                             <th style="width:20%">Nilai</th>
                                         </tr>
                                     </thead>

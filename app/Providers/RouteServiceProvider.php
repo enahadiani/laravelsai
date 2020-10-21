@@ -303,6 +303,11 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/webginas/web.php'));
+        
+        Route::prefix('webginas2')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/webginas/web2.php'));
    
     }
 

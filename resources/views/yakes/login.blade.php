@@ -23,12 +23,12 @@
             font-family: 'Roboto', sans-serif !important;
         }
         .logo-single{
-            background:url("{{ asset('asset_elite/images/sai_icon/esaku-landscape.png') }}") no-repeat;
+            background:url("{{ asset('img/yakes-logo.jpeg') }}") no-repeat;
             background-size: 150px;
             background-position-y: center;
             width:160px;
-            height:45px;
-            margin-bottom:30px;
+            height:50px;
+            margin-bottom:20px;
         }
         .form-side{
             margin: 0 auto;
