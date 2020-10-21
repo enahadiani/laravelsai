@@ -203,7 +203,7 @@
             font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
         .kop img.logo{
-            width:100px !important;
+            width:80px !important;
             height:100px !important;
         }
     </style>
@@ -221,18 +221,18 @@
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
-                            <div class="col-sm-2 text-center"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
-                            <div class="col-sm-10">
-                                <h3><b>SEKOLAH DASAR TARUNA BAKTI</b></h3>
-                                <h6>Jl.L.L.R.E. Martadinata No.52 Bandung 40115</h6>
-                                <h6>Telp. (022) 4261571</h6>
+                            <div class="col-md-2 text-center"><img class="logo" src="{{ asset('img/ts-logo2.png') }}"></div>
+                            <div class="col-md-10">
+                                <h3><b>SMK TELKOM JAKARTA</b></h3>
+                                <h6>Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng</h6>
+                                <h6>Jakarta Barat 11710 Telp. 021-5442600 / 5442700</h6>
                             </div>
                         </div>
                     </div>
                     <div class="separator my-1"></div>
                     <div class="kartu-m">
                         <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PDD</u></b></h5></div>
+                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PIUTANG</u></b></h5></div>
                             <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
                             <div class="col-sm-2 col-4">NIS</div>
                             <div class="col-sm-10 col-8" id="nis"></div>
@@ -254,13 +254,13 @@
                                 <table class="table table-bordered table-striped" id="table-detail">
                                     <thead>
                                         <tr>
-                                            <th width='20'>No</th>
-                                            <th width='60'>Tanggal </th>
-                                            <th width='80'>No Bukti</th>
-                                            <th width='60'>Modul</th>
-                                            <th width='200'>Keterangan</th>
-                                            <th width='90'>Debet</th>
-                                            <th width='90'>Kredit</th>
+                                            <th>NO</th>
+                                            <th>Tanggal</th>
+                                            <th>No Bukti</th>
+                                            <th>Keterangan</th>
+                                            <th>Debet</th>
+                                            <th>Kredit</th>
+                                            <th>Saldo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -312,11 +312,10 @@
         parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
         return parts.join(',');
     }
-
-    function getKartuPDD(){
+    function getKartuPiutang(){
         $.ajax({
             type: "GET",
-            url: "{{ url('sekolah-dash/kartu-pdd') }}",
+            url: "{{ url('ts-dash/kartu-piutang') }}",
             dataType: 'json',
             data: {},
             success:function(result){    
@@ -331,34 +330,35 @@
                         $('#kode_akt').html(":&nbsp;"+line.kode_akt);
                         var detail = '';
                         var no=1;
-                        var tosaldo=0;var debet=0; var kredit=0;
+                        var tosaldo=0;var tagihan=0; var bayar=0;
                         $('#table-detail tbody').html(detail);
                         if(result.detail.length > 0){
                             for(var i=0;i < result.detail.length ;i++){
                                 var line2 = result.detail[i];
-                                debet += parseFloat(line2.debet);
-                                kredit += parseFloat(line2.kredit);
+                                var saldo = parseFloat(line2.tagihan)-parseFloat(line2.bayar);
+                                tagihan += parseFloat(line2.tagihan);
+                                bayar += parseFloat(line2.bayar);
+                                tosaldo += saldo;
                                 detail +=`<tr>
                                     <td>`+no+`</td>
                                     <td>`+line2.tgl+`</td>
                                     <td>`+line2.no_bukti+`</td>
-                                    <td>`+line2.modul+`</td>
                                     <td>`+line2.keterangan+`</td>
-                                    <td>`+sepNumPas(line2.debet)+`</td>
-                                    <td>`+sepNumPas(line2.kredit)+`</td>
+                                    <td>`+sepNumPas(line2.tagihan)+`</td>
+                                    <td>`+sepNumPas(line2.bayar)+`</td>
+                                    <td>`+sepNumPas(saldo)+`</td>
                                 </tr>`;
                                 no++;
                             }
-                            tosaldo = debet-kredit;
                             detail+=`<tr>
-                                <td colspan='5' class='text-right'><b>Total</b></td>
-                                <td>`+sepNumPas(debet)+`</td>
-                                <td>`+sepNumPas(kredit)+`</td>
+                                <td colspan='4' class='text-right'><b>Total</b></td>
+                                <td>`+sepNumPas(tagihan)+`</td>
+                                <td>`+sepNumPas(bayar)+`</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan='5' class='text-right'><b>Saldo</b></td>
+                                <td colspan='6' class='text-right'><b>Saldo</b></td>
                                 <td>`+sepNumPas(tosaldo)+`</td>
-                                <td>0</td>
                             </tr>`;
                         }
                         $('#table-detail tbody').html(detail);
@@ -372,7 +372,7 @@
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    window.location="{{ url('/ts-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -381,7 +381,8 @@
         });
     }
 
-    getKartuPDD();
+    getKartuPiutang();
+
     
     var scrollform = document.querySelector('.table-responsive');
     var psscrollform = new PerfectScrollbar(scrollform);
@@ -397,7 +398,7 @@
     $('#saku-dashboard').on('click', '#btn-kembali', function(){
         
         var form ="{{ Session::get('dash') }}";
-        loadForm("{{ url('sekolah-auth/form') }}/"+form);
+        loadForm("{{ url('ts-auth/form') }}/"+form);
     });
 
     </script>

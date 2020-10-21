@@ -212,61 +212,64 @@
             <div class="card mb-3">
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;"></h5>
-                    <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <!-- <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button> -->
                     <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
                 </div>
                
             </div>
             <div class="card" id="print-area">
                 <div class="card-body">
-                    <div class="kop">
+                    <div>
                         <div class="row">
-                            <div class="col-sm-2 text-center"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
-                            <div class="col-sm-10">
-                                <h3><b>SEKOLAH DASAR TARUNA BAKTI</b></h3>
-                                <h6>Jl.L.L.R.E. Martadinata No.52 Bandung 40115</h6>
-                                <h6>Telp. (022) 4261571</h6>
+                            <div class="col-sm-12"><h5><b><u>RAPORT</u></b></h5></div>
+                            <div class="col-sm-12">&nbsp;</div>
+                            <div class="col-sm-2">Tahun Ajaran</div>
+                            <div class="col-sm-3">
+                                <select class='form-control selectize' id="kode_ta" name="kode_ta">
+                                <option value=''>--- Pilih TA ---</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="separator my-1"></div>
-                    <div class="kartu-m">
-                        <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PDD</u></b></h5></div>
-                            <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
-                            <div class="col-sm-2 col-4">NIS</div>
-                            <div class="col-sm-10 col-8" id="nis"></div>
-                            <div class="col-sm-2 col-4">ID Bank</div>
-                            <div class="col-sm-10 col-8" id="id_bank"></div>
-                            <div class="col-sm-2 col-4">Nama</div>
-                            <div class="col-sm-10 col-8" id="nama"></div>
-                            <div class="col-sm-2 col-4">Kelas</div>
-                            <div class="col-sm-10 col-8" id="kode_kelas"></div>
-                            <div class="col-sm-2 col-4">Angkatan</div>
-                            <div class="col-sm-10 col-8" id="kode_akt"></div>
-                            <div class="col-sm-2 col-4">Jurusan</div>
-                            <div class="col-sm-10 col-8" id="nama_jur"></div>
-                        </div>
-                    </div>
-                    <div class="kartu-d mt-2">
-                        <div class="row">
-                            <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                <table class="table table-bordered table-striped" id="table-detail">
-                                    <thead>
-                                        <tr>
-                                            <th width='20'>No</th>
-                                            <th width='60'>Tanggal </th>
-                                            <th width='80'>No Bukti</th>
-                                            <th width='60'>Modul</th>
-                                            <th width='200'>Keterangan</th>
-                                            <th width='90'>Debet</th>
-                                            <th width='90'>Kredit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
+                    <div class="">
+                        <ul class="nav nav-tabs col-12 " role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-ganjil" role="tab" aria-selected="true"><span class="hidden-xs-down">Ganjil</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-genap" role="tab" aria-selected="false"><span class="hidden-xs-down">Genap</span></a> </li>
+                        </ul>
+                        <div class="tab-content tabcontent-border p-0">
+                            <div class="tab-pane active" id="data-ganjil" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive" style="max-height:300px">
+                                        <table class="table table-bordered table-striped" id="table-ganjil">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mata Pelajaran</th>
+                                                    <th>KKM</th>
+                                                    <th>Nilai</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-genap" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive" style="max-height:300px">
+                                        <table class="table table-bordered table-striped" id="table-genap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Mata Pelajaran</th>
+                                                    <th>KKM</th>
+                                                    <th>Nilai</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -304,6 +307,7 @@
             return 0;
         }
     }
+
     function sepNumPas(x){
         var num = parseInt(x);
         var parts = num.toString().split('.');
@@ -313,10 +317,35 @@
         return parts.join(',');
     }
 
-    function getKartuPDD(){
+    function getTA(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('ts-master/tahun-ajaran') }}",
+            dataType: 'json',
+            data: {kode_pp:"{{ Session::get('kodePP') }}"},
+            success:function(result){    
+                var select = $('#kode_ta').selectize();
+                select = select[0];
+                var control = select.selectize;
+                control.clearOptions();
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        for(i=0;i<result.daftar.length;i++){
+                            control.addOption([{text:result.daftar[i].kode_ta, value:result.daftar[i].kode_ta}]);  
+                        }
+                    }
+                } else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+            }
+        });
+    }
+
+    getTA();
+    function getKartuPiutang(){
         $.ajax({
             type: "GET",
-            url: "{{ url('sekolah-dash/kartu-pdd') }}",
+            url: "{{ url('ts-dash/kartu-piutang') }}",
             dataType: 'json',
             data: {},
             success:function(result){    
@@ -331,34 +360,35 @@
                         $('#kode_akt').html(":&nbsp;"+line.kode_akt);
                         var detail = '';
                         var no=1;
-                        var tosaldo=0;var debet=0; var kredit=0;
+                        var tosaldo=0;var tagihan=0; var bayar=0;
                         $('#table-detail tbody').html(detail);
                         if(result.detail.length > 0){
                             for(var i=0;i < result.detail.length ;i++){
                                 var line2 = result.detail[i];
-                                debet += parseFloat(line2.debet);
-                                kredit += parseFloat(line2.kredit);
+                                var saldo = parseFloat(line2.tagihan)-parseFloat(line2.bayar);
+                                tagihan += parseFloat(line2.tagihan);
+                                bayar += parseFloat(line2.bayar);
+                                tosaldo += saldo;
                                 detail +=`<tr>
                                     <td>`+no+`</td>
                                     <td>`+line2.tgl+`</td>
                                     <td>`+line2.no_bukti+`</td>
-                                    <td>`+line2.modul+`</td>
                                     <td>`+line2.keterangan+`</td>
-                                    <td>`+sepNumPas(line2.debet)+`</td>
-                                    <td>`+sepNumPas(line2.kredit)+`</td>
+                                    <td>`+sepNumPas(line2.tagihan)+`</td>
+                                    <td>`+sepNumPas(line2.bayar)+`</td>
+                                    <td>`+sepNumPas(saldo)+`</td>
                                 </tr>`;
                                 no++;
                             }
-                            tosaldo = debet-kredit;
                             detail+=`<tr>
-                                <td colspan='5' class='text-right'><b>Total</b></td>
-                                <td>`+sepNumPas(debet)+`</td>
-                                <td>`+sepNumPas(kredit)+`</td>
+                                <td colspan='4' class='text-right'><b>Total</b></td>
+                                <td>`+sepNumPas(tagihan)+`</td>
+                                <td>`+sepNumPas(bayar)+`</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan='5' class='text-right'><b>Saldo</b></td>
+                                <td colspan='6' class='text-right'><b>Saldo</b></td>
                                 <td>`+sepNumPas(tosaldo)+`</td>
-                                <td>0</td>
                             </tr>`;
                         }
                         $('#table-detail tbody').html(detail);
@@ -372,7 +402,7 @@
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    window.location="{{ url('/ts-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -381,7 +411,8 @@
         });
     }
 
-    getKartuPDD();
+    // getKartuPiutang();
+
     
     var scrollform = document.querySelector('.table-responsive');
     var psscrollform = new PerfectScrollbar(scrollform);
@@ -397,7 +428,7 @@
     $('#saku-dashboard').on('click', '#btn-kembali', function(){
         
         var form ="{{ Session::get('dash') }}";
-        loadForm("{{ url('sekolah-auth/form') }}/"+form);
+        loadForm("{{ url('ts-auth/form') }}/"+form);
     });
 
     </script>
