@@ -234,18 +234,18 @@
                         <div class="row">
                             <div class="col-sm-12 text-center"><h5><b><u>KARTU PDD</u></b></h5></div>
                             <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
-                            <div class="col-sm-2">NIS</div>
-                            <div class="col-sm-10" id="nis"></div>
-                            <div class="col-sm-2">ID Bank</div>
-                            <div class="col-sm-10" id="id_bank"></div>
-                            <div class="col-sm-2">Nama</div>
-                            <div class="col-sm-10" id="nama"></div>
-                            <div class="col-sm-2">Kelas</div>
-                            <div class="col-sm-10" id="kode_kelas"></div>
-                            <div class="col-sm-2">Angkatan</div>
-                            <div class="col-sm-10" id="kode_akt"></div>
-                            <div class="col-sm-2">Jurusan</div>
-                            <div class="col-sm-10" id="nama_jur"></div>
+                            <div class="col-sm-2 col-4">NIS</div>
+                            <div class="col-sm-10 col-8" id="nis"></div>
+                            <div class="col-sm-2 col-4">ID Bank</div>
+                            <div class="col-sm-10 col-8" id="id_bank"></div>
+                            <div class="col-sm-2 col-4">Nama</div>
+                            <div class="col-sm-10 col-8" id="nama"></div>
+                            <div class="col-sm-2 col-4">Kelas</div>
+                            <div class="col-sm-10 col-8" id="kode_kelas"></div>
+                            <div class="col-sm-2 col-4">Angkatan</div>
+                            <div class="col-sm-10 col-8" id="kode_akt"></div>
+                            <div class="col-sm-2 col-4">Jurusan</div>
+                            <div class="col-sm-10 col-8" id="nama_jur"></div>
                         </div>
                     </div>
                     <div class="kartu-d mt-2">
