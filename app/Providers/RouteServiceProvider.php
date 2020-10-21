@@ -81,6 +81,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdmGinasRoutes();
 
         $this->mapSiloRoutes();
+        
+        $this->mapTsRoutes();
     }
 
     /**
@@ -395,6 +397,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sekolah/report.php'));
+   
+    }
+
+    protected function mapTsRoutes()
+    {
+        Route::prefix('ts-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ts/auth.php'));
+
+        Route::prefix('ts-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ts/dash.php'));
+    
+        Route::prefix('ts-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ts/master.php'));
+    
+        Route::prefix('ts-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ts/trans.php'));
+    
+        Route::prefix('ts-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/ts/report.php'));
    
     }
 
