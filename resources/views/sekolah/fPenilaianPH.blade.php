@@ -1294,7 +1294,7 @@
 
                             // $('.'+target2).val(result.daftar[0].nama);
                             // $('.td'+target2).text(result.daftar[0].nama);
-                            $('.td'+target3).click('');
+                            $('.td'+target3).click();
                         }else{
 
                             $("#input-nilai td").removeClass("px-0 py-0 aktif");
@@ -1520,7 +1520,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
-                            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><input type='text' name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='"+line.pelaksanaan+"' required></td>";
+                            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
@@ -1804,7 +1804,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
-                            input += "<td class='text-right'><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><input type='text' name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='"+line.pelaksanaan+"' required></td>";
+                            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";
@@ -1939,7 +1939,6 @@
                             $('#id').val('');
                             $('#input-nilai tbody').html('');
                             $('#nama_kd').text('');
-                            $('#pelaksanaan').text('');
                             $('[id^=label]').html('');                            
                             $('.input-group-prepend').addClass('hidden');
                             $('span[class^=info-name]').addClass('hidden');
@@ -2050,7 +2049,7 @@
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode_jenis").val(kode_jenis);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode_jenis").text(kode_jenis);
-                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-pelaksanaan").val(pelaksanaan);
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-pelaksanaan").text(pelaksanaan);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-pelaksanaan").text(pelaksanaan);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
@@ -2211,7 +2210,7 @@
             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'></span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
-            input += "<td class='text-right'><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'></span><input type='text' name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='' required></td>";
+            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'></span><textarea  name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='' required></textarea></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
             input += "</tr>";
@@ -2315,7 +2314,7 @@
                 var nama = $(this).parents("tr").find(".inp-nama").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
                 var kode_jenis = $(this).parents("tr").find(".inp-kode_jenis").val();
-                var pelaksanaan = $(this).parents("tr").find(".inp-pelaksanaan").val();
+                var pelaksanaan = $(this).parents("tr").find(".inp-pelaksanaan").text();
                 var no = $(this).parents("tr").find(".no-nilai").text();
                 $(this).parents("tr").find(".inp-kode").val(nis);
                 $(this).parents("tr").find(".td-kode").text(nis);
@@ -2357,7 +2356,7 @@
                     
                 }
 
-                $(this).parents("tr").find(".inp-pelaksanaan").val(pelaksanaan);
+                $(this).parents("tr").find(".inp-pelaksanaan").text(pelaksanaan);
                 $(this).parents("tr").find(".td-pelaksanaan").text(pelaksanaan);
                 if(idx == 4){
                     $(this).parents("tr").find(".inp-pelaksanaan").show();
@@ -2620,7 +2619,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
-                            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><input type='text' name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='"+line.pelaksanaan+"' required></td>";
+                            input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "</tr>";

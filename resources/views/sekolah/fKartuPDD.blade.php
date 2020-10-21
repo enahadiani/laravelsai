@@ -207,12 +207,13 @@
             height:100px !important;
         }
     </style>
-    <div class="row" id="saku-datatable">
+    <div class="row" id="saku-dashboard">
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;"></h5>
-                    <button type="button" id="btn-print" class="btn btn-primary" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
                 </div>
                
             </div>
@@ -220,7 +221,7 @@
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
-                            <div class="col-sm-2"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
+                            <div class="col-sm-2 text-center"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
                             <div class="col-sm-10">
                                 <h3><b>SEKOLAH DASAR TARUNA BAKTI</b></h3>
                                 <h6>Jl.L.L.R.E. Martadinata No.52 Bandung 40115</h6>
@@ -231,20 +232,20 @@
                     <div class="separator my-1"></div>
                     <div class="kartu-m">
                         <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU SISWA</u></b></h5></div>
+                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PDD</u></b></h5></div>
                             <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
-                            <div class="col-sm-2">NIS</div>
-                            <div class="col-sm-10" id="nis"></div>
-                            <div class="col-sm-2">ID Bank</div>
-                            <div class="col-sm-10" id="id_bank"></div>
-                            <div class="col-sm-2">Nama</div>
-                            <div class="col-sm-10" id="nama"></div>
-                            <div class="col-sm-2">Kelas</div>
-                            <div class="col-sm-10" id="kode_kelas"></div>
-                            <div class="col-sm-2">Angkatan</div>
-                            <div class="col-sm-10" id="kode_akt"></div>
-                            <div class="col-sm-2">Jurusan</div>
-                            <div class="col-sm-10" id="nama_jur"></div>
+                            <div class="col-sm-2 col-4">NIS</div>
+                            <div class="col-sm-10 col-8" id="nis"></div>
+                            <div class="col-sm-2 col-4">ID Bank</div>
+                            <div class="col-sm-10 col-8" id="id_bank"></div>
+                            <div class="col-sm-2 col-4">Nama</div>
+                            <div class="col-sm-10 col-8" id="nama"></div>
+                            <div class="col-sm-2 col-4">Kelas</div>
+                            <div class="col-sm-10 col-8" id="kode_kelas"></div>
+                            <div class="col-sm-2 col-4">Angkatan</div>
+                            <div class="col-sm-10 col-8" id="kode_akt"></div>
+                            <div class="col-sm-2 col-4">Jurusan</div>
+                            <div class="col-sm-10 col-8" id="nama_jur"></div>
                         </div>
                     </div>
                     <div class="kartu-d mt-2">
@@ -315,7 +316,7 @@
     function getKartuPDD(){
         $.ajax({
             type: "GET",
-            url: "{{ url('sekolah-trans/kartu-pdd') }}",
+            url: "{{ url('sekolah-dash/kartu-pdd') }}",
             dataType: 'json',
             data: {},
             success:function(result){    
@@ -385,12 +386,18 @@
     var scrollform = document.querySelector('.table-responsive');
     var psscrollform = new PerfectScrollbar(scrollform);
    
-    $('#saku-datatable').on('click','#btn-print',function(e){
+    $('#saku-dashboard').on('click','#btn-print',function(e){
         e.preventDefault();
         $('#print-area').printThis({
             removeInline: true,
             importStyle: true
         });
+    });
+
+    $('#saku-dashboard').on('click', '#btn-kembali', function(){
+        
+        var form ="{{ Session::get('dash') }}";
+        loadForm("{{ url('sekolah-auth/form') }}/"+form);
     });
 
     </script>

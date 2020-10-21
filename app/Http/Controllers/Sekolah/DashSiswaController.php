@@ -8,7 +8,7 @@
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
 
-    class PiutangController extends Controller {
+    class DashSiswaController extends Controller {
 
         public function __contruct() {
             if(!Session::get('login')){
@@ -74,6 +74,31 @@
             }
         }
 
+        public function getProfile(Request $request)
+        {
+            try{
+                
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/dash-siswa-profile',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data;
+                }
+                return response()->json($data, 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            }
+        }
         
     }
 
