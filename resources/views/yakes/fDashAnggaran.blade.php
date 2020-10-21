@@ -125,7 +125,7 @@
         <div class="card" style="height: 550px; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Rincian Realisasi Beban</h6>
             <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
-            <div class="row">
+            <div class="row" style="margin-top: -15px;">
                 <div class="col-2" id="sdm" style="height: 300px;width:200px;">Test1</div>
                 <div class="col-2" id="adm" style="height: 300px;width:200px">Test2</div>
                 <div class="col-2" id="invest" style="height: 300px;width:200px">Test3</div>
@@ -228,7 +228,17 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-12" style="text-align: center;">
+                <div class="col-12" style="display: flex;justify-content: center;margin-top:5px;">
+                    <div style="width: 13px;height:13px;background-color:rgb(149,206,255);border-radius:100%;"></div>
+                    <p style="display: inline; font-size:9px;margin-top:-2px;padding-left:2px;padding-right:3px;">RKA 2020</p>
+                    <div style="width: 13px;height:13px;background-color:rgb(67,67,72);border-radius:100%;"></div>
+                    <p style="display: inline; font-size:9px;margin-top:-2px;padding-left:2px;padding-right:3px;">RKA s/d Agt'20</p>
+                    <div style="width: 13px;height:13px;background-color:rgb(144,237,125);border-radius:100%;"></div>
+                    <p style="display: inline; font-size:9px;margin-top:-2px;padding-left:2px;padding-right:3px;">Realisasi s/d Agt'20</p>
+                    <div style="width: 13px;height:13px;background-color:rgb(247,163,92);border-radius:100%;"></div>
+                    <p style="display: inline; font-size:9px;margin-top:-2px;padding-left:2px;padding-right:3px;">Realisasi s/d Agt'19</p>
+                </div>
+                <div class="col-12" style="text-align: center;margin-top:-10px;">
                     <p style="font-weight: bold">Nilai dalam chart dalam satuan Milyar Rupiah</p>
                 </div>
             </div>
@@ -241,6 +251,7 @@ Highcharts.chart('sdm', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
@@ -303,6 +314,7 @@ Highcharts.chart('adm', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
@@ -365,6 +377,7 @@ Highcharts.chart('invest', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
@@ -427,6 +440,7 @@ Highcharts.chart('kes', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
@@ -489,6 +503,7 @@ Highcharts.chart('perbaikan', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
@@ -551,6 +566,7 @@ Highcharts.chart('amor', {
     chart: {
         type: 'column'
     },
+    legend:{ enabled:false },
     credits: {
         enabled: false
     },
