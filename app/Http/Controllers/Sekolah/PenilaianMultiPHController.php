@@ -128,9 +128,9 @@
                 'kode_matpel' => 'required',
                 'kode_kd' => 'required',
                 'nama_kd' => 'required',
-                'pelaksanaan' => 'required',
                 'nis'=>'required|array',
                 'nilai'=>'required|array',
+                'pelaksanaan' => 'required|array',
                 'kode_jenis'=>'required|array'
             ]);
 
@@ -191,9 +191,9 @@
                 'kode_matpel' => 'required',
                 'kode_kd'=>'required',
                 'nama_kd'=>'required',
-                'pelaksanaan' => 'required',
                 'nis'=>'required|array',
                 'kode_jenis'=>'required|array',
+                'pelaksanaan' => 'required|array',
                 'nilai'=>'required|array'
             ]);
 
@@ -493,6 +493,7 @@
                 $fields_nama_file_seb = array();
                 $fields_nis = array();
                 $fields_kode_jenis = array();
+                $fields_pelaksanaan = array();
                 $cek = $request->file_dok;
                 $send_data = array();
                 $send_data = array_merge($send_data,$fields);
@@ -522,6 +523,11 @@
                                 'name'     => 'kode_jenis[]',
                                 'contents' => $request->kode_jenis[$i],
                             );
+
+                            $fields_pelaksanaan[$i] = array(
+                                'name'     => 'pelaksanaan[]',
+                                'contents' => $request->pelaksanaan[$i],
+                            );
                             
                             $fields_nama_file_seb[$i] = array(
                                 'name'     => 'nama_file_seb[]',
@@ -532,6 +538,7 @@
                         $send_data = array_merge($send_data,$fields_nama_file_seb);
                         $send_data = array_merge($send_data,$fields_nis);
                         $send_data = array_merge($send_data,$fields_kode_jenis);
+                        $send_data = array_merge($send_data,$fields_pelaksanaan);
                     }
                 }
                     

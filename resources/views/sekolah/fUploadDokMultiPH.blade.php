@@ -461,10 +461,6 @@
                                                 <label for="nama_kd" >Isi KD</label>
                                                 <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px" readonly></textarea>
                                             </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <label for="pelaksanaan" >Pelaksaan</label>
-                                                <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px" readonly></textarea>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -495,12 +491,13 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th style="width:3%">No</th>
-                                                    <th style="width:10%">NIS</th>
-                                                    <th style="width:21%">Nama</th>
+                                                    <th style="width:8%">NIS</th>
+                                                    <th style="width:20%">Nama</th>
                                                     <th style="width:18%">Kode Jenis</th>
+                                                    <th style="width:18%">Pelaksanaan</th>
                                                     <th style="width:18%">Path File</th>
-                                                    <th width="20%">Upload File</th>
-                                                    <th width="10%">Aksi</th>
+                                                    <th width="18%">Upload File</th>
+                                                    <th width="6%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1038,7 +1035,6 @@
                     $('#kode_matpel').val(result.data[0].kode_matpel);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
-                    $('#pelaksanaan').text(result.data[0].pelaksanaan);
                     $('#penilaian_ke').val(result.data[0].jumlah);
                 
                     if(result.data_dokumen.length > 0){
@@ -1051,6 +1047,7 @@
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control inp-nis' value='"+line.nis+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='hidden' name='kode_jenis[]' class='form-control inp-kode_jenis' value='"+line.kode_jenis+"'></td>";
+                            input += "<td ><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><input type='hidden' name='pelaksanaan[]' class='form-control inp-pelaksanaan' value='"+line.pelaksanaan+"'></td>";
                             // if(line.nama != undefined && line.nama != "null"){
 
                             //     input += "<td ><input type='text' name='nama_dok[]' class='form-control inp-nama_dok' value='"+line.nama+"'></td>";
