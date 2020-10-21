@@ -207,12 +207,13 @@
             height:100px !important;
         }
     </style>
-    <div class="row" id="saku-datatable">
+    <div class="row" id="saku-dashboard">
         <div class="col-12">
             <div class="card mb-3">
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;"></h5>
-                    <button type="button" id="btn-print" class="btn btn-primary" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
                 </div>
                
             </div>
@@ -231,7 +232,7 @@
                     <div class="separator my-1"></div>
                     <div class="kartu-m">
                         <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU SISWA</u></b></h5></div>
+                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PIUTANG</u></b></h5></div>
                             <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
                             <div class="col-sm-2">NIS</div>
                             <div class="col-sm-10" id="nis"></div>
@@ -314,7 +315,7 @@
     function getKartuPiutang(){
         $.ajax({
             type: "GET",
-            url: "{{ url('sekolah-trans/kartu-piutang') }}",
+            url: "{{ url('sekolah-dash/kartu-piutang') }}",
             dataType: 'json',
             data: {},
             success:function(result){    
@@ -386,12 +387,18 @@
     var scrollform = document.querySelector('.table-responsive');
     var psscrollform = new PerfectScrollbar(scrollform);
    
-    $('#saku-datatable').on('click','#btn-print',function(e){
+    $('#saku-dashboard').on('click','#btn-print',function(e){
         e.preventDefault();
         $('#print-area').printThis({
             removeInline: true,
             importStyle: true
         });
+    });
+
+    $('#saku-dashboard').on('click', '#btn-kembali', function(){
+        
+        var form ="{{ Session::get('dash') }}";
+        loadForm("{{ url('sekolah-auth/form') }}/"+form);
     });
 
     </script>
