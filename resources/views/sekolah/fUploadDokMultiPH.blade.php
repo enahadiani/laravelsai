@@ -307,7 +307,7 @@
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Upload Dokumen Penilaian Siswa</h5>
+                    <h5 style="position:absolute;top: 25px;">Upload Dokumen Penilaian Multi PH</h5>
                     <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
@@ -343,7 +343,6 @@
                                     <th>No Bukti</th>
                                     <th>Kode TA</th>
                                     <th>Kode Kelas </th>
-                                    <th>Kode Jenis</th>
                                     <th>Kode Matpel</th>
                                     <th>Kode Semester</th>
                                     <th>Kode PP</th>
@@ -447,18 +446,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
-                                                <label for="kode_jenis">Jenis Penilaian</label>
-                                                <div class="input-group" style="margin-bottom:1rem">
-                                                    <div class="input-group-prepend hidden readonly" style="border: 1px solid #d7d7d7;">
-                                                        <span class="input-group-text info-code_kode_jenis" readonly="readonly" title=""></span>
-                                                    </div>
-                                                    <input type="text" class="form-control inp-label-kode_jenis readonly"  id="kode_jenis" name="kode_jenis" value="" title="">
-                                                    <span class="info-name_kode_jenis hidden readonly">
-                                                        <span></span> 
-                                                    </span>
-                                                    <!-- <i class="simple-icon-close float-right info-icon-hapus hidden"></i> -->
-                                                    <i class="simple-icon-magnifier search-item2-readonly" id="search_kode_jenis"></i>
-                                                </div>
                                                 <label for="kode_sem">Semester</label>
                                                 <select class='form-control selectize' id="kode_sem" name="kode_sem">
                                                 <option value=''>--- Pilih Semester ---</option>
@@ -510,7 +497,7 @@
                                                     <th style="width:3%">No</th>
                                                     <th style="width:10%">NIS</th>
                                                     <th style="width:21%">Nama</th>
-                                                    <!-- <th style="width:18%">Nama Dok</th> -->
+                                                    <th style="width:18%">Kode Jenis</th>
                                                     <th style="width:18%">Path File</th>
                                                     <th width="20%">Upload File</th>
                                                     <th width="10%">Aksi</th>
@@ -675,7 +662,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
-            'url': "{{ url('sekolah-trans/penilaian-dok-list') }}",
+            'url': "{{ url('sekolah-trans/penilaian-multiph-dok-list') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -700,11 +687,11 @@
                 }
             },
             {
-                "targets": [8],
+                "targets": [7],
                 "visible": false,
                 "searchable": false
             },
-            {   'targets': [7],
+            {   'targets': [6],
                 'className': 'text-right',
                 // 'render': $.fn.dataTable.render.number( '.', ',', 1, '' )
                 "render": function ( data, type, row, meta ) {
@@ -717,13 +704,12 @@
                     }
                 }
             }, 
-            {'targets': 9, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 8, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         'columns': [
             { data: 'no_bukti' },
             { data: 'kode_ta' },
             { data: 'kode_kelas' },
-            { data: 'kode_jenis' },
             { data: 'kode_matpel' },
             { data: 'kode_sem' },
             { data: 'kode_pp' },
@@ -845,7 +831,7 @@
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/penilaian-kd') }}",
+            url: "{{ url('sekolah-trans/penilaian-multiph-kd') }}",
             dataType: 'json',
             data:{kode_pp:pp,kode_matpel:kode_matpel,kode_kd:kode,kode_kelas:kode_kelas,kode_sem:kode_sem},
             async:false,
@@ -945,12 +931,12 @@
         });
     }
 
-    function getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel,kode_jenis){
+    function getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel){
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/penilaian-ke') }}",
+            url: "{{ url('sekolah-trans/penilaian-multiph-ke') }}",
             dataType: 'json',
-            data:{kode_pp:kode_pp,kode_ta:kode_ta,kode_sem:kode_sem,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_jenis:kode_jenis},
+            data:{kode_pp:kode_pp,kode_ta:kode_ta,kode_sem:kode_sem,kode_kelas:kode_kelas,kode_matpel:kode_matpel},
             async:false,
             success:function(result){    
                 if(result.data.status){
@@ -1013,29 +999,28 @@
 
     getTAPp();
 
-    $('#kode_pp,#kode_ta,#kode_sem,#kode_kelas,#kode_matpel,#kode_jenis').change(function(){
+    $('#kode_pp,#kode_ta,#kode_sem,#kode_kelas,#kode_matpel').change(function(){
         var kode_pp = $('#kode_pp').val(); 
         var kode_ta = $('#kode_ta').val(); 
         var kode_sem = $('#kode_sem').val(); 
         var kode_kelas = $('#kode_kelas').val(); 
         var kode_matpel = $('#kode_matpel').val(); 
-        var kode_jenis = $('#kode_jenis').val();
-        if(kode_pp != "" && kode_ta != "" && kode_sem != "" && kode_kelas != "" && kode_matpel != "" && kode_jenis != ""){
-            getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel,kode_jenis);
+        if(kode_pp != "" && kode_ta != "" && kode_sem != "" && kode_kelas != "" && kode_matpel != "" ){
+            getPenilaianKe(kode_pp,kode_ta,kode_sem,kode_kelas,kode_matpel);
         }
     });
 
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-upload', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var tmp= $(this).closest('tr').find('td').eq(6).html().split("-");
+        var tmp= $(this).closest('tr').find('td').eq(5).html().split("-");
         var kode_pp = tmp[0];
         $('#judul-form').html('Upload Dokumen Penilaian Siswa');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/penilaian-dok') }}",
+            url: "{{ url('sekolah-trans/penilaian-multiph-dok') }}",
             dataType: 'json',
             data:{kode_pp:kode_pp,no_bukti:id},
             async:false,
@@ -1051,7 +1036,6 @@
                     $('#kode_sem')[0].selectize.lock();
                     $('#kode_kelas').val(result.data[0].kode_kelas);
                     $('#kode_matpel').val(result.data[0].kode_matpel);
-                    $('#kode_jenis').val(result.data[0].kode_jenis);
                     $('#kode_kd').val(result.data[0].kode_kd);
                     $('#nama_kd').text(result.data[0].nama_kd);
                     $('#pelaksanaan').text(result.data[0].pelaksanaan);
@@ -1066,6 +1050,7 @@
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control inp-nis' value='"+line.nis+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
+                            input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='hidden' name='kode_jenis[]' class='form-control inp-kode_jenis' value='"+line.kode_jenis+"'></td>";
                             // if(line.nama != undefined && line.nama != "null"){
 
                             //     input += "<td ><input type='text' name='nama_dok[]' class='form-control inp-nama_dok' value='"+line.nama+"'></td>";
@@ -1110,7 +1095,6 @@
                     showInfoField('kode_pp',result.data[0].kode_pp,result.data[0].nama_pp);
                     showInfoField('kode_kelas',result.data[0].kode_kelas,result.data[0].nama_kelas);
                     showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
-                    showInfoField('kode_jenis',result.data[0].kode_jenis,result.data[0].nama_jenis);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -1141,9 +1125,9 @@
             var param = $('#id').val();
             var id = $('#no_bukti').val();
             if(param == "edit"){
-                var url = "{{ url('sekolah-trans/penilaian-dok') }}";
+                var url = "{{ url('sekolah-trans/penilaian-multiph-dok') }}";
             }else{
-                var url = "{{ url('sekolah-trans/penilaian-dok') }}";
+                var url = "{{ url('sekolah-trans/penilaian-multiph-dok') }}";
             }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
@@ -1166,7 +1150,7 @@
                         $('#row-id').hide();
                         $('#method').val('post');
                         $('#input-dok tbody').html('');
-                        $('#judul-form').html('Upload Dokumen Penilaian Siswa');
+                        $('#judul-form').html('Upload Dokumen Penilaian Multi PH');
                         $('#id').val('');
                         $('[id^=label]').html('');
                         hitungTotalRow();
@@ -1174,7 +1158,7 @@
                         msgDialog({
                             id:result.data.no_bukti,
                             title:'Sukses',
-                            text:'Dokumen Penilaian Siswa berhasil diupload'
+                            text:'Dokumen Penilaian Multi PH berhasil diupload'
                         });
 
                         // last_add("no_bukti",result.data.no_bukti);
@@ -1216,7 +1200,7 @@
         var action_dok= param.action_dok;
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('sekolah-trans/penilaian-dok') }}",
+            url: "{{ url('sekolah-trans/penilaian-multiph-dok') }}",
             dataType: 'json',
             data: {'no_bukti':no_bukti,'nis':nis,'kode_pp':kode_pp},
             success:function(result){
@@ -1229,7 +1213,7 @@
                         id:result.data.no_bukti,
                         title:'Sukses',
                         back: false,
-                        text:'Dokumen Penilaian Siswa '+nis+' berhasil dihapus'
+                        text:'Dokumen Penilaian Multi PH '+nis+' berhasil dihapus'
                     });
                 }else{
                     msgDialog({
@@ -1285,7 +1269,7 @@
                 var tmp = $('#inp-filter_kode_pp').val().split("-");
                 var kode_pp = tmp[0];
                 // var status = $('#inp-filter_status').val();
-                var col_kode_pp = data[6];
+                var col_kode_pp = data[5];
                 // var col_status = data[5];
                 if(kode_pp != "" ){
                     if(kode_pp == col_kode_pp){

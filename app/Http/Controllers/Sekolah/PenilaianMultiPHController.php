@@ -491,7 +491,8 @@
     
                 $fields_foto = array();
                 $fields_nama_file_seb = array();
-                $fields_nama_nis = array();
+                $fields_nis = array();
+                $fields_kode_jenis = array();
                 $cek = $request->file_dok;
                 $send_data = array();
                 $send_data = array_merge($send_data,$fields);
@@ -512,9 +513,14 @@
                                 );
                                 
                             }
-                            $fields_nama_nis[$i] = array(
+                            $fields_nis[$i] = array(
                                 'name'     => 'nis[]',
                                 'contents' => $request->nis[$i],
+                            );
+
+                            $fields_kode_jenis[$i] = array(
+                                'name'     => 'kode_jenis[]',
+                                'contents' => $request->kode_jenis[$i],
                             );
                             
                             $fields_nama_file_seb[$i] = array(
@@ -524,7 +530,8 @@
                         }
                         $send_data = array_merge($send_data,$fields_foto);
                         $send_data = array_merge($send_data,$fields_nama_file_seb);
-                        $send_data = array_merge($send_data,$fields_nama_nis);
+                        $send_data = array_merge($send_data,$fields_nis);
+                        $send_data = array_merge($send_data,$fields_kode_jenis);
                     }
                 }
                     
