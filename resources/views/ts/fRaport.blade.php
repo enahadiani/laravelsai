@@ -203,8 +203,28 @@
             font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
         .kop img.logo{
-            width:100px !important;
+            width:80px !important;
             height:100px !important;
+        }
+        .fs-12{
+            font-size:12px;
+        }
+        
+        .fs-10{
+            font-size:10px;
+        }
+        .lh-1 {
+           line-height:1.5 !important;
+        }
+        #table-raport td, #table-raport th
+        {
+            font-size:10px !important;
+            border:1px solid black !important;
+            vertical-align:middle;
+        }
+
+        .bold{
+            font-weight:bold;
         }
     </style>
     <div class="row" id="saku-dashboard">
@@ -212,63 +232,127 @@
             <div class="card mb-3">
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;"></h5>
-                    <!-- <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button> -->
                     <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
                 </div>
-               
             </div>
             <div class="card" id="print-area">
                 <div class="card-body">
                     <div>
                         <div class="row">
-                            <div class="col-sm-12"><h5><b><u>RAPORT</u></b></h5></div>
-                            <div class="col-sm-12">&nbsp;</div>
-                            <div class="col-sm-2">Tahun Ajaran</div>
-                            <div class="col-sm-3">
-                                <select class='form-control selectize' id="kode_ta" name="kode_ta">
-                                <option value=''>--- Pilih TA ---</option>
+                            <div class="col-md-12"><h5><b><u>RAPORT</u></b></h5></div>
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="col-md-2">Tahun Ajaran</div>
+                            <div class="col-md-2">
+                                <select class='form-control' id="kode_ta" name="kode_ta">
+                                <option value='' disabled>--- Pilih TA ---</option>
                                 </select>
+                            </div>
+                            <div class="col-md-1">Jenis</div>
+                            <div class="col-md-2">
+                                <select class='form-control selectize' id="kode_jenis" name="kode_jenis">
+                                <option value='' disabled>--- Pilih Jenis ---</option>
+                                <option value='UTS'>UTS</option>
+                                <option value='UAS'>UAS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">Semester</div>
+                            <div class="col-md-2">
+                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
+                                <option value='' disabled>--- Pilih Semester ---</option>
+                                <option value='1'>Ganjil</option>
+                                <option value='2'>Genap</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary" id="btn-tampil">Tampil</button>
                             </div>
                         </div>
                     </div>
-                    <div class="">
-                        <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-ganjil" role="tab" aria-selected="true"><span class="hidden-xs-down">Ganjil</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-genap" role="tab" aria-selected="false"><span class="hidden-xs-down">Genap</span></a> </li>
-                        </ul>
-                        <div class="tab-content tabcontent-border p-0">
-                            <div class="tab-pane active" id="data-ganjil" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                        <table class="table table-bordered table-striped" id="table-ganjil">
-                                            <thead>
-                                                <tr>
-                                                    <th>Mata Pelajaran</th>
-                                                    <th>KKM</th>
-                                                    <th>Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
+                    <div class="hasil-raport mt-4">
+                        <div class="kop">
+                            <div class="row">
+                                <div class="col-md-2 text-center"><img class="logo" src="{{ asset('img/ts-logo2.png') }}"></div>
+                                <div class="col-md-8 text-center">
+                                    <p class="mb-0 fs-12"><b>YAYASAN PENDIDIKAN TELKOM</b></p>
+                                    <h2 class="mb-0"><b>SMK Telkom Sandhy Putra Jakarta</b></h2>
+                                    <p class="mb-0 fs-12">Terakreditasi A</p>
+                                    <p class="mb-0 fs-10">(1) Teknik Transamisi Telekomunikasi (2) Teknik Jaringan Akses (3) Teknik Komputer dan Jaringan (4) Rekayasa Perangkat Lunak</p>
+                                    <p class="mb-0 fs-10">JL. Daan Mogot KM.11, Cengkareng, Jakarta Barat 11710 - Telepon : 021-5442500/5442600 </p>
+                                    <p class="mb-0 fs-10">http://www.smktelkom-jkt.sch.id email:smkteljakarta@ypt.or.id /smktelkjkt@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="separator"></div>
+                        </div>
+                        <div class="isi mt-3">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <p class="mb-0 fs-12 lh-1"><b>RAPOR TENGAH SEMESTER GENAP TAHUN PELAJARAN 2020/2021</b></p>
+                                    <p class="mb-0 fs-10 lh-1"><b>Bidang Keahlian Teknologi Informasi dan Komunikasi</b></p>
+                                    <p class="mb-0 fs-10 lh-1"><b>Program Keahlian Teknik Komputer dan Informatika</b></p>
+                                    <p class="mb-0 fs-10 lh-1"><b>Kompetensi Keahlian Rekayasa Perangkat Lunak</b></p>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4 fs-10 bold">Nama Peserta Didik</div>
+                                        <div class="col-md-1 fs-10 bold">:</div>
+                                        <div class="col-md-7 fs-10 border-bottom bold"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4 fs-10 bold">Kelas</div>
+                                        <div class="col-md-1 fs-10 bold">:</div>
+                                        <div class="col-md-7 fs-10  border-bottom bold"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4 fs-10 bold">NIS</div>
+                                        <div class="col-md-1 fs-10 bold">:</div>
+                                        <div class="col-md-7 fs-10 border-bottom bold"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-4 fs-10 bold">No Urut/ID</div>
+                                        <div class="col-md-1 fs-10 bold">:</div>
+                                        <div class="col-md-7 fs-10  border-bottom bold"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-genap" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-sm-12 table-responsive" style="max-height:300px">
-                                        <table class="table table-bordered table-striped" id="table-genap">
-                                            <thead>
-                                                <tr>
-                                                    <th>Mata Pelajaran</th>
-                                                    <th>KKM</th>
-                                                    <th>Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" id="table-raport"> 
+                                        <thead bgcolor="#CCCCCC">
+                                            <tr>
+                                                <th rowspan="2" class="text-center">No</th>
+                                                <th rowspan="2" class="text-center">Mata Pelajaran</th>
+                                                <th rowspan="2" class="text-center">SKM</th>
+                                                <th colspan="4" class="text-center">Nilai Pengetahuan</th>
+                                                <th colspan="4" class="text-center">Nilai Keterampilan</th>
+                                                <th colspan="2" class="text-center">Rataan</th>
+                                                <th rowspan="2" class="text-center">Nilai Akhir</th>
+                                                <th rowspan="2" class="text-center">Predikat</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">1</th>
+                                                <th class="text-center">2</th>
+                                                <th class="text-center">3</th>
+                                                <th class="text-center">PTS</th>
+                                                <th class="text-center">1</th>
+                                                <th class="text-center">2</th>
+                                                <th class="text-center">3</th>
+                                                <th class="text-center">PTS</th>
+                                                <th class="text-center">NP</th>
+                                                <th class="text-center">NK</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -342,80 +426,40 @@
     }
 
     getTA();
-    function getKartuPiutang(){
-        $.ajax({
-            type: "GET",
-            url: "{{ url('ts-dash/kartu-piutang') }}",
-            dataType: 'json',
-            data: {},
-            success:function(result){    
-                if(result.status){
-                    if(result.data.length > 0){
-                        var line = result.data[0];
-                        $('#nis').html(":&nbsp;"+line.nis);
-                        $('#id_bank').html(":&nbsp;"+line.id_bank);
-                        $('#nama').html(":&nbsp;"+line.nama);
-                        $('#kode_kelas').html(":&nbsp;"+line.kode_kelas);
-                        $('#nama_jur').html(":&nbsp;"+line.nama_jur);
-                        $('#kode_akt').html(":&nbsp;"+line.kode_akt);
-                        var detail = '';
-                        var no=1;
-                        var tosaldo=0;var tagihan=0; var bayar=0;
-                        $('#table-detail tbody').html(detail);
-                        if(result.detail.length > 0){
-                            for(var i=0;i < result.detail.length ;i++){
-                                var line2 = result.detail[i];
-                                var saldo = parseFloat(line2.tagihan)-parseFloat(line2.bayar);
-                                tagihan += parseFloat(line2.tagihan);
-                                bayar += parseFloat(line2.bayar);
-                                tosaldo += saldo;
-                                detail +=`<tr>
-                                    <td>`+no+`</td>
-                                    <td>`+line2.tgl+`</td>
-                                    <td>`+line2.no_bukti+`</td>
-                                    <td>`+line2.keterangan+`</td>
-                                    <td>`+sepNumPas(line2.tagihan)+`</td>
-                                    <td>`+sepNumPas(line2.bayar)+`</td>
-                                    <td>`+sepNumPas(saldo)+`</td>
-                                </tr>`;
-                                no++;
-                            }
-                            detail+=`<tr>
-                                <td colspan='4' class='text-right'><b>Total</b></td>
-                                <td>`+sepNumPas(tagihan)+`</td>
-                                <td>`+sepNumPas(bayar)+`</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td colspan='6' class='text-right'><b>Saldo</b></td>
-                                <td>`+sepNumPas(tosaldo)+`</td>
-                            </tr>`;
-                        }
-                        $('#table-detail tbody').html(detail);
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/ts-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
+    $('.selectize').selectize();
+    function getRaport(){
+        // $.ajax({
+        //     type: "GET",
+        //     url: "{{ url('ts-dash/kartu-piutang') }}",
+        //     dataType: 'json',
+        //     data: {},
+        //     success:function(result){    
+        //         if(result.status){
+        //             if(result.data.length > 0){
+                           var hasil ='';
+                           
+                           $('#hasil-raport').html('');
+                    // }
+        //         }
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {       
+        //         if(jqXHR.status == 422){
+        //             var msg = jqXHR.responseText;
+        //         }else if(jqXHR.status == 500) {
+        //             var msg = "Internal server error";
+        //         }else if(jqXHR.status == 401){
+        //             var msg = "Unauthorized";
+        //             window.location="{{ url('/ts-auth/sesi-habis') }}";
+        //         }else if(jqXHR.status == 405){
+        //             var msg = "Route not valid. Page not found";
+        //         }
                 
-            }
-        });
+        //     }
+        // });
     }
-
-    // getKartuPiutang();
-
     
-    var scrollform = document.querySelector('.table-responsive');
-    var psscrollform = new PerfectScrollbar(scrollform);
+    // var scrollform = document.querySelector('.table-responsive');
+    // var psscrollform = new PerfectScrollbar(scrollform);
    
     $('#saku-dashboard').on('click','#btn-print',function(e){
         e.preventDefault();
@@ -426,9 +470,12 @@
     });
 
     $('#saku-dashboard').on('click', '#btn-kembali', function(){
-        
         var form ="{{ Session::get('dash') }}";
         loadForm("{{ url('ts-auth/form') }}/"+form);
     });
+
+    // $('#saku-dashboard').on('click', '#btn-tampil', function(){
+    //     getRaport();
+    // });
 
     </script>
