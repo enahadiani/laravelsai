@@ -49,7 +49,7 @@
     <div class="col-md-4 col-sm-4 mb-4">
         <div class="card" style="height: 250px; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Capex</h6>
-            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
+            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt 20'</p>
             <div class="ml-3">
                 <h2 class="ml-2"><strong>4.882 M</strong></h2>
                 <table class="table table-borderless">
@@ -75,7 +75,7 @@
     <div class="col-md-4 col-sm-4 mb-4">
         <div class="card" style="height: 250px; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Beban</h6>
-            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
+            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt 20'</p>
             <div class="ml-3">
                 <h2 class="ml-2"><strong>154.210 M</strong></h2>
                 <table class="table table-borderless">
@@ -101,7 +101,7 @@
     <div class="col-md-4 col-sm-4 mb-4">
         <div class="card" style="height: 250px; border-radius:10px !important;padding-right:0 !important;margin-right:0 !important;right:0 !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Pendapatan</h6>
-            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
+            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt 20'</p>
             <div class="ml-3">
                 <h2 class="ml-2"><strong>-228.653 M</strong></h2>
                 <table class="table table-borderless">
@@ -127,7 +127,7 @@
     <div class="col-sm-12 col-md-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Rincian Realisasi Beban</h6>
-            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
+            <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt 20'</p>
             <div class="row" style="margin-top: -15px;">
                 <div class="col-2" id="sdm" style="height: 353px;width:200px;"></div>
                 <div class="col-2" id="adm" style="height: 353px;width:200px"></div>
@@ -281,7 +281,7 @@ Highcharts.chart('sdm', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -350,7 +350,7 @@ Highcharts.chart('adm', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -419,7 +419,7 @@ Highcharts.chart('invest', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -488,7 +488,7 @@ Highcharts.chart('kes', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -557,7 +557,7 @@ Highcharts.chart('perbaikan', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -626,7 +626,7 @@ Highcharts.chart('amor', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
