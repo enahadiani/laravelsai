@@ -164,10 +164,13 @@
                 if(result.status){
                     if(result.data.length > 0){
                         var line = result.data[0];
+                        var line2 = result.data2[0];
                         $('#nis').html(line.nis);
                         $('#nama').html(line.nama);
                         $('#kode_kelas').html(line.kode_kelas);
                         $('#nama_jur').html(line.nama_jur);
+                        $('#piutang').html(sepNumPas(line.sak_total));
+                        $('#pdd').html(sepNumPas(line2.so_akhir));
                     }
                 }
             },
