@@ -219,12 +219,27 @@
         #table-raport td, #table-raport th
         {
             font-size:10px !important;
-            border:1px solid black !important;
             vertical-align:middle;
+            border-color:black !important;
         }
 
         .bold{
             font-weight:bold;
+        }
+        .italic{
+            font-style:italic;
+        }
+        #table-raport td.border-mixed-left
+        {   
+            border-style: dashed dashed dashed solid !important;
+        }
+        #table-raport td.border-mixed
+        {   
+            border-style: dashed dashed dashed dashed !important;
+        }
+        #table-raport td.border-mixed-right
+        {
+            border-style: dashed solid dashed dashed !important;
         }
     </style>
     <div class="row" id="saku-dashboard">
@@ -351,6 +366,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <td class="bold" colspan="15">A. Muatan Nasional</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-mixed-left" rowspan="2">1</td>
+                                                <td class="border-mixed bold">PEND. AGAMA DAN BUDI PEKERTI ISLAM</td>
+                                                <td class="border-mixed" rowspan="2">75</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">92</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">-</td>
+                                                <td class="border-mixed" rowspan="2">92</td>
+                                                <td class="border-mixed" rowspan="2">92</td>
+                                                <td class="border-mixed" rowspan="2">92</td>
+                                                <td class="border-mixed" rowspan="2">92</td>
+                                                <td class="border-mixed-right" rowspan="2">A</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-mixed italic">Nama Guru: MARWADI</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
