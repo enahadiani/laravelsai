@@ -203,7 +203,7 @@
             font-size: 16px;margin-left:5px;position: absolute;top: 5px;right: 10px;background: white;padding: 5px 0 5px 5px;z-index: 4;height:27px;
         }
         .kop img.logo{
-            width:100px !important;
+            width:80px !important;
             height:100px !important;
         }
     </style>
@@ -221,11 +221,11 @@
                 <div class="card-body">
                     <div class="kop">
                         <div class="row">
-                            <div class="col-sm-2 text-center"><img class="logo" src="{{ asset('img/tarbak30x30.png') }}"></div>
-                            <div class="col-sm-10">
-                                <h3><b>SEKOLAH DASAR TARUNA BAKTI</b></h3>
-                                <h6>Jl.L.L.R.E. Martadinata No.52 Bandung 40115</h6>
-                                <h6>Telp. (022) 4261571</h6>
+                            <div class="col-md-2 text-center"><img class="logo" src="{{ asset('img/ts-logo2.png') }}"></div>
+                            <div class="col-md-10">
+                                <h3><b>SMK TELKOM JAKARTA</b></h3>
+                                <h6>Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng</h6>
+                                <h6>Jakarta Barat 11710 Telp. 021-5442600 / 5442700</h6>
                             </div>
                         </div>
                     </div>
@@ -316,7 +316,7 @@
     function getKartuPDD(){
         $.ajax({
             type: "GET",
-            url: "{{ url('sekolah-dash/kartu-pdd') }}",
+            url: "{{ url('ts-dash/kartu-pdd') }}",
             dataType: 'json',
             data: {},
             success:function(result){    
@@ -372,7 +372,7 @@
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/sekolah-auth/sesi-habis') }}";
+                    window.location="{{ url('/ts-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -397,7 +397,7 @@
     $('#saku-dashboard').on('click', '#btn-kembali', function(){
         
         var form ="{{ Session::get('dash') }}";
-        loadForm("{{ url('sekolah-auth/form') }}/"+form);
+        loadForm("{{ url('ts-auth/form') }}/"+form);
     });
 
     </script>

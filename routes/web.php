@@ -30,6 +30,11 @@ Route::get('/', function () {
             // echo $domain;
             return redirect('webginas/');
         break;
+        case 'ts.simkug.com' :
+            case 'www.ts.simkug.com' : 
+                // echo $domain;
+                return redirect('ts-auth/login');
+            break;
         default : 
             return view('welcome');
         break;
