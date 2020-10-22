@@ -87,7 +87,7 @@
     </div>
     <div class="card" id="saku-dashboard">
         <div class="card-body">
-            <div class="row mb-4" style="justify-content:center">
+            <div class="row mb-4" style="">
                 <div class="col-sm-12 text-center mb-3">
                     <h5><b>Layanan Siswa</b></h5>
                 </div>
@@ -105,6 +105,11 @@
                     <img alt="Profile" src="{{ asset('img/menu-siswa/report2.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
                     <p hidden class="kode_form">fRaport</p>
                     <p class="list-item-heading mb-3">Raport</p>
+                </div>
+                <div class="text-center col-sm-3 col-4 menu-icon">
+                    <img alt="Profile" src="{{ asset('img/menu-siswa/report2.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fSkl</p>
+                    <p class="list-item-heading mb-3">SKL</p>
                 </div>
             </div>
         </div>
