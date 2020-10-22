@@ -221,6 +221,7 @@
             font-size:10px !important;
             vertical-align:middle;
             border-color:black !important;
+            border-width:1px;
         }
 
         .bold{
