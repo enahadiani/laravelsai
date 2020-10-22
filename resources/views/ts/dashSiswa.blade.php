@@ -145,7 +145,6 @@
                 if(result.status){
                     if(result.data.length > 0){
                         var line = result.data[0];
-                        console.log(line);
                         $('#nis').html(line.nis);
                         $('#nama').html(line.nama);
                         $('#kode_kelas').html(line.kode_kelas);
