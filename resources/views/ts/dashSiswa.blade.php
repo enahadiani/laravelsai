@@ -11,7 +11,7 @@
             cursor:pointer;
         }
 
-        #profile-table td,th
+        #profile-table td, #keuangan-table td
         {
             padding:0px !important;
         }
@@ -39,29 +39,48 @@
         <div class="col-md-9 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5><b>Profile Siswa</b></h5>
-                    <table class="table no-margin table-borderless" id="profile-table">
-                        <tr>
-                            <td style="width:19%">NIS</td>
-                            <td style="width:1%">:</td>
-                            <td style="width:80%" id="nis"></td>
-                        </tr>
-                        <tr>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td id="nama"></td>
-                        </tr>
-                        <tr>
-                            <td>Jurusan</td>
-                            <td>:</td>
-                            <td id="nama_jur"></td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td id="kode_kelas"></td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><b>Profile Siswa</b></h5>
+                            <table class="table no-margin table-borderless" id="profile-table">
+                                <tr>
+                                    <td style="width:19%">NIS</td>
+                                    <td style="width:1%">:</td>
+                                    <td style="width:80%" id="nis"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td id="nama"></td>
+                                </tr>
+                                <tr>
+                                    <td>Jurusan</td>
+                                    <td>:</td>
+                                    <td id="nama_jur"></td>
+                                </tr>
+                                <tr>
+                                    <td>Kelas</td>
+                                    <td>:</td>
+                                    <td id="kode_kelas"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><b>Info Keuangan</b></h5>
+                            <table class="table no-margin table-borderless" id="keuangan-table">
+                                <tr>
+                                    <td style="width:19%">Piutang</td>
+                                    <td style="width:1%">:</td>
+                                    <td style="width:80%" id="piutang"></td>
+                                </tr>
+                                <tr>
+                                    <td>PDD</td>
+                                    <td>:</td>
+                                    <td id="pdd"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
