@@ -1,4 +1,7 @@
 <style>
+    body {
+        overflow: hidden; /* Hide scrollbars */
+    }
     .card{
         border-radius: 0 !important;
         box-shadow: none;
@@ -122,16 +125,16 @@
         </div>
     </div>
     <div class="col-sm-12 col-md-12 mb-4">
-        <div class="card" style="height: 550px; border-radius:10px !important;">
+        <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Rincian Realisasi Beban</h6>
             <p class="ml-4" style="margin-top: -10px;">Realisasi s/d Agt'20'</p>
             <div class="row" style="margin-top: -15px;">
-                <div class="col-2" id="sdm" style="height: 300px;width:200px;">Test1</div>
-                <div class="col-2" id="adm" style="height: 300px;width:200px">Test2</div>
-                <div class="col-2" id="invest" style="height: 300px;width:200px">Test3</div>
-                <div class="col-2" id="kes" style="height: 300px;width:200px">Test4</div>
-                <div class="col-2" id="perbaikan" style="height: 300px;width:200px">Test5</div>
-                <div class="col-2" id="amor" style="height: 300px;width:200px">Test6</div>
+                <div class="col-2" id="sdm" style="height: 353px;width:200px;"></div>
+                <div class="col-2" id="adm" style="height: 353px;width:200px"></div>
+                <div class="col-2" id="invest" style="height: 353px;width:200px"></div>
+                <div class="col-2" id="kes" style="height: 353px;width:200px"></div>
+                <div class="col-2" id="perbaikan" style="height: 353px;width:200px"></div>
+                <div class="col-2" id="amor" style="height: 353px;width:200px"></div>
                 <div class="col-2"  style="border-right: 1px solid #DCDCDC">
                     <table class="table table-borderless">
                         <tr>
@@ -256,7 +259,13 @@ Highcharts.chart('sdm', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'SDM',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -272,7 +281,7 @@ Highcharts.chart('sdm', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -319,7 +328,13 @@ Highcharts.chart('adm', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'Adm & Umum',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -335,7 +350,7 @@ Highcharts.chart('adm', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -382,7 +397,13 @@ Highcharts.chart('invest', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'Investasi',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -398,7 +419,7 @@ Highcharts.chart('invest', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -445,7 +466,13 @@ Highcharts.chart('kes', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'Pelayanan Kesehatan',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -461,7 +488,7 @@ Highcharts.chart('kes', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -508,7 +535,13 @@ Highcharts.chart('perbaikan', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'Pemeliharaan dan Perbaikan',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -524,7 +557,7 @@ Highcharts.chart('perbaikan', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -571,7 +604,13 @@ Highcharts.chart('amor', {
         enabled: false
     },
     title: {
-        text: ''
+        text: 'Penyusutan & Amortisasi',
+        align: 'center',
+        y: 340,
+        style:{
+            fontSize: '9px',
+            fontWeight: 'bold'
+        }
     },
     subtitle: {
         text: ''
@@ -587,7 +626,7 @@ Highcharts.chart('amor', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} miliar</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
