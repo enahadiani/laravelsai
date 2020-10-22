@@ -216,29 +216,29 @@
         .lh-1 {
            line-height:1.5 !important;
         }
-        #table-raport td, #table-raport th
+        #table-header-skl td,  #table-header-skl th, #table-isi-skl td, #table-isi-skl th
         {
             font-size:10px !important;
             vertical-align:middle;
             border-color:black !important;
             border-width:1px;
+            padding:0px !important;
         }
-
         .bold{
             font-weight:bold;
         }
         .italic{
             font-style:italic;
         }
-        #table-raport td.border-mixed-left
+        #table-isi-skl td.border-mixed-left
         {   
             border-style: dashed dashed dashed solid !important;
         }
-        #table-raport td.border-mixed
+        #table-isi-skl td.border-mixed
         {   
             border-style: dashed dashed dashed dashed !important;
         }
-        #table-raport td.border-mixed-right
+        #table-isi-skl td.border-mixed-right
         {
             border-style: dashed solid dashed dashed !important;
         }
@@ -273,6 +273,70 @@
                                 <div class="col-md-12 text-center">
                                     <p class="mb-0 fs-12 lh-1"><b>SURAT KETERANGAN LULUS</b></p>
                                     <p class="mb-0 fs-10 lh-1"><b>Nomor: 295 / KUR / SMK TEL / V / 2020</b></p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-borderless" id="table-header-skl" width="100%">
+                                        <tr>
+                                            <td colspan="4">Kepala Sekolah SMK Telkom Sandhy Putra Jakarta menerangkan bahwa:</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td width="25%">Nama</td>
+                                            <td width="2%"> : </td>
+                                            <td width="58%">MUHAMAD ALIF FATHUROHMAN</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Tempat dan Tanggal Lahir</td>
+                                            <td> : </td>
+                                            <td>Jakarta, 31 Mei 2002</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Nomor Induk / NISN</td>
+                                            <td> : </td>
+                                            <td>20177568 / 0024094258</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Bidang Studi Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknologi Informasi dan Komunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Program Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknik Telekomunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Kompetensi Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknik Transmisi Telekomunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">Berdasarkan:</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">1.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">2.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">3.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <!-- 1. 
+                                        2. Peraturan Akademik tentang Kriteria Kelulusan pada KTSP SMK Telkom Sandhy Putra Tahun 2019
+                                        3. Hasil Rapat Pleno Dewan Pendidik tentang kelulusan Tahun Pelajaran 2019/2020
+                                        Dinyatakan: -->
+                                    </table>
                                 </div>
                             </div>
                         </div>
