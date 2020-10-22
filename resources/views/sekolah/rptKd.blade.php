@@ -74,7 +74,8 @@
                     <tr>
                         <th width='10%'>Mata Pelajaran</th>
                         <th width='10%'>Semester</th>
-                        <th width='80%'>Kompetensi</th>
+                        <th width='15%'>Kelas</th>
+                        <th width='65%'>Kompetensi</th>
                    </tr>
                 </thead>`;
             var no =1;
@@ -93,10 +94,16 @@
                     }else{
                         html+=`<td>`+line.kode_sem+`</td>`;
                     }
+                    if(line.kode_kelas == line3.kode_kelas){
+                        html+=`<td></td>`;
+                    }else{
+                        html+=`<td>`+line.kode_kelas+`</td>`;
+                    }
                 }else{
 
                     html+=`<td>`+line.skode+`</td>`;
                     html+=`<td>`+line.kode_sem+`</td>`;
+                    html+=`<td>`+line.kode_kelas+`</td>`;
                 }
                 html+=`
                     <td>`+line.kode_kd+` &nbsp; `+line.nama_kd+`</td>
