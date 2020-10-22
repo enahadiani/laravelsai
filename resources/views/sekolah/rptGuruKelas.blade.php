@@ -74,9 +74,8 @@
                     <tr>
                         <th width='5%'>NO</th>
                         <th width='10%'>NIP</th>
-                        <th width='20%'>Nama</th>
-                        <th width='10%'>TUGAS MENGAJAR</th>
-                        <th width='25%'>Mata Pelajaran yang diberikan</th>
+                        <th width='25%'>Nama</th>
+                        <th width='30%'>Mata Pelajaran yang diberikan</th>
                         <th width='15%'>Kelas</th>
                         <th width='15%'>No Tlp</th>
                    </tr>
@@ -88,7 +87,6 @@
                     <td>`+no+`</td>
                     <td>`+line.nik+`</td>
                     <td>`+line.nama+`</td>
-                    <td>`+line.tugas+`</td>
                     <td>`+line.matpel+`</td>
                     <td>`+line.kelas+`</td>
                     <td>`+line.no_hp+`</td>

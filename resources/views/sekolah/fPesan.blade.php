@@ -1622,8 +1622,8 @@
             $('.info-icon-hapus').addClass('hidden');
         }else{
             $('#kontak').parents('div').find('.input-group').removeClass('readonly');
-            $('#kontak').val(''); 
-            $('#kode_matpel').val('');
+            // $('#kontak').val(''); 
+            // $('#kode_matpel').val('');
             $('#kontak').attr('readonly',false);
             $('#kode_matpel').attr('readonly',false);
         }

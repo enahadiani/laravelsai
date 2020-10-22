@@ -216,29 +216,29 @@
         .lh-1 {
            line-height:1.5 !important;
         }
-        #table-raport td, #table-raport th
+        #table-header-skl td,  #table-header-skl th, #table-isi-skl td, #table-isi-skl th
         {
             font-size:10px !important;
             vertical-align:middle;
             border-color:black !important;
             border-width:1px;
+            padding:0px !important;
         }
-
         .bold{
             font-weight:bold;
         }
         .italic{
             font-style:italic;
         }
-        #table-raport td.border-mixed-left
+        #table-isi-skl td.border-mixed-left
         {   
             border-style: dashed dashed dashed solid !important;
         }
-        #table-raport td.border-mixed
+        #table-isi-skl td.border-mixed
         {   
             border-style: dashed dashed dashed dashed !important;
         }
-        #table-raport td.border-mixed-right
+        #table-isi-skl td.border-mixed-right
         {
             border-style: dashed solid dashed dashed !important;
         }
@@ -253,38 +253,7 @@
             </div>
             <div class="card" id="print-area">
                 <div class="card-body">
-                    <div>
-                        <div class="row">
-                            <div class="col-md-12"><h5><b><u>RAPORT</u></b></h5></div>
-                            <div class="col-md-12">&nbsp;</div>
-                            <div class="col-md-2">Tahun Ajaran</div>
-                            <div class="col-md-2">
-                                <select class='form-control' id="kode_ta" name="kode_ta">
-                                <option value='' disabled>--- Pilih TA ---</option>
-                                </select>
-                            </div>
-                            <div class="col-md-1">Jenis</div>
-                            <div class="col-md-2">
-                                <select class='form-control selectize' id="kode_jenis" name="kode_jenis">
-                                <option value='' disabled>--- Pilih Jenis ---</option>
-                                <option value='UTS'>UTS</option>
-                                <option value='UAS'>UAS</option>
-                                </select>
-                            </div>
-                            <div class="col-md-1">Semester</div>
-                            <div class="col-md-2">
-                                <select class='form-control selectize' id="kode_sem" name="kode_sem">
-                                <option value='' disabled>--- Pilih Semester ---</option>
-                                <option value='1'>Ganjil</option>
-                                <option value='2'>Genap</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-primary" id="btn-tampil">Tampil</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hasil-raport mt-4">
+                    <div class="hasil-skl mt-4">
                         <div class="kop">
                             <div class="row">
                                 <div class="col-md-2 text-center"><img class="logo" src="{{ asset('img/ts-logo2.png') }}"></div>
@@ -302,95 +271,71 @@
                         <div class="isi mt-3">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <p class="mb-0 fs-12 lh-1"><b>RAPOR TENGAH SEMESTER GENAP TAHUN PELAJARAN 2020/2021</b></p>
-                                    <p class="mb-0 fs-10 lh-1"><b>Bidang Keahlian Teknologi Informasi dan Komunikasi</b></p>
-                                    <p class="mb-0 fs-10 lh-1"><b>Program Keahlian Teknik Komputer dan Informatika</b></p>
-                                    <p class="mb-0 fs-10 lh-1"><b>Kompetensi Keahlian Rekayasa Perangkat Lunak</b></p>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-4 fs-10 bold">Nama Peserta Didik</div>
-                                        <div class="col-md-1 fs-10 bold">:</div>
-                                        <div class="col-md-7 fs-10 border-bottom bold"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-4 fs-10 bold">Kelas</div>
-                                        <div class="col-md-1 fs-10 bold">:</div>
-                                        <div class="col-md-7 fs-10  border-bottom bold"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-4 fs-10 bold">NIS</div>
-                                        <div class="col-md-1 fs-10 bold">:</div>
-                                        <div class="col-md-7 fs-10 border-bottom bold"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-4 fs-10 bold">No Urut/ID</div>
-                                        <div class="col-md-1 fs-10 bold">:</div>
-                                        <div class="col-md-7 fs-10  border-bottom bold"></div>
-                                    </div>
+                                    <p class="mb-0 fs-12 lh-1"><b>SURAT KETERANGAN LULUS</b></p>
+                                    <p class="mb-0 fs-10 lh-1"><b>Nomor: 295 / KUR / SMK TEL / V / 2020</b></p>
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered" id="table-raport"> 
-                                        <thead bgcolor="#CCCCCC">
-                                            <tr>
-                                                <th rowspan="2" class="text-center">No</th>
-                                                <th rowspan="2" class="text-center">Mata Pelajaran</th>
-                                                <th rowspan="2" class="text-center">SKM</th>
-                                                <th colspan="4" class="text-center">Nilai Pengetahuan</th>
-                                                <th colspan="4" class="text-center">Nilai Keterampilan</th>
-                                                <th colspan="2" class="text-center">Rataan</th>
-                                                <th rowspan="2" class="text-center">Nilai Akhir</th>
-                                                <th rowspan="2" class="text-center">Predikat</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="text-center">1</th>
-                                                <th class="text-center">2</th>
-                                                <th class="text-center">3</th>
-                                                <th class="text-center">PTS</th>
-                                                <th class="text-center">1</th>
-                                                <th class="text-center">2</th>
-                                                <th class="text-center">3</th>
-                                                <th class="text-center">PTS</th>
-                                                <th class="text-center">NP</th>
-                                                <th class="text-center">NK</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="bold" colspan="15">A. Muatan Nasional</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border-mixed-left" rowspan="2">1</td>
-                                                <td class="border-mixed bold">PEND. AGAMA DAN BUDI PEKERTI ISLAM</td>
-                                                <td class="border-mixed" rowspan="2">75</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">92</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">-</td>
-                                                <td class="border-mixed" rowspan="2">92</td>
-                                                <td class="border-mixed" rowspan="2">92</td>
-                                                <td class="border-mixed" rowspan="2">92</td>
-                                                <td class="border-mixed" rowspan="2">92</td>
-                                                <td class="border-mixed-right" rowspan="2">A</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border-mixed italic">Nama Guru: MARWADI</td>
-                                            </tr>
-                                        </tbody>
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-borderless" id="table-header-skl" width="100%">
+                                        <tr>
+                                            <td colspan="4">Kepala Sekolah SMK Telkom Sandhy Putra Jakarta menerangkan bahwa:</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td width="25%">Nama</td>
+                                            <td width="2%"> : </td>
+                                            <td width="58%">MUHAMAD ALIF FATHUROHMAN</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Tempat dan Tanggal Lahir</td>
+                                            <td> : </td>
+                                            <td>Jakarta, 31 Mei 2002</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Nomor Induk / NISN</td>
+                                            <td> : </td>
+                                            <td>20177568 / 0024094258</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Bidang Studi Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknologi Informasi dan Komunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Program Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknik Telekomunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">&nbsp;</td>
+                                            <td>Kompetensi Keahlian</td>
+                                            <td> : </td>
+                                            <td>Teknik Transmisi Telekomunikasi</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">Berdasarkan:</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">1.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">2.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%">3.</td>
+                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                        </tr>
+                                        <!-- 1. 
+                                        2. Peraturan Akademik tentang Kriteria Kelulusan pada KTSP SMK Telkom Sandhy Putra Tahun 2019
+                                        3. Hasil Rapat Pleno Dewan Pendidik tentang kelulusan Tahun Pelajaran 2019/2020
+                                        Dinyatakan: -->
                                     </table>
                                 </div>
                             </div>
@@ -477,7 +422,7 @@
         //             if(result.data.length > 0){
                            var hasil ='';
                            
-                           $('#hasil-raport').html('');
+                           $('#hasil-skl').html('');
                     // }
         //         }
         //     },

@@ -11,7 +11,7 @@
             cursor:pointer;
         }
 
-        #profile-table td,th
+        #profile-table td, #keuangan-table td
         {
             padding:0px !important;
         }
@@ -39,36 +39,55 @@
         <div class="col-md-9 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5><b>Profile Siswa</b></h5>
-                    <table class="table no-margin table-borderless" id="profile-table">
-                        <tr>
-                            <td style="width:19%">NIS</td>
-                            <td style="width:1%">:</td>
-                            <td style="width:80%" id="nis"></td>
-                        </tr>
-                        <tr>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td id="nama"></td>
-                        </tr>
-                        <tr>
-                            <td>Jurusan</td>
-                            <td>:</td>
-                            <td id="nama_jur"></td>
-                        </tr>
-                        <tr>
-                            <td>Kelas</td>
-                            <td>:</td>
-                            <td id="kode_kelas"></td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><b>Profile Siswa</b></h5>
+                            <table class="table no-margin table-borderless" id="profile-table">
+                                <tr>
+                                    <td style="width:19%">NIS</td>
+                                    <td style="width:1%">:</td>
+                                    <td style="width:80%" id="nis"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td id="nama"></td>
+                                </tr>
+                                <tr>
+                                    <td>Jurusan</td>
+                                    <td>:</td>
+                                    <td id="nama_jur"></td>
+                                </tr>
+                                <tr>
+                                    <td>Kelas</td>
+                                    <td>:</td>
+                                    <td id="kode_kelas"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><b>Info Keuangan</b></h5>
+                            <table class="table no-margin table-borderless" id="keuangan-table">
+                                <tr>
+                                    <td style="width:19%">Piutang</td>
+                                    <td style="width:1%">:</td>
+                                    <td style="width:80%" id="piutang"></td>
+                                </tr>
+                                <tr>
+                                    <td>PDD</td>
+                                    <td>:</td>
+                                    <td id="pdd"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card" id="saku-dashboard">
         <div class="card-body">
-            <div class="row mb-4" style="justify-content:center">
+            <div class="row mb-4" style="">
                 <div class="col-sm-12 text-center mb-3">
                     <h5><b>Layanan Siswa</b></h5>
                 </div>
@@ -86,6 +105,11 @@
                     <img alt="Profile" src="{{ asset('img/menu-siswa/report2.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
                     <p hidden class="kode_form">fRaport</p>
                     <p class="list-item-heading mb-3">Raport</p>
+                </div>
+                <div class="text-center col-sm-3 col-4 menu-icon">
+                    <img alt="Profile" src="{{ asset('img/menu-siswa/report2.png') }}" class="img-thumbnail border-0 rounded-circle mb-1 list-thumbnail">
+                    <p hidden class="kode_form">fSkl</p>
+                    <p class="list-item-heading mb-3">SKL</p>
                 </div>
             </div>
         </div>
@@ -145,11 +169,13 @@
                 if(result.status){
                     if(result.data.length > 0){
                         var line = result.data[0];
-                        console.log(line);
+                        var line2 = result.data2[0];
                         $('#nis').html(line.nis);
                         $('#nama').html(line.nama);
                         $('#kode_kelas').html(line.kode_kelas);
                         $('#nama_jur').html(line.nama_jur);
+                        $('#piutang').html(sepNumPas(line.sak_total));
+                        $('#pdd').html(sepNumPas(line2.so_akhir));
                     }
                 }
             },

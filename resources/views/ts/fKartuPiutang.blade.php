@@ -212,7 +212,19 @@
             <div class="card mb-3">
                 <div class="card-body pb-3" style="padding-top:1rem;">
                     <h5 style="position:absolute;top: 25px;"></h5>
-                    <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button>
+                    <!-- <button type="button" id="btn-print" class="btn btn-primary ml-2" style="float:right;"><i class="simple-icon-printer mr-1"></i> Print</button> -->
+                    <div class="dropdown float-right ml-2">
+                        <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="simple-icon-share-alt mr-1"></i> Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
+                        </div>
+                    </div>
                     <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
                 </div>
                
@@ -275,7 +287,36 @@
         </div>
     </div>
     <!-- LIST DATA -->
-
+    
+    <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius:0.75rem">
+                <form id='formEmail'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title'>Kirim Email</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        </button>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group row'>
+                            <label for="modal-email" class="col-3 col-form-label">Email</label>
+                            <div class="col-9">
+                                <input type='text' class='form-control' maxlength='100' name='email' id='modal-email' required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type="button" disabled="" style="display:none" id='loading-bar2' class="btn btn-info">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                        </button>
+                        <button type='submit' id='email-submit' class='btn btn-primary'>Kirim</button> 
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>    
     $.ajaxSetup({
         headers: {
@@ -399,6 +440,62 @@
         
         var form ="{{ Session::get('dash') }}";
         loadForm("{{ url('ts-auth/form') }}/"+form);
+    });
+
+    $('#sai-rpt-print').click(function(){
+        $('#print-area').printThis({
+            removeInline: true,
+            importStyle: true,
+        });
+    });
+    
+    $('#sai-rpt-print-prev').click(function(){
+        var newWindow = window.open();
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#print-area').html()+`</div></body>`;
+        newWindow.document.write(html);
+    });
+    
+    $("#sai-rpt-excel").click(function(e) {
+        e.preventDefault();
+        $("#print-area").table2excel({
+            // exclude: ".excludeThisClass",
+            name: "KartuPiutang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "KartuPiutang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            preserveColors: false // set to true if you want background colors and font colors preserved
+        });
+    });
+    
+    
+    $("#sai-rpt-email").click(function(e) {
+        e.preventDefault();
+        $('#formEmail')[0].reset();
+        $('#modalEmail').modal('show');
+    });
+    
+    $('#modalEmail').on('submit','#formEmail',function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('ts-report/email-kartu-piutang') }}",
+            dataType: 'json',
+            data: formData,
+            async:false,
+            contentType: false,
+            cache: false,
+            processData: false, 
+            success:function(result){
+                alert(result.message);
+                if(result.status){
+                    $('#modalEmail').modal('hide');
+                }
+                // $loadBar2.hide();
+            },
+            fail: function(xhr, textStatus, errorThrown){
+                alert('request failed:'+textStatus);
+            }
+        });
+        
     });
 
     </script>

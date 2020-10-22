@@ -184,7 +184,9 @@
                     'query' => [
                         'kode_pp' => $request->kode_pp,
                         'kode_ta' => $request->kode_ta,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'kode_kelas' => $request->kode_kelas,
+                        'kode_sem' => $request->kode_sem
                     ]
                 ]);
         

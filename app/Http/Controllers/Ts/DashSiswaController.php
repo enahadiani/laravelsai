@@ -83,6 +83,9 @@
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => Session::get('periode')
                     ]
                 ]);
     

@@ -251,6 +251,58 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>kode_kelas</p>
+                                            <label for="kode_kelas" class="col-md-2 col-sm-12 col-form-label">Kelas</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='kode_kelas[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-from" readonly value="Menampilkan semua kelas">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="kode_kelas[]" id="kode_kelas-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                            <p class="kunci" hidden>kode_sem</p>
+                                            <label for="kode_sem" class="col-md-2 col-sm-12 col-form-label">Semester</label>
+                                            <div class="col-md-2 col-sm-12" >
+                                                <select name='kode_sem[]' class='form-control sai-rpt-filter-type selectize'><option value='all' selected>Semua</option><option value='='>Sama dengan</option><option value='range'>Rentang</option><option value='in'>Pilihan</option></select>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 sai-rpt-filter-from">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control border-right-0 " name="kode_sem[]" id="kode_sem-from" readonly value="Menampilkan semua semester">
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12 sai-rpt-filter-sampai hidden">
+                                                Sampai dengan
+                                            </div>
+                                            <div class="col-md-3 col-sm-12 sai-rpt-filter-to hidden" >
+                                                <div class="input-group" >
+                                                    <input type="text" class="form-control border-right-0 " name="kode_sem[]" id="kode_sem-to" readonly>
+                                                    <div class="input-group-append border-left-0">
+                                                    <a href="#" class="text-primary input-group-text search-item">ubah</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
                                         <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
                                     </form>
@@ -401,6 +453,22 @@
             toname : "",
         }
 
+        var kode_kelas = {
+            type : "All",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+
+        var kode_sem = {
+            type : "All",
+            from : "",
+            fromname : "",
+            to : "",
+            toname : "",
+        }
+
         var $aktif = "";
 
         function fnSpasi(level)
@@ -534,6 +602,53 @@
                         'flag_aktif[1]' : '1',
                         'flag_aktif[2]' : ''
                     }
+
+                break;
+                case 'kode_kelas[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('sekolah-report/filter-kelas') }}";
+                    var columns = [
+                        { data: 'kode_kelas' },
+                        { data: 'nama' }
+                    ];
+                    header_pilih = ['Kode', 'Nama','Action'];
+                    var judul = "Daftar Kelas <span class='modal-subtitle'></span>";
+                    var pilih = "kelas";
+                    $target = $target;
+                    $target2 = target2;
+                    var display = "kode";
+                    var field = eval("kode_kelas");
+                    var kunci = "kode_kelas";
+                    var orderby = [];
+                    parameter = {
+                        'kode_pp[0]' : kode_pp.type,
+                        'kode_pp[1]' : kode_pp.from,
+                        'kode_pp[2]' : kode_pp.to,
+                        'kode_matpel[0]' : kode_matpel.type,
+                        'kode_matpel[1]' : kode_matpel.from,
+                        'kode_matpel[2]' : kode_matpel.to,
+                        'flag_aktif[0]' : '=',
+                        'flag_aktif[1]' : '1',
+                        'flag_aktif[2]' : ''
+                    }
+
+                break;
+                case 'kode_sem[]': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('sekolah-report/filter-semester') }}";
+                    var columns = [
+                        { data: 'kode_sem' },
+                        { data: 'nama' }
+                    ];
+                    header_pilih = ['Kode', 'Nama','Action'];
+                    var judul = "Daftar Semester <span class='modal-subtitle'></span>";
+                    var pilih = "semester";
+                    $target = $target;
+                    $target2 = target2;
+                    var display = "kode";
+                    var field = eval("kode_sem");
+                    var kunci = "kode_sem";
+                    var orderby = [];
 
                 break;
                
@@ -1023,6 +1138,12 @@
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_sem[]",kode_sem.type);
+            $formData.append("kode_sem[]",kode_sem.from);
+            $formData.append("kode_sem[]",kode_sem.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1043,6 +1164,12 @@
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_sem[]",kode_sem.type);
+            $formData.append("kode_sem[]",kode_sem.from);
+            $formData.append("kode_sem[]",kode_sem.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1092,6 +1219,12 @@
             $formData.append("kode_matpel[]",kode_matpel.type);
             $formData.append("kode_matpel[]",kode_matpel.from);
             $formData.append("kode_matpel[]",kode_matpel.to);
+            $formData.append("kode_kelas[]",kode_kelas.type);
+            $formData.append("kode_kelas[]",kode_kelas.from);
+            $formData.append("kode_kelas[]",kode_kelas.to);
+            $formData.append("kode_sem[]",kode_sem.type);
+            $formData.append("kode_sem[]",kode_sem.from);
+            $formData.append("kode_sem[]",kode_sem.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

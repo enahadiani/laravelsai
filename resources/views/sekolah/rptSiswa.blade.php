@@ -74,7 +74,8 @@
                     <tr>
                         <th width='5%'>NO</th>
                         <th width='15%'>NIS</th>
-                        <th width='80%'>Nama</th>
+                        <th width='65%'>Nama</th>
+                        <th width='15%'>Kelas</th>
                    </tr>
                 </thead>`;
             var no =1;
@@ -84,6 +85,7 @@
                     <td>`+no+`</td>
                     <td>`+line.nis+`</td>
                     <td>`+line.nama+`</td>
+                    <td>`+line.kode_kelas+`</td>
                     </tr>`;
                 no++;
             }

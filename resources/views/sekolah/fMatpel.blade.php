@@ -240,6 +240,7 @@
                                 <tr>
                                     <th>Kode</th>
                                     <th>Nama</th>
+                                    <th>Singkatan</th>
                                     <th>Kode PP</th>
                                     <th>Status</th>
                                     <th>Sifat</th>
@@ -575,7 +576,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[6, "desc"]],
+        "order": [[7, "desc"]],
         'ajax': {
             'url': "{{url('sekolah-master/matpel')}}",
             'async':false,
@@ -602,20 +603,21 @@
                 }
             },
             {
-                "targets": [5],
+                "targets": [6],
                 "visible": false,
                 "searchable": true
             },
             {
-                "targets": [6],
+                "targets": [7],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 7, data: null, 'defaultContent': action_html }
+            {'targets': 8, data: null, 'defaultContent': action_html }
         ],
         'columns': [
             { data: 'kode_matpel' },
             { data: 'nama' },
+            { data: 'singkatan' },
             { data: 'pp' },
             { data: 'flag_aktif' },
             { data: 'nama_sifat' },
@@ -1053,7 +1055,7 @@
     // BUTTON EDIT
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+        var temp = $(this).closest('tr').find('td').eq(3).html().split('-');
         var kode_pp = temp[0]; 
         $('#form-tambah').validate().resetForm();
         
@@ -1124,7 +1126,7 @@
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
         var kode = $(this).closest('tr').find('td:eq(0)').html();      
-        var temp = $(this).closest('tr').find('td').eq(2).html().split('-');
+        var temp = $(this).closest('tr').find('td').eq(3).html().split('-');
         var kode_pp = temp[0]; 
 
         msgDialog({
@@ -1138,7 +1140,7 @@
 
     $('#table-data tbody').on('click','td',function(e){
         console.log('klik');
-        if($(this).index() != 5){
+        if($(this).index() != 6){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -1255,9 +1257,9 @@
                 var kode_pp = $('#inp-filter_kode_pp').val();
                 var status = $('#inp-filter_status').val();
                 var sifat = $('#inp-filter_sifat').val();
-                var col_kode_pp = data[2];
-                var col_status = data[3];
-                var col_sifat = data[5];
+                var col_kode_pp = data[3];
+                var col_status = data[4];
+                var col_sifat = data[6];
                 if(kode_pp != "" && status != "" && sifat != ""){
                     if(kode_pp == col_kode_pp && status == col_status && sifat == col_sifat){
                         return true;
