@@ -516,7 +516,7 @@
                                                 <textarea id="nama_kd" name="nama_kd" readonly class="form-control" style="height:112px"></textarea>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
-                                                <label for="pelaksanaan" >Pelaksaan</label>
+                                                <label for="pelaksanaan" >Pelaksanaan</label>
                                                 <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px"></textarea>
                                             </div>
                                         </div>
@@ -548,8 +548,9 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th style="width:3%">No</th>
+                                                    <th style="width:15%">ID</th>
                                                     <th style="width:20%">NIS</th>
-                                                    <th style="width:55%">Nama</th>
+                                                    <th style="width:40%">Nama</th>
                                                     <th style="width:17%">Nilai</th>
                                                     <th width="5%"></th>
                                                 </tr>
@@ -895,6 +896,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
+                var width = ["30%","70%"];
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
@@ -917,6 +919,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val()};
+                var width = ["30%","70%"];
             break;
             case 'kode_matpel': 
                 header = ['Kode Matpel', 'Nama'];
@@ -939,6 +942,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val()};
+                var width = ["30%","70%"];
             break;
             case 'kode_kd': 
                 header = ['Kode KD', 'Nama'];
@@ -962,7 +966,8 @@
                     return false;
                     // break;
                 }
-               
+                
+                var width = ["30%","70%"];
             break;
             case 'kode_jenis': 
                 header = ['Kode Jenis', 'Nama'];
@@ -981,6 +986,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
+                var width = ["30%","70%"];
             break;
             case 'kode_ta': 
                 header = ['Kode TA', 'Nama'];
@@ -999,12 +1005,14 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
+                var width = ["30%","70%"];
             break;
             case 'nis[]': 
-                header = ['NIS', 'Nama'];
+                header = ['ID', 'NIS','Nama'];
                 var toUrl = "{{ url('sekolah-trans/siswa') }}";
                 var columns = [
                     { data: 'nis' },
+                    { data: 'nis2' },
                     { data: 'nama' }
                 ];
                 var judul = "Daftar Siswa";
@@ -1015,12 +1023,12 @@
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
                 $target4 = ".td-nilai";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),flag_aktif:1};
+                var width = ["20%","20%","60%"];
             break;
         }
 
         var header_html = '';
-        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
             header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
@@ -1121,6 +1129,8 @@
                 if($target4 != ""){
                     if($target4 != ""){
                         if(par == "nis[]"){
+                            var nama2 = $(this).closest('tr').find('td:nth-child(3)').text();
+                            $($target).closest('tr').find('.inp-nama').val(nama2);
                             $($target).closest('tr').find($target4).click();
                             setTimeout(function() {  $($target).parents("tr").find(".inp-nilai").focus(); }, 50);
                         }
@@ -1354,6 +1364,67 @@
         });
     }
 
+    function getSiswa(id,target1,target2,target3,jenis){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sekolah-trans/siswa') }}",
+            data:{kode_pp:$('#kode_pp').val(),nis:kode,kode_kelas:$('#kode_kelas').val()},
+            dataType: 'json',
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.td'+target3).text('');
+                        }else{
+
+                            $("#input-nilai td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-nis').hide();
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).text('');
+                        }
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                }
+                else{
+                    if(jenis == 'change'){
+
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        alert('NIS tidak valid');
+                    }
+                }
+            }
+        });
+    }
+
     // END CBBL
 
     var $dtPP = new Array();
@@ -1461,6 +1532,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1751,6 +1823,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1993,9 +2066,12 @@
                 var nis = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
                 var nilai = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+                var nis2 = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-ni2").val();
                
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val(nis);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode").text(nis);
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").val(nis2);
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nis2").text(nis2);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
@@ -2004,6 +2080,8 @@
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".search-nis").hide();
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").hide();
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nis2").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nama").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
@@ -2026,7 +2104,7 @@
         
         switch(par){
             case 'nis[]': 
-                var par2 = "nama_siswa[]";
+                var par2 = "nis2[]";
             break;
         }
         
@@ -2042,10 +2120,10 @@
     });
     
     
-    $('#input-nilai').on('keydown','.inp-kode, .inp-nama, .inp-nilai',function(e){
+    $('#input-nilai').on('keydown','.inp-kode, .inp-nis2, .inp-nama, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama','.inp-nilai'];
-        var nxt2 = ['.td-kode','.td-nama','.td-nilai'];
+        var nxt = ['.inp-kode','.inp-nis2','.inp-nama','.inp-nilai'];
+        var nxt2 = ['.td-kode','.td-nis2','.td-nama','.td-nilai'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -2057,8 +2135,8 @@
                     var noidx = $(this).parents("tr").find(".no-nilai").text();
                     var kode = $(this).val();
                     var target1 = "niske"+noidx;
-                    var target2 = "nmsiswake"+noidx;
-                    var target3 = "nilke"+noidx;
+                    var target2 = "nis2ke"+noidx;
+                    var target3 = "nmsiswake"+noidx;
                     getSiswa(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
@@ -2072,6 +2150,16 @@
                     $(this).closest('tr').find(nxt[idx_next]).focus();                    
                     break;
                 case 2:
+                    $("#input-nilai td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();                    
+                    break;
+                case 3:
                     if(isi != "" && isi != 0){
                         $("#input-nilai td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -2112,6 +2200,7 @@
             input += "<tr class='row-nilai'>";
             input += "<td class='no-nilai text-center'>"+no+"</td>";
             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'></span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='' readonly></td>";
             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -2215,6 +2304,7 @@
                 var nis = $(this).parents("tr").find(".inp-kode").val();
                 var nama = $(this).parents("tr").find(".inp-nama").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
+                var nis2 = $(this).parents("tr").find(".inp-nis2").val();
                 var no = $(this).parents("tr").find(".no-nilai").text();
                 $(this).parents("tr").find(".inp-kode").val(nis);
                 $(this).parents("tr").find(".td-kode").text(nis);
@@ -2230,9 +2320,21 @@
                     
                 }
         
+                $(this).parents("tr").find(".inp-nis2").val(nis2);
+                $(this).parents("tr").find(".td-nis2").text(nis2);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nis2").show();
+                    $(this).parents("tr").find(".td-nis2").hide();
+                    $(this).parents("tr").find(".inp-nis2").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+
                 $(this).parents("tr").find(".inp-nama").val(nama);
                 $(this).parents("tr").find(".td-nama").text(nama);
-                if(idx == 2){
+                if(idx == 3){
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
                     $(this).parents("tr").find(".inp-nama").focus();
@@ -2244,7 +2346,7 @@
         
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
                 $(this).parents("tr").find(".td-nilai").text(nilai);
-                if(idx == 3){
+                if(idx == 4){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
                     $(this).parents("tr").find(".inp-nilai").focus();
@@ -2493,6 +2595,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";

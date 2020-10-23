@@ -454,8 +454,9 @@
                                                 <thead style="background:#F8F8F8">
                                                     <tr>
                                                         <th style="width:3%">No</th>
+                                                        <th style="width:20%">ID</th>
                                                         <th style="width:20%">NIS</th>
-                                                        <th style="width:72%">Nama</th>
+                                                        <th style="width:52%">Nama</th>
                                                         <th style="width:5%"></th>
                                                     </tr>
                                                 </thead>
@@ -840,10 +841,11 @@
         
         switch(par){
             case 'nis[]': 
-                header = ['Kode', 'Nama'];
+                header = ['ID', 'NIS', 'Nama'];
                 var toUrl = "{{ url('sekolah-trans/siswa') }}";
                 var columns = [
                     { data: 'nis' },
+                    { data: 'nis2' },
                     { data: 'nama' }
                 ];
                 var judul = "Daftar Siswa";
@@ -851,10 +853,10 @@
                 var jTarget1 = "val";
                 var jTarget2 = "val";
                 $target = "."+$target;
-                $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
-                $target4 = "";
-                parameter = {'kode_pp':$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
+                
+                var width = ["20%","20%","60%"];
             break;
             case 'kode_pp': 
                 header = ['Kode PP', 'Nama'];
@@ -871,6 +873,8 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
+                
+                var width = ["30%","70%"];
             break;
             case 'kode_matpel': 
                 header = ['Kode Matpel', 'Nama'];
@@ -888,6 +892,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val(),'sifat':2};
+                var width = ["30%","70%"];
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
@@ -905,6 +910,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val(),flag_aktif:1};
+                var width = ["30%","70%"];
             break;
             case 'kode_ta': 
                 header = ['Kode', 'Nama'];
@@ -922,11 +928,11 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
+                var width = ["30%","70%"];
             break;
         }
         
         var header_html = '';
-        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
             header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
@@ -986,6 +992,7 @@
                 var dtrow = searchTable.row(this).data();  
                 var kode = $(this).closest('tr').find('td:nth-child(1)').text();
                 var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                var nama2 = $(this).closest('tr').find('td:nth-child(3)').text();
                
                 if(jTarget1 == "val"){
                     $($target).val(kode);
@@ -997,24 +1004,33 @@
                     $($target).parents('div').removeClass('hidden');
                 }
 
-                if(jTarget2 == "val"){
+                if(par == "nis[]"){
                     $($target2).val(nama);
-                }else if(jTarget2 == "title"){
-                    $($target2).attr("title",nama);
-                    $($target2).removeClass('hidden');
-                }else if(jTarget2 == "text2"){
-                    $($target2).text(nama);
+                    $($target).closest('tr').find('.inp-nsiswa').val(nama2);
+                    $($target).closest('tr').find('.td-nsiswa').click();
+                    setTimeout(function() {  $($target).parents("tr").find(".inp-nsiswa").focus(); }, 50);
                 }else{
-                    var width= $('#'+par).width()-$('#search_'+par).width()-10;
-                    var pos =$('#'+par).position();
-                    var height = $('#'+par).height();
-                    $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
-                    $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
-                    $($target2+' span').text(nama);
-                    $($target2).attr("title",nama);
-                    $($target2).removeClass('hidden');
-                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else if(jTarget2 == "title"){
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                    }else if(jTarget2 == "text2"){
+                        $($target2).text(nama);
+                    }else{
+                        var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                        var pos =$('#'+par).position();
+                        var height = $('#'+par).height();
+                        $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                        $($target2+' span').text(nama);
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                        $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+                    }
                 }
+
                 
                 if($target3 != ""){
                     $($target3).click();
@@ -1299,12 +1315,15 @@
             if(!$(row).hasClass('selected-row')) {
                 
                 var nis = $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis").val();
+                var nis2 = $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis2").val();
                 var nama = $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nsiswa").val();
                 // var kode_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val();
                 // var nama_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val();
                 
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis").val(nis);
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nis").text(nis);
+                $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis2").val(nis2);
+                $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nis2").text(nis2);
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nsiswa").val(nama);
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nsiswa").text(nama);
                 
@@ -1316,6 +1335,8 @@
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis").hide();
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nis").show();
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".search-nis").hide();
+                $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nis2").hide();
+                $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nis2").show();
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".inp-nsiswa").hide();
                 $('#input-siswa > tbody > tr:eq('+index+') > td').find(".td-nsiswa").show();
                 
@@ -1328,10 +1349,10 @@
         })
     }
 
-    $('#input-siswa').on('keydown','.inp-nis, .inp-nsiswa',function(e){
+    $('#input-siswa').on('keydown','.inp-nis, .inp-nis2, .inp-nsiswa',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-nis','.inp-nsiswa'];
-        var nxt2 = ['.td-nis','.td-nsiswa'];
+        var nxt = ['.inp-nis','.inp-nis2','.inp-nsiswa'];
+        var nxt2 = ['.td-nis','.td-nis2','.td-nsiswa'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1346,25 +1367,6 @@
                     var target2 = "nsiswake"+noidx;
                     getnis(kode,target1,target2,null,'tab');                    
                 break;
-                // case 1:
-                //     $("#input-siswa td").removeClass("px-0 py-0 aktif");
-                //     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                //     $(this).closest('tr').find(nxt[idx]).val(isi);
-                //     $(this).closest('tr').find(nxt2[idx]).text(isi);
-                //     $(this).closest('tr').find(nxt[idx]).hide();
-                //     $(this).closest('tr').find(nxt2[idx]).show();
-                //     $(this).closest('tr').find(nxt[idx_next]).show();
-                //     $(this).closest('tr').find('.search-status').show();
-                //     $(this).closest('tr').find(nxt2[idx_next]).hide();
-                //     $(this).closest('tr').find(nxt[idx_next]).focus();                        
-                // break;
-                // case 2:
-                //     var noidx = $(this).parents("tr").find(".no-nis").text();
-                //     var kode = $(this).val();
-                //     var target1 = "statuske"+noidx;
-                //     var target2 = "nstatuske"+noidx;
-                //     getStatus(kode,target1,target2,null,'tab');  
-                // break;
                 case 1:
                     $("#input-siswa td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -1372,7 +1374,25 @@
                     $(this).closest('tr').find(nxt2[idx]).text(isi);
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
+
                     $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();                        
+                break;
+                // case 2:
+                //     var noidx = $(this).parents("tr").find(".no-nis").text();
+                //     var kode = $(this).val();
+                //     var target1 = "statuske"+noidx;
+                //     var target2 = "nstatuske"+noidx;
+                //     getStatus(kode,target1,target2,null,'tab');  
+                // break;
+                case 2:
+                    $("#input-siswa td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
 
                     var cek = $(this).parents('tr').next('tr').find('.td-nis');
                     if(cek.length > 0){
@@ -1398,6 +1418,7 @@
         input += "<tr class='row-siswa'>";
         input += "<td class='no-siswa text-center'>"+no+"</td>";
         input += "<td><span class='td-nis tdniske"+no+" tooltip-span'></span><input type='text' name='nis[]' class='form-control inp-nis niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='niskode"+no+"'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nis2 tdnis2ke"+no+"'></span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='' readonly></td>";
         input += "<td><span class='td-nsiswa tdnsiswake"+no+"'></span><input type='text' name='nama_siswa[]' class='form-control inp-nsiswa nsiswake"+no+" hidden'  value='' readonly></td>";
         // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         // input += "<td><span class='td-nstatus tdnstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='' readonly></td>";
@@ -1447,6 +1468,7 @@
         
                 var nis = $(this).parents("tr").find(".inp-nis").val();
                 var nama_nis = $(this).parents("tr").find(".inp-nsiswa").val();
+                var nis2 = $(this).parents("tr").find(".inp-nis2").val();
                 // var kode_status = $(this).parents("tr").find(".inp-status").val();
                 // var nama_status = $(this).parents("tr").find(".inp-nstatus").val();
                 var no = $(this).parents("tr").find(".no-guru").text();
@@ -1463,10 +1485,22 @@
                     $(this).parents("tr").find(".search-nis").hide();
                     
                 }
+
+                $(this).parents("tr").find(".inp-nis2").val(nis2);
+                $(this).parents("tr").find(".td-nis2").text(nis2);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nis2").show();
+                    $(this).parents("tr").find(".td-nis2").hide();
+                    $(this).parents("tr").find(".inp-nis2").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nis2").hide();
+                    $(this).parents("tr").find(".td-nis2").show();
+                }
         
                 $(this).parents("tr").find(".inp-nsiswa").val(nama_nis);
                 $(this).parents("tr").find(".td-nsiswa").text(nama_nis);
-                if(idx == 2){
+                if(idx == 3){
                     $(this).parents("tr").find(".inp-nsiswa").show();
                     $(this).parents("tr").find(".td-nsiswa").hide();
                     $(this).parents("tr").find(".inp-nsiswa").focus();
@@ -1516,7 +1550,7 @@
         
         switch(par){
             case 'nis[]': 
-                var par2 = "nama_siswa[]";
+                var par2 = "nis2[]";
 
             break;
             case 'kode_status[]': 
@@ -1525,14 +1559,14 @@
         }
 
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        console.log(tmp);
         var tmp2 = tmp.split(" ");
         target1 = tmp2[2];
+        console.log(target1);
 
         tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        console.log(tmp);
         tmp2 = tmp.split(" ");
         target2 = tmp2[2];
+        console.log(target2);
 
         showFilter(par,target1,target2);
     });
@@ -1558,6 +1592,7 @@
             return false;
         }else{
             var nis = $('#input-siswa tbody tr.selected-row').find(".inp-nis").val();
+            var nis2 = $('#input-siswa tbody tr.selected-row').find(".inp-nis2").val();
             var nama_nis = $('#input-siswa tbody tr.selected-row').find(".inp-nsiswa").val();
             // var kode_status = $('#input-siswa tbody tr.selected-row').find(".inp-status").val();
             // var nama_status = $('#input-siswa tbody tr.selected-row').find(".inp-nstatus").val();
@@ -1567,6 +1602,7 @@
             input += "<tr class='row-nis'>";
             input += "<td class='no-nis text-center'>"+no+"</td>";
             input += "<td><span class='td-nis tdniske"+no+" tooltip-span'>"+nis+"</span><input type='text' name='nis[]' class='form-control inp-nis niske"+no+" hidden' value='"+nis+"' required='' style='z-index: 1;position: relative;'  id='niskode"+no+"'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+            input += "<td><span class='td-nis2 tdnis2ke"+no+"'>"+nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+nis2+"' readonly></td>";
             input += "<td><span class='td-nsiswa tdnsiswake"+no+"'>"+nama_nis+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nsiswa nsiswake"+no+" hidden'  value='"+nama_nis+"' readonly></td>";
             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
@@ -1773,6 +1809,7 @@
                             input += "<tr class='row-siswa'>";
                             input += "<td class='no-siswa text-center'>"+no+"</td>";
                             input += "<td><span class='td-nis tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' name='nis[]' class='form-control inp-nis niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'  id='niskode"+no+"'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nis2 tdnis2ke"+no+"'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td><span class='td-nsiswa tdnsiswake"+no+"'>"+line.nama_siswa+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nsiswa nsiswake"+no+" hidden'  value='"+line.nama_siswa+"' readonly></td>";
                             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
@@ -1848,8 +1885,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%">No</th>
+                                            <th style="width:10%">ID</th>
                                             <th style="width:10%">NIS</th>
-                                            <th style="width:87%">Nama</th>
+                                            <th style="width:77%">Nama</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1868,6 +1906,7 @@
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line2.nis+"</td>";
+                                input += "<td >"+line2.nis2+"</td>";
                                 input += "<td >"+line2.nama_siswa+"</td>";
                                 // input += "<td >"+line2.kode_status+"</td>";
                                 // input += "<td >"+line2.nama_status+"</td>";
@@ -1937,6 +1976,7 @@
                             input += "<tr class='row-siswa'>";
                             input += "<td class='no-siswa text-center'>"+no+"</td>";
                             input += "<td><span class='td-nis tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' name='nis[]' class='form-control inp-nis niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'  id='niskode"+no+"'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nis2 tdnis2ke"+no+"'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td><span class='td-nsiswa tdnsiswake"+no+"'>"+line.nama_siswa+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nsiswa nsiswake"+no+" hidden'  value='"+line.nama_siswa+"' readonly></td>";
                             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
