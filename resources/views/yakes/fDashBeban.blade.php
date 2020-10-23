@@ -1,4 +1,8 @@
 <style>
+    table.table-akun > thead > tr > th {
+        color: #f0f0f0;
+        text-align: center;
+    }
     .card{
         border-radius: 0 !important;
         box-shadow: none;

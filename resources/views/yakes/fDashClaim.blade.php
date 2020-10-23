@@ -36,6 +36,11 @@
         margin-bottom: -1px;
         padding: 0px 10px 0px 0px;
     }
+    table.table-bordered > thead > tr > th {
+        color: #f0f0f0;
+        text-align: center;
+        vertical-align: middle;
+    }
 </style>
 <div class="row">
     <div class="col-12">
@@ -715,6 +720,260 @@
                 </div>
             </div>
         </div>
+
+        <div class="card mt-3" style="border-radius:10px !important;">
+            <div class="row mb-1 pl-4 pt-4">
+
+                    <div class="col-12">
+                        <h4 style="font-weight: bold;">Claim Cost</h4>
+                        <table class="table table-bordered" style="width: 98%;">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="background-color: #00CC66;width:5%;text-align:center;vertical-align:middle;">REG</th>
+                                    <th rowspan="2" style="background-color: #00CC66;width:10%;">RKA 2020</th>
+                                    <th rowspan="2" style="background-color: #00CC66;width:10%;">RKA SD AGU</th>
+                                    <th colspan="2" style="background-color: #00CC66;width:20%;">REALISASI YTD</th>
+                                    <th colspan="3" style="background-color: #00CC66;width:30%;">PRENSENTASE</th>
+                                </tr>
+                                <tr>
+                                    <th style="background-color: #00CC66;">AGU 2020</th>
+                                    <th style="background-color: #00CC66;">AGU 2019</th>
+                                    <th style="background-color: #00CC66;">RKA</th>
+                                    <th style="background-color: #00CC66;">AGU</th>
+                                    <th style="background-color: #00CC66;">YoY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">I</td>
+                                    <td style="text-align: right;">49.279</td>
+                                    <td style="text-align: right;">32.388</td>
+                                    <td style="text-align: right;">27.982</td>
+                                    <td style="text-align: right;">27.176</td>
+                                    <td style="text-align: right;">56,6</td>
+                                    <td style="text-align: right;">86,4</td>
+                                    <td style="text-align: right;">3,0</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">II</td>
+                                    <td style="text-align: right;">122.603</td>
+                                    <td style="text-align: right;">80.720</td>
+                                    <td style="text-align: right;">62.789</td>
+                                    <td style="text-align: right;">64.948</td>
+                                    <td style="text-align: right;">51,2</td>
+                                    <td style="text-align: right;">77,8</td>
+                                    <td style="text-align: right;">(3,3)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">III</td>
+                                    <td style="text-align: right;">120.625</td>
+                                    <td style="text-align: right;">79.672</td>
+                                    <td style="text-align: right;">72.446</td>
+                                    <td style="text-align: right;">74.360</td>
+                                    <td style="text-align: right;">60,1</td>
+                                    <td style="text-align: right;">91,0</td>
+                                    <td style="text-align: right;">(2,5)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">IV</td>
+                                    <td style="text-align: right;">39.450</td>
+                                    <td style="text-align: right;">26.130</td>
+                                    <td style="text-align: right;">21.750</td>
+                                    <td style="text-align: right;">21/642</td>
+                                    <td style="text-align: right;">55,1</td>
+                                    <td style="text-align: right;">83,2</td>
+                                    <td style="text-align: right;">0,5</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">V</td>
+                                    <td style="text-align: right;">81.456</td>
+                                    <td style="text-align: right;">53.833</td>
+                                    <td style="text-align: right;">37.036</td>
+                                    <td style="text-align: right;">45.323</td>
+                                    <td style="text-align: right;">45,5</td>
+                                    <td style="text-align: right;">68,8</td>
+                                    <td style="text-align: right;">(18,3)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">VI</td>
+                                    <td style="text-align: right;">8.677</td>
+                                    <td style="text-align: right;">5.753</td>
+                                    <td style="text-align: right;">4.444</td>
+                                    <td style="text-align: right;">5.328</td>
+                                    <td style="text-align: right;">51,2</td>
+                                    <td style="text-align: right;">77,2</td>
+                                    <td style="text-align: right;">(16,6)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">VII</td>
+                                    <td style="text-align: right;">15.389</td>
+                                    <td style="text-align: right;">10.186</td>
+                                    <td style="text-align: right;">7.964</td>
+                                    <td style="text-align: right;">8.613</td>
+                                    <td style="text-align: right;">51,8</td>
+                                    <td style="text-align: right;">78,2</td>
+                                    <td style="text-align: right;">(7,5)</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #00CC66;color:#f0f0f0;">REG.</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">437.480</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">288.681</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">234.432</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">247.390</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">53,6</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">81,2</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">(5,2)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">KP</td>
+                                    <td style="text-align: right;">19.300</td>
+                                    <td style="text-align: right;">12.867</td>
+                                    <td style="text-align: right;">7.459</td>
+                                    <td style="text-align: right;">5.562</td>
+                                    <td style="text-align: right;">38,6</td>
+                                    <td style="text-align: right;">58,0</td>
+                                    <td style="text-align: right;">34,1</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #00CC66;color:#f0f0f0;">NAS</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">456.780</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">301.548</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">241.891</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">252.952</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">53,0</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">80,2</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">(4,4)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-12">
+                        <h4 style="font-weight: bold;">Biaya Pengobatan</h4>
+                        <table class="table table-bordered" style="width: 98%;">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="background-color: #00CC66;width:5%;text-align:center;vertical-align:middle;">REG</th>
+                                    <th rowspan="2" style="background-color: #00CC66;width:10%;">RKA 2020</th>
+                                    <th rowspan="2" style="background-color: #00CC66;width:10%;">RKA SD AGU</th>
+                                    <th colspan="2" style="background-color: #00CC66;width:20%;">REALISASI YTD</th>
+                                    <th colspan="3" style="background-color: #00CC66;width:30%;">PRENSENTASE</th>
+                                </tr>
+                                <tr>
+                                    <th style="background-color: #00CC66;">AGU 2020</th>
+                                    <th style="background-color: #00CC66;">AGU 2019</th>
+                                    <th style="background-color: #00CC66;">RKA</th>
+                                    <th style="background-color: #00CC66;">AGU</th>
+                                    <th style="background-color: #00CC66;">YoY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center;">I</td>
+                                    <td style="text-align: right;">14.400</td>
+                                    <td style="text-align: right;">10.188</td>
+                                    <td style="text-align: right;">7.693</td>
+                                    <td style="text-align: right;">11.857</td>
+                                    <td style="text-align: right;">53,4</td>
+                                    <td style="text-align: right;">75,5</td>
+                                    <td style="text-align: right;">(35,1)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">II</td>
+                                    <td style="text-align: right;">54.966</td>
+                                    <td style="text-align: right;">37.201</td>
+                                    <td style="text-align: right;">31.353</td>
+                                    <td style="text-align: right;">36.002</td>
+                                    <td style="text-align: right;">57,0</td>
+                                    <td style="text-align: right;">84,3</td>
+                                    <td style="text-align: right;">(12,9)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">III</td>
+                                    <td style="text-align: right;">24.813</td>
+                                    <td style="text-align: right;">17.060</td>
+                                    <td style="text-align: right;">11.129</td>
+                                    <td style="text-align: right;">16.458</td>
+                                    <td style="text-align: right;">44,8</td>
+                                    <td style="text-align: right;">65,2</td>
+                                    <td style="text-align: right;">(32,4)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">IV</td>
+                                    <td style="text-align: right;">7.517</td>
+                                    <td style="text-align: right;">5.217</td>
+                                    <td style="text-align: right;">3.306</td>
+                                    <td style="text-align: right;">5.077</td>
+                                    <td style="text-align: right;">44,0</td>
+                                    <td style="text-align: right;">63,4</td>
+                                    <td style="text-align: right;">(34,9)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">V</td>
+                                    <td style="text-align: right;">12.088</td>
+                                    <td style="text-align: right;">8.439</td>
+                                    <td style="text-align: right;">4.825</td>
+                                    <td style="text-align: right;">7.538</td>
+                                    <td style="text-align: right;">39,9</td>
+                                    <td style="text-align: right;">57,2</td>
+                                    <td style="text-align: right;">(36,0)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">VI</td>
+                                    <td style="text-align: right;">2.850</td>
+                                    <td style="text-align: right;">1.951</td>
+                                    <td style="text-align: right;">1.347</td>
+                                    <td style="text-align: right;">1.764</td>
+                                    <td style="text-align: right;">47,3</td>
+                                    <td style="text-align: right;">69,0</td>
+                                    <td style="text-align: right;">(23,0)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">VII</td>
+                                    <td style="text-align: right;">6.088</td>
+                                    <td style="text-align: right;">4.185</td>
+                                    <td style="text-align: right;">2.739</td>
+                                    <td style="text-align: right;">3.616</td>
+                                    <td style="text-align: right;">45,0</td>
+                                    <td style="text-align: right;">65,4</td>
+                                    <td style="text-align: right;">(24,3)</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #00CC66;color:#f0f0f0;">REG.</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">122.722</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">84.242</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">62.391</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">82.313</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">50,8</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">74,1</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">(24,2)</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">KP</td>
+                                    <td style="text-align: right;">25.505</td>
+                                    <td style="text-align: right;">1.670</td>
+                                    <td style="text-align: right;">332</td>
+                                    <td style="text-align: right;">0</td>
+                                    <td style="text-align: right;">13,3</td>
+                                    <td style="text-align: right;">19,9</td>
+                                    <td style="text-align: right;">0,0</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #00CC66;color:#f0f0f0;">NAS</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">125.226</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">85.911</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">62.723</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">82.313</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">50,1</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">73,0</td>
+                                    <td style="text-align: right;background-color: #00CC66;color:#f0f0f0;">(23,8)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
 
     </div>
 </div>
