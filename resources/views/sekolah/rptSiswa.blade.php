@@ -77,8 +77,9 @@
                 <thead bgcolor='#CCCCCC'>
                     <tr>
                         <th width='5%'>NO</th>
+                        <th width='15%'>ID</th>
                         <th width='15%'>NIS</th>
-                        <th width='80%'>Nama</th>
+                        <th width='65%'>Nama</th>
                    </tr>
                 </thead>`;
                 html+=`<tr>
@@ -93,6 +94,7 @@
                         det+=`<tr>
                             <td>`+no+`</td>
                             <td>`+line2.nis+`</td>
+                            <td>`+line2.nis2+`</td>
                             <td>`+line2.nama+`</td>
                             </tr>`;
                             no++;   
