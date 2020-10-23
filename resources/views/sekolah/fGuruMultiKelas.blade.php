@@ -326,6 +326,7 @@
                                 <th>Nama</th>
                                 <th>Kode PP</th>
                                 <th>Kode Matpel</th>
+                                <th>Kelas</th>
                                 <th>Status</th>
                                 <th>Kode TA</th>
                                 <th>Tgl Input</th>
@@ -699,7 +700,7 @@
         bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         "ordering": true,
-        "order": [[6, "desc"]],
+        "order": [[7, "desc"]],
         'ajax': {
             'url': "{{url('sekolah-master/guru-multi-kelas')}}",
             'async':false,
@@ -726,17 +727,18 @@
                 }
             },
             {
-                "targets": [6],
+                "targets": [7],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 7, data: null, 'defaultContent': action_html }
+            {'targets': 8, data: null, 'defaultContent': action_html }
             ],
         'columns': [
             { data: 'nik' },
             { data: 'nama' },
             { data: 'pp' },
             { data: 'kode_matpel' },
+            { data: 'kelas' },
             { data: 'flag_aktif'},
             { data: 'kode_ta'},
             { data: 'tgl_input' },
@@ -1744,7 +1746,7 @@
         var kode_pp = tmp[0];
         var tmp2 = $(this).closest('tr').find('td').eq(3).html().split("-");
         var kode_matpel = tmp2[0];
-        var kode_ta = $(this).closest('tr').find('td').eq(5).html(); 
+        var kode_ta = $(this).closest('tr').find('td').eq(6).html(); 
         
         $.ajax({
             type: 'GET',
@@ -1807,14 +1809,14 @@
      // PREVIEW saat klik di list data
 
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 7){
             
             var id = $(this).closest('tr').find('td').eq(0).html();
             var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
             var kode_pp = tmp[0];
             var tmp2 = $(this).closest('tr').find('td').eq(3).html().split("-");
             var kode_matpel = tmp2[0];
-            var kode_ta = $(this).closest('tr').find('td').eq(5).html();
+            var kode_ta = $(this).closest('tr').find('td').eq(6).html();
             $.ajax({
                 type: 'GET',
                 url: "{{ url('sekolah-master/guru-multi-kelas-detail') }}",
@@ -1959,6 +1961,7 @@
                     showInfoField('nik_guru',result.data[0].nik_guru,result.data[0].nama_guru);
                     showInfoField('kode_matpel',result.data[0].kode_matpel,result.data[0].nama_matpel);
                     hitungTotalRow();
+                    $('#modal-preview').modal('hide');
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('sekolah-auth/sesi-habis') }}";
@@ -2018,7 +2021,7 @@
                 var kode_pp = $('#inp-filter_kode_pp').val();
                 var status = $('#inp-filter_status').val();
                 var col_kode_pp = data[2];
-                var col_status = data[4];
+                var col_status = data[5];
                 if(kode_pp != "" && status != ""){
                     if(kode_pp == col_kode_pp && status == col_status){
                         return true;
