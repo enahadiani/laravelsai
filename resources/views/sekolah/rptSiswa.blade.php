@@ -31,7 +31,8 @@
                 $('.navigation-lap').addClass('hidden');
             }
             var logo = "{{ asset('img/tarbak30x30.png') }}";
-            var html = `<div align='center'>
+            
+            var html=`<div align='center'>
             <style>
                 .info-table thead{
                     // background:#e9ecef;
@@ -42,7 +43,10 @@
                 .bold {
                     font-weight:bold;
                 }
-            </style>
+            </style>`;
+            for(var i=0;i<data.length;i++){
+                var line = data[i];
+            html += `
             <table class='table table-borderless table-kop' style='width:90%'>
                 <tr>
                     <td rowspan='4' colspan='2' style='width:20%'><img src='`+logo+`' class='logo-lap'></td>
@@ -68,7 +72,7 @@
             </table>
             `;
             var ta = kode_ta.from;
-            html+=judul_lap("DAFTAR SISWA AKTIF",ta,'');
+            html+=judul_lap("DAFTAR SISWA AKTIF",ta,'KELAS '+line.kode_kelas);
             html+=`<table class='table table-bordered' style='width:90%'>
                 <thead bgcolor='#CCCCCC'>
                     <tr>
@@ -77,8 +81,6 @@
                         <th width='80%'>Nama</th>
                    </tr>
                 </thead>`;
-            for(var i=0;i<data.length;i++){
-                var line = data[i];
                 html+=`<tr>
                     <td colspan="3"><b>Kelas `+line.kode_kelas+`</b></td>
                     </tr>`;
@@ -97,10 +99,15 @@
                         }
                     }
                     html+=det;
+                    html+=`
+                        </table>
+                    `;
+                    if(i != (data.length - 1)){
+                            html+=`<div class='separator2'></div>`;
+                        }
+                    html+=` <div class="page-break mb-4"></div>`;
             }
-            html+=`
-                </table>
-            </div>`;
+            html+=`</div>`;
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
