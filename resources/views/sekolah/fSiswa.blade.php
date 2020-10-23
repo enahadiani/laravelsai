@@ -204,6 +204,7 @@
                         <table id="table-data" style='width:100%'>                                    
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>NIS</th>
                                     <th>Nama</th>
                                     <th>PP</th>
@@ -709,7 +710,7 @@
             bLengthChange: false,
             sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             "ordering": true,
-            "order": [[6, "desc"]],
+            "order": [[7, "desc"]],
             'ajax': {
                 'url': "{{url('sekolah-trans/siswa')}}",
                 'async':false,
@@ -736,7 +737,7 @@
                     }
                 },
                 {
-                    "targets": [6],
+                    "targets": [7],
                     "visible": false,
                     "searchable": true
                 },
@@ -746,6 +747,7 @@
             ],
             'columns': [
                 { data: 'nis' },
+                { data: 'nis2' },
                 { data: 'nama' },
                 { data: 'pp' },
                 { data: 'kode_akt' },
@@ -1767,7 +1769,7 @@
 
         $('#saku-datatable').on('click','#btn-delete',function(e){
             var kode = $(this).closest('tr').find('td').eq(0).html();
-            var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+            var tmp = $(this).closest('tr').find('td').eq(3).html().split("-");
             var kode_pp = tmp[0];
             msgDialog({
                 id: kode,
@@ -1785,7 +1787,7 @@
             $('#btn-save').attr('id','btn-update');
             $('#judul-form').html('Edit Data Siswa');
             var id= $(this).closest('tr').find('td').eq(0).html(); 
-            var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+            var tmp = $(this).closest('tr').find('td').eq(3).html().split("-");
             var kode_pp = tmp[0];
 
             $.ajax({
@@ -1885,10 +1887,10 @@
         // PREVIEW saat klik di list data
 
         // $('#table-data tbody').on('click','td',function(e){
-        //     if($(this).index() != 5){
+        //     if($(this).index() != 6){
 
         //         var id = $(this).closest('tr').find('td').eq(0).html();
-        //         var tmp = $(this).closest('tr').find('td').eq(2).html().split("-");
+        //         var tmp = $(this).closest('tr').find('td').eq(3).html().split("-");
         //         var kode_pp = tmp[0];
         //         $.ajax({
         //             type: 'GET',
@@ -2596,8 +2598,8 @@
                 function( settings, data, dataIndex ) {
                     var kode_pp = $('#inp-filter_kode_pp').val();
                     var status = $('#inp-filter_status').val();
-                    var col_kode_pp = data[2];
-                    var col_status = data[5];
+                    var col_kode_pp = data[3];
+                    var col_status = data[6];
                     if(kode_pp != "" && status != ""){
                         if(kode_pp == col_kode_pp && status == col_status){
                             return true;
