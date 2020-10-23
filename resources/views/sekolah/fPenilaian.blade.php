@@ -1731,8 +1731,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%">No</th>
+                                            <th style="width:20%">ID</th>
                                             <th style="width:20%">NIS</th>
-                                            <th style="width:57%">Nama Siswa</th>
+                                            <th style="width:37%">Nama Siswa</th>
                                             <th style="width:20%">Nilai</th>
                                         </tr>
                                     </thead>
@@ -1752,6 +1753,7 @@
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line.nis+"</td>";
+                                input += "<td >"+line.nis2+"</td>";
                                 input += "<td >"+line.nama+"</td>";
                                 input += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
                                 input += "</tr>";

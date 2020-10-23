@@ -475,7 +475,7 @@
                                                 <textarea id="nama_kd" name="nama_kd" class="form-control" style="height:112px" readonly></textarea>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
-                                                <label for="pelaksanaan" >Pelaksaan</label>
+                                                <label for="pelaksanaan" >Pelaksanaan</label>
                                                 <textarea id="pelaksanaan" name="pelaksanaan" class="form-control" style="height:112px" readonly></textarea>
                                             </div>
                                         </div>
@@ -508,8 +508,9 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th style="width:3%">No</th>
+                                                    <th style="width:10%">ID</th>
                                                     <th style="width:10%">NIS</th>
-                                                    <th style="width:21%">Nama</th>
+                                                    <th style="width:29%">Nama</th>
                                                     <!-- <th style="width:18%">Nama Dok</th> -->
                                                     <th style="width:18%">Path File</th>
                                                     <th width="20%">Upload File</th>
@@ -1065,6 +1066,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control inp-nis' value='"+line.nis+"'></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
                             // if(line.nama != undefined && line.nama != "null"){
 
