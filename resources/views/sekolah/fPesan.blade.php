@@ -961,7 +961,7 @@
         switch(par){
             case 'kontak': 
                 if($('#jenis')[0].selectize.getValue() == "Siswa"){
-                    header = ['Kode', 'Nama','Kelas'];  
+                    header = ['ID', 'Nama','Kelas','NIS'];  
                     if("{{ Session::get('statusAdmin') }}" == "G" ){
                         var toUrl = "{{ url('sekolah-trans/penilaian-siswa') }}";
                     }else{
@@ -970,7 +970,8 @@
                     var columns = [
                         { data: 'nis' },
                         { data: 'nama' },
-                        { data: 'kode_kelas' }
+                        { data: 'kode_kelas' },
+                        { data: 'nis2' }
                     ];
                     var judul = "Daftar Siswa";
                     var pilih = "siswa";
@@ -995,7 +996,7 @@
                 $target3 = "";
                 $target4 = "";
                 var tmp = $('#inp-filter_kode_pp').val().split('-');
-                parameter = {kode_pp:tmp[0],kode_matpel:$('#kode_matpel').val()};
+                parameter = {kode_pp:tmp[0],kode_matpel:$('#kode_matpel').val(),flag_aktif:1};
             break;
             case 'kode_matpel': 
                 header = ['Kode', 'Nama'];
