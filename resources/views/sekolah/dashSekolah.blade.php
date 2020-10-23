@@ -251,7 +251,7 @@ function getFilterKelas(kode_pp) {
                     control.addOption([{text:result.daftar[i].kode_kelas+'-'+result.daftar[i].nama, value:result.daftar[i].kode_kelas}]); 
                 }
 
-                control.setValue('3A');
+                control.setValue(result.daftar[0].kode_kelas);
                 
             }
         },
