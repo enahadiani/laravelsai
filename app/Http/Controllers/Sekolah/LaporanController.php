@@ -155,6 +155,7 @@
                     
                     $res = json_decode($response_data,true);
                     $data = $res["data"];
+                    $detail = $res["data_detail"];
                 }
                 if(isset($request->back)){
                     $back = true;
@@ -162,7 +163,7 @@
                     $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1, 'detail'=>$detail,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);

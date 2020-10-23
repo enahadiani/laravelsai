@@ -74,20 +74,29 @@
                     <tr>
                         <th width='5%'>NO</th>
                         <th width='15%'>NIS</th>
-                        <th width='65%'>Nama</th>
-                        <th width='15%'>Kelas</th>
+                        <th width='80%'>Nama</th>
                    </tr>
                 </thead>`;
-            var no =1;
             for(var i=0;i<data.length;i++){
                 var line = data[i];
                 html+=`<tr>
-                    <td>`+no+`</td>
-                    <td>`+line.nis+`</td>
-                    <td>`+line.nama+`</td>
-                    <td>`+line.kode_kelas+`</td>
+                    <td colspan="3"><b>Kelas `+line.kode_kelas+`</b></td>
                     </tr>`;
-                no++;
+                    var no =1;
+                    var det = ``;
+                    for(var j=0;j<res.detail.length;j++){    
+                        var line2 = res.detail[j];
+                        if(line2.kode_kelas == line.kode_kelas){
+
+                        det+=`<tr>
+                            <td>`+no+`</td>
+                            <td>`+line2.nis+`</td>
+                            <td>`+line2.nama+`</td>
+                            </tr>`;
+                            no++;   
+                        }
+                    }
+                    html+=det;
             }
             html+=`
                 </table>
