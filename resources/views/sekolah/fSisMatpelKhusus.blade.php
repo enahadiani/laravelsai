@@ -854,6 +854,7 @@
                 var jTarget2 = "val";
                 $target = "."+$target;
                 $target2 = "."+$target2;
+                $target3 = "";
                 parameter = {'kode_pp':$('#kode_pp').val(),'flag_aktif':1};
                 
                 var width = ["20%","20%","60%"];
