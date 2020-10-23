@@ -1720,8 +1720,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%">No</th>
+                                            <th style="width:10%">ID</th>
                                             <th style="width:10%">NIS</th>
-                                            <th style="width:30%">Nama Siswa</th>
+                                            <th style="width:20%">Nama Siswa</th>
                                             <th style="width:17%">Kode Jenis</th>
                                             <th style="width:20%">Pelaksanaan</th>
                                             <th style="width:20%">Nilai</th>
@@ -1743,6 +1744,7 @@
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line.nis+"</td>";
+                                input += "<td >"+line.nis2+"</td>";
                                 input += "<td >"+line.nama+"</td>";
                                 input += "<td >"+line.kode_jenis+"</td>";
                                 input += "<td >"+line.pelaksanaan+"</td>";
@@ -2340,6 +2342,7 @@
                 $(this).addClass('px-0 py-0 aktif');
         
                 var nis = $(this).parents("tr").find(".inp-kode").val();
+                var nis2 = $(this).parents("tr").find(".inp-nis2").val();
                 var nama = $(this).parents("tr").find(".inp-nama").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
                 var kode_jenis = $(this).parents("tr").find(".inp-kode_jenis").val();
@@ -2359,9 +2362,21 @@
                     
                 }
         
+                $(this).parents("tr").find(".inp-nis2").val(nis2);
+                $(this).parents("tr").find(".td-nis2").text(nis2);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-nis2").show();
+                    $(this).parents("tr").find(".td-nis2").hide();
+                    $(this).parents("tr").find(".inp-nis2").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+
                 $(this).parents("tr").find(".inp-nama").val(nama);
                 $(this).parents("tr").find(".td-nama").text(nama);
-                if(idx == 2){
+                if(idx == 3){
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
                     $(this).parents("tr").find(".inp-nama").focus();
@@ -2373,7 +2388,7 @@
 
                 $(this).parents("tr").find(".inp-kode_jenis").val(kode_jenis);
                 $(this).parents("tr").find(".td-kode_jenis").text(kode_jenis);
-                if(idx == 3){
+                if(idx == 4){
                     $(this).parents("tr").find(".inp-kode_jenis").show();
                     $(this).parents("tr").find(".td-kode_jenis").hide();
                     $(this).parents("tr").find(".search-kode_jenis").show();
@@ -2387,7 +2402,7 @@
 
                 $(this).parents("tr").find(".inp-pelaksanaan").text(pelaksanaan);
                 $(this).parents("tr").find(".td-pelaksanaan").text(pelaksanaan);
-                if(idx == 4){
+                if(idx == 5){
                     $(this).parents("tr").find(".inp-pelaksanaan").show();
                     $(this).parents("tr").find(".td-pelaksanaan").hide();
                     $(this).parents("tr").find(".search-pelaksanaan").show();
@@ -2401,7 +2416,7 @@
         
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
                 $(this).parents("tr").find(".td-nilai").text(nilai);
-                if(idx == 5){
+                if(idx == 6){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
                     $(this).parents("tr").find(".inp-nilai").focus();
