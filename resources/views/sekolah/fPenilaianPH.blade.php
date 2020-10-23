@@ -445,12 +445,12 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_kd" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control input-label-kode_kd" id="kode_kd" name="kode_kd" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_kd" id="kode_kd" name="kode_kd" value="" title="" readonly style="background:#e9ecef">
                                                     <span class="info-name_kode_kd hidden">
                                                         <span></span> 
                                                     </span>
                                                     <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kd"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kd" readonly style="background:#e9ecef"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -530,8 +530,9 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th style="width:3%">No</th>
+                                                    <th style="width:10%">ID</th>
                                                     <th style="width:10%">NIS</th>
-                                                    <th style="width:30%">Nama</th>
+                                                    <th style="width:20%">Nama</th>
                                                     <th style="width:15%">Kode Jenis</th>
                                                     <th style="width:20%">Pelaksanaan</th>
                                                     <th style="width:17%">Nilai</th>
@@ -858,6 +859,7 @@
                 $target2 = ".info-name_"+par;
                 $target3 = "";
                 $target4 = "";
+                var width = ["30%","70%"];
             break;
             case 'kode_kelas': 
                 header = ['Kode Kelas', 'Nama'];
@@ -880,6 +882,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val()};
+                var width = ["30%","70%"];
             break;
             case 'kode_matpel': 
                 header = ['Kode Matpel', 'Nama'];
@@ -902,6 +905,7 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val()};
+                var width = ["30%","70%"];
             break;
             case 'kode_kd': 
                 header = ['Kode KD', 'Nama'];
@@ -925,6 +929,7 @@
                     return false;
                     // break;
                 }
+                var width = ["30%","70%"];
                
             break;
             case 'kode_jenis[]': 
@@ -944,6 +949,7 @@
                 $target2 = "";
                 $target4 = ".td-pelaksanaan";
                 parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
+                var width = ["30%","70%"];
             break;
             case 'kode_ta': 
                 header = ['Kode TA', 'Nama'];
@@ -962,12 +968,14 @@
                 $target3 = "";
                 $target4 = "";
                 parameter = {kode_pp:$('#kode_pp').val(),flag_aktif:1};
+                var width = ["30%","70%"];
             break;
             case 'nis[]': 
-                header = ['NIS', 'Nama'];
+                header = ['ID', 'NIS', 'Nama'];
                 var toUrl = "{{ url('sekolah-trans/siswa') }}";
                 var columns = [
                     { data: 'nis' },
+                    { data: 'nis2' },
                     { data: 'nama' }
                 ];
                 var judul = "Daftar Siswa";
@@ -978,12 +986,13 @@
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
                 $target4 = ".td-kode_jenis";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val()};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),flag_aktif:1};
+                
+                var width = ["20%","20%","60%"];
             break;
         }
 
         var header_html = '';
-        var width = ["30%","70%"];
         for(i=0; i<header.length; i++){
             header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
         }
@@ -1084,6 +1093,8 @@
                 if($target4 != ""){
                     if($target4 != ""){
                         if(par == "nis[]"){
+                            var nama2 = $(this).closest('tr').find('td:nth-child(3)').text();
+                            $($target).closest('tr').find('.inp-nama').val(nama2);
                             $($target).closest('tr').find($target4).click();
                             setTimeout(function() {  $($target).parents("tr").find(".inp-kode_jenis").focus(); }, 50);
                         }
@@ -1350,9 +1361,9 @@
                             $('.'+target1).val(kode);
                             $('.td'+target1).text(kode);
 
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
-                            $('.td'+target3).text('');
+                            $('.'+target2).val(result.daftar[0].nis2);
+                            $('.td'+target2).text(result.daftar[0].nis2);
+                            $('.td'+target3).text(result.daftar[0].nama);
                         }else{
 
                             $("#input-nilai td").removeClass("px-0 py-0 aktif");
@@ -1364,12 +1375,12 @@
                             $('.'+target1).hide();
                             $('.td'+target1).show();
 
-                            $('.'+target2).val(result.daftar[0].nama);
-                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).val(result.daftar[0].nis2);
+                            $('.td'+target2).text(result.daftar[0].nis2);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
-                            $('.td'+target3).text('');
+                            $('.td'+target3).text(result.daftar[0].nama);
                         }
                     }
                 }
@@ -1485,7 +1496,7 @@
         var kode_pp = tmp[0];
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Penilaian Siswa');
+        $('#judul-form').html('Edit Data Penilaian Multi PH');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
@@ -1518,6 +1529,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";
@@ -1611,7 +1623,7 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Penilaian Siswa');
+        $('#judul-form').html('Tambah Data Penilaian Multi PH');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -1767,7 +1779,7 @@
     $('.modal-header').on('click', '#btn-edit2', function(){
         var id= $('#modal-preview-id').text();
         var kode_pp= $('#modal-preview-kode').text();
-        $('#judul-form').html('Edit Data Penilaian Siswa');
+        $('#judul-form').html('Edit Data Penilaian Multi PH');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         
@@ -1802,7 +1814,8 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
-                            input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
+                            +line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
@@ -2038,6 +2051,7 @@
             if(!$(row).hasClass('selected-row')) {
                 
                 var nis = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nis2 = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").val();
                 var nama = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
                 var nilai = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
                 var kode_jenis = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode_jenis").val();
@@ -2045,6 +2059,8 @@
                
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val(nis);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode").text(nis);
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").val(nis2);
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nis2").text(nis2);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode_jenis").val(kode_jenis);
@@ -2057,6 +2073,8 @@
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".search-nis").hide();
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").hide();
+                $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nis2").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-nama").show();
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode_jenis").hide();
@@ -2083,7 +2101,7 @@
         
         switch(par){
             case 'nis[]': 
-                var par2 = "nama_siswa[]";
+                var par2 = "nis2[]";
             break;
             case 'kode_jenis[]': 
                 var par2 = "nilai[]";
@@ -2102,10 +2120,10 @@
     });
     
     
-    $('#input-nilai').on('keydown','.inp-kode, .inp-nama, .inp-kode_jenis,.inp-pelaksanaan, .inp-nilai',function(e){
+    $('#input-nilai').on('keydown','.inp-kode, .inp-nis2, .inp-nama, .inp-kode_jenis,.inp-pelaksanaan, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama','.inp-kode_jenis','.inp-pelaksanaan','.inp-nilai'];
-        var nxt2 = ['.td-kode','.td-nama','.td-kode_jenis','.td-pelaksanaan','.td-nilai'];
+        var nxt = ['.inp-kode','.inp-nis2','.inp-nama','.inp-kode_jenis','.inp-pelaksanaan','.inp-nilai'];
+        var nxt2 = ['.td-kode','.td-nis2','.td-nama','.td-kode_jenis','.td-pelaksanaan','.td-nilai'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -2117,8 +2135,8 @@
                     var noidx = $(this).parents("tr").find(".no-nilai").text();
                     var kode = $(this).val();
                     var target1 = "niske"+noidx;
-                    var target2 = "nmsiswake"+noidx;
-                    var target3 = "nilke"+noidx;
+                    var target2 = "nis2ke"+noidx;
+                    var target3 = "nmsiswake"+noidx;
                     getSiswa(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
@@ -2132,6 +2150,16 @@
                     $(this).closest('tr').find(nxt[idx_next]).focus();                    
                     break;
                 case 2:
+                    $("#input-nilai td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();                    
+                    break;
+                case 3:
                     if(isi != ""){
                         // $("#input-nilai td").removeClass("px-0 py-0 aktif");
                         // $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -2154,7 +2182,7 @@
                         return false;
                     }
                     break;
-                case 3:
+                case 4:
                     $("#input-nilai td").removeClass("px-0 py-0 aktif");
                     $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
                     $(this).closest('tr').find(nxt[idx]).val(isi);
@@ -2166,7 +2194,7 @@
                     $(this).closest('tr').find(nxt2[idx_next]).hide();
                     $(this).closest('tr').find(nxt[idx_next]).focus();                    
                     break;
-                case 4:
+                case 5:
                     if(isi != "" && isi != 0){
                         $("#input-nilai td").removeClass("px-0 py-0 aktif");
                         $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
@@ -2208,6 +2236,7 @@
             input += "<tr class='row-nilai'>";
             input += "<td class='no-nilai text-center'>"+no+"</td>";
             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'></span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'></span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='' readonly></td>";
             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'></span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='' readonly></td>";
             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'></span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
             input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'></span><textarea  name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden'  value='' required></textarea></td>";
@@ -2617,6 +2646,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='text' id='niskode"+no+"' name='nis[]' class='form-control inp-kode niske"+no+" hidden' value='"+line.nis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-nis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='text' name='nis2[]' class='form-control inp-nis2 nis2ke"+no+" hidden'  value='"+line.nis2+"' readonly></td>";
                             input += "<td ><span class='td-nama tdnmsiswake"+no+" tooltip-span'>"+line.nama+"</span><input type='text' name='nama_siswa[]' class='form-control inp-nama nmsiswake"+no+" hidden'  value='"+line.nama+"' readonly></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='text' id='kode_jenis"+no+"' name='kode_jenis[]' class='form-control inp-kode_jenis kode_jeniske"+no+" hidden' value='"+line.kode_jenis+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-kode_jenis hidden' style='position: absolute;z-index: 2;margin-top:0.6rem;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 16px;'></i></a></td>";
                             input += "<td><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><textarea name='pelaksanaan[]' class='form-control inp-pelaksanaan pelaksanaanke"+no+" hidden' required>"+line.pelaksanaan+"</textarea></td>";

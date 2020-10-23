@@ -446,12 +446,13 @@
                                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                         <span class="input-group-text info-code_kode_kd" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                                     </div>
-                                                    <input type="text" class="form-control input-label-kode_kd" id="kode_kd" name="kode_kd" value="" title="">
+                                                    <input type="text" class="form-control input-label-kode_kd" id="kode_kd" name="kode_kd" value="" title="" readonly style="
+                                                    background: #e9ecef !important;">
                                                     <span class="info-name_kode_kd hidden">
                                                         <span></span> 
                                                     </span>
                                                     <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kd"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_kode_kd" style="background: #e9ecef !important;"></i>
                                                 </div>
                                             </div>
                                         </div>
