@@ -2464,6 +2464,10 @@
             }
             formData.append('kode_pp',$('#kode_pp').val());
             formData.append('kode_kelas',$('#kode_kelas').val());
+            formData.append('kode_kd',$('#kode_kd').val());
+            formData.append('kode_sem',$('#kode_sem').val());
+            formData.append('kode_matpel',$('#kode_matpel').val());
+            formData.append('kode_ta',$('#kode_ta').val());
             $('.pesan-upload').show();
             $('.pesan-upload-judul').html('Proses upload...');
             $('.pesan-upload-judul').removeClass('text-success');

@@ -312,6 +312,10 @@
             $this->validate($request, [
                 'file' => 'required',
                 'kode_pp' => 'required',
+                'kode_sem' => 'required',
+                'kode_kd' => 'required',
+                'kode_ta' => 'required',
+                'kode_matpel' => 'required',
                 'kode_kelas' => 'required'
             ]);
     
@@ -337,6 +341,28 @@
                 $fields[3] = array(
                     'name'     => 'kode_kelas',
                     'contents' => $request->kode_kelas
+                );
+                
+                $fields[4] = array(
+                    'name'     => 'kode_matpel',
+                    'contents' => $request->kode_matpel
+                );
+
+                
+                $fields[5] = array(
+                    'name'     => 'kode_ta',
+                    'contents' => $request->kode_ta
+                );
+
+                
+                $fields[6] = array(
+                    'name'     => 'kode_sem',
+                    'contents' => $request->kode_sem
+                );
+                
+                $fields[7] = array(
+                    'name'     => 'kode_kd',
+                    'contents' => $request->kode_kd
                 );
     
                 $client = new Client();
