@@ -721,9 +721,8 @@
             </div>
         </div>
 
-        <div class="col-12">
-            <div class="card" style="height: 100%; border-radius:10px !important;">
-                <div class="row mb-1 pl-4 pt-4">
+        <div class="card mt-3" style="border-radius:10px !important;">
+            <div class="row mb-1 pl-4 pt-4">
 
                     <div class="col-12">
                         <h4 style="font-weight: bold;">Claim Cost</h4>
@@ -975,7 +974,6 @@
 
                 </div>
             </div>
-        </div>
 
     </div>
 </div>
