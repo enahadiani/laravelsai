@@ -491,9 +491,10 @@
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th style="width:3%">No</th>
+                                                    <th style="width:8%">ID</th>
                                                     <th style="width:8%">NIS</th>
                                                     <th style="width:20%">Nama</th>
-                                                    <th style="width:18%">Kode Jenis</th>
+                                                    <th style="width:10%">Kode Jenis</th>
                                                     <th style="width:18%">Pelaksanaan</th>
                                                     <th style="width:18%">Path File</th>
                                                     <th width="18%">Upload File</th>
@@ -1045,6 +1046,7 @@
                             input += "<tr class='row-nilai'>";
                             input += "<td class='no-nilai text-center'>"+no+"</td>";
                             input += "<td ><span class='td-kode tdniske"+no+" tooltip-span'>"+line.nis+"</span><input type='hidden' name='nis[]' class='form-control inp-nis' value='"+line.nis+"'></td>";
+                            input += "<td ><span class='td-nis2 tdnis2ke"+no+" tooltip-span'>"+line.nis2+"</span><input type='hidden' name='nis2[]' class='form-control inp-nis2' value='"+line.nis2+"'></td>";
                             input += "<td ><span class='td-nama_siswa tdnmsiswake"+no+" tooltip-span'>"+line.nama_siswa+"</span></td>";
                             input += "<td ><span class='td-kode_jenis tdkode_jeniske"+no+" tooltip-span'>"+line.kode_jenis+"</span><input type='hidden' name='kode_jenis[]' class='form-control inp-kode_jenis' value='"+line.kode_jenis+"'></td>";
                             input += "<td ><span class='td-pelaksanaan tdpelaksanaanke"+no+" tooltip-span'>"+line.pelaksanaan+"</span><input type='hidden' name='pelaksanaan[]' class='form-control inp-pelaksanaan' value='"+line.pelaksanaan+"'></td>";
