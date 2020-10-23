@@ -242,7 +242,7 @@
                                     <th>Kode Kelas</th>
                                     <th>Nama</th>
                                     <th>Tingkat</th>
-                                    <th>Jurusan</th>
+                                    <th>Mata Pelajaran</th>
                                     <th>PP</th>
                                     <th>Status</th>
                                     <th>Tgl Input</th>
@@ -727,7 +727,7 @@
             { data: 'kode_kelas' },
             { data: 'nama' },
             { data: 'kode_tingkat' },
-            { data: 'jur' },
+            { data: 'matpel' },
             { data: 'pp' },
             { data: 'flag_aktif'},
             { data: 'tgl_input' },
