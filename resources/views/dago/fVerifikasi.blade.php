@@ -984,12 +984,14 @@
                             $akunTambah = line.akun_piutang;
                         }
     
+                        var totalBayar = 0;
                         if (res.data.detail_bayar.length){
                             var line2 = res.data.detail_bayar[0];							
                             if (line2 != undefined){										
                                 var bayarTambah = parseFloat(line2.tambahan);
                                 var bayarPaket = parseFloat(line2.paket);
-                                var bayarDok = parseFloat(line2.dokumen);					
+                                var bayarDok = parseFloat(line2.dokumen);
+                                totalBayar =  parseFloat(line2.total_bayar);					
                             }
                         }
 
@@ -1104,7 +1106,8 @@
                         var saldom = parseFloat(res.data.totDok) - bayarDok_lain;		
                         $('#saldo_paket').val(format_number(saldo));
                         $('#saldo_biaya').val(format_number(saldot));
-                        $('#saldo_dok').val(format_number(saldom));          
+                        $('#saldo_dok').val(format_number(saldom));    
+                        $('#total_bayar').val(format_number(totalBayar));      
                         $('#web_datatable').hide();
                         $('#saku-form').show();
                     } 
