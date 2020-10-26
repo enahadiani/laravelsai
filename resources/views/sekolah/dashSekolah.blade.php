@@ -604,4 +604,27 @@ $("#btn-close").on("click", function (event) {
 });
 
 $('#btn-tampil').click();
+$('#btn-tampil').click(function(e){
+    e.preventDefault();
+    var icon = '<i class="simple-icon-arrow-down" style="float:right;right:0;margin-top:3px;"></i>';
+    var kode_pp = $('#inp-filter_kode_pp')[0].selectize.getValue();
+    var kode_kelas = $('#inp-filter_kode_kelas')[0].selectize.getValue();
+    var kode_matpel = $('#inp-filter_kode_matpel')[0].selectize.getValue();
+    var nama_kelas = $('#inp-filter_kode_kelas option:selected').text().split("-");
+    var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
+    nama_kelas = nama_kelas[0];
+    nama_matpel = nama_matpel[1];
+    var nama_matpel = $('#inp-filter_kode_matpel option:selected').text().split("-");
+    nama_matpel = nama_matpel[1];
+    $('#filter-btn').html(`${nama_matpel} ${nama_kelas} ${icon}`);
+    $('#judul-kelas').html(nama_kelas);
+    $('#judul-matpel').html(nama_matpel);
+
+    getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
+    getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
+    getDataBox(kode_pp,kode_kelas,kode_matpel);
+    getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
+    getTahunAjaran(kode_pp)
+    $('#modalFilter').modal('hide');
+});
 </script>
