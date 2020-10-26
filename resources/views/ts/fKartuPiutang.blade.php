@@ -475,9 +475,16 @@
     $('#modalEmail').on('submit','#formEmail',function(e){
         e.preventDefault();
         var formData = new FormData(this);
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#print-area').html()+`</div></body>`;
+        formData.append("html",html);
+        formData.append("text","Berikut ini kami lampiran Kartu Piutang siswa:");
+        formData.append("subject","Kartu Piutang siswa");
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]); 
+        }
         $.ajax({
             type: 'POST',
-            url: "{{ url('ts-report/email-kartu-piutang') }}",
+            url: "{{ url('ts-report/email-send') }}",
             dataType: 'json',
             data: formData,
             async:false,
@@ -485,11 +492,10 @@
             cache: false,
             processData: false, 
             success:function(result){
-                alert(result.message);
-                if(result.status){
+                alert(result.data.message);
+                if(result.data.id != undefined){
                     $('#modalEmail').modal('hide');
                 }
-                // $loadBar2.hide();
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
