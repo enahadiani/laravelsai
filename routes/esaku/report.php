@@ -43,3 +43,4 @@ Route::post('lap-bukubesar', 'Esaku\LaporanController@getBukuBesar');
 Route::post('lap-neraca', 'Esaku\LaporanController@getNeraca');
 Route::post('lap-labarugi', 'Esaku\LaporanController@getLabaRugi');
 Route::post('send-laporan', 'Esaku\LaporanController@sendMail');
+Route::post('email-nrclajur', 'Esaku\LaporanController@sendNrcLajur');
