@@ -273,9 +273,9 @@
             $formData.delete(key);
         });
         var kode = $(this).data('no_kwitansi');
-        $formData.append("no_kwitansi[]", "=");
-        $formData.append("no_kwitansi[]", kode);
-        $formData.append("no_kwitansi[]", "");
+        $formData.append("no_kb[]", "=");
+        $formData.append("no_kb[]", kode);
+        $formData.append("no_kb[]", "");
         xurl = "{{ url('/dago-auth/form')}}/rptPbyrBaru";
         $('#print-area > .script').load(xurl);
         $('#slide-print').show();

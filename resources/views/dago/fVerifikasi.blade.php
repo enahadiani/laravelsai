@@ -372,6 +372,10 @@
         
     });
 
+    
+    var $paket = 0;
+    var $room = 0;
+
     function format_number(x){
         var num = parseFloat(x).toFixed(0);
         num = sepNumX(num);
@@ -779,15 +783,25 @@
 
         $('#bayar_tambahan').val(total_t);
         $('#bayar_dok').val(total_d);
-        $('#bayar_paket').val(format_number2(total_p));
-        var total =(toNilai($('#bayar_paket').val())*kurs) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
-        total = Math.round(total);
-        $('#total_bayar').val(total);
+        var kode_curr = $('#kode_curr').val();
+        if(kode_curr == "USD"){
+            $('#bayar_paket').val(format_number2(total_p));
+
+            var total =$paket+$room+toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+            total = Math.round(total);
+            $('#total_bayar').val(total);
+
+        }else{
+            $('#bayar_paket').val(format_number2(total_p));
+            var total =(toNilai($('#bayar_paket').val())) + toNilai($('#bayar_tambahan').val()) + toNilai($('#bayar_dok').val());
+            total = Math.round(total);
+            $('#total_bayar').val(total);
+        }
         
     }
 
     function konversiKurs(){
-        
+
         var kurs = toNilai($('#kurs').val());
         var konversi = toNilai($('#konversi').val());
         var hasil = konversi/kurs;
@@ -796,21 +810,27 @@
         if(jenis == "PAKET"){
             var saldo = toNilai($("[value=PAKET]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
+                $paket = konversi;
                 $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
+                $paket = 0;
                 alert('Nilai bayar melebihi saldo Paket');
                 $("[value=PAKET]").closest('tr').find('.td-nbiaya_bayar').text(0);
                 $("[value=PAKET]").closest('tr').find('.inp-nbiaya_bayar').val(0);
             }
         }else if(jenis == "ROOM"){
+            
             var saldo = toNilai($("[value=ROOM]").closest('tr').find('.inp-saldo_det').val());
             if(hasil <= saldo){
+                $room = konversi;
                 $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(format_number2(hasil));
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(format_number2(hasil));
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').trigger('change');
             }else{
+                
+                $room = 0;
                 alert('Nilai bayar melebihi saldo Room');
                 $("[value=ROOM]").closest('tr').find('.td-nbiaya_bayar').text(0);
                 $("[value=ROOM]").closest('tr').find('.inp-nbiaya_bayar').val(0);
@@ -984,12 +1004,14 @@
                             $akunTambah = line.akun_piutang;
                         }
     
+                        var totalBayar = 0;
                         if (res.data.detail_bayar.length){
                             var line2 = res.data.detail_bayar[0];							
                             if (line2 != undefined){										
                                 var bayarTambah = parseFloat(line2.tambahan);
                                 var bayarPaket = parseFloat(line2.paket);
-                                var bayarDok = parseFloat(line2.dokumen);					
+                                var bayarDok = parseFloat(line2.dokumen);
+                                totalBayar =  parseFloat(line2.total_bayar);					
                             }
                         }
 
@@ -1104,7 +1126,8 @@
                         var saldom = parseFloat(res.data.totDok) - bayarDok_lain;		
                         $('#saldo_paket').val(format_number(saldo));
                         $('#saldo_biaya').val(format_number(saldot));
-                        $('#saldo_dok').val(format_number(saldom));          
+                        $('#saldo_dok').val(format_number(saldom));    
+                        $('#total_bayar').val(format_number(totalBayar));      
                         $('#web_datatable').hide();
                         $('#saku-form').show();
                     } 
