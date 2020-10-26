@@ -2052,12 +2052,20 @@
     })
 
     $('#import-excel').click(function(e){
-        $('.custom-file-input').val('');
-        $('.custom-file-label').text('File upload');
-        $('.pesan-upload .pesan-upload-judul').html('');
-        $('.pesan-upload .pesan-upload-isi').html('')        
-        $('.pesan-upload').hide();
-        $('#modal-import').modal('show');
+        var kode_matpel = $('#kode_matpel').val();
+        var kode_ta = $('#kode_ta').val();
+        var kode_tingkat = $('#kode_tingkat').val();
+        var kode_sem = $('#kode_sem').val();
+        if(kode_matpel == "" || kode_tingkat == "" || kode_sem == ""){
+            alert("Mata pelajaran , Tingkat dan Semester wajib diisi");
+        }else{
+            $('.custom-file-input').val('');
+            $('.custom-file-label').text('File upload');
+            $('.pesan-upload .pesan-upload-judul').html('');
+            $('.pesan-upload .pesan-upload-isi').html('')        
+            $('.pesan-upload').hide();
+            $('#modal-import').modal('show');
+        }
     });
 
     $("#form-import").validate({
@@ -2194,11 +2202,20 @@
     });
 
     $('#download-template').click(function(){
+
         var kode_lokasi = "{{ Session::get('lokasi') }}";
         var nik_user = "{{ Session::get('nikUser') }}";
         var nik = "{{ Session::get('userLog') }}";
-        var link = "{{ config('api.url').'sekolah/kd-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=template&kode_pp="+$('#kode_pp').val()+"&kode_tingkat="+$('#kode_tingkat').val()+"&kode_matpel="+$('.info-name_kode_matpel > span ').text()+"&kode_ta="+$('#kode_ta').val()+"&kode_sem="+$('#kode_sem option:selected').text();
-        window.open(link, '_blank'); 
+        var kode_matpel = $('#kode_matpel').val();
+        var kode_ta = $('#kode_ta').val();
+        var kode_tingkat = $('#kode_tingkat').val();
+        var kode_sem = $('#kode_sem').val();
+        if(kode_matpel == "" || kode_tingkat == "" || kode_sem == ""){
+            alert("Mata pelajaran , Tingkat dan Semester wajib diisi");
+        }else{
+            var link = "{{ config('api.url').'sekolah/kd-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=template&kode_pp="+$('#kode_pp').val()+"&kode_tingkat="+$('#kode_tingkat').val()+"&kode_matpel="+$('.info-name_kode_matpel > span ').text()+"&kode_ta="+$('#kode_ta').val()+"&kode_sem="+$('#kode_sem option:selected').text();
+            window.open(link, '_blank'); 
+        }
     });
 
     $('#process-upload').click(function(e){
