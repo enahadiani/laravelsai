@@ -471,6 +471,84 @@ function getTahunAjaran(kode_pp){
     });
 }
 
+function getDibawahKKM(kode_pp=null,kode_kelas,kode_matpel) {
+    $.ajax({
+      type:"GET",
+      url:"{{ url('sekolah-dash/dibawah-nilai-kkm') }}",
+      dataType:"JSON",
+      data:{kode_pp:kode_pp,kode_kelas:kode_kelas,kode_matpel:kode_matpel,kode_ta:"2020/2021",kode_sem:"1"},
+      success: function(res) {
+          var result = res.data;
+          Highcharts.chart('chart-nilai-kkm', {
+            chart: {
+                type: 'column',
+                events:{
+                    load: function() {
+                        Highcharts.each(this.series[0].points, function(p){
+                            if(p.y < 5) {
+                                p.update({
+                                    color:'#DF212A',
+                                })
+                            } else {
+                                p.update({
+                                    color:'#10156f',
+                                })
+                            }
+                        })
+                    }
+                }
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            credits:{
+                enabled:false
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                categories: result.ctg,
+                crosshair: true
+            },
+            yAxis: {
+                title: {
+                    text: 'Presentase'
+                }
+
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:.1f}%'
+                    }
+                },
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            },
+            series: [
+                {
+                    name: "KKM",
+                    colorByPoint: false,
+                    data: result.data
+                }
+            ]
+        });
+      }  
+    })
+}
+
 // FILTER
 $('#modalFilter').on('submit','#form-filter',function(e){
     e.preventDefault();
@@ -491,6 +569,7 @@ $('#modalFilter').on('submit','#form-filter',function(e){
     getHistoryPesan(kode_pp,kode_kelas,kode_matpel);
     getNilaiRatarata(kode_pp,kode_kelas,kode_matpel);
     getDataBox(kode_pp,kode_kelas,kode_matpel);
+    getDibawahKKM(kode_pp,kode_kelas,kode_matpel);
     getTahunAjaran(kode_pp)
     $('#modalFilter').modal('hide');
 });
@@ -525,99 +604,4 @@ $("#btn-close").on("click", function (event) {
 });
 
 $('#btn-tampil').click();
-
-
-// Create the chart
-Highcharts.chart('chart-nilai-kkm', {
-    chart: {
-        type: 'column',
-        events:{
-            load: function() {
-                Highcharts.each(this.series[0].points, function(p){
-                    if(p.y < 5) {
-                        p.update({
-                            color:'#DF212A',
-                        })
-                    } else {
-                        p.update({
-                            color:'#10156f',
-                        })
-                    }
-                })
-            }
-        }
-    },
-    title: {
-        text: null
-    },
-    subtitle: {
-        text: null
-    },
-    credits:{
-        enabled:false
-    },
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        }
-    },
-    xAxis: {
-        categories: ['Kode KD A','Kode KD B','Kode KD C','Kode KD D','Kode KD E','Kode KD F'],
-        crosshair: true
-    },
-    yAxis: {
-        title: {
-            text: 'Presentase'
-        }
-
-    },
-    legend: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y:.1f}%'
-            }
-        },
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-    },
-    series: [
-        {
-            name: "KKM",
-            colorByPoint: false,
-            data: [
-                {
-                    name: "Kode KD A",
-                    y: 6,
-                    color:'#aaff99'
-                },
-                {
-                    name: "Kode KD B",
-                    y: 10,
-                },
-                {
-                    name: "Kode KD C",
-                    y: 30,
-                },
-                {
-                    name: "Kode KD D",
-                    y: 4,
-                },
-                {
-                    name: "Kode KD E",
-                    y: 15,
-                },
-                {
-                    name: "Kode KD F",
-                    y: 20,
-                }
-            ],
-        }
-    ]
-});
 </script>
