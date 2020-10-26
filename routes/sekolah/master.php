@@ -102,6 +102,8 @@ Route::get('kd-detail', 'Sekolah\KdController@show');
 Route::post('kd', 'Sekolah\KdController@store');
 Route::put('kd', 'Sekolah\KdController@update');
 Route::delete('kd', 'Sekolah\KdController@destroy');
+Route::post('import-kd', 'Sekolah\KdController@importExcel');
+Route::get('kd-tmp', 'Sekolah\KdController@getKdTmp');
 
 Route::get('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@index');
 Route::get('guru-multi-kelas-detail', 'Sekolah\GuruMultiKelasController@show');
