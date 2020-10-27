@@ -512,7 +512,25 @@
     $('#modalEmail').on('submit','#formEmail',function(e){
         e.preventDefault();
         var formData = new FormData(this);
-        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#print-area').html()+`</div></body>`;
+        var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style>
+        <body style='background:white;'>
+            <div>
+                <div class="card" id="print-area">
+                    <div class="card-body">
+                        `+$('.kop').html()+`
+                        <div class="separator my-1"></div>
+                        `+$('.kartu-m').html()+`
+                        <div class="kartu-d mt-2">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                `+$('#table-detail').html()+`
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>`;
         formData.append("html",html);
         formData.append("text","Berikut ini kami lampiran Kartu Piutang siswa:");
         formData.append("subject","Kartu Piutang siswa");
