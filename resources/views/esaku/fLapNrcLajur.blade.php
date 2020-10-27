@@ -1095,21 +1095,51 @@
             $('#modalEmail').modal('show');
         });
 
+        // $('#modalEmail').on('submit','#formEmail',function(e){
+        //     e.preventDefault();
+        //     var formData = new FormData(this);
+        //     formData.append("periode[]",periode.type);
+        //     formData.append("periode[]",periode.from);
+        //     formData.append("periode[]",periode.to);
+        //     formData.append("kode_akun[]",akun.type);
+        //     formData.append("kode_akun[]",akun.from);
+        //     formData.append("kode_akun[]",akun.to);
+        //     for(var pair of formData.entries()) {
+        //         console.log(pair[0]+ ', '+ pair[1]); 
+        //     }
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{{ url('esaku-report/send-laporan') }}",
+        //         dataType: 'json',
+        //         data: formData,
+        //         async:false,
+        //         contentType: false,
+        //         cache: false,
+        //         processData: false, 
+        //         success:function(result){
+        //             alert(result.message);
+        //             if(result.status){
+        //                 $('#modalEmail').modal('hide');
+        //             }
+        //             // $loadBar2.hide();
+        //         },
+        //         fail: function(xhr, textStatus, errorThrown){
+        //             alert('request failed:'+textStatus);
+        //         }
+        //     });
+            
+        // });
+
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
-            formData.append("periode[]",periode.type);
-            formData.append("periode[]",periode.from);
-            formData.append("periode[]",periode.to);
-            formData.append("kode_akun[]",akun.type);
-            formData.append("kode_akun[]",akun.from);
-            formData.append("kode_akun[]",akun.to);
+            formData.append("html",$('#saku-report #canvasPreview').html());
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-report/send-laporan') }}",
+                url: "{{ url('esaku-report/email-nrclajur') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -1117,8 +1147,8 @@
                 cache: false,
                 processData: false, 
                 success:function(result){
-                    alert(result.message);
-                    if(result.status){
+                    alert(result.data.message);
+                    if(result.data.id != undefined){
                         $('#modalEmail').modal('hide');
                     }
                     // $loadBar2.hide();

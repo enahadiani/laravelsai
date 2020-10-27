@@ -213,6 +213,10 @@
         .fs-10{
             font-size:10px;
         }
+
+        .fs-14{
+            font-size:14px;
+        }
         .lh-1 {
            line-height:1.5 !important;
         }
@@ -241,6 +245,9 @@
         #table-isi-skl td.border-mixed-right
         {
             border-style: dashed solid dashed dashed !important;
+        }
+        .coret{
+            text-decoration: line-through;
         }
     </style>
     <div class="row" id="saku-dashboard">
@@ -326,16 +333,42 @@
                                         </tr>
                                         <tr>
                                             <td width="2%">2.</td>
-                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                            <td colspan="3">Peraturan Akademik tentang Kriteria Kelulusan pada KTSP SMK Telkom Sandhy Putra Tahun 2019</td>
                                         </tr>
                                         <tr>
                                             <td width="2%">3.</td>
-                                            <td colspan="3">Keputusan Kepala Dinas Pendidikan Provinsi DKI Jakarta Nomor 356 tahun 2020</td>
+                                            <td colspan="3">Hasil Rapat Pleno Dewan Pendidik tentang kelulusan Tahun Pelajaran 2019/2020</td>
                                         </tr>
-                                        <!-- 1. 
-                                        2. Peraturan Akademik tentang Kriteria Kelulusan pada KTSP SMK Telkom Sandhy Putra Tahun 2019
-                                        3. Hasil Rapat Pleno Dewan Pendidik tentang kelulusan Tahun Pelajaran 2019/2020
-                                        Dinyatakan: -->
+                                        <tr>
+                                            <td width="2%" colspan="4">Dinyatakan:</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%" colspan="4" class="text-center bold fs-14 ">LULUS/&nbsp;<span class="coret">TIDAK LULUS</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="2%" colspan="4">Dengan hasil sebagai berikut:</td>
+                                        </tr>  
+                                    </table>
+                                    <table class="table table-bordered" id="table-isi-skl" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <td  class="text-center" width="2%">No</td>
+                                                <td  class="text-center" width="58%">Mata Pelajaran</td>
+                                                <td  class="text-center" width="20%">Rata-rata Raport</td>
+                                                <td  class="text-center" width="20%">Nilai Ujian Sekolah</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4">Muatan Nasional</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border-mixed-left">1.</td>
+                                                <td class="border-mixed">Pendidikan Agama dan Budi Pekerti</td>
+                                                <td class="border-mixed"></td>
+                                                <td class="border-mixed-right"></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

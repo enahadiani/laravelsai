@@ -1363,6 +1363,10 @@
                                                             <td>: `+line.kode_curr+` `+format_number(line.harga_paket)+`</td>
                                                         </tr>
                                                         <tr>
+                                                            <td>BIAYA TAMBAHAN + DOKUMEN </td>
+                                                            <td colspan='2'>: IDR `+sepNumPas(line.biaya_tambah)+`</td>
+                                                        </tr>
+                                                        <tr>
                                                             <td>KEBERANGKATAN </td>
                                                             <td>: `+line.jadwal+`</td>
                                                         </tr>
@@ -1425,6 +1429,22 @@
                                                                 </tr>`;
                                                     }
                                                     html+=` 
+                                                        <tr>
+                                                            <td>SALDO TAMBAHAN + DOKUMEN</td>
+                                                            <td colspan='2'>: IDR `+sepNumPas(line.saldo_t)+`</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TOTAL BAYAR TAMBAHAN + DOKUMEN</td>
+                                                            <td colspan='2'>: IDR `+sepNumPas(line.bayar_t)+`</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TERBILANG TAMBAHAN + DOKUMEN</td>
+                                                            <td width="300" colspan='2' style='text-transform:capitalize'>: `+(line.bayar_t == 0 ? '0 Rupiah' : terbilang(line.bayar_t) + 'Rupiah') +`</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SISA TAMBAHAN + DOKUMEN</td>
+                                                            <td colspan='2'>: IDR `+sepNumPas(line.sisa_t)+`</td>
+                                                        </tr>
                                                     <tr>
                                                             <td>DIINPUT OLEH </td>
                                                             <td colspan='2'>: `+line.nik_user+` </td>
