@@ -130,11 +130,12 @@
                                                 <th class="header_laporan" align="center" rowspan='2'>PAKET</th>
                                                 <th class="header_laporan" align="center" rowspan='2'>ROOM</th>
                                                 <th class="header_laporan" align="center" rowspan='2'>JADWAL KEBERANGKATAN</th>
-                                                <th class="header_laporan" align="center" colspan='4'>TAGIHAN</th>
+                                                <th class="header_laporan" align="center" colspan='5'>TAGIHAN</th>
                                                 <th class="header_laporan" align="center" colspan='4'>PEMBAYARAN</th>
                                                 <th class="header_laporan" align="center" colspan='4'>SALDO</th>
                                             </tr>
                                             <tr>
+                                                <th class="header_laporan" align="center">CURRENCY</th>
                                                 <th class="header_laporan" align="center">HARGA PAKET+ROOM</th>
                                                 <th class="header_laporan" align="center">BIAYA TAMBAHAN</th>
                                                 <th class="header_laporan" align="center">BIAYA DOK</th>
@@ -188,6 +189,7 @@
                                                 <td  class='isi_laporan'>`+line2.nama_paket+`</td>
                                                 <td  class='isi_laporan'>`+line2.nama_room+`</td>
                                                 <td  class='isi_laporan'>`+line2.tgl_berangkat+`</td>
+                                                <td  class='isi_laporan'>`+line2.kode_curr+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_paket)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_tambahan)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_dok)+`</td>
