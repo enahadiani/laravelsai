@@ -206,6 +206,23 @@
             width:80px !important;
             height:100px !important;
         }
+        .w-30p{
+            width : 30% !important;
+        }
+        
+        .w-70p{
+            width : 70% !important;
+        }
+
+        #table-header 
+        {
+            width:100% !important;
+        }
+
+        #table-header td 
+        {
+            padding:0 !important;
+        }
     </style>
     <div class="row" id="saku-dashboard">
         <div class="col-12">
@@ -244,20 +261,40 @@
                     <div class="separator my-1"></div>
                     <div class="kartu-m">
                         <div class="row">
-                            <div class="col-sm-12 text-center"><h5><b><u>KARTU PIUTANG</u></b></h5></div>
-                            <div class="col-sm-12"><h6><b>Identitas Siswa</b></h6></div>
-                            <div class="col-sm-2 col-4">NIS</div>
-                            <div class="col-sm-10 col-8" id="nis"></div>
-                            <div class="col-sm-2 col-4">ID Bank</div>
-                            <div class="col-sm-10 col-8" id="id_bank"></div>
-                            <div class="col-sm-2 col-4">Nama</div>
-                            <div class="col-sm-10 col-8" id="nama"></div>
-                            <div class="col-sm-2 col-4">Kelas</div>
-                            <div class="col-sm-10 col-8" id="kode_kelas"></div>
-                            <div class="col-sm-2 col-4">Angkatan</div>
-                            <div class="col-sm-10 col-8" id="kode_akt"></div>
-                            <div class="col-sm-2 col-4">Jurusan</div>
-                            <div class="col-sm-10 col-8" id="nama_jur"></div>
+                            <div class="col-sm-12 text-center">
+                                <h5><b><u>KARTU PIUTANG</u></b></h5>
+                            </div>
+                            <div class="col-sm-12">
+                                <table class="table table-borderless" id="table-header">
+                                    <tr>
+                                        <td colspan="2"><h6><b>Identitas Siswa</b></h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-30p">NIS</td>
+                                        <td class="w-70p" id="nis"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-30p">ID Bank</td>
+                                        <td class="w-70p" id="id_bank"></td>
+                                    </tr> 
+                                    <tr>
+                                        <td class="w-30p">Nama</td>
+                                        <td class="w-70p" id="nama"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-30p">Kelas</td>
+                                        <td class="w-70p" id="kode_kelas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-30p">Angkatan</td>
+                                        <td class="w-70p" id="kode_akt"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w-30p">Jurusan</td>
+                                        <td class="w-70p" id="nama_jur"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="kartu-d mt-2">
