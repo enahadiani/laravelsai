@@ -109,7 +109,7 @@
             <div class="col-12">
                 <div class="card" >
                     <div class="card-body pt-2 pb-2 px-2" style="min-height:51px">
-                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Daftar Registrasi</h5>
+                        <h5 style="position: absolute;font-weight: bold;padding-left: 10px;top: 15px">Laporan Tanda Terima</h5>
                         <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                         <div class="dropdown float-right">
                             <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"

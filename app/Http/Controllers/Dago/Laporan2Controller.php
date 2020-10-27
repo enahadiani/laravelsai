@@ -370,7 +370,7 @@ class Laporan2Controller extends Controller
                 'query' => [
                     'periode' => $request->periode,
                     'no_reg' => $request->no_reg,
-                    'no_kwitansi' => $request->no_kwitansi
+                    'no_kwitansi' => $request->no_terima
                 ]
             ]);
 
