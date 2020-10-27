@@ -130,24 +130,21 @@
                                                 <th class="header_laporan" align="center" rowspan='2'>PAKET</th>
                                                 <th class="header_laporan" align="center" rowspan='2'>ROOM</th>
                                                 <th class="header_laporan" align="center" rowspan='2'>JADWAL KEBERANGKATAN</th>
-                                                <th class="header_laporan" align="center" colspan='5'>TAGIHAN</th>
-                                                <th class="header_laporan" align="center" colspan='4'>PEMBAYARAN</th>
-                                                <th class="header_laporan" align="center" colspan='4'>SALDO</th>
+                                                <th class="header_laporan" align="center" colspan='4'>TAGIHAN</th>
+                                                <th class="header_laporan" align="center" colspan='3'>PEMBAYARAN</th>
+                                                <th class="header_laporan" align="center" colspan='3'>SALDO</th>
                                             </tr>
                                             <tr>
                                                 <th class="header_laporan" align="center">CURRENCY</th>
                                                 <th class="header_laporan" align="center">HARGA PAKET+ROOM</th>
                                                 <th class="header_laporan" align="center">BIAYA TAMBAHAN</th>
                                                 <th class="header_laporan" align="center">BIAYA DOK</th>
-                                                <th class="header_laporan" align="center">TOTAL</th>
                                                 <th class="header_laporan" align="center">HARGA PAKET+ROOM</th>
                                                 <th class="header_laporan" align="center">BIAYA TAMBAHAN</th>
                                                 <th class="header_laporan" align="center">BIAYA DOK</th>
-                                                <th class="header_laporan" align="center">TOTAL</th>
                                                 <th class="header_laporan" align="center">HARGA PAKET+ROOM</th>
                                                 <th class="header_laporan" align="center">BIAYA TAMBAHAN</th>
                                                 <th class="header_laporan" align="center">BIAYA DOK</th>
-                                                <th class="header_laporan" align="center">TOTAL</th>
                                             </tr>
                                         </thead>
                                         <tbody>`;
@@ -193,15 +190,12 @@
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_paket)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_tambahan)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.biaya_dok)+`</td>
-                                                <td class='isi_laporan text-right'><a class='tagihan' href='#' style='cursor:pointer;color:blue' data-no_reg='`+line2.no_reg+`'>`+sepNumPas(line2.tagihan)+`</a></td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(line2.bayar_paket)+`</td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(line2.bayar_tambahan)+`</td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(line2.bayar_dok)+`</td>
-                                                <td  class='isi_laporan text-right'><a class='bayar' href='#' style='cursor:pointer;color:blue' data-no_reg='`+line2.no_reg+`'>`+sepNumPas(line2.bayar)+`</a></td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.saldo_paket)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.saldo_tambahan)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(line2.saldo_dok)+`</td>
-                                                <td  class='isi_laporan text-right'><a class='saldo' href='#' style='cursor:pointer;color:blue' data-no_reg='`+line2.no_reg+`'>`+sepNumPas(line2.saldo)+`</a></td>
                                                 </tr>`;	
                                                 no++;
                                             
@@ -210,19 +204,16 @@
                                             // console.log(bayar_paket);
                                             mon_html+=det+`
                                             <tr>
-                                                <td class='isi_laporan' colspan='8' >TOTAL</td>
+                                                <td class='isi_laporan' colspan='9' >TOTAL</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(biaya_paket)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(biaya_tambahan)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(biaya_dok)+`</td>
-                                                <td class='isi_laporan text-right'>`+sepNumPas(to_tagihan)+`</td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(bayar_paket)+`</td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(bayar_tambahan)+`</td>
                                                 <td  class='isi_laporan text-right'>`+sepNumPas(bayar_dok)+`</td>
-                                                <td class='isi_laporan text-right'>`+sepNumPas(to_bayar)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(saldo_paket)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(saldo_tambahan)+`</td>
                                                 <td class='isi_laporan text-right'>`+sepNumPas(saldo_dok)+`</td>
-                                                <td class='isi_laporan text-right'>`+sepNumPas(to_saldo)+`</td>
                                             </tr>
                                         </tbody>
                                     </table>
