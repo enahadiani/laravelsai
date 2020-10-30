@@ -18,72 +18,70 @@
    function drawRptPage(data,res,from,to){
         var data = data;
         if(data.length > 0){
-            if(res.back){
-                $('.navigation-lap').removeClass('hidden');
-            }else{
-                $('.navigation-lap').addClass('hidden');
-            }
-            var html = `<div align='center'>
-            <style>
-                .info-table thead{
-                    // background:#e9ecef;
-                }
-                .no-border td{
-                    border:0 !important;
-                }
-                .bold {
-                    font-weight:bold;
-                }
-            </style>
-
-            `;
+            res.bentuk = '';
             var lokasi = res.lokasi;
-            html+=judul_lap("LAPORAN NERACA",lokasi,'Periode '+periode.fromname)+`
-                    <table class='table table-bordered' width='100%'>
-                        <tr>
-                            <td class='text-center;' width='35%'>Deskripsi</td>
-                            <td class='text-center;' width='15%'>Jumlah</td>
-                            <td class='text-center;' width='35%'>Deskripsi</td>
-                            <td class='text-center;' width='15%'>Jumlah</td>
-                        </tr>
-                `;
-                    var det = "";
-                    for (var i=0; i < data.length ; i++)
-                    {
-                        var line  = data[i];
-                        var nilai1 = "";
-                        var nilai2 = "";
-                        if (line.tipe1 != "Header" && line.nama1 != "." && line.nama1 != "")
-                        {
-                            nilai1=sepNum(parseFloat(line.nilai1));
-                        }
-                        if (line.tipe2 != "Header" && line.nama2 != "." && line.nama2 != "")
-                        { 
-                            nilai2=sepNum(parseFloat(line.nilai2));
-                        }
-                        det +="<tr>";
-                        if (line.tipe1 == "Posting" && line.nilai1 != 0)
-                        {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca1+"'>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
-                        }
-                        else
-                        {
-                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi1)+line.nama1+"</td>";
-                        }
-                        det +=`<td valign='middle' class='isi_laporan' align='right'>`+nilai1+`</td>`;
-
-                         if (line.tipe2 == "Posting" && line.nilai2 != 0)
-                        {
-                            det += "<td valign='middle' class='isi_laporan report-link neraca-lajur link-report' style='cursor:pointer;' data-kode_neraca='"+line.kode_neraca2+"'>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
-                        }
-                        else
-                        {
-                            det += "<td valign='middle' class='isi_laporan '>"+fnSpasi(line.level_spasi2)+line.nama2+"</td>";
-                        }
-                        det +="<td valign='middle' class='isi_laporan' align='right'>"+nilai2+"</td></tr>";
-                    }
-            html+=det+`</table>
-            </div>`;
+            res.data_detail = [];
+            var html = `
+            <style>
+            .info-table thead{
+                background:#4286f5;
+                color:white;
+            }
+            .no-border td{
+                border:0 !important;
+            }
+            .bold {
+                font-weight:bold;
+            }
+            </style>`+judul_lap("LAPORAN POSISI KEUANGAN",lokasi,'Periode '+periode.fromname)+`
+            <table class='table table-bordered'>
+            <tr>
+                <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
+                <td width='100' class='header_laporan'><div align='center'>Jumlah</div></td>
+            </tr>`;
+            var no=1;
+            for (var i=0;i < data.length;i++)
+            {
+                var nilai="";
+                var line = data[i];
+                if (line.tipe!="Header")
+                {
+                    nilai=sepNum(parseFloat(line.n4));
+                }
+			
+                if (line.tipe=="Posting" && line.n4 != 0)
+                {
+                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    </tr>`;
+                }
+                else
+                {
+                    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
+                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    </tr>`;
+                }
+                // if (res.bentuk == "Detail" && line.tipe=="Posting")
+                // {
+                //     var kode_neraca=line.kode_neraca;
+                //     var kode_fs=line.kode_fs;
+                //     var kode_lokasi=line.kode_lokasi;
+                //     var det ='';
+                //     for (var x=0; x < res.data_detail.length; x++)
+                //     {	
+                //         var line2 = res.data_detail[x];
+                //         var so_akhir =sepNum(parseFloat(line2.so_akhir));
+                //         var nama=line2.kode_akun." - ".line2.nama;
+                //         det+=`<tr>
+                //             <td height='20' class='detail_laporan'>`+spasi(nama,line.level_spasi+1)+`</td>
+                //             <td class='detail_laporan'><div align='right'>`+so_akhir+`</div></td>
+                //         </tr>`;
+                //     }
+                // }
+                no++;
+            }
+            html+=`
+            </table>`;
         }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
