@@ -55,7 +55,7 @@ $thnLalu = substr($tahunLalu,2,2)
     }
 </style>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid mt-3" style="display:none;">
     <div class="row" >
         <div class="col-md-4 col-sm-12 mb-4">
             <div class="card" style="height: 130px; border-radius:10px !important;">
