@@ -32,7 +32,6 @@
         pilih = settings.nama[idx];
         display = settings.display[idx];
         var field = eval('$'+settings.kode[idx]);
-        console.dir(field);
         var kunci = settings.kode[idx];
         var orderby = settings.orderby[idx];
         var width = settings.width[idx];
