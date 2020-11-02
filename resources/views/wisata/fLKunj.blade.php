@@ -261,7 +261,7 @@ function getBulan($bulan) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row sai-rpt-filter-entry-row">
+                                        <!-- <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>bulan</p>
                                             <label for="bulan" class="col-md-2 col-sm-12 col-form-label">Bulan</label>
                                             <div class="col-md-2 col-sm-12" >
@@ -286,7 +286,7 @@ function getBulan($bulan) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group row sai-rpt-filter-entry-row">
                                             <p class="kunci" hidden>tahun</p>
                                             <label for="tahun" class="col-md-2 col-sm-12 col-form-label">Tahun</label>
@@ -468,13 +468,13 @@ function getBulan($bulan) {
             to : "",
             toname : "",
         }
-        var bulan = {
-            type : "=",
-            from : "{{ date('m') }}",
-            fromname : "{{ getBulan(intval(date('m'))) }}",
-            to : "",
-            toname : "",
-        }
+        // var bulan = {
+        //     type : "=",
+        //     from : "{{ date('m') }}",
+        //     fromname : "{{ getBulan(intval(date('m'))) }}",
+        //     to : "",
+        //     toname : "",
+        // }
         var tahun = {
             type : "=",
             from : "{{ date('Y') }}",
@@ -593,22 +593,22 @@ function getBulan($bulan) {
                     var kunci = "subjenis";
                     var orderby = [[0,"desc"]];
                 break;
-                case 'bulan[]': 
-                    header = ['Kode', 'Nama'];
-                    var toUrl = "{{ url('wisata-report/list-bulan') }}";
-                    var columns = [
-                        { data: 'kode' },
-                        { data: 'nama' }
-                    ];
-                    var judul = "Daftar Bulan <span class='modal-subtitle'></span>";
-                    var pilih = "bulan";
-                    $target = $target;
-                    $target2 = target2;
-                    var field = eval("bulan");
-                    var display = "name";
-                    var kunci = "bulan";
-                    var orderby = [[0,"desc"]];
-                break;
+                // case 'bulan[]': 
+                //     header = ['Kode', 'Nama'];
+                //     var toUrl = "{{ url('wisata-report/list-bulan') }}";
+                //     var columns = [
+                //         { data: 'kode' },
+                //         { data: 'nama' }
+                //     ];
+                //     var judul = "Daftar Bulan <span class='modal-subtitle'></span>";
+                //     var pilih = "bulan";
+                //     $target = $target;
+                //     $target2 = target2;
+                //     var field = eval("bulan");
+                //     var display = "name";
+                //     var kunci = "bulan";
+                //     var orderby = [[0,"desc"]];
+                // break;
                 case 'tahun[]': 
                     header = ['Kode', 'Nama'];
                     var toUrl = "{{ url('wisata-report/list-tahun') }}";
@@ -1126,9 +1126,9 @@ function getBulan($bulan) {
             $formData.append("subjenis[]",subjenis.type);
             $formData.append("subjenis[]",subjenis.from);
             $formData.append("subjenis[]",subjenis.to);
-            $formData.append("bulan[]",bulan.type);
-            $formData.append("bulan[]",bulan.from);
-            $formData.append("bulan[]",bulan.to);
+            // $formData.append("bulan[]",bulan.type);
+            // $formData.append("bulan[]",bulan.from);
+            // $formData.append("bulan[]",bulan.to);
             $formData.append("tahun[]",tahun.type);
             $formData.append("tahun[]",tahun.from);
             $formData.append("tahun[]",tahun.to);
@@ -1154,9 +1154,9 @@ function getBulan($bulan) {
             $formData.append("subjenis[]",subjenis.type);
             $formData.append("subjenis[]",subjenis.from);
             $formData.append("subjenis[]",subjenis.to);
-            $formData.append("bulan[]",bulan.type);
-            $formData.append("bulan[]",bulan.from);
-            $formData.append("bulan[]",bulan.to);
+            // $formData.append("bulan[]",bulan.type);
+            // $formData.append("bulan[]",bulan.from);
+            // $formData.append("bulan[]",bulan.to);
             $formData.append("tahun[]",tahun.type);
             $formData.append("tahun[]",tahun.from);
             $formData.append("tahun[]",tahun.to);
