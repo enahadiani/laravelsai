@@ -23,4 +23,5 @@ Route::post('lap-neraca', 'Yakes\LaporanController@getNeraca');
 Route::post('lap-neraca-pp', 'Yakes\LaporanController@getNeracaPP');
 Route::post('lap-labarugi', 'Yakes\LaporanController@getLabaRugi');
 Route::post('lap-labarugi-pp', 'Yakes\LaporanController@getLabaRugiPP');
+Route::post('lap-labarugi-jejer', 'Yakes\LaporanController@getLabaRugiJejer');
 Route::post('send-laporan', 'Yakes\LaporanController@sendMail');
