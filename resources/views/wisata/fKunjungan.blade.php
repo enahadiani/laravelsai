@@ -414,11 +414,15 @@
                     tgl = tgl.split(' ');
                     var tglNow = tgl[0];
                     var splitTglNow = tglNow.split('-');
+                    var bulan = $('#bulan').selectize();
+                    var selectBulan = bulan[0].selectize;
+                    var tahun = $('#tahun').selectize();
+                    var selectTahun = tahun[0].selectize;
                     var tanggal = `${splitTglNow[2]}/${splitTglNow[1]}/${splitTglNow[0]}`
                     $('#tgl_kunjungan').val(tanggal);
-                    $('#bulan').val(splitTglNow[1]);
+                    selectBulan.setValue(splitTglNow[1]);
                     $('#bulan-input').val(splitTglNow[1]);
-                    $('#tahun').val(splitTglNow[0]);
+                    selectTahun.setValue(splitTglNow[0]);
                     $('#tahun-input').val(splitTglNow[0]);
                 }
             }
@@ -551,8 +555,8 @@
             $('#saku-form').show();
             getTahunList();
             getTglServer();
-            var bulan = $('#bulan').val();
-            var tahun = $('#tahun').val();
+            var bulan = $('#bulan-input').val();
+            var tahun = $('#tahun-input').val();
             getJumlahTgl(tahun,bulan);
             $('select').selectize();
         }
