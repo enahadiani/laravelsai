@@ -4,7 +4,6 @@
 
     function showFilter(options,idx,target1,tipe){
         var settings = {
-            title:[],
             header:[],
             columns:[],
             url:[],
@@ -28,7 +27,7 @@
         var toUrl = settings.url[idx];
         var columns = settings.columns[idx];
         var parameter = settings.parameter;
-        var judul = settings.title[idx];
+        var judul = "Daftar "+settings.nama[idx]+" <span class='modal-subtitle'></span>";
         pilih = settings.nama[idx];
         display = settings.display[idx];
         var field = eval('$'+settings.kode[idx]);

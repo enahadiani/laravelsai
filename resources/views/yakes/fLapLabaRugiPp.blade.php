@@ -159,7 +159,6 @@
             nama : ['Periode','Area','Kode FS','Level','Format'],
             header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
             headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
-            title : ["Daftar Periode <span class='modal-subtitle'></span>","Daftar Area <span class='modal-subtitle'></span>","Daftar FS <span class='modal-subtitle'></span>","Daftar Level <span class='modal-subtitle'></span>","Daftar Format <span class='modal-subtitle'></span>"],
             columns: [
                 [
                     { data: 'periode' },
