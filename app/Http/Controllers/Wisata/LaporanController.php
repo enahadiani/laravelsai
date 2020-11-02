@@ -30,7 +30,7 @@
                         'kode_mitra' => $request->mitra,
                         'kode_jenis' => $request->jenis,
                         'kode_subjenis' => $request->subjenis,
-                        'bulan' => $request->bulan,
+                        // 'bulan' => $request->bulan,
                         'tahun' => $request->tahun
                     ]
                 ]);
