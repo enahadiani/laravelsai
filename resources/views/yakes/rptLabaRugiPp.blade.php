@@ -58,7 +58,7 @@
             .bold {
                 font-weight:bold;
             }
-            </style>`+judul_lap("LAPORAN AKTIVITAS AREA",lokasi,'Periode '+periode.fromname)+`
+            </style>`+judul_lap("LAPORAN AKTIVITAS AREA",lokasi,'Periode '+$periode.fromname)+`
             <table class='table table-bordered'>
             <tr>
                 <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
