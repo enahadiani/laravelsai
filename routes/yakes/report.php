@@ -20,6 +20,7 @@ Route::post('lap-jurnal', 'Yakes\LaporanController@getJurnal');
 Route::post('lap-buktijurnal', 'Yakes\LaporanController@getBuktiJurnal');
 Route::post('lap-bukubesar', 'Yakes\LaporanController@getBukuBesar');
 Route::post('lap-neraca', 'Yakes\LaporanController@getNeraca');
+Route::post('lap-neraca-pp', 'Yakes\LaporanController@getNeracaPP');
 Route::post('lap-labarugi', 'Yakes\LaporanController@getLabaRugi');
 Route::post('lap-labarugi-pp', 'Yakes\LaporanController@getLabaRugiPP');
 Route::post('send-laporan', 'Yakes\LaporanController@sendMail');
