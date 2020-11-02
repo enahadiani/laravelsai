@@ -312,7 +312,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
             `);
@@ -337,7 +337,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -365,7 +365,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -402,7 +402,7 @@
                 $formData.append("kode_pp[]",$kode_pp.to);
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
+                    <li class="breadcrumb-item active" aria-current="neraca">Posisi Keuangan</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }
@@ -416,7 +416,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -429,7 +429,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -448,7 +448,7 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            if(tujuan == "laba-rugi"){
+            if(tujuan == "neraca"){
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -460,7 +460,7 @@
                 xurl = "yakes-auth/form/rptNeracaPp";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
+                    <li class="breadcrumb-item active" aria-current="neraca" >Posisi Keuangan</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "neraca-lajur"){
@@ -473,7 +473,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -487,7 +487,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>

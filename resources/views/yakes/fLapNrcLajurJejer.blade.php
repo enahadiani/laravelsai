@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Laporan Posisi Keuangan Jejer Area</h5>
+                    <h5 style="position:absolute;top: 25px;">Laporan Neraca Lajur Jejer Area</h5>
                     <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                     <div class="dropdown float-right">
                         <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -28,9 +28,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="kode_akun" nama="Kode Akun" selected="1" :option="array('1','2','3','i')"/>
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -74,7 +72,7 @@
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb py-0 my-0">
                             <li class="breadcrumb-item active">
-                                Posisi Keuangan Area
+                                Neraca Lajur Area
                             </li>
                         </ol>
                     </nav>            
@@ -123,35 +121,20 @@
             to : "",
             toname : "",
         }
-        var $kode_fs = {
-            type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
-            to : "",
-            toname : "",
-        }
 
-        var $level = {
-            type : "=",
-            from : "1",
-            fromname : "1",
-            to : "",
-            toname : "",
-        }
-
-        var $format = {
-            type : "=",
-            from : "Saldo Akhir",
-            fromname : "Saldo Akhir",
+        var $kode_akun = {
+            type : "All",
+            from : "",
+            fromname : "",
             to : "",
             toname : "",
         }
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','format'],
-            nama : ['Periode','Kode FS','Level','Format'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
+            kode : ['periode','kode_fs','kode_akun'],
+            nama : ['Periode','Kode FS','Kode Akun'],
+            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode','Nama']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
@@ -160,16 +143,15 @@
                     { data: 'kode_fs' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode' }
-                ],[
-                    { data: 'kode' }
+                    { data: 'kode_akun' },
+                    { data: 'nama' }
                 ]
             ],
             url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode']
+            orderby:[[[0,"desc"]],[],[]],
+            width:[['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['name','kode','kodename']
             
         });
 
@@ -193,9 +175,6 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
-        $('#level-from').val("1");
-        $('#format-from').val("Saldo Akhir");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -236,20 +215,14 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
+            $formData.append("kode_akun[]",$kode_akun.type);
+            $formData.append("kode_akun[]",$kode_akun.from);
+            $formData.append("kode_akun[]",$kode_akun.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptNeracaJejer') }}";
+            xurl = "{{ url('yakes-auth/form/rptNrcLajurJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -258,57 +231,22 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
+            $formData.append("kode_akun[]",$kode_akun.type);
+            $formData.append("kode_akun[]",$kode_akun.from);
+            $formData.append("kode_akun[]",$kode_akun.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptNeracaJejer') }}";
+            xurl = "{{ url('yakes-auth/form/rptNrcLajurJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
         // TRACE
-        $('#saku-report #canvasPreview').on('click', '.neraca-lajur', function(e){
-            e.preventDefault();
-            var kode_neraca = $(this).data('kode_neraca');
-            param_trace.kode_neraca = kode_neraca;
-            var back = true;
-            
-            $formData.delete('kode_neraca[]');
-            $formData.append('kode_neraca[]', "=");
-            $formData.append('kode_neraca[]', kode_neraca);
-            $formData.append('kode_neraca[]', "");
 
-            $formData.delete('trail[]');
-            $formData.append('trail[]', "=");
-            $formData.append('trail[]', "1");
-            $formData.append('trail[]', "");
-
-            $formData.delete('back');
-            $formData.append('back', back);
-            $('.breadcrumb').html('');
-            $('.breadcrumb').append(`
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
-            `);
-            xurl ="yakes-auth/form/rptNrcLajur";
-            $('#saku-report #canvasPreview').load(xurl);
-            // drawLapReg(formData);
-        });
 
         $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
         e.preventDefault();
             var kode_akun = $(this).data('kode_akun');
-            param_trace.kode_akun = kode_akun;
             var back = true;
             
             $formData.delete('kode_akun[]');
@@ -321,12 +259,9 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
+                    <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
+                <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+kode_akun+`">Buku Besar</li>
             `);
             xurl ="yakes-auth/form/rptBukuBesar";
             $('#saku-report #canvasPreview').load(xurl);
@@ -336,7 +271,7 @@
         $('#saku-report #canvasPreview').on('click', '.jurnal', function(e){
             e.preventDefault();
             var no_bukti = $(this).data('no_bukti');
-            param_trace.no_bukti = no_bukti;
+            var kode_akun = $(this).data('kode_akun');
             var back = true;
             
             $formData.delete('no_bukti[]');
@@ -349,15 +284,12 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
+                    <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
+                    <a href="#" class="klik-report" data-href="buku-besar" aria-param="`+kode_akun+`">Buku Besar</a>
                 </li>
-                <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="buku-besar">Buku Besar</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="jurnal">Jurnal</li>
+                <li class="breadcrumb-item active" aria-current="jurnal" aria-param="`+kode_akun+`|`+no_bukti+`">Jurnal</li>
             `);
             xurl ="yakes-auth/form/rptBuktiJurnal";
             $('#saku-report #canvasPreview').load(xurl);
@@ -372,49 +304,32 @@
             $formData.append("periode[]",$periode.to);
 
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
-
-            if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptNeracaJejer";
+            var tmp = $('.breadcrumb-item.active').attr('aria-param').split("|");
+            var param = tmp[0];
+            if(aktif == "buku-besar"){
                 $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",$kode_fs.type);
-                $formData.append("kode_fs[]",$kode_fs.from);
-                $formData.append("kode_fs[]",$kode_fs.to);
+                $formData.delete('kode_akun[]');
+                $formData.append("kode_akun[]",$kode_akun.type);
+                $formData.append("kode_akun[]",$kode_akun.from);
+                $formData.append("kode_akun[]",$kode_akun.to);
+                xurl = "yakes-auth/form/rptNrcLajur";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca">Posisi Keuangan</li>
+                    <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
-            }
-            else if(aktif == "buku-besar"){
-                xurl = "yakes-auth/form/rptNrcLajur";
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
-                $formData.delete('kode_akun[]');
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
-                `);
             }else if(aktif == "jurnal"){
                 xurl = "yakes-auth/form/rptBukuBesar";
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
+                $formData.append("kode_akun[]",param);
                 $formData.append("kode_akun[]","");
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
+                        <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar">Buku Besar</li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
                 `);
             }
             $('#saku-report #canvasPreview').load(xurl);
@@ -424,52 +339,37 @@
         $('.breadcrumb').on('click', '.klik-report', function(e){
             e.preventDefault();
             var tujuan = $(this).data('href');
+            var tmp = $(this).attr('aria-param').split("|");
+            var param = tmp[0];
             $formData.delete('periode[]');
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            if(tujuan == "neraca"){
+            if(tujuan == "neraca-lajur"){
                 $formData.delete('back');
-                $formData.delete('kode_fs[]');
-                $formData.append("kode_fs[]",$kode_fs.type);
-                $formData.append("kode_fs[]",$kode_fs.from);
-                $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptNeracaJejer";
-                $('.breadcrumb').html('');
-                $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="neraca" >Posisi Keuangan</li>
-                `);
-                $('.navigation-lap').addClass('hidden');
-            }else if(tujuan == "neraca-lajur"){
-                $formData.delete('kode_neraca[]');
-                $formData.append("kode_neraca[]","=");
-                $formData.append("kode_neraca[]",param_trace.kode_neraca);
-                $formData.append("kode_neraca[]","");
                 $formData.delete('kode_akun[]');
+                $formData.append("kode_akun[]",$kode_akun.type);
+                $formData.append("kode_akun[]",$kode_akun.from);
+                $formData.append("kode_akun[]",$kode_akun.to);
                 xurl = "yakes-auth/form/rptNrcLajur";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
+                    <li class="breadcrumb-item active" aria-current="neraca-lajur" aria-param="">Neraca</li>
                 `);
+                $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "buku-besar"){
                 
                 $formData.delete('kode_akun[]');
                 $formData.append("kode_akun[]","=");
-                $formData.append("kode_akun[]",param_trace.kode_akun);
+                $formData.append("kode_akun[]",param);
                 $formData.append("kode_akun[]","");
                 xurl = "yakes-auth/form/rptBukuBesar";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
+                        <a href="#" class="klik-report" data-href="neraca-lajur" aria-param="">Neraca Lajur</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="buku-besar"Buku Besar</li>
+                    <li class="breadcrumb-item active" aria-current="buku-besar" aria-param="`+param+`">Buku Besar</li>
                 `);
             }
             $('#saku-report #canvasPreview').load(xurl);
@@ -490,8 +390,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "PosisiKeuanganJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "PosisiKeuanganJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "NrcLajurJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "NrcLajurJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
@@ -508,15 +408,9 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
+            $formData.append("kode_akun[]",$kode_akun.type);
+            $formData.append("kode_akun[]",$kode_akun.from);
+            $formData.append("kode_akun[]",$kode_akun.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }

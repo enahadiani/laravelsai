@@ -16,6 +16,7 @@ Route::get('filter-mutasi', 'Yakes\HelperController@getFilterMutasi');
 Route::get('filter-pp', 'Yakes\HelperController@getFilterPP');
 
 Route::post('lap-nrclajur', 'Yakes\LaporanController@getNrcLajur');
+Route::post('lap-nrclajur-jejer', 'Yakes\LaporanController@getNrcLajurJejer');
 Route::post('lap-jurnal', 'Yakes\LaporanController@getJurnal');
 Route::post('lap-buktijurnal', 'Yakes\LaporanController@getBuktiJurnal');
 Route::post('lap-bukubesar', 'Yakes\LaporanController@getBukuBesar');
