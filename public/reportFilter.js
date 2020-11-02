@@ -42,7 +42,6 @@
         for(i=0; i < settings.header[idx].length; i++){
             header_html +=  "<th style='"+width[i]+"'>"+settings.header[idx][i]+"</th>";
         }
-        header_html +=  "<th></th>";
 
         if(type == "range"){
             var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
