@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Laporan Aktivitas Jejer Area</h5>
+                    <h5 style="position:absolute;top: 25px;">Laporan Posisi Keuangan Jejer Area</h5>
                     <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                     <div class="dropdown float-right">
                         <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -74,7 +74,7 @@
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb py-0 my-0">
                             <li class="breadcrumb-item active">
-                                Aktivitas Area
+                                Posisi Keuangan Area
                             </li>
                         </ol>
                     </nav>            
@@ -249,7 +249,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiJejer') }}";
+            xurl = "{{ url('yakes-auth/form/rptNeracaJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -270,7 +270,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiJejer') }}";
+            xurl = "{{ url('yakes-auth/form/rptNeracaJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -374,7 +374,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptLabaRugiJejer";
+                xurl = "yakes-auth/form/rptNeracaJejer";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -434,7 +434,7 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptLabaRugiJejer";
+                xurl = "yakes-auth/form/rptNeracaJejer";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
@@ -490,8 +490,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "AktivitasJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "AktivitasJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "PosisiKeuanganJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "PosisiKeuanganJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
