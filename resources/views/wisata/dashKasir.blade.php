@@ -444,7 +444,7 @@ $(document).ready(function(){
                     },
 
                     xAxis: {
-                        categories: response.data.data.ctg,
+                        categories: response.data.ctg,
                         tickmarkPlacement: 'on',
                         lineWidth: 0
                     },
@@ -468,7 +468,7 @@ $(document).ready(function(){
 
                     series: [{
                         name: 'Jumlah',
-                        data: response.data.data.data,
+                        data: response.data.data,
                         pointPlacement: 'on'
                     }],
                 });
