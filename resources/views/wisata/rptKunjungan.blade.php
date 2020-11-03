@@ -51,10 +51,12 @@
                if(typeof res.res.subjenis != 'undefined') {
                 html += `<h5 class='text-center'>${res.res.subjenis}</h5>`;
                }
-            html+= `<table class='table table-bordered info-table' style='overflow-y: auto;'>
+            html+= `<table class='table table-bordered info-table' style='width:1400px;'>
                     <tr>
-                        <th style='text-align:center;'>Kode Mitra</th>
-                        <th style='text-align:center;'>Nama Mitra</th>
+                        <th style='text-align:center; width:15%;'>Kode Mitra</th>
+                        <th style='text-align:center; width:45%;'>Nama Mitra</th>
+                        <th style='text-align:center; width:60%;'>Alamat</th>
+                        <th style='text-align:center;'>Kecamatan</th>
                         <th style='text-align:center;'>Januari</th>
                         <th style='text-align:center;'>Februari</th>
                         <th style='text-align:center;'>Maret</th>
@@ -150,8 +152,10 @@
                             n12 = sepNum(parseFloat(line.n12)).toString();
                         }                   
                         html +=`<tr>
-                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.kode_mitra+`</td>
+                            <td class='isi_laporan' style='text-align:center;'>`+line.kode_mitra+`</td>
                             <td class='isi_laporan' style='padding-left: 2px;'>`+line.nama+`</td>
+                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.alamat+`</td>
+                            <td class='isi_laporan' style='padding-left: 2px;'>`+line.camat+`</td>
                             <td class='isi_laporan' style='text-align: right;'>`+n1+`</td>
                             <td class='isi_laporan' style='text-align: right;'>`+n2+`</td>
                             <td class='isi_laporan' style='text-align: right;'>`+n3+`</td>

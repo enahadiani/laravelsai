@@ -360,7 +360,7 @@ function getBulan($bulan) {
                         top: 30px;" class="btn btn-light float-right">
                         <i class=""></i> Back</button>
                     </div>
-                    <div id="canvasPreview">
+                    <div id="canvasPreview" style="overflow-x:auto;">
                     </div>
                     <div class="row h-100" id="report-load" style="display: none;">
                         <div class="col-12 col-md-10 mx-auto my-auto">
