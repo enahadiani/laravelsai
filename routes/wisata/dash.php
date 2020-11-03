@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('data-kunjungan', 'Wisata\DashboardController@dataKunjungan');
+Route::get('data-bidang', 'Wisata\DashboardController@dataBidang');
+Route::get('data-mitra', 'Wisata\DashboardController@dataMitra');

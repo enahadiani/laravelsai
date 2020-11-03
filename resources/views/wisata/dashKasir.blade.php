@@ -61,8 +61,8 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Kunjungan YoY</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>12K</strong></h1>
-                    <p class="text-danger" style="margin-top: -12px;">-20,3% dari tahun lalu</p>
+                    <h1 id="num-kunjungan"><strong></strong></h1>
+                    <p id="ket-kunjungan" style="margin-top: -12px;"></p>
                 </div>
             </div>
         </div>
@@ -70,8 +70,8 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Bidang teratas Ytd</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>Ciwidey</strong></h1>
-                    <p class="text-info" style="margin-top: -12px;">300K pengunjung</p>
+                    <h1 id="nam-bidang" style="font-size: 20px;"><strong></strong></h1>
+                    <p  id="ket-bidang" class="text-info" style="margin-top: -5px;"></p>
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Mitra teratas Ytd</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>SAI</strong></h1>
-                    <p class="text-info" style="margin-top: -12px;">300K pengunjung</p>
+                    <h1 id="nam-mitra" style="font-size: 20px;"><strong></strong></h1>
+                    <p  id="ket-mitra" class="text-info" style="margin-top: -5px;"></p>
                 </div>
             </div>
         </div>
@@ -231,77 +231,137 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
-
-function sepNum(x){
-    if(!isNaN(x)){
-        if (typeof x === undefined || !x || x == 0) { 
-            return 0;
-        }else if(!isFinite(x)){
-            return 0;
+$(document).ready(function(){
+        function sepNum(x){
+        if(!isNaN(x)){
+            if (typeof x === undefined || !x || x == 0) { 
+                return 0;
+            }else if(!isFinite(x)){
+                return 0;
+            }else{
+                var x = parseFloat(x).toFixed(2);
+                // console.log(x);
+                var tmp = x.toString().split('.');
+                // console.dir(tmp);
+                var y = tmp[1].substr(0,2);
+                var z = tmp[0]+'.'+y;
+                var parts = z.split('.');
+                parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+                return parts.join(',');
+            }
         }else{
-            var x = parseFloat(x).toFixed(2);
-            // console.log(x);
-            var tmp = x.toString().split('.');
-            // console.dir(tmp);
-            var y = tmp[1].substr(0,2);
-            var z = tmp[0]+'.'+y;
-            var parts = z.split('.');
-            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
-            return parts.join(',');
+            return 0;
         }
-    }else{
-        return 0;
     }
-}
-function sepNumPas(x){
-    var num = parseInt(x);
-    var parts = num.toString().split('.');
-    var len = num.toString().length;
-    // parts[1] = parts[1]/(Math.pow(10, len));
-    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
-    return parts.join(',');
-}
 
-function toJuta(x) {
-    var nil = x / 1000000;
-    return sepNum(nil) + '';
-}
-
-function toMilyar(x) {
-    var nil = x / 1000000000;
-    return sepNum(nil) + ' M';
-}
-
-function singkatNilai(num){
-    if(num < 0){
-        num = num * -1;
+    function sepNumPas(x){
+        var num = parseInt(x);
+        var parts = num.toString().split('.');
+        var len = num.toString().length;
+        // parts[1] = parts[1]/(Math.pow(10, len));
+        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
+        return parts.join(',');
     }
+
+    function toRibuan(x) {
+        var nil = x / 1000;
+        return sepNum(nil) + '';
+    }
+
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil) + '';
+    }
+
+    function toMilyar(x) {
+        var nil = x / 1000000000;
+        return sepNum(nil) + ' M';
+    }
+
+    function singkatNilai(num){
+        if(num < 0){
+            num = num * -1;
+        }
+        
+        if(num >= 1000 && num < 1000000){
+            var str = 'K';
+            var pembagi = 1000;
+        }else if(num >= 1000000 && num < 1000000000){
+            var str = 'Jt';
+            var pembagi = 1000000;
+        }else if(num >= 1000000000 && num < 1000000000000){
+            var str = 'M';
+            var pembagi = 1000000000;
+        }else if(num >= 1000000000000){
+            var str = 'T';
+            var pembagi = 1000000000000;
+        }
+        
+        if(num < 0){
+            return (parseFloat(num/pembagi).toFixed(0) * -1) + '' +str;
+        }else if (num > 0 && num >= 1000){
+            return parseFloat(num/pembagi).toFixed(0) + '' +str;
+        }else if(num > 0 && num < 1000){
+            return num;
+        }else{
+            return num;
+        }
+    }
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-kunjungan') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data;
+            var persentase;
+            if(response.status) {
+                $('#num-kunjungan').text(singkatNilai(res.YoYnow));
+
+                if(res.persentase < 0) {
+                    persentase = `-${res.persentase}`;
+                } else {
+                    persentase = res.persentase;
+                }
+
+                $('#ket-kunjungan').text(`${persentase}% dari tahun lalu`);
+
+                if(res.banding == 'besar') {
+                    $('#ket-kunjungan').addClass('text-info');
+                } else {
+                    $('#ket-kunjungan').addClass('text-danger');
+                }
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-bidang') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data.data;
+            if(response.status) {
+                $('#nam-bidang').text(res.nama);
+                $('#ket-bidang').text(`${singkatNilai(res.jumlah)} pengunjung`);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-mitra') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data.data;
+            if(response.status) {
+                $('#nam-mitra').text(res.nama);
+                $('#ket-mitra').text(`${singkatNilai(res.jumlah)} pengunjung`);
+            }
+        }
+    });
     
-    if(num >= 1000 && num < 1000000){
-        var str = 'Rb';
-        var pembagi = 1000;
-    }else if(num >= 1000000 && num < 1000000000){
-        var str = 'Jt';
-        var pembagi = 1000000;
-    }else if(num >= 1000000000 && num < 1000000000000){
-        var str = 'M';
-        var pembagi = 1000000000;
-    }else if(num >= 1000000000000){
-        var str = 'T';
-        var pembagi = 1000000000000;
-    }
-    
-    if(num < 0){
-        return (parseFloat(num/pembagi).toFixed(0) * -1) + ' ' +str;
-    }else if (num > 0 && num >= 1000){
-        return parseFloat(num/pembagi).toFixed(0) + ' ' +str;
-    }else if(num > 0 && num < 1000){
-        return num;
-    }else{
-        return num;
-    }
-}
-
+});
     // HIGHCHART //
 
     // JUMLAH KUNJUNGAN //
