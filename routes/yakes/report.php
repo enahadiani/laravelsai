@@ -16,10 +16,14 @@ Route::get('filter-mutasi', 'Yakes\HelperController@getFilterMutasi');
 Route::get('filter-pp', 'Yakes\HelperController@getFilterPP');
 
 Route::post('lap-nrclajur', 'Yakes\LaporanController@getNrcLajur');
+Route::post('lap-nrclajur-jejer', 'Yakes\LaporanController@getNrcLajurJejer');
 Route::post('lap-jurnal', 'Yakes\LaporanController@getJurnal');
 Route::post('lap-buktijurnal', 'Yakes\LaporanController@getBuktiJurnal');
 Route::post('lap-bukubesar', 'Yakes\LaporanController@getBukuBesar');
 Route::post('lap-neraca', 'Yakes\LaporanController@getNeraca');
+Route::post('lap-neraca-pp', 'Yakes\LaporanController@getNeracaPP');
+Route::post('lap-neraca-jejer', 'Yakes\LaporanController@getNeracaJejer');
 Route::post('lap-labarugi', 'Yakes\LaporanController@getLabaRugi');
 Route::post('lap-labarugi-pp', 'Yakes\LaporanController@getLabaRugiPP');
+Route::post('lap-labarugi-jejer', 'Yakes\LaporanController@getLabaRugiJejer');
 Route::post('send-laporan', 'Yakes\LaporanController@sendMail');

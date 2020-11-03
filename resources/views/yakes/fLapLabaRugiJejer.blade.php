@@ -1,9 +1,9 @@
-    <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Laporan Aktivitas Area</h5>
+                    <h5 style="position:absolute;top: 25px;">Laporan Aktivitas Jejer Area</h5>
                     <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                     <div class="dropdown float-right">
                         <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -28,7 +28,6 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_pp" nama="Area" selected="1" :option="array('1','2','3','i')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
@@ -132,14 +131,6 @@
             toname : "",
         }
 
-        var $kode_pp = {
-            type : "all",
-            from : "",
-            fromname : "",
-            to : "",
-            toname : "",
-        }
-
         var $level = {
             type : "=",
             from : "1",
@@ -157,16 +148,13 @@
         }
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_pp','kode_fs','level','format'],
-            nama : ['Periode','Area','Kode FS','Level','Format'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
+            kode : ['periode','kode_fs','level','format'],
+            nama : ['Periode','Kode FS','Level','Format'],
+            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
             columns: [
                 [
                     { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_pp' },
                     { data: 'nama' }
                 ],[
                     { data: 'kode_fs' },
@@ -177,11 +165,11 @@
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-pp') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode','kode']
+            orderby:[[[0,"desc"]],[],[],[]],
+            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['name','kode','kode','kode']
             
         });
 
@@ -251,9 +239,6 @@
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("kode_pp[]",$kode_pp.type);
-            $formData.append("kode_pp[]",$kode_pp.from);
-            $formData.append("kode_pp[]",$kode_pp.to);
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
@@ -264,7 +249,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiPp') }}";
+            xurl = "{{ url('yakes-auth/form/rptLabaRugiJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -276,9 +261,6 @@
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("kode_pp[]",$kode_pp.type);
-            $formData.append("kode_pp[]",$kode_pp.from);
-            $formData.append("kode_pp[]",$kode_pp.to);
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
@@ -288,7 +270,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiPp') }}";
+            xurl = "{{ url('yakes-auth/form/rptLabaRugiJejer') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -392,16 +374,12 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptLabaRugiPp";
+                xurl = "yakes-auth/form/rptLabaRugiJejer";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                
-                $formData.append("kode_pp[]",$kode_pp.type);
-                $formData.append("kode_pp[]",$kode_pp.from);
-                $formData.append("kode_pp[]",$kode_pp.to);
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
@@ -456,10 +434,7 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                $formData.append("kode_pp[]",$kode_pp.type);
-                $formData.append("kode_pp[]",$kode_pp.from);
-                $formData.append("kode_pp[]",$kode_pp.to);
-                xurl = "yakes-auth/form/rptLabaRugiPp";
+                xurl = "yakes-auth/form/rptLabaRugiJejer";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
@@ -515,8 +490,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "AktivitasArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "AktivitasArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "AktivitasJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "AktivitasJejerArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
@@ -533,9 +508,6 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_pp[]",$kode_pp.type);
-            $formData.append("kode_pp[]",$kode_pp.from);
-            $formData.append("kode_pp[]",$kode_pp.to);
             $formData.append("kode_fs[]",$kode_fs.type);
             $formData.append("kode_fs[]",$kode_fs.from);
             $formData.append("kode_fs[]",$kode_fs.to);

@@ -388,7 +388,75 @@
                     $back = false;
                 }
                 
-                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back], 200);    
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back,'lokasi'=>Session::get('namaLokasi')], 200);    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+        }
+
+        function getNrcLajurJejer(Request $request){
+            try{
+                
+                $client = new Client();
+        
+                if(isset($request->jenis)){
+                    $jenis = $request->jenis;
+                }else{
+                    $jenis = "";
+                }
+        
+                if(isset($request->trail)){
+                    $trail = $request->trail;
+                }else{
+                    $trail = "";
+                }
+        
+                if(isset($request->kode_neraca)){
+                    $kode_neraca = $request->kode_neraca;
+                }else{
+                    $kode_neraca = "";
+                }
+        
+                if(isset($request->kode_fs)){
+                    $kode_fs = $request->kode_fs;
+                }else{
+                    $kode_fs = "";
+                }
+                
+                $query = [
+                    'periode' => $request->periode,
+                    'kode_akun' => $request->kode_akun,
+                    'jenis' => $jenis,
+                    'trail' => $trail,
+                    'kode_neraca' => $kode_neraca,
+                    'kode_fs' => $kode_fs,
+                    'nik_user' => Session::get('nikUser')
+                ];
+        
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-nrclajur-jejer',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => $query
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+        
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'back'=>$back,'lokasi'=>Session::get('namaLokasi')], 200);    
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
@@ -558,12 +626,133 @@
            
         }
 
+        function getNeracaJejer(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-neraca-jejer',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'level' => $request->level,
+                        'format' => $request->format,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getNeracaPP(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-neraca-pp',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_pp' => $request->kode_pp,
+                        'kode_fs' => $request->kode_fs,
+                        'level' => $request->level,
+                        'format' => $request->format,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
         function getLabaRugi(Request $request){
             try{
     
                 $client = new Client();
         
                 $response = $client->request('GET',  config('api.url').'yakes-report/lap-labarugi',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'level' => $request->level,
+                        'format' => $request->format,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getLabaRugiJejer(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'yakes-report/lap-labarugi-jejer',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

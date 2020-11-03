@@ -1,9 +1,9 @@
-    <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Laporan Aktivitas Area</h5>
+                    <h5 style="position:absolute;top: 25px;">Laporan Posisi Keuangan Area</h5>
                     <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
                     <div class="dropdown float-right">
                         <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
@@ -75,7 +75,7 @@
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb py-0 my-0">
                             <li class="breadcrumb-item active">
-                                Aktivitas Area
+                                Posisi Keuangan Area
                             </li>
                         </ol>
                     </nav>            
@@ -114,9 +114,7 @@
             }
         });
         var $aktif = '';
-        
         var periode = {};
-
         var $periode = {
             type : "=",
             from : "{{ date('Ym') }}",
@@ -264,7 +262,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiPp') }}";
+            xurl = "{{ url('yakes-auth/form/rptNeracaPp') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -288,7 +286,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptLabaRugiPp') }}";
+            xurl = "{{ url('yakes-auth/form/rptNeracaPp') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -314,7 +312,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="neraca-lajur" >Neraca Lajur</li>
             `);
@@ -339,7 +337,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -367,7 +365,7 @@
             $('.breadcrumb').html('');
             $('.breadcrumb').append(`
                 <li class="breadcrumb-item">
-                    <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                    <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -392,7 +390,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptLabaRugiPp";
+                xurl = "yakes-auth/form/rptNeracaPp";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -404,7 +402,7 @@
                 $formData.append("kode_pp[]",$kode_pp.to);
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="laba-rugi">Laba Rugi</li>
+                    <li class="breadcrumb-item active" aria-current="neraca">Posisi Keuangan</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }
@@ -418,7 +416,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -431,7 +429,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi" >Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca" >Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur">Neraca Lajur</a>
@@ -450,7 +448,7 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            if(tujuan == "laba-rugi"){
+            if(tujuan == "neraca"){
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -459,10 +457,10 @@
                 $formData.append("kode_pp[]",$kode_pp.type);
                 $formData.append("kode_pp[]",$kode_pp.from);
                 $formData.append("kode_pp[]",$kode_pp.to);
-                xurl = "yakes-auth/form/rptLabaRugiPp";
+                xurl = "yakes-auth/form/rptNeracaPp";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
-                    <li class="breadcrumb-item active" aria-current="laba-rugi" >Laba Rugi</li>
+                    <li class="breadcrumb-item active" aria-current="neraca" >Posisi Keuangan</li>
                 `);
                 $('.navigation-lap').addClass('hidden');
             }else if(tujuan == "neraca-lajur"){
@@ -475,7 +473,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="neraca-lajur">Neraca Lajur</li>
                 `);
@@ -489,7 +487,7 @@
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item">
-                        <a href="#" class="klik-report" data-href="laba-rugi">Laba Rugi</a>
+                        <a href="#" class="klik-report" data-href="neraca">Posisi Keuangan</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="klik-report" data-href="neraca-lajur" >Neraca Lajur</a>
@@ -515,8 +513,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "AktivitasArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "AktivitasArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "PosisiKeuanganArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "PosisiKeuanganArea_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });

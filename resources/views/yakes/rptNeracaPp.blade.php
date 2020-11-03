@@ -1,7 +1,6 @@
 <script type="text/javascript">
-
     function drawLap(formData){
-        saiPostLoad("{{ url('yakes-report/lap-labarugi-pp') }}", null, formData, null, function(res){
+        saiPostLoad('yakes-report/lap-neraca-pp', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -14,30 +13,6 @@
        });
    }
 
-   function spasi(menu,jum)
-	{
-		var dat="";;
-		for (var s = 0; s < jum; s++) 
-		{
-	  		dat+="&nbsp;&nbsp;&nbsp;&nbsp;";
-	  	}
-        if (menu==".")
-        { 
-            menu="";
-        }
-		return dat+menu;
-	}
-
-    function fnSpasi(level)
-    {
-        var tmp="";
-        for (var f=1; f<=level; f++)
-        {
-            tmp+="&nbsp;&nbsp;&nbsp;&nbsp;";
-        }
-        return tmp;
-    }
-
    drawLap($formData);
 
    function drawRptPage(data,res,from,to){
@@ -46,7 +21,6 @@
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
-            
             periode = $periode;
             var html = `
             <style>
@@ -60,7 +34,7 @@
             .bold {
                 font-weight:bold;
             }
-            </style>`+judul_lap("LAPORAN AKTIVITAS AREA",lokasi,'Periode '+$periode.fromname)+`
+            </style>`+judul_lap("LAPORAN POSISI KEUANGAN AREA",lokasi,'Periode '+$periode.fromname)+`
             <table class='table table-bordered'>
             <tr>
                 <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
