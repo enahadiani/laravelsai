@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('data-kunjungan', 'Wisata\DashboardController@dataKunjungan');
 Route::get('data-bidang', 'Wisata\DashboardController@dataBidang');
 Route::get('data-mitra', 'Wisata\DashboardController@dataMitra');
+Route::get('top-daerah', 'Wisata\DashboardController@dataTopDaerah');
+Route::get('top-mitra', 'Wisata\DashboardController@dataTopMitra');
+Route::get('kunjungan-tahunan', 'Wisata\DashboardController@dataKunjunganTahunan');
+Route::get('kunjungan-bulanan', 'Wisata\DashboardController@dataKunjunganBulanan');

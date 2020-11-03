@@ -93,6 +93,110 @@ class DashboardController extends Controller {
             return response()->json($success, 500);
         }
     }
+
+    public function dataTopDaerah() {
+        try {
+            
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'wisata-dash/top-daerah',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data['data'], 'status' => true], 200);
+
+        } catch (\Throwable $e) {
+            $success['status'] = false;
+            $success['message'] = "Error ".$e;
+            return response()->json($success, 500);
+        }
+    }
+
+    public function dataTopMitra() {
+        try {
+            
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'wisata-dash/top-mitra',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data['data'], 'status' => true], 200);
+
+        } catch (\Throwable $e) {
+            $success['status'] = false;
+            $success['message'] = "Error ".$e;
+            return response()->json($success, 500);
+        }
+    }
+
+    public function dataKunjunganTahunan() {
+        try {
+            
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'wisata-dash/kunjungan-tahunan',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data['data'], 'status' => true], 200);
+
+        } catch (\Throwable $e) {
+            $success['status'] = false;
+            $success['message'] = "Error ".$e;
+            return response()->json($success, 500);
+        }
+    }
+
+    public function dataKunjunganBulanan() {
+        try {
+            
+            $client = new Client();
+            $response = $client->request('GET', config('api.url').'wisata-dash/kunjungan-bulanan',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data;
+            }
+            return response()->json(['data' => $data['data'], 'status' => true], 200);
+
+        } catch (\Throwable $e) {
+            $success['status'] = false;
+            $success['message'] = "Error ".$e;
+            return response()->json($success, 500);
+        }
+    }
 }
 
 ?>
