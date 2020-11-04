@@ -228,9 +228,17 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="300">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea.</div>
+                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="300">
+                        PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
+                        /Telkom Foundation yang berdiri sejak tahun 20012. Sebagai perusahaan penyedia pengeloaan jasa
+                        Outsourcing, Bussiness retail, dan Property.
+                    </div>
 
-                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="600">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea.</div>
+                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="600">
+                        PT. Trengginas Jaya memegang komitmen untuk menjaga kualitas, mengutamakan dan meningkatkan
+                        kepuasan pelanggan, menjaga kelestarian lingkungan dan menjaga serta meningkatkan kesehatan dan
+                        keselamatan.
+                    </div>
 
                 </div>
             </div>
