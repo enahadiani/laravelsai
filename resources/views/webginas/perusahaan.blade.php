@@ -132,8 +132,37 @@
         <!-- About -->
         <section>
             <div class="container">
-                <div class="heading-text heading-section m-b-80">
-                    <h2>Tentang Kami</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="heading-text heading-section m-b-80">
+                            <h2>Tentang Kami</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <p>
+                            PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
+                            /Telkom Foundation dan didirikan berdasarkan Akta Notaris Hj. Tetty Surtiati Hidayat, SH. Nomor
+                            3 tanggal 13 Agustus 2012, yang bergerak dibidang usaha jasa Outsourcing, Trading & Bussiness Retail
+                            Property.
+                        </p>
+                        <p>
+                            Sejalan dengan perkembangan dan perubahan pasar, maka komitmen Top Management PT. Trengginas Jaya
+                            selalu berusaha meningkatkan mutu, inovatif dan kerja sama sinergis untuk memberikan kepuasan kepada
+                            pelanggan.
+                        </p>
+                    </div>
+                    <div class="col-lg-4" style="padding-right:10px;">
+                        <p>
+                            Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
+                            dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
+                            Jasa Outsourcing, Bussiness Retail, dan Property yang berpengalaman serta memiliki kompetensi
+                            dibidangnya.
+                        </p>
+                        <p>
+                            Sebagai perusahaan penyedia jasa Outsourcing Bussiness Retail & Property, PT. Trengginas Jaya
+                            memegang komitmen untuk menjaga kualitas, mengutamakan da meningkatkan kepuasan pelanggan.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
