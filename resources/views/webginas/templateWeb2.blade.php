@@ -122,7 +122,7 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="#" class="a_link" data-href="fHome">Home</a></li>
+                                    <li><a href="{{url('/webginas2/')}}" class="a_link" data-href="fHome">Home</a></li>
                                     <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
@@ -160,7 +160,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="#" class="a_link" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
