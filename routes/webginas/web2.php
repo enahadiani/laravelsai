@@ -25,3 +25,4 @@ Route::get('/form/{id}', function ($id) {
 });
 Route::get('/', 'Webginas\Web2Controller@index');
 Route::get('/perusahaan', 'Webginas\Web2Controller@viewPerusahaan');
+Route::get('/kontak', 'Webginas\Web2Controller@viewKontak');
