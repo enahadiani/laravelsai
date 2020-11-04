@@ -20,6 +20,7 @@
         if(data.length > 0){
             res.bentuk = '';
             var lokasi = res.lokasi;
+            periode = $peride;
             res.data_detail = [];
             var html = `
             <style>
