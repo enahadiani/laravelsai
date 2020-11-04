@@ -55,14 +55,14 @@ $thnLalu = substr($tahunLalu,2,2)
     }
 </style>
 
-<div class="container-fluid mt-3" style="display:none;">
+<div class="container-fluid mt-3">
     <div class="row" >
         <div class="col-md-4 col-sm-12 mb-4">
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Kunjungan YoY</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>12K</strong></h1>
-                    <p class="text-danger" style="margin-top: -12px;">-20,3% dari tahun lalu</p>
+                    <h1 id="num-kunjungan"><strong></strong></h1>
+                    <p id="ket-kunjungan" style="margin-top: -12px;"></p>
                 </div>
             </div>
         </div>
@@ -70,8 +70,8 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Bidang teratas Ytd</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>Ciwidey</strong></h1>
-                    <p class="text-info" style="margin-top: -12px;">300K pengunjung</p>
+                    <h1 id="nam-bidang" style="font-size: 20px;"><strong></strong></h1>
+                    <p  id="ket-bidang" class="text-info" style="margin-top: -5px;"></p>
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="height: 130px; border-radius:10px !important;">
                 <h6 class="ml-3 mt-4" style="font-size: 16px;color:#d3d3d3;">Mitra teratas Ytd</h6>
                 <div class="card-body pt-0" style="padding-left: 16px;">
-                    <h1><strong>SAI</strong></h1>
-                    <p class="text-info" style="margin-top: -12px;">300K pengunjung</p>
+                    <h1 id="nam-mitra" style="font-size: 20px;"><strong></strong></h1>
+                    <p  id="ket-mitra" class="text-info" style="margin-top: -5px;"></p>
                 </div>
             </div>
         </div>
@@ -100,6 +100,34 @@ $thnLalu = substr($tahunLalu,2,2)
                  <h6 class="ml-3 mt-4"><strong> kunjungan tahun 2020 </strong><span class="mr-4" style="float: right;"><a href="#" class="text-info">Ubah</a></span></h6>
                 <div class="card-body pt-0">
                     <div id='kunjunganTahunan'></div>
+                    <table class="table mt-1">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Symbol</th>
+                                <th style="text-align: center;">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="display: flex;align-items: center;align-content: center;">
+                                    <div style="margin:0 auto;width: 25px; height:5px;background-color:black;"></div>
+                                </td>
+                                <td>Usaha Jasa Penyediaan Akomodasi</td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex;align-items: center;align-content: center;">
+                                    <div style="margin:0 auto;width: 25px; height:5px;background-color:#add8e6;"></div>
+                                </td>
+                                <td>Usaha Jasa Makanan dan Minuman</td>
+                            </tr>
+                            <tr>
+                                <td style="display: flex;align-items: center;align-content: center;">
+                                    <div style="margin:0 auto;width: 25px; height:5px;background-color:#90ee90;"></div>
+                                </td>
+                                <td>Usaha Penyelenggaraan Kegiatan Rekreasi dan Hiburan</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -109,54 +137,17 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="border-radius:10px !important;">
                  <h6 class="ml-3 mt-4"><strong>Daerah Populer</strong></h6>
                 <div class="card-body pt-0">
-                    <table class='table' id='populer'>
+                    <table class='table' id='daerah'>
                         <thead>
                             <tr>
-                                <th>Daerah</th>
-                                <th>Kunjungan</th>
-                                <th>Mitra</th>
-                                <th>Bidang</th>
+                                <th style="text-align: center;">Daerah</th>
+                                <th style="text-align: center;">Kunjungan</th>
+                                <th style="text-align: center;">Mitra</th>
+                                <th style="text-align: center;">Bidang</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                            <tr>
-                                <td>Bojongsoang</td>
-                                <td>13,5K</td>
-                                <td>12</td>
-                                <td>38</td>
-                            </tr>
-                        </tbody>
-                        <tbody>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -166,7 +157,7 @@ $thnLalu = substr($tahunLalu,2,2)
             <div class="card" style="border-radius:10px !important;">
                  <h6 class="ml-3 mt-4"><strong>Mitra Populer</strong></h6>
                 <div class="card-body pt-0">
-                    <table class='table' id='populer'>
+                    <table class='table' id='mitra'>
                         <thead>
                             <tr>
                                 <th>Kode</th>
@@ -174,28 +165,7 @@ $thnLalu = substr($tahunLalu,2,2)
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>MTR-001</td>
-                                <td>Kampung Gajah</td>
-                            </tr>
-                           <tr>
-                                <td>MTR-001</td>
-                                <td>Kampung Gajah</td>
-                            </tr>
-                            <tr>
-                                <td>MTR-001</td>
-                                <td>Kampung Gajah</td>
-                            </tr>
-                            <tr>
-                                <td>MTR-001</td>
-                                <td>Kampung Gajah</td>
-                            </tr>
-                            <tr>
-                                <td>MTR-001</td>
-                                <td>Kampung Gajah</td>
-                            </tr>
-                        </tbody>
-                        <tbody>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -231,194 +201,333 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
-
-function sepNum(x){
-    if(!isNaN(x)){
-        if (typeof x === undefined || !x || x == 0) { 
-            return 0;
-        }else if(!isFinite(x)){
-            return 0;
+$(document).ready(function(){
+    function sepNum(x){
+        if(!isNaN(x)){
+            if (typeof x === undefined || !x || x == 0) { 
+                return 0;
+            }else if(!isFinite(x)){
+                return 0;
+            }else{
+                var x = parseFloat(x).toFixed(2);
+                // console.log(x);
+                var tmp = x.toString().split('.');
+                // console.dir(tmp);
+                var y = tmp[1].substr(0,2);
+                var z = tmp[0]+'.'+y;
+                var parts = z.split('.');
+                parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
+                return parts.join(',');
+            }
         }else{
-            var x = parseFloat(x).toFixed(2);
-            // console.log(x);
-            var tmp = x.toString().split('.');
-            // console.dir(tmp);
-            var y = tmp[1].substr(0,2);
-            var z = tmp[0]+'.'+y;
-            var parts = z.split('.');
-            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,'$1.');
-            return parts.join(',');
+            return 0;
         }
-    }else{
-        return 0;
     }
-}
-function sepNumPas(x){
-    var num = parseInt(x);
-    var parts = num.toString().split('.');
-    var len = num.toString().length;
-    // parts[1] = parts[1]/(Math.pow(10, len));
-    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
-    return parts.join(',');
-}
 
-function toJuta(x) {
-    var nil = x / 1000000;
-    return sepNum(nil) + '';
-}
-
-function toMilyar(x) {
-    var nil = x / 1000000000;
-    return sepNum(nil) + ' M';
-}
-
-function singkatNilai(num){
-    if(num < 0){
-        num = num * -1;
+    function sepNumPas(x){
+        var num = parseInt(x);
+        var parts = num.toString().split('.');
+        var len = num.toString().length;
+        // parts[1] = parts[1]/(Math.pow(10, len));
+        parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g,'$1.');
+        return parts.join(',');
     }
+
+    function toRibuan(x) {
+        var nil = x / 1000;
+        return sepNum(nil) + '';
+    }
+
+    function toJuta(x) {
+        var nil = x / 1000000;
+        return sepNum(nil) + '';
+    }
+
+    function toMilyar(x) {
+        var nil = x / 1000000000;
+        return sepNum(nil) + ' M';
+    }
+
+    function singkatNilai(num){
+        if(num < 0){
+            num = num * -1;
+        }
+        
+        if(num >= 1000 && num < 1000000){
+            var str = 'K';
+            var pembagi = 1000;
+        }else if(num >= 1000000 && num < 1000000000){
+            var str = 'Jt';
+            var pembagi = 1000000;
+        }else if(num >= 1000000000 && num < 1000000000000){
+            var str = 'M';
+            var pembagi = 1000000000;
+        }else if(num >= 1000000000000){
+            var str = 'T';
+            var pembagi = 1000000000000;
+        }
+        
+        if(num < 0){
+            return (parseFloat(num/pembagi).toFixed(0) * -1) + '' +str;
+        }else if (num > 0 && num >= 1000){
+            return parseFloat(num/pembagi).toFixed(0) + '' +str;
+        }else if(num > 0 && num < 1000){
+            return num;
+        }else{
+            return num;
+        }
+    }
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-kunjungan') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data;
+            var persentase;
+            if(response.status) {
+                $('#num-kunjungan').text(singkatNilai(res.YoYnow));
+
+                if(res.persentase < 0) {
+                    persentase = `-${res.persentase}`;
+                } else {
+                    persentase = res.persentase;
+                }
+
+                $('#ket-kunjungan').text(`${persentase}% dari tahun lalu`);
+
+                if(res.banding == 'besar') {
+                    $('#ket-kunjungan').addClass('text-info');
+                } else {
+                    $('#ket-kunjungan').addClass('text-danger');
+                }
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-bidang') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data.data;
+            if(response.status) {
+                $('#nam-bidang').text(res.nama);
+                $('#ket-bidang').text(`${singkatNilai(res.jumlah)} pengunjung`);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/data-mitra') }}",
+        dataType:"JSON",
+        success: function(response) {
+            var res = response.data.data;
+            if(response.status) {
+                $('#nam-mitra').text(res.nama);
+                $('#ket-mitra').text(`${singkatNilai(res.jumlah)} pengunjung`);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/top-daerah') }}",
+        dataType:"JSON",
+        success: function(response) {
+            $('#daerah tbody').empty();
+            var res = response.data.data;
+            if(response.status) {
+                var row = "";
+                for(var i=0;i<res.length;i++) {
+                    var data = res[i];
+                    row += "<tr>";
+                    row += "<td>"+data.camat+"</td>";
+                    row += "<td style='text-align: right;'>"+singkatNilai(data.jumlah)+"</td>";
+                    row += "<td>"+data.mitra+"</td>";
+                    row += "<td>"+data.bidang+"</td>";
+                    row += "</tr>";
+                }
+                $('#daerah tbody').append(row);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/top-mitra') }}",
+        dataType:"JSON",
+        success: function(response) {
+            $('#mitra tbody').empty();
+            var res = response.data.data;
+            if(response.status) {
+                var row = "";
+                for(var i=0;i<res.length;i++) {
+                    var data = res[i];
+                    row += "<tr>";
+                    row += "<td>"+data.kode_mitra+"</td>";
+                    row += "<td>"+data.mitra+"</td>";
+                    row += "</tr>";
+                }
+                $('#mitra tbody').append(row);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/kunjungan-tahunan') }}",
+        dataType:"JSON",
+        success: function(response) {
+            if(response.status) {
+                Highcharts.chart('kunjunganTahunan', {
+                    title: {
+                        text: ''
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    legend:{ enabled:false },
+                    yAxis: {
+                        title: {
+                            text: 'Jumlah Pengunjung'
+                        }
+                    },
+                    xAxis: {
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+                    },
+                    series: response.data.data,
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                });
+            }
+            
+        }
+    });
+
+    $.ajax({
+        type:"GET",
+        url:"{{ url('wisata-dash/kunjungan-bulanan') }}",
+        dataType:"JSON",
+        success: function(response) {
+            if(response.status) {
+                console.log(response)
+                Highcharts.chart('kunjungan', {
+                    chart: {
+                        polar: true,
+                        type: 'line'
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    title: {
+                        text: '',
+                    },
+
+                    pane: {
+                        size: '80%'
+                    },
+
+                    xAxis: {
+                        categories: response.data.ctg,
+                        tickmarkPlacement: 'on',
+                        lineWidth: 0
+                    },
+
+                    yAxis: {
+                        gridLineInterpolation: 'polygon',
+                        lineWidth: 0,
+                        min: 0
+                    },
+
+                    tooltip: {
+                        shared: true,
+                        pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+                    },
+
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        layout: 'vertical'
+                    },
+
+                    series: [{
+                        name: 'Jumlah',
+                        data: response.data.data,
+                        pointPlacement: 'on'
+                    }],
+                });
+            }
+        }
+    });
     
-    if(num >= 1000 && num < 1000000){
-        var str = 'Rb';
-        var pembagi = 1000;
-    }else if(num >= 1000000 && num < 1000000000){
-        var str = 'Jt';
-        var pembagi = 1000000;
-    }else if(num >= 1000000000 && num < 1000000000000){
-        var str = 'M';
-        var pembagi = 1000000000;
-    }else if(num >= 1000000000000){
-        var str = 'T';
-        var pembagi = 1000000000000;
-    }
-    
-    if(num < 0){
-        return (parseFloat(num/pembagi).toFixed(0) * -1) + ' ' +str;
-    }else if (num > 0 && num >= 1000){
-        return parseFloat(num/pembagi).toFixed(0) + ' ' +str;
-    }else if(num > 0 && num < 1000){
-        return num;
-    }else{
-        return num;
-    }
-}
-
+});
     // HIGHCHART //
 
     // JUMLAH KUNJUNGAN //
-    Highcharts.chart('kunjungan', {
+    // Highcharts.chart('kunjungan', {
 
-        chart: {
-            polar: true,
-            type: 'line'
-        },
+    //     chart: {
+    //         polar: true,
+    //         type: 'line'
+    //     },
 
-        credits: {
-            enabled: false
-        },
+    //     credits: {
+    //         enabled: false
+    //     },
 
-        title: {
-            text: '',
-        },
+    //     title: {
+    //         text: '',
+    //     },
 
-        pane: {
-            size: '80%'
-        },
+    //     pane: {
+    //         size: '80%'
+    //     },
 
-        xAxis: {
-            categories: ['A', 'B', 'C', 'D', 'E', 'F'],
-            tickmarkPlacement: 'on',
-            lineWidth: 0
-        },
+    //     xAxis: {
+    //         categories: ['A', 'B', 'C', 'D', 'E', 'F'],
+    //         tickmarkPlacement: 'on',
+    //         lineWidth: 0
+    //     },
 
-        yAxis: {
-            gridLineInterpolation: 'polygon',
-            lineWidth: 0,
-            min: 0
-        },
+    //     yAxis: {
+    //         gridLineInterpolation: 'polygon',
+    //         lineWidth: 0,
+    //         min: 0
+    //     },
 
-        tooltip: {
-            shared: true,
-            pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
-        },
+    //     tooltip: {
+    //         shared: true,
+    //         pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+    //     },
 
-        legend: {
-            align: 'right',
-            verticalAlign: 'middle',
-            layout: 'vertical'
-        },
+    //     legend: {
+    //         align: 'right',
+    //         verticalAlign: 'middle',
+    //         layout: 'vertical'
+    //     },
 
-        series: [{
-            name: 'Jumlah',
-            data: [43000, 19000, 60000, 35000, 17000, 10000],
-            pointPlacement: 'on'
-        }],
-    });
+    //     series: [{
+    //         name: 'Jumlah',
+    //         data: [43000, 19000, 60000, 35000, 17000, 10000],
+    //         pointPlacement: 'on'
+    //     }],
+    // });
 
     // END JUMLAH KUNJUNGAN //
-
-    // KUNJUNGAN TAHUNAN //
-
-    Highcharts.chart('kunjunganTahunan', {
-
-        title: {
-            text: ''
-        },
-
-        credits: {
-            enabled: false
-        },
-
-        yAxis: {
-            title: {
-                text: 'Jumlah Pengunjung'
-            }
-        },
-
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-        series: [{
-            name: 'A',
-            data: [1000, 500, 1200, 3000, 3500, 4000, 6000, 7500, 3000, 2000, 100, 200]
-        }, {
-            name: 'B',
-            data: [1250, 750, 1400, 3200, 2000, 3800, 2000, 7000, 2500, 2000, 150, 250]
-        }, {
-            name: 'C',
-            data: [1150, 450, 1000, 3500, 1000, 3000, 5000, 0, 1200, 2500, 650, 950]
-        }, {
-            name: 'D',
-            data: [1550, 450, 1100, 3500, 2500, 3200, 2500, 7000, 3000, 2000, 750, 350]
-        }, {
-            name: 'E',
-            data: [1050, 350, 1200, 3400, 2500, 3300, 2200, 7500, 2300, 2500, 750, 850]
-        }],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500,
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
-
-    // END KUNJUNGAN TAHUNAN // 
-
-    // END HIGHCHART //
 </script>

@@ -40,6 +40,10 @@ class Web2Controller extends Controller
         
     }
 
+    public function viewPerusahaan() {
+        return view('webginas.perusahaan');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];
