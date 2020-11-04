@@ -1,200 +1,6 @@
-<style>
-        th,td{
-            padding:8px !important;
-            vertical-align:middle !important;
-        }
-        .search-item2{
-            cursor:pointer;
-        }
-
-        input.error{
-            border:1px solid #dc3545;
-        }
-        label.error{
-            color:#dc3545;
-            margin:0;
-        }
-        #table-data_paginate,#table-search_paginate
-        {
-            margin-top:0 !important;
-        }
-
-        #table-data_paginate ul,#table-search_paginate ul
-        {
-            float:right;
-        }
-
-        .form-body 
-        {
-            position: relative;
-            overflow: auto;
-        }
-
-        #content-delete
-        {
-            position: relative;
-            overflow: auto;
-        }
-        .hidden{
-            display:none;
-        }
-
-        .datetime-reset-button {
-            margin-right: 20px !important;
-            margin-top: 3px !important;
-        }
-        #table-search
-        {
-            border-collapse:collapse !important;
-        }
-
-        #table-search_filter label, #table-search_filter input
-        {
-            width:100%;
-        }
-
-        .dataTables_wrapper .paginate_button.previous {
-        margin-right: 0px; }
-
-        .dataTables_wrapper .paginate_button.next {
-        margin-left: 0px; }
-
-        div.dataTables_wrapper div.dataTables_paginate {
-        margin-top: 25px; }
-
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        justify-content: center; }
-
-        .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 5px;
-        padding-right: 5px; }
-        .px-0{
-            padding-left: 2px !important;
-            padding-right: 2px !important;
-        }
-
-        #table-data_filter label
-        {
-            width:100%;
-        }
-        #table-data_filter label input
-        {
-            width:inherit;
-        }
-        
-        #searchData
-        {
-            font-size: .75rem;
-            height: 31px;
-        }
-        .dropdown-toggle::after {
-            display:none;
-        }
-        .dropdown-aksi > .dropdown-item{
-            font-size : 0.7rem;
-        }
-
-        .btn-light2{
-            background:#F8F8F8;
-            color:#D4D4D4;
-        }
-
-        .btn-light2:hover{
-            color:#131113;
-        }
-
-        .btn-light2:active{
-            color: #131113;
-            background-color: #d8d8d8;
-        }
-
-        .custom-file-label::after{
-            content:"Cari berkas" !important;
-            border-left:0;
-            color: var(--theme-color-1) !important;
-        }
-        .focus{
-            /* border:none !important; */
-            box-shadow:none !important;
-        }
-        .kredit {
-            margin-top: -50px;
-        }
-        .nav-grid {
-            margin-top: -10px;
-        }
-        /* .information {
-            margin-left: 20.5%;
-            position: relative;
-            top: 7px;
-            font-size: 12px;
-        }
-        .bs-tooltip-right {
-            margin-top: 100px;
-            margin-left: 5px;
-        }
-        .bs-tooltip-right > .arrow {
-            margin-top: 11.5px;
-        }
-        .bs-tooltip-right > .tooltip-inner {
-            min-width: 450px !important;
-        } */
-    </style>
+    <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card" >
-                <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Jurnal Penyesuaian</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
-                    <div class="table-responsive ">
-                        <table id="table-data" class="" style='width:100%'>
-                            <thead>
-                                <tr>
-                                    <th style="width:15%">No Bukti</th>
-                                    <th style="width:10%">Tanggal</th>
-                                    <th style="width:15%">No Dokumen</th>
-                                    <th style="width:35%">Deskripsi</th>
-                                    <th style="width:15%">Nilai</th>
-                                    <th style="width:10%" class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-list-data judul="Data Jurnal Penyesuaian" tambah="true" :thead="array('No Bukti','Tanggal','No Dokumen','Deskripsi','Nilai','Action')" :thwidth="array(15,10,15,35,15,10)" :thclass="array('','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -209,40 +15,41 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
-                    <input type="hidden" id="method" name="_method" value="post">
+                        <input type="hidden" id="method" name="_method" value="post">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="tanggal" class="col-md-2 col-sm-2 col-form-label">Tanggal</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" required>
-                                <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <x-sai-input label="Tanggal" id="tanggal" name="tanggal" tipe="text" class="datepicker" :icon="array('class'=> 'simple-icon-calendar') " attr="required" />
+                                    </div>
+                                    <div class="col-md-6 col-sm-12" style="min-height:64px">
+                                        <x-sai-input label="No Dokumen" id="no_dokumen" name="no_dokumen" tipe="text" class="" attr="required" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <x-sai-text label="Keterangan" id="deskripsi" name="deskripsi" class="" attr="required rows=4 " />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-9"></div>
-                            <label for="no_dokumen" class="col-md-2 col-sm-2 col-form-label">No Dokumen</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="deskripsi" class="col-md-2 col-sm-2 col-form-label">Keterangan</label>
-                            <div class="col-md-4 col-sm-9">
-                                <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required autocomplete="off" placeholder="Keterangan"></textarea>
-                            </div>
-                            <div class="col-md-1 col-sm-9"></div>
-                            <label for="total_debet" class="col-md-2 col-sm-2 col-form-label">Total Debet</label>
-                            <div class="col-md-3 col-sm-9">
-                                    <input class="form-control currency" type="text" name="total" placeholder="Total Debet" readonly id="total_debet" value="0">
-                            </div>
-                        </div>
-                        <div class="form-group row kredit">
-                            <div class="col-md-7 col-sm-12"></div>
-                            <label for="total_kredit" class="col-md-2 col-sm-2 col-form-label">Total Kredit</label>
-                            <div class="col-md-3 col-sm-9">
-                                <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" value="0">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6" style="min-height:64px">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <x-sai-input label="Total Debet" id="total_debet" name="total_debet" tipe="text" class="curreny" attr="required readonly" value="0" />
+                                        <x-sai-input label="Total Kredit" id="total_kredit" name="total_kredit" tipe="text" class="curreny" attr="required readonly" value="0"/>
+                                    </div>
+                                </div>  
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist">
@@ -251,127 +58,27 @@
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-grid" role="tabpanel">
-
-                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                <div class='col-xs-12 nav-control'>
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
-                                    <span class="pemisah mx-1" style="border:1px solid #d7d7d7;font-size:20px"></span>
-                                    
+                                    <span class="pemisah mx-1"></span>
                                     <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px'>
                                         <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Import Excel <i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-import" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <div class="dropdown-menu dropdown-import" aria-labelledby="dropdown-import" x-placement="bottom-start" >
                                             <a class="dropdown-item" href="{{ config('api.url').'toko-auth/storage/template_upload_jurnal_esaku.xlsx' }}" target='_blank' id="download-template" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel" >Upload</a>
                                         </div>
                                     </div>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                    <a class="total-row"><span id="total-row" ></span></a>
                                 </div>
-                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
-                                    <style>
-                                        th{
-                                            vertical-align:middle !important;
-                                        }
-                                        /* #input-grid td{
-                                            padding:0 !important;
-                                        } */
-                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
-                                        {
-                                            border:1px solid black !important;
-                                            border-radius:0 !important;
-                                        }
-
-                                        #input-grid .selectize-input
-                                        {
-                                            border-radius:0 !important;
-                                        } 
-                                        
-                                        .modal-header .close {
-                                            padding: 1rem;
-                                            margin: -1rem 0 -1rem auto;
-                                        }
-                                        .check-item{
-                                            cursor:pointer;
-                                        }
-                                        .selected{
-                                            cursor:pointer;
-                                            /* background:#4286f5 !important; */
-                                            /* color:white; */
-                                        }
-                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
-                                        {
-                                            /* background: var(--theme-color-6) !important;
-                                            color:white; */
-                                            background:#f8f8f8;
-                                            color:black;
-                                        }
-                                        #input-grid input:hover,
-                                        #input-grid .selectize-input:hover,
-                                        {
-                                            width:inherit;
-                                        }
-                                        #input-grid ul.typeahead.dropdown-menu
-                                        {
-                                            width:max-content !important;
-                                        }
-                                        #input-grid td
-                                        {
-                                            overflow:hidden !important;
-                                            height:37.2px !important;
-                                            padding:0px !important;
-                                        }
-
-                                        #input-grid span
-                                        {
-                                            padding:0px 10px !important;
-                                        }
-
-                                        #input-grid input,#input-grid .selectize-input
-                                        {
-                                            overflow:hidden !important;
-                                            height:35px !important;
-                                        }
-
-
-                                        #input-grid td:nth-child(5)
-                                        {
-                                            overflow:unset !important;
-                                        }
-                                    </style>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%; text-align:center;">No</th>
-                                            <th style="width:3%; text-align:center;"></th>
-                                            <th style="width:8%; text-align:center;">Kode Akun</th>
-                                            <th style="width:15%; text-align:center;">Nama Akun</th>
-                                            <th style="width:5%; text-align:center;">DC</th>
-                                            <th style="width:23%; text-align:center;">Keterangan</th>
-                                            <th style="width:15%; text-align:center;">Nilai</th>
-                                            <th style="width:8%; text-align:center;">Kode PP</th>
-                                            <th style="width:15%; text-align:center;">Nama PP</th>
-                                            <th style="width:8%; text-align:center;">Kode FS</th>
-                                            <th style="width:15%; text-align:center;">Nama FS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
+                                <div class='col-xs-12 px-0 py-0 mx-0 my-0' id='sai-input-grid' style='min-height:420px;'>
+                                    <x-sai-grid id="input-grid" :thead="array('No','','Kode Akun','Nama Akun','DC','Keterangan','Nilai','Kode PP','Nama PP','Kode FS','Nama FS')" :thwidth="array(3,3,8,15,5,13,15,8,15,8,15)" />
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-informasi" role="tabpanel">
-                                <table class="table table-bordered table-condensed gridexample" id="informasi-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;margin-top:5px;">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="text-align:center;">No Bukti</th>
-                                            <th style="text-align:center;">Periode</th>
-                                            <th style="text-align:center;">NIK Input</th>
-                                            <th style="text-align:center;">Tanggal Input</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                <x-sai-grid id="informasi-grid" :thead="array('No Bukti','Periode','NIK Input','Tanggal Input')" :thwidth="array(25,25,25,25)" />
                             </div>
                         </div>
                     </div>
@@ -380,98 +87,14 @@
         </div>
     </form>
     <!-- FORM INPUT  -->
-
-    <!-- MODAL SEARCH AKUN-->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div style="display: block;" class="modal-header">
-                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
-                    <span aria-hidden="true">&times;</span>
-                    </button> 
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL -->
-
-    <!-- MODAL PREVIEW -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
-            <div class="modal-content" style="border-radius:0.75em">
-                <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Jurnal Penyesuaian <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="dropdown d-inline-block float-right">
-                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
-                        </button>
-                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body" id="content-preview" style="height:450px">
-                    <table id="table-preview" class="table no-border">
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL PREVIEW -->
-
-    <!-- MODAL UPLOAD -->
-    <div class="modal fade" id="modal-import" tabindex="-1" aria-labelledby="modal-importLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius:0.75em">
-                <form id="form-import">
-                    <div class="modal-header py-2">
-                        <h6 class="modal-title" id="modal-importLabel">Upload Berkas</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0" style="border:0">
-                        <div class="input-group mb-1">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" style="display: unset;" name="file">
-                                <label class="custom-file-label" for="inputGroupFile01" style="display: block;">File input</label>
-                            </div>
-                        </div>
-                        <label id="label-file" class="mb-0"></label>
-                        <div style="height: 10px;" class="progress hidden mb-2">
-                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="5" style="width:5%" >5%</div>
-                        </div>
-                        <div class="pesan-upload" style="background:#F5F5F5;display:none;padding: 10px 25px;border-radius: 0.75em;" >
-                            <p class="pesan-upload-judul" style="font-weight:bold;font-size:12px;margin:0"></p>
-                            <p class="pesan-upload-isi" style="font-size:12px"></p>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border:0">
-                        <button type="button"  id="process-upload" class="btn btn-light" >Process</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL UPLOAD  -->
+    
+    @include('komponen.modal_search')
+    @include('komponen.modal_upload')
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-
+    <script src="{{ asset('helper.js') }}"></script>
+    <script src="{{ asset('showFilter.js') }}"></script>
     <script type="text/javascript">
     // DEFAULT SETTING //
     $('#process-upload').addClass('disabled');
@@ -492,9 +115,6 @@
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
     });
-    getDataPP();
-    getDataAkun();
-    getDataFS();
     // END DEFAULT SETTING //
 
     // FORM SETTINGS//
@@ -529,20 +149,6 @@
     // END FORM SETTINGS //
 
     // FUNCTION HELPERS //
-    function format_number(x){
-        var num = parseFloat(x).toFixed(0);
-        num = sepNumX(num);
-        return num;
-    }
-
-    function reverseDate2(date_str, separator, newseparator){
-        if(typeof separator === 'undefined'){separator = '-'}
-        if(typeof newseparator === 'undefined'){newseparator = '-'}
-        date_str = date_str.split(' ');
-        var str = date_str[0].split(separator);
-
-        return str[2]+newseparator+str[1]+newseparator+str[0];
-    }
 
     function hitungTotalRow(){
         var total_row = $('#input-grid tbody tr').length;
@@ -623,16 +229,16 @@
         }
     }
 
-    function getDataPP() {
+    function getDataTypeAhead(url,param,kode){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/helper-pp') }}",
+            url: url,
             dataType: 'json',
             async:false,
             success:function(result){    
                 if(result.status) {
                     for(i=0;i<result.daftar.length;i++){
-                        $dtPP[i] = {id:result.daftar[i].kode_pp,name:result.daftar[i].nama};  
+                        eval('$dt'+param+'['+i+'] = '+JSON.stringify({id:eval('result.daftar['+i+'].'+kode),name:result.daftar[i].nama}));  
                     }
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
@@ -656,72 +262,9 @@
         });
     }
 
-    function getDataFS() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('yakes-master/helper-fs') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){    
-                if(result.status) {
-                    for(i=0;i<result.daftar.length;i++){
-                        $dtFS[i] = {id:result.daftar[i].kode_fs,name:result.daftar[i].nama};  
-                    }
-                }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                } else{
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/yakes-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-                
-            }
-        });
-    }
-
-    function getDataAkun() {
-        $.ajax({
-            type:'GET',
-            url:"{{ url('yakes-master/helper-akun') }}",
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                if(result.status) {
-                    for(i=0;i<result.daftar.length;i++){
-                        $dtAkun[i] = {id:result.daftar[i].kode_akun,name:result.daftar[i].nama};  
-                    }
-
-                }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                } else{
-                    alert(result.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status == 422){
-                    var msg = jqXHR.responseText;
-                }else if(jqXHR.status == 500) {
-                    var msg = "Internal server error";
-                }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/yakes-auth/sesi-habis') }}";
-                }else if(jqXHR.status == 405){
-                    var msg = "Route not valid. Page not found";
-                }
-                
-            }
-        });
-    }
+    getDataTypeAhead("{{ url('yakes-master/helper-pp') }}","PP","kode_pp");
+    getDataTypeAhead("{{ url('yakes-master/helper-fs') }}","FS","kode_fs");
+    getDataTypeAhead("{{ url('yakes-master/helper-akun') }}","Akun","kode_akun");
 
     function getAkun(id,target1,target2,target3,jenis){
         var tmp = id.split(" - ");
@@ -916,31 +459,17 @@
     // DATATABLE FUNCTION //
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     
-    var dataTable = $("#table-data").DataTable({
-        destroy: true,
-        bLengthChange: false,
-        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        'ajax': {
-            'url': "{{ url('yakes-trans/jurnal-sesuai') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    return [];
-                }
-            }
-        },
-        'columnDefs': [
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('yakes-trans/jurnal-sesuai') }}", 
+        [
             {   'targets': 4, 
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
             {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
-            ],
-        'columns': [
+        ],
+        [
             { data: 'no_bukti' },
             { data: 'tanggal', render: function(data) {
                 return reverseDate2(data,'-','/');
@@ -949,29 +478,8 @@
             { data: 'keterangan' },
             { data: 'nilai' }
         ],
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            lengthMenu: "Items Per Page _MENU_",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            infoFiltered: "(terfilter dari _MAX_ total entri)"
-        }
-    });
+        "{{ url('yakes-auth/sesi-habis') }}"
+    );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -1001,7 +509,7 @@
         $('#informasi').hide();
         $('#saku-form').show();
         getTanggalServer();
-        addRowGridDefault();
+        addRowGrid("dua");
     });
 
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -1014,116 +522,52 @@
     // END ACTION BUTTON FORM //
 
     // GRID EVENT ACTION //
-    function addRowGridDefault() {
+    function addRowGrid(param) {
+        if(param == "copy"){
+            var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
+            var nama_akun = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
+            var dc = $('#input-grid tbody tr.selected-row').find(".td-dc").text();
+            var keterangan = $('#input-grid tbody tr.selected-row').find(".inp-ket").val();
+            var nilai = $('#input-grid tbody tr.selected-row').find(".inp-nilai").val();
+            var kode_pp = $('#input-grid tbody tr.selected-row').find(".inp-pp").val();
+            var nama_pp = $('#input-grid tbody tr.selected-row').find(".inp-nama_pp").val();
+            var kode_fs = $('#input-grid tbody tr.selected-row').find(".inp-fs").val();
+            var nama_fs = $('#input-grid tbody tr.selected-row').find(".inp-nama_fs").val();
+        }else{
+            var kode_akun = "";
+            var nama_akun = "";
+            var dc = "";
+            var keterangan = "";
+            var nilai = "";
+            var kode_pp = "";
+            var nama_pp = "";
+            var kode_fs = "";
+            var nama_fs = "";
+        }
+
         var no=$('#input-grid .row-grid:last').index();
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
         input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun search-akunke"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
         input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input autocomplete='off' type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-fs tdfske"+no+" tooltip-span'></span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='' readonly></td>";
-        input += "</tr>";
-
-        $('#input-grid tbody').append(input);
-
-        $('.row-grid:last').addClass('selected-row');
-
-        $('.dcke'+no).selectize({
-            selectOnTab:true,
-            onChange: function(value) {
-                $('.tddcke'+no).text(value);
-                hitungTotal();
-            }
-        });
-        $('.selectize-control.dcke'+no).addClass('hidden');
-        $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-        $('#akunkode'+no).typeahead({
-            source:$dtAkun,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-        $('#ppkode'+no).typeahead({
-            source:$dtPP,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-        $('#fskode'+no).typeahead({
-            source:$dtFS,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
-        $('.tooltip-span').tooltip({
-            title: function(){
-                return $(this).text();
-            }
-        });
-
-        hitungTotalRow();
-    }
-
-
-    function addRowGrid() {
-        var no=$('#input-grid .row-grid:last').index();
-        no=no+2;
-        var input = "";
-        input += "<tr class='row-grid'>";
-        input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='' required></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='' required></td>";
-        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'></span><input autocomplete='off' type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='' readonly></td>";
-        input += "<td><span class='td-fs tdfske"+no+" tooltip-span'></span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'></span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
+        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input autocomplete='off' type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp search-ppke"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
+        input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs search-fske"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
         input += "</tr>";
 
         $('#input-grid tbody').append(input);
         
-        $('.row-grid:last').addClass('selected-row');
-        $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
-
+        // if(param != "copy"){
+            $('.row-grid:last').addClass('selected-row');
+            $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+        // }
         $('.dcke'+no).selectize({
             selectOnTab:true,
             onChange: function(value) {
@@ -1179,12 +623,85 @@
                 console.log(item.id);
             }
         });
-        $('#input-grid td').removeClass('px-0 py-0 aktif');
-        $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-        $('#input-grid tbody tr:last').find(".inp-kode").show();
-        $('#input-grid tbody tr:last').find(".td-kode").hide();
-        $('#input-grid tbody tr:last').find(".search-akun").show();
-        $('#input-grid tbody tr:last').find(".inp-kode").focus();
+
+        $(".search-ppke"+no).showFilter({
+            title: 'Daftar PP',
+            url: "{{ url('yakes-master/helper-pp') }}",
+            header:['Kode','Nama'],
+            columns:[
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+            parameter:{},
+            onItemSelected: function(data){
+                $(".ppke"+no).val(data.kode_pp);
+                $(".tdppke"+no).text(data.kode_pp);
+                $(".nmppke"+no).val(data.nama);
+                $(".tdnmppke"+no).text(data.nama);
+                $(".ppke"+no).hide();
+                $(".tdppke"+no).show();
+                $(".search-ppke"+no).hide();
+                $(".nmppke"+no).show();
+                $(".tdnmppke"+no).hide();
+                setTimeout(function() {  $(".nmppke"+no).focus(); }, 100);
+            }
+        });
+
+        $(".search-akunke"+no).showFilter({
+            title: 'Daftar Akun',
+            url: "{{ url('yakes-master/helper-akun') }}",
+            header:['Kode','Nama'],
+            columns:[
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+            parameter:{},
+            onItemSelected: function(data){
+                $(".akunke"+no).val(data.kode_akun);
+                $(".tdakunke"+no).text(data.kode_akun);
+                $(".nmakunke"+no).val(data.nama);
+                $(".tdnmakunke"+no).text(data.nama);
+                $(".akunke"+no).hide();
+                $(".tdakunke"+no).show();
+                $(".search-akunke"+no).hide();
+                $(".nmakunke"+no).show();
+                $(".tdnmakunke"+no).hide();
+                setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+            }
+        });
+
+        $(".search-fske"+no).showFilter({
+            title: 'Daftar FS',
+            url: "{{ url('yakes-master/helper-fs') }}",
+            header:['Kode','Nama'],
+            columns:[
+                        { data: 'kode_fs' },
+                        { data: 'nama' }
+                    ],
+            parameter:{},
+            onItemSelected: function(data){
+                $(".fske"+no).val(data.kode_fs);
+                $(".tdfske"+no).text(data.kode_fs);
+                $(".nmfske"+no).val(data.nama);
+                $(".tdnmfske"+no).text(data.nama);
+                $(".fske"+no).hide();
+                $(".tdfske"+no).show();
+                $(".search-fske"+no).hide();
+                $(".nmfske"+no).show();
+                $(".tdnmfske"+no).hide();
+                setTimeout(function() {  $(".nmfske"+no).focus(); }, 100);
+            }
+        });
+
+        if(param == "satu"){
+
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find(".inp-kode").show();
+            $('#input-grid tbody tr:last').find(".td-kode").hide();
+            $('#input-grid tbody tr:last').find(".search-akun").show();
+            $('#input-grid tbody tr:last').find(".inp-kode").focus();
+        } 
         $('.tooltip-span').tooltip({
             title: function(){
                 return $(this).text();
@@ -1196,7 +713,7 @@
     }
 
     $('#form-tambah').on('click', '.add-row', function(){
-        addRowGrid();
+        addRowGrid("satu");
     });
 
     $('#input-grid').on('keydown','.inp-kode, .inp-nama, .inp-dc, .inp-ket, .inp-nilai, .inp-pp, .inp-nama_pp,.inp-fs, .inp-nama_fs',function(e){
@@ -1692,54 +1209,7 @@
             alert('Harap pilih row yang akan dicopy terlebih dahulu!');
             return false;
         }else{
-            var kode_akun = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
-            var nama_akun = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
-            var dc = $('#input-grid tbody tr.selected-row').find(".td-dc").text();
-            var keterangan = $('#input-grid tbody tr.selected-row').find(".inp-ket").val();
-            var nilai = $('#input-grid tbody tr.selected-row').find(".inp-nilai").val();
-            var kode_pp = $('#input-grid tbody tr.selected-row').find(".inp-pp").val();
-            var nama_pp = $('#input-grid tbody tr.selected-row').find(".inp-nama_pp").val();
-            var kode_fs = $('#input-grid tbody tr.selected-row').find(".inp-fs").val();
-            var nama_fs = $('#input-grid tbody tr.selected-row').find(".inp-nama_fs").val();
-            var no=$('#input-grid .row-grid:last').index();
-            no=no+2;
-            var input = "";
-            input += "<tr class='row-grid'>";
-            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
-            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
-            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
-            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
-            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input autocomplete='off' type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
-            input += "</tr>";
-            $('#input-grid tbody').append(input);
-            $('.dcke'+no).selectize({
-                selectOnTab:true,
-                onChange: function(value) {
-                    $('.tddcke'+no).text(value);
-                    hitungTotal();
-                }
-            });
-            $('.selectize-control.dcke'+no).addClass('hidden');
-            $('.nilke'+no).inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                oncleared: function () { self.Value(''); }
-            });
-            hitungTotal();
-            $('.tooltip-span').tooltip({
-                title: function(){
-                    return $(this).text();
-                }
-            })
+            addRowGrid("copy");
             $("html, body").animate({ scrollTop: $(document).height() }, 1000);
         }
 
@@ -1764,242 +1234,7 @@
     // GRID EVENT ACTION //
 
     // CBBL ACTION //
-    function showFilter(param,target1,target2){
-        var par = param;
-
-        var modul = '';
-        var header = [];
-        $target = target1;
-        $target2 = target2;
-        
-        switch(par){
-            case 'kode_akun[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-akun') }}";
-                var columns = [
-                    { data: 'kode_akun' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Akun";
-                var pilih = "akun";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = ".td-dc";
-            break;
-            case 'kode_pp[]': 
-                header = ['Kode PP', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-pp') }}";
-                var columns = [
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar PP";
-                var jTarget1 = "val";
-                var pilih = "pp";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = "2";
-            break;
-            case 'kode_fs[]': 
-                header = ['Kode FS', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-fs') }}";
-                var columns = [
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar FS";
-                var jTarget1 = "val";
-                var pilih = "pp";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = "3";
-            break;
-        }
-
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
-
-        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": {'param':par},
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
-        $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-
-                if($target4 != ""){
-                    if($target4 == "2"){
-                        $($target).parents("tr").find(".inp-pp").val(kode);
-                        $($target).parents("tr").find(".td-pp").text(kode);
-                        $($target).parents("tr").find(".inp-pp").hide();
-                        $($target).parents("tr").find(".td-pp").show();
-                        $($target).parents("tr").find(".search-pp").hide();
-                        $($target).parents("tr").find(".inp-nama_pp").show();
-                        $($target).parents("tr").find(".td-nama_pp").hide();
-                       
-                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
-                    } else if($target4 == "3") {
-                        $($target).parents("tr").find(".inp-fs").val(kode);
-                        $($target).parents("tr").find(".td-fs").text(kode);
-                        $($target).parents("tr").find(".inp-fs").hide();
-                        $($target).parents("tr").find(".td-fs").show();
-                        $($target).parents("tr").find(".search-fs").hide();
-                        $($target).parents("tr").find(".inp-nama_fs").show();
-                        $($target).parents("tr").find(".td-nama_fs").hide();
-                       
-                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama_fs").focus(); }, 100);
-                    }
-                    else{
-                        $($target).closest('tr').find($target4).click();
-                    }
-                }
-                console.log({$target, $target4})
-                $('#modal-search').modal('hide');
-            }
-        });
-
-        $(document).keydown(function(e) {
-            if (e.keyCode == 40){ //arrow down
-                var tr = searchTable.$('tr.selected');
-                tr.removeClass('selected');
-                tr.next().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-            if (e.keyCode == 38){ //arrow up
-                
-                var tr = searchTable.$('tr.selected');
-                searchTable.$('tr.selected').removeClass('selected');
-                tr.prev().addClass('selected');
-                // tr = searchTable.$('tr.selected');
-
-            }
-
-            if (e.keyCode == 13){
-                var kode = $('tr.selected').find('td:nth-child(1)').text();
-                var nama = $('tr.selected').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-                
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-                $('#modal-search').modal('hide');
-            }
-        })
-    }
-
-    $('#input-grid').on('click', '.search-item', function(){
-        var par = $(this).closest('td').find('input').attr('name');
-        var modul = '';
-        var header = [];
-        
-        switch(par){
-            case 'kode_akun[]': 
-                var par2 = "nama_akun[]";
-
-            break;
-            case 'kode_pp[]': 
-                var par2 = "nama_pp[]";
-            break;
-            case 'kode_fs[]': 
-                var par2 = "nama_fs[]";
-            break;
-        }
-
-        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        console.log(tmp);
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        console.log(tmp);
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-        showFilter(par,target1,target2);
-    });
+   
     // END CBBL ACTION //
 
     // SUBMIT ACTION //
@@ -2054,14 +1289,12 @@
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
-                            addRowGridDefault();
+                            addRowGrid("dua");
                             
                             msgDialog({
                                 id:result.data.no_bukti,
                                 type:'simpan'
                             });
-                                
-
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
                             window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
@@ -2101,118 +1334,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/yakes-trans/jurnal-sesuai') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status) {
-                    var form = result.data.data;
-                    $noBukti = form[0].no_ju;
-                    $periode = form[0].periode;
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#no_bukti').val(id);
-                    var tgl_input = reverseDate2(form[0].tgl_input);
-                    $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
-                    $('#no_bukti').val(form[0].no_ju);
-                    $('#no_dokumen').val(form[0].no_dokumen);
-                    $('#deskripsi').val(form[0].keterangan);
-                    $('#periode').val(form[0].periode);
-                    $('#total_debet').val(parseFloat(form[0].nilai));
-                    $('#total_kredit').val(parseFloat(form[0].nilai));
-                    $('.information').show();
-                    InformasiJurnal(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
-                    var grid = result.data.arrjurnal;
-                    if(grid.length > 0) {
-                        var input = "";
-                        var no = 1;
-                        for(var i=0;i<grid.length;i++) {
-                            var data = grid[i];
-                            input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+data.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama_akun+"' readonly></td>";
-                            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+data.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+data.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+data.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+data.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(parseFloat(data.nilai))+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseFloat(data.nilai)+"' required></td>";
-                            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+data.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+data.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+data.nama_pp+"' readonly></td>";
-                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
-                            input += "</tr>";
-
-                            no++;
-                        }
-                        $('#input-grid tbody').html(input);
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        });
-                        var no = 1;
-                        for(var i=0;i<grid.length;i++){
-                            var data = grid[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode'+no).typeahead({
-                                source:$dtAkun,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode'+no).typeahead({
-                                source:$dtPP,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke'+no)[0].selectize.setValue(data.dc);
-                            $('.selectize-control.dcke'+no).addClass('hidden');
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-                    }
-                    $('#saku-datatable').hide();
-                    $('#saku-form').show();
-                    
-                    hitungTotal();
-                    hitungTotalRow();
-                }else if(!result.status && result.message == 'Unauthorized') {
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                }
-                $iconLoad.hide();    
-            }
-        });
+        editData(id);
     });
 
      $('.modal-header').on('click', '#btn-edit2', function(){
@@ -2223,122 +1345,7 @@
         $('#judul-form').html('Edit Data Jurnal Penyesuaian');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
-        $iconLoad.show();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/yakes-trans/jurnal-sesuai') }}/"+id,
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.data.status) {
-                    var form = result.data.data;
-                    $noBukti = form[0].no_ju;
-                    $periode = form[0].periode;
-                    $('#id').val('edit');
-                    $('#method').val('put');
-                    $('#no_bukti').val(id);
-
-                    $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
-                    $('#no_bukti').val(form[0].no_ju);
-                    $('#no_dokumen').val(form[0].no_dokumen);
-                    $('#deskripsi').val(form[0].keterangan);
-                    $('#periode').val(form[0].periode);
-                    $('#total_debet').val(parseFloat(form[0].nilai));
-                    $('#total_kredit').val(parseFloat(form[0].nilai));
-                    
-                    $('.information').show();
-                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
-                    closeTooltip();
-                    var grid = result.data.arrjurnal;
-                    if(grid.length > 0) {
-                        var input = "";
-                        var no = 1;
-                        for(var i=0;i<grid.length;i++) {
-                            var data = grid[i];
-                            input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+data.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama_akun+"' readonly></td>";
-                            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+data.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+data.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
-                            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+data.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+data.keterangan+"' required></td>";
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(parseFloat(data.nilai))+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseFloat(data.nilai)+"' required></td>";
-                            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+data.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+data.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+data.nama_pp+"' readonly></td>";
-                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
-                            input += "</tr>";
-
-                            no++;
-                        }
-                        $('#input-grid tbody').html(input);
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        });
-                        var no = 1;
-                        for(var i=0;i<grid.length;i++){
-                            var data = grid[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    hitungTotal();
-                                }
-                            });
-                            $('#akunkode'+no).typeahead({
-                                source:$dtAkun,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-
-                            $('#ppkode'+no).typeahead({
-                                source:$dtPP,
-                                displayText:function(item){
-                                    return item.id+' - '+item.name;
-                                },
-                                autoSelect:false,
-                                changeInputOnSelect:false,
-                                changeInputOnMove:false,
-                                selectOnBlur:false,
-                                afterSelect: function (item) {
-                                    console.log(item.id);
-                                }
-                            });
-                            $('.dcke'+no)[0].selectize.setValue(data.dc);
-                            $('.selectize-control.dcke'+no).addClass('hidden');
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-                    }
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                    
-                    hitungTotal();
-                    hitungTotalRow();
-                }else if(!result.status && result.message == 'Unauthorized') {
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                }
-                $iconLoad.hide();    
-            }
-        });
+        editData(id);
     });
     // END EDIT ACTION //
 
@@ -2495,6 +1502,194 @@
                         footer: '<a href>'+result.data.message+'</a>'
                     });
                 }
+            }
+        });
+    }
+    // END DELETE HANDLER //
+
+    // EDIT HANDLER //
+    function editData(id){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/yakes-trans/jurnal-sesuai') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result){
+                if(result.data.status) {
+                    var form = result.data.data;
+                    $noBukti = form[0].no_ju;
+                    $periode = form[0].periode;
+                    $('#id').val('edit');
+                    $('#method').val('put');
+                    $('#no_bukti').val(id);
+
+                    $('#tanggal').val(reverseDate2(form[0].tanggal,'-','/'));
+                    $('#no_bukti').val(form[0].no_ju);
+                    $('#no_dokumen').val(form[0].no_dokumen);
+                    $('#deskripsi').val(form[0].keterangan);
+                    $('#periode').val(form[0].periode);
+                    $('#total_debet').val(parseFloat(form[0].nilai));
+                    $('#total_kredit').val(parseFloat(form[0].nilai));
+                    
+                    $('.information').show();
+                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
+                    closeTooltip();
+                    var grid = result.data.arrjurnal;
+                    if(grid.length > 0) {
+                        var input = "";
+                        var no = 1;
+                        for(var i=0;i<grid.length;i++) {
+                            var data = grid[i];
+                            input += "<tr class='row-grid'>";
+                            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+data.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama_akun+"' readonly></td>";
+                            input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+data.dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+data.dc+"' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+                            input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+data.keterangan+"</span><input type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+data.keterangan+"' required></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(parseFloat(data.nilai))+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseFloat(data.nilai)+"' required></td>";
+                            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+data.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+data.kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+data.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+data.nama_pp+"' readonly></td>";
+                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
+                            input += "</tr>";
+
+                            no++;
+                        }
+                        $('#input-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        });
+                        var no = 1;
+                        for(var i=0;i<grid.length;i++){
+                            var row = grid[i];
+                            $('.dcke'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tddcke'+no).text(value);
+                                    hitungTotal();
+                                }
+                            });
+                            $('#akunkode'+no).typeahead({
+                                source:$dtAkun,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+
+                            $('#ppkode'+no).typeahead({
+                                source:$dtPP,
+                                displayText:function(item){
+                                    return item.id+' - '+item.name;
+                                },
+                                autoSelect:false,
+                                changeInputOnSelect:false,
+                                changeInputOnMove:false,
+                                selectOnBlur:false,
+                                afterSelect: function (item) {
+                                    console.log(item.id);
+                                }
+                            });
+                            $('.dcke'+no)[0].selectize.setValue(row.dc);
+                            $('.selectize-control.dcke'+no).addClass('hidden');
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+
+                            $(".search-ppke"+no).showFilter({
+                                title: 'Daftar PP',
+                                url: "{{ url('yakes-master/helper-pp') }}",
+                                header:['Kode','Nama'],
+                                columns:[
+                                            { data: 'kode_pp' },
+                                            { data: 'nama' }
+                                        ],
+                                parameter:{},
+                                onItemSelected: function(data){
+                                    $(".ppke"+no).val(data.kode_pp);
+                                    $(".tdppke"+no).text(data.kode_pp);
+                                    $(".nmppke"+no).val(data.nama);
+                                    $(".tdnmppke"+no).text(data.nama);
+                                    $(".ppke"+no).hide();
+                                    $(".tdppke"+no).show();
+                                    $(".search-ppke"+no).hide();
+                                    $(".nmppke"+no).show();
+                                    $(".tdnmppke"+no).hide();
+                                    setTimeout(function() {  $(".nmppke"+no).focus(); }, 100);
+                                }
+                            });
+
+                            $(".search-akunke"+no).showFilter({
+                                title: 'Daftar Akun',
+                                url: "{{ url('yakes-master/helper-akun') }}",
+                                header:['Kode','Nama'],
+                                columns:[
+                                            { data: 'kode_akun' },
+                                            { data: 'nama' }
+                                        ],
+                                parameter:{},
+                                onItemSelected: function(data){
+                                    $(".akunke"+no).val(data.kode_akun);
+                                    $(".tdakunke"+no).text(data.kode_akun);
+                                    $(".nmakunke"+no).val(data.nama);
+                                    $(".tdnmakunke"+no).text(data.nama);
+                                    $(".akunke"+no).hide();
+                                    $(".tdakunke"+no).show();
+                                    $(".search-akunke"+no).hide();
+                                    $(".nmakunke"+no).show();
+                                    $(".tdnmakunke"+no).hide();
+                                    setTimeout(function() {  $(".tddcke"+no).click(); }, 100);
+                                }
+                            });
+
+                            $(".search-fske"+no).showFilter({
+                                title: 'Daftar FS',
+                                url: "{{ url('yakes-master/helper-fs') }}",
+                                header:['Kode','Nama'],
+                                columns:[
+                                            { data: 'kode_fs' },
+                                            { data: 'nama' }
+                                        ],
+                                parameter:{},
+                                onItemSelected: function(data){
+                                    $(".fske"+no).val(data.kode_fs);
+                                    $(".tdfske"+no).text(data.kode_fs);
+                                    $(".nmfske"+no).val(data.nama);
+                                    $(".tdnmfske"+no).text(data.nama);
+                                    $(".fske"+no).hide();
+                                    $(".tdfske"+no).show();
+                                    $(".search-fske"+no).hide();
+                                    $(".nmfske"+no).show();
+                                    $(".tdnmfske"+no).hide();
+                                    setTimeout(function() {  $(".nmfske"+no).focus(); }, 100);
+                                }
+                            });
+                            no++;
+                        }
+                    }
+                    $('#saku-datatable').hide();
+                    $('#modal-preview').modal('hide');
+                    $('#saku-form').show();
+                    
+                    hitungTotal();
+                    hitungTotalRow();
+                }else if(!result.status && result.message == 'Unauthorized') {
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
+                }   
             }
         });
     }

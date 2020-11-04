@@ -1,0 +1,242 @@
+th,td{
+    padding:8px !important;
+    vertical-align:middle !important;
+}
+.search-item2{
+    cursor:pointer;
+}
+
+input.error{
+    border:1px solid #dc3545;
+}
+label.error{
+    color:#dc3545;
+    margin:0;
+}
+#table-data_paginate,#table-search_paginate
+{
+    margin-top:0 !important;
+}
+
+#table-data_paginate ul,#table-search_paginate ul
+{
+    float:right;
+}
+
+.form-body 
+{
+    position: relative;
+    overflow: auto;
+}
+
+#content-delete
+{
+    position: relative;
+    overflow: auto;
+}
+.hidden{
+    display:none;
+}
+
+.datetime-reset-button {
+    margin-right: 20px !important;
+    margin-top: 3px !important;
+}
+#table-search
+{
+    border-collapse:collapse !important;
+}
+
+#table-search_filter label, #table-search_filter input
+{
+    width:100%;
+}
+
+.dataTables_wrapper .paginate_button.previous {
+    margin-right: 0px; 
+}
+    
+.dataTables_wrapper .paginate_button.next {
+    margin-left: 0px; 
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin-top: 25px;
+}
+    
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: center; 
+}
+
+.dataTables_wrapper .paginate_button.page-item {
+    padding-left: 5px;
+    padding-right: 5px; 
+}
+.px-0{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+#table-data_filter label
+{
+    width:100%;
+}
+#table-data_filter label input
+{
+    width:inherit;
+}
+
+#searchData
+{
+    font-size: .75rem;
+    height: 31px;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.dropdown-aksi > .dropdown-item{
+    font-size : 0.7rem;
+}
+
+.btn-light2{
+    background:#F8F8F8;
+    color:#D4D4D4;
+}
+
+.btn-light2:hover{
+    color:#131113;
+}
+
+.btn-light2:active{
+    color: #131113;
+    background-color: #d8d8d8;
+}
+
+.custom-file-label::after{
+    content:"Cari berkas" !important;
+    border-left:0;
+    color: var(--theme-color-1) !important;
+}
+.focus{
+    /* border:none !important; */
+    box-shadow:none !important;
+}
+.kredit {
+    margin-top: -50px;
+}
+.nav-grid {
+    margin-top: -10px;
+}
+
+.form-row > .col, .form-row > [class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.btn{
+    border-radius: 8px !important;
+}
+
+.form-control {
+    padding: 0.1rem 0.5rem; 
+    height: calc(1.3rem + 1rem);
+    border-radius:0.5rem !important;
+    
+}
+
+.input-group > .form-control 
+{
+    border-radius: 0.5rem !important;
+}
+
+th{
+    vertical-align:middle !important;
+}
+
+.table-grid 
+{
+    width:100%;
+    table-layout:fixed;
+    word-wrap:break-word;
+    white-space:nowrap;
+}
+.table-grid .selectize-input.focus, .table-grid input.form-control, .table-grid .custom-file-label
+{
+    border:1px solid black !important;
+    border-radius:0 !important;
+}
+
+.table-grid .selectize-input
+{
+    border-radius:0 !important;
+} 
+
+.modal-header .close {
+    padding: 1rem;
+    margin: -1rem 0 -1rem auto;
+}
+.check-item{
+    cursor:pointer;
+}
+
+.selected{
+    cursor:pointer;
+}
+
+.table-grid td:not(:nth-child(1)):not(:nth-child(2)):hover
+{
+    background:#f8f8f8;
+    color:black;
+}
+
+.table-grid ul.typeahead.dropdown-menu
+{
+    width:max-content !important;
+}
+
+.table-grid td
+{
+    overflow:hidden !important;
+    height:37.2px !important;
+    padding:0px !important;
+}
+
+.table-grid span
+{
+    padding:0px 10px !important;
+}
+
+.table-grid input,.table-grid .selectize-input
+{
+    overflow:hidden !important;
+    height:35px !important;
+}
+
+
+.table-grid td:nth-child(5)
+{
+    overflow:unset !important;
+}
+
+.nav-control{
+    border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;
+}
+
+.pemisah {
+    border:1px solid #d7d7d7;font-size:20px
+}
+
+.total-row{
+    font-size:18px;float: right;margin-top: 6px;text-align: right;
+}
+.total-row > span{
+    font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;
+}
+
+.dropdown-import{
+    position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;
+}
+
+div.dataTables_filter input{
+    height:calc(1.3rem + 1rem) !important;
+}
