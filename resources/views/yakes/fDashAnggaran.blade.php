@@ -135,7 +135,7 @@
                 <div class="col-2" id="kes" style="height: 353px;width:200px"></div>
                 <div class="col-2" id="perbaikan" style="height: 353px;width:200px"></div>
                 <div class="col-2" id="amor" style="height: 353px;width:200px"></div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>
@@ -151,7 +151,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>
@@ -167,7 +167,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>
@@ -183,7 +183,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>
@@ -199,7 +199,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>
@@ -215,7 +215,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD</td>

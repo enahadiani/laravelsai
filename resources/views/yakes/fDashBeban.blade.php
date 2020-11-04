@@ -60,7 +60,7 @@
                 <div class="col-2" id="bina" style="height: 353px;width:200px;"></div>
                 <div class="col-2" id="pengurus" style="height: 353px;width:200px;"></div>
                 <div class="col-2"></div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD Aug'19</td>
@@ -76,7 +76,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD Aug'19</td>
@@ -92,7 +92,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD Aug'19</td>
@@ -108,7 +108,7 @@
                         </tr>
                     </table>  
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD Aug'19</td>
@@ -124,7 +124,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-2"  style="border-right: 1px solid #DCDCDC">
+                <div class="col-2"  style="border-right: 1px solid #DCDCDC;display:none;">
                     <table class="table table-borderless">
                         <tr>
                             <td style="font-size: 10px;">YTD Aug'19</td>
@@ -140,7 +140,7 @@
                         </tr>
                     </table> 
                 </div>
-                <div class="col-12" style="text-align: center;margin-top:-10px;">
+                <div class="col-12" style="text-align: center;margin-top:10px;">
                     <p style="font-weight: bold">Nilai dalam satuan Milyar Rupiah</p>
                 </div>
             </div>

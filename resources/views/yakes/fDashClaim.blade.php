@@ -135,7 +135,7 @@
                         <div class="col-3" id="rjtl-beban-nasional" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="ri-beban-nasional" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="rest-beban-nasional" style="height: 353px;width:200px;"></div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -151,7 +151,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -167,7 +167,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -183,7 +183,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -302,7 +302,7 @@
                         <div class="col-3" id="rjtl-obat-nasional" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="ri-obat-nasional" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="rest-obat-nasional" style="height: 353px;width:200px;"></div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -318,7 +318,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -334,7 +334,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -350,7 +350,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -472,7 +472,7 @@
                         <div class="col-3" id="reg-2-beban" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="reg-3-beban" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="reg-4-beban" style="height: 353px;width:200px;"></div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -488,7 +488,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -504,7 +504,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -520,7 +520,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -639,7 +639,7 @@
                         <div class="col-3" id="reg-2-obat" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="reg-3-obat" style="height: 353px;width:200px;"></div>
                         <div class="col-3" id="reg-4-obat" style="height: 353px;width:200px;"></div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -655,7 +655,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -671,7 +671,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>
@@ -687,7 +687,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="col-3" style="border-right: 1px solid #DCDCDC">
+                        <div class="col-3" style="border-right: 1px solid #DCDCDC;display:none;">
                             <table class="table table-borderless">
                                 <tr>
                                     <td style="font-size: 10px;">YTD</td>

@@ -19,14 +19,13 @@
     <!-- Body Inner -->
     <div class="body-inner">
         <!-- Header -->
-        <header id="header" data-fullwidth="true" data-transparent="true" class="dark submenu-light">
+        <header id="header" data-fullwidth="true" data-transparent="true" class="submenu-light">
             <div class="header-inner">
                 <div class="container">
                     <!--Logo-->
                     <div id="logo">
                         <a href="index.html">
-                            <span class="logo-default"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
-                            <span class="logo-dark">Trengginas</span>
+                            <span style="color: white !important;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
                         </a>
                     </div>
                     <!--End: Logo-->
@@ -48,8 +47,8 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="#" class="a_link" data-href="fHome">Home</a></li>
-                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
+                                    <li><a href="#" class="a_link" data-href="fHome" style="color: white;">Home</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan" style="color: white;">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row">
@@ -85,8 +84,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="#" class="a_link" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan" style="color: white;">Perusahaan</a></li>
+                                    <li><a href="#" class="a_link" data-href="fKontak" style="color: white;">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
