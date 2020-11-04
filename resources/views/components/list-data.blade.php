@@ -57,4 +57,4 @@
         </div>
     </div>
 </div>
-@include('komponen.modal_preview')
+@include('modal_preview')
