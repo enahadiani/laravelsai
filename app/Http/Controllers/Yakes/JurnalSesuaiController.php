@@ -61,7 +61,6 @@ class JurnalSesuaiController extends Controller
             'total' => 'required',
             'no_dokumen' => 'required',
             'deskripsi' => 'required',
-
             'no_urut' => 'required|array',
             'kode_akun' => 'required|array',
             'dc' => 'required|array',

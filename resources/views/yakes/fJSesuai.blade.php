@@ -25,15 +25,19 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
-                                        <x-sai-input label="Tanggal" id="tanggal" name="tanggal" tipe="text" class="datepicker" :icon="array('class'=> 'simple-icon-calendar') " attr="required"  value=""/>
+                                        <label for="tanggal">Tanggal</label>
+                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" required>
+                                        <i style="font-size: 18px;margin-top:10px;margin-left:5px;position: absolute;top: 25px;right: 25px;" class="simple-icon-calendar date-search"></i>
                                     </div>
-                                    <div class="col-md-6 col-sm-12" style="min-height:64px">
-                                        <x-sai-input label="No Dokumen" id="no_dokumen" name="no_dokumen" tipe="text" class="" attr="required" value=""/>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="no_dokumen">Dokumen</label>
+                                        <input class='form-control' type="text" id="no_dokumen" name="no_dokumen" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <x-sai-text label="Keterangan" id="deskripsi" name="deskripsi" class="" attr="required rows=4 "  value="" />
+                                        <label for="deskripsi">Keterangan</label>
+                                        <textarea class="form-control" rows="4" id="deskripsi" name="deskripsi" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +50,10 @@
                                 <div class="row">
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
-                                        <x-sai-input label="Total Debet" id="total_debet" name="total_debet" tipe="text" class="curreny" attr="required readonly" value="0" />
-                                        <x-sai-input label="Total Kredit" id="total_kredit" name="total_kredit" tipe="text" class="curreny" attr="required readonly" value="0"/>
+                                        <label for="total_debet">Total Debet</label>
+                                        <input class="form-control currency" type="text" name="total" placeholder="Total Debet" readonly id="total_debet" value="0">
+                                        <label for="total_kredit">Total Kredit</label>
+                                        <input class="form-control currency" type="text" placeholder="Total Kredit" readonly id="total_kredit" value="0">
                                     </div>
                                 </div>  
                             </div>
@@ -73,12 +79,40 @@
                                     <a class="total-row"><span id="total-row" ></span></a>
                                 </div>
                                 <div class='col-xs-12 px-0 py-0 mx-0 my-0' id='sai-input-grid' style='min-height:420px;'>
-                                    <x-sai-grid id="input-grid" :thead="array('No','','Kode Akun','Nama Akun','DC','Keterangan','Nilai','Kode PP','Nama PP','Kode FS','Nama FS')" :thwidth="array(3,3,8,15,5,13,15,8,15,8,15)" />
+                                    <table class="table table-bordered table-condensed gridexample table-grid" id="input-grid">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%; text-align:center;">No</th>
+                                                <th style="width:3%; text-align:center;"></th>
+                                                <th style="width:8%; text-align:center;">Kode Akun</th>
+                                                <th style="width:15%; text-align:center;">Nama Akun</th>
+                                                <th style="width:5%; text-align:center;">DC</th>
+                                                <th style="width:23%; text-align:center;">Keterangan</th>
+                                                <th style="width:15%; text-align:center;">Nilai</th>
+                                                <th style="width:8%; text-align:center;">Kode PP</th>
+                                                <th style="width:15%; text-align:center;">Nama PP</th>
+                                                <th style="width:8%; text-align:center;">Kode FS</th>
+                                                <th style="width:15%; text-align:center;">Nama FS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-informasi" role="tabpanel">
-                                <x-sai-grid id="informasi-grid" :thead="array('No Bukti','Periode','NIK Input','Tanggal Input')" :thwidth="array(25,25,25,25)" />
+                                <table class="table table-bordered table-condensed gridexample table-grid" id="informasi-grid">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="text-align:center;">No Bukti</th>
+                                            <th style="text-align:center;">Periode</th>
+                                            <th style="text-align:center;">NIK Input</th>
+                                            <th style="text-align:center;">Tanggal Input</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -88,8 +122,8 @@
     </form>
     <!-- FORM INPUT  -->
     
-    @include('komponen.modal_search')
-    @include('komponen.modal_upload')
+    @include('modal_search')
+    @include('modal_upload')
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
@@ -104,9 +138,9 @@
     var $target = "";
     var $target2 = "";
     var $target3 = "";
-    var $dtPP = [];
-    var $dtAkun = [];
-    var $dtFS = [];
+    var $dtkode_pp = [];
+    var $dtkode_akun = [];
+    var $dtkode_fs = [];
     var $noBukti = null;
     var $periode = null;
     
@@ -262,9 +296,9 @@
         });
     }
 
-    getDataTypeAhead("{{ url('yakes-master/helper-pp') }}","PP","kode_pp");
-    getDataTypeAhead("{{ url('yakes-master/helper-fs') }}","FS","kode_fs");
-    getDataTypeAhead("{{ url('yakes-master/helper-akun') }}","Akun","kode_akun");
+    getDataTypeAhead("{{ url('yakes-master/helper-pp') }}","kode_pp","kode_pp");
+    getDataTypeAhead("{{ url('yakes-master/helper-fs') }}","kode_fs","kode_fs");
+    getDataTypeAhead("{{ url('yakes-master/helper-akun') }}","kode_akun","kode_akun");
 
     function getAkun(id,target1,target2,target3,jenis){
         var tmp = id.split(" - ");
@@ -549,11 +583,11 @@
         no=no+2;
         var input = "";
         input += "<tr class='row-grid'>";
-        input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
+        input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input type='hidden' class='no-grid' name='no_urut[]' value='"+no+"'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
         input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' required='' style='z-index: 1;position: relative;'  id='akunkode"+no+"'><a href='#' class='search-item search-akun search-akunke"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
-        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'></span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
+        input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='' required><option value='D'>D</option><option value='C'>C</option></select></td>";
         input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' required></td>";
         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' required></td>";
         input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input autocomplete='off' type='text'  id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp search-ppke"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
@@ -575,6 +609,7 @@
                 hitungTotal();
             }
         });
+        $('.dcke'+no)[0].selectize.setValue(dc);
         $('.selectize-control.dcke'+no).addClass('hidden');
         $('.nilke'+no).inputmask("numeric", {
             radixPoint: ",",
@@ -585,7 +620,7 @@
             oncleared: function () { self.Value(''); }
         });
         $('#akunkode'+no).typeahead({
-            source:$dtAkun,
+            source:$dtkode_akun,
             displayText:function(item){
                 return item.id+' - '+item.name;
             },
@@ -598,7 +633,7 @@
             }
         });
         $('#ppkode'+no).typeahead({
-            source:$dtPP,
+            source:$dtkode_pp,
             displayText:function(item){
                 return item.id+' - '+item.name;
             },
@@ -611,7 +646,7 @@
             }
         });
         $('#fskode'+no).typeahead({
-            source:$dtFS,
+            source:$dtkode_fs,
             displayText:function(item){
                 return item.id+' - '+item.name;
             },
@@ -1221,8 +1256,10 @@
         $(this).closest('tr').remove();
         no=1;
         $('.row-grid').each(function(){
-            var nom = $(this).closest('tr').find('.no-grid');
-            nom.html(no);
+            var nom = $(this).closest('tr').find('input.no-grid');
+            var tdnom = $(this).closest('tr').find('span.no-grid');
+            nom.val(no);
+            tdnom.html(no);
             no++;
         });
         hitungTotal();
@@ -1233,12 +1270,8 @@
 
     // GRID EVENT ACTION //
 
-    // CBBL ACTION //
-   
-    // END CBBL ACTION //
-
     // SUBMIT ACTION //
-     $('#form-tambah').validate({
+    $('#form-tambah').validate({
         ignore: [],
         errorElement: "label",
         submitHandler: function (form) {
@@ -1532,8 +1565,8 @@
                     $('#total_kredit').val(parseFloat(form[0].nilai));
                     
                     $('.information').show();
-                    tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
-                    closeTooltip();
+                    // tooltipIcon(form[0].no_ju,form[0].periode,form[0].nik_buat,tgl_input);
+                    // closeTooltip();
                     var grid = result.data.arrjurnal;
                     if(grid.length > 0) {
                         var input = "";
@@ -1541,7 +1574,7 @@
                         for(var i=0;i<grid.length;i++) {
                             var data = grid[i];
                             input += "<tr class='row-grid'>";
-                            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
+                            input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input class='no-grid' type='hidden' name='no_urut[]' value='"+no+"'></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                             input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+data.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+data.kode_akun+"' required='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+data.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+data.nama_akun+"' readonly></td>";
@@ -1573,7 +1606,7 @@
                                 }
                             });
                             $('#akunkode'+no).typeahead({
-                                source:$dtAkun,
+                                source:$dtkode_akun,
                                 displayText:function(item){
                                     return item.id+' - '+item.name;
                                 },
@@ -1587,7 +1620,7 @@
                             });
 
                             $('#ppkode'+no).typeahead({
-                                source:$dtPP,
+                                source:$dtkode_pp,
                                 displayText:function(item){
                                     return item.id+' - '+item.name;
                                 },

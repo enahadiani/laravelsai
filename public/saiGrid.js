@@ -99,21 +99,21 @@
                     });
                     $('.selectize-control.'+settings.columns[i]+'ke'+no).hide();
                 break;
-                // case 'search' :
-                //     $('#'+settings.columns[i]+'ke'+no).typeahead({
-                //         source: eval('$dt'+settings.columns[i]),
-                //         displayText:function(item){
-                //             return item.id+' - '+item.name;
-                //         },
-                //         autoSelect:false,
-                //         changeInputOnSelect:false,
-                //         changeInputOnMove:false,
-                //         selectOnBlur:false,
-                //         afterSelect: function (item) {
-                //             console.log(item.id);
-                //         }
-                //     });
-                // break;
+                case 'search' :
+                    $('#'+settings.columns[i]+'ke'+no).typeahead({
+                        source: eval('$dt'+settings.columns[i]),
+                        displayText:function(item){
+                            return item.id+' - '+item.name;
+                        },
+                        autoSelect:false,
+                        changeInputOnSelect:false,
+                        changeInputOnMove:false,
+                        selectOnBlur:false,
+                        afterSelect: function (item) {
+                            console.log(item.id);
+                        }
+                    });
+                break;
             }
         }        
 
@@ -214,177 +214,6 @@
         }
 
     }
-
-    function showFilter(param,target1,target2){
-        var par = param;
-
-        var modul = '';
-        var header = [];
-        $target = target1;
-        $target2 = target2;
-        
-        switch(par){
-            case 'kode_akun[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-akun') }}";
-                var columns = [
-                    { data: 'kode_akun' },
-                    { data: 'nama' }
-                ];
-                var judul = "Daftar Akun";
-                var pilih = "akun";
-                var jTarget1 = "val";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = ".td-dc";
-            break;
-            case 'kode_pp[]': 
-                header = ['Kode PP', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-pp') }}";
-                var columns = [
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar PP";
-                var jTarget1 = "val";
-                var pilih = "pp";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = "2";
-            break;
-            case 'kode_fs[]': 
-                header = ['Kode FS', 'Nama'];
-                var toUrl = "{{ url('yakes-master/helper-fs') }}";
-                var columns = [
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ];
-                
-                var judul = "Daftar FS";
-                var jTarget1 = "val";
-                var pilih = "pp";
-                var jTarget2 = "val";
-                $target = "."+$target;
-                $target3 = ".td"+$target2;
-                $target2 = "."+$target2;
-                $target4 = "3";
-            break;
-        }
-
-        var header_html = '';
-        var width = ["30%","70%"];
-        for(i=0; i<header.length; i++){
-            header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
-        }
-
-        var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
-        table += "<tbody></tbody></table>";
-
-        $('#modal-search .modal-body').html(table);
-
-        var searchTable = $("#table-search").DataTable({
-            sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            ajax: {
-                "url": toUrl,
-                "data": {'param':par},
-                "type": "GET",
-                "async": false,
-                "dataSrc" : function(json) {
-                    return json.daftar;
-                }
-            },
-            columns: columns,
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            },
-        });
-        $('#modal-search .modal-title').html(judul);
-        $('#modal-search').modal('show');
-        searchTable.columns.adjust().draw();
-
-        $('#table-search tbody').on('click', 'tr', function () {
-            if ( $(this).hasClass('selected') ) {
-                $(this).removeClass('selected');
-            }
-            else {
-                searchTable.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-
-                var kode = $(this).closest('tr').find('td:nth-child(1)').text();
-                var nama = $(this).closest('tr').find('td:nth-child(2)').text();
-                if(jTarget1 == "val"){
-                    $($target).val(kode);
-                }else{
-                    $($target).text(kode);
-                }
-
-                if(jTarget2 == "val"){
-                    $($target2).val(nama);
-                }else{
-                    $($target2).text(nama);
-                }
-
-                if($target3 != ""){
-                    $($target3).text(nama);
-                }
-
-                if($target4 != ""){
-                    if($target4 == "2"){
-                        $($target).parents("tr").find(".inp-pp").val(kode);
-                        $($target).parents("tr").find(".td-pp").text(kode);
-                        $($target).parents("tr").find(".inp-pp").hide();
-                        $($target).parents("tr").find(".td-pp").show();
-                        $($target).parents("tr").find(".search-pp").hide();
-                        $($target).parents("tr").find(".inp-nama_pp").show();
-                        $($target).parents("tr").find(".td-nama_pp").hide();
-                       
-                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama_pp").focus(); }, 100);
-                    } else if($target4 == "3") {
-                        $($target).parents("tr").find(".inp-fs").val(kode);
-                        $($target).parents("tr").find(".td-fs").text(kode);
-                        $($target).parents("tr").find(".inp-fs").hide();
-                        $($target).parents("tr").find(".td-fs").show();
-                        $($target).parents("tr").find(".search-fs").hide();
-                        $($target).parents("tr").find(".inp-nama_fs").show();
-                        $($target).parents("tr").find(".td-nama_fs").hide();
-                       
-                        setTimeout(function() {  $($target).parents("tr").find(".inp-nama_fs").focus(); }, 100);
-                    }
-                    else{
-                        $($target).closest('tr').find($target4).trigger('click');
-                    }
-                }
-                $('#modal-search').modal('hide');
-            }
-        });
-
-        
-    }
-
     
     $.fn.saiGrid = function( options ) {
        
@@ -548,48 +377,94 @@
                     alert('Harap pilih row yang akan dicopy terlebih dahulu!');
                     return false;
                 }else{
-                    var kode_akun = $('#'+settings.id+' tbody tr.selected-row').find(".inp-kode").val();
-                    var nama_akun = $('#'+settings.id+' tbody tr.selected-row').find(".inp-nama").val();
-                    var dc = $('#'+settings.id+' tbody tr.selected-row').find(".td-dc").text();
-                    var keterangan = $('#'+settings.id+' tbody tr.selected-row').find(".inp-ket").val();
-                    var nilai = $('#'+settings.id+' tbody tr.selected-row').find(".inp-nilai").val();
-                    var kode_pp = $('#'+settings.id+' tbody tr.selected-row').find(".inp-pp").val();
-                    var nama_pp = $('#'+settings.id+' tbody tr.selected-row').find(".inp-nama_pp").val();
-                    var kode_fs = $('#'+settings.id+' tbody tr.selected-row').find(".inp-fs").val();
-                    var nama_fs = $('#'+settings.id+' tbody tr.selected-row').find(".inp-nama_fs").val();
-                    var no=$('#'+settings.id+' .row-grid:last').index();
+
+                    var no=$('#'+settings.id+' .row-'+settings.id+':last').index();
                     no=no+2;
                     var input = "";
-                    input += "<tr class='row-grid'>";
-                    input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
+                    input += "<tr class='row-"+settings.id+"'>";
+                    input += "<td class='no-"+settings.id+" text-center'><span class='no-"+settings.id+"'>"+no+"</span><input type='hidden' name='no_urut[]' value='"+no+"'></td>";
                     input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                    input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input autocomplete='off' type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"' "+settings.attr[i]+"='' style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                    input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input autocomplete='off' type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
-                    input += "<td><span class='td-dc tddcke"+no+" tooltip-span'>"+dc+"</span><select hidden name='dc[]' class='form-control inp-dc dcke"+no+"' value='"+dc+"' "+settings.attr[i]+"><option value='D'>D</option><option value='C'>C</option></select></td>";
-                    input += "<td><span class='td-ket tdketke"+no+" tooltip-span'>"+keterangan+"</span><input autocomplete='off' type='text' name='keterangan[]' class='form-control inp-ket ketke"+no+" hidden'  value='"+keterangan+"' "+settings.attr[i]+"></td>";
-                    input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input autocomplete='off' type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' "+settings.attr[i]+"></td>";
-                    input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input autocomplete='off' type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"' "+settings.attr[i]+"=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                    input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input autocomplete='off' type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly></td>";
-                    input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text' id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' "+settings.attr[i]+"=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                    input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
+
+                    for( var i =0; i < settings.columns.length ; i++){
+                        if(settings.tipe[i] != 'select'){
+                            eval('var '+settings.columns[i]+' = "'+$('#'+settings.id+' tbody tr.selected-row').find(".inp-"+settings.columns[i]).val()+'" ');
+                        }else{
+                            eval('var '+settings.columns[i]+' = "'+$('#'+settings.id+' tbody tr.selected-row').find(".td-"+settings.columns[i]).text()+'" ');
+                        }
+
+                        var kode = settings.columns[i];
+                        switch(settings.tipe[i]){
+                            case 'text' :
+                                input += "<td><span class='td-"+kode+" td"+kode+"ke"+no+" tooltip-span'>"+eval(kode)+"</span><input autocomplete='off' type='text' name="+kode+"[]' class='form-control inp-"+kode+" "+kode+"ke"+no+" hidden'  value='"+eval(kode)+"' "+settings.attr[i]+" ></td>";
+                            break;
+                            case 'textarea' :
+                                input += "<td><span class='td-"+kode+" td"+kode+"ke"+no+" tooltip-span'>"+eval(kode)+"</span><textarea name='"+kode+"[]' class='form-control inp-"+kode+" "+kode+"ke"+no+" hidden'  value='"+eval(kode)+"' "+settings.attr[i]+">"+eval(kode)+"</textarea></td>";
+                            break;
+                            case 'number' :
+                                input += "<td class='text-right'><span class='td-"+kode+" td"+kode+"ke"+no+" tooltip-span'>"+eval(kode)+"</span><input type='text' name='"+kode+"[]' class='form-control inp-"+kode+" "+kode+"ke"+no+" hidden'  value='"+eval(kode)+"' "+settings.attr[i]+">"+eval(kode)+"</td>";
+                            break;
+                            case 'select' :
+                                var options = "";
+                                if(settings.options[i].length > 0){
+                                    for(var x=0; x < settings.options[i].length; x++){
+                                        options += "<option value='"+settings.options[i][x].value+"'>"+settings.options[i][x].text+"</option>";
+                                    }
+                                }
+                                input += "<td><span class='td-"+kode+" td"+kode+"ke"+no+" tooltip-span'>"+eval(kode)+"</span><select hidden name='"+kode+"[]' class='form-control inp-"+kode+" "+kode+"ke"+no+"' value='' "+settings.attr[i]+">"+options+"</select></td>";
+                            break;
+                            case 'search' :
+                                input += "<td><span class='td-"+kode+" td"+kode+"ke"+no+" tooltip-span'>"+eval(kode)+"</span><input type='text' name='"+kode+"[]' class='form-control inp-"+kode+" "+kode+"ke"+no+" hidden' value='"+eval(kode)+"' "+settings.attr[i]+" style='z-index: 1;position: relative;'  id='akunkode"+no+"' "+settings.attr[i]+"><a href='#' class='search-item search-"+kode+" search-"+kode+"ke"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            break;
+                        }
+                        
+                    }
+
                     input += "</tr>";
                     $('#'+settings.id+' tbody').append(input);
-                    $('.dcke'+no).selectize({
-                        selectOnTab:true,
-                        onChange: function(value) {
-                            $('.tddcke'+no).text(value);
-                            hitungTotal(settings);
+
+                    for(var i=0;i < settings.columns.length; i++){
+                        switch(settings.tipe[i]){
+                            case 'text' :
+                            case 'textarea' :
+                            break;
+                            case 'number' :
+                                $('.'+settings.columns[i]+'ke'+no).inputmask("numeric", {
+                                    radixPoint: ",",
+                                    groupSeparator: ".",
+                                    digits: 2,
+                                    autoGroup: true,
+                                    rightAlign: true,
+                                    oncleared: function () { self.Value(''); }
+                                });
+                            break;
+                            case 'select' :
+                                $('.'+settings.columns[i]+'ke'+no).selectize({
+                                    selectOnTab:true,
+                                    onChange: function(value) {
+                                        $('.td'+settings.columns[i]+'ke'+no).text(value);
+                                        hitungTotal(settings);
+                                    }
+                                });
+                                $('.'+settings.columns[i]+'ke'+no).val(eval(settings.columns[i]));
+                                $('.selectize-control.'+settings.columns[i]+'ke'+no).hide();
+                            break;
+                            case 'search' :
+                                $('#'+settings.columns[i]+'ke'+no).typeahead({
+                                    source: eval('$dt'+settings.columns[i]),
+                                    displayText:function(item){
+                                        return item.id+' - '+item.name;
+                                    },
+                                    autoSelect:false,
+                                    changeInputOnSelect:false,
+                                    changeInputOnMove:false,
+                                    selectOnBlur:false,
+                                    afterSelect: function (item) {
+                                        console.log(item.id);
+                                    }
+                                });
+                            break;
                         }
-                    });
-                    $('.selectize-control.dcke'+no).addClass('hidden');
-                    $('.nilke'+no).inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
+                    }   
                     hitungTotal(settings);
                     $('.tooltip-span').tooltip({
                         title: function(){
@@ -617,29 +492,6 @@
             });
             // END DELETE ROW //
 
-            $('#'+settings.id+'').on('click', '.search-item', function(){
-                var par = $(this).closest('td').find('input').attr('name');
-                var modul = '';
-                var header = [];
-                
-                switch(par){
-                    case 'kode_akun[]': 
-                        var par2 = "nama_akun[]";
-                    break;
-                    case 'kode_pp[]': 
-                        var par2 = "nama_pp[]";
-                    break;
-                    case 'kode_fs[]': 
-                        var par2 = "nama_fs[]";
-                    break;
-                }
-        
-                var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class').split(" ");
-                target1 = tmp[2];
-                tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class').split(" ");
-                target2 = tmp[2];
-                showFilter(par,target1,target2);
-            });
         });
     };
  
