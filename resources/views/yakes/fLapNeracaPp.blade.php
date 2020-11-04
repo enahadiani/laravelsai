@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >

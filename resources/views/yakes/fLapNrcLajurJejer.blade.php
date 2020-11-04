@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
@@ -131,27 +131,24 @@
         }
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','kode_akun'],
-            nama : ['Periode','Kode FS','Kode Akun'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode','Nama']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Nama','Action']],
+            kode : ['periode','kode_akun'],
+            nama : ['Periode','Kode Akun'],
+            header : [['Periode', 'Nama'],['Kode','Nama']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_fs' },
                     { data: 'nama' }
                 ],[
                     { data: 'kode_akun' },
                     { data: 'nama' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-akun') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kodename']
+            orderby:[[[0,"desc"]],[]],
+            width:[['30%','70%'],['30%','70%']],
+            display:['name','kodename']
             
         });
 
