@@ -25,15 +25,15 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
-                                        <x-sai-input label="Tanggal" id="tanggal" name="tanggal" tipe="text" class="datepicker" :icon="array('class'=> 'simple-icon-calendar') " attr="required" />
+                                        <x-sai-input label="Tanggal" id="tanggal" name="tanggal" tipe="text" class="datepicker" :icon="array('class'=> 'simple-icon-calendar') " attr="required"  value=""/>
                                     </div>
                                     <div class="col-md-6 col-sm-12" style="min-height:64px">
-                                        <x-sai-input label="No Dokumen" id="no_dokumen" name="no_dokumen" tipe="text" class="" attr="required" />
+                                        <x-sai-input label="No Dokumen" id="no_dokumen" name="no_dokumen" tipe="text" class="" attr="required" value=""/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <x-sai-text label="Keterangan" id="deskripsi" name="deskripsi" class="" attr="required rows=4 " />
+                                        <x-sai-text label="Keterangan" id="deskripsi" name="deskripsi" class="" attr="required rows=4 "  value="" />
                                     </div>
                                 </div>
                             </div>
