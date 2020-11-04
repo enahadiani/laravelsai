@@ -133,12 +133,12 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="100">
                         <div class="heading-text heading-section m-b-80">
                             <h2>Tentang Kami</h2>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="300">
                         <p>
                             PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
                             /Telkom Foundation dan didirikan berdasarkan Akta Notaris Hj. Tetty Surtiati Hidayat, SH. Nomor
@@ -151,7 +151,7 @@
                             pelanggan.
                         </p>
                     </div>
-                    <div class="col-lg-4" style="padding-right:10px;">
+                    <div class="col-lg-4" style="padding-right:10px;" data-animate="fadeInUp" data-animate-delay="300">
                         <p>
                             Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
                             dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
@@ -167,6 +167,55 @@
             </div>
         </section>
         <!-- End About -->
+
+        <!-- Visi Misi -->
+        <section>
+            <div class="row" style="padding: 0 !important; margin: 0 !impotant;">
+                <div class="col-lg-6" style="background-color: #ff0000;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
+                    <h2 class="white" style="font-weight: bold;padding:40px 40px 0 40px">Visi</h2>
+                    <p class="white" style="padding:10px 40px 40px 40px;">
+                        Menjadi perubahan penyedia jasa Outsourcing, Trading, dan Property yang
+                        professional dan unggul dalam kualitas produk dan layanan, guna mencapai kepuasan pelanggan.
+                    </p>
+                </div>
+                <div class="col-lg-6" style="background-color: #DD1F1A;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
+                    <h2 class="white" style="font-weight: bold;padding:40px 40px 0 40px;">Misi</h2>
+                    <p class="white" style="padding:0 40px 40px 40px;">
+                        1. Menyelenggarakan jasa outsourcing dengan cara menyalurkan dan menempatkan tenaga kerja secara
+                        professional sesuai dengan bidang keahliannya.
+                    </p>
+                    <p class="white" style="padding:0 40px 40px 40px;">
+                        2. Menyelenggarakan jasa property dengan cara melaksanakan pembangunan dan pemeliharaan secara mandiri 
+                        dan professional.
+                    </p>
+                    <p class="white" style="padding:0 40px 40px 40px;">
+                        3. Menyelenggarakan pemenuhan kebutuhan barang dan jasa sesuai kebutuhan.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- End Visi Misi -->
+
+        <!-- Sertifikasi -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="100">
+                        <div class="heading-text heading-section m-b-80">
+                            <h2>Sertifikasi</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-8" data-animate="fadeInUp" data-animate-delay="300">
+                        <div class="carousel testimonial testimonial-box" data-items="3" data-margin="30" data-arrows="false">
+                            <div class="testimonial-item" style="height: 250px;"></div>
+                            <div class="testimonial-item" style="height: 250px;"></div>
+                            <div class="testimonial-item" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Sertifikasi -->
         
         <!-- Contact -->
         <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
