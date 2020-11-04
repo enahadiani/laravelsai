@@ -123,7 +123,42 @@
                             <nav>
                                 <ul>
                                     <li><a href="#" class="a_link" data-href="fHome">Home</a></li>
-                                    <li><a href="#" class="a_link" data-href="fLayanan">Layanan</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="mega-menu-content">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <ul>
+                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5>
+                                                            <li><p>Security</p></li>
+                                                            <li><p>Cleaning Service</p></li>
+                                                            <li><p>Driver</p></li>
+                                                            <li><p>Administrasi</p></li>
+                                                            <li><p>Help Desk</p></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <ul>
+                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
+                                                            <li><p>Pemenuhan Keb. Barang/Jasa</p></li>
+                                                            <li><p>Mini Market (TJ Mart)</p></li>
+                                                            <li><p>Layanan Catering</p></li>
+                                                            <li><p>Jasa Laundry</p></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <ul>
+                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
+                                                            <li><p>Building Maintenance</p></li>
+                                                            <li><p>Rental Kendaraan</p></li>
+                                                            <li><p>Sewa Peralatan Pesta/Wisuda</p></li>
+                                                            <li><p>Jasa Konstruksi</p></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
                                     <li><a href="#" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
                                     <li><a href="#" class="a_link" data-href="fKontak">Kontak</a></li>
                                 </ul>
