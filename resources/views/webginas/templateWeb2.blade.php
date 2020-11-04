@@ -159,7 +159,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="#" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
                                     <li><a href="#" class="a_link" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>

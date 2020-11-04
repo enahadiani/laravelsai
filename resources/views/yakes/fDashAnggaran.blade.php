@@ -1,6 +1,6 @@
 <style>
     body {
-        overflow: hidden; /* Hide scrollbars */
+        overflow: auto; /* Hide scrollbars */
     }
     .card{
         border-radius: 0 !important;
