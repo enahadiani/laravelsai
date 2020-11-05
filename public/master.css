@@ -1,0 +1,166 @@
+th,td{
+    padding:8px !important;
+    vertical-align:middle !important;
+}
+.search-item2{
+    cursor:pointer;
+}
+input.error{
+    border:1px solid #dc3545;
+}
+label.error{
+    color:#dc3545;
+    margin:0;
+}
+#table-data_paginate,#table-search_paginate
+{
+    margin-top:0 !important;
+}
+
+#table-data_paginate ul,#table-search_paginate ul
+{
+    float:right;
+}
+.form-body 
+{
+    position: relative;
+    overflow: auto;
+}
+
+#content-delete
+{
+    position: relative;
+    overflow: auto;
+}
+
+.hidden{
+    display:none;
+}
+
+.datetime-reset-button {
+    margin-right: 20px !important;
+    margin-top: 3px !important;
+}
+
+#table-search
+{
+    border-collapse:collapse !important;
+}
+
+#table-search_filter label, #table-search_filter input
+{
+    width:100%;
+}
+
+.dataTables_wrapper .paginate_button.previous {
+    margin-right: 0px; 
+}
+
+.dataTables_wrapper .paginate_button.next {
+    margin-left: 0px; 
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin-top: 25px; 
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: center; 
+}
+
+.dataTables_wrapper .paginate_button.page-item {
+    padding-left: 5px;
+    padding-right: 5px; 
+}
+
+.dataTables_length select {
+    border: 0;
+    background: none;
+    box-shadow: none;
+    border:none;
+    width:120px !important;
+    transition-duration: 0.3s; 
+}
+
+#table-data_filter label
+{
+    width:100%;
+}
+#table-data_filter label input
+{
+    width:inherit;
+}
+#searchData
+{
+    font-size: .75rem;
+    height: 31px;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.dropdown-aksi > .dropdown-item{
+    font-size : 0.7rem;
+}
+.last-add::before{
+    content: "***";
+    background: var(--theme-color-1);
+    border-radius: 50%;
+    font-size: 5px;
+    position: relative;
+    top: -2px;
+    left: -10px;
+}
+.btn-light2{
+    background:#F8F8F8;
+    color:#D4D4D4;
+}
+
+.btn-light2:hover{
+    color:#131113;
+}
+
+.btn-light2:active{
+    color: #131113;
+    background-color: #d8d8d8;
+}
+
+.custom-file-label::after{
+    content:"Cari berkas" !important;
+    border-left:0;
+    color: var(--theme-color-1) !important;
+}
+.focus{
+    /* border:none !important; */
+    box-shadow:none !important;
+}
+
+.ui-selected{
+    background: #e8e8e8 !important;
+    color: unset !important;
+}
+.selected{
+    background: #e8e8e8 !important;
+    color: unset !important;
+}
+.selected2{
+    background: #e8e8e8 !important;
+    color: unset !important;
+}
+
+#table-belum,#table-sudah
+{
+    border-collapse:collapse !important;
+}
+
+#table-belum_filter label, #table-belum_filter input,#table-sudah_filter label, #table-sudah_filter input
+{
+    width:100%;
+}
+
+#table-sudah tbody tr:hover, 
+#table-belum tbody tr:hover, #sai-treegrid tbody tr:hover
+{
+    background:#f8f8f8 !important;
+    border-color:#f8f8f8 !important;
+    cursor:pointer;
+}

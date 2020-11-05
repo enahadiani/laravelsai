@@ -1,23 +1,8 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Laporan Neraca Lajur Jejer Area</h5>
-                    <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
-                    <div class="dropdown float-right">
-                        <button id="btn-export" type="button" class="btn btn-outline-primary dropdown-toggle float-right hidden"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-share-alt mr-1"></i> Export
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btn-export" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item" href="#" id="sai-rpt-print"><img src="{{ asset('img/Print.svg') }}" style="width:16px;"> <span class="ml-2">Print</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
-                            <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
-                        </div>
-                    </div>
-                </div>
+                <x-report-header judul="Laporan Neraca Lajur Jejer Area" />  
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -38,6 +23,7 @@
                             </div>
                         </div>
                     </div>
+                    <x-report-paging/>  
                     <div class="col-12 col-sm-12">
                         <div class="collapse" id="collapsePaging">
                             <div class="px-4 py-0 row"  style="min-height:63px">
@@ -65,37 +51,8 @@
             </div>
         </div>
     </div>
-    <div class="row mt-2 hidden" id="saku-report">
-        <div class="col-12">
-            <div class="card px-4 py-4" style="min-height:200px">
-                <div class="border-bottom px-0 py-3 mb-2 navigation-lap hidden">
-                    <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                        <ol class="breadcrumb py-0 my-0">
-                            <li class="breadcrumb-item active">
-                                Neraca Lajur Area
-                            </li>
-                        </ol>
-                    </nav>            
-                    <button type="button" id="btn-back" style="position: absolute;right: 25px;
-                    top: 30px;" class="btn btn-light float-right">
-                    <i class=""></i> Back</button>
-                </div>
-                <div class="row h-100" id="report-load" style="display: none;">
-                    <div class="col-12 col-md-10 mx-auto my-auto">
-                        <div style="box-shadow:none" class="card auth-card text-center">
-                            <div style="padding:50px;width:50%;" class="my-auto mx-auto">
-                                <div class="progress" style="height:10px">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="report-load-bar">0.00%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="canvasPreview">
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-report-result judul="Neraca Lajur Jejer Area" padding="px-4 py-4"/>  
+    
     @include('yakes.modal_search')
     @include('yakes.modal_email')
     
@@ -131,27 +88,24 @@
         }
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','kode_akun'],
-            nama : ['Periode','Kode FS','Kode Akun'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode','Nama']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Nama','Action']],
+            kode : ['periode','kode_akun'],
+            nama : ['Periode','Kode Akun'],
+            header : [['Periode', 'Nama'],['Kode','Nama']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_fs' },
                     { data: 'nama' }
                 ],[
                     { data: 'kode_akun' },
                     { data: 'nama' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-akun') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kodename']
+            orderby:[[[0,"desc"]],[]],
+            width:[['30%','70%'],['30%','70%']],
+            display:['name','kodename']
             
         });
 

@@ -67,6 +67,7 @@
                 </tr>
             </table>
             `;
+            kode_ta = $kode_ta;
             var ta = kode_ta.from;
             html+=judul_lap("DAFTAR GURU KELAS",ta,'');
             html+=`<table class='table table-bordered' style='width:90%'>

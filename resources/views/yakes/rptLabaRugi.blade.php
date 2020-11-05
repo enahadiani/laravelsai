@@ -46,6 +46,7 @@
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
+            periode = $periode;
             var html = `
             <style>
             .info-table thead{

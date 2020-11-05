@@ -25,6 +25,7 @@
                 $('.navigation-lap').addClass('hidden');
             }
             var lokasi = res.lokasi;
+            periode = $periode;
             var html = `<div>
             <style>
                 .info-table thead{

@@ -437,7 +437,7 @@ function loadService(index,method,url,param={}){
                             <i class="simple-icon-camera"></i>
                             </button>
                         </div>
-                        <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
+                        <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" class="img-thumbnail card-img social-profile-img" style="border-radius: 50%;width:120px;height:120px;">
                         `;
                     }else{
                         var foto = "{{ config('api.url').'sekolah/storage' }}/"+result.data[0].foto;
@@ -447,7 +447,7 @@ function loadService(index,method,url,param={}){
                             <i class="simple-icon-camera"></i>
                             </button>
                         </div>
-                        <img alt="Profile" src="`+foto+`" class="img-thumbnail card-img social-profile-img" width="100" style="border-radius: 50%;">
+                        <img alt="Profile" src="`+foto+`" class="img-thumbnail card-img social-profile-img" style="border-radius: 50%;width:120px;height:120px;">
                         `;
                     }
 

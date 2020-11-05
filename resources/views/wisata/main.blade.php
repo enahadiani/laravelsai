@@ -342,9 +342,9 @@
                     <span class="name">{{ Session::get('namaUser') }}</span>
                     <span id="foto-profile">
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
                     @else
-                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ 'https://api.simkug.com/api/toko-auth/storage/'.Session::get('foto') }}" style="width:40px;height:40px"/>
                     @endif
                     </span>
                 </button>

@@ -1,6 +1,7 @@
 (function ( $ ) {
     var pilih = '';
     var display = '';
+    var defaults = {}, options = $.extend({}, defaults, options);
 
     function showFilter(options,idx,target1,tipe){
         var settings = {
@@ -26,7 +27,7 @@
         
         var toUrl = settings.url[idx];
         var columns = settings.columns[idx];
-        var parameter = settings.parameter;
+        var parameter = settings.parameter[idx];
         var judul = "Daftar "+settings.nama[idx]+" <span class='modal-subtitle'></span>";
         pilih = settings.nama[idx];
         display = settings.display[idx];
@@ -267,6 +268,8 @@
                     }else{   
                         $($target).val(kode);
                     }
+                    
+                    $($target).trigger('change');
                     field["from"] = kode;
                     field["fromname"] = nama;
                     
@@ -307,6 +310,8 @@
                     }else{   
                         $($target).val(kode);
                     }
+                    
+                    $($target).trigger('change');
                     field[target2] = kode;
                     field[target3] = nama;
                     $('#modal-search').modal('hide');
@@ -336,6 +341,7 @@
                     }else{   
                         $($target).val(kode);
                     }
+                    $($target).trigger('change');
 
                     field["to"] = kode;
                     field["toname"] = nama;   
@@ -374,6 +380,7 @@
                 }
             }   
             $($target).val(kode);
+            $($target).trigger('change');
             field[target2] = kode;
             field[target3] = kode;
             $('#modal-search').modal('hide');
@@ -382,7 +389,19 @@
 
     $.fn.reportFilter = function( options ) {
        
+        var options = (function (opts, def) {
+            var _opts = {};
+            if (typeof opts[0] !== "object") {
+                _opts[opts[0]] = opts[1];
+            };
+            return opts.length === 0 
+                   ? def 
+                   : typeof opts[0] === "object" 
+                     ? opts[0] : _opts
+        }([].slice.call(arguments), defaults));
+
         var settings = options;
+        
         return this.each(function() {
            
             $(this).on('change', '.sai-rpt-filter-type', function(){
@@ -495,7 +514,7 @@
             });
         
             $(this).on('click', '.search-item', function(){
-
+                console.log(settings.parameter);
                 var kunci = $(this).closest('div.sai-rpt-filter-entry-row').find('.kunci').text();
                 var idx = settings.kode.indexOf(kunci);
                 var target1 = $(this).closest('.input-group').find('input');
