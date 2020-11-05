@@ -12,9 +12,11 @@ class reportResult extends Component
      * @return void
      */
     public $judul;
-    public function __construct($judul)
+    public $padding;
+    public function __construct($judul,$padding)
     {
         $this->judul = $judul;
+        $this->padding = $padding;
     }
 
     /**

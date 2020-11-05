@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <x-report-result judul="Kompetensi Dasar" />
+    <x-report-result judul="Kompetensi Dasar" padding="px-0 py-4"/>
     
     @include('modal_search')
     @include('modal_email')

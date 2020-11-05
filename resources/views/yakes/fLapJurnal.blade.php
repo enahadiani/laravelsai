@@ -29,8 +29,8 @@
             </div>
         </div>
     </div>
+    <x-report-result judul="Jurnal" padding="px-4 py-4"/>
 
-    <x-report-result judul="Jurnal" />
     @include('yakes.modal_search')
     @include('yakes.modal_email')
     
