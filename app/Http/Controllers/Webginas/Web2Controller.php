@@ -60,6 +60,10 @@ class Web2Controller extends Controller
         return view('webginas.contentLayanan');
     }
 
+    public function viewContentDetailLayanan() {
+        return view('webginas.contentDetailLayanan');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];
