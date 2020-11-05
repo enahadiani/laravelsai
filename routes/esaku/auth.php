@@ -35,6 +35,10 @@ Route::get('/cropper', function () {
     return view('esaku.cropper');
 });
 
+Route::get('/croppie', function () {
+    return view('esaku.croppie');
+});
+
 Route::get('/cek_session', 'Esaku\AuthController@cek_session');
 Route::get('/', 'Esaku\AuthController@index');
 Route::get('/dash', 'Esaku\AuthController@index');
