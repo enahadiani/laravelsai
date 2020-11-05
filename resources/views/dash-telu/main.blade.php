@@ -416,9 +416,9 @@
                     <span class="name">{{ $nama }}</span>
                     <span id="foto-profile">
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" />
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
                     @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'ypt/storage/'.Session::get('foto') }}" />
+                    <img alt="Profile Picture" src="{{ config('api.url').'ypt/storage/'.Session::get('foto') }}" style="width:40px;height:40px"/>
                     @endif
                     </span>
                 </button>
@@ -427,9 +427,9 @@
                         <div style="height: 45px;padding: 0 1rem;">
                             <span id="adminProfilePhoto">
                                 @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" />
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
                                 @else
-                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" />
+                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}" style="width:40px;height:40px"/>
                                 @endif
                             </span>
                             <p class="userprofile mb-0">{{ $nama }}</p>
