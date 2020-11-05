@@ -208,16 +208,16 @@
             headerpilih : [['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
             columns: [
                 [
-                    { data: 'kode' },
+                    { data: 'kode_pp' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode' },
+                    { data: 'kode_ta' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode' },
+                    { data: 'kode_kelas' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode' },
+                    { data: 'kode_matpel' },
                     { data: 'nama' }
                 ]
             ],
@@ -262,16 +262,16 @@
                     headerpilih : [['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action']],
                     columns: [
                         [
-                            { data: 'kode' },
+                            { data: 'kode_pp' },
                             { data: 'nama' }
                         ],[
-                            { data: 'kode' },
+                            { data: 'kode_ta' },
                             { data: 'nama' }
                         ],[
-                            { data: 'kode' },
+                            { data: 'kode_kelas' },
                             { data: 'nama' }
                         ],[
-                            { data: 'kode' },
+                            { data: 'kode_matpel' },
                             { data: 'nama' }
                         ]
                     ],
