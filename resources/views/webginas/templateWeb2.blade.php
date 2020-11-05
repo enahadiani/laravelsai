@@ -85,6 +85,11 @@
         {
             background:#DD1F1A !important;
         }
+        h2::before{
+            background-color: #DD1F1A !important;
+            width: 200px !important;
+            margin-left: 50px !important;
+        }
     </style>
 </head>
 
@@ -249,66 +254,54 @@
         <section>
             <div class="container">
 
-                <div class="heading-text heading-section m-b-80">
+                <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
                     <h2>Layanan Kami</h2>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-detective"></i></a> </div>
-                            <h4>Satpam</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
+                        <div class="border" style="padding: 0;">
+                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                                <h4 style="color:white;">Outsourcing</h4>
+                            </div>
+                            <div style="padding:15px 0 30px 10px;">
+                                <ol style="margin-left: 20px;">
+                                    <li>Security</li>
+                                    <li>Cleaning Service</li>
+                                    <li>Driver</li>
+                                    <li>Help Desk</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-network-connection"></i></a> </div>
-                            <h4>Network Project Supervisor</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
+                        <div class="border" style="padding: 0;">
+                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                                <h4 style="color:white;">Trading & Bussiness Retail</h4>
+                            </div>
+                            <div style="padding:15px 0 30px 10px;">
+                                <ol style="margin-left: 20px;">
+                                    <li>Pemenuhan Keb. Barang/Jasa</li>
+                                    <li>Mini Market (TJ Mart)</li>
+                                    <li>Layanan Catering</li>
+                                    <li>Jasa Laundry</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="far fa-food-tray"></i></a> </div>
-                            <h4>Catering</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-teacher"></i></a> </div>
-                            <h4>Academical Assistant</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-cleaning-cart"></i></a> </div>
-                            <h4>Cleaning Service</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-building"></i></a> </div>
-                            <h4>Building Maintenance</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-car2"></i></a> </div>
-                            <h4>Car Rental</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="icon-box medium fancy">
-                            <div class="icon"> <a href="#"><i class="fa fa-parking"></i></a> </div>
-                            <h4>Parking Service</h4>
-                            <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.</p>
+                        <div class="border" style="padding: 0;">
+                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                                <h4 style="color:white;">Property</h4>
+                            </div>
+                            <div style="padding:15px 0 30px 10px;">
+                                <ol style="margin-left: 20px;">
+                                    <li>Building Maintenance</li>
+                                    <li>Rental Kendaraan</li>
+                                    <li>Sewa Peralatan Pesta/Wisuda</li>
+                                    <li>Jasa Konstruksi</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
