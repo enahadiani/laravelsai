@@ -71,6 +71,7 @@
                 </tr>
             </table>
             `;
+            kode_ta = $kode_ta;
             var ta = kode_ta.from;
             html+=judul_lap("DAFTAR SISWA AKTIF",ta,'KELAS '+line.kode_kelas);
             html+=`<table class='table table-bordered' style='width:90%'>
@@ -82,9 +83,6 @@
                         <th width='65%'>Nama</th>
                    </tr>
                 </thead>`;
-                html+=`<tr>
-                    <td colspan="3"><b>Kelas `+line.kode_kelas+`</b></td>
-                    </tr>`;
                     var no =1;
                     var det = ``;
                     for(var j=0;j<res.detail.length;j++){    
