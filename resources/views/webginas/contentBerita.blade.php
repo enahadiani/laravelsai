@@ -26,6 +26,9 @@
         .black{
             color: black !important;
         }
+        ul {
+            list-style-type: none;
+        }
     </style>
 </head>
 
@@ -114,14 +117,13 @@
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
-                    <h1 style="font-weight: bold;">Kontak</h1>
+                    <h1 style="font-weight: bold;">Berita</h1>
                 </div>
                 <div class="breadcrumb">
                     <ul>
-                        <li><a href="#">Home</a>
-                        </li>
-                        <li><a href="#">Kontak</a>
-                        </li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Berita</a></li>
+                        <li><a href="#">Isi Berita</a></li>
                     </ul>
                 </div>
             </div>
@@ -129,6 +131,96 @@
         <!-- end: Page title -->
         <!-- Content -->
         
+        <!-- Berita -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="content col-lg-8">
+                        <div class="single-post">
+                            <div class="post-item-wrap">
+                                
+                                <div class="post-item-description" style="margin-bottom: 25px;">
+                                    <h2>Isi Berita</h2>
+                                    <div class="post-meta">
+                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Selasa, 03 November 2020</span>
+                                    </div>
+                                </div>
+
+                                <div class="post-image">
+                                    <a href="#">
+                                        <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle18.png') }}">
+                                    </a>
+                                </div>
+
+                                <div class="post-item-description" style="margin-top: 25px;">
+                                    <p>
+                                        The most happiest time of the day!. Praesent id dolor dui, dapibus gravida elit. 
+                                        Donec consequat laoreet sagittis. Suspendisse ultricies ultrices viverra. 
+                                        Morbi rhoncus laoreet tincidunt. Mauris interdum convallis metus. 
+                                        Suspendisse vel lacus est, sit amet tincidunt erat. 
+                                        Etiam purus sem, euismod eu vulputate eget, porta quis sapien. 
+                                        Donec tellus est, rhoncus vel scelerisque id, iaculis eu nibh.
+                                    </p>
+                                    <p>
+                                        Donec posuere bibendum metus. Quisque gravida luctus volutpat. Mauris interdum, 
+                                        lectus in dapibus molestie, quam felis sollicitudin mauris, 
+                                        sit amet tempus velit lectus nec lorem. Nullam vel mollis neque. 
+                                        The most happiest time of the day!. Nullam vel enim dui. 
+                                        Cum sociis natoque penatibus et magnis dis parturient montes, 
+                                        nascetur ridiculus mus. Sed tincidunt accumsan massa id viverra. 
+                                        Sed sagittis, nisl sit amet imperdiet convallis, nunc tortor consequat tellus,
+                                        vel molestie neque nulla non ligula. Proin tincidunt tellus ac porta volutpat. 
+                                        Cras mattis congue lacus id bibendum. Mauris ut sodales libero. 
+                                        Maecenas feugiat sit amet enim in accumsan.
+                                    </p>
+                                    <p>
+                                        Duis vestibulum quis quam vel accumsan. Nunc a vulputate lectus. 
+                                        Vestibulum eleifend nisl sed massa sagittis vestibulum. 
+                                        Vestibulum pretium blandit tellus, sodales volutpat sapien varius vel. 
+                                        Phasellus tristique cursus erat, a placerat tellus laoreet eget. 
+                                        Fusce vitae dui sit amet lacus rutrum convallis. Vivamus sit amet lectus venenatis
+                                        est rhoncus interdum a vitae velit.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h2>Berita Terbaru</h2>
+                        <ul style="margin-top: 30px;">
+                            <li>
+                                <a href="#">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </a>                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Berita -->
+
         <!-- Contact -->
         <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
              <div class="container">

@@ -68,7 +68,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <ul>
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5>
+                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
                                                             <li><p>Security</p></li>
                                                             <li><p>Cleaning Service</p></li>
                                                             <li><p>Driver</p></li>

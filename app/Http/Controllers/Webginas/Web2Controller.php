@@ -48,6 +48,18 @@ class Web2Controller extends Controller
         return view('webginas.kontak');
     }
 
+    public function viewBerita() {
+        return view('webginas.berita');
+    }
+
+    public function viewContentBerita() {
+        return view('webginas.contentBerita');
+    }
+
+    public function viewContentLayanan() {
+        return view('webginas.contentLayanan');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];

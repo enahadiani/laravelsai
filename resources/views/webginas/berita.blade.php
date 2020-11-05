@@ -114,13 +114,13 @@
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
-                    <h1 style="font-weight: bold;">Kontak</h1>
+                    <h1 style="font-weight: bold;">Berita</h1>
                 </div>
                 <div class="breadcrumb">
                     <ul>
                         <li><a href="#">Home</a>
                         </li>
-                        <li><a href="#">Kontak</a>
+                        <li><a href="#">Berita</a>
                         </li>
                     </ul>
                 </div>
@@ -129,6 +129,141 @@
         <!-- end: Page title -->
         <!-- Content -->
         
+        <!-- Berita -->
+        <section>
+            <div class="container">
+                <div class="grid-layout post-2-columns m-b-30" data-item="post-item">
+                    <!-- Berita 1 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="{{url('webginas2/berita/isi-berita')}}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 1-->
+                    <!-- Berita 2 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 2-->
+                    <!-- Berita 3 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 3-->
+                    <!-- Berita 4 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 4-->
+                    <!-- Berita 5 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 5-->
+                    <!-- Berita 6 -->
+                    <div class="post-item border">
+                        <div class="post-item-wrap">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+
+                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                    </a></h2>
+                                
+
+                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Berita 6-->
+                </div>
+            </div>
+        </section>
+        <!-- End Berita -->
+
         <!-- Contact -->
         <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
              <div class="container">

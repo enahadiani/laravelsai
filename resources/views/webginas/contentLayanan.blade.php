@@ -16,6 +16,8 @@
     <style>
         h2::before{
             background-color: #DD1F1A !important;
+            width: 200px !important;
+            margin-left: 50px !important;
         }
         header.sticky-active > .header-inner > .container > #logo > a > span.name {
             color: black !important;
@@ -25,6 +27,9 @@
         }
         .black{
             color: black !important;
+        }
+        ul {
+            list-style-type: none;
         }
     </style>
 </head>
@@ -68,7 +73,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <ul>
-                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
+                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5>
                                                             <li><p>Security</p></li>
                                                             <li><p>Cleaning Service</p></li>
                                                             <li><p>Driver</p></li>
@@ -114,14 +119,13 @@
             <div class="bg-overlay"></div>
             <div class="container">
                 <div class="page-title">
-                    <h1 style="font-weight: bold;">Kontak</h1>
+                    <h1 style="font-weight: bold;">Layanan</h1>
                 </div>
                 <div class="breadcrumb">
                     <ul>
-                        <li><a href="#">Home</a>
-                        </li>
-                        <li><a href="#">Kontak</a>
-                        </li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Layanan</a></li>
+                        <li><a href="#">Outsourcing</a></li>
                     </ul>
                 </div>
             </div>
@@ -129,6 +133,129 @@
         <!-- end: Page title -->
         <!-- Content -->
         
+        <!-- List Layanan-->
+        <section>
+            <div class="container">
+                <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
+                    <h2>Outsourcing</h2>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-4">
+                        <div class="border" style="padding: 10px;">
+                            <a href="#"><h2 style="color: #DD1F1A;">Security</h2></a>
+                            <div style="padding:5px 0 30px 5px;">
+                                <p>
+                                    Kami memiliki tenaga professional yang sudah tersertifikasi dan terlatih. Sehingga siap memberikan pelayanan yang 
+                                    maksimal untuk keamanan anda.
+                                </p>
+                            </div>
+                            <div>
+                                <a href="#" class="item-link" style="padding-top: 10px; margin-top:10px;">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="border" style="padding: 10px;">
+                            <a href="#"><h2 style="color: #DD1F1A;">Cleaning Services</h2></a>
+                            <div style="padding:5px 0 5px 5px;">
+                                <p>
+                                    Kami memberikan layanan pembersihan yang beragam dari mulai pembersihan fasilitas kantor, rumah sakit, pabrik, 
+                                    sekolah, bank, dan fasilitas lainnya termasuk eksterior gedung.
+                                </p>
+                            </div>
+                            <div>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="border" style="height:229px;padding:10px;">
+                            <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
+                            <div style="padding: 5px 0 95px 5px;">
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                            </div>
+                            <div>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" style="margin-top: 10px;">
+                        <div class="border" style="height:229px;padding:10px;">
+                            <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
+                            <div style="padding: 5px 0 95px 5px;">
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                            </div>
+                            <div>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" style="margin-top: 10px;">
+                        <div class="border" style="height:229px;padding:10px;">
+                            <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
+                            <div style="padding: 5px 0 95px 5px;">
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                            </div>
+                            <div>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{-- 
+
+                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
+                        <div class="post-item-wrap">
+                            <div class="post-item-description">
+                                <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
+                        <div class="post-item-wrap">
+                            <div class="post-item-description">
+                                <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 border" style="margin: 0 25px 0px 0;">
+                        <div class="post-item-wrap">
+                            <div class="post-item-description">
+                                <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
+                                <p>
+                                    Belum ada deskripsi singkat
+                                </p>
+                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                </div>
+            </div>
+        </section>
+        <!-- End List Layanan-->
+
         <!-- Contact -->
         <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
              <div class="container">

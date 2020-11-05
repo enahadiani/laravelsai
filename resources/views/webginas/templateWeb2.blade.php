@@ -129,7 +129,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <ul>
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5>
+                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
                                                             <li><p>Security</p></li>
                                                             <li><p>Cleaning Service</p></li>
                                                             <li><p>Driver</p></li>
@@ -466,17 +466,17 @@
                     <div class="post-item border">
                         <div class="post-item-wrap">
                             <div class="post-image">
-                                <a href="#">
+                                <a href="{{url('webginas2/berita/isi-berita')}}">
                                     <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle18.png') }}">
                                 </a>
                             </div>
                             <div class="post-item-description">
                                 <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
-                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
+                                <h2><a href="{{url('webginas2/berita/isi-berita')}}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
                                     </a></h2>
                                 
 
-                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+                                <a href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
 
                             </div>
                         </div>
@@ -529,7 +529,7 @@
                     <!-- end: Post item-->
                 </div>
                 <div class="heading-text heading-section text-center py-0">
-                    <button type="button" class="btn btn-rounded btn-reveal btn-lg bg-red"><span>Selengkapnya</span><i class="icon-chevron-right"></i></button>
+                    <a href="{{url('/webginas2/berita')}}"><button type="button" class="btn btn-rounded btn-reveal btn-lg bg-red"><span>Selengkapnya</span><i class="icon-chevron-right"></i></button></a>
                 </div>
             </div>
         </section>
