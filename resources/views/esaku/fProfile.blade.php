@@ -1,217 +1,5 @@
-<style>
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
-
-body {
-    font-family: 'Roboto', sans-serif !important;
-}
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: normal !important;
-}
-h2{
-    margin-bottom: 5px;
-    margin-top:5px;
-}
-.judul-box{
-    font-weight:bold;
-    font-size:18px !important;
-}
-.inner{
-    padding:5px !important;
-}
-
-.box-nil{
-    margin-bottom: 20px !important;
-}
-
-.pad-more{
-    padding-left:10px !important;
-    padding-right:0px !important;
-}
-.mar-mor{
-    margin-bottom:10px !important;
-}
-.box-wh{
-    box-shadow: 0 3px 3px 3px rgba(0,0,0,.05);
-}
-.small-box .icon{
-    top: 0px !important;
-    font-size: 20px !important;
-}
-.bg-white{
-    background:white
-}
-.small-box .inner{
-    background: white;
-    border: 1px solid white;
-    border-radius: 10px !important;
-}
-.small-box{
-    border-radius:10px !important;
-    box-shadow: 1px 2px 2px 2px #e6e0e0e6;
-}
-.widget-user-2 .widget-user-header {
-
-    padding: 20px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    box-shadow: 1px 2px 2px 2px #e6e0e0e6;
-}
-.icon-green {
-    color:white;
-    background: #00a65a;
-    border: 1px solid #00a65a;
-    padding: 2px;
-    font-size: 12px;
-    transition: all .3s linear;
-    position: absolute;
-    top: -10px;right: 10px;
-    z-index: 0;
-    padding: 2px 12px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin-right: 10px;
-}
-.icon-blue {
-    color:white;
-    background: #0073b7;
-    border: 1px solid #0073b7;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 2px;
-    font-size: 12px;
-    transition: all .3s linear;
-    position: absolute;
-    top: -10px;right: 10px;
-    z-index: 0;
-    padding: 2px 12px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin-right: 10px;
-}
-.icon-purple {
-    color:white;
-    background: #605ca8 !important;
-    border: 1px solid #605ca8 !important;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 2px;
-    font-size: 12px;
-    transition: all .3s linear;
-    position: absolute;
-    top: -10px;right: 10px;
-    z-index: 0;
-    padding: 2px 12px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin-right: 10px;
-}
-.icon-pink {
-    color:white;
-    background: #d81b60;
-    border: 1px solid #d81b60;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 2px;
-    font-size: 12px;
-    transition: all .3s linear;
-    position: absolute;
-    top: -10px;right: 10px;
-    z-index: 0;
-    padding: 2px 12px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin-right: 10px;
-}
-.box-footer {
-
-border-top-left-radius: 0;
-border-top-right-radius: 0;
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top: 1px solid #f4f4f4;
-padding: 10px;
-background-color: #fff;
-box-shadow: 1px 2px 2px 2px #e6e0e0e6;
-
-}
-
-.box-nil{
-    margin-bottom: 20px !important;
-}
-
-.icon{
-    padding: 2px 12px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.judulBox:hover{
-    color:#0073b7
-}
-.table-profile td,.table-profile th{
-    padding: 0.75em 0px ;
-}
-
-.span-password
-{
-    position: absolute;
-    cursor: text;
-    font-size: 90%;
-    opacity: 1;top: -0.4em;left: 0.75rem;z-index: 3;line-height: 1;padding: 0 1px
-}
-.btn-eye
-{
-    top: 0px !important;;
-    right: 10px !important;;
-    left: unset !important;;
-    width: 40px;
-    height: 40px;
-    background: url("{{ asset('img/hide.svg') }}") no-repeat;
-    background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;
-    cursor: pointer !important;
-}
-
-input.form-control{
-    border-radius:10px !important;
-
-}
-
-#modalPhoto
-{
-    top:90px
-}
-
-@media (max-width: 1439px) {
-    #modalPhoto
-    {
-        top:90px
-    }
-}
-@media (max-width: 1199px) {
-    #modalPhoto
-    {
-        top:80px
-    }
-}
-@media (max-width: 767px) {
-    #modalPhoto
-    {
-        top:70px
-    }   
-}
-@media (max-width: 575px) {
-    #modalPhoto
-    {
-        top:70px
-    }
-}
-
-.hidden{
-    display:none;
-}
-</style>
+<link rel="stylesheet" href="{{ asset('profile.css') }}" />
+<link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/cropper.min.css') }}" />
 <div class="row" id="page-profile">
     <div class="col-12">
         <div class="row" >
@@ -337,33 +125,70 @@ input.form-control{
 </div>
 
 <div class="modal fade modal-right" id="modalPhoto" tabindex="-1" role="dialog"
-    aria-labelledby="modalPhoto" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header pb-0" style="border:none">
-                    <h5 class="modal-title pl-0"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+aria-labelledby="modalPhoto" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pb-0" style="border:none">
+                <h5 class="modal-title pl-0"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formPhoto" >
+                <div class="modal-body" style="border:none">
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <input type="file" name ="foto" class="form-control" placeholder="">
+                        <input type="hidden" id="id_foto" class="form-control" placeholder="" value="foto">
+                    </div>
                 </div>
-                <form id="formPhoto" >
-                    <div class="modal-body" style="border:none">
-                        <div class="form-group">
-                            <label>Foto</label>
-                            <input type="file" name ="foto" class="form-control" placeholder="">
-                            
-                            <input type="hidden" id="id_foto" class="form-control" placeholder="" value="foto">
+                <div class="modal-footer" style="border:none">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDITOR IMAGE -->
+<div class="modal fade" id="modalEditor" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="tipe_upload">
+                <div class="img-container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <img id="image" src="">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="preview"></div>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
             </div>
         </div>
     </div>
+</div>
+<!-- END MODAL -->
 
+<script src="{{ asset('asset_dore/js/vendor/cropper.min.js') }}"></script>
 <script>
+
+
+var $modal = $('#modalEditor');
+var image = document.getElementById('image');
+var cropper;
 
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
@@ -548,45 +373,135 @@ $('#form-ubahPass').on('submit', function(e){
 
 $('#file-foto').change(function(e){
     e.preventDefault();
-    var foto = document.getElementById("file-foto").files[0];
-    var name = foto.name;
-    var form_data = new FormData();
-    var ext = name.split('.').pop().toLowerCase();
-    if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
-    {
-        alert("Invalid Image File");
+    // var foto = document.getElementById("file-foto").files[0];
+    // var name = foto.name;
+    // var form_data = new FormData();
+    // var ext = name.split('.').pop().toLowerCase();
+    // if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    // {
+    //     alert("Invalid Image File");
+    // }
+    // var oFReader = new FileReader();
+    // oFReader.readAsDataURL(foto);
+    // var f = foto;
+    // var fsize = f.size||f.fileSize;
+    // if(fsize > 3000000)
+    // {
+    //     alert("Image File Size is very big");
+    // }
+    // else
+    // {
+    //     form_data.append("foto", foto);
+    //     $.ajax({
+    //         url:"{{ url('esaku-auth/update-foto') }}",
+    //         method:"POST",
+    //         data: form_data,
+    //         async: false,
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false, 
+    //         beforeSend:function(){
+    //             // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    //         },   
+    //         success:function(result){
+    //             if(result.data.status){
+    //                 alert('Update foto sukses!');
+    //                 var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
+    //                 $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
+    //                 loadForm("{{url('esaku-auth/form/fProfile')}}");
+
+    //                 $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
+                            
+    //             }
+    //             else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    //             }
+    //             else{
+    //                 alert(result.data.message);
+    //             }
+    //         },
+    //         fail: function(xhr, textStatus, errorThrown){
+    //             alert('request failed:'+textStatus);
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {       
+    //             if(jqXHR.status==422){
+    //                 alert(jqXHR.responseText);
+    //             }
+    //         }
+    //     });
+    // }
+    var files = e.target.files;
+    var done = function (url) {
+        image.src = url;
+        $('#tipe_upload').val('foto');
+        $('#modalEditor').modal('show');
+    };
+    
+    var reader;
+    var file;
+    var url;
+    
+    if (files && files.length > 0) {
+        file = files[0];
+    
+        if (URL) {
+            done(URL.createObjectURL(file));
+        } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     }
-    var oFReader = new FileReader();
-    oFReader.readAsDataURL(foto);
-    var f = foto;
-    var fsize = f.size||f.fileSize;
-    if(fsize > 3000000)
-    {
-        alert("Image File Size is very big");
-    }
-    else
-    {
-        form_data.append("foto", foto);
-        $.ajax({
-            url:"{{ url('esaku-auth/update-foto') }}",
-            method:"POST",
-            data: form_data,
-            async: false,
+
+});
+
+$modal.on('shown.bs.modal', function () {
+    cropper = new Cropper(image, {
+        // aspectRatio: ,
+        viewMode: 1,
+        preview: '.preview'
+    });
+}).on('hidden.bs.modal', function () {
+    cropper.destroy();
+    cropper = null;
+});
+
+
+$("#crop").click(function(){
+
+    cropper.getCroppedCanvas().toBlob((blob) => {
+        var formData = new FormData();
+        var tipe = $('#tipe_upload').val();
+        if(tipe == 'foto'){
+            var toUrl = "{{ url('esaku-auth/update-foto') }}";
+        }else{
+            var toUrl = "{{ url('esaku-auth/update-background') }}";
+        }
+        // Pass the image file name as the third parameter if necessary.
+        formData.append('foto', blob, 'profile.png' );
+
+        // Use `jQuery.ajax` method for example
+        $.ajax(toUrl, {
+            method: 'POST',
+            data: formData,
+            processData: false,
             contentType: false,
-            cache: false,
-            processData: false, 
-            beforeSend:function(){
-                // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
-            },   
             success:function(result){
                 if(result.data.status){
-                    alert('Update foto sukses!');
-                    var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
-                    $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
-                    loadForm("{{url('esaku-auth/form/fProfile')}}");
-
-                    $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
-                            
+                    if(tipe == 'foto'){
+                        alert('Update foto sukses!');
+                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
+                        $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
+                        loadForm("{{url('esaku-auth/form/fProfile')}}");
+    
+                        $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" style='width:40px;height:40px'/>`);
+                    }else{
+                        alert('Update background sukses!');
+                        loadForm("{{url('esaku-auth/form/fProfile')}}");
+                    }
+                    $modal.modal('hide');
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
                     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
@@ -604,62 +519,88 @@ $('#file-foto').change(function(e){
                 }
             }
         });
-    }
-});
+    }, 'image/png');
+})
+
 
 $('#file-background').change(function(e){
     e.preventDefault();
-    var foto = document.getElementById("file-background").files[0];
-    var name = foto.name;
-    var form_data = new FormData();
-    var ext = name.split('.').pop().toLowerCase();
-    if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
-    {
-        alert("Invalid Image File");
-    }
-    var oFReader = new FileReader();
-    oFReader.readAsDataURL(foto);
-    var f = foto;
-    var fsize = f.size||f.fileSize;
-    if(fsize > 3000000)
-    {
-        alert("Image File Size is very big");
-    }
-    else
-    {
-        form_data.append("foto", foto);
-        $.ajax({
-            url:"{{ url('esaku-auth/update-background') }}",
-            method:"POST",
-            data: form_data,
-            async: false,
-            contentType: false,
-            cache: false,
-            processData: false, 
-            beforeSend:function(){
-                // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
-            },   
-            success:function(result){
-                if(result.data.status){
-                    alert('Update foto sukses!');
-                    loadForm("{{url('esaku-auth/form/fProfile')}}");
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }
-                else{
-                    alert(result.data.message);
-                }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
-                    alert(jqXHR.responseText);
-                }
-            }
-        });
+    // var foto = document.getElementById("file-background").files[0];
+    // var name = foto.name;
+    // var form_data = new FormData();
+    // var ext = name.split('.').pop().toLowerCase();
+    // if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    // {
+    //     alert("Invalid Image File");
+    // }
+    // var oFReader = new FileReader();
+    // oFReader.readAsDataURL(foto);
+    // var f = foto;
+    // var fsize = f.size||f.fileSize;
+    // if(fsize > 3000000)
+    // {
+    //     alert("Image File Size is very big");
+    // }
+    // else
+    // {
+    //     form_data.append("foto", foto);
+    //     $.ajax({
+    //         url:"{{ url('esaku-auth/update-background') }}",
+    //         method:"POST",
+    //         data: form_data,
+    //         async: false,
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false, 
+    //         beforeSend:function(){
+    //             // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    //         },   
+    //         success:function(result){
+    //             if(result.data.status){
+    //                 alert('Update foto sukses!');
+    //                 loadForm("{{url('esaku-auth/form/fProfile')}}");
+    //             }
+    //             else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    //             }
+    //             else{
+    //                 alert(result.data.message);
+    //             }
+    //         },
+    //         fail: function(xhr, textStatus, errorThrown){
+    //             alert('request failed:'+textStatus);
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {       
+    //             if(jqXHR.status==422){
+    //                 alert(jqXHR.responseText);
+    //             }
+    //         }
+    //     });
+    // }
+
+    var files = e.target.files;
+    var done = function (url) {
+        image.src = url;
+        $('#tipe_upload').val('background');
+        $('#modalEditor').modal('show');
+    };
+    
+    var reader;
+    var file;
+    var url;
+    
+    if (files && files.length > 0) {
+        file = files[0];
+    
+        if (URL) {
+            done(URL.createObjectURL(file));
+        } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     }
 });
 
