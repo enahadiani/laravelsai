@@ -16,8 +16,6 @@
     <style>
         h2::before{
             background-color: #DD1F1A !important;
-            width: 200px !important;
-            margin-left: 50px !important;
         }
         header.sticky-active > .header-inner > .container > #logo > a > span.name {
             color: black !important;
@@ -73,7 +71,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <ul>
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5>
+                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
                                                             <li><p>Security</p></li>
                                                             <li><p>Cleaning Service</p></li>
                                                             <li><p>Driver</p></li>
@@ -126,6 +124,7 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Layanan</a></li>
                         <li><a href="#">Outsourcing</a></li>
+                        <li><a href="#">Security</a></li>
                     </ul>
                 </div>
             </div>
@@ -133,128 +132,181 @@
         <!-- end: Page title -->
         <!-- Content -->
         
-        <!-- List Layanan-->
+        <!-- Berita -->
         <section>
             <div class="container">
-                <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
-                    <h2>Outsourcing</h2>
-                </div>
                 <div class="row">
-
+                    <div class="content col-lg-8">
+                        <div class="heading-text heading-section m-b-80">
+                            <h2>Security</h2>
+                        </div>
+                        <div class="post-image">
+                            <a href="#">
+                                <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle18.png') }}">
+                            </a>
+                        </div>
+                        <div class="post-item-description" style="margin-top: 25px;">
+                            <p>
+                                Sebagai bentuk keseriusan PT. Trengginas Jaya dala pengelolaan jasa pengamanan, maka dalam
+                                pelaksanaannya telah dilengkapi dengan :
+                            </p>
+                            <p>
+                                <ol style="margin-left: 10px;">
+                                    <li>Standart Operational Procedure (SOP)</li>
+                                    <li>Sertifikasi Gada Utama</li>
+                                    <li>Sertifikasi Gada Madya</li>
+                                    <li>Sertifikasi Gada Pratama</li>
+                                    <li>ISO 9001:2015, ISO 14001:2015, ISO 45001:2018</li>
+                                </ol>
+                            </p>
+                            <p>
+                                PT. Trengginas Jaya dalam memberikan penawaran kerjasama dalam pengeloaan jasa pengamanan
+                                terdapat beberapa alternatif pilihan sebagai berikut :
+                                <p>
+                                    <ol style="margin-left: 10px;">
+                                        <li>
+                                            <span style="font-weight: bold">Fuel Outsource</span>
+                                            <p>
+                                                Dalam arti semua kebutuhan baik dari personil tenaga kerja, alat, dan kelengkapan kerja, pembinaan, 
+                                                dan pengawasan disediakan oleh PT. Trengginas Jaya. Perusahaan atau instansi pemakai jasa pengamanan 
+                                                cukup melakukan eksternal kontrol dan audit.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span style="font-weight: bold">Outsource Management</span>
+                                            <p>
+                                                Dalam arti bahwa sistem kerja, pembinaan, dan pengawasan dilakukan oleh PT. Trengginas Jaya, sedangkan 
+                                                perusahaan atau instansi pemakai jasa pengamanan menyediakan personil tenaga satuan pengamanan, peralatan, 
+                                                dan kelengkapan kerja.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <span style="font-weight: bold">Outsource Personil Tenaga Kerja</span>
+                                            <p>
+                                                Dimana PT. Trengginas Jaya sebagai calon mitra jasa pengamanan hanya menyediakan dan mempersiapkan personil 
+                                                tenaga satuan pengamanan yang dibutuhkan perusahaan atau instansi pemakai jasa pengamanan sesuai kualifikasi 
+                                                atau persyaratan baik dari perusahaan atau pemakai jasa pengamanan, sedangkan peralatan dan kelengkapan kerja, 
+                                                pembinaan dan pengawasan disediakan oleh perusahaan atau instansi pemakai jasa pengamanan.
+                                            </p>
+                                        </li>
+                                    </ol>
+                                </p>
+                                <div style="margin-top: 50px;">
+                                    <h3>Pengalaman Proyek</h3>
+                                    <ol style="margin-left: 10px;">
+                                        <li>
+                                            Sebagai salah satu mitra PT. Graha Sarana Duta/Telkom Property dalam penyediaan tenaga House Keeping wilayah area IV 
+                                            Jawa Tengah, area V Jawa Timur & Bali Nusa Tenggara, area VI Kalimantan, area VII Sulawesi, Maluku, dan Papua. 
+                                        </li>
+                                        <li>
+                                            Sebagai salah satu mitra PT. Graha Sarana Duta/Telkom Property dalam penyediaan tenaga Security di area II Jakarta Pusat, 
+                                            Jakarta Utara, Jakarta Barat, Jakarta Selatan, Jakarta Timur, Bogor, dan Bekasi
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Yayasan Pendidikan Telkom dalam penyediaan tenaga Cleaning Service dan tenaga Driver.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Telkom University dalam penyediaan tenaga Security, Cleaning Service, Driver, dan tenaga Administrasi.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Telkom PCC dalam penyediaan tenaga Cleaning Service, Security, Driver, dan tenaga Administrasi 
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Bandung Techno Park (BTP) dalam penyediaan tenaga Security, Cleaning Service, tenaga Administrasi, 
+                                            dan tenaga Driver.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Cemara Agung dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Radio Ardan dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Koperasi Telkom dalam penyediaan tenaga Security, Cleaning Service, tenaga Administrasi, dan Driver.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Toko Kain Amirah dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Tata Global Sentosa dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra BNNP Jawa Barat dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Dago Resort dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra asrama mahasiswa Telkom University dalam penyediaan tenaga Security, Cleaning Service, Helpdesk, 
+                                            dan tenaga ME.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Radio Zora dan K-Lite FM dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Kecap Merak dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Bangun Karya Rejeki dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra Bank Indonesia Kota Bandung dalam penyediaan tenaga House Keeping.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. INTI dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Sharp dalam penyediaan tenaga Driver.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Deliatex Bandung dalam penyediaan tenaga Security
+                                        </li>
+                                        <li>
+                                            Sebagai mitra PT. Sandang Cipta Textile dalam penyediaan tenaga Security.
+                                        </li>
+                                        <li>
+                                            Sebagai mitra CV. Agro Bumi Subang dalam penyediaan tenaga Security.
+                                        </li>
+                                    </ol>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
                     <div class="col-lg-4">
-                        <div class="border" style="padding: 10px;">
-                            <a href="{{url('webginas2/layanan/outsourcing/security')}}"><h2 style="color: #DD1F1A;">Security</h2></a>
-                            <div style="padding:5px 0 30px 5px;">
-                                <p>
-                                    Kami memiliki tenaga professional yang sudah tersertifikasi dan terlatih. Sehingga siap memberikan pelayanan yang 
-                                    maksimal untuk keamanan anda.
-                                </p>
-                            </div>
-                            <div>
-                                <a href="{{url('webginas2/layanan/outsourcing/security')}}" class="item-link" style="padding-top: 10px; margin-top:10px;">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
+                        <h2>Daftar Layanan</h2>
+                        <div style="margin-bottom: 20px;">
+                            <h4>Outsourcing</h4>
+                            <ol style="margin-left: 15px;margin-top:30px;">
+                                <li>Security</li>
+                                <li>Cleaning Service</li>
+                                <li>Driver</li>
+                                <li>Administrasi</li>
+                                <li>Help Desk</li>
+                            </ol>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4>Trading & Bussiness Retail</h4>
+                            <ol style="margin-left: 15px;margin-top:30px;">
+                                <li>Pemenuhan Keb. Barang/Jasa</li>
+                                <li>Mini Market (TJ Mart)</li>
+                                <li>Layanan Catering</li>
+                                <li>Jasa Laundry</li>
+                            </ol>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <h4>Property</h4>
+                            <ol style="margin-left: 15px;margin-top:30px;">
+                                <li>Building Maintenance</li>
+                                <li>Rental Kendaraan</li>
+                                <li>Sewa Peralatan Pesta/Wisuda</li>
+                                <li>Jasa Konstruksi</li>
+                            </ol>
                         </div>
                     </div>
-
-                    <div class="col-lg-4">
-                        <div class="border" style="padding: 10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Cleaning Services</h2></a>
-                            <div style="padding:5px 0 5px 5px;">
-                                <p>
-                                    Kami memberikan layanan pembersihan yang beragam dari mulai pembersihan fasilitas kantor, rumah sakit, pabrik, 
-                                    sekolah, bank, dan fasilitas lainnya termasuk eksterior gedung.
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4" style="margin-top: 10px;">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4" style="margin-top: 10px;">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {{-- 
-
-                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 border" style="margin: 0 25px 0px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </section>
-        <!-- End List Layanan-->
+        <!-- End Berita -->
 
         <!-- Contact -->
         <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
