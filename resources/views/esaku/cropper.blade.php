@@ -25,7 +25,6 @@
 img {
 
   display: block;
-
   max-width: 100%;
 
 }
@@ -33,13 +32,9 @@ img {
 .preview {
 
   overflow: hidden;
-
   width: 450px; 
-
   height: 100px;
-
   margin: 10px;
-
   border: 1px solid red;
 
 }
