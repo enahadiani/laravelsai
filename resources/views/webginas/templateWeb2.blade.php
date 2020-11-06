@@ -90,6 +90,15 @@
             width: 200px !important;
             margin-left: 50px !important;
         }
+        span.counter-klien::after{
+            content: '+';
+        }
+        span.counter-nilai::after{
+            content: ' M+';
+        }
+        span.counter-nilai::before{
+            content: 'Rp ';
+        }
     </style>
 </head>
 
@@ -260,19 +269,21 @@
 
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="border" style="padding: 0;">
-                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
-                                <h4 style="color:white;">Outsourcing</h4>
+                        <a href="{{url('webginas2/layanan/outsourcing')}}">
+                            <div class="border" style="padding: 0;">
+                                <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                                    <h4 style="color:white;">Outsourcing</h4>
+                                </div>
+                                <div style="padding:15px 0 30px 10px;">
+                                    <ol style="margin-left: 20px;">
+                                        <li>Security</li>
+                                        <li>Cleaning Service</li>
+                                        <li>Driver</li>
+                                        <li>Help Desk</li>
+                                    </ol>
+                                </div>
                             </div>
-                            <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;">
-                                    <li>Security</li>
-                                    <li>Cleaning Service</li>
-                                    <li>Driver</li>
-                                    <li>Help Desk</li>
-                                </ol>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-4">
                         <div class="border" style="padding: 0;">
@@ -312,33 +323,39 @@
         <!-- Mengapa memilih kami -->
         <section class="p-t-100 p-b-100" data-bg-parallax="{{ asset('asset_web/homepages/parallax/4.jpg') }}">
              <div class="bg-overlay"></div>
-             <div class="container xs-text-center sm-text-center text-light">
-                 <div class="row">
-                     <div class="col-lg-5 p-b-60">
-                         <h2>Mengapa memilih<br>kami?</h2>
-                         <p class="lead">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata.</p>
-                         <a href="#services" class="btn btn-light btn-outline btn-rounded">Our Services</a>
-                     </div>
-                     <div class="col-lg-7">
-                         <div class="row">
-                             <div class="col-lg-6">
-                                 <div class="text-center">
-                                     <div class="counter text-lg"> <span data-speed="3000" data-refresh-interval="50" data-to="202" data-from="10" data-seperator="true"></span> </div>
-                                     <div class="seperator seperator-small"></div>
-                                     <p>Klien Aktif</p>
-                                 </div>
-                             </div>
-                             <div class="col-lg-6">
-                                 <div class="text-center">
-                                     <div class="counter text-lg"> <span data-speed="4500" data-refresh-interval="23" data-to="3000" data-from="100" data-seperator="true"></span> </div>
-                                     <div class="seperator seperator-small"></div>
-                                     <p>Outsourcing Aktif</p>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
+                <div class="container xs-text-center sm-text-center text-light">
+                    <div class="row">
+                        <div class="col-lg-5 p-b-60">
+                            <h2>Mengapa memilih<br>kami?</h2>
+                            <p class="lead">Kami selalu meningkatkan mutu, inovatif, dan kerjasama strategis untuk memberikan kepuasan kepada pelanggan</p>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="text-center">
+                                        <div class="counter text-lg"> 
+                                            <span  class="counter-klien" data-speed="3000" data-refresh-interval="50" data-to="35" data-from="10" data-seperator="true"></span> 
+                                        </div>
+                                        <p>Klien Aktif</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="text-center">
+                                        <div class="counter text-lg"> <span data-speed="4500" data-refresh-interval="23" data-to="2500" data-from="100" data-seperator="true"></span> </div>
+                                        <p>Outsourcing Aktif</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div style="margin-left:115px;">
+                                        <div class="counter text-lg"> <span class="counter-nilai" data-speed="1500" data-refresh-interval="23" data-to="2" data-from="0" data-seperator="true"></span> </div>
+                                        <p>Nilai kemampuan pelaksanaan proyek</p>
+                                        <p>Nilai kemampuan pemenuhan barang jasa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </section>
         <!-- end: Mengapa memilih kami -->
 
@@ -356,8 +373,8 @@
 
                             <!-- Testimonials item -->
                             <div class="testimonial-item">
-                                <img src="images/team/6.jpg" alt="">
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.</p>
+                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
+                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
                                 <span>Budi Laksmana</span>
                                 <span>Direktur PT XYZ</span>
                             </div>
@@ -365,19 +382,19 @@
 
                             <!-- Testimonials item -->
                             <div class="testimonial-item">
-                                <img src="images/team/7.jpg" alt="">
-                                <p>Polo is by far the most amazing template out there! I literally could not be happier that I chose to buy this template!</p>
-                                <span>Alan Monre</span>
-                                <span>CEO, Square Software</span>
+                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
+                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
+                                <span>Budi Laksmana</span>
+                                <span>Direktur PT XYZ</span>
                             </div>
                             <!-- end: Testimonials item-->
 
                             <!-- Testimonials item -->
                             <div class="testimonial-item">
-                                <img src="images/team/8.jpg" alt="">
-                                <p>The world is a dangerous place to live; not because of the people who are evil, but because of the people who don't do anything about it.</p>
-                                <span>Alan Monre</span>
-                                <span>CEO, Square Software</span>
+                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
+                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
+                                <span>Budi Laksmana</span>
+                                <span>Direktur PT XYZ</span>
                             </div>
                             <!-- end: Testimonials item-->
 
@@ -394,48 +411,48 @@
             <div class="container">
                 <div class="heading-text heading-section text-center">
                     <h2>Klien Kami</h2>
-                    <span class="lead">Klien yang sudah mempercayai untuk bekerjasama dengan kami.! </span>
+                    <span class="lead">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </span>
                 </div>
 
                 <ul class="grid grid-5-columns">
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle7.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/Telkom.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle8.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bpjs.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle9.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bri.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle10.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/mandiri.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle11.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bni.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle12.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/kai.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle13.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/toyota.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle14.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/oto.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle15.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/adira.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('asset_web/homepages/client/Rectangle16.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/auto.jpg') }}" alt="">
                         </a>
                     </li>
                 </ul>
