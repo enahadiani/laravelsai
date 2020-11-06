@@ -130,10 +130,10 @@
                 'className': 'text-center',
                 'render': function ( data, type, row, meta ) {
                     if(row.status == '1'){
-                        return "<a href='#' title='Not OK'><i class='simple-icon-close'></i></a>";
+                        return "<a href='#' title='Not OK'><i class='simple-icon-exclamation' style='font-size:18px'></i></a>";
                         
                     }else{
-                        return "<a href='#' title='OK'><i class='simple-icon-check'></i></a>";
+                        return "<a href='#' title='OK'><i class='simple-icon-check' style='font-size:18px'></i></a>";
                     }
                 }
             }
