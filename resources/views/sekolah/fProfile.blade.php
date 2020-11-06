@@ -291,10 +291,10 @@ function loadService(index,method,url,param={}){
 
                     if(result.data[0].background == "-" || result.data[0].background == "" || result.data[0].background == undefined){
 
-                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />`;
+                        var background = `<img class="social-header card-img" style="height:200px;" src="{{ asset('/img/gambar2.jpg') }}" />`;
                     }else{
                         var foto = "{{ config('api.url').'sekolah/storage' }}/"+result.data[0].background;
-                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="`+foto+`" />`;
+                        var background = `<img class="social-header card-img" style="height:200px;" src="`+foto+`" />`;
                     }
 
                     $('.nama').html(result.data[0].nama);
