@@ -487,6 +487,14 @@
                 if(result.status){
                     if(typeof result.detail !== 'undefined' && result.detail.length>0){
                         dataTable.rows.add(result.detail).draw(false);
+                        
+                        $('#btn-save').removeClass('disabled');
+                        $('#btn-save').prop('disabled', false);
+                    }else{
+                        if(!$('#btn-save').hasClass('disabled')){
+                            $('#btn-save').addClass('disabled');
+                            $('#btn-save').prop('disabled', true);
+                        }
                     }  
                     $('#modal-import').modal('hide');
                 }
