@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ asset('profile.css') }}" />
-<link rel="stylesheet" href="{{ asset('asset_dore/css/croppie.css') }}" />
+<link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/cropper.min.css') }}" />
 <div class="row" id="page-profile">
     <div class="col-12">
         <div class="row" >
@@ -124,84 +124,71 @@
     </div>
 </div>
 
-<div id="uploadimageModal" class="modal" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Crop &amp; Upload <span id="judul-upload"></span></h4>
-            <button type="button" class="close" data-dismiss="modal" >
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row">
-               <div class="col-md-12 text-center">
-                   <input type="hidden" id="tipe_upload">
-                  <div id="image_demo"></div>
-               </div>
+<div class="modal fade modal-right" id="modalPhoto" tabindex="-1" role="dialog"
+aria-labelledby="modalPhoto" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header pb-0" style="border:none">
+                <h5 class="modal-title pl-0"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-success crop_image">Crop &amp; Upload</button>
-         </div>
-      </div>
-   </div>
+            <form id="formPhoto" >
+                <div class="modal-body" style="border:none">
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <input type="file" name ="foto" class="form-control" placeholder="">
+                        <input type="hidden" id="id_foto" class="form-control" placeholder="" value="foto">
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div id="uploadbgModal" class="modal" role="dialog">
-   <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Crop &amp; Upload <span id="judul-upload-bg"></span></h4>
-            <button type="button" class="close" data-dismiss="modal" >
-                <span aria-hidden="true">&times;</span>
-                <span class="sr-only">Close</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row">
-               <div class="col-md-12 text-center">
-                  <input type="hidden" id="tipe_upload-bg">
-                  <div id="image_bg"></div>
-               </div>
+<!-- MODAL EDITOR IMAGE -->
+<div class="modal fade" id="modalEditor" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Crop Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-success crop_image_bg">Crop &amp; Upload</button>
-         </div>
-      </div>
-   </div>
+            <div class="modal-body">
+                <input type="hidden" id="tipe_upload">
+                <div class="img-container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <img id="image" src="">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="preview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- END MODAL -->
 
-<script src="{{ asset('asset_dore/js/croppie.min.js') }}"></script>
+<script src="{{ asset('asset_dore/js/vendor/cropper.min.js') }}"></script>
 <script>
 
-$image_crop = $('#image_demo').croppie({
-    enableExif: true,
-    viewport: {
-        width:250,
-        height:250,
-        type:'circle'
-    },
-    boundary:{
-        width:300,
-        height:300
-    }
-});
 
-$image_crop_bg = $('#image_bg').croppie({
-    enableExif: true,
-    viewport: {
-        width:800,
-        height:180,
-        type:'square'
-    },
-    boundary:{
-        width:900,
-        height:200
-    }
-});
+var $modal = $('#modalEditor');
+var image = document.getElementById('image');
+var cropper;
 
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
@@ -272,10 +259,10 @@ function loadService(index,method,url,param={}){
 
                     if(result.data[0].background == "-" || result.data[0].background == "" || result.data[0].background == undefined){
 
-                        var background = `<img class="social-header card-img" style="height:200px;" src="{{ asset('/img/gambar2.jpg') }}" />`;
+                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />`;
                     }else{
                         var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data[0].background;
-                        var background = `<img class="social-header card-img" style="height:200px;" src="`+foto+`" />`;
+                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="`+foto+`" />`;
                     }
 
                     $('#foto').html(img);
@@ -386,25 +373,105 @@ $('#form-ubahPass').on('submit', function(e){
 
 $('#file-foto').change(function(e){
     e.preventDefault();
-    var reader = new FileReader();
-    reader.onload = function (event) {
-      $image_crop.croppie('bind', {
-        url: event.target.result
-      }).then(function(){
-        console.log('jQuery bind complete');
-      });
+    // var foto = document.getElementById("file-foto").files[0];
+    // var name = foto.name;
+    // var form_data = new FormData();
+    // var ext = name.split('.').pop().toLowerCase();
+    // if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    // {
+    //     alert("Invalid Image File");
+    // }
+    // var oFReader = new FileReader();
+    // oFReader.readAsDataURL(foto);
+    // var f = foto;
+    // var fsize = f.size||f.fileSize;
+    // if(fsize > 3000000)
+    // {
+    //     alert("Image File Size is very big");
+    // }
+    // else
+    // {
+    //     form_data.append("foto", foto);
+    //     $.ajax({
+    //         url:"{{ url('esaku-auth/update-foto') }}",
+    //         method:"POST",
+    //         data: form_data,
+    //         async: false,
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false, 
+    //         beforeSend:function(){
+    //             // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    //         },   
+    //         success:function(result){
+    //             if(result.data.status){
+    //                 alert('Update foto sukses!');
+    //                 var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
+    //                 $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' >");
+    //                 loadForm("{{url('esaku-auth/form/fProfile')}}");
+
+    //                 $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" />`);
+                            
+    //             }
+    //             else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    //             }
+    //             else{
+    //                 alert(result.data.message);
+    //             }
+    //         },
+    //         fail: function(xhr, textStatus, errorThrown){
+    //             alert('request failed:'+textStatus);
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {       
+    //             if(jqXHR.status==422){
+    //                 alert(jqXHR.responseText);
+    //             }
+    //         }
+    //     });
+    // }
+    var files = e.target.files;
+    var done = function (url) {
+        image.src = url;
+        $('#tipe_upload').val('foto');
+        $modal.modal('show');
+    };
+    
+    var reader;
+    var file;
+    var url;
+    
+    if (files && files.length > 0) {
+        file = files[0];
+    
+        if (URL) {
+            done(URL.createObjectURL(file));
+        } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     }
-    reader.readAsDataURL(this.files[0]);
-    $('#tipe_upload').val('foto');
-    $('#judul-upload').html('Foto');
-    $('#uploadimageModal').modal('show');
+
 });
 
-$('.crop_image').click(function(event){
-    $image_crop.croppie('result', {
-        type: 'blob',
-        size: 'viewport'
-    }).then(function(response){
+$modal.on('shown.bs.modal', function () {
+    cropper = new Cropper(image, {
+        // aspectRatio: ,
+        viewMode: 1,
+        preview: '.preview'
+    });
+}).on('hidden.bs.modal', function () {
+    cropper.destroy();
+    cropper = null;
+});
+
+
+$("#crop").click(function(){
+
+    cropper.getCroppedCanvas().toBlob((blob) => {
         var formData = new FormData();
         var tipe = $('#tipe_upload').val();
         if(tipe == 'foto'){
@@ -412,24 +479,25 @@ $('.crop_image').click(function(event){
         }else{
             var toUrl = "{{ url('esaku-auth/update-background') }}";
         }
-        formData.append('foto', response, 'profile.png');
-        $.ajax({
-            url : toUrl,
+        // Pass the image file name as the third parameter if necessary.
+        formData.append('foto', blob, 'profile.png' );
+
+        // Use `jQuery.ajax` method for example
+        $.ajax(toUrl, {
             method: 'POST',
             data: formData,
             processData: false,
             contentType: false,
-            success:function(result)
-            {
+            success:function(result){
                 if(result.data.status){
-                    $('#uploadimageModal').modal('hide');
-                    
+
+                    $modal.modal('hide');
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
                         var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
                         loadForm("{{url('esaku-auth/form/fProfile')}}");
-                        
+    
                         $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" style='width:40px;height:40px'/>`);
                     }else{
                         alert('Update background sukses!');
@@ -451,82 +519,91 @@ $('.crop_image').click(function(event){
                     alert(jqXHR.responseText);
                 }
             }
-        })
-    })
-});
+        });
+    }, 'image/png');
+})
 
 
 $('#file-background').change(function(e){
     e.preventDefault();
-    var reader = new FileReader();
-    reader.onload = function (event) {
-      $image_crop_bg.croppie('bind', {
-        url: event.target.result
-      }).then(function(){
-        console.log('jQuery bind complete');
-      });
-    }
-    reader.readAsDataURL(this.files[0]);
-    $('#tipe_upload-bg').val('background');
-    $('#judul-upload-bg').html('Background');
-    $('#uploadbgModal').modal('show');
-});
+    // var foto = document.getElementById("file-background").files[0];
+    // var name = foto.name;
+    // var form_data = new FormData();
+    // var ext = name.split('.').pop().toLowerCase();
+    // if(jQuery.inArray(ext, ['png','jpg','jpeg']) == -1) 
+    // {
+    //     alert("Invalid Image File");
+    // }
+    // var oFReader = new FileReader();
+    // oFReader.readAsDataURL(foto);
+    // var f = foto;
+    // var fsize = f.size||f.fileSize;
+    // if(fsize > 3000000)
+    // {
+    //     alert("Image File Size is very big");
+    // }
+    // else
+    // {
+    //     form_data.append("foto", foto);
+    //     $.ajax({
+    //         url:"{{ url('esaku-auth/update-background') }}",
+    //         method:"POST",
+    //         data: form_data,
+    //         async: false,
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false, 
+    //         beforeSend:function(){
+    //             // $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+    //         },   
+    //         success:function(result){
+    //             if(result.data.status){
+    //                 alert('Update foto sukses!');
+    //                 loadForm("{{url('esaku-auth/form/fProfile')}}");
+    //             }
+    //             else if(!result.data.status && result.data.message == 'Unauthorized'){
+    //                 window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    //             }
+    //             else{
+    //                 alert(result.data.message);
+    //             }
+    //         },
+    //         fail: function(xhr, textStatus, errorThrown){
+    //             alert('request failed:'+textStatus);
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {       
+    //             if(jqXHR.status==422){
+    //                 alert(jqXHR.responseText);
+    //             }
+    //         }
+    //     });
+    // }
 
-$('.crop_image_bg').click(function(event){
-    $image_crop_bg.croppie('result', {
-        type: 'blob',
-        size: 'viewport'
-    }).then(function(response){
-        var formData = new FormData();
-        var tipe = $('#tipe_upload-bg').val();
-        if(tipe == 'foto'){
-            var toUrl = "{{ url('esaku-auth/update-foto') }}";
-        }else{
-            var toUrl = "{{ url('esaku-auth/update-background') }}";
+    var files = e.target.files;
+    var done = function (url) {
+        image.src = url;
+        $('#tipe_upload').val('background');
+        $modal.modal('show');
+    };
+    
+    var reader;
+    var file;
+    var url;
+    
+    if (files && files.length > 0) {
+        file = files[0];
+    
+        if (URL) {
+            done(URL.createObjectURL(file));
+        } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
-        formData.append('foto', response, 'profile.png');
-        $.ajax({
-            url : toUrl,
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success:function(result)
-            {
-                if(result.data.status){
-                    $('#uploadbgModal').modal('hide');
-                    
-                    if(tipe == 'foto'){
-                        alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
-                        $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
-                        loadForm("{{url('esaku-auth/form/fProfile')}}");
-                        
-                        $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" style='width:40px;height:40px'/>`);
-                    }else{
-                        alert('Update background sukses!');
-                        loadForm("{{url('esaku-auth/form/fProfile')}}");
-                    }
-                }
-                else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
-                }
-                else{
-                    alert(result.data.message);
-                }
-            },
-            fail: function(xhr, textStatus, errorThrown){
-                alert('request failed:'+textStatus);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {       
-                if(jqXHR.status==422){
-                    alert(jqXHR.responseText);
-                }
-            }
-        })
-    })
+    }
 });
-
 
 $('#editPassword').click(function(){
     $('#page-profile').hide();
