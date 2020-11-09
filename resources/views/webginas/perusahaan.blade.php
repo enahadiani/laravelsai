@@ -53,7 +53,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="index.html">
-                            <span class="watch-class white"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
+                            <span class="watch-class white" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
                         </a>
                     </div>
                     <!--End: Logo-->
