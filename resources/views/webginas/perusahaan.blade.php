@@ -31,6 +31,15 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .misi-box{
+            background-color: #DD1F1A;
+            height:400px;
+        }
+        @media (max-width: 768px) {
+            .misi-box {
+                height: 500px;
+            }
+        }
     </style>
 </head>
 
@@ -193,7 +202,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6" style="background-color: #DD1F1A;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
+                <div class="col-lg-6 misi-box" data-animate="fadeInUp" data-animate-delay="300">
                     <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Misi</h2>
                     <p class="white" style="padding:0 40px 40px 100px;">
                         1. Menyelenggarakan jasa outsourcing dengan cara menyalurkan dan menempatkan tenaga kerja secara
