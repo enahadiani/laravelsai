@@ -90,6 +90,11 @@
             width: 200px !important;
             margin-left: 50px !important;
         }
+        h2.client::before{
+            background-color: #DD1F1A !important;
+            width: 200px !important;
+            margin-left: 30px !important;
+        
         span.counter-klien::after{
             content: '+';
         }
@@ -410,7 +415,7 @@
         <section>
             <div class="container">
                 <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
-                    <h2>Klien Kami</h2>
+                    <h2 class="client">Klien Kami</h2>
                 </div>
                 <p class="lead text-center" style="margin-top: -90px;padding-bottom:25px;">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </p>
                 <ul class="grid grid-5-columns">
