@@ -12,7 +12,7 @@
                     <div class="separator"></div>
                     <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
                         <div class="card" style='border-radius:0'>
-                            <div class="card-body">
+                            <div class="card-body pb-0">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
@@ -22,9 +22,9 @@
                                                 <select name="tahun" id="tahun">
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-md-9 col-sm-12">
                                                 <label for="keterangan" >Keterangan</label>
-                                                <textarea id="keterangan" name="keterangan" class="form-control" rows="4"></textarea>
+                                                <textarea id="keterangan" name="keterangan" class="form-control" rows="1"></textarea>
                                             </div>
                                         </div>
                                     </div>
