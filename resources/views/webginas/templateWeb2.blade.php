@@ -94,7 +94,7 @@
             background-color: #DD1F1A !important;
             width: 200px !important;
             margin-left: 30px !important;
-        
+        }
         span.counter-klien::after{
             content: '+';
         }
