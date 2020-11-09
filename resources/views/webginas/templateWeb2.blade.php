@@ -409,11 +409,10 @@
         <!-- CLIENTS -->
         <section>
             <div class="container">
-                <div class="heading-text heading-section text-center">
+                <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
                     <h2>Klien Kami</h2>
-                    <span class="lead">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </span>
                 </div>
-
+                <p class="lead text-center" style="margin-top: -110px;padding-bottom:25px;">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </p>
                 <ul class="grid grid-5-columns">
                     <li>
                         <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/Telkom.png') }}" alt="">
