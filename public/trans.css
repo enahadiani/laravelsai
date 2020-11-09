@@ -13,12 +13,13 @@ label.error{
     color:#dc3545;
     margin:0;
 }
-#table-data_paginate,#table-search_paginate
+
+#table-data_paginate,#table-search_paginate,#table-upload_paginate
 {
     margin-top:0 !important;
 }
 
-#table-data_paginate ul,#table-search_paginate ul
+#table-data_paginate ul,#table-search_paginate ul,#table-upload_paginate ul
 {
     float:right;
 }
@@ -77,11 +78,12 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     padding-right: 2px !important;
 }
 
-#table-data_filter label
+#table-data_filter label,#table-upload_filter label
 {
     width:100%;
 }
-#table-data_filter label input
+
+#table-data_filter label input, #table-upload_filter label input
 {
     width:inherit;
 }
