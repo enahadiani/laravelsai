@@ -104,6 +104,13 @@
         span.counter-nilai::before{
             content: 'Rp ';
         }
+
+        .list-submenu-text:hover {
+            color: #DD1F1A;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .list-layanan {
             color: black;
         }
@@ -189,31 +196,31 @@
                                             <li class="mega-menu-content">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <ul>
+                                                        <ul class="submenu-outsourcing">
                                                             <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
-                                                            <li><p>Security</p></li>
-                                                            <li><p>Cleaning Service</p></li>
-                                                            <li><p>Driver</p></li>
-                                                            <li><p>Administrasi</p></li>
-                                                            <li><p>Help Desk</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Security</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Cleaning Service</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <ul>
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
-                                                            <li><p>Pemenuhan Keb. Barang/Jasa</p></li>
-                                                            <li><p>Mini Market (TJ Mart)</p></li>
-                                                            <li><p>Layanan Catering</p></li>
-                                                            <li><p>Jasa Laundry</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Pemenuhan Keb. Barang/Jasa</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Layanan Catering</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Laundry</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <ul>
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
-                                                            <li><p>Building Maintenance</p></li>
-                                                            <li><p>Rental Kendaraan</p></li>
-                                                            <li><p>Sewa Peralatan Pesta/Wisuda</p></li>
-                                                            <li><p>Jasa Konstruksi</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Building Maintenance</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Rental Kendaraan</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Sewa Peralatan Pesta/Wisuda</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Konstruksi</p></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -707,6 +714,12 @@
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
             }
         });
+        $('.submenu-outsourcing').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 1) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
+            }
+        })
     </script>
 </body>
 
