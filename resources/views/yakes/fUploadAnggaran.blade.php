@@ -56,9 +56,8 @@
                                             <table id="table-data" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
-                                                    <th>No Agg</th>
-                                                    <th>Kode PP</th>
                                                     <th>Kode Akun</th>
+                                                    <th>Kode PP</th>
                                                     <th>Januari</th>
                                                     <th>Februari</th>
                                                     <th>Maret</th>
@@ -169,15 +168,14 @@
         "table-data",
         [
             {
-                'targets': [3,4,5,6,7,8,9,10,11,12,13,14],
+                'targets': [2,3,4,5,6,7,8,9,10,11,12,13],
                 'className': 'text-right',
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             }
         ],
         [
-            { data : 'no_agg'},
-            { data : 'kode_pp'},
             { data : 'kode_akun'},
+            { data : 'kode_pp'},
             { data : 'n1'},
             { data : 'n2'},
             { data : 'n3'},
