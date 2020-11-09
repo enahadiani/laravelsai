@@ -139,29 +139,37 @@
                         </div>
                     </div>
                     <div class="col-lg-4" data-animate="fadeInUp" data-animate-delay="300">
-                        <p>
-                            PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
-                            /Telkom Foundation dan didirikan berdasarkan Akta Notaris Hj. Tetty Surtiati Hidayat, SH. Nomor
-                            3 tanggal 13 Agustus 2012, yang bergerak dibidang usaha jasa Outsourcing, Trading & Bussiness Retail
-                            Property.
-                        </p>
-                        <p>
-                            Sejalan dengan perkembangan dan perubahan pasar, maka komitmen Top Management PT. Trengginas Jaya
-                            selalu berusaha meningkatkan mutu, inovatif dan kerja sama sinergis untuk memberikan kepuasan kepada
-                            pelanggan.
-                        </p>
+                        <div>
+                            <p>
+                                PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
+                                /Telkom Foundation dan didirikan berdasarkan Akta Notaris Hj. Tetty Surtiati Hidayat, SH. Nomor
+                                3 tanggal 13 Agustus 2012, yang bergerak dibidang usaha jasa Outsourcing, Trading & Bussiness Retail
+                                Property.
+                            </p>
+                        </div>
+                        <div style="margin-top: 50px;">
+                            <p>
+                                Sejalan dengan perkembangan dan perubahan pasar, maka komitmen Top Management PT. Trengginas Jaya
+                                selalu berusaha meningkatkan mutu, inovatif dan kerja sama sinergis untuk memberikan kepuasan kepada
+                                pelanggan.
+                            </p>
+                        </div>
                     </div>
                     <div class="col-lg-4" style="padding-right:10px;" data-animate="fadeInUp" data-animate-delay="300">
-                        <p>
-                            Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
-                            dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
-                            Jasa Outsourcing, Bussiness Retail, dan Property yang berpengalaman serta memiliki kompetensi
-                            dibidangnya.
-                        </p>
-                        <p>
-                            Sebagai perusahaan penyedia jasa Outsourcing Bussiness Retail & Property, PT. Trengginas Jaya
-                            memegang komitmen untuk menjaga kualitas, mengutamakan da meningkatkan kepuasan pelanggan.
-                        </p>
+                        <div>
+                            <p>
+                                Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
+                                dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
+                                Jasa Outsourcing, Bussiness Retail, dan Property yang berpengalaman serta memiliki kompetensi
+                                dibidangnya.
+                            </p>
+                        </div>
+                        <div style="margin-top: 50px;">
+                            <p>
+                                Sebagai perusahaan penyedia jasa Outsourcing Bussiness Retail & Property, PT. Trengginas Jaya
+                                memegang komitmen untuk menjaga kualitas, mengutamakan da meningkatkan kepuasan pelanggan.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,23 +180,25 @@
         <section>
             <div class="row" style="padding: 0 !important; margin: 0 !impotant;">
                 <div class="col-lg-6" style="background-color: #ff0000;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
-                    <h2 class="white" style="font-weight: bold;padding:40px 40px 0 40px">Visi</h2>
-                    <p class="white" style="padding:10px 40px 40px 40px;">
-                        Menjadi perubahan penyedia jasa Outsourcing, Trading, dan Property yang
-                        professional dan unggul dalam kualitas produk dan layanan, guna mencapai kepuasan pelanggan.
-                    </p>
+                    <div class="container">
+                        <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Visi</h2>
+                        <p class="white" style="padding:10px 40px 40px 100px;">
+                            Menjadi perubahan penyedia jasa Outsourcing, Trading, dan Property yang
+                            professional dan unggul dalam kualitas produk dan layanan, guna mencapai kepuasan pelanggan.
+                        </p>
+                    </div>
                 </div>
                 <div class="col-lg-6" style="background-color: #DD1F1A;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
-                    <h2 class="white" style="font-weight: bold;padding:40px 40px 0 40px;">Misi</h2>
-                    <p class="white" style="padding:0 40px 40px 40px;">
+                    <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Misi</h2>
+                    <p class="white" style="padding:0 40px 40px 100px;">
                         1. Menyelenggarakan jasa outsourcing dengan cara menyalurkan dan menempatkan tenaga kerja secara
                         professional sesuai dengan bidang keahliannya.
                     </p>
-                    <p class="white" style="padding:0 40px 40px 40px;">
+                    <p class="white" style="padding:0 40px 40px 100px;">
                         2. Menyelenggarakan jasa property dengan cara melaksanakan pembangunan dan pemeliharaan secara mandiri 
                         dan professional.
                     </p>
-                    <p class="white" style="padding:0 40px 40px 40px;">
+                    <p class="white" style="padding:0 40px 40px 100px;">
                         3. Menyelenggarakan pemenuhan kebutuhan barang dan jasa sesuai kebutuhan.
                     </p>
                 </div>
