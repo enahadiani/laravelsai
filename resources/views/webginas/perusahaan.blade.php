@@ -14,6 +14,12 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
+        span.lines::before {
+            background-color: white !important;
+        }
+        span.lines::after {
+            background-color: white !important;
+        }
         h2::before{
             background-color: #DD1F1A !important;
         }
@@ -39,6 +45,15 @@
             .misi-box {
                 height: 500px;
             }
+            p.list-submenu-text {
+                color: black !important;
+            }
+            .judul {
+                color: black !important;
+            }
+            .menu-prime {
+                color: black !important;
+            }
         }
     </style>
 </head>
@@ -53,12 +68,12 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="index.html">
-                            <span class="watch-class white" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
+                            <span class="watch-class white judul" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
                         </a>
                     </div>
                     <!--End: Logo-->
                     <!-- Search -->
-                    <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i class="icon-x"></i></a>
+                    <div id="search"><a id="btn-search-close" class="btn-search-close" aria-label="Close search form"><i class="icon-x black"></i></a>
                         <form class="search-form" action="search-results-page.html" method="get">
                             <input class="form-control" name="q" type="text" placeholder="Type & Search..." />
                             <span class="text-muted">Start typing & press "Enter" or "ESC" to close</span>
@@ -67,7 +82,7 @@
                     <!-- end: search -->
                     <!--Navigation Resposnive Trigger-->
                     <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
+                        <a class="lines-button x"><span class="lines" style="background-color: white;"></span></a>
                     </div>
                     <!--end: Navigation Resposnive Trigger-->
                     <!--Navigation-->
@@ -75,8 +90,8 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white" data-href="fHome">Home</a></li>
-                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white" data-href="fLayanan">Layanan</a>
+                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white menu-prime" data-href="fHome">Home</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white menu-prime" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row">
@@ -112,8 +127,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white menu-prime" data-href="fPerusahaan">Perusahaan</a></li>
+                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white menu-prime" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -340,6 +355,15 @@
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
             }
         })
+
+        // function checkPosition() {
+        //     if(window.matchMedia('(max-width: 768px)').matches) {
+        //         $('.watch-class').removeClass('white');
+        //         $('.watch-class').addClass('black');
+        //         return;
+        //     }
+        // }
+        // setInterval(checkPosition, 500);
     </script>
 </body>
 
