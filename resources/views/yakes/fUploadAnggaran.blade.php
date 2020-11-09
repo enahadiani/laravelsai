@@ -22,19 +22,15 @@
                                                 <select name="tahun" id="tahun">
                                                 </select>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <label for="keterangan" >Keterangan</label>
                                                 <textarea id="keterangan" name="keterangan" class="form-control" rows="4"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-12">
+                                </div>
                             </div>
                         </div>
                         <div class="card mt-3" style='border-top-left-radius:0;border-top-right-radius:0'>
