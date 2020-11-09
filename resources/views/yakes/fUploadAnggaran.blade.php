@@ -1,13 +1,18 @@
 
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+    <!-- LIST DATA -->
+    <x-list-data judul="Data Upload Anggaran" tambah="true" :thead="array('No Bukti','Tanggal','Keterangan','Tahun','Nilai')" :thwidth="array(15,15,40,10,20)" :thclass="array('','','','','')" />
+    <!-- END LIST DATA -->
+
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form">
+        <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px">Upload Anggaran</h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
+                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
@@ -53,7 +58,7 @@
                                             <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                         </div>
                                         <div class='col-xs-12 table-responsive' style='min-height:420px; margin:0px; padding:0px;'>
-                                            <table id="table-data" style="width:100%;">
+                                            <table id="table-upload" style="width:100%;">
                                             <thead style="background:#F8F8F8">
                                                 <tr>
                                                     <th>Kode Akun</th>
@@ -164,8 +169,30 @@
     $('[id^=label]').attr('readonly',true);
     // END 
 
-    var dataTable = generateTableWithoutAjax(
+    // LIST DATA
+    var listData = generateTable(
         "table-data",
+        "{{ url('yakes-trans/anggaran') }}", 
+        [
+            {   'targets': 4, 
+                'className': 'text-right',
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+            }
+        ],
+        [
+            { data: 'no_agg' },
+            { data: 'tanggal', render: function(data) {
+                return reverseDate2(data,'-','/');
+            } },
+            { data: 'keterangan' },
+            { data: 'tahun' },
+            { data: 'nilai' }
+        ],
+        "{{ url('yakes-auth/sesi-habis') }}"
+    );
+
+    var dataTable = generateTableWithoutAjax(
+        "table-upload",
         [
             {
                 'targets': [2,3,4,5,6,7,8,9,10,11,12,13],
@@ -202,6 +229,30 @@
         dataTable.page.len(parseInt(selText)).draw();
     });
     
+    // ACTION BUTTON FORM //
+    $('#saku-datatable').on('click', '#btn-tambah', function(){
+        $('#row-id').hide();
+        $('#method').val('post');
+        $('#judul-form').html('Upload Anggaran Penyesuaian');
+        $('#btn-update').attr('id','btn-save');
+        $('#btn-save').attr('type','submit');
+        $('#form-tambah')[0].reset();
+        $('#form-tambah').validate().resetForm();
+        $('#id').val('');
+        $('#input-grid tbody').html('');
+        $('#saku-datatable').hide();
+        $('#saku-form').show();
+    });
+
+    $('#saku-form').on('click', '#btn-kembali', function(){
+        var kode = null;
+        msgDialog({
+            id:kode,
+            type:'keluar'
+        });
+    });
+    // END ACTION BUTTON FORM //
+    
     // SIMPAN DATA
     $('#form-tambah').validate({
         ignore: [],
@@ -220,7 +271,7 @@
         submitHandler: function (form) {
 
             var formData = new FormData(form);
-            var jumdet = $('#table-data tr').length;
+            var jumdet = $('#table-upload tr').length;
             
             var param = $('#id').val();
             var id = $('#no_bukti').val();
@@ -248,6 +299,7 @@
                     processData: false, 
                     success:function(result){
                         if(result.data.status){
+                            listData.ajax.reload();
                             dataTable.clear().draw();
 
                             $('#form-tambah')[0].reset();
@@ -259,9 +311,7 @@
 
                             msgDialog({
                                 id:result.data.no_bukti,
-                                type:'sukses',
-                                title:'Sukses',
-                                text:result.data.message
+                                type:'simpan'
                             });
                         }
                         else if(!result.data.status && result.data.message === "Unauthorized"){
