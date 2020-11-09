@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <!-- <meta name="author" content="INSPIRO" /> -->
     <meta name="description" content="PT Trengginas Jaya">
@@ -103,6 +103,48 @@
         }
         span.counter-nilai::before{
             content: 'Rp ';
+        }
+        .list-layanan {
+            color: black;
+        }
+        .list-layanan:hover {
+            color: #DD1F1A;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .list-trading {
+            color: black;
+        }
+        .list-trading:hover {
+            color: #DD1F1A;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .list-property {
+            color: black;
+        }
+        .list-property:hover {
+            color: #DD1F1A;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .nilai-proyek {
+            margin-left:115px;
+        }
+
+        @media (max-width: 768px) {
+            .layanan-container {
+                margin-top: -70px;
+            }
+            .layanan-box {
+                margin: 20px;
+            }
+            .nilai-proyek {
+                margin-left: 0;
+            }
+            .berita {
+                margin: 5px;
+            }
         }
     </style>
 </head>
@@ -211,7 +253,7 @@
                 <div class="container">
                     <div class="slide-captions text-right">
                         <!-- Captions -->
-                        <span class="strong text-dark">Hello, We ar</span>
+                        <span class="strong text-dark">Hello, We are</span>
                         <h2 class="text-dark text-lg">Creative Agency</h2>
                         <a class="btn btn-dark">Get in Touch</a>
                         <!-- end: Captions -->
@@ -225,7 +267,7 @@
                 <div class="container">
                     <div class="slide-captions text-right">
                         <!-- Captions -->
-                        <span class="strong text-dark">Hello, We ar</span>
+                        <span class="strong text-dark">Hello, We are</span>
                         <h2 class="text-dark text-lg">Creative Agency</h2>
                         <a class="btn btn-dark">Get in Touch</a>
                         <!-- end: Captions -->
@@ -269,53 +311,53 @@
             <div class="container">
 
                 <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
-                    <h2>Layanan Kami</h2>
+                    <h2 class="judul-layanan">Layanan Kami</h2>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <a href="{{url('webginas2/layanan/outsourcing')}}">
-                            <div class="border" style="padding: 0;">
-                                <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                <div class="row layanan-container">
+                    <div class="col-lg-4 col-sm-12 layanan-box">
+                            <div class="border" style="padding: 0;border-radius: 15px;">
+                            <a href="{{url('webginas2/layanan/outsourcing')}}">
+                                <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
                                     <h4 style="color:white;">Outsourcing</h4>
-                                </div>
-                                <div style="padding:15px 0 30px 10px;">
-                                    <ol style="margin-left: 20px;">
-                                        <li>Security</li>
-                                        <li>Cleaning Service</li>
-                                        <li>Driver</li>
-                                        <li>Help Desk</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="border" style="padding: 0;">
-                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
-                                <h4 style="color:white;">Trading & Bussiness Retail</h4>
-                            </div>
+                                </div>    
+                            </a>
                             <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;">
-                                    <li>Pemenuhan Keb. Barang/Jasa</li>
-                                    <li>Mini Market (TJ Mart)</li>
-                                    <li>Layanan Catering</li>
-                                    <li>Jasa Laundry</li>
+                                <ol style="margin-left: 20px;" class="layanan">
+                                    <li class="list-layanan">Security</li>
+                                    <li class="list-layanan">Cleaning Service</li>
+                                    <li class="list-layanan">Driver</li>
+                                    <li class="list-layanan">Help Desk</li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="border" style="padding: 0;">
-                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;">
+                    <div class="col-lg-4 col-sm-12 layanan-box">
+                        <div class="border" style="padding: 0;border-radius: 15px;">
+                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
+                                <h4 style="color:white;">Trading & Bussiness Retail</h4>
+                            </div>
+                            <div style="padding:15px 0 30px 10px;">
+                                <ol style="margin-left: 20px;" class="trading">
+                                    <li class="list-trading">Pemenuhan Keb. Barang/Jasa</li>
+                                    <li class="list-trading">Mini Market (TJ Mart)</li>
+                                    <li class="list-trading">Layanan Catering</li>
+                                    <li class="list-trading">Jasa Laundry</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 layanan-box">
+                        <div class="border" style="padding: 0;border-radius: 15px;">
+                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
                                 <h4 style="color:white;">Property</h4>
                             </div>
                             <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;">
-                                    <li>Building Maintenance</li>
-                                    <li>Rental Kendaraan</li>
-                                    <li>Sewa Peralatan Pesta/Wisuda</li>
-                                    <li>Jasa Konstruksi</li>
+                                <ol style="margin-left: 20px;" class="property">
+                                    <li class="list-property">Building Maintenance</li>
+                                    <li class="list-property">Rental Kendaraan</li>
+                                    <li class="list-property">Sewa Peralatan Pesta/Wisuda</li>
+                                    <li class="list-property">Jasa Konstruksi</li>
                                 </ol>
                             </div>
                         </div>
@@ -351,10 +393,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div style="margin-left:115px;">
+                                    <div class="nilai-proyek">
                                         <div class="counter text-lg"> <span class="counter-nilai" data-speed="1500" data-refresh-interval="23" data-to="2" data-from="0" data-seperator="true"></span> </div>
-                                        <p>Nilai kemampuan pelaksanaan proyek</p>
-                                        <p>Nilai kemampuan pemenuhan barang jasa</p>
+                                        <div class="keterangan-proyek">
+                                            <p>Nilai kemampuan pelaksanaan proyek</p>
+                                            <p>Nilai kemampuan pemenuhan barang jasa</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -477,7 +521,7 @@
                 <div id="blog" class="grid-layout post-3-columns m-b-30" data-item="post-item">
 
                     <!-- Post item-->
-                    <div class="post-item border">
+                    <div class="post-item border berita">
                         <div class="post-item-wrap">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/isi-berita')}}">
@@ -498,7 +542,7 @@
                     <!-- end: Post item-->
 
                     <!-- Post item-->
-                    <div class="post-item border">
+                    <div class="post-item border berita">
                         <div class="post-item-wrap">
                             <div class="post-image">
                                 <a href="#">
@@ -521,7 +565,7 @@
 
 
                     <!-- Post item-->
-                    <div class="post-item border">
+                    <div class="post-item border berita">
                         <div class="post-item-wrap">
                             <div class="post-image">
                                 <a href="#">
@@ -656,6 +700,14 @@
     <script src="{{ asset('asset_web/js/plugins.js') }}"></script>
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
+    <script type="text/javascript">
+        $('.layanan').on('click', '.list-layanan', function(){
+            var idx = $(this).index();
+            if(idx === 0) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
+            }
+        });
+    </script>
 </body>
 
 </html>
