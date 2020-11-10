@@ -333,7 +333,7 @@ $.dore = function (element, options) {
     var separatorColor = rootStyle.getPropertyValue("--separator-color").trim();
 
     /* 03.02. Resize */
-    var subHiddenBreakpoint = 1440;
+    var subHiddenBreakpoint = 5000;
     var searchHiddenBreakpoint = 768;
     var menuHiddenBreakpoint = 768;
 
