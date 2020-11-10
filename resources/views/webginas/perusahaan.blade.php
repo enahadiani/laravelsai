@@ -39,10 +39,10 @@
             background-color: black;
         }
         .white {
-            color: white;
+            color: white !important;
         }
         .black{
-            color: black;
+            color: black !important;
         }
         .list-submenu-text:hover {
             color: #DD1F1A;
