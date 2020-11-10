@@ -14,6 +14,18 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
+        span.lines::before {
+            background-color: white;
+        }
+        span.lines::after {
+            background-color: white
+        }
+        span.lines.close::before {
+            background-color: black;
+        }
+        span.lines.close::after {
+            background-color: black
+        }
         h2::before{
             background-color: #DD1F1A !important;
         }
@@ -34,6 +46,23 @@
             font-weight: bold;
             cursor: pointer;
         }
+        @media (max-width: 768px) {
+            .misi-box {
+                height: 500px;
+            }
+            p.list-submenu-text {
+                color: black !important;
+            }
+            .white {
+                color: white !important;
+            }
+            .black{
+                color: black !important;
+             }
+            .menu-prime {
+                color: black !important;
+            }
+        }
     </style>
 </head>
 
@@ -47,7 +76,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="index.html">
-                            <span class="watch-class white" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
+                            <span class="watch-class white judul" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
                         </a>
                     </div>
                     <!--End: Logo-->
@@ -61,7 +90,7 @@
                     <!-- end: search -->
                     <!--Navigation Resposnive Trigger-->
                     <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
+                        <a class="lines-button x open-menu"><span class="lines background-white"></span></a>
                     </div>
                     <!--end: Navigation Resposnive Trigger-->
                     <!--Navigation-->
@@ -69,8 +98,8 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white" data-href="fHome">Home</a></li>
-                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white" data-href="fLayanan">Layanan</a>
+                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white menu-prime" data-href="fHome">Home</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white menu-prime" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row">
@@ -106,8 +135,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white menu-prime" data-href="fPerusahaan">Perusahaan</a></li>
+                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white menu-prime" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -309,12 +338,14 @@
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
         function checkHeader(){
-            if($('#header').hasClass('sticky-active')) {
-                $('.watch-class').removeClass('white');
-                $('.watch-class').addClass('black');                
-            } else {
-                $('.watch-class').removeClass('black');
-                $('.watch-class').addClass('white');
+            if($(window).width() > 768) {
+                if($('#header').hasClass('sticky-active')) {
+                    $('.watch-class').removeClass('white');
+                    $('.watch-class').addClass('black');                
+                } else {
+                    $('.watch-class').removeClass('black');
+                    $('.watch-class').addClass('white');
+                }
             }
         }
         setInterval(checkHeader, 500);
@@ -323,6 +354,19 @@
             var idx = $(this).index();
             if(idx === 1) {
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
+            }
+        })
+
+        $('.open-menu').click(function(){
+            var children = $(this).children();
+            children.toggleClass('close');
+            var judul = $('.judul');
+            if(judul.hasClass('white')) {
+                judul.removeClass('white');
+                judul.addClass('black');
+            } else {
+                judul.removeClass('black');
+                judul.addClass('white');
             }
         })
     </script>
