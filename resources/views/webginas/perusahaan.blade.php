@@ -15,10 +15,16 @@
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
         span.lines::before {
-            background-color: white !important;
+            background-color: white;
         }
         span.lines::after {
-            background-color: white !important;
+            background-color: white
+        }
+        span.lines.close::before {
+            background-color: black;
+        }
+        span.lines.close::after {
+            background-color: black
         }
         h2::before{
             background-color: #DD1F1A !important;
@@ -26,11 +32,17 @@
         header.sticky-active > .header-inner > .container > #logo > a > span.name {
             color: black !important;
         }
+        .background-white {
+            background-color: white;
+        }
+        .background-black {
+            background-color: black;
+        }
         .white {
-            color: white !important;
+            color: white;
         }
         .black{
-            color: black !important;
+            color: black;
         }
         .list-submenu-text:hover {
             color: #DD1F1A;
@@ -48,9 +60,12 @@
             p.list-submenu-text {
                 color: black !important;
             }
-            .judul {
-                color: black !important;
+            .white {
+                color: white !important;
             }
+            .black{
+                color: black !important;
+             }
             .menu-prime {
                 color: black !important;
             }
@@ -82,7 +97,7 @@
                     <!-- end: search -->
                     <!--Navigation Resposnive Trigger-->
                     <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines" style="background-color: white;"></span></a>
+                        <a class="lines-button x open-menu"><span class="lines background-white"></span></a>
                     </div>
                     <!--end: Navigation Resposnive Trigger-->
                     <!--Navigation-->
@@ -339,12 +354,14 @@
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
         function checkHeader(){
-            if($('#header').hasClass('sticky-active')) {
-                $('.watch-class').removeClass('white');
-                $('.watch-class').addClass('black');                
-            } else {
-                $('.watch-class').removeClass('black');
-                $('.watch-class').addClass('white');
+            if($(window).width() > 768) {
+                if($('#header').hasClass('sticky-active')) {
+                    $('.watch-class').removeClass('white');
+                    $('.watch-class').addClass('black');                
+                } else {
+                    $('.watch-class').removeClass('black');
+                    $('.watch-class').addClass('white');
+                }
             }
         }
         setInterval(checkHeader, 500);
@@ -356,14 +373,18 @@
             }
         })
 
-        // function checkPosition() {
-        //     if(window.matchMedia('(max-width: 768px)').matches) {
-        //         $('.watch-class').removeClass('white');
-        //         $('.watch-class').addClass('black');
-        //         return;
-        //     }
-        // }
-        // setInterval(checkPosition, 500);
+        $('.open-menu').click(function(){
+            var children = $(this).children();
+            children.toggleClass('close');
+            var judul = $('.judul');
+            if(judul.hasClass('white')) {
+                judul.removeClass('white');
+                judul.addClass('black');
+            } else {
+                judul.removeClass('black');
+                judul.addClass('white');
+            }
+        })
     </script>
 </body>
 
