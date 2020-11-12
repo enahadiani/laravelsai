@@ -55,17 +55,40 @@ class BannerController extends Controller {
     }
 
     public function store(Request $request) {
+        $this->validate($request,[
+            'gambarke' => 'required|array',
+            'file_gambar.*' => 'image|mimes:jpeg,png,jpg'
+        ]);
+
         try {
-            if(count($request->file_gambar) > 0) {
-                for($i=0;$i<count($request->file_gambar);$i++) {
-                    $upload[] = array(
-                        'name' => 'file_gambar',
-                        'filename' => $request->file('file_gambar')[$i]->getClientOriginalName(),
-                        'Mime-Type' => $request->file('file_gambar')[$i]->getmimeType(),
-                        'contents' => fopen($request->file('file_gambar')[$i]->getPathname(), 'r')
-                    );
+            $fields_foto = array();
+            $fields_gambarke = array();
+            $send_data = array();
+            $cek = $request->file_gambar;
+            if(!empty($cek)){
+                if(count($request->gambarke) > 0){
+                    for($i=0;$i<count($request->gambarke);$i++) {
+                        if(isset($request->file('file_gambar')[$i])){
+                            $image_path = $request->file('file_gambar')[$i]->getPathname();
+                            $image_mime = $request->file('file_gambar')[$i]->getmimeType();
+                            $image_org  = $request->file('file_gambar')[$i]->getClientOriginalName();
+                            $fields_foto[$i] = array(
+                                'name'     => 'file_gambar['.$i.']',
+                                'filename' => $image_org,
+                                'Mime-Type'=> $image_mime,
+                                'contents' => fopen( $image_path, 'r' ),
+                            );
+                            
+                        }
+                        $fields_gambarke[$i] = array(
+                            'name'     => 'gambarke[]',
+                            'contents' => $request->gambarke[$i],
+                        );
+        
+                    }
+                    $send_data = array_merge($send_data,$fields_foto);
+                    $send_data = array_merge($send_data,$fields_gambarke);
                 }
-                $data = $upload;
             }
 
             $client = new Client();
@@ -74,19 +97,21 @@ class BannerController extends Controller {
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'multipart' => $data
+                'multipart' => $send_data
             ]);
+
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();        
-                $data = $response_data;//json_decode($response_data,true);
-                return response()->json(['data' => $data], 200);  
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);   
             }
 
-        } catch (\Throwable $ex) {
-            $response = $ex;
-            // $res = json_decode($response->getBody(),true);
-            return $response;
-            // return response()->json(['message' => $res, 'status'=>false], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
         }
     }
 }
