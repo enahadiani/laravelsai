@@ -404,8 +404,10 @@
                             </div>
                         </div>
                         <div class="row form-group">
-                            <label for="isi_berita">Isi Berita</label>
-                            <textarea name="isi_berita" id="editor" rows="10" cols="80"></textarea>
+                            <div class="col-md-6 col-sm-12">
+                                <label for="isi_berita">Isi Berita</label>
+                                <textarea class="form-control" name="isi_berita" id="editor" rows="10" cols="80"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
