@@ -399,13 +399,18 @@
                                         <p>Outsourcing Aktif</p>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <div class="nilai-proyek">
+                                <div class="col-lg-12" style="padding-bottom: 10px;">
+                                    <div class="nilai-proyek" style="margin-bottom: 40px;">
                                         <div class="counter text-lg"> <span class="counter-nilai" data-speed="1500" data-refresh-interval="23" data-to="2" data-from="0" data-seperator="true"></span> </div>
                                         <div class="keterangan-proyek">
                                             <p>Nilai kemampuan pelaksanaan proyek</p>
                                             <p>Nilai kemampuan pemenuhan barang jasa</p>
                                         </div>
+                                    </div>
+                                    <div style="position: absolute;margin-left:110px;display:flex;">
+                                        <img style="margin-right: 20px;" src="{{ asset('asset_web/homepages/iso/ISO 90012015.png') }}" height="100" width="100" />
+                                        <img style="margin-right: 20px;" src="{{ asset('asset_web/homepages/iso/Logo-ISO-14001.png') }}" height="100" width="100" />
+                                        <img src="{{ asset('asset_web/homepages/iso/ISO 45001 Logo.png') }}" height="100" width="90" />
                                     </div>
                                 </div>
                             </div>
