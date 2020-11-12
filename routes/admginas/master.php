@@ -44,7 +44,7 @@ Route::post('menu-web-move','AdmGinas\MenuWebController@simpanMove');
 
 // Data Banner //
 Route::get('banner', 'AdmGinas\BannerController@index');
-Route::get('galeri/{id}', 'AdmGinas\GaleriController@show');
+Route::get('banner/{id}', 'AdmGinas\BannerController@show');
 Route::post('banner', 'AdmGinas\BannerController@store');
 Route::post('galeri/{id}', 'AdmGinas\GaleriController@update');
 Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');

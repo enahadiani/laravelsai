@@ -723,4 +723,46 @@
                 $("label[for="+id+"]").append(error);
             }
         });
+
+        $('#table-data tbody').on('click','td',function(e){
+        if($(this).index() != 1){
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            var data = dataTable.row(this).data();
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('admginas-master/banner') }}/" + id,
+                dataType:"JSON",
+                success: function(result) {
+                    console.log(result)
+                    var html = `<tr>
+                        <td style='border:none'>ID Banner</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Banner 1</td>
+                        <td>
+                            <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[0].file_gambar} />
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>Banner 2</td>
+                        <td>
+                            <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[1].file_gambar} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Banner 3</td>
+                        <td>
+                            <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[2].file_gambar} />
+                        </td>
+                    </tr>             
+                `;
+                    $('#table-preview tbody').html(html);
+                
+                    $('#modal-preview-id').text(id);
+                    $('#modal-preview').modal('show');
+                }
+            })
+        }
+    });
     </script>
