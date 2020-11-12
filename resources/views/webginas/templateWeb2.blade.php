@@ -476,43 +476,115 @@
                 <p class="lead text-center" style="margin-top: -90px;padding-bottom:25px;">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </p>
                 <ul class="grid grid-5-columns">
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/Telkom.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkom.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bpjs.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBpjsKesehatan.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bri.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBpjsKetenagakerjaan.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/mandiri.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBRI.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/bni.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBNI.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/kai.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoMandiri.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/toyota.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoMandiriSyariah.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/oto.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoOTO.jpg') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/adira.png') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoAdiraFinance.png') }}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/auto.jpg') }}" alt="">
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWijayaToyota.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoArdanGroup.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBizMedia.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBTP.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoFaMerak.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBNN.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoKoptel.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoLPSE.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoSPM.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoStarpeak.jpg') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTaf.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTasen.jpg') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelco.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkomProperty.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkomUniversity.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTPCC.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWebcom.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWintec.png') }}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoYPT.png') }}" alt="">
                         </a>
                     </li>
                 </ul>
