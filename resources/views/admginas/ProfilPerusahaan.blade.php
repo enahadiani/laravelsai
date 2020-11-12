@@ -383,7 +383,7 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
+                    <div class="card-body pt-3 form-body" id="form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -483,12 +483,8 @@
             }
         }
 
-        // var scrollform = document.querySelector('.form-body');
-        // var psscrollform = new PerfectScrollbar(scrollform);
+        var psscrollform = new PerfectScrollbar('#form-body');
         
-        // var scroll = document.querySelector('#content-preview');
-        // var psscroll = new PerfectScrollbar(scroll);
-
         $('#saku-form').on('click', '#btn-kembali', function(){
             var kode = null;
             msgDialog({
