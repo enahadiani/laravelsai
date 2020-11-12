@@ -403,6 +403,7 @@
                                                         <span id="span-banner-1">Drop photo here to upload</span>
                                                         <img id="banner-1-preview" alt="banner-1" src="#" height="90" width="300" />
                                                     </div>
+                                                    <input type="hidden" name="gambarke[]" value="b1">
                                                     <input type="file" id="upload-banner-1" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                 </div>
                                             </div>
@@ -415,6 +416,8 @@
                                                         <span id="span-banner-2">Drop photo here to upload</span>
                                                         <img id="banner-2-preview" alt="banner-2" src="#" height="90" width="300" />
                                                     </div>
+                                                    
+                                                    <input type="hidden" name="gambarke[]" value="b2">
                                                     <input type="file" id="upload-banner-2" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                 </div>
                                             </div>
@@ -427,6 +430,7 @@
                                                         <span id="span-banner-3">Drop photo here to upload</span>
                                                         <img id="banner-3-preview" alt="banner-3" src="#" height="90" width="300" />
                                                     </div>
+                                                    <input type="hidden" name="gambarke[]" value="b3">
                                                     <input type="file" id="upload-banner-3" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                 </div>
                                             </div>
