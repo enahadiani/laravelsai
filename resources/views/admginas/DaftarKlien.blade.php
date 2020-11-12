@@ -432,13 +432,13 @@
                         <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
                         </button>
                         <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                            {{-- <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a> --}}
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            {{-- <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a> --}}
+                            {{-- <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
                             <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
                             <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a> --}}
                         </div>
                     </div>
                 </div>
@@ -667,7 +667,6 @@
                     url: "{{ url('admginas-master/klien') }}/" + id,
                     dataType:"JSON",
                     success: function(result) {
-                        console.log(result)
                         var html = `<tr>
                             <td style='border:none'>ID Klien</td>
                             <td style='border:none'>`+id+`</td>
@@ -679,7 +678,7 @@
                         <tr>
                             <td>Logo</td>
                             <td>
-                                <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[0].file_gambar} />
+                                <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.data[0].file_gambar} />
                             </td>
                         </tr>   
                     `;
@@ -692,7 +691,7 @@
             }
         });
 
-        $('#saku-datatable').on('click', '#btn-edit', function(){
+    $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
@@ -717,7 +716,40 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('wisata-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Klien');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admginas-master/klien') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(res.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#id_klien').val(id);
+                    $('#id').val(id);
+                    $('#nama_klien').val(result[0].nama_klien); 
+                    $('#banner-preview').show();
+                    $('#span-banner').hide();     
+                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
