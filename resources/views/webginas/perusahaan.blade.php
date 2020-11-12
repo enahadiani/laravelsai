@@ -270,9 +270,15 @@
                     </div>
                     <div class="col-lg-8" data-animate="fadeInUp" data-animate-delay="300">
                         <div class="carousel testimonial testimonial-box" data-items="3" data-margin="30" data-arrows="false">
-                            <div class="testimonial-item" style="height: 250px;"></div>
-                            <div class="testimonial-item" style="height: 250px;"></div>
-                            <div class="testimonial-item" style="height: 250px;"></div>
+                            <div style="height: 250px;">
+                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/certificate-ISO-9001-14001-engl.jpg')}}"/>
+                            </div>
+                            <div style="height: 250px;">
+                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/en_iso9001_large.jpg')}}"/>
+                            </div>
+                            <div style="height: 250px;">
+                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/ISO-TA.jpg')}}"/>
+                            </div>
                         </div>
                     </div>
                 </div>
