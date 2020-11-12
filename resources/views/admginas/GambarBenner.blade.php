@@ -382,7 +382,7 @@
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
                     <div class="separator"></div>
-                    <div class="card-body form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
+                    <div class="card-body form-body" id="form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
                         <div class="card" style='border-radius:0;height:300px;'>
                             <div class="card-body">
                                 <input type="hidden" id="method" name="_method" value="post">
@@ -546,8 +546,8 @@
             fileReader(this, idGbr, idSpan);
         });
 
-        var scrollform = document.querySelector('.form-body');
-        var psscrollform = new PerfectScrollbar(scrollform);
+        // var scrollform = document.querySelector('.form-body');
+        var psscrollform = new PerfectScrollbar('#form-body');
         
         var scroll = document.querySelector('#content-preview');
         var psscroll = new PerfectScrollbar(scroll);
