@@ -165,7 +165,7 @@
                 <div class="container">
                     <!--Logo-->
                     <div id="logo">
-                        <a href="index.html">
+                        <a href="{{url('/webginas2/')}}">
                             <span class="logo-default"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
                             <span class="logo-dark">Trengginas</span>
                         </a>
