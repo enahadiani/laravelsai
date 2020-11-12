@@ -53,6 +53,9 @@
             background-color: #DD1F1A;
             height:400px;
         }
+        .pg-2{
+            margin-top: 50px;
+        }
         @media (max-width: 768px) {
             .misi-box {
                 height: 500px;
@@ -68,6 +71,12 @@
              }
             .menu-prime {
                 color: black !important;
+            }
+            .pg-2 {
+                margin-top: 30px;
+            }
+            .pg-2-mobile {
+                margin-top: 12px;
             }
         }
     </style>
@@ -191,7 +200,7 @@
                                 Property.
                             </p>
                         </div>
-                        <div style="margin-top: 50px;">
+                        <div class="pg-2">
                             <p>
                                 Sejalan dengan perkembangan dan perubahan pasar, maka komitmen Top Management PT. Trengginas Jaya
                                 selalu berusaha meningkatkan mutu, inovatif dan kerja sama sinergis untuk memberikan kepuasan kepada
@@ -200,7 +209,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4" style="padding-right:10px;" data-animate="fadeInUp" data-animate-delay="300">
-                        <div>
+                        <div class="pg-2-mobile">
                             <p>
                                 Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
                                 dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
@@ -208,7 +217,7 @@
                                 dibidangnya.
                             </p>
                         </div>
-                        <div style="margin-top: 50px;">
+                        <div class="pg-2">
                             <p>
                                 Sebagai perusahaan penyedia jasa Outsourcing Bussiness Retail & Property, PT. Trengginas Jaya
                                 memegang komitmen untuk menjaga kualitas, mengutamakan da meningkatkan kepuasan pelanggan.
