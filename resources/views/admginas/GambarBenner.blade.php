@@ -499,78 +499,6 @@
     </div>
     <!-- END MODAL PREVIEW -->
 
-    <!-- MODAL UPLOAD -->
-    <div class="modal fade" id="modal-import" tabindex="-1" aria-labelledby="modal-importLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius:0.75em">
-                <form id="form-import">
-                    <div class="modal-header py-2">
-                        <h6 class="modal-title" id="modal-importLabel">Upload Berkas</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-0" style="border:0">
-                        <div class="input-group mb-1">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" style="display: unset;" name="file">
-                                <label class="custom-file-label" for="inputGroupFile01" style="display: block;">File input</label>
-                            </div>
-                        </div>
-                        <label id="label-file" class="mb-0"></label>
-                        <div style="height: 10px;" class="progress hidden mb-2">
-                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="5" style="width:5%" >5%</div>
-                        </div>
-                        <div class="pesan-upload" style="background:#F5F5F5;display:none;padding: 10px 25px;border-radius: 0.75em;" >
-                            <p class="pesan-upload-judul" style="font-weight:bold;font-size:12px;margin:0"></p>
-                            <p class="pesan-upload-isi" style="font-size:12px"></p>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border:0">
-                        <button type="button"  id="process-upload" class="btn btn-light" >Process</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL UPLOAD -->
-
-    <!-- MODAL FILTER -->
-    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="form-filter">
-                    <div class="modal-header pb-0" style="border:none">
-                        <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="border:none">
-                        <div class="form-group row">
-                            <label>Kode PP</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_kode_pp" id="inp-filter_kode_pp">
-                                <option value='#'>Pilih Kode PP</option>
-                            </select>
-                        </div>
-                        <!-- <div class="form-group row">
-                            <label>Status</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
-                                <option value='#'>Pilih Status</option>
-                            </select>
-                        </div> -->
-                    </div>
-                    <div class="modal-footer" style="border:none">
-                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- END MODAL UPLOAD --}}
-
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script type="text/javascript">
@@ -686,7 +614,7 @@
                 {'targets': 1, data: null, 'defaultContent': action_html, 'className': 'text-center' }
             ],
             'columns': [
-                { data: 'id' },
+                { data: 'id_banner' },
             ],
             order:[[1,'desc']],
             drawCallback: function () {
@@ -762,6 +690,14 @@
                                 'Your data has been '+pesan,
                                 'success'
                                 ) 
+                            $('#upload-banner-1').val(null);
+                            $('#upload-banner-2').val(null);
+                            $('#upload-banner-3').val(null);
+                            $('#banner-1-preview').attr('src', '');
+                            $('#banner-2-preview').attr('src', '');
+                            $('#banner-3-preview').attr('src', '');
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
                             window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";
