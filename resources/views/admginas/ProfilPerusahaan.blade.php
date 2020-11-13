@@ -391,6 +391,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id_perusahaan" name="id_perusahaan">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -635,7 +636,7 @@
             errorElement: "label",
             submitHandler: function (form) {
                 var parameter = $('#id_edit').val();
-                var id = $('#id_review').val();
+                var id = $('#id_perusahaan').val();
                 if(parameter == "edit"){
                     var url = "{{ url('admginas-master/profil') }}/"+id;
                     var pesan = "updated";
@@ -753,4 +754,83 @@
                 })
             }
         });
+
+        $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Perusahaan');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admginas-master/profil') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(res.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#id_perusahaan').val(id);
+                    $('#id').val(id);
+                    $('#nama_perusahaan').val(result[0].nama_perusahaan); 
+                    $('#koordinat').val(result[0].koordinat); 
+                    $('#deskripsi').val(result[0].deskripsi); 
+                    $('#alamat').val(result[0].alamat); 
+                    $('#visi').val(result[0].visi);
+                    $('#misi').val(result[0].misi);
+                    $('#no_telp').val(result[0].no_telp);
+                    $('#email').val(result[0].email); 
+                    $('#banner-preview').show();
+                    $('#span-banner').hide();     
+                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Perusahaan');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admginas-master/profil') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(res.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#id_perusahaan').val(id);
+                    $('#id').val(id);
+                    $('#nama_perusahaan').val(result[0].nama_perusahaan); 
+                    $('#koordinat').val(result[0].koordinat); 
+                    $('#deskripsi').val(result[0].deskripsi); 
+                    $('#alamat').val(result[0].alamat); 
+                    $('#visi').val(result[0].visi);
+                    $('#misi').val(result[0].misi);
+                    $('#no_telp').val(result[0].no_telp);
+                    $('#email').val(result[0].email);
+                    $('#banner-preview').show();
+                    $('#span-banner').hide();     
+                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
     </script>

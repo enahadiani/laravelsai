@@ -723,7 +723,7 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Klien');
+        $('#judul-form').html('Edit Data Review');
         $.ajax({
             type: 'GET',
             url: "{{ url('admginas-master/review') }}/" + id,
@@ -758,7 +758,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Klien');
+        $('#judul-form').html('Edit Data Review');
         $.ajax({
             type: 'GET',
             url: "{{ url('admginas-master/review') }}/" + id,
