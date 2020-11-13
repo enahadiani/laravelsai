@@ -206,7 +206,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <ul>
+                                                        <ul class="submenu-bussiness">
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
                                                             <li class="list-submenu"><p class="list-submenu-text">Pemenuhan Keb. Barang/Jasa</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
@@ -795,6 +795,8 @@
             var idx = $(this).index();
             if(idx === 1) {
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
+            } else if(idx === 2) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
             }
         })
     </script>
