@@ -357,6 +357,7 @@
                                 <tr>
                                     <th>ID Review</th>
                                     <th>Nama Perusahaan</th>
+                                    <th>Jabatan</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -383,11 +384,12 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
+                    <div class="card-body pt-3 form-body" id="form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
+                                <input type="hidden" id="id_review" name="id_review">
                             </div>
                         </div>
                         <div class="row">
@@ -400,10 +402,10 @@
                                     <label for="file_gambar">Banner</label>
                                     <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1">
                                         <div id="div-banner" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                            <span id="span-banner-1">Drop photo here to upload</span>
+                                            <span id="span-banner">Drop photo here to upload</span>
                                             <img id="banner-preview" alt="banner" src="#" height="90" width="300" />
                                         </div>
-                                        <input type="file" id="upload-banner" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                        <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                     </div>
                                 </div>
                             </div>
@@ -433,6 +435,41 @@
     </form>
     <!-- FORM INPUT  -->
 
+    <!-- MODAL PREVIEW -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
+            <div class="modal-content" style="border-radius:0.75em">
+                <div class="modal-header py-0" style="display:block;">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Nilai <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="dropdown d-inline-block float-right">
+                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                        </button>
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                            {{-- <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a> --}}
+                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                            {{-- <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a> --}}
+                            {{-- <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a> --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body" id="content-preview" style="height:450px">
+                    <table id="table-preview" class="table no-border">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL PREVIEW -->
+
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script type="text/javascript">
@@ -459,8 +496,15 @@
             }
         }
 
+        $('#upload-banner').change(function(){
+            var parent = $('#div-banner').children();
+            var idSpan = $(parent[0]).attr('id');
+            var idGbr = $(parent[1]).attr('id');
+            fileReader(this, idGbr, idSpan);
+        });
+
         // var scrollform = document.querySelector('.form-body');
-        // var psscrollform = new PerfectScrollbar(scrollform);
+        var psscrollform = new PerfectScrollbar('#form-body');
         
         // var scroll = document.querySelector('#content-preview');
         // var psscroll = new PerfectScrollbar(scroll);
@@ -487,4 +531,262 @@
             $('#banner-preview').hide();
             $('#span-banner').show();
         });
+
+        // LIST DATA
+        var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
+        
+        var dataTable = $("#table-data").DataTable({
+            destroy: true,
+            bLengthChange: false,
+            sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+            'ajax': {
+                'url': "{{ url('admginas-master/review') }}",
+                'async':false,
+                'type': 'GET',
+                'dataSrc' : function(json) {
+                    if(json.status){
+                        return json.daftar;   
+                    }else if(!json.status && json.message == "Unauthorized"){
+                        window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                        return [];
+                    }else{
+                        return [];
+                    }
+                }
+            },
+            'columnDefs': [
+                {
+                    "targets": 0,
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                        if ( rowData.status == "baru" ) {
+                            $(td).parents('tr').addClass('selected');
+                            $(td).addClass('last-add');
+                        }
+                    }
+                },
+                {'targets': 3, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            ],
+            'columns': [
+                { data: 'id_review' },
+                { data: 'nama_perusahaan' },
+                { data: 'jabatan' },
+            ],
+            order:[[3,'desc']],
+            drawCallback: function () {
+                $($(".dataTables_wrapper .pagination li:first-of-type"))
+                    .find("a")
+                    .addClass("prev");
+                $($(".dataTables_wrapper .pagination li:last-of-type"))
+                    .find("a")
+                    .addClass("next");
+
+                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+            },
+            language: {
+                paginate: {
+                    previous: "<i class='simple-icon-arrow-left'></i>",
+                    next: "<i class='simple-icon-arrow-right'></i>"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Search...",
+                lengthMenu: "Items Per Page _MENU_",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                infoFiltered: "(terfilter dari _MAX_ total entri)"
+            }
+        });
+
+        $.fn.DataTable.ext.pager.numbers_length = 5;
+
+        $("#searchData").on("keyup", function (event) {
+            dataTable.search($(this).val()).draw();
+        });
+
+        $("#page-count").on("change", function (event) {
+            var selText = $(this).val();
+            dataTable.page.len(parseInt(selText)).draw();
+        });
+
+        $('#form-tambah').validate({
+            ignore: [],
+            errorElement: "label",
+            submitHandler: function (form) {
+                var parameter = $('#id_edit').val();
+                var id = $('#id_review').val();
+                if(parameter == "edit"){
+                    var url = "{{ url('admginas-master/review') }}/"+id;
+                    var pesan = "updated";
+                }else{
+                    var url = "{{ url('admginas-master/review') }}";
+                    var pesan = "saved";
+                }
+
+                var formData = new FormData(form);
+                for(var pair of formData.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                }
+                
+                $.ajax({
+                    type: 'POST', 
+                    url: url,
+                    dataType: 'json',
+                    data: formData,
+                    async:false,
+                    contentType: false,
+                    cache: false,
+                    processData: false, 
+                    success:function(result){
+                        if(result.data.status){
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                'Data berhasil tersimpan!',
+                                'Your data has been '+pesan,
+                                'success'
+                                ) 
+                            $('#upload-banner').val(null);
+                            $('#banner-preview').attr('src', '');
+                            $('#saku-datatable').show();
+                            $('#saku-form').hide();
+                        }else if(!result.data.status && result.data.message === "Unauthorized"){
+                        
+                            window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";
+                            
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>'+result.data.message+'</a>'
+                            })
+                        }
+                    },
+                    fail: function(xhr, textStatus, errorThrown){
+                        alert('request failed:'+textStatus);
+                    }
+                });
+                // $('#btn-simpan').html("Simpan").removeAttr('disabled');
+            },
+            errorPlacement: function (error, element) {
+                var id = element.attr("id");
+                $("label[for="+id+"]").append("<br/>");
+                $("label[for="+id+"]").append(error);
+            }
+        });
+
+        $('#table-data tbody').on('click','td',function(e){
+            if($(this).index() != 3){
+                var id = $(this).closest('tr').find('td').eq(0).html();
+                var nama = $(this).closest('tr').find('td').eq(1).html();
+                var data = dataTable.row(this).data();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ url('admginas-master/review') }}/" + id,
+                    dataType:"JSON",
+                    success: function(result) {
+                        var html = `<tr>
+                            <td style='border:none'>ID Review</td>
+                            <td style='border:none'>`+id+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Nama Klien</td>
+                            <td style='border:none'>`+result.data[0].nama_client+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Nama Perusahaan</td>
+                            <td style='border:none'>`+result.data[0].nama_perusahaan+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Jabatan</td>
+                            <td style='border:none'>`+result.data[0].jabatan+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Deskrispi</td>
+                            <td style='border:none'>`+result.data[0].deskripsi+`</td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td>
+                                <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.data[0].file_gambar} />
+                            </td>
+                        </tr>   
+                    `;
+                        $('#table-preview tbody').html(html);
+                    
+                        $('#modal-preview-id').text(id);
+                        $('#modal-preview').modal('show');
+                    }
+                })
+            }
+        });
+
+        $('#saku-datatable').on('click', '#btn-edit', function(){
+        var id= $(this).closest('tr').find('td').eq(0).html();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Klien');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admginas-master/review') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(res.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#id_review').val(id);
+                    $('#id').val(id);
+                    $('#nama_klien').val(result[0].nama_client); 
+                    $('#nama_perusahaan').val(result[0].nama_perusahaan); 
+                    $('#deskripsi').val(result[0].deskripsi); 
+                    $('#jabatan').val(result[0].jabatan); 
+                    $('#banner-preview').show();
+                    $('#span-banner').hide();     
+                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
+
+    $('.modal-header').on('click', '#btn-edit2', function(){
+        var id= $('#modal-preview-id').text();
+        // $iconLoad.show();
+        $('#form-tambah').validate().resetForm();
+        $('#judul-form').html('Edit Data Klien');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('admginas-master/review') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(res.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('post');
+                    $('#id_review').val(id);
+                    $('#id').val(id);
+                    $('#nama_klien').val(result[0].nama_client); 
+                    $('#nama_perusahaan').val(result[0].nama_perusahaan); 
+                    $('#deskripsi').val(result[0].deskripsi); 
+                    $('#jabatan').val(result[0].jabatan);
+                    $('#banner-preview').show();
+                    $('#span-banner').hide();     
+                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
+    });
     </script>

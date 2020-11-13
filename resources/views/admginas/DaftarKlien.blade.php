@@ -673,7 +673,7 @@
                         </tr>
                         <tr>
                             <td style='border:none'>Nama Klien</td>
-                            <td style='border:none'>`+id+`</td>
+                            <td style='border:none'>`+nama+`</td>
                         </tr>
                         <tr>
                             <td>Logo</td>
