@@ -179,7 +179,7 @@
                         </div>
                         <div class="post-image">
                             <a href="#">
-                                <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle18.png') }}">
+                                <img height="486" width="650" alt="" src="{{ asset('asset_web/homepages/kegiatan/security.jpg') }}">
                             </a>
                         </div>
                         <div class="post-item-description" style="margin-top: 25px;">
