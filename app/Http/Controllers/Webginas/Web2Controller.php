@@ -60,8 +60,8 @@ class Web2Controller extends Controller
         return view('webginas.contentLayanan');
     }
 
-    public function viewContentDetailLayanan() {
-        return view('webginas.contentDetailLayanan');
+    public function viewContentSecurity() {
+        return view('webginas.contentSecurity');
     }
 
     public function showView($param){
