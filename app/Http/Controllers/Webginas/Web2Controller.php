@@ -64,6 +64,10 @@ class Web2Controller extends Controller
         return view('webginas.contentSecurity');
     }
 
+    public function viewContentCleaningService() {
+        return view('webginas.contentCleaningService');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];
