@@ -440,7 +440,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Nilai <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Review <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -700,7 +700,7 @@
                             <td style='border:none'>`+result.data[0].jabatan+`</td>
                         </tr>
                         <tr>
-                            <td style='border:none'>Deskrispi</td>
+                            <td style='border:none'>Deskripsi</td>
                             <td style='border:none'>`+result.data[0].deskripsi+`</td>
                         </tr>
                         <tr>
