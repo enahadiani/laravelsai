@@ -32,3 +32,5 @@ Route::get('/layanan/outsourcing', 'Webginas\Web2Controller@viewContentLayanan')
 Route::get('/layanan/outsourcing/security', 'Webginas\Web2Controller@viewContentSecurity');
 Route::get('/layanan/outsourcing/cleaning-service', 'Webginas\Web2Controller@viewContentCleaningService');
 Route::get('/layanan/trading-bussiness-retail/catering', 'Webginas\Web2Controller@viewContentCatering');
+Route::get('/layanan/property/rental-car', 'Webginas\Web2Controller@viewContentRentalCar');
+Route::get('/layanan/property/building-maintenance', 'Webginas\Web2Controller@viewContentBuildingMaintenance');

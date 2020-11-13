@@ -72,6 +72,14 @@ class Web2Controller extends Controller
         return view('webginas.contentCatering');
     }
 
+    public function viewContentRentalCar() {
+        return view('webginas.contentRentalCar');
+    }
+
+    public function viewContentBuildingMaintenance() {
+        return view('webginas.contentBuildingMaintenance');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];
