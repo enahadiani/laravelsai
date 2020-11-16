@@ -116,8 +116,8 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="{{url('/webginas2/')}}" class="a_link" data-href="fHome">Home</a></li>
-                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
+                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white menu-prime" data-href="fHome">Home</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white menu-prime" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row">
@@ -155,8 +155,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white menu-prime" data-href="fPerusahaan">Perusahaan</a></li>
+                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white menu-prime" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -420,6 +420,37 @@
             var idx = $(this).index();
             if(idx === 1) {
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
+            } else if(idx === 2) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
+            } else if(idx === 6) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/tenaga-ahli') }}";
+            }
+        })
+
+        $('.submenu-bussiness').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 3) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
+            } else if(idx === 5) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
+            }
+        })
+
+        $('.submenu-bussiness').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 3) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
+            } else if(idx === 5) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
+            }
+        })
+
+        $('.submenu-property').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 1) {
+                window.location.href = "{{ url('webginas2/layanan/property/building-maintenance') }}";
+            } else if(idx === 2) {
+                window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
             }
         })
 
