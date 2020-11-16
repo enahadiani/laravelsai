@@ -80,6 +80,14 @@ class Web2Controller extends Controller
         return view('webginas.contentBuildingMaintenance');
     }
 
+    public function viewContentTenagaAhli() {
+        return view('webginas.contentTenagaAhli');
+    }
+
+    public function viewContentInovasiTeknologi() {
+        return view('webginas.contentInovasiTeknologi');
+    }
+
     public function showView($param){
 
         $ip = $_SERVER['REMOTE_ADDR'];

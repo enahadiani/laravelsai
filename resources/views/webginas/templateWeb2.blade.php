@@ -203,6 +203,7 @@
                                                             <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Tenaga Ahli</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
@@ -212,6 +213,7 @@
                                                             <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Layanan Catering</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Jasa Laundry</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Inovasi dan Teknologi</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
@@ -357,7 +359,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-12 layanan-box">
-                        <div class="border" style="padding: 0;border-radius: 15px;">
+                        <div class="border" style="padding: 0;border-radius: 15px;height:268px;">
                             <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
                                 <h4 style="color:white;">Property</h4>
                             </div>
