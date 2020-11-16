@@ -104,6 +104,9 @@
         span.counter-nilai::before{
             content: 'Rp ';
         }
+        span.logo-default {
+            font-size: 20px !important;
+        }
 
         .list-submenu-text:hover {
             color: #DD1F1A;
@@ -179,8 +182,8 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="{{url('/webginas2/')}}">
-                            <span class="logo-default"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
-                            <span class="logo-dark">Trengginas</span>
+                            <span class="logo-default"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> PT. Trengginas Jaya</span>
+                            <span class="logo-dark">PT. Trengginas Jaya</span>
                         </a>
                     </div>
                     <!--End: Logo-->
@@ -615,7 +618,7 @@
             <div class="container">
 
                 <div class="heading-text heading-section text-center">
-                    <h2>Berita Terbaru</h2>
+                    <h2>Info Terbaru</h2>
                 </div>
 
 

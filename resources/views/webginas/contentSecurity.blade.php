@@ -26,6 +26,9 @@
         span.lines.close::after {
             background-color: black
         }
+        span.logo-default {
+            font-size: 20px !important;
+        }
         h2::before{
             background-color: #DD1F1A !important;
         }
@@ -48,6 +51,19 @@
             color: #DD1F1A;
             font-weight: bold;
             cursor: pointer;
+        }
+        img.whatsapp-scroll {
+            position: fixed;
+            bottom: 70px;
+            right: 25px;
+            z-index: 99;
+        }
+
+        img.whatsapp-not-scroll {
+            position: fixed;
+            bottom: 20px;
+            right: 25px;
+            z-index: 99;
         }
         ol.list-layanan > li:hover {
             color: #DD1F1A;
@@ -87,7 +103,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="{{url('/webginas2/')}}">
-                            <span class="watch-class white judul" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
+                            <span class="watch-class white judul logo-default" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> PT. Trengginas Jaya</span>
                         </a>
                     </div>
                     <!--End: Logo-->
@@ -431,6 +447,8 @@
         <!-- end: Footer -->
     </div>
     <!-- end: Body Inner -->
+    <!--Whatsapp-->
+    <a href="#"><img id="whatsapp" alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
     <!-- Scroll top -->
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
@@ -439,6 +457,21 @@
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
+        var whatsapp = $('#whatsapp');
+        window.onscroll = function() {
+            scrollFunction();
+        }
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                whatsapp.removeClass('whatsapp-not-scroll');
+                whatsapp.addClass('whatsapp-scroll');
+            } else {
+                whatsapp.removeClass('whatsapp-scroll');
+                whatsapp.addClass('whatsapp-not-scroll');
+            }
+        }
+
         function checkHeader(){
             if($(window).width() > 768) {
                 if($('#header').hasClass('sticky-active')) {
