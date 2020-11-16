@@ -138,6 +138,12 @@
         .nilai-proyek {
             margin-left:115px;
         }
+        img.whatsapp {
+            position: fixed;
+            bottom: 70px;
+            right: 25px;
+            z-index: 99;
+        }
 
         @media (max-width: 768px) {
             .layanan-container {
@@ -781,6 +787,8 @@
         <!-- end: Footer -->
     </div>
     <!-- end: Body Inner -->
+    <!--Whatsapp-->
+    <a href="#"><img alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
     <!-- Scroll top -->
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
