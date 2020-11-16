@@ -200,7 +200,7 @@
 
                     <div class="col-lg-4 box-layanan">
                         <div class="border" style="padding: 10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Cleaning Services</h2></a>
+                            <a href="{{url('webginas2/layanan/outsourcing/cleaning-service')}}"><h2 style="color: #DD1F1A;">Cleaning Services</h2></a>
                             <div style="padding:5px 0 5px 5px;">
                                 <p>
                                     Kami memberikan layanan pembersihan yang beragam dari mulai pembersihan fasilitas kantor, rumah sakit, pabrik, 
@@ -208,7 +208,7 @@
                                 </p>
                             </div>
                             <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                                <a href="{{url('webginas2/layanan/outsourcing/cleaning-service')}}" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -251,6 +251,21 @@
                             </div>
                             <div>
                                 <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 box-layanan">
+                        <div class="border" style="padding:10px;">
+                            <a href="{{url('webginas2/layanan/outsourcing/tenaga-ahli')}}"><h2 style="color: #DD1F1A;">Tenaga Ahli</h2></a>
+                            <div style="padding: 5px 0 50px 5px;">
+                                <p>
+                                   Sebagai salah satu Perusahaan Penyedia Jasa 
+                                   Layanan Tenaga Ahli dalam bidang Information Teknologi (IT).
+                                </p>
+                            </div>
+                            <div>
+                                <a href="{{url('webginas2/layanan/outsourcing/tenaga-ahli')}}" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
