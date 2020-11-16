@@ -392,7 +392,7 @@
         <!-- END Layanan Kami -->
 
         <!-- Mengapa memilih kami -->
-        <section class="p-t-200 p-b-100" data-bg-parallax="{{ asset('asset_web/homepages/parallax/worker.jpg') }}">
+        <section class="p-t-100 p-b-100" data-bg-parallax="{{ asset('asset_web/homepages/parallax/worker.jpg') }}">
              <div class="bg-overlay"></div>
                 <div class="container xs-text-center sm-text-center text-light">
                     <div class="row">
