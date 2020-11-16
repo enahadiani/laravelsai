@@ -421,7 +421,7 @@
                                 </div>
                                 <div class="col-lg-12" style="padding-bottom: 10px;">
                                     <div class="nilai-proyek" style="margin-bottom: 40px;">
-                                        <div class="counter text-lg"> <span class="counter-nilai" data-speed="1500" data-refresh-interval="23" data-to="2" data-from="0" data-seperator="true"></span> </div>
+                                        <div class="counter text-lg"> <span class="counter-nilai" data-speed="2000" data-refresh-interval="23" data-to="10" data-from="0" data-seperator="true"></span> </div>
                                         <div class="keterangan-proyek">
                                             <p>Nilai kemampuan pelaksanaan proyek</p>
                                             <p>Nilai kemampuan pemenuhan barang jasa</p>
@@ -798,7 +798,7 @@
     </div>
     <!-- end: Body Inner -->
     <!--Whatsapp-->
-    <a href="#"><img id="whatsapp" alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
+    <a href="http://wa.me/6282240011462" target="_blank"><img id="whatsapp" alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
     <!-- Scroll top -->
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
