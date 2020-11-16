@@ -217,7 +217,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <ul>
+                                                        <ul class="submenu-property">
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
                                                             <li class="list-submenu"><p class="list-submenu-text">Building Maintenance</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Rental Kendaraan</p></li>
@@ -801,6 +801,35 @@
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
             } else if(idx === 2) {
                 window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
+            } else if(idx === 6) {
+                window.location.href = "{{ url('webginas2/layanan/outsourcing/tenaga-ahli') }}";
+            }
+        })
+
+        $('.submenu-bussiness').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 3) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
+            } else if(idx === 5) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
+            }
+        })
+
+        $('.submenu-bussiness').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 3) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
+            } else if(idx === 5) {
+                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
+            }
+        })
+
+        $('.submenu-property').on('click', '.list-submenu', function(){
+            var idx = $(this).index();
+            if(idx === 1) {
+                window.location.href = "{{ url('webginas2/layanan/property/building-maintenance') }}";
+            } else if(idx === 2) {
+                window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
             }
         })
     </script>

@@ -114,8 +114,8 @@
                         <div class="container">
                             <nav>
                                 <ul>
-                                    <li><a href="{{url('/webginas2/')}}" class="a_link watch-class white menu-prime" data-href="fHome">Home</a></li>
-                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link watch-class white menu-prime" data-href="fLayanan">Layanan</a>
+                                    <li><a href="{{url('/webginas2/')}}" class="a_link" data-href="fHome">Home</a></li>
+                                    <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row">
@@ -127,19 +127,21 @@
                                                             <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Tenaga Ahli</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <ul>
+                                                        <ul class="submenu-bussiness">
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
                                                             <li class="list-submenu"><p class="list-submenu-text">Pemenuhan Keb. Barang/Jasa</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Layanan Catering</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Jasa Laundry</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Inovasi dan Teknologi</p></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <ul>
+                                                        <ul class="submenu-property">
                                                             <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
                                                             <li class="list-submenu"><p class="list-submenu-text">Building Maintenance</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Rental Kendaraan</p></li>
@@ -151,8 +153,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link watch-class white menu-prime" data-href="fPerusahaan">Perusahaan</a></li>
-                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link watch-class white menu-prime" data-href="fKontak">Kontak</a></li>
+                                    <li><a href="{{url('/webginas2/perusahaan')}}" class="a_link" data-href="fPerusahaan">Perusahaan</a></li>
+                                    <li><a href="{{url('/webginas2/kontak')}}" class="a_link" data-href="fKontak">Kontak</a></li>
                                 </ul>
                             </nav>
                         </div>
