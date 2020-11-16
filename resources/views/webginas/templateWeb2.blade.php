@@ -335,6 +335,7 @@
                                     <li class="list-layanan">Cleaning Service</li>
                                     <li class="list-layanan">Driver</li>
                                     <li class="list-layanan">Help Desk</li>
+                                    <li class="list-layanan">Tenaga Ahli</li>
                                 </ol>
                             </div>
                         </div>
@@ -350,6 +351,7 @@
                                     <li class="list-trading">Mini Market (TJ Mart)</li>
                                     <li class="list-trading">Layanan Catering</li>
                                     <li class="list-trading">Jasa Laundry</li>
+                                    <li class="list-trading">Inovasi dan Teknologi</li>
                                 </ol>
                             </div>
                         </div>
