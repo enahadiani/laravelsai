@@ -394,66 +394,107 @@
                                 <input type="hidden" id="id_perusahaan" name="id_perusahaan">
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-4 col-sm-12">
-                                <label for="nama_klien">Nama Perusahaan</label>
-                                <input class="form-control" type="text" id="nama_perusahaan" name="nama_perusahaan">
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="select-from-library-container mb-1">
-                                    <label for="file_gambar">Banner</label>
-                                    <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1">
-                                        <div id="div-banner" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                            <span id="span-banner">Drop photo here to upload</span>
-                                            <img id="banner-preview" alt="banner" src="#" height="90" width="300" />
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="nama_klien">Nama Perusahaan</label>
+                                        <input class="form-control" type="text" id="nama_perusahaan" name="nama_perusahaan">
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="select-from-library-container mb-1">
+                                            <label for="file_gambar">Banner</label>
+                                            <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1">
+                                                <div id="div-banner" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                    <span id="span-banner">Drop photo here to upload</span>
+                                                    <img id="banner-preview" alt="banner" src="#" height="90" width="300" />
+                                                </div>
+                                                <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                            </div>
                                         </div>
-                                        <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row form-group" style="margin-top: -100px;">
-                            <div class="col-md-4 col-sm-12">
-                                <label for="nama_perusahaan">Koordinat</label>
-                                <input class="form-control" type="text" id="koordinat" name="koordinat">
+
+                        <div class="form-row" style="margin-top: -99px;">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="nama_perusahaan">Koordinat</label>
+                                        <input class="form-control" type="text" id="koordinat" name="koordinat">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group" style="margin-bottom:15px;">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="jabatan">Deskripsi Tentang Perusahaan</label>
-                                <input class="form-control" type="text" id="deskripsi" name="deskripsi">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="deskripsi">Deskripsi Tentang Perusahaan</label>
+                                        <input class="form-control" type="text" id="deskripsi" name="deskripsi">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="visi">Visi</label>
-                                <input class="form-control" type="text" id="visi" name="visi">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="visi">Visi</label>
+                                        <input class="form-control" type="text" id="visi" name="visi">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="misi">Misi</label>
-                                <input class="form-control" type="text" id="misi" name="misi">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="misi">Misi</label>
+                                        <input class="form-control" type="text" id="misi" name="misi">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="alamat">Alamat</label>
-                                <input class="form-control" type="text" id="alamat" name="alamat">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="alamat">Alamat</label>
+                                        <input class="form-control" type="text" id="alamat" name="alamat">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="no_telp">No Telepon</label>
-                                <input class="form-control" type="text" id="no_telp" name="no_telp">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="no_telp">No Telepon</label>
+                                        <input class="form-control" type="text" id="no_telp" name="no_telp">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-8 col-sm-12">
-                                <label for="email">Email</label>
-                                <input class="form-control" type="text" id="email" name="email">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" type="text" id="email" name="email">
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
