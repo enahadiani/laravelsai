@@ -391,26 +391,30 @@
                                 <input type="hidden" id="id_klien" name="id_klien">
                             </div>
                         </div>
-                        <div class="row" style="margin-bottom: 15px;">
-                            <div class="col-md-4 col-sm-12">
-                                <label for="nama_klien">Nama Perusahaan</label>
-                                <input class="form-control" type="text" id="nama_klien" name="nama_klien">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <div class="select-from-library-container mb-1">
-                                    <label for="file_gambar">Banner</label>
-                                    <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1">
-                                        <div id="div-banner" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                            <span id="span-banner">Drop photo here to upload</span>
-                                            <img id="banner-preview" alt="banner" src="#" height="90" width="300" />
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="nama_klien">Nama Perusahaan</label>
+                                        <input class="form-control" type="text" id="nama_klien" name="nama_klien">
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="select-from-library-container mb-1">
+                                            <label for="file_gambar">Banner</label>
+                                            <div class="select-from-library-button sfl-single mb-5" data-library-id="#libraryModal" data-count="1">
+                                                <div id="div-banner" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                    <span id="span-banner">Drop photo here to upload</span>
+                                                    <img id="banner-preview" alt="banner" src="#" height="90" width="300" />
+                                                </div>
+                                                <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                            </div>
                                         </div>
-                                        <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
