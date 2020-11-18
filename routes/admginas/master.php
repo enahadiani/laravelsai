@@ -65,7 +65,5 @@ Route::post('review/{id}', 'AdmGinas\ReviewKlienController@update');
 
 // Data Profil //
 Route::get('profil', 'AdmGinas\ProfilPerusahaanController@index');
-Route::get('profil/{id}', 'AdmGinas\ProfilPerusahaanController@show');
 Route::post('profil', 'AdmGinas\ProfilPerusahaanController@store');
-Route::post('profil/{id}', 'AdmGinas\ProfilPerusahaanController@update');
 // Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');

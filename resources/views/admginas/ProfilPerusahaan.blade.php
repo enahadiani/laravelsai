@@ -334,7 +334,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id_perusahaan" name="id_perusahaan">
+                                <input type="hidden" id="id_perusahaan" name="id_perusahaan" value="TRG">
                             </div>
                         </div>
                         
@@ -534,6 +534,22 @@
         var $iconLoad = $('.preloader');
         $('#process-upload').addClass('disabled');
         $('#process-upload').prop('disabled', true);
+
+        function getDataProfil() {
+            $.ajax({
+                type:'GET',
+                url: "{{ url('admginas-master/profil') }}",
+                dataType: 'JSON',
+                success: function(result) {
+                    console.log(result);
+                    // if(result.status) {
+                    
+                    // }
+                }
+            });
+        }
+        getDataProfil();
+        addRowGridDefault();
 
         $.ajaxSetup({
             headers: {
@@ -750,7 +766,6 @@
                     processData: false, 
                     success:function(result){
                         if(result.data.status){
-                            dataTable.ajax.reload();
                             Swal.fire(
                                 'Data berhasil tersimpan!',
                                 'Your data has been '+pesan,
@@ -758,8 +773,7 @@
                                 ) 
                             $('#upload-banner').val(null);
                             $('#banner-preview').attr('src', '');
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
+                            getDataProfil();
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
                             window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";

@@ -302,9 +302,6 @@
 
         // var scrollform = document.querySelector('.form-body');
         var psscrollform = new PerfectScrollbar('#form-body');
-        
-        var scroll = document.querySelector('#content-preview');
-        var psscroll = new PerfectScrollbar(scroll);
 
         $('#banner-1-preview').hide();
         $('#span-banner-1').show();
@@ -312,28 +309,31 @@
         $('#span-banner-2').show();
         $('#banner-3-preview').hide();
         $('#span-banner-3').show();
-
-        $.ajax({
-            type:'GET',
-            url: "{{ url('admginas-master/banner') }}",
-            dataType: 'JSON',
-            success: function(result) {
-                if(result.status) {
-                    var j = 1;
-                    for(var i=0;i<result.daftar.length;i++) {
-                        if(result.daftar[i].file_gambar != null || result.daftar[i].file_gambar != undefined || result.daftar[i].file_gambar != '') {
-                            $('#span-banner-'+j).hide();
-                            $('#banner-'+j+'-preview').show();
-                            $('#banner-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
-                        } else {
-                            $('#banner-'+j+'-preview').hide();
-                            $('#span-banner-'+j).show();
-                        }
-                        j++;
-                    }      
+        
+        function getDataBanner() {
+            $.ajax({
+                type:'GET',
+                url: "{{ url('admginas-master/banner') }}",
+                dataType: 'JSON',
+                success: function(result) {
+                    if(result.status) {
+                        var j = 1;
+                        for(var i=0;i<result.daftar.length;i++) {
+                            if(result.daftar[i].file_gambar != null || result.daftar[i].file_gambar != undefined || result.daftar[i].file_gambar != '') {
+                                $('#span-banner-'+j).hide();
+                                $('#banner-'+j+'-preview').show();
+                                $('#banner-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
+                            } else {
+                                $('#banner-'+j+'-preview').hide();
+                                $('#span-banner-'+j).show();
+                            }
+                            j++;
+                        }      
+                    }
                 }
-            }
-        });
+            });
+        }
+        getDataBanner();
 
     $('#form-tambah').validate({
             ignore: [],
@@ -365,7 +365,6 @@
                     processData: false, 
                     success:function(result){
                         if(result.data.status){
-                            dataTable.ajax.reload();
                             Swal.fire(
                                 'Data berhasil tersimpan!',
                                 'Your data has been '+pesan,
@@ -377,8 +376,7 @@
                             $('#banner-1-preview').attr('src', '');
                             $('#banner-2-preview').attr('src', '');
                             $('#banner-3-preview').attr('src', '');
-                            $('#saku-datatable').show();
-                            $('#saku-form').hide();
+                            getDataBanner();
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
                         
                             window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";
