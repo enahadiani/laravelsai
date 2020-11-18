@@ -39,4 +39,4 @@ Route::get('/layanan/property/building-maintenance', 'Webginas\Web2Controller@vi
 
 
 Route::get('/api-banner', 'Webginas\BannerController@show');
-Route::get('/api-review', 'Webginas\ReviewController@show');
+Route::get('/api-klien', 'Webginas\ClientController@show');

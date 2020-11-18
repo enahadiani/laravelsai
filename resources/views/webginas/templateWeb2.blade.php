@@ -422,6 +422,7 @@
 
                     <div class="col-lg-7">
                         <div class="carousel arrows-visibile testimonial testimonial-single testimonial-left" data-items="1" data-animate-in="fadeIn" data-animate-out="fadeOut" data-arrows="false">
+                            
                             @foreach ($review as $item)
                                 <div class="testimonial-item">
                                     <img src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}" alt="">
@@ -430,32 +431,6 @@
                                     <span>{{ $item['jabatan'] }} {{ $item['nama_perusahaan'] }}</span>
                                 </div>
                             @endforeach
-                            {{-- <!-- Testimonials item -->
-                            <div class="testimonial-item">
-                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
-                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
-                                <span>Budi Laksmana</span>
-                                <span>Direktur PT XYZ</span>
-                            </div>
-                            <!-- end: Testimonials item-->
-
-                            <!-- Testimonials item -->
-                            <div class="testimonial-item">
-                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
-                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya 2.</p>
-                                <span>Budi Laksmana</span>
-                                <span>Direktur PT XYZ</span>
-                            </div>
-                            <!-- end: Testimonials item-->
-
-                            <!-- Testimonials item -->
-                            <div class="testimonial-item">
-                                <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
-                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya 3.</p>
-                                <span>Budi Laksmana</span>
-                                <span>Direktur PT XYZ</span>
-                            </div>
-                            <!-- end: Testimonials item--> --}}
 
                         </div>
                     </div>
@@ -472,119 +447,8 @@
                     <h2 class="client">Klien Kami</h2>
                 </div>
                 <p class="lead text-center" style="margin-top: -90px;padding-bottom:25px;">Klien yang sudah mempercayai untuk bekerjasama dengan kami. </p>
-                <ul class="grid grid-5-columns">
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkom.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBpjsKesehatan.jpg') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBpjsKetenagakerjaan.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBRI.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBNI.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoMandiri.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoMandiriSyariah.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoOTO.jpg') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoAdiraFinance.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWijayaToyota.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoArdanGroup.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBizMedia.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBTP.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoFaMerak.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoBNN.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoKoptel.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoLPSE.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoSPM.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoStarpeak.jpg') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTaf.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTasen.jpg') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelco.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkomProperty.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTelkomUniversity.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoTPCC.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWebcom.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoWintec.png') }}" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><img height="90" src="{{ asset('asset_web/homepages/client/LogoYPT.png') }}" alt="">
-                        </a>
-                    </li>
+                <ul class="grid grid-5-columns daftar-klien">
+                    
                 </ul>
 
             </div>
@@ -703,7 +567,7 @@
         <!-- LATEST WORK -->
 
         <!-- Contact -->
-        <section class="p-t-100 background-grey p-b-200" style="background-image:url(homepages/branding/images/background-4.png); background-position:71% 22%;">
+        <section class="p-t-100 background-grey p-b-200" style="background-position:71% 22%;">
              <div class="container">
                  <div class="row">
                      <div class="col-lg-6">
@@ -798,24 +662,25 @@
             }
         });
 
-        // $.ajax({
-        //     type:'GET',
-        //     url: "{{ url('webginas2/api-review') }}",
-        //     dataType: 'JSON',
-        //     success: function(result) {
-        //         if(result.status) {
-        //             var html = "";
-        //             for(var i=0;i<result.daftar.length;i++ ) {
-        //                 html += "<div class='testimonial-item'>";
-        //                 html += "<img src='https://api.simkug.com/api/admginas-auth/storage/"+result.daftar[i].file_gambar+"' alt=''/>";
-        //                 html += "<p>"+result.daftar[i].deskripsi+"</p>";
-        //                 html += "<span>"+result.daftar[i].nama_client+"</span>";
-        //                 html += "<span>"+result.daftar[i].jabatan+ " "+result.daftar[i].nama_perusahaan+"</span>";
-        //                 html += "</div>";
-        //             }
-        //         }
-        //     }
-        // });
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-klien') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    var html = "";
+                    for(var i=0;i<result.daftar.length;i++ ) {
+                        html += "<li>";
+                        html += "<a href='#'>";
+                        html += "<img height='90' src='https://api.simkug.com/api/admginas-auth/storage/"+result.daftar[i].file_gambar+"' alt=''/>";
+                        html += "</a>";
+                        html += "</li>";
+                    }
+
+                    $('.daftar-klien').append(html);
+                }
+            }
+        });
 
         var whatsapp = $('#whatsapp');
         window.onscroll = function() {
