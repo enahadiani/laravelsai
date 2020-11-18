@@ -14,7 +14,7 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
-        .slide0{
+        /* .slide0{
             background-image: url("{{ asset('asset_web/homepages/business/slide0.png') }}");
         }
         .slide1{
@@ -22,7 +22,7 @@
         }
         .slide2{
             background-image: url("{{ asset('asset_web/homepages/business/slide2.jpg') }}");
-        }
+        } */
 
         .text-red{
             color:#DD1F1A;
@@ -261,44 +261,15 @@
         <div id="slider" class="inspiro-slider slider-halfscreen dots-dark arrows-dark dots-creative" data-fade="true" data-height-xs="360">
 
             <!-- Slide 0 -->
-            <div class="slide background-image slide0" >
-                <div class="container">
-                    <div class="slide-captions text-right">
-                        <!-- Captions -->
-                        <span class="text-dark">Hallo, kami adalah</span>
-                        <h2 class="text-red text-lg">Jasa Outsourcing</h2>
-                        <!-- end: Captions -->
-                    </div>
-                </div>
-            </div>
+            <div class="slide background-image slide0" ></div>
             <!-- end: Slide 0 -->
 
             <!-- Slide 1 -->
-            <div class="slide background-image slide1" >
-                <div class="container">
-                    <div class="slide-captions text-right">
-                        <!-- Captions -->
-                        <span class="strong text-dark">Hello, We are</span>
-                        <h2 class="text-dark text-lg">Creative Agency</h2>
-                        <a class="btn btn-dark">Get in Touch</a>
-                        <!-- end: Captions -->
-                    </div>
-                </div>
-            </div>
+            <div class="slide background-image slide1" ></div>
             <!-- end: Slide 1 -->
 
             <!-- Slide 2 -->
-            <div class="slide background-image slide2" >
-                <div class="container">
-                    <div class="slide-captions text-right">
-                        <!-- Captions -->
-                        <span class="strong text-dark">Hello, We are</span>
-                        <h2 class="text-dark text-lg">Creative Agency</h2>
-                        <a class="btn btn-dark">Get in Touch</a>
-                        <!-- end: Captions -->
-                    </div>
-                </div>
-            </div>
+            <div class="slide background-image slide2" ></div>
             <!-- end: Slide 2 -->
         </div>
         <!--end: Inspiro Slider -->  
@@ -809,10 +780,14 @@
     <script type="text/javascript">
         $.ajax({
             type:'GET',
-            url: "{{ url('/api-banner') }}",
+            url: "{{ url('webginas2/api-banner') }}",
             dataType: 'JSON',
             success: function(result) {
-                console.log(result)
+                if(result.status) {
+                    for(var i=0;i<result.daftar.length;i++) {
+                        $('.slide'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
+                    }
+                }
             }
         });
 
