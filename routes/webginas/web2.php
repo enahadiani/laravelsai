@@ -36,3 +36,6 @@ Route::get('/layanan/trading-bussiness-retail/catering', 'Webginas\Web2Controlle
 Route::get('/layanan/trading-bussiness-retail/inovasi', 'Webginas\Web2Controller@viewContentInovasiTeknologi');
 Route::get('/layanan/property/rental-car', 'Webginas\Web2Controller@viewContentRentalCar');
 Route::get('/layanan/property/building-maintenance', 'Webginas\Web2Controller@viewContentBuildingMaintenance');
+
+
+Route::get('/api-banner', 'Webginas\BannerController@show');

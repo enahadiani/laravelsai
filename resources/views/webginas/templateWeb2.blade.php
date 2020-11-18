@@ -807,6 +807,15 @@
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
+        $.ajax({
+            type:'GET',
+            url: "{{ url('/api-banner') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                console.log(result)
+            }
+        });
+
         var whatsapp = $('#whatsapp');
         window.onscroll = function() {
             scrollFunction();
