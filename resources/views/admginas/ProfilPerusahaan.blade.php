@@ -317,72 +317,15 @@
         }        
     </style>
 
-    <!-- LIST DATA -->
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card" >
-                <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Profil Perusahaan</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                            <div class="input-group-append" >
-                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
-                    <div class="table-responsive ">
-                        <table id="table-data" class="" style='width:100%'>
-                            <thead>
-                                <tr>
-                                    <th>ID Perusahaan</th>
-                                    <th>Nama Perusahaan</th>
-                                    <th>Alamat</th>
-                                    <th>No Telp</th>
-                                    <th>Email</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END LIST DATA -->
-
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form" style="display:none;">
+        <div class="row" id="saku-form">
             <div class="col-sm-12" style="height: 90px;">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h5 id="judul-form" style="position:absolute;top:25px">Profil Perusahaan</h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        {{-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> --}}
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -446,17 +389,6 @@
                                     <div class="col-md-8 col-sm-12">
                                         <label for="visi">Visi</label>
                                         <input class="form-control" type="text" id="visi" name="visi">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-10 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-8 col-sm-12">
-                                        <label for="misi">Misi</label>
-                                        <input class="form-control" type="text" id="misi" name="misi">
                                     </div>
                                 </div>
                             </div>
@@ -819,99 +751,9 @@
                 type:'keluar'
             });
         });
-
-        $('#saku-datatable').on('click', '#btn-tambah', function(){
-            $('#row-id').hide();
-            $('#method').val('post');
-            $('#judul-form').html('Tambah Data Review Klien');
-            $('#btn-update').attr('id','btn-save');
-            $('#btn-save').attr('type','submit');
-            $('#form-tambah')[0].reset();
-            $('#form-tambah').validate().resetForm();
-            $('#id').val('');
-            $('#saku-datatable').hide();
-            $('#saku-form').show();
-            $('#banner-preview').hide();
-            $('#span-banner').show();
-            addRowGridDefault();
-        });
-
-        // LIST DATA
-        var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
         
-        var dataTable = $("#table-data").DataTable({
-            destroy: true,
-            bLengthChange: false,
-            sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            'ajax': {
-                'url': "{{ url('admginas-master/profil') }}",
-                'async':false,
-                'type': 'GET',
-                'dataSrc' : function(json) {
-                    if(json.status){
-                        return json.daftar;   
-                    }else if(!json.status && json.message == "Unauthorized"){
-                        window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
-                        return [];
-                    }else{
-                        return [];
-                    }
-                }
-            },
-            'columnDefs': [
-                {
-                    "targets": 0,
-                    "createdCell": function (td, cellData, rowData, row, col) {
-                        if ( rowData.status == "baru" ) {
-                            $(td).parents('tr').addClass('selected');
-                            $(td).addClass('last-add');
-                        }
-                    }
-                },
-                {'targets': 5, data: null, 'defaultContent': action_html, 'className': 'text-center' }
-            ],
-            'columns': [
-                { data: 'id_perusahaan' },
-                { data: 'nama_perusahaan' },
-                { data: 'alamat' },
-                { data: 'no_telp' },
-                { data: 'email' },
-            ],
-            order:[[5,'desc']],
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
-            }
-        });
-
-        $.fn.DataTable.ext.pager.numbers_length = 5;
-
-        $("#searchData").on("keyup", function (event) {
-            dataTable.search($(this).val()).draw();
-        });
-
-        $("#page-count").on("change", function (event) {
-            var selText = $(this).val();
-            dataTable.page.len(parseInt(selText)).draw();
-        });
+        $('#banner-preview').hide();
+        $('#span-banner').show();
 
         $('#form-tambah').validate({
             ignore: [],

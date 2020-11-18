@@ -109,10 +109,6 @@ class ProfilPerusahaanController extends Controller {
                 'contents' => $request->visi
                 );
             $field[] = array(
-                'name' => 'misi',
-                'contents' => $request->misi
-                );
-            $field[] = array(
                 'name' => 'deskripsi',
                 'contents' => $request->deskripsi
                 );
