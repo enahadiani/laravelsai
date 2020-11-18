@@ -56,6 +56,7 @@ class BannerController extends Controller {
 
     public function store(Request $request) {
         $this->validate($request,[
+            'id_banner' => 'required|array',
             'gambarke' => 'required|array',
             'file_gambar.*' => 'image|mimes:jpeg,png,jpg'
         ]);
@@ -80,6 +81,10 @@ class BannerController extends Controller {
                             );
                             
                         }
+                        $fields_id_banner[$i] = array(
+                            'name'     => 'id_banner[]',
+                            'contents' => $request->id_banner[$i],
+                        );
                         $fields_gambarke[$i] = array(
                             'name'     => 'gambarke[]',
                             'contents' => $request->gambarke[$i],
@@ -88,6 +93,7 @@ class BannerController extends Controller {
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_gambarke);
+                    $send_data = array_merge($send_data,$fields_id_banner);
                 }
             }
 
@@ -112,31 +118,6 @@ class BannerController extends Controller {
             $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 500);
-        }
-    }
-
-    public function show($id) {
-        try {
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/banner-show?id_banner='.$id,[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ]
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
-            }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
-
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     }
 }

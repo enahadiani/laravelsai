@@ -170,68 +170,15 @@
         }
     </style>
 
-    <!-- LIST DATA -->
-    <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card" >
-                <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Gambar Benner</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                            <div class="input-group-append" >
-                                <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height:560px !important;padding-top:1rem;">
-                    <div class="table-responsive ">
-                        <table id="table-data" class="" style='width:100%'>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END LIST DATA -->
-
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
-        <div class="row" id="saku-form" style="display:none;">
+        <div class="row" id="saku-form">
             <div class="col-sm-12">
                 <div class="card" style=''>
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h5 id="judul-form" style="position:absolute;top:25px"></h5>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        {{-- <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button> --}}
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body" id="form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
@@ -257,6 +204,7 @@
                                                                 <span id="span-banner-1">Drop photo here to upload</span>
                                                                 <img id="banner-1-preview" alt="banner-1" src="#" height="90" width="300" />
                                                             </div>
+                                                            <input type="hidden" name="id_banner[]" value="BNR.001">
                                                             <input type="hidden" name="gambarke[]" value="b1">
                                                             <input type="file" id="upload-banner-1" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
@@ -270,7 +218,7 @@
                                                                 <span id="span-banner-2">Drop photo here to upload</span>
                                                                 <img id="banner-2-preview" alt="banner-2" src="#" height="90" width="300" />
                                                             </div>
-                                                            
+                                                            <input type="hidden" name="id_banner[]" value="BNR.002">
                                                             <input type="hidden" name="gambarke[]" value="b2">
                                                             <input type="file" id="upload-banner-2" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
@@ -284,6 +232,7 @@
                                                                 <span id="span-banner-3">Drop photo here to upload</span>
                                                                 <img id="banner-3-preview" alt="banner-3" src="#" height="90" width="300" />
                                                             </div>
+                                                            <input type="hidden" name="id_banner[]" value="BNR.003">
                                                             <input type="hidden" name="gambarke[]" value="b3">
                                                             <input type="file" id="upload-banner-3" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
@@ -409,107 +358,34 @@
         var scroll = document.querySelector('#content-preview');
         var psscroll = new PerfectScrollbar(scroll);
 
-        $('#saku-form').on('click', '#btn-kembali', function(){
-            var kode = null;
-            msgDialog({
-                id:kode,
-                type:'keluar'
-            });
-        });
+        $('#banner-1-preview').hide();
+        $('#span-banner-1').show();
+        $('#banner-2-preview').hide();
+        $('#span-banner-2').show();
+        $('#banner-3-preview').hide();
+        $('#span-banner-3').show();
 
-        $('#saku-datatable').on('click', '#btn-tambah', function(){
-            $('#row-id').hide();
-            $('#method').val('post');
-            $('#judul-form').html('Tambah Data Gambar Benner');
-            $('#btn-update').attr('id','btn-save');
-            $('#btn-save').attr('type','submit');
-            $('#form-tambah')[0].reset();
-            $('#form-tambah').validate().resetForm();
-            $('#id').val('');
-            $('#saku-datatable').hide();
-            $('#saku-form').show();
-            $('#banner-1-preview').hide();
-            $('#span-banner-1').show();
-            $('#banner-2-preview').hide();
-            $('#span-banner-2').show();
-            $('#banner-3-preview').hide();
-            $('#span-banner-3').show();
-        });
-
-        // LIST DATA
-        var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-        
-        var dataTable = $("#table-data").DataTable({
-            destroy: true,
-            bLengthChange: false,
-            sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-            'ajax': {
-                'url': "{{ url('admginas-master/banner') }}",
-                'async':false,
-                'type': 'GET',
-                'dataSrc' : function(json) {
-                    if(json.status){
-                        return json.daftar;   
-                    }else if(!json.status && json.message == "Unauthorized"){
-                        window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
-                        return [];
-                    }else{
-                        return [];
-                    }
-                }
-            },
-            'columnDefs': [
-                {
-                    "targets": 0,
-                    "createdCell": function (td, cellData, rowData, row, col) {
-                        if ( rowData.status == "baru" ) {
-                            $(td).parents('tr').addClass('selected');
-                            $(td).addClass('last-add');
+        $.ajax({
+            type:'GET',
+            url: "{{ url('admginas-master/banner') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    var j = 1;
+                    for(var i=0;i<result.daftar.length;i++) {
+                        if(result.daftar[i].file_gambar != null || result.daftar[i].file_gambar != undefined || result.daftar[i].file_gambar != '') {
+                            $('#span-banner-'+j).hide();
+                            $('#banner-'+j+'-preview').show();
+                            $('#banner-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
+                        } else {
+                            $('#banner-'+j+'-preview').hide();
+                            $('#span-banner-'+j).show();
                         }
-                    }
-                },
-                {'targets': 1, data: null, 'defaultContent': action_html, 'className': 'text-center' }
-            ],
-            'columns': [
-                { data: 'id_banner' },
-            ],
-            order:[[1,'desc']],
-            drawCallback: function () {
-                $($(".dataTables_wrapper .pagination li:first-of-type"))
-                    .find("a")
-                    .addClass("prev");
-                $($(".dataTables_wrapper .pagination li:last-of-type"))
-                    .find("a")
-                    .addClass("next");
-
-                $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            },
-            language: {
-                paginate: {
-                    previous: "<i class='simple-icon-arrow-left'></i>",
-                    next: "<i class='simple-icon-arrow-right'></i>"
-                },
-                search: "_INPUT_",
-                searchPlaceholder: "Search...",
-                lengthMenu: "Items Per Page _MENU_",
-                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                infoFiltered: "(terfilter dari _MAX_ total entri)"
+                        j++;
+                    }      
+                }
             }
         });
-
-        $.fn.DataTable.ext.pager.numbers_length = 5;
-
-        $("#searchData").on("keyup", function (event) {
-            dataTable.search($(this).val()).draw();
-        });
-
-        $("#page-count").on("change", function (event) {
-            var selText = $(this).val();
-            dataTable.page.len(parseInt(selText)).draw();
-        });
-
-    // END LIST DATA
 
     $('#form-tambah').validate({
             ignore: [],
