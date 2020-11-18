@@ -422,8 +422,15 @@
 
                     <div class="col-lg-7">
                         <div class="carousel arrows-visibile testimonial testimonial-single testimonial-left" data-items="1" data-animate-in="fadeIn" data-animate-out="fadeOut" data-arrows="false">
-
-                            <!-- Testimonials item -->
+                            @foreach ($review as $item)
+                                <div class="testimonial-item">
+                                    <img src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}" alt="">
+                                    <p>{{ $item['deskripsi']}} </p>
+                                    <span>{{ $item['nama_client'] }}</span>
+                                    <span>{{ $item['jabatan'] }} {{ $item['nama_perusahaan'] }}</span>
+                                </div>
+                            @endforeach
+                            {{-- <!-- Testimonials item -->
                             <div class="testimonial-item">
                                 <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
                                 <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
@@ -435,7 +442,7 @@
                             <!-- Testimonials item -->
                             <div class="testimonial-item">
                                 <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
-                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
+                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya 2.</p>
                                 <span>Budi Laksmana</span>
                                 <span>Direktur PT XYZ</span>
                             </div>
@@ -444,11 +451,11 @@
                             <!-- Testimonials item -->
                             <div class="testimonial-item">
                                 <img src="{{asset('asset_web/homepages/testimoni/author.jpg')}}" alt="">
-                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya.</p>
+                                <p>Saya senang bekerja sama dengan PT. Trengginas Jaya 3.</p>
                                 <span>Budi Laksmana</span>
                                 <span>Direktur PT XYZ</span>
                             </div>
-                            <!-- end: Testimonials item-->
+                            <!-- end: Testimonials item--> --}}
 
                         </div>
                     </div>
@@ -790,6 +797,25 @@
                 }
             }
         });
+
+        // $.ajax({
+        //     type:'GET',
+        //     url: "{{ url('webginas2/api-review') }}",
+        //     dataType: 'JSON',
+        //     success: function(result) {
+        //         if(result.status) {
+        //             var html = "";
+        //             for(var i=0;i<result.daftar.length;i++ ) {
+        //                 html += "<div class='testimonial-item'>";
+        //                 html += "<img src='https://api.simkug.com/api/admginas-auth/storage/"+result.daftar[i].file_gambar+"' alt=''/>";
+        //                 html += "<p>"+result.daftar[i].deskripsi+"</p>";
+        //                 html += "<span>"+result.daftar[i].nama_client+"</span>";
+        //                 html += "<span>"+result.daftar[i].jabatan+ " "+result.daftar[i].nama_perusahaan+"</span>";
+        //                 html += "</div>";
+        //             }
+        //         }
+        //     }
+        // });
 
         var whatsapp = $('#whatsapp');
         window.onscroll = function() {

@@ -7,37 +7,40 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
+use App\Http\Controllers\ReviewController;
 
 class Web2Controller extends Controller
 {
+    public function getReview()
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/review-web',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
 
     public function index()
     {
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $agen = getenv('HTTP_USER_AGENT');
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        if($agen != false){
-            $client = new Client();
-            // date_default_timezone_set('Asia/Jakarta');
-            // $ins = array(
-            //     'nik'=>'visitor',
-            //     'tanggal' => date('Y-m-d H:i:s'),
-            //     'ip' => $ip,
-            //     'agen' => $agen,
-            //     'kota' => $details->city,
-            //     'loc' => $details->loc,
-            //     'region' => $details->region,
-            //     'negara' => $details->country,
-            //     'kode_lokasi' => '17',
-            //     'kode_pp' => '-',
-            //     'page' => 'Home'
-            // );
-            // $response = $client->request('POST',  config('api.url').'webginas/lab-log/webginas',[
-            //     'form_params' => $ins
-            // ]);
-        }
-        return view('webginas.templateWeb2');
-        
+        $review = $this->getReview();
+        return view('webginas.templateWeb2',['review' => $review]);   
     }
 
     public function viewPerusahaan() {

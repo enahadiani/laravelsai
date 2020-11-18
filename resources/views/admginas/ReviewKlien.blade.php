@@ -539,6 +539,7 @@
 
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('#row-id').hide();
+            $('#id_edit').val('');
             $('#method').val('post');
             $('#judul-form').html('Tambah Data Review Klien');
             $('#btn-update').attr('id','btn-save');
