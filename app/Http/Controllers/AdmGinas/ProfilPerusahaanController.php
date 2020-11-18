@@ -57,7 +57,7 @@ class ProfilPerusahaanController extends Controller {
             'koordinat' => 'required',
             'nama_perusahaan' => 'required',
             'visi' => 'required',
-            'misi' => 'required',
+            'misi' => 'required|array',
             'deskripsi' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
@@ -66,6 +66,26 @@ class ProfilPerusahaanController extends Controller {
         ]);
 
         try {
+            $fields_urut = array();
+            if(count($request->no_urut) > 0) {
+                for($i=0;$i<count($request->no_urut);$i++){
+                    $fields_urut[$i] = array(
+                        'name' => 'no_urut[]',
+                        'contents' => $request->no_urut[$i]
+                    );
+                }
+            } 
+
+            $fields_misi = array();
+            if(count($request->misi) > 0) {
+                for($i=0;$i<count($request->misi);$i++){
+                    $fields_misi[$i] = array(
+                        'name' => 'misi[]',
+                        'contents' => $request->misi[$i]
+                    );
+                }
+            } 
+
             $fields = array();
             $image_path = $request->file('file_gambar')->getPathname();
             $image_mime = $request->file('file_gambar')->getmimeType();
@@ -108,6 +128,8 @@ class ProfilPerusahaanController extends Controller {
                 'name' => 'email',
                 'contents' => $request->email
                 );
+            
+            $send_data = array_merge($field, $fields_urut, $fields_misi);
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'admginas-master/profil',[
@@ -115,7 +137,7 @@ class ProfilPerusahaanController extends Controller {
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'multipart' => $field
+                'multipart' => $send_data
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

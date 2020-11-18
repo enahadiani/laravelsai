@@ -495,6 +495,99 @@
                             </div>
                         </div>
 
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#btambah" role="tab" aria-selected="true"><span class="hidden-xs-down">Misi Perusahaan</span></a> </li>                                
+                        </ul>
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" role="tabpane" id="btambah">
+                                <div class='col-xs-12 nav-control' style="border: 1px solid #ebebeb;padding: 0px 5px;width:1200px !important;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                </div>
+                                <div class='col-xs-12' style='min-height:420px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th{
+                                            vertical-align:middle !important;
+                                        }
+                                        /* #input-grid td{
+                                            padding:0 !important;
+                                        } */
+                                        #input-grid .selectize-input.focus, #input-grid input.form-control, #input-grid .custom-file-label
+                                        {
+                                            border:1px solid black !important;
+                                            border-radius:0 !important;
+                                        }
+
+                                        #input-grid .selectize-input
+                                        {
+                                            border-radius:0 !important;
+                                        } 
+                                        
+                                        .modal-header .close {
+                                            padding: 1rem;
+                                            margin: -1rem 0 -1rem auto;
+                                        }
+                                        .check-item{
+                                            cursor:pointer;
+                                        }
+                                        .selected{
+                                            cursor:pointer;
+                                            /* background:#4286f5 !important; */
+                                            /* color:white; */
+                                        }
+                                        #input-grid td:not(:nth-child(1)):not(:nth-child(9)):hover
+                                        {
+                                            /* background: var(--theme-color-6) !important;
+                                            color:white; */
+                                            background:#f8f8f8;
+                                            color:black;
+                                        }
+                                        #input-grid input:hover,
+                                        #input-grid .selectize-input:hover,
+                                        {
+                                            width:inherit;
+                                        }
+                                        #input-grid ul.typeahead.dropdown-menu
+                                        {
+                                            width:max-content !important;
+                                        }
+                                        #input-grid td
+                                        {
+                                            overflow:hidden !important;
+                                            height:37.2px !important;
+                                            padding:0px !important;
+                                        }
+
+                                        #input-grid span
+                                        {
+                                            padding:0px 10px !important;
+                                        }
+
+                                        #input-grid input,#input-grid .selectize-input
+                                        {
+                                            overflow:hidden !important;
+                                            height:35px !important;
+                                        }
+
+                                        #input-grid td:nth-child(5)
+                                        {
+                                            overflow:unset !important;
+                                        }
+                                    </style>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-grid" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap;">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%" class="text-center">No</th>
+                                                <th width="12%" class="text-center"></th>   
+                                                <th class="text-center">Misi</th>                                                                                                                                   
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -571,6 +664,153 @@
         });
 
         var psscrollform = new PerfectScrollbar('#form-body');
+
+        $('#form-tambah').on('click', '.add-row', function(){
+            addRowGrid();
+        });
+
+        function hitungTotalRow(){
+            var total_row = $('#input-grid tbody tr').length;
+            $('#total-row').html(total_row+' Baris');
+        }
+
+        function addRowGridDefault() {
+            var no=$('#input-grid .row-grid:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-grid'>";
+            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' value="+no+" name='no_urut[]'></td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+            input += "<td><span class='td-misi tdmisike"+no+" tooltip-span'></span><textarea autocomplete='off' name='misi[]' class='form-control inp-misi misike"+no+" hidden'></textarea></td>";
+            input += "</tr>";
+
+            $('#input-grid tbody').append(input);
+            $('.row-grid:last').addClass('selected-row');
+
+            hitungTotalRow();
+        }
+
+        function addRowGrid() {
+            var no=$('#input-grid .row-grid:last').index();
+            no=no+2;
+            var input = "";
+            input += "<tr class='row-grid'>";
+            input += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' value="+no+" name='no_urut[]'></td>";
+            input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+            input += "<td><span class='td-misi tdmisike"+no+" tooltip-span'></span><textarea autocomplete='off' name='misi[]' class='form-control inp-misi misike"+no+" hidden'></textarea></td>";
+            input += "</tr>";
+
+            $('#input-grid tbody').append(input);
+            $('.row-grid:last').addClass('selected-row');
+            $('#input-grid tbody tr').not('.row-grid:last').removeClass('selected-row');
+
+            $('#input-grid td').removeClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
+            $('#input-grid tbody tr:last').find(".inp-misi").show();
+            $('#input-grid tbody tr:last').find(".td-misi").hide();
+            $('#input-grid tbody tr:last').find(".inp-misi").focus();
+
+            hitungTotalRow();
+            hideUnselectedRow();
+        }
+
+        function hideUnselectedRow() {
+            $('#input-grid > tbody > tr').each(function(index, row) {
+                if(!$(row).hasClass('selected-row')) {
+                    var misi = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-misi").val();
+
+                    $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-misi").val(misi);
+                    $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-misi").text(misi);
+
+                    $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-misi").hide();
+                    $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-misi").show();
+                }
+            })
+        }
+
+        $('#input-grid tbody').on('click', 'tr', function(){
+            $(this).addClass('selected-row');
+            $('#input-grid tbody tr').not(this).removeClass('selected-row');
+            hideUnselectedRow();
+        });
+
+        $('#input-grid').on('click', 'td', function(){
+            var idx = $(this).index();
+            if(idx == 0){
+                return false;
+            }else{
+                if($(this).hasClass('px-0 py-0 aktif')){
+                    return false;            
+                }else{
+                    $('#input-grid td').removeClass('px-0 py-0 aktif');
+                    $(this).addClass('px-0 py-0 aktif');
+                    console.log(idx);
+                    var misi = $(this).parents("tr").find(".inp-misi").val();
+                    var no = $(this).parents("tr").find("span.no-grid").text();
+                    $(this).parents("tr").find(".inp-misi").val(misi);
+                    $(this).parents("tr").find(".td-misi").text(misi);
+                    if(idx == 2){
+                        $(this).parents("tr").find(".inp-misi").show();
+                        $(this).parents("tr").find(".td-misi").hide();
+                        $(this).parents("tr").find(".inp-misi").focus();
+                    }else{
+                        $(this).parents("tr").find(".inp-misi").hide();
+                        $(this).parents("tr").find(".td-misi").show();
+                    }
+                }
+            }
+        });
+
+        $('#input-grid').on('click', '.hapus-item', function(){
+            $(this).closest('tr').remove();
+            no=1;
+            $('.row-grid').each(function(){
+                var nom = $(this).closest('tr').find('.no-grid');
+                nom.html(no);
+                no++;
+            });
+            hitungTotalRow();
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+
+        $('#input-grid').on('keydown','.inp-misi',function(e){
+            var code = (e.keyCode ? e.keyCode : e.which);
+            var nxt = ['.inp-misi'];
+            var nxt2 = ['.td-misi'];
+            if (code == 13 || code == 9) {
+                e.preventDefault();
+                var idx = $(this).closest('td').index()-2;
+                var idx_next = idx+1;
+                var kunci = $(this).closest('td').index()+1;
+                var isi = $(this).val();
+                switch (idx) {
+                    case 0:
+                        $("#input-grid td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).closest('tr').find(nxt[idx]).val(isi);
+                        $(this).closest('tr').find(nxt2[idx]).text(isi);
+                        $(this).closest('tr').find(nxt[idx]).hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        
+                        var cek = $(this).parents('tr').next('tr').find('.td-misi');
+                        if(cek.length > 0){
+                            cek.click();
+                        }else{
+                            $('.add-row').click();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }else if(code == 38){
+                e.preventDefault();
+                var idx = nxt.indexOf(e.target.id);
+                idx--;
+            }
+        });
         
         $('#saku-form').on('click', '#btn-kembali', function(){
             var kode = null;
@@ -593,6 +833,7 @@
             $('#saku-form').show();
             $('#banner-preview').hide();
             $('#span-banner').show();
+            addRowGridDefault();
         });
 
         // LIST DATA
