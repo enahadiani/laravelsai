@@ -11,6 +11,33 @@ use App\Http\Controllers\ReviewController;
 
 class Web2Controller extends Controller
 {
+    public function getProfilPerusahaan()
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/perusahaan-web',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $response = json_decode($response_data,true);
+                $data['data'] = $response["data"];
+                $data['misi'] = $response["detail"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getReview()
     {
         try {
@@ -44,7 +71,9 @@ class Web2Controller extends Controller
     }
 
     public function viewPerusahaan() {
-        return view('webginas.perusahaan');
+        $data = $this->getProfilPerusahaan();
+        $explodeDeskripsi = explode('/n', $data['data'][0]['deskripsi']); 
+        return view('webginas.perusahaan', ['deskripsi' => $data['data'][0]['deskripsi'], 'misi' => $data['misi']]);
     }
 
     public function viewKontak() {

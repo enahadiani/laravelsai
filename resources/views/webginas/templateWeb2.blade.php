@@ -459,7 +459,7 @@
         <section id="section-blog" class="content background-grey pb-0">
             <div class="container">
 
-                <div class="heading-text heading-section text-center">
+                <div class="heading-text heading-section text-center" style="display: flex;justify-content:center;align-items:center;">
                     <h2>Info Terbaru</h2>
                 </div>
 
@@ -468,20 +468,20 @@
 
                     <!-- Post item-->
                     <div class="post-item border berita">
-                        <div class="post-item-wrap">
+                        <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/isi-berita')}}">
-                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle18.png') }}">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/berita-1.jpeg') }}">
                                 </a>
                             </div>
                             <div class="post-item-description">
-                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
-                                <h2><a href="{{url('webginas2/berita/isi-berita')}}">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
-                                    </a></h2>
-                                
-
-                                <a href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
-
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 September 2020</span>
+                                <h2>
+                                    <a href="{{url('webginas2/berita/isi-berita')}}">
+                                        Pelatihan Diklat Gada Madya PT. Trengginas Jaya
+                                    </a>
+                                </h2>
+                                <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -489,21 +489,20 @@
 
                     <!-- Post item-->
                     <div class="post-item border berita">
-                        <div class="post-item-wrap">
+                        <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="#">
-                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle19.png') }}">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/berita-2.jpeg') }}">
                                 </a>
                             </div>
                             <div class="post-item-description">
-                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
-
-                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
-                                    </a></h2>
-                                
-
-                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
-
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 September 2020</span>
+                                <h2>
+                                    <a href="#">
+                                        Pelatihan Diklat Gada Pratama PT. Trengginas Jaya
+                                    </a>
+                                </h2>
+                                <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -512,21 +511,19 @@
 
                     <!-- Post item-->
                     <div class="post-item border berita">
-                        <div class="post-item-wrap">
+                        <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="#">
-                                    <img alt="" src="{{ asset('asset_web/homepages/berita/Rectangle20.png') }}">
+                                    <img alt="" src="{{ asset('asset_web/homepages/berita/berita-3.jpeg') }}">
                                 </a>
                             </div>
                             <div class="post-item-description">
-                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 Oktober 2020</span>
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>19 September 2020</span>
 
-                                <h2><a href="#">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempo
-                                    </a></h2>
-                                
-
-                                <a href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
-
+                                <h2>
+                                    <a href="#">Rekonsiliasi PT Telkom Property</a>
+                                </h2>
+                                <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="#" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
