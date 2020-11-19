@@ -43,29 +43,20 @@
             periode = $periode;
             var lokasi = res.lokasi;
             html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
-                <table class='table treegrid' id='table-grid'>`;
-                    // `<tr>
-                    //     <td width='30' rowspan='2'  class='header_laporan' align='center'>No</td>
-                    //     <td width='70' rowspan='2' class='header_laporan' align='center'>Kode Akun</td>
-                    //     <td width='300' rowspan='2' class='header_laporan' align='center'>Nama Akun</td>
-                    //     <td height='25' colspan='2' class='header_laporan' align='center'>Saldo Awal </td>
-                    //     <td colspan='2' class='header_laporan' align='center'>Mutasi</td>
-                    //     <td colspan='2' class='header_laporan' align='center'>Saldo Akhir </td>
-                    // </tr>
-                    // <tr> 
-                    //     <td width='90' height='25' class='header_laporan' align='center'>Debet</td>
-                    //     <td width='90' class='header_laporan' align='center'>Kredit</td>
-                    //     <td width='90' class='header_laporan' align='center'>Debet</td>
-                    //     <td width='90' class='header_laporan' align='center'>Kredit</td>
-                    //     <td width='90' class='header_laporan' align='center'>Debet</td>
-                    //     <td width='90' class='header_laporan' align='center'>Kredit</td>
-                    // </tr>`;
-                    var so_awal_debet=0;
-                    var so_awal_kredit=0;
+                <table class='table treegrid' id='table-grid'>
+                    <tr>
+                        <td class='header_laporan' align='center'>Kode Akun</td>
+                        <td class='header_laporan' align='center'>Nama Akun</td>
+                        <td class='header_laporan' align='center'>Kode PP</td>
+                        <td class='header_laporan' align='center'>Saldo Awal </td>
+                        <td class='header_laporan' align='center'>Debet</td>
+                        <td class='header_laporan' align='center'>Kredit</td>
+                        <td class='header_laporan' align='center'>Saldo Akhir </td>
+                    </tr>`;
+                    var so_awal=0;
                     var debet=0;
                     var kredit=0;
-                    var so_akhir_debet=0;
-                    var so_akhir_kredit=0;
+                    var so_akhir=0;
                     if(from != undefined){
                         var no=from+1;
                     }else{
@@ -75,43 +66,37 @@
                     for (var i=0; i < data.length ; i++)
                     {
                         var line  = data[i];
-                        so_awal_debet=so_awal_debet+parseFloat(line.so_awal_debet);
-                        so_awal_kredit=so_awal_kredit+parseFloat(line.so_awal_kredit);
-                        debet=debet+parseFloat(line.debet);
-                        kredit=kredit+parseFloat(line.kredit);
-                        so_akhir_debet=so_akhir_debet + parseFloat(line.so_akhir_debet);
-                        so_akhir_kredit=so_akhir_kredit + parseFloat(line.so_akhir_kredit);
                         if(line.kode_induk == '-'){
                             var tree_id = "treegrid-"+line.kode_akun;
                             var parent_to_prt = "";
                             x=0;
+                            so_awal=so_awal+parseFloat(line.so_awal);
+                            debet=debet+parseFloat(line.debet);
+                            kredit=kredit+parseFloat(line.kredit);
+                            so_akhir=so_akhir + parseFloat(line.so_akhir);
                         }else{
                             var tree_id = "treegrid-"+line.kode_akun+x;
                             var parent_to_prt = "treegrid-parent-"+line.kode_induk;
                             x++;
                         }
                         html +=`<tr class='`+tree_id+` `+parent_to_prt+`' style='cursor:pointer;'>
-                            <td class='isi_laporan' align='center'>`+no+`</td>
                             <td class='isi_laporan' >`+line.kode_akun+`</td>
                             <td height='20' class='isi_laporan link-report'>`+line.nama+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_debet))+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal_kredit))+`</td>
+                            <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>
+                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_awal))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.debet))+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.kredit))+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_akhir_debet))+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_akhir_kredit))+`</td>
+                            <td class='isi_laporan' align='right'>`+sepNum(parseFloat(line.so_akhir))+`</td>
                         </tr>`;
                         no++;
                     }
-            // html+=`<tr>
-            //     <td height='20' colspan='3' class='sum_laporan' align='right'>Total</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(so_awal_debet)+`</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(so_awal_kredit)+`</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(debet)+`</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(kredit)+`</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(so_akhir_debet)+`</td>
-            //     <td class='sum_laporan' align='right'>`+sepNum(so_akhir_kredit)+`</td>
-            //     </tr>`;
+            html+=`<tr>
+                <td height='20' colspan='3' class='sum_laporan' align='right'>Total</td>
+                <td class='sum_laporan' align='right'>`+sepNum(so_awal)+`</td>
+                <td class='sum_laporan' align='right'>`+sepNum(debet)+`</td>
+                <td class='sum_laporan' align='right'>`+sepNum(kredit)+`</td>
+                <td class='sum_laporan' align='right'>`+sepNum(so_akhir)+`</td>
+                </tr>`;
             html+=`</table>`;
         }
         $('#canvasPreview').html(html);
