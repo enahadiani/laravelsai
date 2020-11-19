@@ -2077,7 +2077,7 @@
                 var nis = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
                 var nilai = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
-                var nis2 = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-ni2").val();
+                var nis2 = $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-nis2").val();
                
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".inp-kode").val(nis);
                 $('#input-nilai > tbody > tr:eq('+index+') > td').find(".td-kode").text(nis);
@@ -2317,7 +2317,7 @@
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
                 var nis2 = $(this).parents("tr").find(".inp-nis2").val();
                 var no = $(this).parents("tr").find(".no-nilai").text();
-                console.log(nis2);
+
                 $(this).parents("tr").find(".inp-kode").val(nis);
                 $(this).parents("tr").find(".td-kode").text(nis);
                 if(idx == 1){
@@ -2339,9 +2339,8 @@
                     $(this).parents("tr").find(".td-nis2").hide();
                     $(this).parents("tr").find(".inp-nis2").focus();
                 }else{
-                    
-                    $(this).parents("tr").find(".inp-nama").hide();
-                    $(this).parents("tr").find(".td-nama").show();
+                    $(this).parents("tr").find(".inp-nis2").hide();
+                    $(this).parents("tr").find(".td-nis2").show();
                 }
 
                 $(this).parents("tr").find(".inp-nama").val(nama);
@@ -2367,6 +2366,8 @@
                     $(this).parents("tr").find(".td-nilai").show();
                 }
                 hitungTotalRow();
+                var nis2 = $(this).parents("tr").find(".inp-nis2").val();
+                console.log(nis2);
             }
         }
     });
