@@ -1,3 +1,4 @@
+    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('report.css') }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
@@ -14,6 +15,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_akun" nama="Kode Akun" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
                                     </div>   
@@ -59,6 +61,7 @@
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('reportFilter.js') }}"></script>
+    <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -80,6 +83,14 @@
             toname : "",
         }
 
+        var $output = {
+            type : "=",
+            from : "Laporan",
+            fromname : "Laporan",
+            to : "",
+            toname : "",
+        }
+
         var $aktif = "";
         
         $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -87,6 +98,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
+        $('#output-from').val("Laporan");
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
             $('#collapsePaging').hide();
@@ -120,10 +132,10 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_akun'],
-            nama : ['Periode','Kode Akun'],
-            header : [['Periode', 'Nama'],['Kode','Nama']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action']],
+            kode : ['periode','kode_akun','output'],
+            nama : ['Periode','Kode Akun','Output'],
+            header : [['Periode', 'Nama'],['Kode','Nama'],['Kode']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode','Nama','Action'],['Kode','Action']],
             columns: [
                 [
                     { data: 'periode' },
@@ -131,14 +143,16 @@
                 ],[
                     { data: 'kode_akun' },
                     { data: 'nama' }
+                ],[
+                    { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-akun') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-akun') }}","{{ url('yakes-report/filter-output') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[]],
-            width:[['30%','70%'],['30%','70%']],
-            display:['name','kodename'],
-            pageLength:[12,10]
+            orderby:[[[0,"desc"]],[],[]],
+            width:[['30%','70%'],['30%','70%'],['100%']],
+            display:['name','kodename','kode'],
+            pageLength:[12,10,10]
             
         });
 
@@ -156,7 +170,11 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajurGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -171,7 +189,11 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajurGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 

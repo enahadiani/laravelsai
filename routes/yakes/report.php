@@ -14,8 +14,10 @@ Route::get('filter-modul', 'Yakes\HelperController@getFilterModul');
 Route::get('filter-bukti-jurnal', 'Yakes\HelperController@getFilterBuktiJurnal');
 Route::get('filter-mutasi', 'Yakes\HelperController@getFilterMutasi');
 Route::get('filter-pp', 'Yakes\HelperController@getFilterPP');
+Route::get('filter-output', 'Yakes\HelperController@getFilterOutput');
 
 Route::post('lap-nrclajur', 'Yakes\LaporanController@getNrcLajur');
+Route::post('lap-nrclajur-grid', 'Yakes\LaporanController@getNrcLajurGrid');
 Route::post('lap-nrclajur-jejer', 'Yakes\LaporanController@getNrcLajurJejer');
 Route::post('lap-jurnal', 'Yakes\LaporanController@getJurnal');
 Route::post('lap-buktijurnal', 'Yakes\LaporanController@getBuktiJurnal');
