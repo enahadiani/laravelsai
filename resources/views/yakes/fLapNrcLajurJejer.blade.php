@@ -105,7 +105,8 @@
             parameter:[],
             orderby:[[[0,"desc"]],[]],
             width:[['30%','70%'],['30%','70%']],
-            display:['name','kodename']
+            display:['name','kodename'],
+            pageLength:[12,10]
             
         });
 

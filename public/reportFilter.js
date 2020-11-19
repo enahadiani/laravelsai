@@ -14,7 +14,8 @@
             orderby:[],
             width:[],
             headerpilih:[],
-            display:[]
+            display:[],
+            pageLength:[]
         }
         
         $.extend(settings, options);
@@ -36,6 +37,15 @@
         var orderby = settings.orderby[idx];
         var width = settings.width[idx];
         var type = tipe;
+        if(settings.pageLength != undefined){
+            if(settings.pageLength[idx] != undefined){
+                var pageLength = settings.pageLength[idx];
+            }else{
+                var pageLength = 10;
+            }
+        }else{
+            var pageLength =10;
+        }
         
         var header_html = '';
         for(i=0; i < settings.header[idx].length; i++){
@@ -120,6 +130,7 @@
                 searchPlaceholder: "Search...",
                 lengthMenu: "Items Per Page _MENU_"
             },
+            pageLength : pageLength
         });
 
         $('#modal-search .modal-title').html(judul);
@@ -159,6 +170,7 @@
                     searchPlaceholder: "Search...",
                     lengthMenu: "Items Per Page _MENU_"
                 },
+                pageLength : pageLength
             });
 
             $('#modal-search .modal-subtitle').html('[Rentang Awal]');
@@ -226,7 +238,8 @@
                 },
                 "columnDefs": [{
                     "targets": 2, "data": null, "defaultContent": "<a class='hapus-item'><i class='simple-icon-trash' style='font-size:18px'></i></a>"
-                }]
+                }],
+                pageLength : pageLength
             });
             searchTable2.columns.adjust().draw();
         }

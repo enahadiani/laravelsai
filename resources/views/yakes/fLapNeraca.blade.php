@@ -177,7 +177,8 @@
             parameter:[],
             orderby:[[[0,"desc"]],[],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode']
+            display:['name','kode','kode','kode'],
+            pageLength:[12,10,10,10]
         });
 
         var $formData = "";

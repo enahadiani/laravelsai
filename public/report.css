@@ -118,9 +118,11 @@ padding-right: 5px; }
 ul.pagination .pagination-sm{
     float:right !important;
 }
-#table-search_paginate
+#table-search_paginate, 
+#table-search2_paginate
 {
     margin-top:0;
+    float: right;
 }
 
 .bootstrap-tagsinput input{

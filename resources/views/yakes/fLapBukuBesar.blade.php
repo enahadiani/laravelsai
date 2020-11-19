@@ -160,7 +160,8 @@
             parameter:[],
             orderby:[[[0,"desc"]],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kodename','kode']
+            display:['name','kodename','kode'],
+            pageLength:[12,10,10]
             
         });
 
