@@ -28,6 +28,8 @@ Route::get('/perusahaan', 'Webginas\Web2Controller@viewPerusahaan');
 Route::get('/kontak', 'Webginas\Web2Controller@viewKontak');
 Route::get('/berita', 'Webginas\Web2Controller@viewBerita');
 Route::get('/berita/isi-berita', 'Webginas\Web2Controller@viewContentBerita');
+Route::get('/berita/isi-berita2', 'Webginas\Web2Controller@viewContentBerita2');
+Route::get('/berita/isi-berita3', 'Webginas\Web2Controller@viewContentBerita3');
 Route::get('/layanan/outsourcing', 'Webginas\Web2Controller@viewContentLayanan');
 Route::get('/layanan/outsourcing/security', 'Webginas\Web2Controller@viewContentSecurity');
 Route::get('/layanan/outsourcing/cleaning-service', 'Webginas\Web2Controller@viewContentCleaningService');

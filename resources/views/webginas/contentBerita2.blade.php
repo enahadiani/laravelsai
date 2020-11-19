@@ -209,13 +209,15 @@
 
                                 <div class="post-image">
                                     <a href="#">
-                                        <img alt="" src="{{ asset('asset_web/homepages/berita/berita-1.jpeg') }}">
+                                        <img alt="" src="{{ asset('asset_web/homepages/berita/berita-2.jpeg') }}">
                                     </a>
                                 </div>
 
                                 <div class="post-item-description" style="margin-top: 25px;">
                                     <p>
-                                        Kegiatan Gada Madya angkatan I akan diadakan PT. Trengginas Jaya pada Bulan Desember 2020.
+                                        Kegiatan Diklat Gada Pratama Angkatan ke I PT. Trengginas Jaya dilaksanakan pada 
+                                        Tanggal 24 September 2020, yang dimana Diklat ini merupakan salahsatu kewajiban 
+                                        bagi anggota SATPAM untuk mendapatkan KTA dan Sertifikasi Anggota SATPAM.
                                     </p>
                                 </div>
 

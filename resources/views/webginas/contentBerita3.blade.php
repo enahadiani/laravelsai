@@ -184,7 +184,7 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Info Terbaru</a></li>
-                        <li><a href="#">Pelatihan Diklat Gada Madya PT. Trengginas Jaya</a></li>
+                        <li><a href="#">Rekonsiliasi PT Telkom Property</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,7 +201,7 @@
                             <div class="post-item-wrap">
                                 
                                 <div class="post-item-description" style="margin-bottom: 25px;">
-                                    <h2>Pelatihan Diklat Gada Madya PT. Trengginas Jaya</h2>
+                                    <h2>Rekonsiliasi PT Telkom Property</h2>
                                     <div class="post-meta">
                                          <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Kamis, 11 November 2020</span>
                                     </div>
@@ -209,13 +209,14 @@
 
                                 <div class="post-image">
                                     <a href="#">
-                                        <img alt="" src="{{ asset('asset_web/homepages/berita/berita-1.jpeg') }}">
+                                        <img alt="" src="{{ asset('asset_web/homepages/berita/berita-3.jpeg') }}">
                                     </a>
                                 </div>
 
                                 <div class="post-item-description" style="margin-top: 25px;">
                                     <p>
-                                        Kegiatan Gada Madya angkatan I akan diadakan PT. Trengginas Jaya pada Bulan Desember 2020.
+                                        Kegiatan Rekonsiliasi selalu rutin dilaksanakan dengan customer setiap periodik, 
+                                        untuk mengukur kinerja & kualitas layanan PT. Trengginas Jaya dalam hal pelayanan.
                                     </p>
                                 </div>
 
