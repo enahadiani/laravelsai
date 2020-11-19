@@ -1050,7 +1050,7 @@
                 else if (par == "kode_kelas[]"){
                     var flag_kelas = $(this).closest('tr').find('td:nth-child(3)').text();
                     $($target).parents("tr").find(".inp-flag_kelas").val(flag_kelas);
-                    $($target).parents("tr").find(".tdflag_kelas").text(flag_kelas);
+                    $($target).parents("tr").find(".td-flag_kelas").text(flag_kelas);
                     setTimeout(function() {  $($target).parents("tr").find(".inp-flag_kelas").trigger('click'); }, 50);
                 }
 
@@ -1193,8 +1193,9 @@
                             
                             $('.'+target2).val(result.daftar[0].nama);
                             $('.td'+target2).text(result.daftar[0].nama);
-                            $('.tdflag_kelas').text(result.daftar[0].flag_kelas);
-                            $('.tdflag_kelas').click();
+                            $('.'+target1).closest('tr').find('.td-flag_kelas').text(result.daftar[0].flag_kelas);
+                            $('.'+target1).closest('tr').find('.inp-flag_kelas').val(result.daftar[0].flag_kelas);
+                            $('.'+target1).closest('tr').find('.td-flag_kelas').click();
                         }else{
                             
                             $("#input-kelas td").removeClass("px-0 py-0 aktif");
@@ -1210,9 +1211,9 @@
                             $('.td'+target2).text(result.daftar[0].nama);
                             $('.'+target2).show();
                             $('.td'+target2).hide();
-                            $('.'+target2).focus();
-                            $('.tdflag_kelas').text(result.daftar[0].flag_kelas);
-                            $('.tdflag_kelas').click();
+                            $('.'+target1).closest('tr').find('.td-flag_kelas').text(result.daftar[0].flag_kelas);
+                            $('.'+target1).closest('tr').find('.inp-flag_kelas').val(result.daftar[0].flag_kelas);
+                            $('.'+target1).closest('tr').find('.td-flag_kelas').click();
                         }
                     }
                 }
@@ -1222,18 +1223,18 @@
                 else{
                     if(jenis == 'change'){
                         $('.'+target1).val('');
-                        $('.'+target2).val('');
-                        $('.inp-flag_kelas').val('');
+                        $('.'+target2).val(''); 
+                        $('.'+target1).closest('tr').find('.inp-flag_kelas').val('');
+                        $('.'+target1).closest('tr').find('.td-flag_kelas').text('');
                         $('.td'+target2).text('');
-                        $('.tdflag_kelas').text('');
                         $('.'+target1).focus();
                     }else{
                         $('.'+target1).val('');
                         $('.'+target2).val('');
-                        $('.inp-flag_kelas').val('');
                         $('.td'+target2).text('');
-                        $('.tdflag_kelas').text('');
                         $('.'+target1).focus();
+                        $('.'+target1).closest('tr').find('.inp-flag_kelas').val('');
+                        $('.'+target1).closest('tr').find('.td-flag_kelas').text('');
                         alert('Kode Param tidak valid');
                     }
                 }
@@ -1407,6 +1408,8 @@
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
                     $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();  
 
                 break;
                 case 2:

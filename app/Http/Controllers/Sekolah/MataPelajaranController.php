@@ -33,7 +33,8 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_matpel' => $request->kode_matpel,
-                        'sifat' => $request->sifat
+                        'sifat' => $request->sifat,
+                        'flag_kelas' => $request->flag_kelas
                     ]
                 ]);
 
