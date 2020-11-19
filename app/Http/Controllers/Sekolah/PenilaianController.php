@@ -127,6 +127,7 @@
                 'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
+                'flag_kelas'=>'required',
                 'kode_kd' => 'required',
                 'nama_kd' => 'required',
                 'pelaksanaan' => 'required',
@@ -154,6 +155,7 @@
                         'kode_pp' => $request->kode_pp,
                         'kode_sem' => $request->kode_sem,
                         'kode_kelas' => $request->kode_kelas,
+                        'flag_kelas' => $request->flag_kelas,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_jenis'=>$request->kode_jenis,
                         'kode_kd'=>$request->kode_kd,
@@ -188,6 +190,7 @@
                 'kode_pp' => 'required',
                 'kode_sem' => 'required',
                 'kode_kelas' => 'required',
+                'flag_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'kode_jenis'=>'required',
                 'kode_kd'=>'required',
@@ -223,6 +226,7 @@
                         'kode_kd' => $request->kode_kd,
                         'nama_kd' => $request->nama_kd,
                         'pelaksanaan' => $request->pelaksanaan,
+                        'flag_kelas' => $request->flag_kelas,
                         'nis'=>$request->nis,
                         'nilai'=>$det_nilai
                     ]
@@ -638,17 +642,18 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_kelas' => $request->kode_kelas,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'flag_kelas' => $request->flag_kelas
                     ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                 
-                    $data = json_decode($response_data,true);
-                    $data = $data["success"]["data"];
+                    $res = json_decode($response_data,true);
+                    $data = $res["success"]["data"];
                 }
-                return response()->json(['daftar' => $data, 'status' => true], 200);
+                return response()->json(['daftar' => $data, 'status' => true, 'res'=>$res], 200);
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
                 $res = json_decode($response->getBody(),true);
