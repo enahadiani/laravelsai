@@ -56,7 +56,8 @@
                 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
                 'kode_ta' => 'required',
-                'kode_kelas'=>'required|array'
+                'kode_kelas'=>'required|array',
+                'flag_kelas'=>'required|array'
             ]);
 
             try{                
@@ -66,7 +67,9 @@
                     'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
                     'kode_ta' => $request->kode_ta,
-                    'kode_kelas' => $request->kode_kelas
+                    'kode_kelas' => $request->kode_kelas,
+                    'flag_kelas' => $request->flag_kelas
+                    
                 );
     
                 $client = new Client();
@@ -168,7 +171,8 @@
                 'flag_aktif' => 'required',
                 'kode_matpel' => 'required',
                 'kode_ta' => 'required',
-                'kode_kelas'=>'required|array'
+                'kode_kelas'=>'required|array',
+                'flag_kelas'=>'required|array'
             ]);
 
             try{
@@ -178,7 +182,8 @@
                     'flag_aktif' => $request->flag_aktif,
                     'kode_matpel' => $request->kode_matpel,
                     'kode_ta' => $request->kode_ta,
-                    'kode_kelas' => $request->kode_kelas
+                    'kode_kelas' => $request->kode_kelas,
+                    'flag_kelas' => $request->flag_kelas
                   );
         
                 $client = new Client();
@@ -194,7 +199,7 @@
                     $response_data = $response->getBody()->getContents();
                     
                     $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data["success"],'fields'=>$fields], 200);  
+                    return response()->json(['data' => $data["success"]], 200);  
                 }
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
@@ -204,6 +209,37 @@
                 return response()->json(['data' => $data], 200);
             }
 
+        }
+
+        public function getMultiKelas(Request $request)
+        {
+            try{
+                $kode_pp = $request->kode_pp;
+                
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'sekolah/multi-kelas',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'kode_pp' => $kode_pp,
+                        'kode_kelas' => $request->kode_kelas
+                    ]
+                ]);
+
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                
+                    $data = json_decode($response_data,true);
+                    $data = $data["success"]["data"];
+                }
+                return response()->json(['daftar' => $data, 'status' => true], 200);
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            }
         }
 
     }

@@ -106,6 +106,7 @@ Route::post('import-kd', 'Sekolah\KdController@importExcel');
 Route::get('kd-tmp', 'Sekolah\KdController@getKdTmp');
 
 Route::get('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@index');
+Route::get('multi-kelas', 'Sekolah\GuruMultiKelasController@getMultiKelas');
 Route::get('guru-multi-kelas-detail', 'Sekolah\GuruMultiKelasController@show');
 Route::post('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@store');
 Route::put('guru-multi-kelas', 'Sekolah\GuruMultiKelasController@update');

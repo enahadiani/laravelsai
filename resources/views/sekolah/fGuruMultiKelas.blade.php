@@ -471,7 +471,8 @@
                                                     <tr>
                                                         <th style="width:3%">No</th>
                                                         <th style="width:20%">Kode Kelas</th>
-                                                        <th style="width:72%">Nama Kelas</th>
+                                                        <th style="width:62%">Nama Kelas</th>
+                                                        <th style="width:12%">Jenis Kelas</th>
                                                         <th style="width:5%"></th>
                                                     </tr>
                                                 </thead>
@@ -489,8 +490,8 @@
             </div>
         </div>
     </form>
-     <!-- MODAL SEARCH-->
-     <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+    <!-- MODAL SEARCH-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
@@ -858,11 +859,12 @@
         
         switch(par){
             case 'kode_kelas[]': 
-                header = ['Kode', 'Nama'];
-                var toUrl = "{{ url('sekolah-master/kelas') }}";
+                header = ['Kode', 'Nama', 'Jenis Kelas'];
+                var toUrl = "{{ url('sekolah-master/multi-kelas') }}";
                 var columns = [
                     { data: 'kode_kelas' },
-                    { data: 'nama' }
+                    { data: 'nama' },
+                    { data: 'flag_kelas' }
                 ];
                 var judul = "Daftar Kelas";
                 var pilih = "parameter";
@@ -871,7 +873,7 @@
                 $target = "."+$target;
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
-                $target4 = "";
+                $target4 = "flag_kelas";
                 parameter = {'kode_pp':$('#kode_pp').val()};
             break;
             case 'kode_pp': 
@@ -1015,6 +1017,9 @@
                     $($target).parents('div').removeClass('hidden');
                 }
 
+                console.log(jTarget2);
+                console.log($target2);
+
                 if(jTarget2 == "val"){
                     $($target2).val(nama);
                 }else if(jTarget2 == "title"){
@@ -1031,16 +1036,25 @@
                     $($target2+' span').text(nama);
                     $($target2).attr("title",nama);
                     $($target2).removeClass('hidden');
-                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+                    $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden');
+                    console.log($target2);
                 }
                 
-                if($target3 != ""){
-                    $($target3).click();
-                }
+                // if($target3 != "" && par != "kode_kelas[]"){
+                //     $($target3).click();
+                // }
 
                 if(par == "kode_pp"){
                     getTA(kode);
                 }
+                else if (par == "kode_kelas[]"){
+                    var flag_kelas = $(this).closest('tr').find('td:nth-child(3)').text();
+                    $($target).parents("tr").find(".inp-flag_kelas").val(flag_kelas);
+                    $($target).parents("tr").find(".tdflag_kelas").text(flag_kelas);
+                    setTimeout(function() {  $($target).parents("tr").find(".inp-flag_kelas").trigger('click'); }, 50);
+                }
+
+                
 
                 $('#modal-search').modal('hide');
             }
@@ -1166,7 +1180,7 @@
         var kode_pp = $('#kode_pp').val();
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-master/kelas') }}",
+            url: "{{ url('sekolah-master/multi-kelas') }}",
             dataType: 'json',
             data:{kode_kelas:kode,kode_pp:kode_pp},
             async:false,
@@ -1179,7 +1193,8 @@
                             
                             $('.'+target2).val(result.daftar[0].nama);
                             $('.td'+target2).text(result.daftar[0].nama);
-                            $('.td'+target3).click();
+                            $('.tdflag_kelas').text(result.daftar[0].flag_kelas);
+                            $('.tdflag_kelas').click();
                         }else{
                             
                             $("#input-kelas td").removeClass("px-0 py-0 aktif");
@@ -1196,7 +1211,8 @@
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
-                            $('.td'+target3).click();
+                            $('.tdflag_kelas').text(result.daftar[0].flag_kelas);
+                            $('.tdflag_kelas').click();
                         }
                     }
                 }
@@ -1207,12 +1223,16 @@
                     if(jenis == 'change'){
                         $('.'+target1).val('');
                         $('.'+target2).val('');
+                        $('.inp-flag_kelas').val('');
                         $('.td'+target2).text('');
+                        $('.tdflag_kelas').text('');
                         $('.'+target1).focus();
                     }else{
                         $('.'+target1).val('');
                         $('.'+target2).val('');
+                        $('.inp-flag_kelas').val('');
                         $('.td'+target2).text('');
+                        $('.tdflag_kelas').text('');
                         $('.'+target1).focus();
                         alert('Kode Param tidak valid');
                     }
@@ -1309,6 +1329,7 @@
                 
                 var kode_kelas = $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-kelas").val();
                 var nama = $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-nkelas").val();
+                var flag_kelas = $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-flag_kelas").val();
                 // var kode_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val();
                 // var nama_status = $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-nstatus").val();
                 
@@ -1316,6 +1337,8 @@
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-kelas").text(kode_kelas);
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-nkelas").val(nama);
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-nkelas").text(nama);
+                $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-flag_kelas").val(flag_kelas);
+                $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-flag_kelas").text(flag_kelas);
                 
                 // $('#input-status > tbody > tr:eq('+index+') > td').find(".inp-status").val(kode_status);
                 // $('#input-status > tbody > tr:eq('+index+') > td').find(".td-status").text(kode_status);
@@ -1327,6 +1350,8 @@
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".search-kelas").hide();
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-nkelas").hide();
                 $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-nkelas").show();
+                $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-flag_kelas").hide();
+                $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-flag_kelas").show();
                 
                 // $('#input-kelas > tbody > tr:eq('+index+') > td').find(".inp-status").hide();
                 // $('#input-kelas > tbody > tr:eq('+index+') > td').find(".td-status").show();
@@ -1337,10 +1362,10 @@
         })
     }
 
-    $('#input-kelas').on('keydown','.inp-kelas, .inp-nkelas',function(e){
+    $('#input-kelas').on('keydown','.inp-kelas, .inp-nkelas, .inp-flag_kelas',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kelas','.inp-nkelas'];
-        var nxt2 = ['.td-kelas','.td-nkelas'];
+        var nxt = ['.inp-kelas','.inp-nkelas','.inp-flag_kelas'];
+        var nxt2 = ['.td-kelas','.td-nkelas','.td-flag_kelas'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-1;
@@ -1383,6 +1408,16 @@
                     $(this).closest('tr').find(nxt2[idx]).show();
                     $(this).closest('tr').find(nxt[idx_next]).show();
 
+                break;
+                case 2:
+                    $("#input-kelas td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+
                     var cek = $(this).parents('tr').next('tr').find('.td-kelas');
                     if(cek.length > 0){
                         cek.click();
@@ -1408,6 +1443,7 @@
         input += "<td class='no-kelas text-center'>"+no+"</td>";
         input += "<td><span class='td-kelas tdkelaske"+no+" tooltip-span'></span><input type='text' name='kode_kelas[]' class='form-control inp-kelas kelaske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='kelaskode"+no+"'><a href='#' class='search-item search-kelas hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nkelas tdnkelaske"+no+"'></span><input type='text' name='nama_kelas[]' class='form-control inp-nkelas nkelaske"+no+" hidden'  value='' readonly></td>";
+        input += "<td><span class='td-flag_kelas tdflag_kelaske"+no+"'></span><input type='text' name='flag_kelas[]' class='form-control inp-flag_kelas flag_kelaske"+no+" hidden'  value='' readonly></td>";
         // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'></span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         // input += "<td><span class='td-nstatus tdnstatuske"+no+"'></span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='' readonly></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1456,6 +1492,7 @@
         
                 var kode_kelas = $(this).parents("tr").find(".inp-kelas").val();
                 var nama_kelas = $(this).parents("tr").find(".inp-nkelas").val();
+                var flag_kelas = $(this).parents("tr").find(".inp-flag_kelas").val();
                 // var kode_status = $(this).parents("tr").find(".inp-status").val();
                 // var nama_status = $(this).parents("tr").find(".inp-nstatus").val();
                 var no = $(this).parents("tr").find(".no-guru").text();
@@ -1483,6 +1520,18 @@
                     
                     $(this).parents("tr").find(".inp-nkelas").hide();
                     $(this).parents("tr").find(".td-nkelas").show();
+                }
+
+                $(this).parents("tr").find(".inp-flag_kelas").val(flag_kelas);
+                $(this).parents("tr").find(".td-flag_kelas").text(flag_kelas);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-flag_kelas").show();
+                    $(this).parents("tr").find(".td-flag_kelas").hide();
+                    $(this).parents("tr").find(".inp-flag_kelas").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-flag_kelas").hide();
+                    $(this).parents("tr").find(".td-flag_kelas").show();
                 }
         
                 // $(this).parents("tr").find(".inp-status").val(kode_status);
@@ -1568,6 +1617,7 @@
         }else{
             var kode_kelas = $('#input-kelas tbody tr.selected-row').find(".inp-kelas").val();
             var nama_kelas = $('#input-kelas tbody tr.selected-row').find(".inp-nkelas").val();
+            var flag_kelas = $('#input-kelas tbody tr.selected-row').find(".inp-flag_kelas").val();
             // var kode_status = $('#input-kelas tbody tr.selected-row').find(".inp-status").val();
             // var nama_status = $('#input-kelas tbody tr.selected-row').find(".inp-nstatus").val();
             var no=$('#input-kelas .row-kelas:last').index();
@@ -1577,6 +1627,7 @@
             input += "<td class='no-kelas text-center'>"+no+"</td>";
             input += "<td><span class='td-kelas tdkelaske"+no+" tooltip-span'>"+kode_kelas+"</span><input type='text' name='kode_kelas[]' class='form-control inp-kelas kelaske"+no+" hidden' value='"+kode_kelas+"' required='' style='z-index: 1;position: relative;'  id='kelaskode"+no+"'><a href='#' class='search-item search-kelas hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             input += "<td><span class='td-nkelas tdnkelaske"+no+"'>"+nama_kelas+"</span><input type='text' name='nama_kelas[]' class='form-control inp-nkelas nkelaske"+no+" hidden'  value='"+nama_kelas+"' readonly></td>";
+            input += "<td><span class='td-flag_kelas tdflag_kelaske"+no+"'>"+flag_kelas+"</span><input type='text' name='flag_kelas[]' class='form-control inp-flag_kelas flag_kelaske"+no+" hidden'  value='"+flag_kelas+"' readonly></td>";
             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+nama_status+"' readonly></td>";
             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1775,6 +1826,7 @@
                             input += "<td class='no-kelas text-center'>"+no+"</td>";
                             input += "<td><span class='td-kelas tdkelaske"+no+" tooltip-span'>"+line.kode_kelas+"</span><input type='text' name='kode_kelas[]' class='form-control inp-kelas kelaske"+no+" hidden' value='"+line.kode_kelas+"' required='' style='z-index: 1;position: relative;'  id='kelaskode"+no+"'><a href='#' class='search-item search-kelas hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nkelas tdnkelaske"+no+"'>"+line.nama_kelas+"</span><input type='text' name='nama_kelas[]' class='form-control inp-nkelas nkelaske"+no+" hidden'  value='"+line.nama_kelas+"' readonly></td>";
+                            input += "<td><span class='td-flag_kelas tdflag_kelaske"+no+"'>"+line.flag_kelas+"</span><input type='text' name='flag_kelas[]' class='form-control inp-flag_kelas flag_kelaske"+no+" hidden'  value='"+line.flag_kelas+"' readonly></td>";
                             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
@@ -1851,7 +1903,8 @@
                                         <tr>
                                             <th style="width:3%">No</th>
                                             <th style="width:10%">Kode Kelas</th>
-                                            <th style="width:87%">Nama Kelas</th>
+                                            <th style="width:77%">Nama Kelas</th>
+                                            <th style="width:17%">Jenis Kelas</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1871,6 +1924,7 @@
                                 input += "<td>"+no+"</td>";
                                 input += "<td >"+line2.kode_kelas+"</td>";
                                 input += "<td >"+line2.nama_kelas+"</td>";
+                                input += "<td >"+line2.flag_kelas+"</td>";
                                 // input += "<td >"+line2.kode_status+"</td>";
                                 // input += "<td >"+line2.nama_status+"</td>";
                                 input += "</tr>";
@@ -1940,6 +1994,7 @@
                             input += "<td class='no-kelas text-center'>"+no+"</td>";
                             input += "<td><span class='td-kelas tdkelaske"+no+" tooltip-span'>"+line.kode_kelas+"</span><input type='text' name='kode_kelas[]' class='form-control inp-kelas kelaske"+no+" hidden' value='"+line.kode_kelas+"' required='' style='z-index: 1;position: relative;'  id='kelaskode"+no+"'><a href='#' class='search-item search-kelas hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nkelas tdnkelaske"+no+"'>"+line.nama_kelas+"</span><input type='text' name='nama_kelas[]' class='form-control inp-nkelas nkelaske"+no+" hidden'  value='"+line.nama_kelas+"' readonly></td>";
+                            input += "<td><span class='td-flag_kelas tdflag_kelaske"+no+"'>"+line.flag_kelas+"</span><input type='text' name='flag_kelas[]' class='form-control inp-flag_kelas flag_kelaske"+no+" hidden'  value='"+line.flag_kelas+"' readonly></td>";
                             // input += "<td><span class='td-status tdstatuske"+no+" tooltip-span'>"+line.kode_status+"</span><input type='text' name='kode_status[]' class='form-control inp-status statuske"+no+" hidden' value='"+line.kode_status+"' required='' style='z-index: 1;position: relative;'  id='statuskode"+no+"'><a href='#' class='search-item search-status hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             // input += "<td><span class='td-nstatus tdnstatuske"+no+"'>"+line.nama_status+"</span><input type='text' name='nama_status[]' class='form-control inp-nstatus nstatuske"+no+" hidden'  value='"+line.nama_status+"' readonly></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
