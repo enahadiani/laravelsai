@@ -213,42 +213,12 @@
                         {!!
                             $deskripsi
                         !!}
-                                                {{-- <div id="paragraph-1">
-                            <p>
-                                PT. Trengginas Jaya merupakan salah satu perusahaan subsidiary dari Yayasan Pendidikan Telkom
-                                /Telkom Foundation dan didirikan berdasarkan Akta Notaris Hj. Tetty Surtiati Hidayat, SH. Nomor
-                                3 tanggal 13 Agustus 2012, yang bergerak dibidang usaha jasa Outsourcing, Trading & Bussiness Retail
-                                Property.
-                            </p>
-                        </div>
-                        <div class="pg-2">
-                            <p>
-                                Sejalan dengan perkembangan dan perubahan pasar, maka komitmen Top Management PT. Trengginas Jaya
-                                selalu berusaha meningkatkan mutu, inovatif dan kerja sama sinergis untuk memberikan kepuasan kepada
-                                pelanggan.
-                            </p>
-                        </div> --}}
                         <div id="paragraph-1"></div>
-                        <div id="paragraph-2" class="pg-2"></div>
+                        <div id="paragraph-3" class="pg-2"></div>
                     </div>
                     <div id="deskripsi-2" class="col-lg-4" style="padding-right:10px;" data-animate="fadeInUp" data-animate-delay="300">
-                        {{-- {{
-                            var_dump($misi)
-                        }} --}}
-                        {{-- <div class="pg-2-mobile">
-                            <p>
-                                Dalam melaksanakan kegiatannya PT. Trengginas Jaya melibatkan seluruh sumber daya manusia yang berasal
-                                dari berbagai disiplin ilmu yang mendukung kelangsungan PT. Trengginas Jaya sebagai pengelola 
-                                Jasa Outsourcing, Bussiness Retail, dan Property yang berpengalaman serta memiliki kompetensi
-                                dibidangnya.
-                            </p>
-                        </div> --}}
-                        {{-- <div class="pg-2">
-                            <p>
-                                Sebagai perusahaan penyedia jasa Outsourcing Bussiness Retail & Property, PT. Trengginas Jaya
-                                memegang komitmen untuk menjaga kualitas, mengutamakan da meningkatkan kepuasan pelanggan.
-                            </p>
-                        </div> --}}
+                        <div id="paragraph-2" class="pg-2-mobile"></div>
+                        <div id="paragraph-4" class="pg-2"></div>
                     </div>
                 </div>
             </div>
@@ -405,8 +375,11 @@
         var paragraph2 = $('#text-2').text();
         var paragraph3 = $('#text-3').text();
         var paragraph4 = $('#text-4').text();
-
-
+        $('#deskripsi-1').children('p').remove();
+        $('#paragraph-1').append(paragraph1);
+        $('#paragraph-3').append(paragraph3);
+        $('#paragraph-2').append(paragraph2);
+        $('#paragraph-4').append(paragraph4);
 
         var whatsapp = $('#whatsapp');
         window.onscroll = function() {
