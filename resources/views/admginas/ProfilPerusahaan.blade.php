@@ -377,7 +377,7 @@
                                 <div class="row">
                                     <div class="col-md-8 col-sm-12">
                                         <label for="deskripsi">Deskripsi Tentang Perusahaan</label>
-                                        <input class="form-control" type="text" id="deskripsi" name="deskripsi">
+                                        <textarea class="form-control" name="deskripsi" id="editor" rows="10" cols="80"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -528,28 +528,60 @@
     <!-- FORM INPUT  -->
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script type="text/javascript">
+        var editor = CKEDITOR.replace('editor', {
+                        removeButtons: 'Save,Source,NewPage,ExportPdf,Preview,Print,Templates,Find,Replace,SelectAll,Scayt,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Bold,Italic,Underline,Strike,Subscript,Superscript,Image,Unlink,Link,Flash,Table,Anchor,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Language,JustifyBlock,JustifyRight,JustifyCenter,BidiRtl,BidiLtr,JustifyLeft,Blockquote,CreateDiv,Indent,Outdent,BulletedList,RemoveFormat,CopyFormatting,NumberedList,Styles,Format,Font,FontSize,TextColor,BGColor,ShowBlocks,Maximize,About'
+                    });
         setHeightForm();
         var $iconLoad = $('.preloader');
         $('#process-upload').addClass('disabled');
         $('#process-upload').prop('disabled', true);
-
         function getDataProfil() {
             $.ajax({
                 type:'GET',
                 url: "{{ url('admginas-master/profil') }}",
                 dataType: 'JSON',
                 success: function(result) {
-                    console.log(result);
-                    // if(result.status) {
-                    
-                    // }
+                    if(result.status) {
+                        $('#nama_perusahaan').val(result.daftar[0].nama_perusahaan);
+                        $('#koordinat').val(result.daftar[0].koordinat);
+                        $('#visi').val(result.daftar[0].visi);
+                        $('#no_telp').val(result.daftar[0].no_telp);
+                        $('#email').val(result.daftar[0].email);
+                        $('#alamat').val(result.daftar[0].alamat);
+                        
+                        editor.setData(result.daftar[0].deskripsi);
+
+                        if(result.daftar[0].file_gambar != null || result.daftar[0].file_gambar != undefined || result.daftar[0].file_gambar != '') {
+                            $('#span-banner').hide();
+                            $('#banner-preview').show();
+                            $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[0].file_gambar)
+                        } else {
+                            $('#banner-preview').hide();
+                            $('#span-banner').show();
+                        }
+
+                        if(result.detail.length > 0) {
+                            var html = "";
+                            for(var i=0;i<result.detail.length;i++) {
+                                html += "<tr class='row-grid'>";
+                                html += "<td class='no-grid text-center'><span class='no-grid'>"+result.detail[i].no_urut+"</span><input type='hidden' value="+result.detail[i].no_urut+" name='no_urut[]'></td>";
+                                html += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                                html += "<td><span class='td-misi tdmisike"+result.detail[i].no_urut+" tooltip-span'>"+result.detail[i].misi+"</span><textarea autocomplete='off' name='misi[]' class='form-control inp-misi misike"+result.detail[i].no_urut+" hidden'>"+result.detail[i].misi+"</textarea></td>";
+                                html += "</tr>";
+                            }
+                            $('#input-grid tbody').append(html);
+                            hitungTotalRow();
+                        } else {
+                            addRowGridDefault();
+                        }
+                    }
                 }
             });
         }
         getDataProfil();
-        addRowGridDefault();
 
         $.ajaxSetup({
             headers: {
@@ -749,7 +781,7 @@
                     var url = "{{ url('admginas-master/profil') }}";
                     var pesan = "saved";
                 }
-
+                CKEDITOR.instances['editor'].updateElement()
                 var formData = new FormData(form);
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 

@@ -40,9 +40,9 @@ class ProfilPerusahaanController extends Controller {
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
-                $detail = $data["detail"];
+                $response = json_decode($response_data,true);
+                $data = $response["data"];
+                $detail = $response["detail"];
             }
             return response()->json(['daftar' => $data, 'detail' => $detail, 'status'=>true], 200); 
 
@@ -138,7 +138,6 @@ class ProfilPerusahaanController extends Controller {
                 );
             
             $send_data = array_merge($field, $fields_urut, $fields_misi);
-
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'admginas-master/profil',[
                 'headers' => [
