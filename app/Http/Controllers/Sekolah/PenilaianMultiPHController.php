@@ -126,6 +126,7 @@
                 'kode_sem' => 'required',
                 'kode_kelas' => 'required',
                 'kode_matpel' => 'required',
+                'flag_kelas'=>'required',
                 'kode_kd' => 'required',
                 'nama_kd' => 'required',
                 'nis'=>'required|array',
@@ -154,6 +155,7 @@
                         'kode_pp' => $request->kode_pp,
                         'kode_sem' => $request->kode_sem,
                         'kode_kelas' => $request->kode_kelas,
+                        'flag_kelas' => $request->flag_kelas,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_kd'=>$request->kode_kd,
                         'nama_kd'=>$request->nama_kd,
@@ -188,6 +190,7 @@
                 'kode_pp' => 'required',
                 'kode_sem' => 'required',
                 'kode_kelas' => 'required',
+                'flag_kelas' => 'required',
                 'kode_matpel' => 'required',
                 'kode_kd'=>'required',
                 'nama_kd'=>'required',
@@ -220,7 +223,8 @@
                         'kode_kelas' => $request->kode_kelas,
                         'kode_matpel' => $request->kode_matpel,
                         'kode_kd' => $request->kode_kd,
-                        'nama_kd' => $request->nama_kd,
+                        'nama_kd' => $request->nama_kd, 
+                        'flag_kelas' => $request->flag_kelas,
                         'pelaksanaan' => $request->pelaksanaan,
                         'nis'=>$request->nis,
                         'kode_jenis'=>$request->kode_jenis,
@@ -677,7 +681,8 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'kode_kelas' => $request->kode_kelas,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'flag_kelas' => $request->flag_kelas
                     ]
                 ]);
     
