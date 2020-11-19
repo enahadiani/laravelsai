@@ -874,7 +874,7 @@
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
                 $target4 = "flag_kelas";
-                parameter = {'kode_pp':$('#kode_pp').val()};
+                parameter = {'kode_pp':$('#kode_pp').val(),'kode_matpel':$('#kode_matpel').val()};
             break;
             case 'kode_pp': 
                 header = ['Kode PP', 'Nama'];
@@ -1182,7 +1182,7 @@
             type: 'GET',
             url: "{{ url('sekolah-master/multi-kelas') }}",
             dataType: 'json',
-            data:{kode_kelas:kode,kode_pp:kode_pp},
+            data:{kode_kelas:kode,kode_pp:kode_pp,kode_matpel:$('#kode_matpel').val()},
             async:false,
             success:function(result){    
                 if(result.status){
