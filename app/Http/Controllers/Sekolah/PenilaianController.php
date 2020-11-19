@@ -675,15 +675,18 @@
                     'query' => [
                         'kode_pp' => $kode_pp,
                         'nis' => $request->nis,
-                        'kode_matpel' => $request->kode_matpel
+                        'kode_matpel' => $request->kode_matpel,
+                        'flag_kelas' => $request->flag_kelas,
+                        'flag_aktif' => 1,
+                        'kode_kelas' => $request->kode_kelas
                     ]
                 ]);
     
                 if ($response->getStatusCode() == 200) { // 200 OK
                     $response_data = $response->getBody()->getContents();
                 
-                    $data = json_decode($response_data,true);
-                    $data = $data["success"]["data"];
+                    $res = json_decode($response_data,true);
+                    $data = $res["success"]["data"];
                 }
                 return response()->json(['daftar' => $data, 'status' => true], 200);
             } catch (BadResponseException $ex) {

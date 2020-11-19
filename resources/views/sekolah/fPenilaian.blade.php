@@ -926,11 +926,11 @@
             break;
             case 'kode_matpel': 
                 header = ['Kode Matpel', 'Nama'];
-                if("{{ Session::get('statusAdmin') }}" == "G" ){
+                // if("{{ Session::get('statusAdmin') }}" == "G" ){
                     var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
-                }else{
-                    var toUrl = "{{ url('sekolah-master/matpel') }}";
-                }
+                // }else{
+                //     var toUrl = "{{ url('sekolah-master/matpel') }}";
+                // }
                 var columns = [
                     { data: 'kode_matpel' },
                     { data: 'nama' }
@@ -1012,7 +1012,7 @@
             break;
             case 'nis[]': 
                 header = ['ID', 'NIS','Nama'];
-                var toUrl = "{{ url('sekolah-trans/siswa') }}";
+                var toUrl = "{{ url('sekolah-trans/penilaian-siswa') }}";
                 var columns = [
                     { data: 'nis' },
                     { data: 'nis2' },
@@ -1026,7 +1026,7 @@
                 $target3 = ".td"+$target2;
                 $target2 = "."+$target2;
                 $target4 = ".td-nilai";
-                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),flag_aktif:1};
+                parameter = {kode_pp:$('#kode_pp').val(),kode_kelas:$('#kode_kelas').val(),kode_matpel:$('#kode_matpel').val(),flag_aktif:1,flag_kelas:$('#flag_kelas').val()};
                 var width = ["20%","20%","60%"];
             break;
         }
@@ -1298,11 +1298,11 @@
         var tmp = id.split(" - ");
         kode = tmp[0];
 
-        if("{{ Session::get('statusAdmin') }}" == "G" ){
+        // if("{{ Session::get('statusAdmin') }}" == "G" ){
             var toUrl = "{{ url('sekolah-trans/penilaian-matpel') }}";
-        }else{
-            var toUrl = "{{ url('sekolah-master/matpel') }}";
-        }
+        // }else{
+        //     var toUrl = "{{ url('sekolah-master/matpel') }}";
+        // }
         $.ajax({
             type: 'GET',
             url: "{{ url('sekolah-master/matpel') }}",
@@ -1376,8 +1376,8 @@
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('sekolah-trans/siswa') }}",
-            data:{kode_pp:$('#kode_pp').val(),nis:kode,kode_kelas:$('#kode_kelas').val()},
+            url: "{{ url('sekolah-trans/penilaian-siswa') }}",
+            data:{kode_pp:$('#kode_pp').val(),nis:kode,kode_kelas:$('#kode_kelas').val(),flag_kelas:$('#flag_kelas').val(),kode_matpel:$('#kode_matpel').val()},
             dataType: 'json',
             async:false,
             success:function(result){    
