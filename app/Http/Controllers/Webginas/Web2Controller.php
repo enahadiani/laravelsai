@@ -72,8 +72,7 @@ class Web2Controller extends Controller
 
     public function viewPerusahaan() {
         $data = $this->getProfilPerusahaan();
-        $explodeDeskripsi = explode('/n', $data['data'][0]['deskripsi']); 
-        return view('webginas.perusahaan', ['deskripsi' => $data['data'][0]['deskripsi'], 'misi' => $data['misi']]);
+        return view('webginas.perusahaan', ['deskripsi' => $data['data'][0]['deskripsi'], 'visi' => $data['data'][0]['visi'], 'misi' => $data['misi']]);
     }
 
     public function viewKontak() {

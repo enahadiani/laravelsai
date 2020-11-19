@@ -232,24 +232,17 @@
                     <div class="container">
                         <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Visi</h2>
                         <p class="white" style="padding:10px 40px 40px 100px;">
-                            Menjadi perubahan penyedia jasa Outsourcing, Trading, dan Property yang
-                            professional dan unggul dalam kualitas produk dan layanan, guna mencapai kepuasan pelanggan.
+                            {!!$visi !!}
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-6 misi-box" data-animate="fadeInUp" data-animate-delay="300">
                     <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Misi</h2>
-                    <p class="white" style="padding:0 40px 40px 100px;">
-                        1. Menyelenggarakan jasa outsourcing dengan cara menyalurkan dan menempatkan tenaga kerja secara
-                        professional sesuai dengan bidang keahliannya.
-                    </p>
-                    <p class="white" style="padding:0 40px 40px 100px;">
-                        2. Menyelenggarakan jasa property dengan cara melaksanakan pembangunan dan pemeliharaan secara mandiri 
-                        dan professional.
-                    </p>
-                    <p class="white" style="padding:0 40px 40px 100px;">
-                        3. Menyelenggarakan pemenuhan kebutuhan barang dan jasa sesuai kebutuhan.
-                    </p>
+                        @foreach ($misi as $item)
+                        <p class="white" style="padding:0 40px 40px 100px;">
+                            {{$item['no_urut']}}. {{ $item['misi'] }}
+                        </p>    
+                        @endforeach
                 </div>
             </div>
         </section>
