@@ -63,10 +63,11 @@
             right: 25px;
             z-index: 99;
         }
-        ul.list-info > li {
+        ul.list-info > a li {
             padding: 10px 0;
+            color: black;
         }
-        ul.list-info > li:hover {
+        ul.list-info > a > li:hover {
             color: #DD1F1A;
             font-weight: bold;
             cursor: pointer;
@@ -225,9 +226,7 @@
                     <div class="col-lg-4">
                         <h2>Info Terbaru</h2>
                         <ul style="margin-top: 30px;" class="list-info">
-                            <li>Pelatihan Diklat Gada Madya PT. Trengginas Jaya</li>
-                            <li>Pelatihan Diklat Gada Pratama PT. Trengginas Jaya</li>
-                            <li>Rekonsiliasi PT Telkom Property</li>
+
                         </ul>
                     </div>
                 </div>
@@ -324,6 +323,21 @@
             scrollFunction();
         }
 
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-info') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    var html = "";
+                    for(var i=0;i<result.daftar.length;i++) {
+                        html += "<a href='{{ url('webginas2/berita') }}/"+result.daftar[i].id_info+"'><li class='info-ke-'"+i+">"+result.daftar[i].judul+"</li></a>";
+                    }
+                    $('.list-info').append(html);
+                }
+            }
+        });
+
         function scrollFunction() {
             if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
                 whatsapp.removeClass('whatsapp-not-scroll');
@@ -384,17 +398,6 @@
                 window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
             }
         })
-
-        $('.list-info').on('click', 'li', function(){
-            var idx = $(this).index();
-            if(idx === 0) {
-                window.location.href = "{{ url('webginas2/berita/isi-berita') }}";
-            } else if(idx === 1) {
-                window.location.href = "{{ url('webginas2/berita/isi-berita2') }}";
-            } else if(idx === 2) {
-                window.location.href = "{{ url('webginas2/berita/isi-berita3') }}";
-            }
-        });
 
         $('.open-menu').click(function(){
             var children = $(this).children();
