@@ -113,8 +113,8 @@
 
 
         <a class="navbar-logo" href="#">
-            <span class="logo d-none d-xs-block"></span>
-            <span class="logo-mobile d-block d-xs-none"></span>
+            <span class="logo d-none d-xs-block to-home"></span>
+            <span class="logo-mobile d-block d-xs-none to-home"></span>
         </a>
         @php
             $tmp = explode(" ",Session::get('namaUser'));
@@ -972,6 +972,15 @@
     
     $('#notificationButton').click(function(){
         updateNotifRead();
+    });
+
+    $('.to-home').click(function(){
+        if(form != "" || form != "-"){
+
+            loadForm("{{ url('sekolah-auth/form') }}/"+form);
+        }else{
+            loadForm("{{ url('sekolah-auth/form') }}/blankform");
+        }
     });
     var $theme = "dore.light.blueolympic.min.css";
  
