@@ -31,6 +31,22 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
+    <style>
+        
+        .logo{
+            background:url("{{ asset('img/tarbak30x100.png') }}") no-repeat;
+            background-size: 100px;
+            background-position-x: center;
+            background-position-y: center;
+            width:100px;
+            height:35px;
+        }
+        .logo-mobile{
+            background:url("{{ asset('img/tarbak30x30.png') }}") no-repeat;
+            background-size:30px;
+            width:30px;
+        }
+    </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
