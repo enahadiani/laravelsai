@@ -201,22 +201,22 @@
                             <div class="post-item-wrap">
                                 
                                 <div class="post-item-description" style="margin-bottom: 25px;">
-                                    <h2>Pelatihan Diklat Gada Madya PT. Trengginas Jaya</h2>
+                                    <h2>{{ $content['judul'] }}</h2>
                                     <div class="post-meta">
-                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Kamis, 11 November 2020</span>
+                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ $content['tanggal'] }}</span>
                                     </div>
                                 </div>
 
                                 <div class="post-image">
                                     <a href="#">
-                                        <img alt="" src="{{ asset('asset_web/homepages/berita/berita-1.jpeg') }}">
+                                        <img alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$content['file_gambar']}}">
                                     </a>
                                 </div>
 
                                 <div class="post-item-description" style="margin-top: 25px;">
-                                    <p>
-                                        Kegiatan Gada Madya angkatan I akan diadakan PT. Trengginas Jaya pada Bulan Desember 2020.
-                                    </p>
+                                    {!!
+                                        $content['content'] 
+                                    !!}
                                 </div>
 
                             </div>
