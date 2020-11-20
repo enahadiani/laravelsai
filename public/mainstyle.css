@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 
 body {
@@ -33,7 +33,7 @@ h6{
     font-size: 1.25rem !important;
 }
 
-p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"]{
+p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input,.selectize-dropdown{
     font-size: 1rem !important;
 }
 .bootstrap-tagsinput{

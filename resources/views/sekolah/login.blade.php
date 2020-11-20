@@ -15,12 +15,44 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
         body {
             font-family: 'Roboto', sans-serif !important;
         }
-        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select{
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bootstrap-tagsinput{
             font-family: 'Roboto', sans-serif !important;
+            color:black !important;
+        }
+
+        h1 {
+        font-size: 4rem !important;
+        }
+
+        h2 {
+            font-size: 3.052rem !important;
+        }
+
+        h3 {
+            font-size: 2.441rem !important;
+        }
+
+        h4{
+            font-size: 1.953rem !important;
+        }
+
+        h5{
+            font-size: 1.563rem !important;
+        }
+
+        h6{
+            font-size: 1.25rem !important;
+        }
+
+        p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input{
+            font-size: 1rem !important;
+        }
+        .bootstrap-tagsinput{
+            font-size: 0.8rem !important;
         }
         .logo-single{
             background:url("{{ asset('img/tarbak30x100.png') }}") no-repeat;
