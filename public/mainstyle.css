@@ -33,7 +33,7 @@ h6{
     font-size: 1.25rem !important;
 }
 
-p,li,ul,a,input,select,textarea{
+p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"]{
     font-size: 1rem !important;
 }
 .bootstrap-tagsinput{
