@@ -21,7 +21,7 @@
         }
         h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bootstrap-tagsinput{
             font-family: 'Roboto', sans-serif !important;
-            color:black !important;
+            color:black;
         }
 
         h1 {
@@ -49,7 +49,7 @@
         }
 
         p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input{
-            font-size: 1rem !important;
+            font-size: 0.875rem !important;
         }
         .bootstrap-tagsinput{
             font-size: 0.8rem !important;
