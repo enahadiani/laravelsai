@@ -62,6 +62,7 @@ class ProfilPerusahaanController extends Controller {
             'deskripsi' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
+            'wa' => 'required',
             'email' => 'required',
             'file_gambar.*' => 'image|mimes:jpeg,png,jpg'
         ]);
@@ -131,6 +132,10 @@ class ProfilPerusahaanController extends Controller {
             $field[] = array(
                 'name' => 'no_telp',
                 'contents' => $request->no_telp
+                );
+            $field[] = array(
+                'name' => 'wa',
+                'contents' => $request->wa
                 );
             $field[] = array(
                 'name' => 'email',

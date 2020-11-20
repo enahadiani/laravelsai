@@ -387,17 +387,6 @@
                             <div class="form-group col-md-10 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-8 col-sm-12">
-                                        <label for="visi">Visi</label>
-                                        <input class="form-control" type="text" id="visi" name="visi">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-10 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-8 col-sm-12">
                                         <label for="alamat">Alamat</label>
                                         <input class="form-control" type="text" id="alamat" name="alamat">
                                     </div>
@@ -420,8 +409,30 @@
                             <div class="form-group col-md-10 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-8 col-sm-12">
+                                        <label for="wa">Link WA</label>
+                                        <input class="form-control" type="text" id="wa" name="wa">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
                                         <label for="email">Email</label>
                                         <input class="form-control" type="text" id="email" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="visi">Visi</label>
+                                        <textarea class="form-control" id="visi" name="visi"></textarea>
                                     </div>
                                 </div>
                             </div>
