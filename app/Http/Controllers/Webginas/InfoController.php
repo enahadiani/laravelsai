@@ -23,7 +23,7 @@ class InfoController extends Controller {
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data;
+                $data = $data['data'];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
