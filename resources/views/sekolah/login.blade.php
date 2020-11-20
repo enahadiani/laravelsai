@@ -95,7 +95,9 @@
         
         #btn-eye
         {
-            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
+            position: absolute;
+            top: 26px;
+            right: 18px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
         }
         .btn{
             border-radius: 8px !important;
@@ -153,15 +155,27 @@
                                     {{ Session::get('alert') }}
                                 </div>
                                 @endif
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="nik" id="username" required/>
-                                    <span>NIK</span>
-                                </label>
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" id="password" required>
-                                    <span id="span-password">Password</span>
-                                    <span id="btn-eye"><i class="icon-eye"></i></span>
-                                </label>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="username">Username</label>
+                                                <input class="form-control" type="text" id="username" name="nik" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="password">Password</label>
+                                                <input class="form-control" type="password" name="password" placeholder="" id="password" required>
+                                                <span id="btn-eye"><i class="icon-eye"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <a href="#">Lupa password?</a>
                                     <button class="btn btn-primary btn-lg" type="submit">Masuk</button>
