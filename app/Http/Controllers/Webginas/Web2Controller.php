@@ -166,14 +166,6 @@ class Web2Controller extends Controller
         return view('webginas.contentBerita', ['content' => $content['data'][0]]);
     }
 
-    public function viewContentBerita2() {
-        return view('webginas.contentBerita2');
-    }
-
-    public function viewContentBerita3() {
-        return view('webginas.contentBerita3');
-    }
-
     public function viewContentLayanan() {
         return view('webginas.contentLayanan');
     }
