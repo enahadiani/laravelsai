@@ -467,7 +467,27 @@
                 <div id="blog" class="grid-layout post-3-columns m-b-30" data-item="post-item">
 
                     <!-- Post item-->
+                    @foreach ($info as $item)
                     <div class="post-item border berita">
+                        <div class="post-item-wrap" style="height: 437px !important;">
+                            <div class="post-image">
+                                <a href="#">
+                                    <img alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}">
+                                </a>
+                            </div>
+                            <div class="post-item-description">
+                                <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ $item['tanggal'] }}</span>
+                                <h2>
+                                    <a href="{{url('webginas2/berita/isi-berita')}}">
+                                        {{ $item['judul'] }}
+                                    </a>
+                                </h2>
+                                <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>    
+                    @endforeach
+                    {{-- <div class="post-item border berita">
                         <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/isi-berita')}}">
@@ -484,11 +504,11 @@
                                 <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="{{url('webginas2/berita/isi-berita')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- end: Post item-->
 
                     <!-- Post item-->
-                    <div class="post-item border berita">
+                    {{-- <div class="post-item border berita">
                         <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/isi-berita2')}}">
@@ -505,12 +525,12 @@
                                 <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="{{url('webginas2/berita/isi-berita2')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- end: Post item-->
 
 
                     <!-- Post item-->
-                    <div class="post-item border berita">
+                    {{-- <div class="post-item border berita">
                         <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/isi-berita3')}}">
@@ -526,7 +546,7 @@
                                 <a style="position:absolute;bottom: 0;margin-bottom:10px;" href="{{url('webginas2/berita/isi-berita3')}}" class="item-link text-red">Selengkapnya <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- end: Post item-->
                 </div>
                 <div class="heading-text heading-section text-center py-0">
@@ -656,15 +676,6 @@
                         $('.slide'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
                     }
                 }
-            }
-        });
-
-        $.ajax({
-            type:'GET',
-            url: "{{ url('webginas2/api-3-info') }}",
-            dataType: 'JSON',
-            success: function(result) {
-                console.log(result)
             }
         });
 
