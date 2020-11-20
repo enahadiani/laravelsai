@@ -90,6 +90,31 @@ class Web2Controller extends Controller
         }
     }
 
+    public function getInfoDetail($id) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/info-detail-web?id_info='.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $response = json_decode($response_data,true);
+                $data['data'] = $response["data"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function index()
     {
         $review = $this->getReview();
@@ -110,8 +135,9 @@ class Web2Controller extends Controller
         return view('webginas.berita');
     }
 
-    public function viewContentBerita() {
-        return view('webginas.contentBerita');
+    public function viewContentBerita($id) {
+        $content = $this->getInfoDetail($id);
+        return view('webginas.contentBerita', ['content' => $content['data'][0]]);
     }
 
     public function viewContentBerita2() {
