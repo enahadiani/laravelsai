@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-12">
         {{-- <h2 style="position:absolute"><span id="judul-matpel" class="mr-2"></span><span id="judul-kelas"></span></h2> --}}
-        <h4 style="position:absolute" class="text-primary">Perkembangan Siswa</h4>
+        <h5 style="position:absolute" class="text-primary">Perkembangan Siswa</h5>
         <a class="btn btn-outline-light float-right bg-primary text-white mb-2" href="#" id="filter-btn" style="width:392px;border:1px solid black;font-size:1rem;text-align:left;"></a>
         <!-- <div class="separator mb-5"></div> -->
     </div>
@@ -424,7 +424,7 @@ function getHistoryPesan(kode_pp,kode_kelas,kode_matpel){
                             <div class="pl-3 flex-grow-1">
                                 <a href="#">
                                 <p class="font-weight-medium mb-0 ">`+line.nama+`</p>
-                                <p class="text-muted mb-0 text-small">`+line.tgl+` `+line.jam+`</p>
+                                <label class="text-muted mb-0">`+line.tgl+` `+line.jam+`</label>
                                 </a>
                                 <p class="mt-3">
                                 `+line.pesan+`

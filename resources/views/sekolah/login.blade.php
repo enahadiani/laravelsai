@@ -48,11 +48,11 @@
             font-size: 1.25rem !important;
         }
 
-        button{
+        button,label{
             font-size: 0.75rem !important;
         }
 
-        p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input{
+        p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input,span{
             font-size: 0.875rem !important;
         }
         .bootstrap-tagsinput{
