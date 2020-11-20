@@ -11,12 +11,15 @@ class reportPaging extends Component
      *
      * @return void
      */
-    public $option_page;
-    public function __construct($option_page = NULL)
-    {
-        $this->option_page;
-    }
+    public $option;
+    public $default;
 
+    public function __construct($option = NULL,$default = NULL)
+    {
+        $this->option = $option;
+        $this->default = $default;
+    }
+    
     /**
      * Get the view / contents that represent the component.
      *

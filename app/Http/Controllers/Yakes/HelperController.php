@@ -956,5 +956,14 @@
             return response()->json(['daftar' => $data['success'], 'status' => true], 200);
         }
 
+        public function getFilterOutput() {
+
+            $data =  array(
+                0 => array('kode' => "Laporan"),
+                1 => array('kode' => "Grid")
+            );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
     }
 ?>
