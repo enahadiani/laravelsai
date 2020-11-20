@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <x-report-paging />  
+                    <x-report-paging :option="array()" default="All" />  
                 </div>                    
             </div>
         </div>

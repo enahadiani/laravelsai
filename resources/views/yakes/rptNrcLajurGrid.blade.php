@@ -64,6 +64,7 @@
                     }
                     var x =0;
                     var bold = '';
+                    var color = '';
                     for (var i=0; i < data.length ; i++)
                     {
                         var line  = data[i];
@@ -77,16 +78,19 @@
                             so_akhir=so_akhir + parseFloat(line.so_akhir);
                             if((data[i+1] != undefined) && (data[i+1].kode_induk == line.kode_akun)){
                                 bold = 'bold';
+                                // color = '#a3e1ff';
                             }else{
                                 bold = '';
+                                // color = '#f0faff';
                             }
                         }else{
                             var tree_id = "treegrid-"+line.kode_akun+x;
                             var parent_to_prt = "treegrid-parent-"+line.kode_induk;
                             x++;
                             bold = '';
+                            // color = '#f0faff';
                         }
-                        html +=`<tr class='`+tree_id+` `+parent_to_prt+` `+bold+`' style='cursor:pointer;'>
+                        html +=`<tr class='`+tree_id+` `+parent_to_prt+` `+bold+`' style='cursor:pointer;background:`+color+`'>
                             <td class='isi_laporan' >`+line.kode_akun+`</td>
                             <td height='20' class='isi_laporan'>`+line.nama+`</td>
                             <td height='20' class='isi_laporan'>`+line.kode_pp+`</td>

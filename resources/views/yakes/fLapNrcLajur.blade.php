@@ -25,28 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <x-report-paging/>  
-                    <div class="col-12 col-sm-12">
-                        <div class="collapse" id="collapsePaging">
-                            <div class="px-4 py-0 row"  style="min-height:63px">
-                                <label class="col-sm-1 pr-0" style="padding-top: 0;margin:auto">Menampilkan</label>
-                                <div class='col-sm-2 pl-0' style='padding-top: 0;margin:auto'>
-                                    <select name="show" id="show" class="" style='border:none'>
-                                        <option value="10">10 per halaman</option>
-                                        <option value="25">25 per halaman</option>
-                                        <option value="50">50 per halaman</option>
-                                        <option value="100">100 per halaman</option>
-                                        <option value="All">Semua halaman</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-9 text-center">
-                                    <div id="pager">
-                                        <ul id="pagination" class="pagination pagination-sm2 float-right mb-0"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <x-report-paging :option="array()" default="100" />  
                 </div>                    
             </div>
         </div>
