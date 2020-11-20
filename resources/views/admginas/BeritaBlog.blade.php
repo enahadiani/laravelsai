@@ -384,7 +384,7 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
-                    <div class="card-body pt-3 form-body">
+                    <div class="card-body pt-3 form-body" id="form-body">
                         <div class="form-group row" id="row-id">
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -520,9 +520,7 @@
             fileReader(this, idGbr, idSpan);
         });
 
-        // var scrollform = document.querySelector('.form-body');
-        // console.log(scrollform);
-        // var psscrollform = new PerfectScrollbar('.form-body');
+        var psscrollform = new PerfectScrollbar('#form-body');
         
         // var scroll = document.querySelector('#content-preview');
         // var psscroll = new PerfectScrollbar(scroll);
@@ -626,6 +624,7 @@
             $('#btn-save').attr('type','submit');
             $('#form-tambah')[0].reset();
             $('#form-tambah').validate().resetForm();
+            editor.setData('');
             $('#id').val('');
             $('#id_edit').val('');
             $('#saku-datatable').hide();

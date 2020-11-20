@@ -141,11 +141,21 @@ class InfoController extends Controller {
 
     public function update(Request $request, $id) {
         $this->validate($request,[
-            'nama_klien' => 'required',
+            'id_info' => 'required',
+            'tanggal' => 'required',
+            'judul' => 'required',
+            'content' => 'required',
             'file_gambar.*' => 'image|mimes:jpeg,png,jpg'
         ]);
         
          try {
+            
+            $explode_tgl = explode('/', $request->tanggal);
+            $tgl = $explode_tgl[0];
+            $bln = $explode_tgl[1];
+            $tahun = $explode_tgl[2];
+            $tanggal = $tahun."-".$bln."-".$tgl;
+
             $fields = array();
             if($request->hasFile('file_gambar')) {
             $image_path = $request->file('file_gambar')->getPathname();
@@ -164,12 +174,24 @@ class InfoController extends Controller {
                 );
             }
             $field[] = array(
-                'name' => 'nama_klien',
-                'contents' => $request->nama_klien
+                'name' => 'id_info',
+                'contents' => $request->id_info
+                );
+            $field[] = array(
+                'name' => 'judul',
+                'contents' => $request->judul
+                );
+            $field[] = array(
+                'name' => 'tanggal',
+                'contents' => $tanggal
+                );
+            $field[] = array(
+                'name' => 'content',
+                'contents' => $request->content
                 );
 
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admginas-master/klien-ubah?id_klien='.$id,[
+            $response = $client->request('POST',  config('api.url').'admginas-master/info-ubah?id_info='.$id,[
                  'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

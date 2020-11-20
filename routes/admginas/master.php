@@ -70,3 +70,4 @@ Route::post('profil', 'AdmGinas\ProfilPerusahaanController@store');
 Route::get('info', 'AdmGinas\InfoController@index');
 Route::get('info-show/{id}', 'AdmGinas\InfoController@show');
 Route::post('info-simpan', 'AdmGinas\InfoController@store');
+Route::post('info-ubah/{id}', 'AdmGinas\InfoController@update');
