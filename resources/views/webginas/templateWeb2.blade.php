@@ -661,6 +661,15 @@
 
         $.ajax({
             type:'GET',
+            url: "{{ url('webginas2/api-3-info') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                console.log(result)
+            }
+        });
+
+        $.ajax({
+            type:'GET',
             url: "{{ url('webginas2/api-klien') }}",
             dataType: 'JSON',
             success: function(result) {
