@@ -26,7 +26,7 @@ h4{
 }
 
 h5{
-    font-size: 1.563rem !important;
+    font-size: 1.875rem !important;
 }
 
 h6{
@@ -41,6 +41,10 @@ p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"
 }
 .highcharts-root {
     font-family: 'Roboto', sans-serif !important;
+}
+
+td,th{
+    font-size: 0.875rem !important;
 }
 
 .logo{

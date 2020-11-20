@@ -41,7 +41,7 @@
         }
 
         h5{
-            font-size: 1.563rem !important;
+            font-size: 1.875rem !important;
         }
 
         h6{
