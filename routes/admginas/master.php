@@ -61,9 +61,13 @@ Route::get('review', 'AdmGinas\ReviewKlienController@index');
 Route::get('review/{id}', 'AdmGinas\ReviewKlienController@show');
 Route::post('review', 'AdmGinas\ReviewKlienController@store');
 Route::post('review/{id}', 'AdmGinas\ReviewKlienController@update');
-// Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');
 
 // Data Profil //
 Route::get('profil', 'AdmGinas\ProfilPerusahaanController@index');
 Route::post('profil', 'AdmGinas\ProfilPerusahaanController@store');
-// Route::delete('galeri/{id}', 'AdmGinas\GaleriController@destroy');
+
+// Data Info //
+Route::get('info', 'AdmGinas\InfoController@index');
+Route::get('info-show/{id}', 'AdmGinas\InfoController@show');
+Route::post('info-simpan', 'AdmGinas\InfoController@store');
+Route::post('info-ubah/{id}', 'AdmGinas\InfoController@update');

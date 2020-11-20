@@ -442,7 +442,7 @@
                                 <div class="row">
                                     <div class="col-md-8 col-sm-12">
                                         <label for="deskripsi">Deskripsi</label>
-                                        <input class="form-control" type="text" id="deskripsi" name="deskripsi">
+                                        <textarea class="form-control" rows="2" id="deskripsi" name="deskripsi"></textarea>
                                     </div>
                                 </div>
                             </div>
