@@ -202,7 +202,7 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <a href="#">Lupa password?</a>
+                                    <label style='cursor:pointer'>Lupa password?</label>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-4">
                                     <button class="btn btn-primary btn-block" type="submit">Masuk</button>
