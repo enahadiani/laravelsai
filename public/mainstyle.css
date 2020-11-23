@@ -388,3 +388,7 @@ input[id^=label]:read-only {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+a > span.d-inline-block {
+    max-width: 160px !important;
+}

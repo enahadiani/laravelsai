@@ -21,6 +21,27 @@
             }            
         }
 
+        public function cekLengthMenu($nama){
+            if(strlen($nama) > 23){
+                $str_nama = explode(" ",$nama);
+                $tmp_nama = "";
+                if(count($str_nama) > 0){
+                    for($n=0;$n < count($str_nama);$n++){
+                        if($n == count($str_nama) - 1){
+                            $tmp_nama .= "<br/>".$str_nama[$n]; 
+                        }else{
+                            $tmp_nama .= $str_nama[$n]." "; 
+                        }
+                    }
+                }
+                $nama = $tmp_nama;
+            }else{
+                $nama = $nama;
+            }
+
+            return $nama;
+        }
+
         public function cek_session()
         {
             if(!Session::get('login')){
@@ -157,22 +178,11 @@
                                 $forms = str_replace("_","/", $main_menu[$i]['form']);
                                 $this_lv = $main_menu[$i]['level_menu']; 
                                 $nama = $main_menu[$i]['nama'];
-                                if(strlen($nama) > 23){
-                                    $str_nama = explode(" ",$nama);
-                                    $tmp_nama = "";
-                                    if(count($str_nama) > 0){
-                                        for($n=0;$n < count($str_nama);$n++){
-                                            if($n == count($str_nama)-1){
-                                                $tmp_nama .= "<br/>".$str_nama[$n]; 
-                                            }else{
-                                                $tmp_nama .= $str_nama[$n]." "; 
-                                            }
-                                        }
-                                    }
-                                    $nama = $tmp_nama;
-                                }else{
-                                    $nama = $nama;
-                                }
+                                // if(strlen($nama) > 23){
+                                //     $nama = $this->cekLengthMenu($nama);
+                                // }else{
+                                    // $nama = $nama;
+                                // }
                                 $forms = explode("/",$forms);
                                 if(ISSET($forms[2])){
                                     $this_link = $forms[2];
