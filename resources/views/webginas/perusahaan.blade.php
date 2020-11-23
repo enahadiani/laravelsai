@@ -97,6 +97,9 @@
             .pg-2-mobile {
                 margin-top: 12px;
             }
+            #organisasi {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -252,7 +255,7 @@
         <!-- End Visi Misi -->
 
         <!-- Organisasi -->
-        <section>
+        <section id="organisasi">
             <div class="container">
                 <div class="heading-text heading-section text-center" style="display: flex;justify-content:center;align-items:center;">
                     <h2>Struktur Organisasi</h2>
