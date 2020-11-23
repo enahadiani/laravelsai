@@ -258,16 +258,12 @@
                         </div>
                     </div>
                     <div class="col-lg-8" data-animate="fadeInUp" data-animate-delay="300">
-                        <div class="carousel testimonial testimonial-box" data-items="3" data-margin="30" data-arrows="false">
+                        <div class="carousel testimonial testimonial-box" data-items="{{count($sertifikat)}}" data-margin="30" data-arrows="false">
+                            @foreach ($sertifikat as $item)
                             <div style="height: 250px;">
-                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/certificate-ISO-9001-14001-engl.jpg')}}"/>
-                            </div>
-                            <div style="height: 250px;">
-                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/en_iso9001_large.jpg')}}"/>
-                            </div>
-                            <div style="height: 250px;">
-                                <img height="250" src="{{ asset('asset_web/homepages/sertifikat/ISO-TA.jpg')}}"/>
-                            </div>
+                                <img height="250" src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}"/>
+                            </div>    
+                            @endforeach
                         </div>
                     </div>
                 </div>
