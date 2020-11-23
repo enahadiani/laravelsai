@@ -76,7 +76,7 @@
             border-radius: 15px !important;
         } */
         .footer-content{
-            width:60%;
+            width:50%;
             padding: 0 150px
         }
         @media (max-width: 991px) {
@@ -95,11 +95,40 @@
         
         #btn-eye
         {
-            top: 0px;right: 10px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
+            position: absolute;
+            top: 26px;
+            right: 18px;left: unset;width: 40px;height: 40px;background: url("{{ asset('img/hide.svg') }}") no-repeat;background-blend-mode: lighten;background-size: 22px;background-position-x: center;background-position-y: center;opacity: 0.5;cursor: pointer;
         }
+
+        #btn-lihat
+        {
+            position: absolute;
+            top: 36px;
+            font-size: 0.75rem !important;
+            right: 18px;left: unset;width: 40px;height: 40px; opacity: 0.5;cursor: pointer;
+        }
+
         .btn{
             border-radius: 8px !important;
         }
+
+        .form-control {
+            padding: 0.1rem 0.5rem; 
+            height: calc(1.3rem + 1rem);
+            border-radius:0.5rem !important;
+            
+        }
+
+        .auth-card .form-side {
+            width: 50%;
+            padding: 80px; }
+        @media (max-width: 991px) {
+            .auth-card .image-side {
+                width: 100%;
+                padding: 50px; }
+            .auth-card .form-side {
+                width: 100%;
+                padding: 50px; } }
         
     </style>
 
@@ -137,37 +166,49 @@
                 <div class="col-12 col-md-10 mx-auto my-auto">
                     <div class="card auth-card" style="box-shadow:none">
                         <div class="form-side">
-                            <a href="#">
+                            <a href="#" style="display: block;text-align: center;">
                                 <span class="logo-single"></span>
                             </a>
-                            <h6 class="mb-0">Masuk</h6>
-                            <h6 class="mb-4">Selamat Datang
-                            @if(Session::has('pesan'))
-                            Kembali
-                            @endif
-                            </h6>
+                            <!-- <h6 class="mb-0">Masuk</h6> -->
+                            <!-- <h6 class="mb-4">Selamat Datang -->
+                            <!-- </h6> -->
                             <form method="POST" action="{{ url('sekolah-auth/login') }}" id="form-login">
                                 @csrf
                                 @if(Session::has('alert'))
-                                <div class="alert alert-danger rounded" role="alert">
+                                <div class="alert alert-danger rounded" role="alert" style="border-radius: 0.5rem !important;">
                                     {{ Session::get('alert') }}
                                 </div>
                                 @endif
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" name="nik" id="username" required/>
-                                    <span>NIK</span>
-                                </label>
-                                <label class="form-group has-float-label mb-4">
-                                    <input class="form-control" type="password" name="password" placeholder="" id="password" required>
-                                    <span id="span-password">Password</span>
-                                    <span id="btn-eye"><i class="icon-eye"></i></span>
-                                </label>
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-row mt-2">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="username">Username</label>
+                                                <input class="form-control" type="text" id="username" name="nik" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="password">Password</label>
+                                                <input class="form-control" type="password" name="password" placeholder="" id="password" required>
+                                                <!-- <span id="btn-eye"><i class="icon-eye"></i></span> -->
+                                                <span id="btn-lihat">Lihat</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
                                     <a href="#">Lupa password?</a>
-                                    <button class="btn btn-primary btn-lg" type="submit">Masuk</button>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                    <button class="btn btn-primary btn-block" type="submit">Masuk</button>
                                 </div>
                             </form>
-                            <button class="btn btn-block mt-5" style="background: #C9C9C929;">Daftar</button>
+                            <!-- <button class="btn btn-block mt-5" style="background: #C9C9C929;">Daftar</button> -->
                         </div>
                     </div>
                 </div>
@@ -179,10 +220,7 @@
                     <div class="row">
                         <div class="col-12 col-md-10 mx-auto my-auto">
                             <div class="row" style="margin:0 auto;">
-                                <div class="col-4 col-sm-4"><span style="font-size: 9px;">Bantuan</span></div>
-                                <div class="col-4 col-sm-4 text-center"><span style="font-size: 9px;">Kebijakan Privasi</span>
-                                </div>
-                                <div class="col-4 col-sm-4 text-right"><span style="font-size: 9px;">Tentang Kami</span></div>
+                                <div class="col-12 col-sm-12 text-center"><span style="font-size: 9px !important;">&copy;2020 PT Samudra Aplikasi Indonesia</span></div>
                             </div>
                         </div>                
                     </div>
@@ -278,6 +316,17 @@
                 } else {
                     x.type = "password";
                     document.getElementById("btn-eye").style.backgroundImage = "url( {{ asset('img/hide.svg') }} )";
+                }
+            });
+
+            $('#btn-lihat').click(function(){
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $("#btn-lihat").css('text-decoration','line-through');
+                } else {
+                    x.type = "password";
+                    $("#btn-lihat").css('text-decoration','unset');
                 }
             });
         });
