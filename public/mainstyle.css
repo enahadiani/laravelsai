@@ -4,7 +4,7 @@
 body {
     font-family: 'Roboto', sans-serif !important;
 }
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bootstrap-tagsinput{
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p,li,ul,a,input,select,.bootstrap-tagsinput,label{
     font-family: 'Roboto', sans-serif !important;
     color:black;
 }
@@ -38,11 +38,11 @@ h6{
     font-size: 1.25rem !important;
 }
 
-button,label{
+button{
     font-size: 0.75rem !important;
 }
 
-p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input,.selectize-dropdown,span{
+p,li,ul,a,input,select,textarea,label,span[class*="info-code"],span[class*="info-name"],.selectize-input,.selectize-dropdown,span{
     font-size: 0.875rem !important;
 }
 .bootstrap-tagsinput{

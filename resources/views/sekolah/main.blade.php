@@ -952,8 +952,12 @@
         var header = 70;
         var content = window.innerHeight;
         // var tinggi = content-header-40;
-        var title = 69;
-        // var body = tinggi-title;
+        var title = $('.card-body.form-header').height();
+        if(title == 39 || title == 75){
+            title = title + 32;
+        }else{
+            title = 68;
+        }
         var height = content-header-title-40;
     
         if($('#saku-form').length > 0){
