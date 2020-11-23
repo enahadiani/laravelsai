@@ -154,6 +154,12 @@
             right: 25px;
             z-index: 99;
         }
+        
+        .iso {
+            position: absolute;
+            margin-left:110px;
+            display:flex;
+        }
 
         @media (max-width: 768px) {
             .layanan-container {
@@ -167,6 +173,9 @@
             }
             .berita {
                 margin: 5px;
+            }
+            .iso {
+                margin-left: 0;
             }
         }
     </style>
@@ -398,7 +407,7 @@
                                             <p>Nilai kemampuan pemenuhan barang jasa</p>
                                         </div>
                                     </div>
-                                    <div style="position: absolute;margin-left:110px;display:flex;">
+                                    <div class="iso">
                                         <img style="margin-right: 20px;" src="{{ asset('asset_web/homepages/iso/ISO 90012015.png') }}" height="100" width="100" />
                                         <img style="margin-right: 20px;" src="{{ asset('asset_web/homepages/iso/Logo-ISO-14001.png') }}" height="100" width="100" />
                                         <img src="{{ asset('asset_web/homepages/iso/ISO 45001 Logo.png') }}" height="100" width="90" />
