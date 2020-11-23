@@ -156,6 +156,12 @@
                             for($i=0; $i<count($main_menu); $i++){
                                 $forms = str_replace("_","/", $main_menu[$i]['form']);
                                 $this_lv = $main_menu[$i]['level_menu']; 
+                                $nama = $main_menu[$i]['nama'];
+                                if(strlen($nama) > 23){
+                                    $nama = substr($nama,0,19).'<br>'.substr($nama,19);
+                                }else{
+                                    $nama = $nama;
+                                }
                                 $forms = explode("/",$forms);
                                 if(ISSET($forms[2])){
                                     $this_link = $forms[2];
@@ -188,7 +194,7 @@
                                         <li class='$active'>
                                                 <a href='#main".$main_menu[$i]['kode_menu']."'>
                                                 <i class='".$main_menu[$i]['icon']."'></i>
-                                                    <span>".$main_menu[$i]['nama']."</span>
+                                                    <span>".$nama."</span>
                                                 </a>
                                         </li>";
         
@@ -198,7 +204,7 @@
                                         <li>
                                                 <a href='#' data-href='$this_link' class='a_link'>
                                                 <i class='".$main_menu[$i]['icon']."'></i>
-                                                    <span>".$main_menu[$i]['nama']."</span>
+                                                    <span>".$nama."</span>
                                                 </a>
                                         </li>";
                                         $submenu .="";
@@ -222,7 +228,7 @@
                                         $sub[$level_nol] .= "
                                         <li class=''>
                                             <a href='#' class='a_link' data-href='$this_link'>
-                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$nama."</span>
                                             </a>
                                         </li>
                                         ";
@@ -234,7 +240,7 @@
                                         <li>
                                         <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
                                             aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                            <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                            <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$nama."</span>
                                         </a>
                                         <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
                                             <ul class='list-unstyled inner-level-menu'>
@@ -245,7 +251,7 @@
                                         <li>
                                         <a href='#' data-toggle='collapse' data-target='#collapse".$main_menu[$i]['kode_menu']."' aria-expanded='false'
                                             aria-controls='collapse".$main_menu[$i]['kode_menu']."' class='rotate-arrow-icon'>
-                                            <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                            <i class='simple-icon-arrow-down'></i> <span class='d-inline-block'>".$nama."</span>
                                         </a>
                                         <div id='collapse".$main_menu[$i]['kode_menu']."' class='collapse' >
                                             <ul class='list-unstyled inner-level-menu'>";
@@ -253,7 +259,7 @@
                                         $sub[$level_nol].= " 
                                         <li class=''>
                                             <a href='#' class='a_link' data-href='$this_link'>
-                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$nama."</span>
                                             </a>
                                         </li>
                                         ";
@@ -261,7 +267,7 @@
                                         $sub[$level_nol].= " 
                                         <li class=''>
                                             <a href='#' class='a_link' data-href='$this_link'>
-                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$nama."</span>
                                             </a>
                                         </li>
                                         </ul>
@@ -270,7 +276,7 @@
                                         $sub[$level_nol].= " 
                                         <li class=''>
                                             <a href='#' class='a_link' data-href='$this_link'>
-                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$main_menu[$i]['nama']."</span>
+                                                <i class='".$main_menu[$i]['icon']."'></i> <span class='d-inline-block'>".$nama."</span>
                                             </a>
                                         </li>
                                         </div>
