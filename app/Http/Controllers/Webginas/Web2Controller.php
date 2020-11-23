@@ -115,6 +115,32 @@ class Web2Controller extends Controller
         }
     }
 
+    public function getSertifikat()
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/sertifikat-web',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getInfoDetail($id) {
         try {
             $client = new Client();
@@ -149,7 +175,8 @@ class Web2Controller extends Controller
 
     public function viewPerusahaan() {
         $data = $this->getProfilPerusahaan();
-        return view('webginas.perusahaan', ['deskripsi' => $data['data'][0]['deskripsi'], 'visi' => $data['data'][0]['visi'], 'misi' => $data['misi']]);
+        $sertifikat = $this->getSertifikat();
+        return view('webginas.perusahaan', ['deskripsi' => $data['data'][0]['deskripsi'], 'visi' => $data['data'][0]['visi'], 'misi' => $data['misi'], 'sertifikat' => $sertifikat]);
     }
 
     public function viewKontak() {

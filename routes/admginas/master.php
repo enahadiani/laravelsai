@@ -62,6 +62,12 @@ Route::get('review/{id}', 'AdmGinas\ReviewKlienController@show');
 Route::post('review', 'AdmGinas\ReviewKlienController@store');
 Route::post('review/{id}', 'AdmGinas\ReviewKlienController@update');
 
+// Data Sertifikat //
+Route::get('sertifikat', 'AdmGinas\SertifikatController@index');
+Route::get('sertifikat/{id}', 'AdmGinas\SertifikatController@show');
+Route::post('sertifikat', 'AdmGinas\SertifikatController@store');
+Route::post('sertifikat/{id}', 'AdmGinas\SertifikatController@update');
+
 // Data Profil //
 Route::get('profil', 'AdmGinas\ProfilPerusahaanController@index');
 Route::post('profil', 'AdmGinas\ProfilPerusahaanController@store');
