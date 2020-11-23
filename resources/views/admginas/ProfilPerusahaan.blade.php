@@ -409,6 +409,17 @@
                             <div class="form-group col-md-10 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-8 col-sm-12">
+                                        <label for="no_fax">No Fax</label>
+                                        <input class="form-control" type="text" id="no_fax" name="no_fax">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
                                         <label for="wa">Link WA</label>
                                         <input class="form-control" type="text" id="wa" name="wa">
                                     </div>
@@ -560,6 +571,8 @@
                         $('#koordinat').val(result.daftar[0].koordinat);
                         $('#visi').val(result.daftar[0].visi);
                         $('#no_telp').val(result.daftar[0].no_telp);
+                        $('#no_fax').val(result.daftar[0].no_fax);
+                        $('#wa').val(result.daftar[0].link_wa);
                         $('#email').val(result.daftar[0].email);
                         $('#alamat').val(result.daftar[0].alamat);
                         
