@@ -221,15 +221,13 @@
                                  <h2 class="m-b-10">Hubungi Kami</h2>
                              </div>
                              <div class="col-lg-6 m-b-30">
-                                 <address>
-                                     <strong>Alamat:</strong><br>
-                                     Jl. Sumur Bandung No. 12, Bandung<br>
-                                 </address>
-                                 <strong>Telp:</strong> (022) 253205
-                                 <br>
-                                 <strong>Fax:</strong> (022) 2532053
-                                 <br>
-                                 <strong>Email:</strong> trengginasjaya@yahoo.co.id
+                                <strong>Alamat:</strong><br>
+                                <span id="alamat"></span><br>
+                                <strong>Telp:</strong> <span id="telp"></span>
+                                <br>
+                                <strong>Fax:</strong> <span id="fax"></span>
+                                <br>
+                                <strong>Email:</strong> <span id="email"></span>
                              </div>
                              <div class="col-lg-12 m-b-30">
                                  <h4>Sosial Media</h4>
@@ -286,7 +284,7 @@
     </div>
     <!-- end: Body Inner -->
     <!--Whatsapp-->
-    <a href="http://wa.me/6282240011462" target="_blank"><img id="whatsapp" alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
+    <a id="link-wa" target="_blank"><img id="whatsapp" alt="whatsapp" class="whatsapp" height="40" width="40" src="{{ asset('asset_web/homepages/icon/whatsapp.png') }}"/></a>
     <!-- Scroll top -->
     <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
     <!--Plugins-->
@@ -295,6 +293,33 @@
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-kontak') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    var data = result.daftar[0];
+                    $('#alamat').text(data.alamat);
+                    $('#telp').text(data.no_telp);
+                    $('#fax').text(data.no_fax);
+                    $('#email').text(data.email);
+                }
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-wa') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    $('#link-wa').attr('href', result.daftar[0].link_wa)
+                }
+            }
+        });
+
         var whatsapp = $('#whatsapp');
         window.onscroll = function() {
             scrollFunction();
