@@ -1,5 +1,5 @@
    <!-- CSS tambahan -->
-   <style>
+    <style>
         th,td{
             padding:8px !important;
             vertical-align:middle !important;
@@ -176,9 +176,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px">Setting Form</h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 id="judul-form" style='margin-bottom:0'>Setting Form</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="separator"></div>
                     <!-- FORM BODY -->
