@@ -158,7 +158,18 @@
                                 $this_lv = $main_menu[$i]['level_menu']; 
                                 $nama = $main_menu[$i]['nama'];
                                 if(strlen($nama) > 23){
-                                    $nama = substr($nama,0,19).'<br>'.substr($nama,19);
+                                    $str_nama = explode(" ",$nama);
+                                    $tmp_nama = "";
+                                    if(count($str_nama) > 0){
+                                        for($n=0;$n < count($str_nama);$n++){
+                                            if($n == count($str_nama)-1){
+                                                $tmp_nama .= "<br/>".$str_nama[$n]; 
+                                            }else{
+                                                $tmp_nama .= $str_nama[$n]." "; 
+                                            }
+                                        }
+                                    }
+                                    $nama = $tmp_nama;
                                 }else{
                                     $nama = $nama;
                                 }
