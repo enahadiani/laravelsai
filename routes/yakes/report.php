@@ -29,3 +29,5 @@ Route::post('lap-labarugi', 'Yakes\LaporanController@getLabaRugi');
 Route::post('lap-labarugi-pp', 'Yakes\LaporanController@getLabaRugiPP');
 Route::post('lap-labarugi-jejer', 'Yakes\LaporanController@getLabaRugiJejer');
 Route::post('send-laporan', 'Yakes\LaporanController@sendMail');
+
+Route::get('lap-nrclajur-pdf','Yakes\LaporanController@getNrcLajurPDF');

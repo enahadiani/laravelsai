@@ -960,7 +960,8 @@
 
             $data =  array(
                 0 => array('kode' => "Laporan"),
-                1 => array('kode' => "Grid")
+                1 => array('kode' => "Grid"),
+                // 2 => array('kode' => "Laporan Scroll")
             );
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }

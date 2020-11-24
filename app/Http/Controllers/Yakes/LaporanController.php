@@ -7,6 +7,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use PDF;
 
     class LaporanController extends Controller {
 
@@ -463,6 +464,15 @@
                 $res = json_decode($response->getBody(),true);
                 return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
             } 
+        }
+
+        function getNrcLajurPDF(Request $request){
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNrcLajur($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $nrclajur = $tmp['original'];
+            // dump($nrclajur);
+            $pdf = PDF::loadview('yakes.rptNrcLajurPDF',['data'=>$nrclajur["result"],'periode'=>$request->periode[1],'lokasi'=>$nrclajur["lokasi"]]);
+    	    return $pdf->download('laporan-neraca-lajur-pdf');   
         }
 
         function getNrcLajurJejer(Request $request){

@@ -153,6 +153,8 @@
                 xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
             }else if($output.from == "Grid"){
                 xurl = "{{ url('yakes-auth/form/rptNrcLajurGrid') }}";
+            }else if($output.from == "Laporan Scroll"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajurScroll') }}";
             }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -172,6 +174,8 @@
                 xurl = "{{ url('yakes-auth/form/rptNrcLajur') }}";
             }else if($output.from == "Grid"){
                 xurl = "{{ url('yakes-auth/form/rptNrcLajurGrid') }}";
+            }else if($output.from == "Laporan Scroll"){
+                xurl = "{{ url('yakes-auth/form/rptNrcLajurScroll') }}";
             }
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -335,6 +339,12 @@
             e.preventDefault();
             $('#formEmail')[0].reset();
             $('#modalEmail').modal('show');
+        });
+
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('yakes-report/lap-nrclajur-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_akun[]="+$kode_akun.type+"&kode_akun[]="+$kode_akun.from+"&kode_akun[]="+$kode_akun.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to;
+            window.open(link, '_blank'); 
         });
 
         $('#modalEmail').on('submit','#formEmail',function(e){
