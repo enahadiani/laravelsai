@@ -72,6 +72,9 @@
             right: 25px;
             z-index: 99;
         }
+        .highcharts-label, .highcharts-data-label > span > div > div > h4 {
+            color: white !important;
+        }
         @media (max-width: 768px) {
             .misi-box {
                 height: 500px;
@@ -93,6 +96,9 @@
             }
             .pg-2-mobile {
                 margin-top: 12px;
+            }
+            #organisasi {
+                display: none;
             }
         }
     </style>
@@ -248,6 +254,23 @@
         </section>
         <!-- End Visi Misi -->
 
+        <!-- Organisasi -->
+        <section id="organisasi">
+            <div class="container">
+                <div class="heading-text heading-section text-center" style="display: flex;justify-content:center;align-items:center;">
+                    <h2>Struktur Organisasi</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" data-animate="fadeInUp" data-animate-delay="300">
+                       <figure class="highcharts-figure">
+                            <div id="organization"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Organisasi -->
+
         <!-- Sertifikasi -->
         <section>
             <div class="container">
@@ -352,6 +375,11 @@
     <script src="{{ asset('asset_web/js/plugins.js') }}"></script>
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/sankey.js"></script>
+    <script src="https://code.highcharts.com/modules/organization.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript">
 
         $.ajax({
@@ -472,6 +500,309 @@
                 judul.addClass('white');
             }
         })
+
+        Highcharts.chart('organization', {
+            chart: {
+                height: 800,
+                inverted: true
+            },
+            credits:{
+                enabled: false
+            },
+            title: {
+                text: 'Struktur Organisasi PT. Trengginas Jaya'
+            },
+            accessibility: {
+                point: {
+                    descriptionFormatter: function (point) {
+                        var nodeName = point.toNode.name,
+                            nodeId = point.toNode.id,
+                            nodeDesc = nodeName === nodeId ? nodeName : nodeName + ', ' + nodeId,
+                            parentDesc = point.fromNode.id;
+                        return point.index + '. ' + nodeDesc + ', reports to ' + parentDesc + '.';
+                    }
+                }
+            },
+            series: [{
+                type: 'organization',
+                name: 'PT. Trengginas Jaya',
+                keys: ['from', 'to'],
+                data: [
+                    ['Direktur', 'Commisioner'],
+                    ['Direktur', 'Advisor'],
+                    ['Direktur', 'MFHC'],
+                    ['Direktur', 'SCDC'],
+                    ['Direktur', 'MOLC'],
+                    ['Direktur', 'MTBR'],
+                    ['Direktur', 'MP'],
+                    ['Direktur', 'MQBT'],
+                    ['MFHC', 'AMF'],
+                    ['AMF', 'CBT'],
+                    ['AMF', 'CAT'],
+                    ['CBT', 'CAT'],
+                    ['MFHC', 'CHC'],
+                    ['MOLC', 'AMA'],
+                    ['MOLC', 'AMO'],
+                    ['MTBR', 'AMT'],
+                    ['MTBR', 'ABR'],
+                    ['MP', 'ABM'],
+                    ['MP', 'AMC'],
+                    ['MQBT', 'AQM'],
+                    ['AMA', 'CSD'],
+                    ['AMA', 'CHM'],
+                    ['CSD', 'CHM'],
+                    ['AMO', 'CDP'],
+                    ['AMO', 'CES'],
+                    ['CDP', 'CES'],
+                    ['AMT', 'CL'],
+                    ['AMT', 'CE'],
+                    ['CL', 'CE'],
+                    ['ABR', 'CRS'],
+                    ['ABR', 'CCS'],
+                    ['CRS', 'CCS'],
+                    ['ABM', 'CBM'],
+                    ['ABM', 'CDS'],
+                    ['AMC', 'CEP'],
+                    ['AQM', 'QM'],
+                    ['AQM', 'BD'],
+                    ['AQM', 'CM'],
+                ],
+                levels: [
+                {
+                    level: 0,
+                    color: '#980104',
+                    dataLabels: {
+                        style: {
+                            fontSize: '8px',
+                            color: '#FFFFFF'
+                        }
+                    }
+                },
+                {
+                    level: 1,
+                    color: '#007ad0',
+                    dataLabels: {
+                        color: 'white',
+                        style: {
+                            fontSize: '6px',
+                        }
+                    }
+                },
+                {
+                    level: 2,
+                    color: '#9cba8f',
+                    dataLabels: {
+                        style: {
+                            fontSize: '6px'
+                        }
+                    }
+                },
+                {
+                    level: 3,
+                    color: '#529b9c',
+                    dataLabels: {
+                        style: {
+                            fontSize: '6px'
+                        }
+                    }
+                },
+                {
+                    level: 4,
+                    color: '#eac392',
+                    dataLabels: {
+                        style: {
+                            fontSize: '6px'
+                        }
+                    }
+                }
+                ],
+                nodes: [
+                    {
+                    id: 'Direktur'
+                },
+                {
+                    id: 'Commisioner',
+                    color: '#980104',
+                    column: 0,
+                    offset: '75%'
+                },
+                {
+                    id: 'Advisor',
+                    column: 1,
+                    offset: '75%'
+                },
+                {
+                    id: 'SCDC',
+                    column: 2,
+                    name: 'Secretary & Document Center'
+                },
+                {
+                    id: 'MFHC',
+                    column: 3,
+                    name: 'Manager Financial & Human Capital',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'MOLC',
+                    column: 3,
+                    name: 'Manager Outsourcing & Legal Compilance',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'MTBR',
+                    column: 3,
+                    name: 'Manager Trading & Bussiness Retail',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'MP',
+                    column: 3,
+                    name: 'Manager Property',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'MQBT',
+                    column: 3,
+                    name: 'Manager Quality Mgt & Bussiness Development',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'AMF',
+                    column: 4,
+                    name: 'As. Man Financial',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CHC',
+                    column: 4,
+                    name: 'Coord. Human Capital'
+                },
+                {
+                    id: 'AMA',
+                    column: 4,
+                    name: 'As. Man Management Area',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'AMO',
+                    column: 4,
+                    name: 'As. Man Outsourcing Service',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'AMT',
+                    column: 4,
+                    name: 'As. Man Trading',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'ABR',
+                    column: 4,
+                    name: 'As. Man Bussiness Retail',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'ABM',
+                    column: 4,
+                    name: 'As. Man Building Maintenanace & Dormitory',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'AMC',
+                    column: 4,
+                    name: 'As. Man Construction',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'AQM',
+                    column: 4,
+                    name: 'As. Man Analyst QM & Bussiness Dev',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CBT',
+                    name: 'Coord. Budgeting & Taxation',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CAT',
+                    name: 'Coord. Accounting & Treasury'
+                },
+                {
+                    id: 'CSD',
+                    name: 'Coord. Security & Driver',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CHM',
+                    name: 'Coord. Housekeeping & ME'
+                },
+                {
+                    id: 'CDP',
+                    name: 'Coord. Data processing',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CES',
+                    name: 'Coord. Employment Service'
+                },
+                {
+                    id: 'CL',
+                    name: 'Coord. Logistic',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CE',
+                    name: 'COV & Equipment'
+                },
+                {
+                    id: 'CRS',
+                    name: 'Coord. Retail Sales',
+                    layout: 'hanging'
+                },
+                {
+                    id: 'CCS',
+                    name: 'Coord. Catering Service'
+                },
+                {
+                    id: 'CBM',
+                    name: 'Coord. Building Maintenance',
+                },
+                {
+                    id: 'CDS',
+                    name: 'Coord. Dormitory Service'
+                },
+                {
+                    id: 'CEP',
+                    name: 'Constructions Experts'
+                },
+                {
+                    id: 'QM',
+                    name: 'Analyst Quality Management'
+                },
+                {
+                    id: 'BD',
+                    name: 'Analyst Bussiness Dev'
+                },
+                {
+                    id: 'CM',
+                    name: 'Coord. Marketing'
+                },
+                ],
+                colorByPoint: false,
+                dataLabels: {
+                    color: '#FFFFFF',
+                },
+                borderColor: '#FFFFFF',
+                nodeWidth: 65
+            }],
+            tooltip: {
+                outside: true,
+            },
+            exporting: {
+                enabled: false
+            }
+    });
     </script>
 </body>
 
