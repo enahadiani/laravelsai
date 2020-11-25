@@ -436,7 +436,7 @@
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_id_layanan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control input-label-id_layanan" id="id_layanan" name="id_layanan" value="" title="" readonly style="background:#e9ecef">
+                                            <input type="text" class="form-control inp-label-id_layanan" id="id_layanan" name="id_layanan" value="" title="" readonly style="background:#e9ecef">
                                             <span class="info-name_id_layanan hidden">
                                                 <span></span> 
                                             </span>
@@ -865,8 +865,8 @@
             $('#saku-form').show();
             $('#banner-preview').hide();
             $('#span-banner').show();
+            $('.input-group-prepend').addClass('hidden');
             $('span[class^=info-name]').addClass('hidden');
-            $('.info-code_id_layanan').addClass('hidden');
             $('.info-icon-hapus').addClass('hidden');
             $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         });
