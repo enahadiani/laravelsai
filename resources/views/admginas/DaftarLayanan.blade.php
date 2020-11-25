@@ -695,7 +695,7 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Klien');
+        $('#judul-form').html('Edit Data Layanan');
         $.ajax({
             type: 'GET',
             url: "{{ url('admginas-master/layanan') }}/" + id,

@@ -355,8 +355,9 @@
                         <table id="table-data" class="" style='width:100%'>
                             <thead>
                                 <tr>
-                                    <th>ID Klien</th>
-                                    <th>Nama Perusahaan</th>
+                                    <th>ID Sublayanan</th>
+                                    <th>Nama Sublayanan</th>
+                                    <th>ID Layanan</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -388,7 +389,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="hidden" id="id_edit" name="id_edit">
                                 <input type="hidden" id="method" name="_method" value="post">
-                                <input type="hidden" id="id_klien" name="id_klien">
+                                <input type="hidden" id="id_sublayanan">
                             </div>
                         </div>
                         
@@ -396,8 +397,8 @@
                             <div class="form-group col-md-10 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
-                                        <label for="nama_klien">Nama Perusahaan</label>
-                                        <input class="form-control" type="text" id="nama_klien" name="nama_klien">
+                                        <label for="nama_klien">ID Sublayanan</label>
+                                        <input class="form-control" type="text" id="id_sub" name="id_sublayanan">
                                     </div>
                                     <div class="col-md-4 col-sm-12">
                                         <div class="select-from-library-container mb-1">
@@ -410,6 +411,60 @@
                                                 <input type="file" id="upload-banner" name="file_gambar" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top: -99px;">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="nama_perusahaan">Nama Sublayanan</label>
+                                        <input class="form-control" type="text" id="nama_perusahaan" name="nama_perusahaan">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="id_layanan">ID Layanan</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_id_layanan" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control input-label-id_layanan" id="id_layanan" name="id_layanan" value="" title="" readonly style="background:#e9ecef">
+                                            <span class="info-name_id_layanan hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_id_layanan" readonly style="background:#e9ecef"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="deskripsi_singkat">Deskripsi Singkat</label>
+                                        <textarea class="form-control" name="deskripsi_singkat" id="deskripsi_singkat" rows="10" cols="80"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-10 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-12">
+                                        <label for="deskripsi">Deskripsi</label>
+                                        <textarea class="form-control" name="deskripsi" id="deskripsi" rows="10" cols="80"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -459,6 +514,8 @@
 
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script type="text/javascript">
         setHeightForm();
         var $iconLoad = $('.preloader');
@@ -469,6 +526,31 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
+        });
+
+        var editor1 = CKEDITOR.replace('deskripsi_singkat', {
+            removeButtons: 'Save,Source,NewPage,ExportPdf,Preview,Print,Templates,Find,Replace,SelectAll,Scayt,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Bold,Italic,Underline,Strike,Subscript,Superscript,Image,Unlink,Link,Flash,Table,Anchor,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Language,JustifyBlock,JustifyRight,JustifyCenter,BidiRtl,BidiLtr,JustifyLeft,Blockquote,CreateDiv,Indent,Outdent,BulletedList,RemoveFormat,CopyFormatting,NumberedList,Styles,Format,Font,FontSize,TextColor,BGColor,ShowBlocks,Maximize,About'
+        });
+
+        var editor2 = CKEDITOR.replace('deskripsi', {
+            toolbarGroups: [
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                { name: 'forms', groups: [ 'forms' ] },
+                '/',
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                { name: 'links', groups: [ 'links' ] },
+                { name: 'insert', groups: [ 'insert' ] },
+                '/',
+                { name: 'styles', groups: [ 'styles' ] },
+                { name: 'colors', groups: [ 'colors' ] },
+                { name: 'tools', groups: [ 'tools' ] },
+                { name: 'others', groups: [ 'others' ] },
+                { name: 'about', groups: [ 'about' ] }
+	        ],
+            removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,PasteFromWord,PasteText,Find,Replace,Scayt,SelectAll,Checkbox,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,Strike,RemoveFormat,CopyFormatting,Outdent,Indent,Blockquote,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Image,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Styles,Format,Font,TextColor,BGColor,ShowBlocks,Maximize,About'
         });
 
         function fileReader(input, idImg, idSpan) {
@@ -504,7 +586,7 @@
             bLengthChange: false,
             sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
             'ajax': {
-                'url': "{{ url('admginas-master/klien') }}",
+                'url': "{{ url('admginas-master/sublayanan') }}",
                 'async':false,
                 'type': 'GET',
                 'dataSrc' : function(json) {
@@ -528,13 +610,14 @@
                         }
                     }
                 },
-                {'targets': 2, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+                {'targets': 3, data: null, 'defaultContent': action_html, 'className': 'text-center' }
             ],
             'columns': [
-                { data: 'id_klien' },
-                { data: 'nama_klien' },
+                { data: 'id_sublayanan' },
+                { data: 'nama_sublayanan' },
+                { data: 'id_layanan' },
             ],
-            order:[[2,'desc']],
+            order:[[3,'desc']],
             drawCallback: function () {
                 $($(".dataTables_wrapper .pagination li:first-of-type"))
                     .find("a")
@@ -582,14 +665,17 @@
 
         $('#saku-datatable').on('click', '#btn-tambah', function(){
             $('#row-id').hide();
-            $('#id_edit').val('');
             $('#method').val('post');
-            $('#judul-form').html('Tambah Data Klien');
+            $('#judul-form').html('Tambah Data Sublayanan');
             $('#btn-update').attr('id','btn-save');
             $('#btn-save').attr('type','submit');
             $('#form-tambah')[0].reset();
+            $('#id_sub').attr('readonly',false);
             $('#form-tambah').validate().resetForm();
             $('#id').val('');
+            $('#id_edit').val('');
+            editor1.setData('');
+            editor2.setData('');
             $('#saku-datatable').hide();
             $('#saku-form').show();
             $('#banner-preview').hide();
@@ -603,10 +689,10 @@
                 var parameter = $('#id_edit').val();
                 var id = $('#id_klien').val();
                 if(parameter == "edit"){
-                    var url = "{{ url('admginas-master/klien') }}/"+id;
+                    var url = "{{ url('admginas-master/sublayanan') }}/"+id;
                     var pesan = "updated";
                 }else{
-                    var url = "{{ url('admginas-master/klien') }}";
+                    var url = "{{ url('admginas-master/sublayanan') }}";
                     var pesan = "saved";
                 }
 
@@ -669,16 +755,24 @@
                 var data = dataTable.row(this).data();
                 $.ajax({
                     type: 'GET',
-                    url: "{{ url('admginas-master/klien') }}/" + id,
+                    url: "{{ url('admginas-master/sublayanan') }}/" + id,
                     dataType:"JSON",
                     success: function(result) {
                         var html = `<tr>
-                            <td style='border:none'>ID Klien</td>
+                            <td style='border:none'>ID Sublayanan</td>
                             <td style='border:none'>`+id+`</td>
                         </tr>
                         <tr>
-                            <td style='border:none'>Nama Klien</td>
+                            <td style='border:none'>Nama Sublayanan</td>
                             <td style='border:none'>`+nama+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>ID Layanan</td>
+                            <td style='border:none'>`+result.data[0].id_layanan+`</td>
+                        </tr>
+                        <tr>
+                            <td style='border:none'>Nama Layanan</td>
+                            <td style='border:none'>`+result.data[0].nama_layanan+`</td>
                         </tr>
                         <tr>
                             <td>Logo</td>
@@ -700,10 +794,10 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Klien');
+        $('#judul-form').html('Edit Data Layanan');
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/klien') }}/" + id,
+            url: "{{ url('admginas-master/sublayanan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -711,9 +805,13 @@
                 if(res.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#id_klien').val(id);
+                    $('#id_sublayanan').val(id);
+                    $('#id_sub').val(id);
+                    $('#id_sub').attr('readonly',true);
                     $('#id').val(id);
-                    $('#nama_klien').val(result[0].nama_klien); 
+                    $('#nama_sublayanan').val(result[0].nama_sublayanan);
+                    editor1.setData(result[0].deskripsi_singkat);
+                    editor2.setData(result[0].deskripsi); 
                     $('#banner-preview').show();
                     $('#span-banner').hide();     
                     $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
@@ -732,10 +830,10 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Klien');
+        $('#judul-form').html('Edit Data Layanan');
         $.ajax({
             type: 'GET',
-            url: "{{ url('admginas-master/klien') }}/" + id,
+            url: "{{ url('admginas-master/sublayanan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -743,7 +841,9 @@
                 if(res.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
-                    $('#id_klien').val(id);
+                    $('#id_sublayanan').val(id);
+                    $('#id_sub').val(id);
+                    $('#id_sub').attr('readonly',true);
                     $('#id').val(id);
                     $('#nama_klien').val(result[0].nama_klien); 
                     $('#banner-preview').show();

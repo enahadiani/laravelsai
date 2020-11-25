@@ -84,3 +84,9 @@ Route::get('layanan/{id}', 'AdmGinas\LayananController@getData');
 Route::post('layanan', 'AdmGinas\LayananController@store');
 Route::put('layanan/{id}', 'AdmGinas\LayananController@update');
 // Route::delete('bidang/{id}', 'Wisata\BidangController@delete');
+
+// Data Info //
+Route::get('sublayanan', 'AdmGinas\SublayananController@index');
+Route::get('sublayanan/{id}', 'AdmGinas\SublayananController@show');
+Route::post('sublayanan-simpan', 'AdmGinas\SublayananController@store');
+Route::post('sublayanan-ubah/{id}', 'AdmGinas\SublayananController@update');
