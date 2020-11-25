@@ -33,3 +33,4 @@ Route::post('send-laporan', 'Yakes\LaporanController@sendMail');
 Route::get('lap-nrclajur-pdf','Yakes\LaporanController@getNrcLajurPDF');
 Route::get('lap-jurnal-pdf','Yakes\LaporanController@getJurnalPDF');
 Route::get('lap-bukubesar-pdf','Yakes\LaporanController@getBukuBesarPDF');
+Route::get('lap-labarugi-pdf','Yakes\LaporanController@getLabaRugiPDF');
