@@ -42,7 +42,7 @@
             var lokasi = res.lokasi;
             html+=judul_lap("LAPORAN NERACA LAJUR",lokasi,'Periode '+periode.fromname)+`
                 <table class='table table-bordered info-table' style='width:100%'>
-                    <thead>
+                    <thead style='position:absolute;width: 100%'>
                     <tr>
                         <td width='3%' rowspan='2'  class='header_laporan' align='center'>No</td>
                         <td width='10%' rowspan='2' class='header_laporan' align='center'>Kode Akun</td>
@@ -60,7 +60,7 @@
                         <td width='90' class='header_laporan' align='center'>Kredit</td>
                     </tr>
                     </thead>
-                    <tbody>`;
+                    <tbody style='height:400px;width:100%;margin-top:75px' class='table-responsive' >`;
                     var so_awal_debet=0;
                     var so_awal_kredit=0;
                     var debet=0;
@@ -108,6 +108,7 @@
             </table>`;
         }
         $('#canvasPreview').html(html);
+       
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
         // $('#pagination').append(`<li class="page-item all"><a href="#" class="page-link"><i class="far fa-list-alt"></i></a></li>`);

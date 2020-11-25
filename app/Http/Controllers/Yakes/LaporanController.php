@@ -7,6 +7,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use PDF;
 
     class LaporanController extends Controller {
 
@@ -465,6 +466,26 @@
             } 
         }
 
+        function getNrcLajurPDF(Request $request){
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNrcLajur($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $nrclajur = $tmp['original'];
+            // dump($nrclajur);
+            $pdf = PDF::loadview('yakes.rptNrcLajurPDF',['data'=>$nrclajur["result"],'periode'=>$request->periode[1],'lokasi'=>$nrclajur["lokasi"]]);
+    	    return $pdf->download('laporan-neraca-lajur-pdf');   
+        }
+
+        function getJurnalPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getJurnal($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $nrclajur = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptJurnalPDF',['data'=>$nrclajur["result"],'periode'=>$request->periode[1],'sumju'=>$request->sum_ju[1],'lokasi'=>$nrclajur["lokasi"]]);
+    	    return $pdf->download('laporan-jurnal-pdf');   
+        }
+
         function getNrcLajurJejer(Request $request){
             try{
                 
@@ -604,7 +625,7 @@
                 }else{
                     $back = false;
                 }
-                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>"Tidak",'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+                return response()->json(['result' => $result, 'status'=>true, 'auth_status'=>1, 'sumju'=>$request->sum_ju[1],'lokasi'=>Session::get('namaLokasi'),'back'=>$back, 'res'=>$res], 200); 
                 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();
