@@ -169,7 +169,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Data Jurusan</h5>
+                    <h6 style="position:absolute;top: 25px;">Data Jurusan</h6>
                     <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
@@ -223,10 +223,10 @@
             <div class="card">
                 <form id="form-tambah" style=''>
                     <div class="card-body pb-0">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jurusan
+                        <h6 class="card-title mb-4"><i class='fas fa-cube'></i> Form Jurusan
                         <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        </h4>
+                        </h6>
                         <hr>
                     </div>
                     <div class="card-body pt-0" style='min-height:471px'>

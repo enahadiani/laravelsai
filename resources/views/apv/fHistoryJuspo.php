@@ -394,6 +394,10 @@
                                     </table>
                                 </div>
                                 <div class="col-12">
+                                    <h6 style='font-weight:bold'># <u>LATAR BELAKANG</u></h6>
+                                    <p>`+result.data[0].dasar+`</p>
+                                </div>
+                                <div class="col-12">
                                     <h6 style='font-weight:bold'># <u>KEBUTUHAN</u></h6>
                                 </div>
                                 <div class="col-12">
