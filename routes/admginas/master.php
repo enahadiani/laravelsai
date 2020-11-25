@@ -77,3 +77,10 @@ Route::get('info', 'AdmGinas\InfoController@index');
 Route::get('info-show/{id}', 'AdmGinas\InfoController@show');
 Route::post('info-simpan', 'AdmGinas\InfoController@store');
 Route::post('info-ubah/{id}', 'AdmGinas\InfoController@update');
+
+// Data Layanan //
+Route::get('layanan', 'AdmGinas\LayananController@index');
+Route::get('layanan/{id}', 'AdmGinas\LayananController@getData');
+Route::post('layanan', 'AdmGinas\LayananController@store');
+Route::put('layanan/{id}', 'AdmGinas\LayananController@update');
+// Route::delete('bidang/{id}', 'Wisata\BidangController@delete');
