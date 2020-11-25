@@ -63,7 +63,7 @@
     @endphp
     <table class='table table-borderless' width='100%'>
         <tr>
-            <td class='text-center px-0 py-0 judul-nama'>LAPORAN AKTIVITAS</td>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN AKTIVITAS AREA</td>
         </tr>
         <tr>
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>

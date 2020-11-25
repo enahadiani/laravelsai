@@ -169,7 +169,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Data Jurusan</h5>
+                    <h6 style="position:absolute;top: 25px;">Data Jurusan</h6>
                     <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
@@ -188,10 +188,10 @@
                         </div>
                     </div>
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm" style="width:321px;float:right">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                            <div class="input-group-append" >
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                            <div class="input-group-append" style="width:92px !important">
                                 <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
@@ -223,10 +223,10 @@
             <div class="card">
                 <form id="form-tambah" style=''>
                     <div class="card-body pb-0">
-                        <h4 class="card-title mb-4" style="font-size:16px"><i class='fas fa-cube'></i> Form Jurusan
+                        <h6 class="card-title mb-4"><i class='fas fa-cube'></i> Form Jurusan
                         <button type="submit" class="btn btn-success ml-2"  style="float:right;" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        </h4>
+                        </h6>
                         <hr>
                     </div>
                     <div class="card-body pt-0" style='min-height:471px'>

@@ -63,7 +63,7 @@
     @endphp
     <table class='table table-borderless' width='100%'>
         <tr>
-            <td class='text-center px-0 py-0 judul-nama'>LAPORAN AKTIVITAS</td>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN AKTIVITAS JEJER AREA</td>
         </tr>
         <tr>
             <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -75,24 +75,36 @@
 	<table class='table table-bordered info-table' style='width:100%'>
         <thead>
             <tr>
-                <td width='75%' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
-                <td width='25%' class='header_laporan'><div align='center'>Jumlah</div></td>
+                <td width='20%' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
+                <td width='10%' class='header_laporan'><div align='center'>KS00</div></td>
+                <td width='10%' class='header_laporan'><div align='center'>KS01</div></td>
+                <td width='10%' class='header_laporan'><div align='center'>KS02</div></td>
+                <td width='10%' class='header_laporan'><div align='center'>KONSOLIDASI</div></td>
             </tr>
         </thead>
         <tbody>
             @php $no=1; @endphp
             @for ($i=0;$i < count($data);$i++)
                 @php
-                    $nilai="";
+                    $n1="";
+                    $n2=""; 
+                    $n3="";
+                    $n4="";
                     $line = $data[$i];
                     if ($line["tipe"] !="Header")
                     {
-                        $nilai=number_format(floatval($line["n4"]),0,",",".");
+                        $n1=number_format(floatval($line["n1"]),0,",",".");
+                        $n2=number_format(floatval($line["n2"]),0,",",".");
+                        $n3=number_format(floatval($line["n3"]),0,",",".");
+                        $n4=number_format(floatval($line["n4"]),0,",",".");
                     }
                 @endphp
 
                 <tr><td height='20' class='isi_laporan'>{!! fnSpasi($line["level_spasi"]) !!} {{ $line["nama"] }}</td>
-                <td class='isi_laporan'><div align='right'>{{ $nilai}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n1}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n2}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n3}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n4}}</div></td>
                 </tr>
                 $no++;
             @endfor

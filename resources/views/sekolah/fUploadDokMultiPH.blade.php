@@ -307,7 +307,7 @@
         <div class="col-12">
             <div class="card" >
                 <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Upload Dokumen Penilaian Multi PH</h5>
+                    <h6 style="position:absolute;top: 25px;">Upload Dokumen Penilaian Multi PH</h6>
                     <!-- <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button> -->
                 </div>
                 <div class="separator mb-2"></div>
@@ -326,10 +326,10 @@
                         </div>
                     </div>
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm" style="width:321px;float:right">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                            <div class="input-group-append" >
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                            <div class="input-group-append" style="width:92px !important">
                                 <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
@@ -368,7 +368,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -541,7 +541,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
-                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <h6 class="modal-title" style="position: absolute;"></h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button> 
                 </div>

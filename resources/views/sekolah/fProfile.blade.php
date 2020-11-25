@@ -19,7 +19,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="pt-5">
-                        <h5 style="font-weight: bold;">Keamanan Akun</h5>
+                        <h6 style="font-weight: bold;">Keamanan Akun</h6>
                         </div>
                         <table class="table table-profile">
                             <tbody>
@@ -42,7 +42,7 @@
             <div class="col-12 col-lg-7 col-xl-8 col-right">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 style="font-weight: bold;" id="judul-profile"></h5>
+                        <h6 style="font-weight: bold;" id="judul-profile"></h6>
                         <table class="table table-profile">
                             <tbody>
                                 @if(Session::get('statusAdmin') == "S")
@@ -86,7 +86,7 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 style="font-weight: bold;">Info Kontak</h5>
+                        <h6 style="font-weight: bold;">Info Kontak</h6>
                         <table class="table table-profile">
                             <tbody>
                                 <tr>
@@ -113,7 +113,7 @@
                 <div class="card mb-4" style="box-shadow:none;border-radius: 8px;border: 1px solid #dadce0;box-sizing: border-box;">
                     <div class="card-body">
                         <form id="form-ubahPass" class="tooltip-right-bottom" novalidate="novalidate">
-                            <h5 class="mb-4">Ubah Password</h5>
+                            <h6 class="mb-4">Ubah Password</h6>
                             <label class="form-group has-float-label mb-4">
                                 <input class="form-control" type="password" name="password_lama" placeholder="" id="password_lama">
                                 <span class="span-password">Password Lama</span>
