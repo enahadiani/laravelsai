@@ -138,14 +138,14 @@
             ],
             url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-modul') }}","{{ url('yakes-report/filter-bukti-jurnal') }}","{{ url('yakes-report/filter-sumju') }}"],
             parameter:[{},{},{
-                'periode[0]':'=',
-                'periode[1]':'202001',
-                'periode[2]':'',
+                'periode[0]':$periode.type,
+                'periode[1]':$periode.from,
+                'periode[2]':$periode.to,
                 'modul[0]':$modul.type,
                 'modul[1]':$modul.from,
                 'modul[2]':$modul.to,
             },{}],
-            orderby:[[[0,"desc"]],[],[],[]],
+            orderby:[[[0,"desc"]],[],[[0,"asc"]],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
             display:['name','kode','kode','kode'],
             pageLength:[12,10,10,10]
@@ -265,6 +265,12 @@
             e.preventDefault();
             $('#formEmail')[0].reset();
             $('#modalEmail').modal('show');
+        });
+
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('yakes-report/lap-jurnal-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&modul[]="+$modul.type+"&modul[]="+$modul.from+"&modul[]="+$modul.to+"&no_bukti[]="+$no_bukti.type+"&no_bukti[]="+$no_bukti.from+"&no_bukti[]="+$no_bukti.to+"&sum_ju[]="+$sum_ju.type+"&sum_ju[]="+$sum_ju.from+"&sum_ju[]="+$sum_ju.to;
+            window.open(link, '_blank'); 
         });
 
         $('#modalEmail').on('submit','#formEmail',function(e){

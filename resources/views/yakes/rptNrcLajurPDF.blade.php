@@ -9,12 +9,11 @@
     <style>
        
         body{
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            color:#333;
             text-align:left;
             font-size:10px;
             margin:0;
         }
+        
         .container{
             /* margin:0 auto; */
             margin-top:25px;
