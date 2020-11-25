@@ -467,6 +467,7 @@
         }
 
         function getNrcLajurPDF(Request $request){
+            set_time_limit(300);
             $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNrcLajur($request);
             $tmp = json_decode(json_encode($tmp),true);
             $nrclajur = $tmp['original'];
@@ -484,6 +485,17 @@
             
             $pdf = PDF::loadview('yakes.rptJurnalPDF',['data'=>$nrclajur["result"],'periode'=>$request->periode[1],'sumju'=>$request->sum_ju[1],'lokasi'=>$nrclajur["lokasi"]]);
     	    return $pdf->download('laporan-jurnal-pdf');   
+        }
+
+        function getBukuBesarPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getBukuBesar($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $nrclajur = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptBukuBesarPDF',['data'=>$nrclajur["result"],'detail'=>$nrclajur["detail"],'periode'=>$request->periode[1],'lokasi'=>$nrclajur["lokasi"]]);
+    	    return $pdf->download('laporan-bukubesar-pdf');   
         }
 
         function getNrcLajurJejer(Request $request){

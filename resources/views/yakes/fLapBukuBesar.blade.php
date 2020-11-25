@@ -290,6 +290,12 @@
             $('#modalEmail').modal('show');
         });
 
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('yakes-report/lap-bukubesar-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_akun[]="+$kode_akun.type+"&kode_akun[]="+$kode_akun.from+"&kode_akun[]="+$kode_akun.to+"&mutasi[]="+$mutasi.type+"&mutasi[]="+$mutasi.from+"&mutasi[]="+$mutasi.to;
+            window.open(link, '_blank'); 
+        });
+
         $('#modalEmail').on('submit','#formEmail',function(e){
             e.preventDefault();
             var formData = new FormData(this);
