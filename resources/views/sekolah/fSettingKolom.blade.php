@@ -178,7 +178,7 @@
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <div class="row">
                             <div class="col-md-6">
-                                <h5 id="judul-form" style='margin-bottom:0'>Setting Form</h5>
+                                <h6 id="judul-form" style='margin-bottom:0'>Setting Form</h6>
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>

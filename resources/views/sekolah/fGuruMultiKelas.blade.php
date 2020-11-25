@@ -283,13 +283,28 @@
             margin-bottom: 0.2rem;
         }
 
+        #preview-close
+        {
+            line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;top: 3px;
+        }
+        #preview-close > span 
+        {
+            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        }
+
+        #preview-close > span:hover
+        {
+            color:white;
+            background:red;
+        }
+
     </style>
     <!-- END STYLE -->
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Guru Multi Kelas</h5>
+                    <h6 style="position:absolute;top: 25px;">Data Guru Multi Kelas</h6>
                     <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -308,10 +323,10 @@
                         </div>
                     </div>
                     <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm" style="width:321px;float:right">
                             <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                            <div class="input-group-append" >
+                                aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                            <div class="input-group-append" style="width:92px !important">
                                 <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                             </div>
                         </div>
@@ -349,7 +364,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
+                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
                     </div>
@@ -495,7 +510,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content">
                 <div style="display: block;" class="modal-header">
-                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <h6 class="modal-title" style="position: absolute;"></h6><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
                     <span aria-hidden="true">&times;</span>
                     </button> 
                 </div>
@@ -509,18 +524,18 @@
 
     <!-- MODAL PREVIEW -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
-                <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Siswa <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span><span id="modal-preview-ref" style="display:none"></span><span id="modal-preview-ref2" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
-                    <span aria-hidden="true">&times;</span>
+                <div class="modal-header py-0" style="display:block;height:49px">
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Guru Multi Kelas <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
+                    <span>×</span>
                     </button>
-                    <div class="dropdown d-inline-block float-right">
-                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
+                    <div class="dropdown d-inline-block float-right" style="margin-top: 10px;">
+                        <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                        <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
                         </button>
-                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
                             <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
@@ -531,7 +546,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-body" id="content-preview" style="height:450px">
+                <div class="modal-body" id="content-preview" style="height:520px">
                     <table id="table-preview" class="table no-border">
                         <tbody>
                         </tbody>
@@ -1905,9 +1920,9 @@
                                     <thead>
                                         <tr>
                                             <th style="width:3%">No</th>
-                                            <th style="width:10%">Kode Kelas</th>
-                                            <th style="width:77%">Nama Kelas</th>
-                                            <th style="width:17%">Jenis Kelas</th>
+                                            <th style="width:20%">Kode Kelas</th>
+                                            <th style="width:67%">Nama Kelas</th>
+                                            <th style="width:10%">Jenis Kelas</th>
                                         </tr>
                                     </thead>
                                     <tbody>

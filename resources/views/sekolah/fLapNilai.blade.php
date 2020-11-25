@@ -9,7 +9,7 @@
                         <div class="collapse show" id="collapseFilter">
                             <div class="px-4 pb-4 pt-2">
                                 <form id="form-filter">
-                                    <h6>Filter</h6>
+                                    <p>Filter</p>
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="kode_pp" nama="PP" selected="3" :option="array('3')"/>
