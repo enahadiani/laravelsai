@@ -34,3 +34,6 @@ Route::get('lap-nrclajur-pdf','Yakes\LaporanController@getNrcLajurPDF');
 Route::get('lap-jurnal-pdf','Yakes\LaporanController@getJurnalPDF');
 Route::get('lap-bukubesar-pdf','Yakes\LaporanController@getBukuBesarPDF');
 Route::get('lap-labarugi-pdf','Yakes\LaporanController@getLabaRugiPDF');
+Route::get('lap-neraca-pdf','Yakes\LaporanController@getNeracaPDF');
+Route::get('lap-labarugi-area-pdf','Yakes\LaporanController@getLabaRugiPPPDF');
+Route::get('lap-labarugi-jejer-pdf','Yakes\LaporanController@getLabaRugiJejerPDF');

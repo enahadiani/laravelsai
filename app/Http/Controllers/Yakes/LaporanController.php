@@ -475,6 +475,15 @@
     	    return $pdf->download('laporan-neraca-lajur-pdf');   
         }
 
+        function getNrcLajurJejerPDF(Request $request){
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNrcLajurJejer($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $pdf = PDF::loadview('yakes.rptNrcLajurJejerPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-neraca-lajur-jejer-pdf');   
+        }
+
         function getJurnalPDF(Request $request)
         {
             set_time_limit(300);
@@ -506,6 +515,61 @@
             
             $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
     	    return $pdf->download('laporan-labarugi-pdf');   
+        }
+
+        function getNeracaPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNeraca($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-neraca-pdf');   
+        }
+
+        function getLabaRugiPPPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getLabaRugiPP($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptLabaRugiPPPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-labarugi-area-pdf');   
+        }
+
+        function getLabaRugiJejerPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getLabaRugiJejer($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptLabaRugiJejerPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-labarugi-jejer-pdf');   
+        }
+
+        function getNeracaPPPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNeracaPP($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptNeracaPPPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-neraca=area-pdf');   
+        }
+
+        function getNeracaJejerPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNeracaJejer($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('yakes.rptNeracaJejerPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+    	    return $pdf->download('laporan-neraca-jejer-pdf');   
         }
 
         function getNrcLajurJejer(Request $request){

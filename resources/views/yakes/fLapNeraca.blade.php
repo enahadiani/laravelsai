@@ -429,6 +429,11 @@
             });
         });
 
+        $("#sai-rpt-pdf").click(function(e) {
+            e.preventDefault();
+            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            window.open(link, '_blank'); 
+        });
         
         $("#sai-rpt-email").click(function(e) {
             e.preventDefault();
