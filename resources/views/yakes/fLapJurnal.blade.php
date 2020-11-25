@@ -184,7 +184,7 @@
                         'modul[1]':modul.from,
                         'modul[2]':modul.to,
                     },{}],
-                    orderby:[[[0,"desc"]],[],[],[]],
+                    orderby:[[[0,"desc"]],[],[[0,"asc"]],[]],
                     width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                     display:['name','kode','kode','kode'],
                     pageLength:[12,10,10,10]

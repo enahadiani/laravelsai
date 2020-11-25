@@ -105,7 +105,8 @@
             position: absolute;
             top: 36px;
             font-size: 0.75rem !important;
-            right: 18px;left: unset;width: 40px;height: 40px; opacity: 0.5;cursor: pointer;
+            right: 25px;left: unset;
+            height: 40px; opacity: 0.5;cursor: pointer;
         }
 
         .btn{
@@ -125,10 +126,10 @@
         @media (max-width: 991px) {
             .auth-card .image-side {
                 width: 100%;
-                padding: 50px; }
+                padding: 30px; }
             .auth-card .form-side {
                 width: 100%;
-                padding: 50px; } }
+                padding: 30px; } }
         
     </style>
 
@@ -323,10 +324,10 @@
                 var x = document.getElementById("password");
                 if (x.type === "password") {
                     x.type = "text";
-                    $("#btn-lihat").css('text-decoration','line-through');
+                    $("#btn-lihat").html("Sembunyikan");
                 } else {
                     x.type = "password";
-                    $("#btn-lihat").css('text-decoration','unset');
+                    $("#btn-lihat").html("Lihat");
                 }
             });
         });
