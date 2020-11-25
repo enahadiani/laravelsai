@@ -421,16 +421,16 @@
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <label for="nama_perusahaan">Nama Sublayanan</label>
-                                        <input class="form-control" type="text" id="nama_perusahaan" name="nama_perusahaan">
+                                        <input class="form-control" type="text" id="nama_sublayanan" name="nama_sublayanan">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-10 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         <label for="id_layanan">ID Layanan</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
@@ -512,6 +512,23 @@
     </div>
     <!-- END MODAL PREVIEW -->
 
+    <!-- MODAL SEARCH-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
+            <div class="modal-content">
+                <div style="display: block;" class="modal-header">
+                    <h5 class="modal-title" style="position: absolute;"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
+                    <span aria-hidden="true">&times;</span>
+                    </button> 
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MODAL -->
+
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
@@ -550,7 +567,7 @@
                 { name: 'others', groups: [ 'others' ] },
                 { name: 'about', groups: [ 'about' ] }
 	        ],
-            removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,PasteFromWord,PasteText,Find,Replace,Scayt,SelectAll,Checkbox,Form,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Subscript,Superscript,Strike,RemoveFormat,CopyFormatting,Outdent,Indent,Blockquote,CreateDiv,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Image,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Styles,Format,Font,TextColor,BGColor,ShowBlocks,Maximize,About'
+            removeButtons: 'Source,Save,NewPage,ExportPdf,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Replace,Find,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Select,Textarea,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,RemoveFormat,CopyFormatting,Outdent,Indent,CreateDiv,Blockquote,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,Language,BidiRtl,BidiLtr,Link,Unlink,Anchor,Flash,Image,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Styles,BGColor,TextColor,Maximize,ShowBlocks,About'
         });
 
         function fileReader(input, idImg, idSpan) {
@@ -577,6 +594,174 @@
         
         // var scroll = document.querySelector('#content-preview');
         // var psscroll = new PerfectScrollbar(scroll);
+
+        $('#form-tambah').on('click', '.search-item2', function(){
+            if($(this).css('cursor') == "not-allowed"){
+                return false;
+            }
+            var par = $(this).closest('div').find('input').attr('name');
+            showFilter(par);
+        });
+
+        function showInfoField(kode,isi_kode,isi_nama){
+            $('#'+kode).val(isi_kode);
+            $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+            $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+            $('.info-code_'+kode).attr('title',isi_nama);
+            $('.info-name_'+kode).removeClass('hidden');
+            $('.info-name_'+kode).attr('title',isi_nama);
+            $('.info-name_'+kode+' span').text(isi_nama);
+            var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+            var height =$('#'+kode).height();
+            var pos =$('#'+kode).position();
+            $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+            $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+        }
+
+        function showFilter(param,target1=null,target2=null){
+            var par = param;
+
+            var modul = '';
+            var header = [];
+            $target = target1;
+            $target2 = target2;
+            var parameter = {param:par};
+            
+            switch(par){
+                case 'id_layanan': 
+                    header = ['Kode', 'Nama'];
+                    var toUrl = "{{ url('admginas-master/layanan') }}";
+                    var columns = [
+                        { data: 'id_layanan' },
+                        { data: 'nama_layanan' }
+                    ];
+                    var judul = "Daftar Layanan";
+                    var pilih = "id_layanan";
+                    var jTarget1 = "text";
+                    var jTarget2 = "text";
+                    $target = ".info-code_"+par;
+                    $target2 = ".info-name_"+par;
+                    $target3 = "";
+                    $target4 = "";
+                    var width = ["30%","70%"];
+                break;
+            }
+
+            var header_html = '';
+            for(i=0; i<header.length; i++){
+                header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+            }
+
+            var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+            table += "<tbody></tbody></table>";
+
+            $('#modal-search .modal-body').html(table);
+
+            var searchTable = $("#table-search").DataTable({
+                sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+                ajax: {
+                    "url": toUrl,
+                    "data": parameter,
+                    "type": "GET",
+                    "async": false,
+                    "dataSrc" : function(json) {
+                        return json.daftar;
+                    }
+                },
+                columns: columns,
+                drawCallback: function () {
+                    $($(".dataTables_wrapper .pagination li:first-of-type"))
+                        .find("a")
+                        .addClass("prev");
+                    $($(".dataTables_wrapper .pagination li:last-of-type"))
+                        .find("a")
+                        .addClass("next");
+
+                    $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+                },
+                language: {
+                    paginate: {
+                        previous: "<i class='simple-icon-arrow-left'></i>",
+                        next: "<i class='simple-icon-arrow-right'></i>"
+                    },
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
+                    lengthMenu: "Items Per Page _MENU_",
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+                    infoFiltered: "(terfilter dari _MAX_ total entri)"
+                },
+            });
+
+            $('#modal-search .modal-title').html(judul);
+            $('#modal-search').modal('show');
+            searchTable.columns.adjust().draw();
+
+            $('#table-search tbody').on('click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    searchTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+
+                    var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+                    var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+                    if(kode == "No data available in table"){
+                        return false;
+                    }
+
+                    if(jTarget1 == "val"){
+                        $($target).val(kode);
+                    }else{
+                        $('#'+par).css('border-left',0);
+                        $('#'+par).val(kode);
+                        $($target).text(kode);
+                        $($target).attr("title",nama);
+                        $($target).parents('div').removeClass('hidden');
+                    }
+
+                    if(jTarget2 == "val"){
+                        $($target2).val(nama);
+                    }else if(jTarget2 == "title"){
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                    }else if(jTarget2 == "text2"){
+                        $($target2).text(nama);
+                    }else{
+                        var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                        var pos =$('#'+par).position();
+                        var height = $('#'+par).height();
+                        console.log(par);
+                        $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                        $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                        $($target2+' span').text(nama);
+                        $($target2).attr("title",nama);
+                        $($target2).removeClass('hidden');
+                        $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+                    }
+
+                    if($target3 != ""){
+                        
+                    }
+
+                    if($target4 != ""){
+
+                    }
+                    $('#modal-search').modal('hide');
+                }
+            });
+        }
+
+        $('.info-icon-hapus').click(function(){
+            var par = $(this).closest('div').find('input').attr('name');
+            $('#'+par).val('');
+            $('#'+par).attr('readonly',false);
+            $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+            $('.info-code_'+par).parent('div').addClass('hidden');
+            $('.info-name_'+par).addClass('hidden');
+            $(this).addClass('hidden');
+        });
 
         // LIST DATA
         var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
@@ -680,6 +865,10 @@
             $('#saku-form').show();
             $('#banner-preview').hide();
             $('#span-banner').show();
+            $('span[class^=info-name]').addClass('hidden');
+            $('.info-code_id_layanan').addClass('hidden');
+            $('.info-icon-hapus').addClass('hidden');
+            $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
         });
 
         $('#form-tambah').validate({
@@ -687,15 +876,16 @@
             errorElement: "label",
             submitHandler: function (form) {
                 var parameter = $('#id_edit').val();
-                var id = $('#id_klien').val();
+                var id = $('#id_sublayanan').val();
                 if(parameter == "edit"){
-                    var url = "{{ url('admginas-master/sublayanan') }}/"+id;
+                    var url = "{{ url('admginas-master/sublayanan-ubah') }}/"+id;
                     var pesan = "updated";
                 }else{
-                    var url = "{{ url('admginas-master/sublayanan') }}";
+                    var url = "{{ url('admginas-master/sublayanan-simpan') }}";
                     var pesan = "saved";
                 }
-
+                CKEDITOR.instances['deskripsi_singkat'].updateElement()
+                CKEDITOR.instances['deskripsi'].updateElement()
                 var formData = new FormData(form);
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
@@ -749,7 +939,7 @@
         });
 
         $('#table-data tbody').on('click','td',function(e){
-            if($(this).index() != 2){
+            if($(this).index() != 3){
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 var nama = $(this).closest('tr').find('td').eq(1).html();
                 var data = dataTable.row(this).data();
@@ -802,6 +992,8 @@
             async:false,
             success:function(res){
                 var result= res.data;
+                                console.log(result);
+                console.log(res);
                 if(res.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');
@@ -817,6 +1009,7 @@
                     $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    showInfoField('id_layanan', result[0].id_layanan, result[0].nama_layanan);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
@@ -838,6 +1031,8 @@
             async:false,
             success:function(res){
                 var result= res.data;
+                console.log(result);
+                console.log(res);
                 if(res.status){
                     $('#id_edit').val('edit');
                     $('#method').val('post');

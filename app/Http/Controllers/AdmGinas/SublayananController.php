@@ -41,7 +41,7 @@ class SublayananController extends Controller {
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $data = $data['data'];
             }
             return response()->json(['daftar' => $data, 'status'=>true], 200); 
 
@@ -87,11 +87,11 @@ class SublayananController extends Controller {
                 'contents' => $request->id_layanan
                 );
             $field[] = array(
-                'name' => 'deksripsi_singkat',
+                'name' => 'deskripsi_singkat',
                 'contents' => $request->deskripsi_singkat
                 );
             $field[] = array(
-                'name' => 'deksripsi',
+                'name' => 'deskripsi',
                 'contents' => $request->deskripsi
                 );
 
@@ -121,7 +121,7 @@ class SublayananController extends Controller {
     public function show($id) {
          try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/sublayanan/'.$id,[
+            $response = $client->request('GET',  config('api.url').'admginas-master/sublayanan-show?id_sublayanan='.$id,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -139,7 +139,7 @@ class SublayananController extends Controller {
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res['message'], 'status'=>false], 200);
         }
     }
 
@@ -185,11 +185,11 @@ class SublayananController extends Controller {
                 'contents' => $request->id_layanan
                 );
             $field[] = array(
-                'name' => 'deksripsi_singkat',
+                'name' => 'deskripsi_singkat',
                 'contents' => $request->deskripsi_singkat
                 );
             $field[] = array(
-                'name' => 'deksripsi',
+                'name' => 'deskripsi',
                 'contents' => $request->deskripsi
                 );
 
