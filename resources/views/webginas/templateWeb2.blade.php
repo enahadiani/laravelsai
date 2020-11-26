@@ -122,22 +122,7 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .list-trading {
-            color: black;
-        }
-        .list-trading:hover {
-            color: #DD1F1A;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .list-property {
-            color: black;
-        }
-        .list-property:hover {
-            color: #DD1F1A;
-            font-weight: bold;
-            cursor: pointer;
-        }
+
         .nilai-proyek {
             margin-left:115px;
         }
@@ -159,6 +144,14 @@
             position: absolute;
             margin-left:110px;
             display:flex;
+        }
+
+        .border-head {
+            text-align:center;
+            padding:30px;
+            background-color:#DD1F1A;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         @media (max-width: 768px) {
@@ -219,37 +212,8 @@
                                     <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <ul class="submenu-outsourcing">
-                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Security</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Cleaning Service</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Tenaga Ahli</p></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <ul class="submenu-bussiness">
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Pemenuhan Keb. Barang/Jasa</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Layanan Catering</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Laundry</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Inovasi dan Teknologi</p></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <ul class="submenu-property">
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Building Maintenance</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Rental Kendaraan</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Sewa Peralatan Pesta/Wisuda</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Konstruksi</p></li>
-                                                        </ul>
-                                                    </div>
+                                                <div class="row" id="menu-layanan">
+
                                                 </div>
                                             </li>
                                         </ul>
@@ -320,55 +284,7 @@
                 </div>
 
                 <div class="row layanan-container">
-                    <div class="col-lg-4 col-sm-12 layanan-box">
-                            <div class="border" style="padding: 0;border-radius: 15px;">
-                            <a href="{{url('webginas2/layanan/outsourcing')}}">
-                                <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
-                                    <h4 style="color:white;">Outsourcing</h4>
-                                </div>    
-                            </a>
-                            <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;" class="layanan">
-                                    <li class="list-layanan">Security</li>
-                                    <li class="list-layanan">Cleaning Service</li>
-                                    <li class="list-layanan">Driver</li>
-                                    <li class="list-layanan">Help Desk</li>
-                                    <li class="list-layanan">Tenaga Ahli</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-12 layanan-box">
-                        <div class="border" style="padding: 0;border-radius: 15px;">
-                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
-                                <h4 style="color:white;">Trading & Bussiness Retail</h4>
-                            </div>
-                            <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;" class="trading">
-                                    <li class="list-trading">Pemenuhan Keb. Barang/Jasa</li>
-                                    <li class="list-trading">Mini Market (TJ Mart)</li>
-                                    <li class="list-trading">Layanan Catering</li>
-                                    <li class="list-trading">Jasa Laundry</li>
-                                    <li class="list-trading">Inovasi dan Teknologi</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-12 layanan-box">
-                        <div class="border" style="padding: 0;border-radius: 15px;height:268px;">
-                            <div style="text-align:center;padding:30px;background-color:#DD1F1A;border-top-left-radius: 15px;border-top-right-radius: 15px;">
-                                <h4 style="color:white;">Property</h4>
-                            </div>
-                            <div style="padding:15px 0 30px 10px;">
-                                <ol style="margin-left: 20px;" class="property">
-                                    <li class="list-property">Building Maintenance</li>
-                                    <li class="list-property">Rental Kendaraan</li>
-                                    <li class="list-property">Sewa Peralatan Pesta/Wisuda</li>
-                                    <li class="list-property">Jasa Konstruksi</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>
@@ -625,6 +541,49 @@
 
         $.ajax({
             type:'GET',
+            url: "{{ url('webginas2/api-layanan') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                var data = Object.entries(result.daftar);
+                if(result.status) {
+                    var html = "";
+                    for(var i=0;i<data.length;i++) {
+                        html += "<div class='col-lg-4 col-sm-12 layanan-box'>";
+                        html += "<div class='border' style='padding: 0;border-radius: 15px;height:268px;'>";
+                        html += "<a href='{{url('webginas2/layanan')}}/"+data[i][0]+"'>";
+                        html += "<div class='border-head'>";
+                        html += "<h4 style='color:white;'>"+data[i][1][0]['nama_layanan']+"</h4>"
+                        html += "</div>";
+                        html += "</a>";
+                        html += "<div style='padding:15px 0 30px 10px;'>";
+                        html += "<ol style='margin-left: 20px;'>";
+                            for(var j=0;j<data[i][1].length;j++) {
+                                html += "<a href='{{ url('webginas2/layanan') }}/"+data[i][1][j]['id_layanan']+"/"+data[i][1][j]['id_sublayanan']+"'><li class='list-layanan'>"+data[i][1][j]['nama_sublayanan']+"</li></a>"
+                            }
+                        html += "</ol>"
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";   
+                    }
+                    $('.layanan-container').append(html);
+                    var menu = "";
+                    for(var i=0;i<data.length;i++) {
+                        menu += "<div class='col-lg-4'>";
+                        menu += "<ul class='layanan-menu'>";
+                        menu += "<a href='{{url('webginas2/layanan')}}/"+data[i][0]+"'><h5 style='font-weight: bold;padding-bottom:25px;'>"+data[i][1][0]['nama_layanan']+"</h5></a>"
+                            for(var j=0;j<data[i][1].length;j++) {
+                                menu += "<a href='{{ url('webginas2/layanan') }}/"+data[i][1][j]['id_layanan']+"/"+data[i][1][j]['id_sublayanan']+"'><li class='list-submenu'><p class='list-submenu-text'>"+data[i][1][j]['nama_sublayanan']+"</p></li></a>"
+                            }
+                        menu += "</ul>";
+                        menu += "</div>";   
+                    }
+                    $('#menu-layanan').append(menu);
+                }
+            }
+        });
+
+        $.ajax({
+            type:'GET',
             url: "{{ url('webginas2/api-kontak') }}",
             dataType: 'JSON',
             success: function(result) {
@@ -683,74 +642,6 @@
                 whatsapp.addClass('whatsapp-not-scroll');
             }
         }
-
-
-        $('.layanan').on('click', '.list-layanan', function(){
-            var idx = $(this).index();
-            if(idx === 0) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
-            } else if( idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
-            } else if( idx === 4) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/tenaga-ahli') }}";
-            }
-        });
-
-        $('.trading').on('click', '.list-trading', function(){
-            var idx = $(this).index();
-            if(idx === 2) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
-            } else if( idx === 4) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
-            }
-        });
-
-        $('.property').on('click', '.list-property', function(){
-            var idx = $(this).index();
-            if(idx === 0) {
-                window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
-            } else if( idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/property/building-maintenance') }}";
-            }
-        });
-
-        $('.submenu-outsourcing').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
-            } else if(idx === 2) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
-            } else if(idx === 6) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/tenaga-ahli') }}";
-            }
-        })
-
-        $('.submenu-bussiness').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 3) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
-            } else if(idx === 5) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
-            }
-        })
-
-        $('.submenu-bussiness').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 3) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
-            } else if(idx === 5) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
-            }
-        })
-
-        $('.submenu-property').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/property/building-maintenance') }}";
-            } else if(idx === 2) {
-                window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
-            }
-        })
     </script>
 </body>
 
