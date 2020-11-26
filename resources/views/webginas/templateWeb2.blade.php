@@ -108,7 +108,7 @@
             font-size: 20px !important;
         }
 
-        .list-submenu-text:hover {
+        .layanan-menu > a > li > .list-submenu-text:hover {
             color: #DD1F1A;
             font-weight: bold;
             cursor: pointer;
@@ -212,12 +212,12 @@
                                     <li class="dropdown mega-menu-item"><a href="#" class="a_link" data-href="fLayanan">Layanan</a>
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
+                                                <div class="row" id="menu-layanan">
+                                                    {{-- <div class="col-lg-4">
                                                         <ul class="submenu-outsourcing">
                                                             <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Security</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Cleaning Service</p></li>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Security</p></li></a>
+                                                            <li class="list-submenu"><p class="list-submenu-text">Cleaning Service</p></li></a>
                                                             <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
@@ -242,7 +242,7 @@
                                                             <li class="list-submenu"><p class="list-submenu-text">Sewa Peralatan Pesta/Wisuda</p></li>
                                                             <li class="list-submenu"><p class="list-submenu-text">Jasa Konstruksi</p></li>
                                                         </ul>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </li>
                                         </ul>
@@ -575,7 +575,6 @@
             success: function(result) {
                 var data = Object.entries(result.daftar);
                 if(result.status) {
-                    console.log(data)
                     var html = "";
                     for(var i=0;i<data.length;i++) {
                         html += "<div class='col-lg-4 col-sm-12 layanan-box'>";
@@ -596,6 +595,18 @@
                         html += "</div>";   
                     }
                     $('.layanan-container').append(html);
+                    var menu = "";
+                    for(var i=0;i<data.length;i++) {
+                        menu += "<div class='col-lg-4'>";
+                        menu += "<ul class='layanan-menu'>";
+                        menu += "<a href='{{url('webginas2/layanan')}}/"+data[i][0]+"'><h5 style='font-weight: bold;padding-bottom:25px;'>"+data[i][1][0]['nama_layanan']+"</h5></a>"
+                            for(var j=0;j<data[i][1].length;j++) {
+                                menu += "<a href='{{ url('webginas2/layanan') }}/"+data[i][1][j]['id_layanan']+"/"+data[i][1][j]['id_sublayanan']+"'><li class='list-submenu'><p class='list-submenu-text'>"+data[i][1][j]['nama_sublayanan']+"</p></li></a>"
+                            }
+                        menu += "</ul>";
+                        menu += "</div>";   
+                    }
+                    $('#menu-layanan').append(menu);
                 }
             }
         });
@@ -632,7 +643,7 @@
             dataType: 'JSON',
             success: function(result) {
                 if(result.status) {
-                    var html = "";
+                    var menu = "";
                     for(var i=0;i<result.daftar.length;i++ ) {
                         html += "<li>";
                         html += "<a href='#'>";
