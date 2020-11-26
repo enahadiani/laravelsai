@@ -38,5 +38,5 @@ Route::get('lap-neraca-pdf','Yakes\LaporanController@getNeracaPDF');
 Route::get('lap-labarugi-area-pdf','Yakes\LaporanController@getLabaRugiPPPDF');
 Route::get('lap-labarugi-jejer-pdf','Yakes\LaporanController@getLabaRugiJejerPDF');
 Route::get('lap-neraca-area-pdf','Yakes\LaporanController@getNeracaPPPDF');
-Route::get('lap-neraca-jejer-pdf','Yakes\LaporanController@getNeracaPPPDF');
+Route::get('lap-neraca-jejer-pdf','Yakes\LaporanController@getNeracaJejerPDF');
 Route::get('lap-nrclajur-jejer-pdf','Yakes\LaporanController@getNrcLajurJejerPDF');
