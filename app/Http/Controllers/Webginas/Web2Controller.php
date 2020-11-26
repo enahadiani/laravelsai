@@ -36,6 +36,7 @@ class Web2Controller extends Controller
             return response()->json(['message' => $res["message"], 'status'=>false], 200);
         }
     }
+
     public function getTop3Info()
     {
         try {
@@ -166,6 +167,57 @@ class Web2Controller extends Controller
         }
     }
 
+    public function getDetailLayanan($id) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/detail-layanan-web?id_layanan='.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $response = json_decode($response_data,true);
+                $data['data'] = $response["data"];
+                $data['detail'] = $response["data_detail"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getLayananDetail($id,$sub_id) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'admginas-master/layanan-detail-web?id_layanan='.$id.'&id_sublayanan='.$sub_id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $response = json_decode($response_data,true);
+                $data['data'] = $response["data"];
+            }
+            return $data; 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function index()
     {
         $review = $this->getReview();
@@ -193,12 +245,14 @@ class Web2Controller extends Controller
         return view('webginas.contentBerita', ['content' => $content['data'][0]]);
     }
 
-    public function viewContentLayanan() {
-        return view('webginas.contentLayanan');
+    public function viewContentLayanan($id) {
+        $content = $this->getDetailLayanan($id);
+        return view('webginas.contentLayanan', ['content' => $content['data'][0], 'detail' => $content['detail']]);
     }
 
-    public function viewContentSecurity() {
-        return view('webginas.contentSecurity');
+    public function viewContentLayananDetail($id,$sub_id) {
+        $content = $this->getLayananDetail($id, $sub_id);
+        return view('webginas.contentDetailLayanan', ['content' => $content['data'][0]]);
     }
 
     public function viewContentCleaningService() {

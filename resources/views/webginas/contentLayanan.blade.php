@@ -183,7 +183,7 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Layanan</a></li>
-                        <li><a href="#">Outsourcing</a></li>
+                        <li><a href="#">{{$content['nama_layanan']}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -195,134 +195,25 @@
         <section>
             <div class="container">
                 <div class="heading-text heading-section m-b-80" style="display: flex;justify-content:center;align-items:center;">
-                    <h2>Outsourcing</h2>
+                    <h2>{{$content['nama_layanan']}}</h2>
                 </div>
                 <div class="row">
 
+                    @foreach ($detail as $item)
                     <div class="col-lg-4 box-layanan">
-                        <div class="border" style="padding: 10px;">
-                            <a href="{{url('webginas2/layanan/outsourcing/security')}}"><h2 style="color: #DD1F1A;">Security</h2></a>
-                            <div style="padding:5px 0 30px 5px;">
-                                <p>
-                                    Kami memiliki tenaga professional yang sudah tersertifikasi dan terlatih. Sehingga siap memberikan pelayanan yang 
-                                    maksimal untuk keamanan anda.
-                                </p>
+                        <div class="border" style="height:229px;padding: 10px;">
+                            <a href="{{url('webginas2/layanan')}}/{{$item['id_layanan']}}/{{$item['id_sublayanan']}}"><h2 style="color: #DD1F1A;">{{$item['nama_sublayanan']}}</h2></a>
+                            <div style="padding:5px 0 0 5px;">
+                                {!!
+                                    $item['deskripsi_singkat']
+                                !!}
                             </div>
-                            <div>
-                                <a href="{{url('webginas2/layanan/outsourcing/security')}}" class="item-link" style="padding-top: 10px; margin-top:10px;">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 box-layanan">
-                        <div class="border" style="padding: 10px;">
-                            <a href="{{url('webginas2/layanan/outsourcing/cleaning-service')}}"><h2 style="color: #DD1F1A;">Cleaning Services</h2></a>
-                            <div style="padding:5px 0 5px 5px;">
-                                <p>
-                                    Kami memberikan layanan pembersihan yang beragam dari mulai pembersihan fasilitas kantor, rumah sakit, pabrik, 
-                                    sekolah, bank, dan fasilitas lainnya termasuk eksterior gedung.
-                                </p>
-                            </div>
-                            <div>
-                                <a href="{{url('webginas2/layanan/outsourcing/cleaning-service')}}" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
+                            <div style="position: absolute;bottom:0;margin-bottom: 10px;">
+                                <a href="{{url('webginas2/layanan')}}/{{$item['id_layanan']}}/{{$item['id_sublayanan']}}" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4 box-layanan">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 box-layanan">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 box-layanan">
-                        <div class="border" style="height:229px;padding:10px;">
-                            <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
-                            <div style="padding: 5px 0 95px 5px;">
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                            </div>
-                            <div>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 box-layanan">
-                        <div class="border" style="padding:10px;">
-                            <a href="{{url('webginas2/layanan/outsourcing/tenaga-ahli')}}"><h2 style="color: #DD1F1A;">Tenaga Ahli</h2></a>
-                            <div style="padding: 5px 0 50px 5px;">
-                                <p>
-                                   Sebagai salah satu Perusahaan Penyedia Jasa 
-                                   Layanan Tenaga Ahli dalam bidang Information Teknologi (IT).
-                                </p>
-                            </div>
-                            <div>
-                                <a href="{{url('webginas2/layanan/outsourcing/tenaga-ahli')}}" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {{-- 
-
-                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Driver</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 border" style="margin: 0 25px 20px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Administrasi</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 border" style="margin: 0 25px 0px 0;">
-                        <div class="post-item-wrap">
-                            <div class="post-item-description">
-                                <a href="#"><h2 style="color: #DD1F1A;">Help Desk</h2></a>
-                                <p>
-                                    Belum ada deskripsi singkat
-                                </p>
-                                <a href="#" class="item-link">Selengkapnya <i class="icon-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div> --}}
+                    </div>    
+                    @endforeach
 
                 </div>
             </div>

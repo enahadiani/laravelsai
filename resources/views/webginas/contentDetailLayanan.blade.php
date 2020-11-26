@@ -14,9 +14,6 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
-        span.logo-default {
-            font-size: 20px !important;
-        }
         span.lines::before {
             background-color: white;
         }
@@ -28,6 +25,9 @@
         }
         span.lines.close::after {
             background-color: black
+        }
+        span.logo-default {
+            font-size: 20px !important;
         }
         h2::before{
             background-color: #DD1F1A !important;
@@ -52,14 +52,6 @@
             font-weight: bold;
             cursor: pointer;
         }
-        ol.list-layanan > li:hover {
-            color: #DD1F1A;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .outsourcing > .list-outsourcing {
-            cursor: pointer;
-        }
         img.whatsapp-scroll {
             position: fixed;
             bottom: 70px;
@@ -73,6 +65,16 @@
             right: 25px;
             z-index: 99;
         }
+        ol.list-layanan > a > li:hover {
+            color: #DD1F1A;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        ol.list-layanan > a > li {
+            color: black;
+        }
+
         @media (max-width: 768px) {
             .misi-box {
                 height: 500px;
@@ -186,8 +188,8 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">Layanan</a></li>
-                        <li><a href="#">Trading &  Bussiness Retail</a></li>
-                        <li><a href="#">Catering</a></li>
+                        <li><a href="#">{{ $content['nama_layanan'] }}</a></li>
+                        <li><a href="#">{{ $content['nama_sublayanan'] }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,48 +203,23 @@
                 <div class="row">
                     <div class="content col-lg-8">
                         <div class="heading-text heading-section m-b-80">
-                            <h2>Catering</h2>
+                            <h2>{{ $content['nama_sublayanan'] }}</h2>
                         </div>
                         <div class="post-image">
                             <a href="#">
-                                <img height="486" width="650" alt="" src="{{ asset('asset_web/homepages/kegiatan/catering.jpg') }}">
+                                <img height="486" width="650" alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$content['file_gambar']}}">
                             </a>
                         </div>
                         <div class="post-item-description" style="margin-top: 25px;">
-                            <p>
-                                Layanan Catering yang kami miliki didukung oleh pengalaman dan keunikan cita rasa yang 
-                                selalu kami racik dan sesuaikan dengan selera Pelanggan. Komitmen kami adalah 
-                                menghidangkan makanan dengan citra rasa yang tinggi dan pelayanan hidangan atau 
-                                sajian yang professional dan terbaik guna dapat memuaskan Pelanggan.
-                            </p>
-                            <p>
-                                PT. Trengginas jaya dalam menjalankan bisnis layanan catering telah :
-                            </p>
-                            <p>
-                                <ol style="margin-left: 10px;">
-                                    <li>Terdaftar di asosiasi tata boga</li>
-                                    <li>Tersertifikasi Laik Hygiene Sanitasi Jasaboga dari Dinas Kesehatan Kota Bandung</li>
-                                </ol>
-                            </p>
-                            <p>
-                                Terdapat beberapa jenis layanan catering dari kami yaitu : 
-                            </p>
-                            <p>
-                                <ol style="margin-left: 10px;">
-                                    <li>Snack Box</li>
-                                    <li>Coffee Break</li>
-                                    <li>Regular Package</li>
-                                    <li>Wedding Package</li>
-                                    <li>Catering Box Menu</li>
-                                    <li>Office Menu</li>
-                                    <li>Seminar/Meeting Package</li>
-                                </ol>
-                            </p>
+                            {!!
+                                $content['deskripsi']
+                            !!}
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <h2>Daftar Layanan</h2>
-                        <div style="margin-bottom: 20px;">
+                        <div id="daftar-layanan"></div>
+                        {{-- <div style="margin-bottom: 20px;">
                             <h4>Outsourcing</h4>
                             <ol style="margin-left: 15px;margin-top:30px;" class="outsourcing list-layanan">
                                 <li class="list-outsourcing">Security</li>
@@ -252,8 +229,8 @@
                                 <li class="list-outsourcing">Help Desk</li>
                                 <li class="list-outsourcing">Tenaga Ahli</li>
                             </ol>
-                        </div>
-                        <div style="margin-bottom: 20px;">
+                        </div> --}}
+                        {{-- <div style="margin-bottom: 20px;">
                             <h4>Trading & Bussiness Retail</h4>
                             <ol style="margin-left: 15px;margin-top:30px;" class="list-layanan retail">
                                 <li class="list-retail">Pemenuhan Keb. Barang/Jasa</li>
@@ -262,8 +239,8 @@
                                 <li class="list-retail">Jasa Laundry</li>
                                 <li class="list-retail">Inovasi Teknologi</li>
                             </ol>
-                        </div>
-                        <div style="margin-bottom: 20px;">
+                        </div> --}}
+                        {{-- <div style="margin-bottom: 20px;">
                             <h4>Property</h4>
                             <ol style="margin-left: 15px;margin-top:30px;" class="list-layanan prop">
                                 <li class="list-prop">Building Maintenance</li>
@@ -271,7 +248,7 @@
                                 <li class="list-prop">Sewa Peralatan Pesta/Wisuda</li>
                                 <li class="list-prop">Jasa Konstruksi</li>
                             </ol>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -288,15 +265,13 @@
                                  <h2 class="m-b-10">Hubungi Kami</h2>
                              </div>
                              <div class="col-lg-6 m-b-30">
-                                 <address>
-                                     <strong>Alamat:</strong><br>
-                                     Jl. Sumur Bandung No. 12, Bandung<br>
-                                 </address>
-                                 <strong>Telp:</strong> (022) 253205
-                                 <br>
-                                 <strong>Fax:</strong> (022) 2532053
-                                 <br>
-                                 <strong>Email:</strong> trengginasjaya@yahoo.co.id
+                                <strong>Alamat:</strong><br>
+                                <span id="alamat"></span><br>
+                                <strong>Telp:</strong> <span id="telp"></span>
+                                <br>
+                                <strong>Fax:</strong> <span id="fax"></span>
+                                <br>
+                                <strong>Email:</strong> <span id="email"></span>
                              </div>
                              <div class="col-lg-12 m-b-30">
                                  <h4>Sosial Media</h4>
@@ -366,6 +341,45 @@
         window.onscroll = function() {
             scrollFunction();
         }
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-layanan') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                var data = Object.entries(result.daftar);
+                if(result.status) {
+                    console.log(data)
+                    var html = "";
+                    for(var i=0;i<data.length;i++) {
+                        html += "<div style='margin-bottom: 20px;'>";
+                        html += "<h4>"+data[i][1][0]['nama_layanan']+"</h4>";
+                        html += "<ol style='margin-left: 15px;margin-top:30px;' class='list-layanan'>";
+                            for(var j=0;j<data[i][1].length;j++) {
+                                html += "<a href='{{ url('webginas2/layanan') }}/"+data[i][1][j]['id_layanan']+"/"+data[i][1][j]['id_sublayanan']+"'><li class='list-layanan'>"+data[i][1][j]['nama_sublayanan']+"</li></a>"
+                            }
+                        html += "</ol>";
+                        html += "</div>";   
+                    }
+                    $('#daftar-layanan').append(html);
+                }
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-kontak') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    var data = result.daftar[0];
+                    $('#alamat').text(data.alamat);
+                    $('#telp').text(data.no_telp);
+                    $('#fax').text(data.no_fax);
+                    $('#email').text(data.email);
+                }
+            }
+        });
 
         function scrollFunction() {
             if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
