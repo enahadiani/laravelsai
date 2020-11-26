@@ -315,44 +315,6 @@
         }
         setInterval(checkHeader, 500);
 
-        $('.submenu-outsourcing').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/security') }}";
-            } else if(idx === 2) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/cleaning-service') }}";
-            } else if(idx === 6) {
-                window.location.href = "{{ url('webginas2/layanan/outsourcing/tenaga-ahli') }}";
-            }
-        })
-
-        $('.submenu-bussiness').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 3) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
-            } else if(idx === 5) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
-            }
-        })
-
-        $('.submenu-bussiness').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 3) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/catering') }}";
-            } else if(idx === 5) {
-                window.location.href = "{{ url('webginas2/layanan/trading-bussiness-retail/inovasi') }}";
-            }
-        })
-
-        $('.submenu-property').on('click', '.list-submenu', function(){
-            var idx = $(this).index();
-            if(idx === 1) {
-                window.location.href = "{{ url('webginas2/layanan/property/building-maintenance') }}";
-            } else if(idx === 2) {
-                window.location.href = "{{ url('webginas2/layanan/property/rental-car') }}";
-            }
-        })
-
         $('.open-menu').click(function(){
             var children = $(this).children();
             children.toggleClass('close');
