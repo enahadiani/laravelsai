@@ -480,7 +480,7 @@
             $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNrcLajurJejer($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            $pdf = PDF::loadview('yakes.rptNrcLajurJejerPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+            $pdf = PDF::loadview('yakes.rptNrcLajurJejerPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]])->setPaper('a4', 'landscape');
     	    return $pdf->download('laporan-neraca-lajur-jejer-pdf');   
         }
 
