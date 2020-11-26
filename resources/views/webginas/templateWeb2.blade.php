@@ -614,7 +614,7 @@
             dataType: 'JSON',
             success: function(result) {
                 if(result.status) {
-                    var menu = "";
+                    var html = "";
                     for(var i=0;i<result.daftar.length;i++ ) {
                         html += "<li>";
                         html += "<a href='#'>";
