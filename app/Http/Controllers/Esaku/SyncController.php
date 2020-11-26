@@ -106,10 +106,30 @@ class SyncController extends Controller
             $gudang = "";
             $klp = "";
             $histori = "";
+
+            $clientlog = new Client();
+            $responselog = $clientlog->request('POST',  config('api.url').'gl/login',[
+                'form_params' => [
+                    'nik' => 'kasir',
+                    'password' => 'saisai'
+                ]
+            ]);
+            if ($responselog->getStatusCode() == 200) { // 200 OK
+                $responselog_data = $responselog->getBody()->getContents();
+                $dt = json_decode($responselog_data,true);
+                if($dt["message"] == "success"){
+                    $token = $dt["token"];
+                }else{
+                    $token = "-";
+                }
+            }else{
+                $token = "-";
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-trans/load-sync-master',[
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer '.$token,
                     'Accept'     => 'application/json',
                 ]
             ]);
@@ -141,6 +161,94 @@ class SyncController extends Controller
 
             $client2 = new Client();
             $response2 = $client2->request('POST',  config('api.url').'toko-trans/sync-master',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                ],
+                'form_params' => $fields
+            ]);
+            
+            if ($response2->getStatusCode() == 200) { // 200 OK
+                $response_data2 = $response2->getBody()->getContents();
+                
+                $data2 = json_decode($response_data2,true);
+                return response()->json(["data" =>$data2], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res["message"];
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
+    }
+
+
+    public function getSyncPnj(){
+        try { 
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/sync-pnj',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
+            }
+            return response()->json(['daftar' => $data, 'status'=>true, 'message' => 'success','res' => $res], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+
+    public function syncPnj(Request $request)
+    {
+        
+        try{
+            $transm = "";
+            $transj = "";
+            $brgjual = "";
+            $brgtrans = "";
+            $histori = "";
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/load-sync-pnj',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                if($res["status"]){
+                    $transm = $res["transm"];
+                    $transj = $res["transj"];
+                    $brgjual = $res["brgjual"];
+                    $brgtrans = $res["brgtrans"];
+                    $histori = $res["histori"];
+                }
+            }
+
+            $fields = array(
+                'transm' => $transm,
+                'transj' => $transj,
+                'brgjual' => $brgjual,
+                'brgtrans' => $brgtrans,
+                'histori' => $histori,
+            );
+
+            $client2 = new Client();
+            $response2 = $client2->request('POST',  config('api.url').'toko-trans/sync-pnj',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                 ],
