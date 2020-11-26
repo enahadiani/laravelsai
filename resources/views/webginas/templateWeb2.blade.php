@@ -108,7 +108,7 @@
             font-size: 20px !important;
         }
 
-        .layanan-menu > a > li > .list-submenu-text:hover {
+        .list-submenu-text:hover {
             color: #DD1F1A;
             font-weight: bold;
             cursor: pointer;
@@ -213,36 +213,7 @@
                                         <ul class="dropdown-menu">
                                             <li class="mega-menu-content">
                                                 <div class="row" id="menu-layanan">
-                                                    {{-- <div class="col-lg-4">
-                                                        <ul class="submenu-outsourcing">
-                                                            <a href="{{url('webginas2/layanan/outsourcing')}}"><h5 style="font-weight: bold;padding-bottom:25px;">Outsourcing</h5></a>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Security</p></li></a>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Cleaning Service</p></li></a>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Driver</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Administrasi</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Help Desk</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Tenaga Ahli</p></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <ul class="submenu-bussiness">
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Trading & Bussiness Retail</h5>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Pemenuhan Keb. Barang/Jasa</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Mini Market (TJ Mart)</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Layanan Catering</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Laundry</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Inovasi dan Teknologi</p></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <ul class="submenu-property">
-                                                            <h5 style="font-weight: bold;padding-bottom:25px;">Property</h5>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Building Maintenance</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Rental Kendaraan</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Sewa Peralatan Pesta/Wisuda</p></li>
-                                                            <li class="list-submenu"><p class="list-submenu-text">Jasa Konstruksi</p></li>
-                                                        </ul>
-                                                    </div> --}}
+
                                                 </div>
                                             </li>
                                         </ul>
