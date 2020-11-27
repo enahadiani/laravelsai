@@ -222,7 +222,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h6 style="position:absolute;top: 25px;">Sync Penjualan</h6>
+                    <h6 style="position:absolute;top: 25px;">Sync Retur Pembelian</h6>
                     <button type="button" id="btn-sync" class="btn btn-primary" style="float:right;"><i class="simple-icon-refresh mr-2"></i> Syncronize</button>
                 </div>
                 <div class="separator mb-2"></div>
@@ -277,7 +277,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
             <div class="modal-content" style="border-radius:0.75em">
                 <div class="modal-header py-0" style="display:block;height:49px">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Penjualan <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
+                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Retur Pembelian <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span><span id="modal-preview-kode" style="display:none"></span> </h6>
                     <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
                     <span>×</span>
                     </button>
@@ -373,7 +373,7 @@
         "ordering": true,
         "order": [[0, "desc"],[1, "desc"]],
         'ajax': {
-            'url': "{{url('esaku-trans/sync-pnj')}}",
+            'url': "{{url('esaku-trans/sync-retur-beli')}}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -452,7 +452,7 @@
         $(this).text("Please Wait...").attr('disabled', 'disabled');
         $.ajax({
             type: 'POST',
-            url: "{{ url('esaku-trans/sync-pnj') }}",
+            url: "{{ url('esaku-trans/sync-retur-beli') }}",
             dataType: 'json',
             async:false,
             success:function(res){
@@ -489,7 +489,7 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-trans/sync-pnj-detail') }}",
+                url: "{{ url('esaku-trans/sync-retur-beli-detail') }}",
                 dataType: 'json',
                 data:{'id': id},
                 async:false,

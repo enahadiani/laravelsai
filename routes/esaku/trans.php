@@ -99,3 +99,7 @@ Route::post('sync-pnj', 'Esaku\SyncController@syncPnj');
 Route::get('sync-pmb', 'Esaku\SyncController@getSyncPmb');
 Route::get('sync-pmb-detail', 'Esaku\SyncController@getSyncPmbDetail');
 Route::post('sync-pmb', 'Esaku\SyncController@syncPmb');
+
+Route::get('sync-retur-beli', 'Esaku\SyncController@getSyncReturBeli');
+Route::get('sync-retur-beli-detail', 'Esaku\SyncController@getSyncReturBeliDetail');
+Route::post('sync-retur-beli', 'Esaku\SyncController@syncReturBeli');
