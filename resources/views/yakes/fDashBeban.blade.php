@@ -52,6 +52,10 @@
 
     .keterangan {
         writing-mode: vertical-lr;
+        margin: 0;
+        position: absolute;
+        margin-left: 10px;
+        top: 30%;
     }
 </style>
 <div class="row">
