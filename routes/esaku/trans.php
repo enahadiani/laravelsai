@@ -88,3 +88,14 @@ Route::get('/nikperiksa/{nik}', 'Esaku\JurnalController@getNIKPeriksaByNIK');
 Route::get('/jurnal-periode', 'Esaku\JurnalController@getPeriodeJurnal');
 Route::post('/import-excel', 'Esaku\JurnalController@importExcel');
 Route::get('jurnal-tmp', 'Esaku\JurnalController@getJurnalTmp');
+
+Route::get('sync-master', 'Esaku\SyncController@getSyncMaster');
+Route::post('sync-master', 'Esaku\SyncController@syncMaster');
+
+Route::get('sync-pnj', 'Esaku\SyncController@getSyncPnj');
+Route::get('sync-pnj-detail', 'Esaku\SyncController@getSyncPnjDetail');
+Route::post('sync-pnj', 'Esaku\SyncController@syncPnj');
+
+Route::get('sync-pmb', 'Esaku\SyncController@getSyncPmb');
+Route::get('sync-pmb-detail', 'Esaku\SyncController@getSyncPmbDetail');
+Route::post('sync-pmb', 'Esaku\SyncController@syncPmb');
