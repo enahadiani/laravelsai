@@ -61,18 +61,18 @@
             <table class="table table-borderless" width="100%">
                 <tr>
                     <?php $image_path = '\img\ts-logo2.png'; ?>
-                    <td rowspan="3" width="20%"><div class="col-md-2 text-center"><img class="logo" style="width:80px;height:100px" src="{{ public_path().$image_path }}"></div></td>
-                    <td align="center" width="100%">
-                        <h2 style="padding-bottom:0;margin-bottom:2px"><b>SMK TELKOM JAKARTA link</b></h2>
+                    <td rowspan="3" width="20%"><div class="col-md-2 text-center"><img class="logo" style="width:60px;height:80px" src="{{ public_path('/img/ts-logo2.png') }}"></div></td>
+                    <td width="100%">
+                        <h2 style="padding-bottom:0;margin-bottom:2px"><b>SMK TELKOM JAKARTA</b></h2>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td>
                         <h4 style="padding-bottom:0;margin-bottom:2px">Jl. Daan Mogot KM.1, Kedaung Kaliangke, Cengkareng</h4>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td>
                         <h4 style="padding-bottom:0;margin-bottom:2px">Jakarta Barat 11710 Telp. 021-5442600 / 5442700</h4>
                     </td>
                 </tr>

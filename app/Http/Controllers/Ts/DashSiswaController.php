@@ -147,7 +147,10 @@
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
             
-            $pdf = PDF::setOptions(['enable_remote' => true])->loadview('ts.fKartuPDDPDF', $data);
+            $pdf = PDF::loadview('ts.fKartuPDDPDF', $data)->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
             return $pdf->download('kartu-pdd-pdf');   
         }
         
