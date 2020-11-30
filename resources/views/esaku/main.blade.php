@@ -906,6 +906,19 @@
         // }
     }
 
+    function setHeightFormPOS(){
+        var header = 70;
+        var content = window.innerHeight;
+        var height = content-header-40;
+    
+        if($('.form-pos-body').length > 0){
+            $('.form-pos-body').css('height',height);
+        }
+        if($('.grid-table').length > 0){
+            $('.grid-table').css('height',height-236);
+        }
+    }
+
     setTimeout(function(){
         window.location.href = "{{url('esaku-auth/sesi-habis')}}";
     }, 1000 * 60 * 60);
@@ -920,6 +933,7 @@
             setHeightReport();
         }
         setHeightForm();
+        setHeightFormPOS();
     });
     
     $('#notificationButton').click(function(){

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 Route::get('penjualan-open', 'Esaku\PenjualanController@getNoOpen');
 Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\PenjualanController@cekBonus');
 Route::post('penjualan', 'Esaku\PenjualanController@store');
+Route::get('nota', 'Esaku\PenjualanController@printNota');
 
 //Open Kasir //
 Route::get('open-kasir', 'Esaku\OpenKasirController@index');
