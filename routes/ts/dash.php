@@ -23,3 +23,4 @@ Route::get('kartu-piutang-pdf', 'Ts\DashSiswaController@getKartuPiutangPDF');
 Route::get('kartu-pdd', 'Ts\DashSiswaController@getKartuPDD');
 Route::get('kartu-pdd-pdf', 'Ts\DashSiswaController@getKartuPDDPDF');
 Route::get('dash-siswa-profile', 'Ts\DashSiswaController@getProfile');
+Route::get('raport-pdf', 'Ts\DashSiswaController@getRaportPDF');
