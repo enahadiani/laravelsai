@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card" >
             <div class="card-body pb-3" style="padding-top:1rem;">
-                <h5 style="position:absolute;top: 25px;">{{ $judul }}</h5>
+                <h6 style="position:absolute;top: 25px;">{{ $judul }}</h6>
                 @if($tambah)
                 <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;">Tambah</button>
                 @endif
@@ -29,11 +29,11 @@
                     </div>
                 </div>
                 <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                    <div class="input-group input-group-sm">
+                    <div class="input-group input-group-sm" style="width:321px;float:right">
                         <input type="text" class="form-control" placeholder="Search..."
-                        aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;">
-                        <div class="input-group-append" >
-                        <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
+                        aria-label="Search..." aria-describedby="filter-btn" id="searchData" style="border-top-right-radius: 0 !important;border-bottom-right-radius: 0 !important;width:230px !important">
+                        <div class="input-group-append" style="width:92px !important">
+                            <span class="input-group-text" id="filter-btn" style="border-top-right-radius: 0.5rem !important;border-bottom-right-radius: 0.5rem !important;width:100%"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i> Filter</span>
                         </div>
                     </div>
                 </div>

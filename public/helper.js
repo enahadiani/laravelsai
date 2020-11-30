@@ -13,7 +13,24 @@ function reverseDate2(date_str, separator, newseparator){
     return str[2]+newseparator+str[1]+newseparator+str[0];
 }
 
-function generateTable(id,url,columnDefs,columns,url_sesi) {
+
+function last_add(param,isi){
+    var rowIndexes = [];
+    dataTable.rows( function ( idx, data, node ) {             
+        if(data[param] === isi){
+            rowIndexes.push(idx);                  
+        }
+        return false;
+    }); 
+    dataTable.row(rowIndexes).select();
+    $('.selected td:eq(0)').addClass('last-add');
+    setTimeout(function() {
+        $('.selected td:eq(0)').removeClass('last-add');
+        dataTable.row(rowIndexes).deselect();
+    }, 1000 * 60 * 10);
+}
+
+function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = []) {
     var dataTable = $("#"+id).DataTable({
         destroy: true,
         bLengthChange: false,
@@ -33,6 +50,7 @@ function generateTable(id,url,columnDefs,columns,url_sesi) {
                 }
             }
         },
+        'order':byOrder,
         'columnDefs': columnDefs,
         'columns': columns,
         drawCallback: function () {

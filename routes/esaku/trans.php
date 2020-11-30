@@ -11,7 +11,7 @@ Route::post('penjualan', 'Esaku\PenjualanController@store');
 //Open Kasir //
 Route::get('open-kasir', 'Esaku\OpenKasirController@index');
 Route::post('open-kasir', 'Esaku\OpenKasirController@store');
-Route::put('open-kasir/{nik}/{no_open}', 'Esaku\OpenKasirController@update');
+Route::put('open-kasir', 'Esaku\OpenKasirController@update');
 
 //Close Kasir //
 Route::get('close-kasir-new', 'Esaku\CloseKasirController@indexNew');
