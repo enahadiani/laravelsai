@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kartu PDD</title>
+    <title>Kartu Piutang</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
        
@@ -132,47 +132,49 @@
                         <th width='5%'>No</th>
                         <th width='10%'>Tanggal </th>
                         <th width='15%'>No Bukti</th>
-                        <th width='10%'>Modul</th>
-                        <th width='40%'>Keterangan</th>
+                        <th width='30%'>Keterangan</th>
                         <th width='15%'>Debet</th>
                         <th width='15%'>Kredit</th>
+                        <th width='20%'>Saldo</th>
                     </tr>
                     </thead>
                     <tbody>
                     @php 
                     $no = 1; 
-                    $tosaldo=0;$debet=0; $kredit=0;
+                    $no=1;
+                    $tosaldo=0;
+                    $tagihan=0; 
+                    $bayar=0;
                     @endphp
                         @if(count($detail) > 0)
                             @for($i=0; $i < count($detail); $i++)
                             @php 
-                            $line2 = $detail[$i]; 
-                            $debet += floatval($line2['debet']);
-                            $kredit += floatval($line2['kredit']);
+                                $line2 = $detail[$i]; 
+                                $saldo = floatval($line2['tagihan'])-floatval($line2['bayar']);
+                                $tagihan += floatval($line2['tagihan']);
+                                $bayar += floatval($line2['bayar']);
+                                $tosaldo += $saldo;
                             @endphp
                             <tr>
                             <td>{{ $no }}</td>
                             <td>{{ $line2['tgl'] }}</td>
                             <td>{{ $line2['no_bukti'] }}</td>
-                            <td>{{ $line2['modul'] }}</td>
                             <td>{{ $line2['keterangan'] }}</td>
-                            <td align="right">{{ number_format($line2['debet'],0,",",".") }}</td>
-                            <td align="right">{{ number_format($line2['kredit'],0,",",".") }}</td>
+                            <td align="right">{{ number_format($line2['tagihan'],0,",",".") }}</td>
+                            <td align="right">{{ number_format($line2['bayar'],0,",",".") }}</td>
+                            <td align="right">{{ number_format($saldo,0,",",".") }}</td>
                             </tr>
                             @php $no++; @endphp
                             @endfor
-                            @php
-                            $tosaldo = $debet-$kredit;
-                            @endphp
                             <tr>
-                                <td colspan='5' align='right'><b>Total</b></td>
-                                <td align='right'>{{ number_format($debet,0,",",".") }}</td>
-                                <td align='right'>{{ number_format($kredit,0,",",".") }}</td>
+                                <td colspan='4' align='right'><b>Total</b></td>
+                                <td align='right'>{{ number_format($tagihan,0,",",".") }}</td>
+                                <td align='right'>{{ number_format($bayar,0,",",".") }}</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan='5' align='right'><b>Saldo</b></td>
+                                <td colspan='6' align='right'><b>Saldo</b></td>
                                 <td align='right'>{{ number_format($tosaldo,0,",",".") }}</td>
-                                <td>0</td>
                             </tr>
                         @endif
                     </tbody>

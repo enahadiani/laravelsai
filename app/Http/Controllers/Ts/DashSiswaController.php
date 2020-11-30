@@ -153,6 +153,20 @@
             ]);
             return $pdf->download('kartu-pdd-pdf');   
         }
+
+        public function getKartuPiutangPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPiutang($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('ts.fKartuPiutangPDF', $data)->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
+            return $pdf->download('kartu-piutang-pdf');   
+        }
         
     }
 

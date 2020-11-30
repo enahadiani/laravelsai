@@ -502,7 +502,12 @@
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
-    
+
+    $("#sai-rpt-pdf").click(function(e) {
+        e.preventDefault();
+        var link = "{{ url('ts-dash/kartu-piutang-pdf') }}";
+        window.open(link, '_blank'); 
+    });
     
     $("#sai-rpt-email").click(function(e) {
         e.preventDefault();
