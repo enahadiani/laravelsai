@@ -20,4 +20,8 @@ Route::get('data-box', 'Ts\PesanController@getDataBox');
 
 Route::get('kartu-piutang', 'Ts\DashSiswaController@getKartuPiutang');
 Route::get('kartu-pdd', 'Ts\DashSiswaController@getKartuPDD');
+Route::get('kartu-pdd-pdf', 'Ts\DashSiswaController@getKartuPDDPDF');
 Route::get('dash-siswa-profile', 'Ts\DashSiswaController@getProfile');
+Route::get('tes',function(){
+    return view('ts.fKartuPDDPDF');
+});

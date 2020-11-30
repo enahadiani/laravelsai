@@ -7,6 +7,7 @@
     use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use PDF;
 
     class DashSiswaController extends Controller {
 
@@ -137,6 +138,17 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
                 // var_dump($response);
             } 
+        }
+
+        public function getKartuPDDPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPDD($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::setOptions(['enable_remote' => true])->loadview('ts.fKartuPDDPDF', $data);
+            return $pdf->download('kartu-pdd-pdf');   
         }
         
     }
