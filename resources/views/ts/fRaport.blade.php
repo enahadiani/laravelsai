@@ -413,9 +413,7 @@
             </div>
         </div>
     </div>
-    <!-- LIST DATA -->
-    
-       
+    <!-- LIST DATA -->       
     <div id="modalEmail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModallabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius:0.75rem">
