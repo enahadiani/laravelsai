@@ -646,8 +646,14 @@
         }).length;
         if(jum > 0){
             $('#jum-filter').text(jum);
+            if($('#jum-filter2').length > 0){
+                $('#jum-filter2').text(jum);
+            }
         }else{
             $('#jum-filter').text('');
+            if($('#jum-filter2').length > 0){
+                $('#jum-filter2').text('');
+            }
         }
     }
 
