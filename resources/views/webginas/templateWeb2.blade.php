@@ -14,15 +14,15 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
-        /* .slide0{
-            background-image: url("{{ asset('asset_web/homepages/business/slide0.png') }}");
+        .slide0{
+            background-image: url("{{ asset('asset_web/homepages/business/WEB TJ NEW PROPERTY.jpg') }}");
         }
         .slide1{
-            background-image: url("{{ asset('asset_web/homepages/business/slide1.jpg') }}");
+            background-image: url("{{ asset('asset_web/homepages/business/WEB TJ NEW TRADING.jpg') }}");
         }
         .slide2{
-            background-image: url("{{ asset('asset_web/homepages/business/slide2.jpg') }}");
-        } */
+            background-image: url("{{ asset('asset_web/homepages/business/WEB TJ NEW OS.jpg') }}");
+        }
 
         .text-red{
             color:#DD1F1A;
@@ -155,6 +155,15 @@
         }
 
         @media (max-width: 768px) {
+            .slide0{
+                background-image: url("{{ asset('asset_web/homepages/business/WEB TJ MOBILE OS.jpg') }}");
+            }
+            .slide1{
+                background-image: url("{{ asset('asset_web/homepages/business/WEB TJ MOBILE TRADING.jpg') }}");
+             }
+            .slide2{
+                background-image: url("{{ asset('asset_web/homepages/business/WEB TJ MOBILE PROPERTY.jpg') }}");
+            }
             .layanan-container {
                 margin-top: -70px;
             }
@@ -526,18 +535,18 @@
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
-        $.ajax({
-            type:'GET',
-            url: "{{ url('webginas2/api-banner') }}",
-            dataType: 'JSON',
-            success: function(result) {
-                if(result.status) {
-                    for(var i=0;i<result.daftar.length;i++) {
-                        $('.slide'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
-                    }
-                }
-            }
-        });
+        // $.ajax({
+        //     type:'GET',
+        //     url: "{{ url('webginas2/api-banner') }}",
+        //     dataType: 'JSON',
+        //     success: function(result) {
+        //         if(result.status) {
+        //             for(var i=0;i<result.daftar.length;i++) {
+        //                 $('.slide'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
+        //             }
+        //         }
+        //     }
+        // });
 
         $.ajax({
             type:'GET',
