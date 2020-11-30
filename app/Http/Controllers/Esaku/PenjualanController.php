@@ -139,4 +139,32 @@ class PenjualanController extends Controller
             return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
+
+    public function printNota(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/penjualan-nota',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_jual' => $request->no_jual
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return view('esaku.fNota3',$data);
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return dump($res);
+        }
+    }
 }
+

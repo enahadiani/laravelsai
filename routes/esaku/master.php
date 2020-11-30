@@ -105,11 +105,11 @@ Route::put('form/{id}', 'Esaku\FormController@update');
 Route::delete('form/{id}', 'Esaku\FormController@delete');
 
 // Setting Menu Form //
-Route::get('menu/{id}', 'Esaku\SettingMenuController@getData');
-Route::post('menu', 'Esaku\SettingMenuController@store');
-Route::post('menu-move', 'Esaku\SettingMenuController@storeMenu');
-Route::put('menu/{kd_menu}/{kd_klp}', 'Esaku\SettingMenuController@update');
-Route::delete('menu/{kd_menu}/{kd_klp}', 'Esaku\SettingMenuController@delete');
+Route::get('setting-menu', 'Esaku\SettingMenuController@show');
+Route::post('setting-menu', 'Esaku\SettingMenuController@store');
+Route::post('setting-menu-move', 'Esaku\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Esaku\SettingMenuController@update');
+Route::delete('setting-menu', 'Esaku\SettingMenuController@delete');
 
 // Data Akun //
 Route::get('masakun', 'Esaku\MasakunController@index');

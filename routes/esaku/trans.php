@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Session;
 Route::get('penjualan-open', 'Esaku\PenjualanController@getNoOpen');
 Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\PenjualanController@cekBonus');
 Route::post('penjualan', 'Esaku\PenjualanController@store');
+Route::get('nota', 'Esaku\PenjualanController@printNota');
 
 //Open Kasir //
 Route::get('open-kasir', 'Esaku\OpenKasirController@index');
 Route::post('open-kasir', 'Esaku\OpenKasirController@store');
-Route::put('open-kasir/{nik}/{no_open}', 'Esaku\OpenKasirController@update');
+Route::put('open-kasir', 'Esaku\OpenKasirController@update');
 
 //Close Kasir //
 Route::get('close-kasir-new', 'Esaku\CloseKasirController@indexNew');
@@ -99,3 +100,7 @@ Route::post('sync-pnj', 'Esaku\SyncController@syncPnj');
 Route::get('sync-pmb', 'Esaku\SyncController@getSyncPmb');
 Route::get('sync-pmb-detail', 'Esaku\SyncController@getSyncPmbDetail');
 Route::post('sync-pmb', 'Esaku\SyncController@syncPmb');
+
+Route::get('sync-retur-beli', 'Esaku\SyncController@getSyncReturBeli');
+Route::get('sync-retur-beli-detail', 'Esaku\SyncController@getSyncReturBeliDetail');
+Route::post('sync-retur-beli', 'Esaku\SyncController@syncReturBeli');

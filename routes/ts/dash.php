@@ -19,5 +19,9 @@ Route::get('rata2-nilai-dashboard', 'Ts\DashboardController@rata2Nilai');
 Route::get('data-box', 'Ts\PesanController@getDataBox');
 
 Route::get('kartu-piutang', 'Ts\DashSiswaController@getKartuPiutang');
+Route::get('kartu-piutang-pdf', 'Ts\DashSiswaController@getKartuPiutangPDF');
 Route::get('kartu-pdd', 'Ts\DashSiswaController@getKartuPDD');
+Route::get('kartu-pdd-pdf', 'Ts\DashSiswaController@getKartuPDDPDF');
 Route::get('dash-siswa-profile', 'Ts\DashSiswaController@getProfile');
+Route::get('raport-pdf', 'Ts\DashSiswaController@getRaportPDF');
+Route::get('skl-pdf', 'Ts\DashSiswaController@getSklPDF');

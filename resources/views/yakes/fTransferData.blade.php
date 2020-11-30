@@ -6,7 +6,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:69.2px">
-                        <h5 id="judul-form" style="position:absolute;top:25px">Transfer Data</h5>
+                        <h6 id="judul-form" style="position:absolute;top:25px">Transfer Data</h6>
                     </div>
                     <div class="separator"></div>
                     <div class="card-body pt-3 form-body">

@@ -1,6 +1,9 @@
 td,th{
     padding:8px !important;
 }
+h6{
+    font-size: 1.25rem !important;
+}
 .border-right-0{
     border-right:0;
 }

@@ -222,6 +222,7 @@
                             <a class="dropdown-item" href="#" id="sai-rpt-print-prev"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">Print Preview</span></a>
                             <a class="dropdown-item" href="#" id="sai-rpt-excel"><img src="{{ asset('img/excel.svg') }}" style="width:16px;"> <span class="ml-2">Excel</span></a>
                             <a class="dropdown-item" href="#" id="sai-rpt-email"><img src="{{ asset('img/email.svg') }}" style="width:16px;height: 16px;margin-right: 3px;"><span class="ml-2">Email</span></a>
+                            <a class="dropdown-item" href="#" id="sai-rpt-pdf"><img src="{{ asset('img/PrintPreview.svg') }}" style="width:16px;height: 16px;"> <span class="ml-2">PDF</span></a>
                         </div>
                     </div>
                     <button type="button" id="btn-kembali" class="btn btn-light" style="float:right;"><i class="simple-arrow-left mr-1"></i> Kembali</button>
@@ -452,6 +453,12 @@
         var newWindow = window.open();
         var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#print-area').html()+`</div></body>`;
         newWindow.document.write(html);
+    });
+
+    $("#sai-rpt-pdf").click(function(e) {
+        e.preventDefault();
+        var link = "{{ url('ts-dash/kartu-pdd-pdf') }}";
+        window.open(link, '_blank'); 
     });
     
     $("#sai-rpt-excel").click(function(e) {

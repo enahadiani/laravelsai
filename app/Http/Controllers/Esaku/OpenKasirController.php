@@ -29,13 +29,16 @@ class OpenKasirController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-trans/open-kasir',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_open' => $request->no_open
                 ]
             ]);
 
@@ -88,7 +91,7 @@ class OpenKasirController extends Controller
             }
     }
 
-    public function update(Request $request, $no_open) {
+    public function update(Request $request) {
         $this->validate($request, [
             'nik' => 'required',
             'no_open' => 'required',
@@ -97,12 +100,13 @@ class OpenKasirController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'toko-trans/barang-satuan?kode_satuan='.$id,[
+                $response = $client->request('PUT',  config('api.url').'toko-trans/open-kasir',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
                     ],
                     'form_params' => [
+                        'no_open' => $request->no_open,
                         'nik' => $request->nik,
                         'saldo_awal' => intval(str_replace('.','', $request->saldo_awal)),
                     ]

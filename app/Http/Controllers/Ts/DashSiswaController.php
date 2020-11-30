@@ -7,6 +7,7 @@
     use GuzzleHttp\Client;
     use Illuminate\Support\Facades\Session;
     use GuzzleHttp\Exception\BadResponseException;
+    use PDF;
 
     class DashSiswaController extends Controller {
 
@@ -137,6 +138,62 @@
                 return response()->json(['message' => $res, 'status'=>false], 200);
                 // var_dump($response);
             } 
+        }
+
+        public function getKartuPDDPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPDD($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('ts.fKartuPDDPDF', $data)->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
+            return $pdf->download('kartu-pdd-pdf');   
+        }
+
+        public function getKartuPiutangPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPiutang($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('ts.fKartuPiutangPDF', $data)->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
+            return $pdf->download('kartu-piutang-pdf');   
+        }
+
+        public function getRaportPDF(Request $request)
+        {
+            set_time_limit(300);
+            // $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPiutang($request);
+            // $tmp = json_decode(json_encode($tmp),true);
+            // $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('ts.fRaportPDF')->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
+            return $pdf->download('raport-pdf');   
+        }
+
+        public function getSklPDF(Request $request)
+        {
+            set_time_limit(300);
+            // $tmp = app('App\Http\Controllers\Ts\DashSiswaController')->getKartuPiutang($request);
+            // $tmp = json_decode(json_encode($tmp),true);
+            // $data = $tmp['original'];
+            
+            $pdf = PDF::loadview('ts.fSklPDF')->setOptions([
+                'tempDir' => public_path(),
+                'chroot'  => public_path('/img'),
+            ]);
+            return $pdf->download('skl-pdf');   
         }
         
     }
