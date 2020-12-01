@@ -80,7 +80,7 @@
                                 <table width='100%' class='table no-border' cellspacing='1' cellpadding='2'>
                                 <style>
                                     td,th{
-                                        padding:5px !important;
+                                        padding:3px !important;
                                     }
                                 </style>
                                 <tr>

@@ -3,13 +3,13 @@
     <div class="row" id="saku-datatable">
         <div class="col-12">
             <div class="card" >
-                <div class="card-body pb-0" style="padding-top:1rem;">
+                <div class="card-body pb-0" style="padding-top:1rem;min-height:68px">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6 style="position:absolute;">Close Kasir</h6>
+                            <h6 style="position:absolute;top:5px">Close Kasir</h6>
                         </div>
                         <div class="col-md-6">
-                            <ul class="nav nav-tabs col-12 nav-grid justify-content-end" role="tablist" style="padding-bottom:0;margin-top:0.1rem;border-bottom:none">
+                            <ul class="nav nav-tabs col-12 nav-grid justify-content-end" role="tablist" style="padding-bottom:0;margin-top:1rem;border-bottom:none">
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-finish" role="tab" aria-selected="false"><span class="hidden-xs-down">Finish</span></a> </li>
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-new" role="tab" aria-selected="true"><span class="hidden-xs-down">New</span></a> </li>
                             </ul>
