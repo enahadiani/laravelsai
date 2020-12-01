@@ -27,6 +27,7 @@ Route::post('pembelian', 'Esaku\PembelianController@store');
 Route::put('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@update');
 Route::delete('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@delete');
 Route::get('pembelian-detail/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\PembelianController@show');
+Route::get('pembelian-nota', 'Esaku\PembelianController@printNota');
 
 // Retur Pembelian //
 Route::post('retur-beli', 'Esaku\ReturBeliController@store');

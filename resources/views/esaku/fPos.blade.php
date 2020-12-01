@@ -348,20 +348,14 @@
                     }
 
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    Swal.fire({
-                        title: 'Session telah habis',
-                        text: 'harap login terlebih dahulu!',
-                        icon: 'error'
-                    }).then(function() {
-                        window.location.href = "{{ url('esaku-auth/login') }}";
-                    })
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
-                    })
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: result.data.message
+                    });
                 }
             }
         });
@@ -550,7 +544,11 @@
         var nama = kd+"-"+setNama(kd1);
         // || +qty1 <= 0 || +hrg1 <= 0
         if(kd1 == '' || +hrg1 <= 0){
-            alert('Masukkan data barang yang valid');
+            msgDialog({
+                id: '',
+                type:'warning',
+                text:'Masukkan data barang yang valid'
+            });
         }else{
             // var kd = $('#kd-barang2').val();
             
@@ -584,7 +582,7 @@
             input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
             input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
             input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+disc+"' readonly required></td>";
-            input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
+            input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
             input += "</tr>";
             
             $("#input-grid2").append(input);
@@ -606,7 +604,12 @@
         var hrgSelect = setHarga2(barangSelect);
 
         if(barangSelect === '' || +barangSelect <= 0) {
-            alert('Masukkan data barang yang valid');
+            // alert('Masukkan data barang yang valid');
+            msgDialog({
+                id: '',
+                type:'warning',
+                text:'Masukkan data barang yang valid'
+            });
         } else {
             var barangSelected = $('#kd-barang option:selected').val();
             var namaSelected = $('#kd-barang option:selected').text();
@@ -647,7 +650,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qtySelected+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(subSelected)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(discSelected)+"' readonly required></td>";
-                    input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
+                    input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
                     $("#input-grid2").append(input);
@@ -688,7 +691,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control'  value='"+qty+"' readonly required></td>";
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
-                    input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:8px'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:8px'><i class='fa fa-times fa-1'></i></td>";
+                    input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:18px !important'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:18px !important'><i class='fa fa-times fa-1'></i></td>";
                     input += "</tr>";
                     
                     $('.set-selected').closest('tr').remove();
@@ -790,15 +793,34 @@
         var tobyr=toNilai($('#tobyr').val());
         var kembalian=tobyr-tostlh;
             if(totrans <= 0){
-                alert('Total transaksi tidak valid');
+                msgDialog({
+                    id: '',
+                    type:'sukses',
+                    title: 'Error',
+                    text:'Total Transaksi tidak valid. Total Transaksi tidak boleh kurang dari atau sama dengan 0'
+                });
             }
             else if(tobyr <= 0){
-                alert('Total bayar tidak valid');
+                msgDialog({
+                    id: '',
+                    type:'sukses',
+                    title: 'Error',
+                    text:'Total Bayar tidak valid. Total Bayar tidak boleh kurang dari atau sama dengan 0'
+                });
             }
             else if(kembalian < 0){
-                alert('Total Bayar kurang dari Total Transaksi');
-            }else if($no_open == ""){
-                alert('Anda belum melakukan open kasir!');
+                msgDialog({
+                    id: '',
+                    type:'sukses',
+                    title: 'Error',
+                    text:'Total Bayar kurang dari Total Transaksi'
+                });
+            }else if($no_open == "" || $no_open == "-"){
+                msgDialog({
+                    id: '',
+                    type:'warning',
+                    text:'Anda belum melakukan open kasir'
+                });
             }else{
                 var formData = new FormData(this);
                 formData.append('no_open', $no_open);
@@ -827,12 +849,12 @@
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
                         }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!',
-                                footer: '<a href>'+result.data.message+'</a>'
-                            })
+                            msgDialog({
+                                id: '',
+                                type:'sukses',
+                                title: 'Error',
+                                text: result.data.message
+                            });
                         }
                     }
                 });
