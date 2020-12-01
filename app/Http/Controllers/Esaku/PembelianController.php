@@ -263,4 +263,31 @@ class PembelianController extends Controller
             return response()->json(['data' => $data], 200);
         }
     }
+
+    public function printNota(Request $request) {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'toko-trans/pembelian-nota',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $request->no_bukti
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return view('esaku.fNotaBeli',$data);
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return dump($res);
+        }
+    }
 }
