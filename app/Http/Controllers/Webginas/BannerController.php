@@ -22,10 +22,11 @@ class BannerController extends Controller {
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $response = json_decode($response_data,true);
+                $data = $response["data"];
+                $mobile = $response["data_mobile"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'mobile' => $mobile, 'status'=>true], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

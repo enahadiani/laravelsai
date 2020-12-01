@@ -14,7 +14,7 @@
     <link href="{{ asset('asset_web/css/plugins.css') }}" rel="stylesheet">
     <link href="{{ asset('asset_web/css/style.css') }}" rel="stylesheet">
     <style>
-        .slide0{
+        /* .slide0{
             background-image: url("{{ asset('asset_web/homepages/business/WEB TJ NEW PROPERTY.jpg') }}");
         }
         .slide1{
@@ -22,7 +22,7 @@
         }
         .slide2{
             background-image: url("{{ asset('asset_web/homepages/business/WEB TJ NEW OS.jpg') }}");
-        }
+        } */
 
         .text-red{
             color:#DD1F1A;
@@ -155,7 +155,7 @@
         }
 
         @media (max-width: 768px) {
-            .slide0{
+            /* .slide0{
                 background-image: url("{{ asset('asset_web/homepages/business/WEB TJ MOBILE OS.jpg') }}");
             }
             .slide1{
@@ -163,7 +163,7 @@
              }
             .slide2{
                 background-image: url("{{ asset('asset_web/homepages/business/WEB TJ MOBILE PROPERTY.jpg') }}");
-            }
+            } */
             .layanan-container {
                 margin-top: -70px;
             }
@@ -243,15 +243,16 @@
         <div id="slider" class="inspiro-slider slider-halfscreen dots-dark arrows-dark dots-creative" data-fade="true" data-height-xs="360">
 
             <!-- Slide 0 -->
-            <div class="slide background-image slide0" ></div>
+            <div class="slide slide-web background-image slide-0" ></div>
             <!-- end: Slide 0 -->
 
             <!-- Slide 1 -->
-            <div class="slide background-image slide1" ></div>
+            <div class="slide slide-web background-image slide-1" ></div>
             <!-- end: Slide 1 -->
 
             <!-- Slide 2 -->
-            <div class="slide background-image slide2" ></div>
+            <div class="slide slide-web background-image slide-2" ></div>
+            {{-- <div class="slide slide-mobile background-image slide-web-2" ></div> --}}
             <!-- end: Slide 2 -->
         </div>
         <!--end: Inspiro Slider -->  
@@ -535,18 +536,33 @@
     <!--Template functions-->
     <script src="{{ asset('asset_web/js/functions.js') }}"></script>
     <script type="text/javascript">
-        // $.ajax({
-        //     type:'GET',
-        //     url: "{{ url('webginas2/api-banner') }}",
-        //     dataType: 'JSON',
-        //     success: function(result) {
-        //         if(result.status) {
-        //             for(var i=0;i<result.daftar.length;i++) {
-        //                 $('.slide'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
-        //             }
-        //         }
-        //     }
-        // });
+        var mobile = [];
+        var web = [];
+        $.ajax({
+            type:'GET',
+            url: "{{ url('webginas2/api-banner') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                if(result.status) {
+                    for(var i=0;i<result.daftar.length;i++) {
+                        web.push(result.daftar[i].file_gambar);
+                    }
+                    for(var i=0;i<result.mobile.length;i++) {
+                        mobile.push(result.mobile[i].file_gambar)
+                    }
+                    if($(window).width() > 768) {
+                        for(var i=0;i<result.daftar.length;i++) {
+                            $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
+                        }
+
+                    } else {
+                        for(var i=0;i<result.mobile.length;i++) {
+                            $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.mobile[i].file_gambar}')`);
+                        }
+                    }
+                }
+            }
+        });
 
         $.ajax({
             type:'GET',
@@ -651,6 +667,23 @@
                 whatsapp.addClass('whatsapp-not-scroll');
             }
         }
+
+        $(function() {
+            $(window).resize(function() {
+                console.log(mobile)
+                console.log(web)
+                if ($(window).width() < 768) {
+                    for(var i=0;i<mobile.length;i++) {
+                        $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${mobile[i]}')`);
+                    }
+                }
+                else {
+                    for(var i=0;i<web.length;i++) {
+                        $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${web[i]}')`);
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

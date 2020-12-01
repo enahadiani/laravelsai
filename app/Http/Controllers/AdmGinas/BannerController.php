@@ -42,10 +42,11 @@ class BannerController extends Controller {
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $response = json_decode($response_data,true);
+                $data = $response["data"];
+                $mobile = $response["data_mobile"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'mobile' => $mobile, 'status'=>true], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -67,57 +68,63 @@ class BannerController extends Controller {
             $fields_mode = array();
             $fields_id_banner = array();
             $send_data = array();
-            $cek = $request->file_gambar;
-            if(!empty($cek)){
-                if(count($request->gambarke) > 0){
-                    for($i=0;$i<count($request->gambarke);$i++) {
-                        if(isset($request->file('file_gambar')[$i])){
-                            $image_path = $request->file('file_gambar')[$i]->getPathname();
-                            $image_mime = $request->file('file_gambar')[$i]->getmimeType();
-                            $image_org  = $request->file('file_gambar')[$i]->getClientOriginalName();
-                            $fields_foto[$i] = array(
-                                'name'     => 'file_gambar['.$i.']',
-                                'filename' => $image_org,
-                                'Mime-Type'=> $image_mime,
-                                'contents' => fopen( $image_path, 'r' ),
-                            );
-                            
-                        }
-                        $fields_id_banner[$i] = array(
+            $data = array();
+            
+            for($i=0;$i<count($request->gambarke);$i++) {
+                if(isset($request->file('file_gambar')[$i])) {
+                    $data[] = $request->gambarke[$i];
+                    $image_path = $request->file('file_gambar')[$i]->getPathname();
+                    $image_mime = $request->file('file_gambar')[$i]->getmimeType();
+                    $image_org  = $request->file('file_gambar')[$i]->getClientOriginalName();
+                    $fields_foto[$i] = array(
+                        'name'     => 'file_gambar[]',
+                        'filename' => $image_org,
+                        'Mime-Type'=> $image_mime,
+                        'contents' => fopen( $image_path, 'r' ),
+                    );
+
+                    $fields_id_banner[$i] = array(
                             'name'     => 'id_banner[]',
                             'contents' => $request->id_banner[$i],
                         );
-                        $fields_mode[$i] = array(
+                    $fields_mode[$i] = array(
                             'name'     => 'mode[]',
                             'contents' => $request->mode[$i],
                         );
-                        $fields_gambarke[$i] = array(
+                    $fields_gambarke[$i] = array(
                             'name'     => 'gambarke[]',
                             'contents' => $request->gambarke[$i],
                         );
-        
-                    }
-                    $send_data = array_merge($send_data,$fields_foto);
-                    $send_data = array_merge($send_data,$fields_gambarke);
-                    $send_data = array_merge($send_data,$fields_mode);
-                    $send_data = array_merge($send_data,$fields_id_banner);
+                } else {
+                    continue;
                 }
             }
-            // var_dump($send_data);
-            $client = new Client();
-            $response = $client->request('POST',  config('api.url').'admginas-master/banner',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'multipart' => $send_data
-            ]);
 
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();        
-                $data = json_decode($response_data,true);
-                return response()->json(['data' => $data], 200);   
-            }
+            $send_data = array_merge($send_data,$fields_foto);
+            $send_data = array_merge($send_data,$fields_gambarke);
+            $send_data = array_merge($send_data,$fields_mode);
+            $send_data = array_merge($send_data,$fields_id_banner);
+            
+            if(count($data) == 0) {
+                $data['message'] = "Banner tidak boleh kosong";
+                $data['status'] = false;
+                return response()->json(['data' => $data], 500);
+            } else {
+                $client = new Client();
+                $response = $client->request('POST',  config('api.url').'admginas-master/banner',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'multipart' => $send_data
+                ]);
+
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();        
+                    $data = json_decode($response_data,true);
+                    return response()->json(['data' => $data], 200);   
+                }
+            } 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
