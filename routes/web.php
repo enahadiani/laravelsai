@@ -28,7 +28,7 @@ Route::get('/', function () {
         case 'trengginasjaya.com' :
         case 'www.trengginasjaya.com' : 
             // echo $domain;
-            return redirect('webginas/');
+            return redirect('webginas2/');
         break;
         case 'ts.simkug.com' :
             case 'www.ts.simkug.com' : 
