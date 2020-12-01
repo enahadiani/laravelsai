@@ -182,7 +182,7 @@
                     </div>
                     <div class="separator"></div>
                     <div class="card-body form-body" id="form-body" style='background:#f8f8f8;padding: 0 !important;border-bottom-left-radius: .75rem;border-bottom-right-radius: .75rem;'>
-                        <div class="card" style='border-radius:0;height:300px;'>
+                        <div class="card" style='border-radius:0;height:400px;'>
                             <div class="card-body">
                                 <input type="hidden" id="method" name="_method" value="post">
                                 <div class="form-group row" id="row-id">
@@ -197,44 +197,92 @@
                                             <div class="form-group col-sm-12 col-md-12 col-xl-12">
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                                        <h6>Benner 1</h6>
+                                                        <h6>Benner Web 1</h6>
                                                         <div class="select-from-library-button sfl-single mb-5"
                                                             data-library-id="#libraryModal" data-count="1">
-                                                            <div id="div-banner-1" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                                                <span id="span-banner-1">Drop photo here to upload</span>
-                                                                <img id="banner-1-preview" alt="banner-1" src="#" height="90" width="300" />
+                                                            <div id="div-web-banner-1" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-web-1">Drop photo here to upload</span>
+                                                                <img id="banner-web-1-preview" alt="banner-1" src="#" height="90" width="300" />
                                                             </div>
-                                                            <input type="hidden" name="id_banner[]" value="BNR.001">
+                                                            <input type="hidden" name="id_banner[]" value="BNRW.001">
+                                                            <input type="hidden" name="mode[]" value="WEB">
                                                             <input type="hidden" name="gambarke[]" value="b1">
-                                                            <input type="file" id="upload-banner-1" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                            <input type="file" id="upload-banner-web-1" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                                        <h6>Benner 2</h6>
+                                                        <h6>Benner Web 2</h6>
                                                         <div class="select-from-library-button sfl-single mb-5"
                                                             data-library-id="#libraryModal" data-count="1">
-                                                            <div id="div-banner-2" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                                                <span id="span-banner-2">Drop photo here to upload</span>
-                                                                <img id="banner-2-preview" alt="banner-2" src="#" height="90" width="300" />
+                                                            <div id="div-web-banner-2" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-web-2">Drop photo here to upload</span>
+                                                                <img id="banner-web-2-preview" alt="banner-2" src="#" height="90" width="300" />
                                                             </div>
-                                                            <input type="hidden" name="id_banner[]" value="BNR.002">
+                                                            <input type="hidden" name="id_banner[]" value="BNRW.002">
+                                                            <input type="hidden" name="mode[]" value="WEB">
                                                             <input type="hidden" name="gambarke[]" value="b2">
-                                                            <input type="file" id="upload-banner-2" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                            <input type="file" id="upload-banner-web-2" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm-12 col-md-4 col-xl-4">
-                                                        <h6>Benner 3</h6>
+                                                        <h6>Benner Web 3</h6>
                                                         <div class="select-from-library-button sfl-single mb-5"
                                                             data-library-id="#libraryModal" data-count="1">
-                                                            <div id="div-banner-3" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
-                                                                <span id="span-banner-3">Drop photo here to upload</span>
-                                                                <img id="banner-3-preview" alt="banner-3" src="#" height="90" width="300" />
+                                                            <div id="div-web-banner-3" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-web-3">Drop photo here to upload</span>
+                                                                <img id="banner-web-3-preview" alt="banner-3" src="#" height="90" width="300" />
                                                             </div>
-                                                            <input type="hidden" name="id_banner[]" value="BNR.003">
+                                                            <input type="hidden" name="id_banner[]" value="BNRW.003">
+                                                            <input type="hidden" name="mode[]" value="WEB">
                                                             <input type="hidden" name="gambarke[]" value="b3">
-                                                            <input type="file" id="upload-banner-3" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                            <input type="file" id="upload-banner-web-3" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                                        <h6>Benner Mobile 1</h6>
+                                                        <div class="select-from-library-button sfl-single mb-5"
+                                                            data-library-id="#libraryModal" data-count="1">
+                                                            <div id="div-mobile-banner-1" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-mobile-1">Drop photo here to upload</span>
+                                                                <img id="banner-mobile-1-preview" alt="banner-1" src="#" height="90" width="300" />
+                                                            </div>
+                                                            <input type="hidden" name="id_banner[]" value="BNRM.001">
+                                                            <input type="hidden" name="mode[]" value="mobile">
+                                                            <input type="hidden" name="gambarke[]" value="b4">
+                                                            <input type="file" id="upload-banner-mobile-1" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                                        <h6>Benner Mobile 2</h6>
+                                                        <div class="select-from-library-button sfl-single mb-5"
+                                                            data-library-id="#libraryModal" data-count="1">
+                                                            <div id="div-mobile-banner-2" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-mobile-2">Drop photo here to upload</span>
+                                                                <img id="banner-mobile-2-preview" alt="banner-2" src="#" height="90" width="300" />
+                                                            </div>
+                                                            <input type="hidden" name="id_banner[]" value="BNRM.002">
+                                                            <input type="hidden" name="mode[]" value="MOBILE">
+                                                            <input type="hidden" name="gambarke[]" value="b5">
+                                                            <input type="file" id="upload-banner-mobile-2" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12 col-md-4 col-xl-4">
+                                                        <h6>Benner Mobile 3</h6>
+                                                        <div class="select-from-library-button sfl-single mb-5"
+                                                            data-library-id="#libraryModal" data-count="1">
+                                                            <div id="div-mobile-banner-3" class="card d-flex flex-row mb-4 media-thumb-container justify-content-center align-items-center" style="cursor: pointer;">
+                                                                <span id="span-banner-mobile-3">Drop photo here to upload</span>
+                                                                <img id="banner-mobile-3-preview" alt="banner-3" src="#" height="90" width="300" />
+                                                            </div>
+                                                            <input type="hidden" name="id_banner[]" value="BNRM.003">
+                                                            <input type="hidden" name="mode[]" value="MOBILE">
+                                                            <input type="hidden" name="gambarke[]" value="b6">
+                                                            <input type="file" id="upload-banner-mobile-3" name="file_gambar[]" style="opacity: 0.0; position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height:100%;cursor: pointer;">
                                                         </div>
                                                     </div>
                                                     
@@ -279,22 +327,43 @@
             }
         }
 
-        $('#upload-banner-1').change(function(){
-            var parent = $('#div-banner-1').children();
+        $('#upload-banner-web-1').change(function(){
+            var parent = $('#div-web-banner-1').children();
             var idSpan = $(parent[0]).attr('id');
             var idGbr = $(parent[1]).attr('id');
             fileReader(this, idGbr, idSpan);
         });
 
-        $('#upload-banner-2').change(function(){
-            var parent = $('#div-banner-2').children();
+        $('#upload-banner-web-2').change(function(){
+            var parent = $('#div-web-banner-2').children();
             var idSpan = $(parent[0]).attr('id');
             var idGbr = $(parent[1]).attr('id');
             fileReader(this, idGbr, idSpan);
         });
 
-        $('#upload-banner-3').change(function(){
-            var parent = $('#div-banner-3').children();
+        $('#upload-banner-web-3').change(function(){
+            var parent = $('#div-web-banner-3').children();
+            var idSpan = $(parent[0]).attr('id');
+            var idGbr = $(parent[1]).attr('id');
+            fileReader(this, idGbr, idSpan);
+        });
+
+        $('#upload-banner-mobile-1').change(function(){
+            var parent = $('#div-mobile-banner-1').children();
+            var idSpan = $(parent[0]).attr('id');
+            var idGbr = $(parent[1]).attr('id');
+            fileReader(this, idGbr, idSpan);
+        });
+
+        $('#upload-banner-mobile-2').change(function(){
+            var parent = $('#div-mobile-banner-2').children();
+            var idSpan = $(parent[0]).attr('id');
+            var idGbr = $(parent[1]).attr('id');
+            fileReader(this, idGbr, idSpan);
+        });
+
+        $('#upload-banner-mobile-3').change(function(){
+            var parent = $('#div-mobile-banner-3').children();
             var idSpan = $(parent[0]).attr('id');
             var idGbr = $(parent[1]).attr('id');
             fileReader(this, idGbr, idSpan);
@@ -303,12 +372,18 @@
         // var scrollform = document.querySelector('.form-body');
         var psscrollform = new PerfectScrollbar('#form-body');
 
-        $('#banner-1-preview').hide();
-        $('#span-banner-1').show();
-        $('#banner-2-preview').hide();
-        $('#span-banner-2').show();
-        $('#banner-3-preview').hide();
-        $('#span-banner-3').show();
+        $('#banner-web-1-preview').hide();
+        $('#span-banner-web-1').show();
+        $('#banner-web-2-preview').hide();
+        $('#span-banner-web-2').show();
+        $('#banner-web-3-preview').hide();
+        $('#span-banner-web-3').show();
+        $('#banner-mobile-1-preview').hide();
+        $('#span-banner-mobile-1').show();
+        $('#banner-mobile-2-preview').hide();
+        $('#span-banner-mobile-2').show();
+        $('#banner-mobile-3-preview').hide();
+        $('#span-banner-mobile-3').show();
         
         function getDataBanner() {
             $.ajax({
@@ -320,12 +395,12 @@
                         var j = 1;
                         for(var i=0;i<result.daftar.length;i++) {
                             if(result.daftar[i].file_gambar != null || result.daftar[i].file_gambar != undefined || result.daftar[i].file_gambar != '') {
-                                $('#span-banner-'+j).hide();
-                                $('#banner-'+j+'-preview').show();
-                                $('#banner-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
+                                $('#span-banner-web-'+j).hide();
+                                $('#banner-web-'+j+'-preview').show();
+                                $('#banner-web-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
                             } else {
-                                $('#banner-'+j+'-preview').hide();
-                                $('#span-banner-'+j).show();
+                                $('#banner-web-'+j+'-preview').hide();
+                                $('#span-banner-web-'+j).show();
                             }
                             j++;
                         }      
@@ -370,11 +445,11 @@
                                 'Your data has been '+pesan,
                                 'success'
                                 ) 
-                            $('#upload-banner-1').val(null);
+                            $('#upload-banner-web-1').val(null);
                             $('#upload-banner-2').val(null);
-                            $('#upload-banner-3').val(null);
-                            $('#banner-1-preview').attr('src', '');
-                            $('#banner-2-preview').attr('src', '');
+                            $('#upload-banner-web-3').val(null);
+                            $('#banner-web-1-preview').attr('src', '');
+                            $('#banner-web-2-preview').attr('src', '');
                             $('#banner-3-preview').attr('src', '');
                             getDataBanner();
                         }else if(!result.data.status && result.data.message === "Unauthorized"){

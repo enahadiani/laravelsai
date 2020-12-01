@@ -57,13 +57,15 @@ class BannerController extends Controller {
     public function store(Request $request) {
         $this->validate($request,[
             'id_banner' => 'required|array',
-            'gambarke' => 'required|array',
+            'mode' => 'required|array',
             'file_gambar.*' => 'image|mimes:jpeg,png,jpg'
         ]);
 
         try {
             $fields_foto = array();
             $fields_gambarke = array();
+            $fields_mode = array();
+            $fields_id_banner = array();
             $send_data = array();
             $cek = $request->file_gambar;
             if(!empty($cek)){
@@ -85,6 +87,10 @@ class BannerController extends Controller {
                             'name'     => 'id_banner[]',
                             'contents' => $request->id_banner[$i],
                         );
+                        $fields_mode[$i] = array(
+                            'name'     => 'mode[]',
+                            'contents' => $request->mode[$i],
+                        );
                         $fields_gambarke[$i] = array(
                             'name'     => 'gambarke[]',
                             'contents' => $request->gambarke[$i],
@@ -93,10 +99,11 @@ class BannerController extends Controller {
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_gambarke);
+                    $send_data = array_merge($send_data,$fields_mode);
                     $send_data = array_merge($send_data,$fields_id_banner);
                 }
             }
-
+            // var_dump($send_data);
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'admginas-master/banner',[
                 'headers' => [
