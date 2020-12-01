@@ -255,13 +255,14 @@
                                 <label class="col-3 col-form-label">Foto</label>
                                 <div class="input-group col-9">
                                     <div class="custom-file">
-                                        <input type="file" name="foto" class="custom-file-input" id="foto">
+                                        <input type="file" name="foto" class="custom-file-input" id="foto" accept="image/*" onchange="readURL(this)">
                                         <label class="custom-file-label" for="foto">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="preview col-3">
+                                    
                                 </div>
                             </div>
                         </form>
@@ -344,6 +345,19 @@
         </div>
     </div>           
     <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            console.log('change');
+            reader.onload = function (e) {
+                var html = `<img id="img-preview" width="120px" src="`+e.target.result+`" alt="Preview">`;
+                $('.preview').html(html);
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function reverseDateNew(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
         date_str = date_str.split(' ');

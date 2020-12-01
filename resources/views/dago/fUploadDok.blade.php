@@ -353,6 +353,13 @@
                         text: 'Something went wrong!',
                         footer: '<a href>'+jqXHR.responseText+'</a>'
                     })
+                }else if(jqXHR.status == 413){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: 'File gagal diupload. Total file upload melebihi batas maksimum upload per simpan (Max:8MB)'
+                    });
                 }
                 $iconLoad.hide();
             }

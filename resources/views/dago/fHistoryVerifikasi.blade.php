@@ -289,9 +289,9 @@
         });
 
         var kode = $(this).data('no_kwitansi');
-        $formData.append("no_kwitansi[]", "=");
-        $formData.append("no_kwitansi[]", kode);
-        $formData.append("no_kwitansi[]", "");
+        $formData.append("no_terima[]", "=");
+        $formData.append("no_terima[]", kode);
+        $formData.append("no_terima[]", "");
         xurl = "{{ url('/dago-auth/form')}}/rptTerimaBaru";
         $('#print-area > .script').load(xurl);
         $('#slide-print').show();
