@@ -670,8 +670,6 @@
 
         $(function() {
             $(window).resize(function() {
-                console.log(mobile)
-                console.log(web)
                 if ($(window).width() < 768) {
                     for(var i=0;i<mobile.length;i++) {
                         $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${mobile[i]}')`);
