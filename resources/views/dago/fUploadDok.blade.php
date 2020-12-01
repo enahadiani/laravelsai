@@ -334,7 +334,7 @@
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
+                        footer: '<a href>'+result.data.message.no_dokumen[0]+'</a>'
                     })
                 }
                 
@@ -405,5 +405,3 @@
     });
 
     </script>
-
-    
