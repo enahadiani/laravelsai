@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-pos-body">
-                        <form class="form" id="web-form-edit" method="POST">
+                        <form class="form" id="web_form_edit" method="POST">
                             <div class="row">
                                 <div class="col-4">
                                     <div class="row">
@@ -20,7 +20,9 @@
                                         <div class="col-8">
                                             <div class="label-header">
                                                 <p>{{ date("Y-m-d H:i:s") }}</p>
-                                                <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
+                                                <p style="color:#007AFF"><i class='fa fa-user'></i> <span id="iniNIK"></span> 
+                                                <span id='iniNoBukti' style='display:none'></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -44,6 +46,8 @@
                                         <tr>
                                             <th style='padding: 3px;width:25%' colspan='2'>
                                                 <input type='text' class='form-control' placeholder="Barcode [F1]" id="kd-barang2" >
+                                                <input type="hidden" id="method" name="_method" value="put">
+                                                <input type='hidden' id="id" >
                                             </th>
                                             <th style='padding: 3px;width:25%' colspan='2'>
                                                 <select class='form-control' id="kd-barang">
@@ -84,11 +88,11 @@
                                     </div>
                                     <div class="col-12 mt-2 float-right">
                                         <div class="form-group row">
-                                            <label for="judul" class="col-1 col-form-label" style="font-size:16px">Disc</label>
+                                            <label for="judul" class="col-1 col-form-label" >Disc</label>
                                             <div class="col-2">
                                                 <input type="text" name="total_disk" min="1" class='form-control currency' id='todisk' required value="0">
                                             </div>
-                                            <label for="judul" class="col-1 col-form-label" style="font-size:16px">PPN</label>
+                                            <label for="judul" class="col-1 col-form-label" >PPN</label>
                                             <div class="col-3">
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="total_ppn" min="1" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
@@ -97,7 +101,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <label for="judul" class="col-2 col-form-label" style="font-size:16px">No Faktur</label>
+                                            <label for="judul" class="col-2 col-form-label" >No Faktur</label>
                                             <div class="col-2">
                                                 <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
                                             </div>
@@ -506,7 +510,7 @@
                                 input += "<td>"+line.nama+"<input type='hidden' name='kode_barang[]' class='change-validation inp-kdb form-control' value='"+line.kode_barang+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='saldo[]' class='change-validation inp-saldo form-control'  value='"+parseFloat(line.stok)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga_seb[]' class='change-validation inp-hrgseb form-control'  value='"+parseFloat(line.hrg_seb)+"' readonly required></td>";
-                                input += "<td style='text-align:right'><input type='text' name='harga_jual[]' class='change-validation inp-hrgjual form-control'  value='"+parseFloat(line.harga)+"' required></td>";
+                                input += "<td style='text-align:right'><input type='text' name='harga_jual[]' class='change-validation inp-hrgjual form-control'  value='"+parseFloat(line.harga_jual)+"' required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='harga_barang[]' class='change-validation inp-hrgb form-control'  value='"+parseFloat(line.harga)+"' readonly required></td>";
                                 input += "<td style='text-align:right'><input type='text' name='satuan_barang[]' class='change-validation inp-satuanb form-control'  value='"+line.satuan+"' readonly required><input type='hidden' name='kode_akun[]' class='change-validation inp-satuanb'  value='"+setAkun(line.kode_barang)+"' readonly></td>";
                                 input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+parseFloat(line.jumlah)+"' required></td>";
@@ -1121,13 +1125,13 @@
                     processData: false, 
                     async:false,
                     success:function(result){
-                        alert('Input data '+result.message);
+                        alert('Input data '+result.data.message);
                         if(result.data.status){
                             $('#modal-totrans').text(sepNum(totrans));
                             $('#modal-diskon').text(sepNum(todisk));
                             $('#modal-ppn').text(sepNum(toppn)); 
                             $('#modal-toakhir').text(sepNum(tostlh));
-                            $('#modal-nobukti').text(result.no_bukti);
+                            $('#modal-nobukti').text(result.data.no_bukti);
                             dataTable.ajax.reload();
                             $('#modal-bayar2').modal('show');
                         }
@@ -1183,6 +1187,7 @@
 
         $('#cetakBtn').click(function(){
             var no_bukti= $('#modal-nobukti').text();
+            window.open("{{ url('esaku-trans/pembelian-nota') }}/?no_bukti="+no_bukti); 
         });
 
         $('#web_form_edit').on('keydown', '.inp-qtyb', function(e){
@@ -1204,13 +1209,11 @@
             
         });
 
-        $('#web_form_edit').on('change', '.inp-qtyb,.inp-subb', function(e){
-            
-            hitungTotal();
-            // alert('change');
-            
+        $('#input-grid2').on('change', '.inp-qtyb,.inp-subb', function(e){
+            hitungTotal(); 
         });
 
+        
     });
 
 
