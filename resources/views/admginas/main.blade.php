@@ -162,7 +162,7 @@
         #app-container.menu-sub-hidden main,
         #app-container.menu-hidden main 
         {
-            margin-left: 140px; 
+            margin-left: 150px; 
         }
         
         #app-container.main-hidden main,
@@ -210,7 +210,7 @@
             #app-container.menu-sub-hidden main,
             #app-container.menu-hidden main 
             {
-                margin-left: 140px; 
+                margin-left: 130px; 
             }
             #app-container.main-hidden main,
             #app-container.menu-hidden main 
