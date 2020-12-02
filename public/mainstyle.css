@@ -56,8 +56,6 @@ td,th{
     font-size: 0.875rem !important;
 }
 
-#modal-preview-nama
-
 .navbar{
     height:60px;
     padding:0;
@@ -163,7 +161,7 @@ main .container-fluid {
 #app-container.menu-sub-hidden main,
 #app-container.menu-hidden main 
 {
-    margin-left: 140px; 
+    margin-left: 150px; 
 }
 
 #app-container.main-hidden main,
@@ -211,7 +209,7 @@ main .container-fluid {
     #app-container.menu-sub-hidden main,
     #app-container.menu-hidden main 
     {
-        margin-left: 140px; 
+        margin-left: 130px; 
     }
     #app-container.main-hidden main,
     #app-container.menu-hidden main 
