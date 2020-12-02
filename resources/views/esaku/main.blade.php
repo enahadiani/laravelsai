@@ -30,7 +30,7 @@
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
-    <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('mainstyle-esaku.css') }}" />
     <style>
         
         .logo{
