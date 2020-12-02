@@ -30,7 +30,7 @@
     
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
-    <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
+    
     <style>
         
         .logo{
@@ -47,6 +47,7 @@
             width:30px;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
     </script>
