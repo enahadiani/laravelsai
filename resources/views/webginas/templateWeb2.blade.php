@@ -569,12 +569,12 @@
             url: "{{ url('webginas2/api-layanan') }}",
             dataType: 'JSON',
             success: function(result) {
-                var data = Object.entries(result.daftar);
+                var data = Object.entries(result.daftar); 
                 if(result.status) {
                     var html = "";
                     for(var i=0;i<data.length;i++) {
                         html += "<div class='col-lg-4 col-sm-12 layanan-box'>";
-                        html += "<div class='border' style='padding: 0;border-radius: 15px;height:268px;'>";
+                        html += "<div class='border' style='padding: 0;border-radius: 15px;height:90%;'>";
                         html += "<a href='{{url('webginas2/layanan')}}/"+data[i][0]+"'>";
                         html += "<div class='border-head'>";
                         html += "<h4 style='color:white;'>"+data[i][1][0]['nama_layanan']+"</h4>"
