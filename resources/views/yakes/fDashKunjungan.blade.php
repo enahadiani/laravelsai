@@ -83,7 +83,8 @@
     </div>
     <div class="col-6">
         <select id="jenis" class="form-control select-dash">
-            <option value="PK" selected>Pensiunan dan keluarga</option>
+            <option value="PKK" selected>Pensiunan dan Keluarga</option>
+            <option value="PGK" selected>Pegawai dan Keluarga</option>
         </select>
     </div>
 </div>
@@ -851,329 +852,329 @@ Highcharts.chart('kunjungan', {
     ]
 });
 
-Highcharts.chart('komposisi-kunj', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 250
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            size: 200,
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                padding: 0,
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-            },
-        }
-    },
-    series: [{
-        name: 'Komposisi CC',
-        colorByPoint: true,
-        data: [{
-            name: 'RJTP',
-            y: 25,
-        }, {
-            name: 'RI',
-            y: 25
-        }, {
-            name: 'RJTL',
-            y: 25
-        }, {
-            name: 'Restitusi',
-            y: 25
-        }]
-    }]
-});
+// Highcharts.chart('komposisi-kunj', {
+//     chart: {
+//         plotBackgroundColor: null,
+//         plotBorderWidth: null,
+//         plotShadow: false,
+//         type: 'pie',
+//         height: 250
+//     },
+//     legend:{ enabled:false },
+//     credits: {
+//         enabled: false
+//     },
+//     title: {
+//         text: ''
+//     },
+//     tooltip: {
+//         pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
+//     },
+//     accessibility: {
+//         point: {
+//             valueSuffix: '%'
+//         }
+//     },
+//     plotOptions: {
+//         pie: {
+//             size: 200,
+//             allowPointSelect: true,
+//             cursor: 'pointer',
+//             dataLabels: {
+//                 padding: 0,
+//                 enabled: true,
+//                 format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+//             },
+//         }
+//     },
+//     series: [{
+//         name: 'Komposisi CC',
+//         colorByPoint: true,
+//         data: [{
+//             name: 'RJTP',
+//             y: 25,
+//         }, {
+//             name: 'RI',
+//             y: 25
+//         }, {
+//             name: 'RJTL',
+//             y: 25
+//         }, {
+//             name: 'Restitusi',
+//             y: 25
+//         }]
+//     }]
+// });
 
-Highcharts.chart('rjtp-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 289.3,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 340.1,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 273.5,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
+// Highcharts.chart('rjtp-kunj', {
+//     chart: {
+//         type: 'column',
+//         height: 250,
+//     },
+//     legend:{ enabled:false },
+//     credits: {
+//         enabled: false
+//     },
+//     title: {
+//         text: '',
+//     },
+//     subtitle: {
+//         text: ''
+//     },
+//     xAxis: {
+//         labels: {
+//             enabled: false
+//         }
+//     },
+//     yAxis: {
+//         visible: false
+//     },
+//     tooltip: {
+//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+//         footerFormat: '</table>',
+//         shared: true,
+//         useHTML: true
+//     },
+//     plotOptions: {
+//         series:{
+//             dataLabels: {
+//                 enabled: true
+//             }
+//         },
+//         column: {
+//             color: '#2727ff'
+//         },
+//     },
+//     series: [
+//         {
+//             name: "Claim Cost",
+//             data: [
+//                 {
+//                     name: "YTD Q3 '19",
+//                     y: 289.3,
+//                     color: '#add8e6',
+//                     drilldown: "YTD Q3 '19"
+//                 },
+//                 {
+//                     name: "RKA Q3 '20",
+//                     y: 340.1,
+//                     color:'#457b9d',
+//                     drilldown: "RKA Q3 '20"
+//                 },
+//                 {
+//                     name: "YTD Q3 '20",
+//                     y: 273.5,
+//                     color:'#1d3557',
+//                     drilldown: "YTD Q3 '20"
+//                 },
+//             ],
+//         }
+//     ]
+// });
 
-Highcharts.chart('rjtl-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 289.3,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 340.1,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 273.5,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
+// Highcharts.chart('rjtl-kunj', {
+//     chart: {
+//         type: 'column',
+//         height: 250,
+//     },
+//     legend:{ enabled:false },
+//     credits: {
+//         enabled: false
+//     },
+//     title: {
+//         text: '',
+//     },
+//     subtitle: {
+//         text: ''
+//     },
+//     xAxis: {
+//         labels: {
+//             enabled: false
+//         }
+//     },
+//     yAxis: {
+//         visible: false
+//     },
+//     tooltip: {
+//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+//         footerFormat: '</table>',
+//         shared: true,
+//         useHTML: true
+//     },
+//     plotOptions: {
+//         series:{
+//             dataLabels: {
+//                 enabled: true
+//             }
+//         },
+//         column: {
+//             color: '#2727ff'
+//         },
+//     },
+//     series: [
+//         {
+//             name: "Claim Cost",
+//             data: [
+//                 {
+//                     name: "YTD Q3 '19",
+//                     y: 289.3,
+//                     color: '#add8e6',
+//                     drilldown: "YTD Q3 '19"
+//                 },
+//                 {
+//                     name: "RKA Q3 '20",
+//                     y: 340.1,
+//                     color:'#457b9d',
+//                     drilldown: "RKA Q3 '20"
+//                 },
+//                 {
+//                     name: "YTD Q3 '20",
+//                     y: 273.5,
+//                     color:'#1d3557',
+//                     drilldown: "YTD Q3 '20"
+//                 },
+//             ],
+//         }
+//     ]
+// });
 
-Highcharts.chart('ri-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 289.3,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 340.1,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 273.5,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
+// Highcharts.chart('ri-kunj', {
+//     chart: {
+//         type: 'column',
+//         height: 250,
+//     },
+//     legend:{ enabled:false },
+//     credits: {
+//         enabled: false
+//     },
+//     title: {
+//         text: '',
+//     },
+//     subtitle: {
+//         text: ''
+//     },
+//     xAxis: {
+//         labels: {
+//             enabled: false
+//         }
+//     },
+//     yAxis: {
+//         visible: false
+//     },
+//     tooltip: {
+//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+//         footerFormat: '</table>',
+//         shared: true,
+//         useHTML: true
+//     },
+//     plotOptions: {
+//         series:{
+//             dataLabels: {
+//                 enabled: true
+//             }
+//         },
+//         column: {
+//             color: '#2727ff'
+//         },
+//     },
+//     series: [
+//         {
+//             name: "Claim Cost",
+//             data: [
+//                 {
+//                     name: "YTD Q3 '19",
+//                     y: 289.3,
+//                     color: '#add8e6',
+//                     drilldown: "YTD Q3 '19"
+//                 },
+//                 {
+//                     name: "RKA Q3 '20",
+//                     y: 340.1,
+//                     color:'#457b9d',
+//                     drilldown: "RKA Q3 '20"
+//                 },
+//                 {
+//                     name: "YTD Q3 '20",
+//                     y: 273.5,
+//                     color:'#1d3557',
+//                     drilldown: "YTD Q3 '20"
+//                 },
+//             ],
+//         }
+//     ]
+// });
 
-Highcharts.chart('restitusi-kunj', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "Claim Cost",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 289.3,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 340.1,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 273.5,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
+// Highcharts.chart('restitusi-kunj', {
+//     chart: {
+//         type: 'column',
+//         height: 250,
+//     },
+//     legend:{ enabled:false },
+//     credits: {
+//         enabled: false
+//     },
+//     title: {
+//         text: '',
+//     },
+//     subtitle: {
+//         text: ''
+//     },
+//     xAxis: {
+//         labels: {
+//             enabled: false
+//         }
+//     },
+//     yAxis: {
+//         visible: false
+//     },
+//     tooltip: {
+//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+//         footerFormat: '</table>',
+//         shared: true,
+//         useHTML: true
+//     },
+//     plotOptions: {
+//         series:{
+//             dataLabels: {
+//                 enabled: true
+//             }
+//         },
+//         column: {
+//             color: '#2727ff'
+//         },
+//     },
+//     series: [
+//         {
+//             name: "Claim Cost",
+//             data: [
+//                 {
+//                     name: "YTD Q3 '19",
+//                     y: 289.3,
+//                     color: '#add8e6',
+//                     drilldown: "YTD Q3 '19"
+//                 },
+//                 {
+//                     name: "RKA Q3 '20",
+//                     y: 340.1,
+//                     color:'#457b9d',
+//                     drilldown: "RKA Q3 '20"
+//                 },
+//                 {
+//                     name: "YTD Q3 '20",
+//                     y: 273.5,
+//                     color:'#1d3557',
+//                     drilldown: "YTD Q3 '20"
+//                 },
+//             ],
+//         }
+//     ]
+// });
 </script>
