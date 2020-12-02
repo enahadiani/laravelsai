@@ -542,7 +542,12 @@
                     $('#saku-form').show();
                 },
                 fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:');
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: textStatus
+                    });
                 }
             });
         });
@@ -1102,7 +1107,11 @@
             var toppn=toNilai($('#toppn').val());
             var id = $('#id').val();
             if(totrans <= 0){
-                alert('Total transaksi tidak valid');
+                msgDialog({
+                    id: '',
+                    type:'warning',
+                    text: 'Total transaksi tidak valid'
+                });
             }else{
                 var formData = new FormData(this);
                 for(var pair of formData.entries()) {
@@ -1119,8 +1128,12 @@
                     processData: false, 
                     async:false,
                     success:function(result){
-                        alert('Input data '+result.data.message);
                         if(result.data.status){
+                            msgDialog({
+                                id: '',
+                                type:'sukses',
+                                text: result.data.message
+                            });
                             $('#modal-totrans').text(sepNum(totrans));
                             $('#modal-diskon').text(sepNum(todisk));
                             $('#modal-ppn').text(sepNum(toppn)); 
@@ -1128,10 +1141,23 @@
                             $('#modal-nobukti').text(result.data.no_bukti);
                             dataTable.ajax.reload();
                             $('#modal-bayar2').modal('show');
+                        } else if(!result.data.status && result.data.message === "Unauthorized"){
+                            window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
+                        }else{
+                            msgDialog({
+                                id: '',
+                                type:'sukses',
+                                title: 'Error',
+                                text: result.data.message
+                            });
                         }
                     },
                     fail: function(xhr, textStatus, errorThrown){
-                        alert('request failed:'+textStatus);
+                        msgDialog({
+                            id: '',
+                            type: 'error',
+                            text: textStatus
+                        });
                     }
                 });
             }
@@ -1372,7 +1398,12 @@
                     $('#saku-form').show();
                 },
                 fail: function(xhr, textStatus, errorThrown){
-                    alert('request failed:');
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'warning',
+                        text: textStatus
+                    });
                 }
             });
         });
@@ -1381,7 +1412,6 @@
             e.stopPropagation();
             $('.dropdown-ke1').addClass('hidden');
             $('.dropdown-ke2').removeClass('hidden');
-            console.log('ok');
         });
 
         $('.modal-header').on('click','#btn-cetak2',function(e){
@@ -1391,9 +1421,7 @@
             $('.dropdown-ke2').addClass('hidden');
         });
 
-        
     });
-
 
     $(document).on("keypress", 'form', function (e) {
         var code = e.keyCode || e.which;

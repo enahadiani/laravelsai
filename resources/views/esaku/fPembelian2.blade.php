@@ -902,13 +902,13 @@
 
 
         $('.inp-qtyb,.inp-subb,.inp-disc,.inp-hrgjual').inputmask("numeric", {
-                radixPoint: ",",
-                groupSeparator: ".",
-                digits: 2,
-                autoGroup: true,
-                rightAlign: true,
-                oncleared: function () { self.Value(''); }
-            });
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
         hitungTotal();
         $('.gridexample').formNavigation();
         $('#modal-edit').modal('hide');
