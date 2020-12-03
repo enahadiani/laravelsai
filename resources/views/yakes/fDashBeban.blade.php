@@ -183,12 +183,13 @@ Highcharts.chart('chart', {
         visible: false
     },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
+        enabled: false
+        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        // footerFormat: '</table>',
+        // shared: true,
+        // useHTML: true
     },
     plotOptions: {
         series:{
