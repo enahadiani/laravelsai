@@ -44,3 +44,6 @@ Route::get('lap-nrclajur-jejer-pdf','Yakes\LaporanController@getNrcLajurJejerPDF
 Route::post('lap-neraca-jamkespen', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-perubahan-aset-neto', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-aset-neto', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
