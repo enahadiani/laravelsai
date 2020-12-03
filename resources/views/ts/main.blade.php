@@ -173,7 +173,7 @@
         
         #app-container.menu-main-hidden main 
         {
-            margin-left: 270px; 
+            margin-left: 260px; 
         }
         
         #app-container.menu-main-hidden.menu-hidden main 
@@ -196,7 +196,7 @@
             }
             #app-container.menu-main-hidden main 
             {
-                margin-left: 270px; 
+                margin-left: 260px; 
             }
             #app-container.menu-main-hidden.menu-hidden main 
             {
@@ -219,7 +219,7 @@
             }
             #app-container.menu-main-hidden main 
             {
-                margin-left: 270px; 
+                margin-left: 260px; 
             }
             #app-container.menu-main-hidden.menu-hidden main 
             {
