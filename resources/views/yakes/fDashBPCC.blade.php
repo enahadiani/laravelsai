@@ -121,20 +121,20 @@
                                     <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     ACH
                                 </td>
-                                <td>83,6</td>
-                                <td>99,6</td>
-                                <td>71,9</td>
-                                <td>117,2</td>
+                                <td style="text-align: right;">83,6</td>
+                                <td style="text-align: right;">99,6</td>
+                                <td style="text-align: right;">71,9</td>
+                                <td style="text-align: right;">117,2</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     YOY
                                 </td>
-                                <td>11,3</td>
-                                <td>(4,9)</td>
-                                <td>(16,0)</td>
-                                <td>(4,2)</td>
+                                <td style="text-align: right;">11,3</td>
+                                <td style="text-align: right;">(4,9)</td>
+                                <td style="text-align: right;">(16,0)</td>
+                                <td style="text-align: right;">(4,2)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -201,20 +201,20 @@
                                     <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     ACH
                                 </td>
-                                <td>66,2</td>
-                                <td>87,3</td>
-                                <td>75,0</td>
-                                <td>87,5</td>
+                                <td style="text-align: right;">66,2</td>
+                                <td style="text-align: right;">87,3</td>
+                                <td style="text-align: right;">75,0</td>
+                                <td style="text-align: right;">87,5</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     YOY
                                 </td>
-                                <td>(20,0)</td>
-                                <td>(19,5)</td>
-                                <td>(24,9)</td>
-                                <td>(17,6)</td>
+                                <td style="text-align: right;">(20,0)</td>
+                                <td style="text-align: right;">(19,5)</td>
+                                <td style="text-align: right;">(24,9)</td>
+                                <td style="text-align: right;">(17,6)</td>
                             </tr>
                         </tbody>
                     </table>

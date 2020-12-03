@@ -78,7 +78,7 @@
                     <table style="width: 95%;">
                         <thead>
                             <tr>
-                                <th style="width:23%;"></th>
+                                <th style="width:21%;"></th>
                                 <th style="width:7%;">Jan</th>
                                 <th style="width:7%;">Feb</th>
                                 <th style="width:7%;">Mar</th>

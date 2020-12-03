@@ -95,70 +95,70 @@
                                     <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Tagihan Awal
                                 </td>
-                                <td>453</td>
-                                <td>3.317</td>
-                                <td>2.172</td>
-                                <td>1.052</td>
-                                <td>2.025</td>
-                                <td>324</td>
-                                <td>258</td>
-                                <td>9.601</td>
+                                <td style="text-align: right;">453</td>
+                                <td style="text-align: right;">3.317</td>
+                                <td style="text-align: right;">2.172</td>
+                                <td style="text-align: right;">1.052</td>
+                                <td style="text-align: right;">2.025</td>
+                                <td style="text-align: right;">324</td>
+                                <td style="text-align: right;">258</td>
+                                <td style="text-align: right;">9.601</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Claim BPJS
                                 </td>
-                                <td>139</td>
-                                <td>1.917</td>
-                                <td>1.262</td>
-                                <td>585</td>
-                                <td>713</td>
-                                <td>184</td>
-                                <td>109</td>
-                                <td>4.909</td>
+                                <td style="text-align: right;">139</td>
+                                <td style="text-align: right;">1.917</td>
+                                <td style="text-align: right;">1.262</td>
+                                <td style="text-align: right;">585</td>
+                                <td style="text-align: right;">713</td>
+                                <td style="text-align: right;">184</td>
+                                <td style="text-align: right;">109</td>
+                                <td style="text-align: right;">4.909</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Bayar Yakes
                                 </td>
-                                <td>314</td>
-                                <td>1.401</td>
-                                <td>902</td>
-                                <td>474</td>
-                                <td>1.312</td>
-                                <td>140</td>
-                                <td>149</td>
-                                <td>4.692</td>
+                                <td style="text-align: right;">314</td>
+                                <td style="text-align: right;">1.401</td>
+                                <td style="text-align: right;">902</td>
+                                <td style="text-align: right;">474</td>
+                                <td style="text-align: right;">1.312</td>
+                                <td style="text-align: right;">140</td>
+                                <td style="text-align: right;">149</td>
+                                <td style="text-align: right;">4.692</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Claim vs Tag. Awal (%)
                                 </td>
-                                <td>30,6</td>
-                                <td>57,8</td>
-                                <td>58,1</td>
-                                <td>55,6</td>
-                                <td>35,2</td>
-                                <td>56,8</td>
-                                <td>42,1</td>
-                                <td>51,1</td>
+                                <td style="text-align: right;">30,6</td>
+                                <td style="text-align: right;">57,8</td>
+                                <td style="text-align: right;">58,1</td>
+                                <td style="text-align: right;">55,6</td>
+                                <td style="text-align: right;">35,2</td>
+                                <td style="text-align: right;">56,8</td>
+                                <td style="text-align: right;">42,1</td>
+                                <td style="text-align: right;">51,1</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Bayar Yakes vs Tag. Awal (%)
                                 </td>
-                                <td>69,3</td>
-                                <td>42,2</td>
-                                <td>41,5</td>
-                                <td>45,0</td>
-                                <td>64,8</td>
-                                <td>43,2</td>
-                                <td>57,9</td>
-                                <td>48,9</td>
+                                <td style="text-align: right;">69,3</td>
+                                <td style="text-align: right;">42,2</td>
+                                <td style="text-align: right;">41,5</td>
+                                <td style="text-align: right;">45,0</td>
+                                <td style="text-align: right;">64,8</td>
+                                <td style="text-align: right;">43,2</td>
+                                <td style="text-align: right;">57,9</td>
+                                <td style="text-align: right;">48,9</td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,7 +167,7 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
@@ -245,15 +245,15 @@
                                     <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Utilisasi/Iuran (%)
                                 </td>
-                                <td>0,00</td>
-                                <td>5,49</td>
-                                <td>14,07</td>
-                                <td>23,80</td>
-                                <td>23,26</td>
-                                <td>16,12</td>
-                                <td>11,12</td>
-                                <td>6,50</td>
-                                <td>14,93</td>
+                                <td style="text-align: right;">0,00</td>
+                                <td style="text-align: right;">5,49</td>
+                                <td style="text-align: right;">14,07</td>
+                                <td style="text-align: right;">23,80</td>
+                                <td style="text-align: right;">23,26</td>
+                                <td style="text-align: right;">16,12</td>
+                                <td style="text-align: right;">11,12</td>
+                                <td style="text-align: right;">6,50</td>
+                                <td style="text-align: right;">14,93</td>
                             </tr>
                         </tbody>
                     </table>
