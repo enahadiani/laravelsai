@@ -34,12 +34,46 @@
             .bold {
                 font-weight:bold;
             }
-            </style>`+judul_lap("LAPORAN POSISI KEUANGAN",lokasi,'Periode '+periode.fromname)+`
-            <table class='table table-bordered'>
+            .report-table td, .report-table th{
+                border-color: black !important; 
+            }
+            .border-bottom2{
+                border-bottom: 2px solid black !important;
+            }
+            .fs1-1rem{
+                font-size: 1.1rem;
+            }
+
+            .fs1rem{
+                font-size: 1rem;
+            }
+            </style>
+            <table class='table table-borderless kotak report-table' width='100%'>
+            <tr height='20px'>
+                <td colspan=6>&nbsp;</td>
+            </tr>
             <tr>
-                <td width='500' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
-                <td width='100' class='header_laporan'><div align='center'>Jumlah</div></td>
-            </tr>`;
+                <td width='5%'></td>
+                <td width='90%' colspan='4' class='text-center border-bottom2'>
+                    <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
+                    <span class='bold fs1-1rem'>LAPORAN POSISI KEUANGAN </span><br>
+                    <span class='bold fs1rem'>Per 31 JANUARI 2020, 31 DESEMBER 2019</span><br>
+                    <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span>
+                </td>
+                <td width='5%'></td>
+            </tr>
+            <tr>
+                <td colspan=6>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'></td>
+                <td width='50%' height='25'  class='header_laporan'></td>
+                <td width='8%' class='header_laporan fs-1rem bold'><u>Catatan</u></td>
+                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>31 JANUARI 2020</u></td>
+                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>31 DESEMBER 2019</u></td>
+                <td width='5%'></td>
+            </tr>
+            `;
             var no=1;
             for (var i=0;i < data.length;i++)
             {
@@ -52,36 +86,79 @@
 			
                 if (line.tipe=="Posting" && line.n4 != 0)
                 {
-                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' ><td height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
+                    <td width='5%'></td>
+                    <td width='50%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td width='8%'></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
+                    <td width='5%'></td>
                     </tr>`;
                 }
                 else
                 {
-                    html+=`<tr><td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    html+=`<tr>
+                    <td width='5%'></td>
+                    <td width='50%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
+                    <td width='8%'></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
+                    <td width='5%'></td>
                     </tr>`;
                 }
-                // if (res.bentuk == "Detail" && line.tipe=="Posting")
-                // {
-                //     var kode_neraca=line.kode_neraca;
-                //     var kode_fs=line.kode_fs;
-                //     var kode_lokasi=line.kode_lokasi;
-                //     var det ='';
-                //     for (var x=0; x < res.data_detail.length; x++)
-                //     {	
-                //         var line2 = res.data_detail[x];
-                //         var so_akhir =sepNum(parseFloat(line2.so_akhir));
-                //         var nama=line2.kode_akun." - ".line2.nama;
-                //         det+=`<tr>
-                //             <td height='20' class='detail_laporan'>`+spasi(nama,line.level_spasi+1)+`</td>
-                //             <td class='detail_laporan'><div align='right'>`+so_akhir+`</div></td>
-                //         </tr>`;
-                //     }
-                // }
                 no++;
             }
             html+=`
+            <tr>
+                <td colspan='6'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'>&nbsp;</td>
+                <td colspan='4' class='text-right'>Bandung, 03 Desember 2020</td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'>&nbsp;</td>
+                <td class='text-center'>Mengetahui/menyetujui</td>
+                <td >&nbsp;</td>
+                <td >&nbsp;</td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'>&nbsp;</td>
+                <td width='50%' class='text-center'>PJ Keuangan dan Investasi</td>
+                <td >&nbsp;</td>
+                <td >&nbsp;</td>
+                <td width='16%' class='text-center'>PJ SM Keuangan</td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr height='60px'>
+                <td width='5%'>&nbsp;</td>
+                <td width='50%' class='text-center'></td>
+                <td >&nbsp;</td>
+                <td >&nbsp;</td>
+                <td width='16%'></td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'>&nbsp;</td>
+                <td width='50%' class='text-center'></u>Teuku Hercules</u></td>
+                <td >&nbsp;</td>
+                <td >&nbsp;</td>
+                <td width='16%' class='text-center'><u>Lina Herlina</u></td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width='5%'>&nbsp;</td>
+                <td width='50%' class='text-center'>NIK. 670255</td>
+                <td >&nbsp;</td>
+                <td >&nbsp;</td>
+                <td width='16%' class='text-center'>NIK. 660259</td>
+                <td width='5%'>&nbsp;</td>
+            </tr>
+            <tr height='20px'>
+                <td colspan=6>&nbsp;</td>
+            </tr>
             </table>`;
         }
         $('#canvasPreview').html(html);
