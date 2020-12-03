@@ -179,7 +179,7 @@ Highcharts.chart('invest', {
         labels: {
             enabled: false
         },
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt']
     },
     yAxis: {
         visible: true,
@@ -224,81 +224,4 @@ Highcharts.chart('invest', {
         color: '#ffc000'
     }]
 });
-// Highcharts.chart('cc', {
-//     legend:{ enabled:false },
-    // credits: {
-    //     enabled: false
-    // },
-//     title: {
-//         text: ''
-//     },
-//     subtitle: {
-//         text: ''
-//     },
-//     xAxis: {
-//         categories: ['RJTP', 'RJTL', 'RI', 'RESTITUSI'],
-//         labels: {
-//             enabled: false
-//         }
-//     },
-//     yAxis: {
-//         visible: false
-//     },
-//     tooltip: {
-//         enabled: false
-//         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//         // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//         //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-//         // footerFormat: '</table>',
-//         // shared: true,
-//         // useHTML: true
-//     },
-//     plotOptions: {
-//         series:{
-//             pointPadding: 0,
-//             shadow: false,
-//             dataLabels: {
-//                 enabled: true
-//             }
-//         }
-//     },
-//     series: [
-//         {
-//             type: 'column',
-//             name: 'REA YTD OKT 2019',
-//             data: [75.731, 86.017, 146.733, 17.360],
-//             color: '#ebebff'
-//         },
-//         {
-//             type: 'column',
-//             name: 'RKA YTD OKT 2020',
-//             data: [100.851, 87.429, 171.467, 19.073],
-//             color: '#8989ff'
-//         },
-//         {  
-//             type: 'column',
-//             name: 'REA YTD OKT 2020',
-//             data: [84.305, 81.812, 123.235, 16.623],
-//             color: '#2727ff'
-//         },
-//         {  
-//             type: 'spline',
-//             name: 'ACH',
-//             data: [83.6, 99.6, 71.9, 117.2],
-//             color: '#008000',
-//             marker: {
-//                 lineWidth: 2,
-//             }
-//         },
-//         {  
-//             type: 'spline',
-//             name: 'YOY',
-//             data: [11.3, -4.9, -16.0, -4.2],
-//             color: '#ffa500',
-//             marker: {
-//                 lineWidth: 2,
-//             }
-//         },
-//     ]
-// });
 </script>
