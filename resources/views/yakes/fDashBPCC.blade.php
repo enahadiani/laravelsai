@@ -91,30 +91,30 @@
                                     <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     REA YTD OKT 2019
                                 </td>
-                                <td>75.731</td>
-                                <td>86.017</td>
-                                <td>146.733</td>
-                                <td>17.360</td>
+                                <td style="text-align: right;">75.731</td>
+                                <td style="text-align: right;">86.017</td>
+                                <td style="text-align: right;">146.733</td>
+                                <td style="text-align: right;">17.360</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     RKA YTD OKT 2020
                                 </td>
-                                <td>100.851</td>
-                                <td>87.429</td>
-                                <td>171.467</td>
-                                <td>19.073</td>
+                                <td style="text-align: right;">100.851</td>
+                                <td style="text-align: right;">87.429</td>
+                                <td style="text-align: right;">171.467</td>
+                                <td style="text-align: right;">19.073</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     REA YTD OKT 2020
                                 </td>
-                                <td>84.305</td>
-                                <td>81.812</td>
-                                <td>123.235</td>
-                                <td>16.623</td>
+                                <td style="text-align: right;">84.305</td>
+                                <td style="text-align: right;">81.812</td>
+                                <td style="text-align: right;">123.235</td>
+                                <td style="text-align: right;">16.623</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
@@ -171,30 +171,30 @@
                                     <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     REA YTD OKT 2019
                                 </td>
-                                <td>15.699</td>
-                                <td>24.508</td>
-                                <td>49.899</td>
-                                <td>15.204</td>
+                                <td style="text-align: right;">15.699</td>
+                                <td style="text-align: right;">24.508</td>
+                                <td style="text-align: right;">49.899</td>
+                                <td style="text-align: right;">15.204</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     RKA YTD OKT 2020
                                 </td>
-                                <td>18.955</td>
-                                <td>22.610</td>
-                                <td>49.962</td>
-                                <td>14.304</td>
+                                <td style="text-align: right;">18.955</td>
+                                <td style="text-align: right;">22.610</td>
+                                <td style="text-align: right;">49.962</td>
+                                <td style="text-align: right;">14.304</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     REA YTD OKT 2020
                                 </td>
-                                <td>12.555</td>
-                                <td>19.740</td>
-                                <td>37.473</td>
-                                <td>12.533</td>
+                                <td style="text-align: right;">12.555</td>
+                                <td style="text-align: right;">19.740</td>
+                                <td style="text-align: right;">37.473</td>
+                                <td style="text-align: right;">12.533</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
@@ -242,7 +242,10 @@ Highcharts.chart('cc', {
         }
     },
     yAxis: {
-        visible: false
+        visible: true,
+        title: {
+            enabled: false
+        }
     },
     tooltip: {
         enabled: false
@@ -319,7 +322,10 @@ Highcharts.chart('bp', {
         }
     },
     yAxis: {
-        visible: false
+        visible: true,
+        title: {
+            enabled: false
+        }
     },
     tooltip: {
         enabled: false

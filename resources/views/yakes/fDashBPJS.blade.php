@@ -201,14 +201,14 @@
                                     Iuran BPJS
                                 </td>
                                 <td>-</td>
-                                <td>4.311</td>
-                                <td>19.244</td>
-                                <td>6.596</td>
-                                <td>2.797</td>
-                                <td>5.078</td>
-                                <td>2.027</td>
-                                <td>2.746</td>
-                                <td>42.799</td>
+                                <td style="text-align: right;">4.311</td>
+                                <td style="text-align: right;">19.244</td>
+                                <td style="text-align: right;">6.596</td>
+                                <td style="text-align: right;">2.797</td>
+                                <td style="text-align: right;">5.078</td>
+                                <td style="text-align: right;">2.027</td>
+                                <td style="text-align: right;">2.746</td>
+                                <td style="text-align: right;">42.799</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
@@ -216,14 +216,14 @@
                                     Kapitasi
                                 </td>
                                 <td>-</td>
-                                <td>98</td>
-                                <td>792</td>
-                                <td>307</td>
-                                <td>66</td>
-                                <td>105</td>
-                                <td>42</td>
-                                <td>70</td>
-                                <td>1479</td>
+                                <td style="text-align: right;">98</td>
+                                <td style="text-align: right;">792</td>
+                                <td style="text-align: right;">307</td>
+                                <td style="text-align: right;">66</td>
+                                <td style="text-align: right;">105</td>
+                                <td style="text-align: right;">42</td>
+                                <td style="text-align: right;">70</td>
+                                <td style="text-align: right;">1479</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
@@ -231,14 +231,14 @@
                                     Claim BPJS
                                 </td>
                                 <td>-</td>
-                                <td>139</td>
-                                <td>1917</td>
-                                <td>1262</td>
-                                <td>585</td>
-                                <td>713</td>
-                                <td>184</td>
-                                <td>109</td>
-                                <td>4909</td>
+                                <td style="text-align: right;">1.39</td>
+                                <td style="text-align: right;">1.917</td>
+                                <td style="text-align: right;">1.262</td>
+                                <td style="text-align: right;">585</td>
+                                <td style="text-align: right;">713</td>
+                                <td style="text-align: right;">184</td>
+                                <td style="text-align: right;">109</td>
+                                <td style="text-align: right;">4909</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
@@ -281,7 +281,10 @@ Highcharts.chart('claim', {
         }
     },
     yAxis: {
-        visible: false
+        visible: true,
+        title: {
+            enabled: false
+        }
     },
     tooltip: {
         enabled: false
@@ -358,7 +361,10 @@ Highcharts.chart('utility', {
         }
     },
     yAxis: {
-        visible: false
+        visible: true,
+        title: {
+            enabled: false
+        }
     },
     tooltip: {
         enabled: false
