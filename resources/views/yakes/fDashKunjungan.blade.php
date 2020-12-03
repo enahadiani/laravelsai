@@ -84,7 +84,7 @@
     <div class="col-6">
         <select id="jenis" class="form-control select-dash">
             <option value="PKK" selected>Pensiunan dan Keluarga</option>
-            <option value="PGK">Pegawai dan Keluarga</option>
+            <option value="PKG">Pegawai dan Keluarga</option>
         </select>
     </div>
 </div>
@@ -103,7 +103,7 @@
                 </div>
                 <div style="padding-right: 30px;">
                     <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5.45%</span>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
                 </div>
                 <div style="padding-right: 30px;">
                     <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7,94%</span>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7.94%</span>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color: #228B22;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7,7%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7.7%</span>
                             </div>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color: #228B22;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5.45%</span>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">13,5%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">13.5%</span>
                             </div>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">8,5%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">8.5%</span>
                             </div>
                         </div>
                     </div>
@@ -220,7 +220,7 @@
 </div>
 
 <div class="row" style="position: relative;margin-top:20px;">
-    <div class="col-3">
+    <div class="col-6">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Kunjungan</h6>
             <p class="ml-4 mt-1">Ribuan Kunjungan</p>
@@ -231,78 +231,78 @@
                 </div>
                 <div style="padding-right: 30px;">
                     <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color:#228B22;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">0,17%</span>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">0.17%</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <div class="card" style="height: 405px;">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Komposisi Kunjungan</h6>
             <div id="pkk-komposisi-kunj" class="mt-3"></div>
         </div>
     </div>
-    {{-- <div class="col-6">
+    <div class="col-12" style="margin-top: 20px;">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Kunjungan per Jenis Layanan</h6>
             <p class="ml-4 mt-1">Ribuan Kunjungan</p>
             <div class="row">
                 <div class="col-3">
-                    <div id="rjtp-kunj" class="mt-3"></div>
+                    <div id="pkk-rjtp-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTP</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;font-size:12px;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;font-size:12px;">Ach. 90.1%</span>
                             </div>
                             <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 12px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 12px;color: #228B22;display:inline-block;"></div>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">6.1%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="rjtl-kunj" class="mt-3"></div>
+                     <div id="pkk-rjtl-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTL</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 81.2%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">10.8%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="ri-kunj" class="mt-3"></div>
+                     <div id="pkk-ri-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RI</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 63.3%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">27.7%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="restitusi-kunj" class="mt-3"></div>
+                     <div id="pkk-restitusi-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">Restitusi</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 79.6%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">6.6%</span>
                             </div>
                         </div>
                     </div>
@@ -325,12 +325,12 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 
 </div>
 
-<div id="PGK">
+<div id="PKG">
 
     <div class="row" style="position: relative;margin-top:50px;">
     <div class="col-4">
@@ -344,7 +344,7 @@
                 </div>
                 <div style="padding-right: 30px;">
                     <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">22,46%</span>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">22.46%</span>
                 </div>
             </div>
         </div>
@@ -366,7 +366,7 @@
                 </div>
                 <div style="padding-right: 30px;">
                     <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">10,26%</span>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">10.26%</span>
                 </div>
             </div>
         </div>
@@ -385,11 +385,11 @@
                         <p style="text-align: center;font-weight:bold;">RJTP</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 66.3%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">20.7%</span>
                             </div>
                         </div>
                     </div>
@@ -400,11 +400,11 @@
                         <p style="text-align: center;font-weight:bold;">RJTL</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 83.1%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">21.6%</span>
                             </div>
                         </div>
                     </div>
@@ -415,11 +415,11 @@
                         <p style="text-align: center;font-weight:bold;">RI</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 73.4%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">24,7%</span>
                             </div>
                         </div>
                     </div>
@@ -430,11 +430,11 @@
                         <p style="text-align: center;font-weight:bold;">Restitusi</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 86.7%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">18.3%</span>
                             </div>
                         </div>
                     </div>
@@ -461,89 +461,89 @@
 </div>
 
 <div class="row" style="position: relative;margin-top:20px;">
-    <div class="col-3">
+    <div class="col-6">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Kunjungan</h6>
             <p class="ml-4 mt-1">Ribuan Kunjungan</p>
             <div id="pkg-kunjungan" class="mt-3"></div>
             <div class="box">
                 <div style="padding-left: 20px;">
-                    <span style="font-weight: bold;">Ach. 86.80%</span>
+                    <span style="font-weight: bold;">Ach. 55.80%</span>
                 </div>
                 <div style="padding-right: 30px;">
-                    <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color:#228B22;display:inline-block;"></div>
-                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">0,17%</span>
+                    <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color:#ff0000;display:inline-block;"></div>
+                    <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">30,54%</span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <div class="card" style="height: 405px;">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Komposisi Kunjungan</h6>
             <div id="pkg-komposisi-kunj" class="mt-3"></div>
         </div>
     </div>
-    {{-- <div class="col-6">
+    <div class="col-12" style="margin-top: 20px;">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Kunjungan per Jenis Layanan</h6>
             <p class="ml-4 mt-1">Ribuan Kunjungan</p>
             <div class="row">
                 <div class="col-3">
-                    <div id="rjtp-kunj" class="mt-3"></div>
+                    <div id="pkg-rjtp-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTP</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;font-size:12px;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;font-size:12px;">Ach. 56.9%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 12px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">29.7%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="rjtl-kunj" class="mt-3"></div>
+                     <div id="pkg-rjtl-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTL</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 54.6%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">30.8%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="ri-kunj" class="mt-3"></div>
+                     <div id="pkg-ri-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RI</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 45.2%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">16.7%</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="restitusi-kunj" class="mt-3"></div>
+                     <div id="pkg-restitusi-kunj" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">Restitusi</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 80.42%</span>
+                                <span style="font-weight: bold;">Ach. 50.6%</span>
                             </div>
                             <div style="padding-right: 30px;">
                                 <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5,45%</span>
+                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">40.5%</span>
                             </div>
                         </div>
                     </div>
@@ -566,7 +566,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 
 </div>
@@ -574,16 +574,16 @@
 <script type="text/javascript">
 
 $('#PKK').show();
-$('#PGK').hide();
+$('#PKG').hide();
 
 $('#jenis').change(function(){
     var val = $(this).val();
     if(val == 'PKK') {
         $('#PKK').show();
-        $('#PGK').hide();
+        $('#PKG').hide();
     } else {
         $('#PKK').hide();
-        $('#PGK').show();
+        $('#PKG').show();
     }
 })
 
@@ -816,7 +816,7 @@ Highcharts.chart('pkk-rjtp', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RJTP",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -884,7 +884,7 @@ Highcharts.chart('pkk-rjtl', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RJTL",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -952,7 +952,7 @@ Highcharts.chart('pkk-ri', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RI",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1020,7 +1020,7 @@ Highcharts.chart('pkk-restitusi', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RESTITUSI",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1086,7 +1086,7 @@ Highcharts.chart('pkk-kunjungan', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "KUNJUNGAN",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1165,277 +1165,277 @@ Highcharts.chart('pkk-komposisi-kunj', {
     }]
 });
 
-// Highcharts.chart('rjtp-kunj', {
-//     chart: {
-//         type: 'column',
-//         height: 250,
-//     },
-//     legend:{ enabled:false },
-//     credits: {
-//         enabled: false
-//     },
-//     title: {
-//         text: '',
-//     },
-//     subtitle: {
-//         text: ''
-//     },
-//     xAxis: {
-//         labels: {
-//             enabled: false
-//         }
-//     },
-//     yAxis: {
-//         visible: false
-//     },
-//     tooltip: {
-//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-//         footerFormat: '</table>',
-//         shared: true,
-//         useHTML: true
-//     },
-//     plotOptions: {
-//         series:{
-//             dataLabels: {
-//                 enabled: true
-//             }
-//         },
-//         column: {
-//             color: '#2727ff'
-//         },
-//     },
-//     series: [
-//         {
-//             name: "Claim Cost",
-//             data: [
-//                 {
-//                     name: "YTD Q3 '19",
-//                     y: 289.3,
-//                     color: '#add8e6',
-//                     drilldown: "YTD Q3 '19"
-//                 },
-//                 {
-//                     name: "RKA Q3 '20",
-//                     y: 340.1,
-//                     color:'#457b9d',
-//                     drilldown: "RKA Q3 '20"
-//                 },
-//                 {
-//                     name: "YTD Q3 '20",
-//                     y: 273.5,
-//                     color:'#1d3557',
-//                     drilldown: "YTD Q3 '20"
-//                 },
-//             ],
-//         }
-//     ]
-// });
+Highcharts.chart('pkk-rjtp-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RJTP",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 255.6,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 301.1,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 271.1,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
 
-// Highcharts.chart('rjtl-kunj', {
-//     chart: {
-//         type: 'column',
-//         height: 250,
-//     },
-//     legend:{ enabled:false },
-//     credits: {
-//         enabled: false
-//     },
-//     title: {
-//         text: '',
-//     },
-//     subtitle: {
-//         text: ''
-//     },
-//     xAxis: {
-//         labels: {
-//             enabled: false
-//         }
-//     },
-//     yAxis: {
-//         visible: false
-//     },
-//     tooltip: {
-//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-//         footerFormat: '</table>',
-//         shared: true,
-//         useHTML: true
-//     },
-//     plotOptions: {
-//         series:{
-//             dataLabels: {
-//                 enabled: true
-//             }
-//         },
-//         column: {
-//             color: '#2727ff'
-//         },
-//     },
-//     series: [
-//         {
-//             name: "Claim Cost",
-//             data: [
-//                 {
-//                     name: "YTD Q3 '19",
-//                     y: 289.3,
-//                     color: '#add8e6',
-//                     drilldown: "YTD Q3 '19"
-//                 },
-//                 {
-//                     name: "RKA Q3 '20",
-//                     y: 340.1,
-//                     color:'#457b9d',
-//                     drilldown: "RKA Q3 '20"
-//                 },
-//                 {
-//                     name: "YTD Q3 '20",
-//                     y: 273.5,
-//                     color:'#1d3557',
-//                     drilldown: "YTD Q3 '20"
-//                 },
-//             ],
-//         }
-//     ]
-// });
+Highcharts.chart('pkk-rjtl-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RJTL",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 113.9,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 125.1,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 101.6,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
 
-// Highcharts.chart('ri-kunj', {
-//     chart: {
-//         type: 'column',
-//         height: 250,
-//     },
-//     legend:{ enabled:false },
-//     credits: {
-//         enabled: false
-//     },
-//     title: {
-//         text: '',
-//     },
-//     subtitle: {
-//         text: ''
-//     },
-//     xAxis: {
-//         labels: {
-//             enabled: false
-//         }
-//     },
-//     yAxis: {
-//         visible: false
-//     },
-//     tooltip: {
-//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-//         footerFormat: '</table>',
-//         shared: true,
-//         useHTML: true
-//     },
-//     plotOptions: {
-//         series:{
-//             dataLabels: {
-//                 enabled: true
-//             }
-//         },
-//         column: {
-//             color: '#2727ff'
-//         },
-//     },
-//     series: [
-//         {
-//             name: "Claim Cost",
-//             data: [
-//                 {
-//                     name: "YTD Q3 '19",
-//                     y: 289.3,
-//                     color: '#add8e6',
-//                     drilldown: "YTD Q3 '19"
-//                 },
-//                 {
-//                     name: "RKA Q3 '20",
-//                     y: 340.1,
-//                     color:'#457b9d',
-//                     drilldown: "RKA Q3 '20"
-//                 },
-//                 {
-//                     name: "YTD Q3 '20",
-//                     y: 273.5,
-//                     color:'#1d3557',
-//                     drilldown: "YTD Q3 '20"
-//                 },
-//             ],
-//         }
-//     ]
-// });
+Highcharts.chart('pkk-ri-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RI",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 6.1,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 7.0,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 4.4,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
 
-// Highcharts.chart('restitusi-kunj', {
-//     chart: {
-//         type: 'column',
-//         height: 250,
-//     },
-//     legend:{ enabled:false },
-//     credits: {
-//         enabled: false
-//     },
-//     title: {
-//         text: '',
-//     },
-//     subtitle: {
-//         text: ''
-//     },
-//     xAxis: {
-//         labels: {
-//             enabled: false
-//         }
-//     },
-//     yAxis: {
-//         visible: false
-//     },
-//     tooltip: {
-//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//             '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-//         footerFormat: '</table>',
-//         shared: true,
-//         useHTML: true
-//     },
-//     plotOptions: {
-//         series:{
-//             dataLabels: {
-//                 enabled: true
-//             }
-//         },
-//         column: {
-//             color: '#2727ff'
-//         },
-//     },
-//     series: [
-//         {
-//             name: "Claim Cost",
-//             data: [
-//                 {
-//                     name: "YTD Q3 '19",
-//                     y: 289.3,
-//                     color: '#add8e6',
-//                     drilldown: "YTD Q3 '19"
-//                 },
-//                 {
-//                     name: "RKA Q3 '20",
-//                     y: 340.1,
-//                     color:'#457b9d',
-//                     drilldown: "RKA Q3 '20"
-//                 },
-//                 {
-//                     name: "YTD Q3 '20",
-//                     y: 273.5,
-//                     color:'#1d3557',
-//                     drilldown: "YTD Q3 '20"
-//                 },
-//             ],
-//         }
-//     ]
-// });
+Highcharts.chart('pkk-restitusi-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RESTITUSI",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 13.7,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 16.1,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 12.1,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
 
 Highcharts.chart('pkg-claim', {
     chart: {
@@ -1666,7 +1666,7 @@ Highcharts.chart('pkg-rjtp', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RJTP",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1734,7 +1734,7 @@ Highcharts.chart('pkg-rjtl', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RJTL",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1802,7 +1802,7 @@ Highcharts.chart('pkg-ri', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RI",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1870,7 +1870,7 @@ Highcharts.chart('pkg-restitusi', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "RESTITUSI",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -1936,7 +1936,7 @@ Highcharts.chart('pkg-kunjungan', {
     },
     series: [
         {
-            name: "Claim Cost",
+            name: "KUNJUNGAN",
             data: [
                 {
                     name: "YTD Q3 '19",
@@ -2013,5 +2013,277 @@ Highcharts.chart('pkg-komposisi-kunj', {
             y: 6
         }]
     }]
+});
+
+Highcharts.chart('pkg-rjtp-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RJTP",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 125.5,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 155.2,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 88.2,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
+
+Highcharts.chart('pkg-rjtl-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RJTL",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 34.2,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 43.3,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 23.6,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
+
+Highcharts.chart('pkg-ri-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RI",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 1.8,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 3.3,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 1.5,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
+});
+
+Highcharts.chart('pkg-restitusi-kunj', {
+    chart: {
+        type: 'column',
+        height: 250,
+    },
+    legend:{ enabled:false },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: '',
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        labels: {
+            enabled: false
+        }
+    },
+    yAxis: {
+        visible: false
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        series:{
+            dataLabels: {
+                enabled: true
+            }
+        },
+        column: {
+            color: '#2727ff'
+        },
+    },
+    series: [
+        {
+            name: "RESTITUSI",
+            data: [
+                {
+                    name: "YTD Q3 '19",
+                    y: 12.5,
+                    color: '#add8e6',
+                    drilldown: "YTD Q3 '19"
+                },
+                {
+                    name: "RKA Q3 '20",
+                    y: 14.7,
+                    color:'#457b9d',
+                    drilldown: "RKA Q3 '20"
+                },
+                {
+                    name: "YTD Q3 '20",
+                    y: 7.4,
+                    color:'#1d3557',
+                    drilldown: "YTD Q3 '20"
+                },
+            ],
+        }
+    ]
 });
 </script>
