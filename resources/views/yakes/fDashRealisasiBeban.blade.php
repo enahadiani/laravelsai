@@ -133,26 +133,26 @@
                                     <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     ACH
                                 </td>
-                                <td>82,8</td>
-                                <td>72,5</td>
-                                <td>55,6</td>
-                                <td>99,1</td>
-                                <td>84,0</td>
-                                <td>110,2</td>
-                                <td>80,8</td>
+                                <td style="text-align: right;">82,8</td>
+                                <td style="text-align: right;">72,5</td>
+                                <td style="text-align: right;">55,6</td>
+                                <td style="text-align: right;">99,1</td>
+                                <td style="text-align: right;">84,0</td>
+                                <td style="text-align: right;">110,2</td>
+                                <td style="text-align: right;">80,8</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     YOY
                                 </td>
-                                <td>14,2</td>
-                                <td>(13,4)</td>
-                                <td>(17,1)</td>
-                                <td>(30,7)</td>
-                                <td>2,5</td>
-                                <td>(1,0)</td>
-                                <td>(6,1)</td>
+                                <td style="text-align: right;">14,2</td>
+                                <td style="text-align: right;">(13,4)</td>
+                                <td style="text-align: right;">(17,1)</td>
+                                <td style="text-align: right;">(30,7)</td>
+                                <td style="text-align: right;">2,5</td>
+                                <td style="text-align: right;">(1,0)</td>
+                                <td style="text-align: right;">(6,1)</td>
                             </tr>
                         </tbody>
                     </table>
