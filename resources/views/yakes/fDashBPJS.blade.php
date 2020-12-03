@@ -167,7 +167,7 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
