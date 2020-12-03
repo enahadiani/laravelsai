@@ -287,7 +287,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_vendor').val();
+        var kode = $('#kode_gudang').val();
         msgDialog({
             id:kode,
             type:'edit'
