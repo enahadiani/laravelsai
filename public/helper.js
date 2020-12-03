@@ -114,3 +114,126 @@ function generateTableWithoutAjax(id,columnDefs,columns,data_def) {
 
     return dataTable;
 }
+
+
+function showInpFilter(settings){
+    var par = settings.id;
+    var header = settings.header;
+    $target = settings.target1;
+    $target2 = settings.target2;
+    $target3 = settings.target3;
+    $target4 = settings.target4;
+    var parameter = settings.parameter;
+    var toUrl = settings.url;
+    var columns = settings.columns;
+    var judul = settings.judul;
+    var jTarget1 = settings.jTarget1;
+    var jTarget2 = settings.jTarget2;
+    var width = settings.width;
+
+    var header_html = '';
+    for(i=0; i<header.length; i++){
+        header_html +=  "<th style='width:"+width[i]+"'>"+header[i]+"</th>";
+    }
+
+    var table = "<table class='' width='100%' id='table-search'><thead><tr>"+header_html+"</tr></thead>";
+    table += "<tbody></tbody></table>";
+
+    $('#modal-search .modal-body').html(table);
+
+    var searchTable = $("#table-search").DataTable({
+        sDom: '<"row view-filter"<"col-sm-12"<f>>>t<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        ajax: {
+            "url": toUrl,
+            "data": parameter,
+            "type": "GET",
+            "async": false,
+            "dataSrc" : function(json) {
+                return json.daftar;
+            }
+        },
+        columns: columns,
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
+
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            lengthMenu: "Items Per Page _MENU_",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        },
+    });
+
+    $('#modal-search .modal-title').html(judul);
+    $('#modal-search').modal('show');
+    searchTable.columns.adjust().draw();
+
+    $('#table-search tbody').on('click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            searchTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+            var kode = $(this).closest('tr').find('td:nth-child(1)').text();
+            var nama = $(this).closest('tr').find('td:nth-child(2)').text();
+            if(kode == "No data available in table"){
+                return false;
+            }
+
+            if(jTarget1 == "val"){
+                $($target).val(kode);
+            }else{
+                $('#'+par).css('border-left',0);
+                $('#'+par).val(kode);
+                $($target).text(kode);
+                $($target).attr("title",nama);
+                $($target).parents('div').removeClass('hidden');
+            }
+
+            if(jTarget2 == "val"){
+                $($target2).val(nama);
+            }else if(jTarget2 == "title"){
+                $($target2).attr("title",nama);
+                $($target2).removeClass('hidden');
+            }else if(jTarget2 == "text2"){
+                $($target2).text(nama);
+            }else{
+                var width= $('#'+par).width()-$('#search_'+par).width()-10;
+                var pos =$('#'+par).position();
+                var height = $('#'+par).height();
+                console.log(par);
+                $('#'+par).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+                $($target2).width($('#'+par).width()-$('#search_'+par).width()-10).css({'left':pos.left,'height':height});
+                $($target2+' span').text(nama);
+                $($target2).attr("title",nama);
+                $($target2).removeClass('hidden');
+                $($target2).closest('div').find('.info-icon-hapus').removeClass('hidden')
+            }
+
+            if($target3 != ""){
+                $($target3).text(nama);
+            }
+
+            if($target4 != ""){
+                $($target).closest('tr').find($target4).click();
+            }
+            $('#modal-search').modal('hide');
+        }
+    });
+
+}

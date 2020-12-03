@@ -516,14 +516,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getAkunPersKelBar() {
+        public function getAkunPersKelBar(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-persediaan',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun' => $request->kode_akun
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -535,14 +538,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getAkunPdptKelBar() {
+        public function getAkunPdptKelBar(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-pendapatan',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun' => $request->kode_akun
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -554,14 +560,17 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
-        public function getAkunHPPKelBar() {
+        public function getAkunHPPKelBar(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'toko-master/barang-klp-hpp',[
-            'headers' => [
-                'Authorization' => 'Bearer '.Session::get('token'),
-                'Accept'     => 'application/json',
-            ]
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_akun' => $request->kode_akun
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
