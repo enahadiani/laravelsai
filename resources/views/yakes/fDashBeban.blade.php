@@ -60,99 +60,133 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h2 style="position:absolute">Realisasi Beban</h2>
+        <h2 style="position:absolute">Beban</h2>
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
-            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi Beban</h6>
+            <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Beban</h6>
             <div class="row">
                 <div class="col-1">
                     <p class="keterangan">Dalam Rp. Juta</p>
                 </div>
                 <div class="col-11">
-                    <div id="chart"></div>
+                    <div id="invest"></div>
                 </div>
                 <div class="col-12 ml-4">
                     <table style="width: 95%;">
                         <thead>
                             <tr>
-                                <th style="width:15%;"></th>
-                                <th style="width:10%;">B. SDM</th>
-                                <th style="width:10%;">B. ADUM</th>
-                                <th style="width:10%;">B. INVESTASI</th>
-                                <th style="width:10%;">B. PEL. KESEHATAN</th>
-                                <th style="width:10%;">BPP</th>
-                                <th style="width:10%;">BPA</th>
-                                <th style="width:10%;">CC</th>
+                                <th style="width:22%;"></th>
+                                <th style="width:8%;">Jan</th>
+                                <th style="width:8%;">Feb</th>
+                                <th style="width:8%;">Mar</th>
+                                <th style="width:8%;">Apr</th>
+                                <th style="width:8%;">Mei</th>
+                                <th style="width:8%;">Jun</th>
+                                <th style="width:8%;">Jul</th>
+                                <th style="width:8%;">Agt</th>
+                                <th style="width:8%;">Sep</th>
+                                <th style="width:8%;">Okt</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2019
+                                    <div style="height: 15px; width:25px; background-color:#4674c5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Investasi
                                 </td>
-                                <td>84.084</td>
-                                <td>35.088</td>
-                                <td>8.157</td>
-                                <td>12.690</td>
-                                <td>2.903</td>
-                                <td>7.324</td>
-                                <td>325.842</td>
+                                <td style="text-align: right;">741</td>
+                                <td style="text-align: right;">654</td>
+                                <td style="text-align: right;">671</td>
+                                <td style="text-align: right;">868</td>
+                                <td style="text-align: right;">611</td>
+                                <td style="text-align: right;">697</td>
+                                <td style="text-align: right;">650</td>
+                                <td style="text-align: right;">675</td>
+                                <td style="text-align: right;">725</td>
+                                <td style="text-align: right;">571</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    RKA YTD OKT 2020
+                                    <div style="height: 15px; width:25px; background-color:#ed7d31;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Sumber Daya Manusia (SDM)
                                 </td>
-                                <td>115.954</td>
-                                <td>41.884</td>
-                                <td>12.164</td>
-                                <td>8.867</td>
-                                <td>3.544</td>
-                                <td>6.581</td>
-                                <td>378.820</td>
+                                <td style="text-align: right;">6.364</td>
+                                <td style="text-align: right;">7.289</td>
+                                <td style="text-align: right;">14.730</td>
+                                <td style="text-align: right;">8.068</td>
+                                <td style="text-align: right;">13.887</td>
+                                <td style="text-align: right;">13.362</td>
+                                <td style="text-align: right;">5.647</td>
+                                <td style="text-align: right;">6.337</td>
+                                <td style="text-align: right;">14.077</td>
+                                <td style="text-align: right;">6.227</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2020
+                                    <div style="height: 15px; width:25px; background-color:#a5a5a5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Administrasi dan Umum
                                 </td>
-                                <td>96.027</td>
-                                <td>30.372</td>
-                                <td>6.763</td>
-                                <td>8.791</td>
-                                <td>2.976</td>
-                                <td>7.250</td>
-                                <td>305.974</td>
+                                <td style="text-align: right;">3.130</td>
+                                <td style="text-align: right;">3.372</td>
+                                <td style="text-align: right;">3.364</td>
+                                <td style="text-align: right;">2.708</td>
+                                <td style="text-align: right;">2.558</td>
+                                <td style="text-align: right;">3.092</td>
+                                <td style="text-align: right;">2.673</td>
+                                <td style="text-align: right;">2.835</td>
+                                <td style="text-align: right;">4.282</td>
+                                <td style="text-align: right;">2.359</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    ACH
+                                    <div style="height: 15px; width:25px; background-color:#ffc000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Pelayanan Kesehatan (TPKK)
                                 </td>
-                                <td>82,8</td>
-                                <td>72,5</td>
-                                <td>55,6</td>
-                                <td>99,1</td>
-                                <td>84,0</td>
-                                <td>110,2</td>
-                                <td>80,8</td>
+                                <td style="text-align: right;">346</td>
+                                <td style="text-align: right;">542</td>
+                                <td style="text-align: right;">1.276</td>
+                                <td style="text-align: right;">1.605</td>
+                                <td style="text-align: right;">769</td>
+                                <td style="text-align: right;">725</td>
+                                <td style="text-align: right;">606</td>
+                                <td style="text-align: right;">755</td>
+                                <td style="text-align: right;">1.288</td>
+                                <td style="text-align: right;">939</td>
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    YOY
+                                    <div style="height: 15px; width:25px; background-color:#5b9bd5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Pemeliharaan dan Perbaikan
                                 </td>
-                                <td>14,2</td>
-                                <td>(13,4)</td>
-                                <td>(17,1)</td>
-                                <td>(30,7)</td>
-                                <td>2,5</td>
-                                <td>(1,0)</td>
-                                <td>(6,1)</td>
+                                <td style="text-align: right;">159</td>
+                                <td style="text-align: right;">228</td>
+                                <td style="text-align: right;">424</td>
+                                <td style="text-align: right;">161</td>
+                                <td style="text-align: right;">110</td>
+                                <td style="text-align: right;">603</td>
+                                <td style="text-align: right;">329</td>
+                                <td style="text-align: right;">298</td>
+                                <td style="text-align: right;">356</td>
+                                <td style="text-align: right;">309</td>
+                            </tr>
+                            <tr>
+                                <td style="position: relative;">
+                                    <div style="height: 15px; width:25px; background-color:#70ad47;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    Beban Penyusutan dan Amortisasi
+                                </td>
+                                <td style="text-align: right;">689</td>
+                                <td style="text-align: right;">687</td>
+                                <td style="text-align: right;">722</td>
+                                <td style="text-align: right;">748</td>
+                                <td style="text-align: right;">725</td>
+                                <td style="text-align: right;">731</td>
+                                <td style="text-align: right;">712</td>
+                                <td style="text-align: right;">736</td>
+                                <td style="text-align: right;">747</td>
+                                <td style="text-align: right;">752</td>
                             </tr>
                         </tbody>
                     </table>
@@ -162,7 +196,10 @@
     </div>
 </div>
 <script type="text/javascript">
-Highcharts.chart('chart', {
+Highcharts.chart('invest', {
+    chart: {
+        type: 'column'
+    },
     legend:{ enabled:false },
     credits: {
         enabled: false
@@ -170,73 +207,65 @@ Highcharts.chart('chart', {
     title: {
         text: ''
     },
-    subtitle: {
-        text: ''
-    },
     xAxis: {
-        categories: ['B. SDM', 'B. ADUM', 'B.IVESTASI', 'B. PEL. KESEHATAN', 'BPP', 'BPA', 'CC'],
         labels: {
+            enabled: false
+        },
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt']
+    },
+    yAxis: {
+        visible: true,
+        title: {
             enabled: false
         }
     },
-    yAxis: {
-        visible: false
-    },
+
     tooltip: {
         enabled: false
-        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        // footerFormat: '</table>',
-        // shared: true,
-        // useHTML: true
+        // formatter: function () {
+        //     return '<b>' + this.x + '</b><br/>' +
+        //         this.series.name + ': ' + this.y + '<br/>' +
+        //         'Total: ' + this.point.stackTotal;
+        // }
     },
     plotOptions: {
-        series:{
-            pointPadding: 0,
-            shadow: false,
-            dataLabels: {
-                enabled: true
-            }
+        column: {
+            stacking: 'normal'
         }
     },
-    series: [
-        {
-            type: 'column',
-            name: 'REA YTD OKT 2019',
-            data: [84.084, 35.088, 8.157, 12.690, 2.903, 7.324, 325.842],
-            color: '#ebebff'
-        },
-        {
-            type: 'column',
-            name: 'RKA YTD OKT 2020',
-            data: [115.954, 41.884, 12.164, 8.867, 3.544, 6.581, 378.820],
-            color: '#8989ff'
-        },
-        {  
-            type: 'column',
-            name: 'REA YTD OKT 2020',
-            data: [96.027, 30.372, 6.763, 8.791, 2.976, 7.250, 305.974],
-            color: '#2727ff'
-        },
-        {  
-            type: 'spline',
-            name: 'ACH',
-            data: [82.8, 72.5, 55.6, 99.1, 84.0, 110.2, 80.8],
-            color: '#008000',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-        {  
-            type: 'spline',
-            name: 'YOY',
-            data: [14.2, -13.4, -17.1, -30.7, 2.5, -1.0, -6.1],
-            color: '#ffa500',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-    ]
+    series: [{
+        name: 'Beban Investasi',
+        data: [741, 654, 671, 868, 611, 597, 650, 675, 725, 571],
+        stack: 'beban',
+        color: '#4674c5'
+    }, {
+        name: 'Beban Sumber Daya Menusia (SDM)',
+        data: [6364, 7289, 14730, 8068, 13887, 13362, 5647, 6377, 14077, 6227],
+        stack: 'beban',
+        color: '#ed7d31'
+    }, {
+        name: 'Beban Administrasi dan Umum',
+        data: [3130, 3372, 3364, 2708, 2558, 3092, 2673, 2835, 4282, 2359],
+        stack: 'beban',
+        color: '#a5a5a5'
+    },
+    {
+        name: 'Beban Pelayanan Kesehatan (TPKK)',
+        data: [346, 542, 1.276, 1.605, 769, 725, 606, 755, 1.228, 939],
+        stack: 'beban',
+        color: '#ffc000'
+    },
+    {
+        name: 'Beban Pemeliharaan dan Perbaikan',
+        data: [159, 228, 424, 161, 110, 603, 329, 298, 356, 309],
+        stack: 'beban',
+        color: '#5b9bd5'
+    },
+    {
+        name: 'Beban Penyusutan dan Amortisasi',
+        data: [689, 687, 722, 748, 725, 731, 712, 736, 747, 752],
+        stack: 'beban',
+        color: '#70ad47'
+    }]
 });
 </script>
