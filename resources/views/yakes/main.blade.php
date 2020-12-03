@@ -361,6 +361,11 @@
             color:#B7B7B7;
         }
 
+        a > span.d-inline-block {
+            max-width: 130px !important;
+            height: auto !important;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";

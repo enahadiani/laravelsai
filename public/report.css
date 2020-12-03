@@ -150,3 +150,19 @@ ul.pagination .pagination-sm{
 .table > td,th{
     vertical-align:middle !important;
 }
+
+.fs1-1rem{
+    font-size: 1.1rem;
+}
+
+.fs1rem{
+    font-size: 1rem;
+}
+
+.kotak{
+    border:2px solid black !important;
+    margin-bottom: 0;
+}
+.kotak td{
+    padding: 0 !important;
+}
