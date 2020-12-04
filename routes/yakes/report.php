@@ -51,3 +51,9 @@ Route::post('lap-rekap-real', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-rekap-real-grid', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-real-beban', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-claim-cost', 'Yakes\LaporanController@getNeracaJamkespen');
+
+Route::post('lap-kepesertaan', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-bina-sehat', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-top-six', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-sdm-culture', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-kontrak-manajemen', 'Yakes\LaporanController@getNeracaJamkespen');
