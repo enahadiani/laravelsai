@@ -15,8 +15,7 @@
             }
         }
 
-        public function getFilterTahun($periode) {
-            $periode = "202011";
+        public function getFilterTahun() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'yakes-dash/getFilterTahunDash',[
                 'headers' => [

@@ -41,13 +41,14 @@
         padding: 0px 10px 0px 0px;
     }
     table, td, th {
-        border: 1px solid black !important;
+        border: 1px solid #d3d3d3 !important;
         margin-bottom: 10px;
     }  
 
     th {
         padding: 5px;
         text-align: center;
+        background-color: #f9f9f9 !important;
     }
 
     .keterangan {
@@ -59,8 +60,11 @@
     }
 </style>
 <div class="row">
-    <div class="col-12">
+    <div class="col-6">
         <h2 style="position:absolute">Pendapatan Investasi</h2>
+    </div>
+    <div class="col-6">
+        <button id="filter-btn" class="btn btn-light" style="position: absolute;margin: 0;right: 0;">Filter</button>
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">
@@ -163,7 +167,58 @@
         </div>
     </div>
 </div>
+{{-- FILTER --}}
+ <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row">
+                            <label>Tahun</label>
+                            <select class="form-control" data-width="100%" name="inp-filter_tahun" id="inp-filter_tahun">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- END FILTER --}}
 <script type="text/javascript">
+$('#filter-btn').click(function(){
+    $('#modalFilter').modal('show');
+});
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-tahun') }}",
+        dataType: 'JSON',
+        success: function(result) {
+            var date = new Date();
+            var select = $('#inp-filter_tahun').selectize();
+            select = select[0];
+            var control = select.selectize;
+            control.clearOptions();
+
+            for(i=0;i<result.daftar.length;i++){ 
+                control.addOption([{text:result.daftar[i].tahun, value:result.daftar[i].tahun}]);   
+            }
+            control.setValue(date.getFullYear());
+        }
+    });
+
 Highcharts.chart('invest', {
     chart: {
         type: 'column'
