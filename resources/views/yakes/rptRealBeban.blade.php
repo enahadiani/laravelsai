@@ -50,40 +50,35 @@
             var beban = ['Beban Administrasi dan Umum','Beban Pelayanan Kesehatan','Beban Investasi','Beban SDM','Beban Administrasi dan Umum','Beban Pelayanan Kesehatan','Beban Investasi','Beban SDM'];
             var html = `
             <style>
-            .info-table thead{
-                background:#4286f5;
-                color:white;
-            }
-            .no-border {
-                border: none !important;
-            }
-            .bold {
-                font-weight:bold;
-            }
-            .report-table td, .report-table th{
-                border-color: black !important; 
-                vertical-align: middle;
-                padding-top:0 !important;
-                padding-bottom:0 !important;
+
+            .report-table th{
                 color: black !important;
-            }   
-            .bg-green2 {
-                background: #70AD478A;
-            } 
+                background-color: #70AD478A !important;
+                border: 1px solid black !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .report-table .no-border{
+                border: 0px !important;
+                border-bottom:1px solid black !important;
+            }
+            .bold{
+                font-weight:bold !important;
+            }
             </style>`;
             for(var i=0; i< beban.length; i++){
 
                 html+=`
                 <table class='table table-bordered report-table' width='100%'>
                 <tr>
-                    <th colspan='5' class='no-border'>`+beban[i]+`</th>
+                    <td colspan='5' class='no-border bold'>`+beban[i]+`</td>
                 </tr>
                 <tr>
-                    <th width='10%' class='bg-green2'>KD AKUN</th>
-                    <th width='45%' class='bg-green2'>NAMA AKUN</th>
-                    <th width='15%' class='bg-green2'>YTD 0819</th>
-                    <th width='15%' class='bg-green2'>YTD 0820</th>
-                    <th width='15%' class='bg-green2'>SELISIH</th>
+                    <th width='10%'>KD AKUN</th>
+                    <th width='45%'>NAMA AKUN</th>
+                    <th width='15%'>YTD 0819</th>
+                    <th width='15%'>YTD 0820</th>
+                    <th width='15%'>SELISIH</th>
                 </tr>
                 </table>`;
             }

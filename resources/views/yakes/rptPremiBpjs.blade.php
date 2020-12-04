@@ -49,10 +49,6 @@
             periode = $periode;
             var html = `
             <style>
-            .info-table thead{
-                background:#4286f5;
-                color:white;
-            }
             .no-border{
                 border:none !important;
             }
