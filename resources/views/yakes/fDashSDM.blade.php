@@ -50,6 +50,11 @@
         align-content: center;
         justify-content: center;
     }
+    .container-medis-detail {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
     .circle-1 {
         height: 120px;
         width: 120px;
@@ -108,15 +113,65 @@
             </div>
             <div class="row" style="margin-top: 10px;">
                 <div class="col-6">
-                    <div class="card ml-4" style="border-radius:10px !important;">
+                    <div class="card ml-4" style="border-radius:10px !important;padding-bottom:10px;height:402px;">
                         <h6 class="ml-4 mt-3" style="font-weight: bold;">Age Demography</h6>
                         <div id="demography"></div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="card mr-4" style="border-radius:10px !important;">
+                    <div class="card mr-4" style="border-radius:10px !important;padding-bottom:10px;">
                         <h6 class="ml-4 mt-3" style="font-weight: bold;">Medis - Non Medis</h6>
                         <div id="medis-non"></div>
+                        <div class="row container-medis-detail" style="margin-top: 10px;padding:0 5px;">
+                            <div class="col-3">
+                                <div class="card" id="medis" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- medis --}}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card" id="non-medis" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- non-medis --}}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card" id="dokter" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- Dokter --}}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card" id="non-dokter" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- Non Dokter --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-6">
+                    <div class="card ml-4" style="border-radius:10px !important;padding-bottom:10px;">
+                        <h6 class="ml-4 mt-3" style="font-weight: bold;">Gender</h6>
+                        <div id="gender"></div>
+                        <div class="row container-medis-detail" style="margin-top: 10px;padding:0 5px;">
+                            <div class="col-3"></div>
+                            <div class="col-3">
+                                <div class="card" id="laki" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- Laki --}}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="card" id="perempuan" style="padding: 10px; border-radius:20px !important;font-weight:bold;font-size:10px;">
+                                    {{-- Perempuan --}}
+                                </div>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card mr-4" style="border-radius:10px !important;padding-bottom:10px;height:402px;">
+                        <h6 class="ml-4 mt-3" style="font-weight: bold;">Education Level</h6>
+                        <div id="education"></div>
                     </div>
                 </div>
             </div>
@@ -144,19 +199,13 @@
                 html += "<div class='col-1'></div>";
                 for(var i=0;i<data.length;i++) {
                     avg = Math.round((parseInt(data[i].jumlah)/jumlah * 100))
-                    if(data[i].nama === 'Non Organik') {
-                        html += "<div class='col-3'>";
-                        html += "<div class='card' style='padding: 10px; border-radius:20px !important;font-weight:bold;'>";
-                        html += data[i].nama+" : "+data[i].jumlah+" org ("+avg+"%)";
-                        html += "</div>";
-                        html += "</div>";
-                    } else {
-                        html += "<div class='col-3'>";
-                        html += "<div class='card' style='padding: 10px; border-radius:20px !important;font-weight:bold;'>";
-                        html += "Organik "+data[i].nama+" : "+data[i].jumlah+" org ("+avg+"%)";
-                        html += "</div>";
-                        html += "</div>";
-                    }
+
+                    html += "<div class='col-3'>";
+                    html += "<div class='card' style='padding: 10px; border-radius:20px !important;font-weight:bold;'>";
+                    html += data[i].nama+" : "+data[i].jumlah+" org ("+avg+"%)";
+                    html += "</div>";
+                    html += "</div>";
+                    
                 }
                 html += "<div class='col-1'></div>";
                 $('.container-org-detail').append(html);
@@ -189,7 +238,8 @@
 
                 Highcharts.chart('demography', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: 350
                     },
                     legend:{ enabled:false },
                     credits: {
@@ -236,6 +286,203 @@
                                     <b>${this.point.percent} %</b>
                                     </div>`
                                 }
+                            }
+                        }
+                    },
+                    series: [{
+                        data: chart
+                    }]
+                });
+
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-medis') }}/"+periode,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+                var chart = [];
+                var jumlah = 0;
+                for(var i=0;i<data.length;i++) {
+                    jumlah += parseInt(data[i].jumlah)
+                }
+                var percent = 0;
+                for(var i=0;i<data.length;i++) {
+                    percent = Math.round((parseInt(data[i].jumlah)/jumlah * 100))
+                    chart.push({name:data[i].jenis, y:percent })
+                }
+                $('#medis').append(data[0].jumlah+" org "+data[0].jenis)
+                $('#non-medis').append(data[1].jumlah+" org "+data[1].jenis)
+
+                // Build the chart
+                Highcharts.chart('medis-non', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        height: 300
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: false,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            showInLegend: true,
+                        }
+                    },
+                    series: [{
+                        name: 'Medis - Non Medis',
+                        colorByPoint: true,
+                        data: chart
+                    }]
+                });
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-dokter') }}/"+periode,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+               
+                $('#dokter').append(data[0].jumlah+" org "+data[0].nama)
+                $('#non-dokter').append(data[1].jumlah+" org "+data[1].nama)
+
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-gender') }}/"+periode,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+                var jumlah = parseInt(data[0].laki) + parseInt(data[0].perempuan)
+                var percentL = Math.round((parseInt(data[0].laki)/jumlah)*100);
+                var percentP = Math.round((parseInt(data[0].perempuan)/jumlah)*100);
+                var chart = [];
+                chart.push({name:'Laki-laki', y:percentL},{name:'Perempuan', y:percentP})
+                $('#laki').append(data[0].laki+" org Laki-laki")
+                $('#perempuan').append(data[0].perempuan+" org Perempuan")
+                // Build the chart
+                Highcharts.chart('gender', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie',
+                        height: 300
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: false,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true
+                            },
+                            showInLegend: true,
+                        }
+                    },
+                    series: [{
+                        name: 'Gender',
+                        colorByPoint: true,
+                        data: chart
+                    }]
+                });
+            }
+        });
+
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-education') }}/"+periode,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+                var categories = [];
+                var jumlah = 0;
+                var value = [];
+                var chart = [];
+
+                for(var i=0;i<data.length;i++) {
+                    categories.push(data[i].nama);
+                    chart.push({name:data[i].nama, y:parseInt(data[i].jumlah) })
+                }
+
+                Highcharts.chart('education', {
+                    chart: {
+                        type: 'column',
+                        height: 350
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: categories,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            enabled: false
+                        }
+                    },
+                    tooltip: {
+                        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        //     '<td style="padding:0"><b>{point.y:.1f} org</b></td></tr>',
+                        // footerFormat: '</table>',
+                        // shared: true,
+                        // useHTML: true
+                        enabled: false
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.1,
+                            borderWidth: 0,
+                            color: '#ed7d31',
+                            dataLabels: {
+                                enabled: true,
                             }
                         }
                     },

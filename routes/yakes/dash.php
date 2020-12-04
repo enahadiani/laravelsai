@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('data-organik/{periode}', 'Yakes\DashboardController@getdataOrganik');
 Route::get('data-demography/{periode}', 'Yakes\DashboardController@getdataDemography');
+Route::get('data-medis/{periode}', 'Yakes\DashboardController@getdataMedis');
+Route::get('data-dokter/{periode}', 'Yakes\DashboardController@getdataDokter');
+Route::get('data-gender/{periode}', 'Yakes\DashboardController@getdataGender');
+Route::get('data-education/{periode}', 'Yakes\DashboardController@getdataEdu');
