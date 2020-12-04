@@ -2,7 +2,7 @@
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Rekap Realisasi" padding="px-4 py-4"/>  
+                <x-report-header judul="Laporan Claim Cost" padding="px-4 py-4"/>  
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -13,8 +13,6 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
-                                        
                                         <!-- END COMPONENT -->
                                     </div>
                                     <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
@@ -52,14 +50,6 @@
             toname : "",
         }
 
-        var $output = {
-            type : "=",
-            from : "Laporan",
-            fromname : "Laporan",
-            to : "",
-            toname : "",
-        }
-
         var $aktif = "";
 
         var param_trace = {
@@ -81,7 +71,6 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#output-from').val("Laporan");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -116,24 +105,22 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','output'],
-            nama : ['Periode','Output'],
-            header : [['Periode', 'Nama'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode','Action']],
+            kode : ['periode'],
+            nama : ['Periode'],
+            header : [['Periode', 'Nama']],
+            headerpilih : [['Periode', 'Nama','Action']],
             columns: [
                 [
                     { data: 'periode' },
                     { data: 'nama' }
-                ],[
-                    { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-output') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[]],
-            width:[['30%','70%'],['30%','70%']],
-            display:['name','kode'],
-            pageLength:[12,10]
+            orderby:[[[0,"desc"]]],
+            width:[['30%','70%']],
+            display:['name'],
+            pageLength:[12]
         });
 
         var $formData = "";
@@ -146,11 +133,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            if($output.from == "Laporan"){
-                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
-            }else if($output.from == "Grid"){
-                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
-            }
+            xurl = "{{ url('yakes-auth/form/rptClaimCost') }}";
             $('#saku-report').removeClass('hidden');
             $('#saku-report #canvasPreview').load(xurl);
         });
@@ -161,14 +144,7 @@
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
             
-            if($output.from == "Laporan"){
-                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
-            }else if($output.from == "Grid"){
-                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
-            }
-            for(var pair of $formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
-            }
+            xurl = "{{ url('yakes-auth/form/rptClaimCost') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -272,7 +248,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptRekapReal";
+                xurl = "yakes-auth/form/rptClaimCost";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -332,7 +308,7 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptRekapReal";
+                xurl = "yakes-auth/form/rptClaimCost";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
@@ -414,12 +390,7 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            
-            if($output.from == "Laporan"){
-                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
-            }else if($output.from == "Grid"){
-                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
-            }
+    
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
