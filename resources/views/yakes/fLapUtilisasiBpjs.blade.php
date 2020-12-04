@@ -2,7 +2,7 @@
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Premi dan Kapitas BPJS" padding="px-4 py-4"/>  
+                <x-report-header judul="Laporan Utilitas BPJS" padding="px-4 py-4"/>  
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -180,7 +180,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptPremiBpjs') }}";
+            xurl = "{{ url('yakes-auth/form/rptUtilisasiBpjs') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -201,7 +201,7 @@
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptPremiBpjs') }}";
+            xurl = "{{ url('yakes-auth/form/rptUtilisasiBpjs') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -305,7 +305,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptPremiBpjs";
+                xurl = "yakes-auth/form/rptUtilisasiBpjs";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -365,7 +365,7 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptPremiBpjs";
+                xurl = "yakes-auth/form/rptUtilisasiBpjs";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>

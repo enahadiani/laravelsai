@@ -47,3 +47,7 @@ Route::post('lap-aset-neto', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-premi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-claim-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
 Route::post('lap-utilisasi-bpjs', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-rekap-real', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-rekap-real-grid', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-real-beban', 'Yakes\LaporanController@getNeracaJamkespen');
+Route::post('lap-claim-cost', 'Yakes\LaporanController@getNeracaJamkespen');

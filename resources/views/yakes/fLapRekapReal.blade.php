@@ -2,7 +2,7 @@
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Premi dan Kapitas BPJS" padding="px-4 py-4"/>  
+                <x-report-header judul="Laporan Rekap Realisasi" padding="px-4 py-4"/>  
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -13,9 +13,7 @@
                                     <div id="inputFilter">
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -53,26 +51,11 @@
             to : "",
             toname : "",
         }
-        var $kode_fs = {
-            type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
-            to : "",
-            toname : "",
-        }
 
-        var $level = {
+        var $output = {
             type : "=",
-            from : "1",
-            fromname : "1",
-            to : "",
-            toname : "",
-        }
-
-        var $format = {
-            type : "=",
-            from : "Saldo Akhir",
-            fromname : "Saldo Akhir",
+            from : "Laporan",
+            fromname : "Laporan",
             to : "",
             toname : "",
         }
@@ -98,9 +81,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
-        $('#level-from').val("1");
-        $('#format-from').val("Saldo Akhir");
+        $('#output-from').val("Laporan");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -135,29 +116,24 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','format'],
-            nama : ['Periode','Kode FS','Level','Format'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
+            kode : ['periode','output'],
+            nama : ['Periode','Output'],
+            header : [['Periode', 'Nama'],['Kode']],
+            headerpilih : [['Periode', 'Nama','Action'],['Kode','Action']],
             columns: [
                 [
                     { data: 'periode' },
                     { data: 'nama' }
                 ],[
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode' }
-                ],[
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-output') }}"],
             parameter:[],
-            orderby:[[[0,"desc"]],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode'],
-            pageLength:[12,10,10,10]
+            orderby:[[[0,"desc"]],,[]],
+            width:[['30%','70%'],['30%','70%']],
+            display:['name','kode'],
+            pageLength:[12,10]
         });
 
         var $formData = "";
@@ -167,20 +143,15 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
+            }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptPremiBpjs') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -189,19 +160,15 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
+            
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
+            }
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptPremiBpjs') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -305,7 +272,7 @@
             var aktif = $('.breadcrumb-item.active').attr('aria-current');
 
             if(aktif == "neraca-lajur"){
-                xurl = "yakes-auth/form/rptPremiBpjs";
+                xurl = "yakes-auth/form/rptRekapReal";
                 $formData.delete('back');
                 $formData.delete('kode_fs[]');
                 $formData.append("kode_fs[]",$kode_fs.type);
@@ -365,7 +332,7 @@
                 $formData.append("kode_fs[]",$kode_fs.type);
                 $formData.append("kode_fs[]",$kode_fs.from);
                 $formData.append("kode_fs[]",$kode_fs.to);
-                xurl = "yakes-auth/form/rptPremiBpjs";
+                xurl = "yakes-auth/form/rptRekapReal";
                 $('.breadcrumb').html('');
                 $('.breadcrumb').append(`
                     <li class="breadcrumb-item active" aria-current="neraca" >Neraca</li>
@@ -447,15 +414,12 @@
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
             $formData.append("periode[]",$periode.to);
-            $formData.append("kode_fs[]",$kode_fs.type);
-            $formData.append("kode_fs[]",$kode_fs.from);
-            $formData.append("kode_fs[]",$kode_fs.to);
-            $formData.append("level[]",$level.type);
-            $formData.append("level[]",$level.from);
-            $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
+            
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptRekapReal') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptRekapRealGrid') }}";
+            }
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
