@@ -18,7 +18,7 @@
         public function getdataEdu($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataEdu?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataEdu?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -37,7 +37,7 @@
         public function getdataGender($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataGender?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataGender?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -56,7 +56,7 @@
         public function getdataOrganik($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataOrganik?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataOrganik?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -75,7 +75,7 @@
         public function getdataDemography($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataDemog?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDemog?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -94,7 +94,7 @@
         public function getdataMedis($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataMedis?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataMedis?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -113,7 +113,7 @@
         public function getdataDokter($periode) {
             $periode = "202011";
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/dataDokter?periode='.$periode,[
+            $response = $client->request('GET',  config('api.url').'yakes-dash/dataDokter?periode='.$periode,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
