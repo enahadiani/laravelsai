@@ -199,7 +199,6 @@
                 html += "<div class='col-1'></div>";
                 for(var i=0;i<data.length;i++) {
                     avg = Math.round((parseInt(data[i].jumlah)/jumlah * 100).toFixed(3))
-                    console.log((parseInt(data[i].jumlah)/jumlah * 100).toFixed(3))
                     html += "<div class='col-3'>";
                     html += "<div class='card' style='padding: 10px; border-radius:20px !important;font-weight:bold;'>";
                     html += data[i].nama+" : "+data[i].jumlah+" org ("+avg+"%)";
