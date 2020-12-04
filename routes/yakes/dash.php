@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('data-organik/{periode}', 'Yakes\DashboardController@getdataOrganik');
+Route::get('data-demography/{periode}', 'Yakes\DashboardController@getdataDemography');
