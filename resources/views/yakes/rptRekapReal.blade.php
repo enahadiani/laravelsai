@@ -53,17 +53,19 @@
                 background:#4286f5;
                 color:white;
             }
-            .no-border{
+            .report-table th.no-border{
                 border:none !important;
             }
             .bold {
                 font-weight:bold;
             }
             .report-table td, .report-table th{
-                border-color: #2b9de2 !important; 
                 vertical-align: middle;
                 padding-top:0 !important;
                 padding-bottom:0 !important;
+            }  
+            .report-table th{
+                text-align: center;
             }  
             .report-table th.bg-grey{
                 border-color: #d7d7d7 !important; 
@@ -73,23 +75,23 @@
                 border-color: #00CCFF !important; 
                 vertical-align: middle;
             }  
-            .bg-blue1 {
-                background: #00b7ff;
+            .report-table th.bg-blue1 {
+                background-color: #00b7ff;
             }  
-            .bg-blue2 {
-                background: #00dbfff0;
+            .report-table th.bg-blue2 {
+                background-color: #00dbfff0;
             }   
-            .bg-green {
-                background: #92D050;
+            .report-table th.bg-green {
+                background-color: #92D050;
             }       
-            .bg-yellow {
-                background: #FFC000;
+            .report-table th.bg-yellow {
+                background-color: #FFC000;
             }
-            .bg-blue3 {
-                background: #00CCFF;
+            .report-table th.bg-blue3 {
+                background-color: #00CCFF;
             }
-            .bg-grey {
-                background: #d7d7d7;
+            .report-table th.bg-grey {
+                background-color: #d7d7d7;
             }
             </style>
             <table class='table table-bordered report-table' width='100%'>
@@ -97,40 +99,40 @@
                 <td colspan='12' class='text-right no-border'>dlm. Rp Juta</td>
             </tr>
             <tr>
-                <th width='27%' rowspan='2' class='text-center bg-blue3'>URAIAN</th>
-                <th width='8%' class='text-center bg-blue3'>RKA</th>
-                <th width='8%' class='text-center bg-blue3'>RKA</th>
-                <th width='16%' colspan='2' class='text-center bg-blue3'>REAL YTD</th>
-                <th width='15%' colspan='3' class='text-center bg-blue3'>PRESENTASE</th>
-                <th width='8%' class='text-center bg-blue3'>REAL</th>
-                <th width='18%' colspan='3' class='text-center bg-blue3'>OUTLOOK</th>
+                <th width='27%' rowspan='2' class='bg-blue3'>URAIAN</th>
+                <th width='8%' class='bg-blue3'>RKA</th>
+                <th width='8%' class='bg-blue3'>RKA</th>
+                <th width='16%' colspan='2' class='bg-blue3'>REAL YTD</th>
+                <th width='15%' colspan='3' class='bg-blue3'>PRESENTASE</th>
+                <th width='8%' class='bg-blue3'>REAL</th>
+                <th width='18%' colspan='3' class='bg-blue3'>OUTLOOK</th>
             </tr>
             <tr>
-                <th width='12%' class='text-center bg-blue3'>2020</th>
-                <th width='12%' class='text-center bg-blue3'>SD 0KT</th>
-                <th width='12%' class='text-center bg-blue3'>OKT 2020</th>
-                <th width='12%' class='text-center bg-blue3'>OKT 2019</th>
-                <th width='12%' class='text-center bg-blue3'>RKA</th>
-                <th width='12%' class='text-center bg-blue3'>OKT</th>
-                <th width='12%' class='text-center bg-blue3'>YoY</th>
-                <th width='12%' class='text-center bg-blue3'>2019</th>
-                <th width='12%' class='text-center bg-blue3'>2020</th>
-                <th width='12%' class='text-center bg-blue3'>ACH[%]</th>
-                <th width='12%' class='text-center bg-blue3'>YoY[%]</th>
+                <th width='12%' class='bg-blue3'>2020</th>
+                <th width='12%' class='bg-blue3'>SD 0KT</th>
+                <th width='12%' class='bg-blue3'>OKT 2020</th>
+                <th width='12%' class='bg-blue3'>OKT 2019</th>
+                <th width='12%' class='bg-blue3'>RKA</th>
+                <th width='12%' class='bg-blue3'>OKT</th>
+                <th width='12%' class='bg-blue3'>YoY</th>
+                <th width='12%' class='bg-blue3'>2019</th>
+                <th width='12%' class='bg-blue3'>2020</th>
+                <th width='12%' class='bg-blue3'>ACH[%]</th>
+                <th width='12%' class='bg-blue3'>YoY[%]</th>
             </tr>
             <tr>
-                <th width='6%' class='text-center bg-grey'></th>
-                <th width='6%' class='text-center bg-grey'>1</th>
-                <th width='12%' class='text-center bg-grey'>2</th>
-                <th width='12%' class='text-center bg-grey'>3</th>
-                <th width='12%' class='text-center bg-grey'>4</th>
-                <th width='12%' class='text-center bg-grey'>5=3/1</th>
-                <th width='12%' class='text-center bg-grey'>6=3/2</th>
-                <th width='12%' class='text-center bg-grey'>7=(3/4)-1</th>
-                <th width='12%' class='text-center bg-grey'>8</th>
-                <th width='12%' class='text-center bg-grey'>9</th>
-                <th width='12%' class='text-center bg-grey'>10=9/1</th>
-                <th width='12%' class='text-center bg-grey'>11=(9/8)-1</th>
+                <th width='6%' class='bg-grey'></th>
+                <th width='6%' class='bg-grey'>1</th>
+                <th width='12%' class='bg-grey'>2</th>
+                <th width='12%' class='bg-grey'>3</th>
+                <th width='12%' class='bg-grey'>4</th>
+                <th width='12%' class='bg-grey'>5=3/1</th>
+                <th width='12%' class='bg-grey'>6=3/2</th>
+                <th width='12%' class='bg-grey'>7=(3/4)-1</th>
+                <th width='12%' class='bg-grey'>8</th>
+                <th width='12%' class='bg-grey'>9</th>
+                <th width='12%' class='bg-grey'>10=9/1</th>
+                <th width='12%' class='bg-grey'>11=(9/8)-1</th>
             </tr>
             `;
             // var no=1;

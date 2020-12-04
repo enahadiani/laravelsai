@@ -50,47 +50,43 @@
             var beban = ['Claim Cost','Biaya Pengobatan'];
             var html = `
             <style>
-            .info-table thead{
-                background:#4286f5;
-                color:white;
-            }
-            .no-border {
-                border: none !important;
-            }
-            .bold {
-                font-weight:bold;
-            }
-            .report-table td, .report-table th{
-                border-color: black !important; 
-                vertical-align: middle;
-                padding-top:0 !important;
-                padding-bottom:0 !important;
+
+            .report-table th{
                 color: white !important;
-            }   
-            .bg-green2 {
-                background: #70AD47;
-            } 
+                background-color: #5A8B39 !important;
+                border: 1px solid black !important;
+                text-align: center;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .report-table .no-border{
+                border: 0px !important;
+                border-bottom:1px solid black !important;
+            }
+            .bold{
+                font-weight:bold !important;
+            }
             </style>`;
             for(var i=0; i< beban.length; i++){
 
                 html+=`
                 <table class='table table-bordered report-table' width='100%'>
                 <tr>
-                    <th colspan='5' class='no-border'>`+beban[i]+`</th>
+                    <td colspan='8' class='no-border bold'>`+beban[i]+`</td>
                 </tr>
                 <tr>
-                    <th width='10%' rowspan='2' class='bg-green2 text-center'>REG.</th>
-                    <th width='15%' rowspan='2' class='bg-green2 text-center'>RKA 2020</th>
-                    <th width='15%' rowspan='2' class='bg-green2 text-center' rowspan='2'>RKA SD AGU</th>
-                    <th width='30%' class='bg-green2 text-center' colspan='2'>REALISASI YTD</th>
-                    <th width='30%' colspan='3' class='bg-green2 text-center'>PRESENTASE</th>
+                    <th width='10%' rowspan='2' class='text-center'>REG.</th>
+                    <th width='15%' rowspan='2' class='text-center'>RKA 2020</th>
+                    <th width='15%' rowspan='2' class='text-center' rowspan='2'>RKA SD AGU</th>
+                    <th width='30%' class='text-center' colspan='2'>REALISASI YTD</th>
+                    <th width='30%' colspan='3' class='text-center'>PRESENTASE</th>
                 </tr>
                 <tr>
-                    <th width='15%' class='bg-green2 text-center'>AGU 2020</th>
-                    <th width='15%' class='bg-green2 text-center'>AGU 2019</th>
-                    <th width='10%' class='bg-green2 text-center'>RKA</th>
-                    <th width='10%' class='bg-green2 text-center'>AGU</th>
-                    <th width='10%' class='bg-green2 text-center'>YoY</th>
+                    <th width='15%' class='text-center'>AGU 2020</th>
+                    <th width='15%' class='text-center'>AGU 2019</th>
+                    <th width='10%' class='text-center'>RKA</th>
+                    <th width='10%' class='text-center'>AGU</th>
+                    <th width='10%' class='text-center'>YoY</th>
                 </tr>
                 </table>`;
             }
