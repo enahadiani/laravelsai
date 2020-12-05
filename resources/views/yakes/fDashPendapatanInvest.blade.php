@@ -98,70 +98,7 @@
                             </tr>
                         </thead>
                         <tbody id="detail-invest">
-                            {{-- <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#4674c5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Pendapatan Bunga
-                                </td>
-                                <td style="text-align: right;">1.217</td>
-                                <td style="text-align: right;">1.172</td>
-                                <td style="text-align: right;">2.596</td>
-                                <td style="text-align: right;">6.424</td>
-                                <td style="text-align: right;">5.936</td>
-                                <td style="text-align: right;">5.625</td>
-                                <td style="text-align: right;">4.801</td>
-                                <td style="text-align: right;">4.355</td>
-                                <td style="text-align: right;">3.457</td>
-                                <td style="text-align: right;">2.825</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ed7d31;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Pendapatan Dividen
-                                </td>
-                                <td style="text-align: right;">31.401</td>
-                                <td style="text-align: right;">43.000</td>
-                                <td style="text-align: right;">22.571</td>
-                                <td style="text-align: right;">391</td>
-                                <td style="text-align: right;">5.799</td>
-                                <td style="text-align: right;">3.001</td>
-                                <td style="text-align: right;">22.822</td>
-                                <td style="text-align: right;">174.794</td>
-                                <td style="text-align: right;">2.871</td>
-                                <td style="text-align: right;">2.778</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#a5a5a5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Keuntungan/Kerugian Pelepasan Efek
-                                </td>
-                                <td style="text-align: right;">287</td>
-                                <td style="text-align: right;">46.344</td>
-                                <td style="text-align: right;">104.026</td>
-                                <td style="text-align: right;">1.607</td>
-                                <td style="text-align: right;">(3.796)</td>
-                                <td style="text-align: right;">(2.032)</td>
-                                <td style="text-align: right;">(4.925)</td>
-                                <td style="text-align: right;">1.173</td>
-                                <td style="text-align: right;">1.248</td>
-                                <td style="text-align: right;">1.994</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffc000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    Pendapatan Investasi Lainnya
-                                </td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                                <td style="text-align: right;">0</td>
-                            </tr> --}}
+                            
                         </tbody>
                     </table>
                 </div>
@@ -191,7 +128,7 @@
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
-                        <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                        <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
                     </div>
                 </form>
             </div>
@@ -204,6 +141,18 @@
     $('#filter-btn').click(function(){
         $('#modalFilter').modal('show');
     });
+
+    var select = $('#inp-filter_tahun').selectize({
+        onChange: function(value){
+            tahun = value
+        }
+    })
+
+    $('#btn-tampil').click(function(){
+        var tahun = select[0].selectize.getValue()
+        getDataPendapatan(tahun);
+        $('#modalFilter').modal('hide');
+    })
 
     $.ajax({
         type:'GET',
@@ -221,11 +170,16 @@
             }
             control.setValue(date.getFullYear());
             tahun = date.getFullYear();
-            getDataPendapatan();
+            getDataPendapatan(tahun);
         }
     });
 
-    function getDataPendapatan() {
+    function getDataPendapatan(value) {
+        if(value != null || value != '') {
+            tahun = value
+        } else {
+            tahun = tahun
+        }
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-pendapatan') }}/"+tahun,
