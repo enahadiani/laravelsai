@@ -22,3 +22,4 @@ Route::get('data-dokter/{periode}', 'Yakes\DashboardController@getdataDokter');
 Route::get('data-gender/{periode}', 'Yakes\DashboardController@getdataGender');
 Route::get('data-education/{periode}', 'Yakes\DashboardController@getdataEdu');
 Route::get('data-pendapatan/{tahun}', 'Yakes\DashboardController@getdataPendapatan');
+Route::get('data-beban/{tahun}', 'Yakes\DashboardController@getdataBeban');

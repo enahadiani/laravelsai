@@ -180,6 +180,7 @@
         } else {
             tahun = tahun
         }
+        $('#detail-invest').empty();
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-pendapatan') }}/"+tahun,
