@@ -78,11 +78,11 @@
                 <div class="col-11">
                     <div id="invest"></div>
                 </div>
-                <div class="col-12 ml-4">
-                    <table style="width: 95%;">
+                <div class="col-12 ml-2 mr-4">
+                    <table style="width: 99%; margin-right: 10px;">
                         <thead>
                             <tr>
-                                <th style="width:21%;"></th>
+                                <th style="width:15%;"></th>
                                 <th style="width:7%;">Jan</th>
                                 <th style="width:7%;">Feb</th>
                                 <th style="width:7%;">Mar</th>
@@ -93,10 +93,12 @@
                                 <th style="width:7%;">Agt</th>
                                 <th style="width:7%;">Sep</th>
                                 <th style="width:7%;">Okt</th>
+                                <th style="width:7%;">Nov</th>
+                                <th style="width:7%;">Des</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="detail-invest">
+                            {{-- <tr>
                                 <td style="position: relative;">
                                     <div style="height: 15px; width:25px; background-color:#4674c5;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Pendapatan Bunga
@@ -159,7 +161,7 @@
                                 <td style="text-align: right;">0</td>
                                 <td style="text-align: right;">0</td>
                                 <td style="text-align: right;">0</td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -197,9 +199,11 @@
     </div>
     {{-- END FILTER --}}
 <script type="text/javascript">
-$('#filter-btn').click(function(){
-    $('#modalFilter').modal('show');
-});
+    var tahun = "";
+    var pembagi = 1000000;
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
 
     $.ajax({
         type:'GET',
@@ -216,67 +220,177 @@ $('#filter-btn').click(function(){
                 control.addOption([{text:result.daftar[i].tahun, value:result.daftar[i].tahun}]);   
             }
             control.setValue(date.getFullYear());
+            tahun = date.getFullYear();
+            getDataPendapatan();
         }
     });
 
-Highcharts.chart('invest', {
-    chart: {
-        type: 'column'
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        },
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt']
-    },
-    yAxis: {
-        visible: true,
-        title: {
-            enabled: false
-        }
-    },
+    function getDataPendapatan() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-pendapatan') }}/"+tahun,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+                var html = "";
+                var chart = [];
 
-    tooltip: {
-        enabled: false
-        // formatter: function () {
-        //     return '<b>' + this.x + '</b><br/>' +
-        //         this.series.name + ': ' + this.y + '<br/>' +
-        //         'Total: ' + this.point.stackTotal;
-        // }
-    },
-    plotOptions: {
-        column: {
-            stacking: 'normal'
-        }
-    },
-    series: [{
-        name: 'Pendapatan Bunga',
-        data: [1217, 1172, 2596, 6424, 5936, 5265, 4801, 4355, 3457, 2825],
-        stack: 'invest',
-        color: '#4674c5'
-    }, {
-        name: 'Pendapatan Deviden',
-        data: [31401, 43000, 22571, 391, 5799, 3001, 22822, 174794, 2871, 2778],
-        stack: 'invest',
-        color: '#ed7d31'
-    }, {
-        name: 'Keuntungan/Kerugian Pelepasan Efek',
-        data: [287, 46344, 104026, 1607, -3796, -2032, -4925, 1173, 1248, 1994],
-        stack: 'invest',
-        color: '#a5a5a5'
-    },
-    {
-        name: 'Pendapatan Investasi Lainnya',
-        data: [0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0],
-        stack: 'invest',
-        color: '#ffc000'
-    }]
-});
+                for(var i=0;i<data.length;i++) {
+                    
+                    chart.push({
+                        name:data[i].nama, 
+                        data:[
+                            parseFloat((parseFloat(data[i].jan)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].feb)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].mar)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].apr)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].mei)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].jun)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].jul)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].agu)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].sep)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].okt)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].nov)/pembagi).toFixed(3)),
+                            parseFloat((parseFloat(data[i].des)/pembagi).toFixed(3)),
+                        ],
+                        stack: 'invest',
+                        color: data[i].warna 
+                    })
+                    html += "<tr>";
+                    html += "<td style='position: relative;'>";
+                    html += "<div style='height: 15px; width:25px; background-color:"+data[i].warna+";display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+                    html += "&nbsp"+data[i].nama
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].jan < 0) {
+                            html += "("+sepNum(data[i].jan/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].jan/pembagi); 
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].feb < 0) {
+                            html += "("+sepNum(data[i].feb/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].feb/pembagi);    
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].mar < 0) {
+                            html += "("+sepNum(data[i].mar/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].mar/pembagi);    
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].apr < 0) {
+                            html += "("+sepNum(data[i].apr/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].apr/pembagi);    
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].mei < 0) {
+                            html += "("+sepNum(data[i].mei/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].mei/pembagi); 
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].jun < 0) {
+                            html += "("+sepNum(data[i].jun/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].jun/pembagi);   
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].jul < 0) {
+                            html += "("+sepNum(data[i].jul/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].jul/pembagi);   
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].agu < 0) {
+                            html += "("+sepNum(data[i].agu/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].agu/pembagi); 
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].sep < 0) {
+                            html += "("+sepNum(data[i].sep/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].sep/pembagi)    
+                        }
+                    html += "</td>";
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].okt < 0) {
+                            html += "("+sepNum(data[i].okt/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].okt/pembagi);    
+                        }
+                    html += "</td>"
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].nov < 0) {
+                            html += "("+sepNum(data[i].nov/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].nov/pembagi);    
+                        }
+                    html += "</td>"
+                    html += "<td style='text-align: right;'>";
+                        if(data[i].des < 0) {
+                            html += "("+sepNum(data[i].des/pembagi)+")";
+                        } else {
+                            html += sepNum(data[i].des/pembagi);
+                        }
+                    html += "</td>"
+                    html += "</tr>";
+                }
+                $('#detail-invest').append(html);
+                
+                Highcharts.chart('invest', {
+                    chart: {
+                        type: 'column',
+                        height: 300
+                    },
+                    legend:{ enabled:false },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        labels: {
+                            enabled: true
+                        },
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+                    },
+                    yAxis: {
+                        visible: true,
+                        title: {
+                            enabled: false
+                        }
+                    },
+
+                    tooltip: {
+                        enabled: false
+                        // formatter: function () {
+                        //     return '<b>' + this.x + '</b><br/>' +
+                        //         this.series.name + ': ' + this.y + '<br/>' +
+                        //         'Total: ' + this.point.stackTotal;
+                        // }
+                    },
+                    plotOptions: {
+                        column: {
+                            stacking: 'normal'
+                        }
+                    },
+                    series: chart
+                });
+                
+            }
+        });
+    }
 </script>
