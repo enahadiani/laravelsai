@@ -60,7 +60,7 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h2 style="position:absolute">Realisasi BPCC</h2>
+        <h6 style="position:absolute">Realisasi BPCC</h6>
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">

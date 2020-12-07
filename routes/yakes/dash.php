@@ -26,3 +26,4 @@ Route::get('data-beban/{tahun}', 'Yakes\DashboardController@getdataBeban');
 Route::get('data-cc/{periode}', 'Yakes\DashboardController@getdataRealCC');
 Route::get('data-bp/{periode}', 'Yakes\DashboardController@getdataRealBP');
 Route::get('data-real-beban/{periode}', 'Yakes\DashboardController@getdataRealBeban');
+Route::get('data-kunj-bpcc/{periode}/{jenis}', 'Yakes\DashboardController@getdataKunjBPCC');

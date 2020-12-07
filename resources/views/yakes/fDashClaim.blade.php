@@ -44,7 +44,7 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h2 style="position:absolute">Claim Cost & Biaya Pengobatan</h2>
+        <h6 style="position:absolute">Claim Cost & Biaya Pengobatan</h6>
         <button class="btn btn-outline-light float-right" id="btn-area">Area</button>
         <button class="btn btn-outline-light float-right" id="btn-nasional">Nasional</button>
     </div>

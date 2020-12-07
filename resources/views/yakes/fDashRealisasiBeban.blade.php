@@ -60,7 +60,7 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h2 style="position:absolute">Realisasi Beban</h2>
+        <h6 style="position:absolute">Realisasi Beban</h6>
     </div>
 </div>
 <div class="row" style="margin-top: 50px;">
@@ -89,71 +89,7 @@
                             </tr> --}}
                         </thead>
                         <tbody id="content-beban">
-                            {{-- <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2019
-                                </td>
-                                <td style="text-align: right;">84.084</td>
-                                <td style="text-align: right;">35.088</td>
-                                <td style="text-align: right;">8.157</td>
-                                <td style="text-align: right;">12.690</td>
-                                <td style="text-align: right;">2.903</td>
-                                <td style="text-align: right;">7.324</td>
-                                <td style="text-align: right;">325.842</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    RKA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">115.954</td>
-                                <td style="text-align: right;">41.884</td>
-                                <td style="text-align: right;">12.164</td>
-                                <td style="text-align: right;">8.867</td>
-                                <td style="text-align: right;">3.544</td>
-                                <td style="text-align: right;">6.581</td>
-                                <td style="text-align: right;">378.820</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">96.027</td>
-                                <td style="text-align: right;">30.372</td>
-                                <td style="text-align: right;">6.763</td>
-                                <td style="text-align: right;">8.791</td>
-                                <td style="text-align: right;">2.976</td>
-                                <td style="text-align: right;">7.250</td>
-                                <td style="text-align: right;">305.974</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    ACH
-                                </td>
-                                <td style="text-align: right;">82,8</td>
-                                <td style="text-align: right;">72,5</td>
-                                <td style="text-align: right;">55,6</td>
-                                <td style="text-align: right;">99,1</td>
-                                <td style="text-align: right;">84,0</td>
-                                <td style="text-align: right;">110,2</td>
-                                <td style="text-align: right;">80,8</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    YOY
-                                </td>
-                                <td style="text-align: right;">14,2</td>
-                                <td style="text-align: right;">(13,4)</td>
-                                <td style="text-align: right;">(17,1)</td>
-                                <td style="text-align: right;">(30,7)</td>
-                                <td style="text-align: right;">2,5</td>
-                                <td style="text-align: right;">(1,0)</td>
-                                <td style="text-align: right;">(6,1)</td>
-                            </tr> --}}
+                            
                         </tbody>
                     </table>
                 </div>

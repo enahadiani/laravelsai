@@ -61,7 +61,7 @@
 </style>
 <div class="row">
     <div class="col-6">
-        <h2 style="position:absolute">Beban</h2>
+        <h6 style="position:absolute">Beban</h6>
     </div>
      <div class="col-6">
         <button id="filter-btn" class="btn btn-light" style="position: absolute;margin: 0;right: 0;">Filter</button>
