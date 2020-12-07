@@ -1,167 +1,7 @@
     {{-- Referensi file fVendor folder Esaku --}}
-    <!-- CSS tambahan -->
-    <style>
-        th,td{
-            padding:8px !important;
-            vertical-align:middle !important;
-        }
-        .search-item2{
-            cursor:pointer;
-        }
-        input.error{
-            border:1px solid #dc3545;
-        }
-        label.error{
-            color:#dc3545;
-            margin:0;
-        }
-        #table-data_paginate,#table-search_paginate
-        {
-            margin-top:0 !important;
-        }
-
-        #table-data_paginate ul,#table-search_paginate ul
-        {
-            float:right;
-        }
-        .form-body 
-        {
-            position: relative;
-            overflow: auto;
-        }
-
-        #content-delete
-        {
-            position: relative;
-            overflow: auto;
-        }
-        
-        #table-search
-        {
-            border-collapse:collapse !important;
-        }
-
-        .hidden{
-            display:none;
-        }
-
-        #table-search_filter label, #table-search_filter input
-        {
-            width:100%;
-        }
-
-        .dataTables_wrapper .paginate_button.previous {
-        margin-right: 0px; }
-
-        .dataTables_wrapper .paginate_button.next {
-        margin-left: 0px; }
-
-        div.dataTables_wrapper div.dataTables_paginate {
-        margin-top: 25px; }
-
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        justify-content: center; }
-
-        .dataTables_wrapper .paginate_button.page-item {
-            padding-left: 5px;
-            padding-right: 5px; 
-        }
-
-        .dataTables_length select {
-            border: 0;
-            background: none;
-            box-shadow: none;
-            border:none;
-            width:120px !important;
-            transition-duration: 0.3s; 
-        }
-
-        #table-data_filter label
-        {
-            width:100%;
-        }
-        #table-data_filter label input
-        {
-            width:inherit;
-        }
-        #searchData
-        {
-            font-size: .75rem;
-            height: 31px;
-        }
-        .dropdown-toggle::after {
-            display:none;
-        }
-        .dropdown-aksi > .dropdown-item{
-            font-size : 0.7rem;
-        }
-        .last-add::before{
-            content: "***";
-            background: var(--theme-color-1);
-            border-radius: 50%;
-            font-size: 5px;
-            position: relative;
-            top: -2px;
-            left: -10px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
-    <div class="row mb-3" id="saku-datatable">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;">
-                    <h5 style="position:absolute;top: 25px;">Data Akun</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;"><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="filter-btn"><i class="simple-icon-equalizer mr-1"></i> Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                  
-                </div>
-                <div class="card-body" style="min-height: 560px !important;padding-top:0;">                    
-                    <table id="table-data" style='width:100%'>
-                        <thead>
-                            <tr>
-                                <th width="30%">Kode</th>
-                                <th width="58%">Nama</th>                                
-                                <th class="th-remove"></th>                                
-                                <th class="th-remove"></th>                                
-                                <th class="th-remove"></th>                                
-                                <th class="th-remove"></th>                                
-                                <th class="th-remove"></th>                                
-                                <th class="th-remove"></th>                                
-                                <th width="12%" class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-list-data judul="Data Akun" tambah="true" :thead="array('Kode','Nama','Tgl Input','Aksi')" :thwidth="array(20,70,0,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -170,9 +10,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -184,78 +30,85 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_akun" class="col-md-2 col-sm-12 col-form-label">Kode</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>                                
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_akun">Kode</label>
+                                        <input class="form-control" type="text" placeholder="Kode Akun" id="kode_akun" name="kode_akun" required>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="nama">Nama</label>
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="modul">Modul</label>
+                                        <select class="form-control" id="modul" name="modul" required>
+                                            <option value="">--Pilih Modul--</option>
+                                            <option value="A">Aktiva</option>
+                                            <option value="P">Passiva</option>
+                                            <option value="L">Laba Rugi</option>
+                                        </select>
+                                        
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">           
+                                        <label for="modul">Jenis</label>
+                                        <select class="form-control" id="jenis" name="jenis" required></select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
-                        <div class="form-group row ">
-                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Modul</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="modul" name="modul" required>
-                                    <option value="">--Pilih Modul--</option>
-                                    <option value="A">Aktiva</option>
-                                    <option value="P">Passiva</option>
-                                    <option value="L">Laba Rugi</option>
-                                </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_curr">Currency</label>
+                                        <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>            
+                                    </div>
+                                </div>
                             </div>
-                            <label for="modul" class="col-md-2 col-sm-12 col-form-label">Jenis</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="jenis" name="jenis" required></select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
-                        <div class="form-group row ">
-                            <label for="kode_curr" class="col-md-2 col-sm-12 col-form-label">Currency</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode Currency" id="kode_curr" name="kode_curr" value="IDR" readonly required>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="blok">Status Blok</label>
+                                        <select class="form-control" id="blok" name="blok" required>
+                                            <option value="">--Pilih Status Blok--</option>
+                                            <option value="0">Unblok</option>
+                                            <option value="1">Blok</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="budget">Status Budget</label>
+                                        <select class="form-control" id="budget" name="budget" required>
+                                            <option value="">--Pilih Status Budget--</option>
+                                            <option value="0">Uncheck</option>
+                                            <option value="1">Check</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
-                        <div class="form-group row ">
-                            <label for="blok" class="col-md-2 col-sm-12 col-form-label">Status Blok</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="blok" name="blok" required>
-                                    <option value="">--Pilih Status Blok--</option>
-                                    <option value="0">Unblok</option>
-                                    <option value="1">Blok</option>
-                                </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="account">Normal Account</label>
+                                        <select class="form-control" id="account" name="account" required>
+                                        <option value="">--Pilih Normal Account--</option>
+                                        <option value="D">D - Debet</option>
+                                        <option value="C">C - Kredit</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <label for="budget" class="col-md-2 col-sm-12 col-form-label">Status Budget</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="budget" name="budget" required>
-                                    <option value="">--Pilih Status Budget--</option>
-                                    <option value="0">Uncheck</option>
-                                    <option value="1">Check</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
-                        </div>
-                        <div class="form-group row ">
-                            <label for="account" class="col-md-2 col-sm-12 col-form-label">Normal Account</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="account" name="account" required>
-                                    <option value="">--Pilih Normal Account--</option>
-                                    <option value="D">D - Debet</option>
-                                    <option value="C">C - Kredit</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -263,62 +116,9 @@
         </div> 
     </form>
     <!-- END FORM INPUT -->
-
-    <!-- MODAL CBBL -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-search">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
-            <div class="modal-content">
-                <div style="display: block;" class="modal-header">
-                    <h5 class="modal-title" style="position: absolute;margin-bottom:10px"></h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="top: 0;position: relative;z-index: 10;right: ;">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL CBBL -->
-
-    <!-- MODAL PREVIEW -->
-    <div class="modal" tabindex="-1" role="dialog" id="modal-preview">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:600px">
-            <div class="modal-content" style="border-radius:0.75em">
-                <div class="modal-header py-0" style="display:block;">
-                    <h6 class="modal-title py-2" style="position: absolute;">Preview Data Akun <span id="modal-preview-nama"></span><span id="modal-preview-id" style="display:none"></span> </h6>
-                    <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-
-                    <div class="dropdown d-inline-block float-right">
-                        <button class="btn dropdown-toggle mb-1" type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                        <h6 class="mx-0 my-0 py-2">Aksi <i class="simple-icon-arrow-down ml-1" style="font-size: 10px;"></i></h6>
-                        </button>
-                        <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
-                            <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
-                            <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body" id="content-preview" style="height:520px">
-                    <table id="table-preview" class="table no-border">
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL PREVIEW -->
-
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
@@ -379,72 +179,35 @@
 
     //LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    
-    var dataTable = $("#table-data").DataTable({
-        destroy: true,
-        bLengthChange: false,
-        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
-        'ajax': {
-            'url': "{{ url('yakes-master/masakun') }}",
-            'async':false,
-            'type': 'GET',
-            'dataSrc' : function(json) {
-                if(json.status){
-                    return json.daftar;   
-                }else{
-                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    return [];
-                }
-            }
-        },
-        'columnDefs': [
-            {'targets': 8, data: null, 'defaultContent': action_html,'className': 'text-center' },
+    var dataTable = generateTable(
+        "table-data",
+        "{{ url('yakes-master/masakun') }}", 
+        [
+            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
-                "targets": [2,3,4,5,6,7],
-                "visible": false
+                "targets": 0,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    if ( rowData.status == "baru" ) {
+                        $(td).parents('tr').addClass('selected');
+                        $(td).addClass('last-add');
+                    }
+                }
+            },
+            {
+                "targets": [2],
+                "visible": false,
+                "searchable": false
             }
         ],
-        'columns': [
+        [
             { data: 'kode_akun' },
             { data: 'nama' },
-            { data: 'modul' },
-            { data: 'jenis' },
-            { data: 'kode_curr' },
-            { data: 'block' },
-            { data: 'status_gar' },
-            { data: 'normal' },
+            { data: 'tgl_input' },
         ],
-        drawCallback: function () {
-            $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-            $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
+        "{{ url('yakes-auth/sesi-habis') }}",
+        [[2 ,"desc"]]
+    );
 
-            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-            $('#table-data thead.th-remove').remove();
-        },
-        language: {
-            paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-            },
-            search: "_INPUT_",
-            searchPlaceholder: "Search...",
-            // lengthMenu: "Items Per Page _MENU_"
-            "lengthMenu": 'Menampilkan <select>'+
-            '<option value="10">10 per halaman</option>'+
-            '<option value="25">25 per halaman</option>'+
-            '<option value="50">50 per halaman</option>'+
-            '<option value="100">100 per halaman</option>'+
-            '</select>',
-            
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            infoFiltered: "(terfilter dari _MAX_ total entri)"
-        }
-    });
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $("#searchData").on("keyup", function (event) {
@@ -454,9 +217,8 @@
     $("#page-count").on("change", function (event) {
         var selText = $(this).val();
         dataTable.page.len(parseInt(selText)).draw();
-    });
+    });   
     // END LIST DATA
-
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){

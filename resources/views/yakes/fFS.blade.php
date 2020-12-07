@@ -9,9 +9,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h5 id="judul-form" style="position:absolute;top:25px"></h5>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -23,30 +29,38 @@
                                 <input type="hidden" id="id" name="id">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="kode_fs" class="col-md-2 col-sm-12 col-form-label">Kode</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Kode FS" id="kode_fs" name="kode_fs" required>                                
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="kode_fs" >Kode</label>
+                                        <input class="form-control" type="text" placeholder="Kode FS" id="kode_fs" name="kode_fs" required>                         
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row ">
-                            <label for="nama" class="col-md-2 col-sm-12 col-form-label">Nama</label>
-                            <div class="col-md-3 col-sm-12">
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="nama" >Nama</label>
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
-                        <div class="form-group row ">
-                            <label for="status" class="col-md-2 col-sm-12 col-form-label">Flag Aktif</label>
-                            <div class="col-md-3 col-sm-12">
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="1">AKTIF</option>
-                                    <option value="0">NON-AKTIF</option>
-                                </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">                        
+                                        <label for="status" >Flag Aktif</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                        <option value="1">AKTIF</option>
+                                        <option value="0">NON-AKTIF</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-2 col-sm-12">
-                            </div>                            
                         </div>
                     </div>
                 </div>

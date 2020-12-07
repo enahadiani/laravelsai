@@ -5,7 +5,7 @@
             <div class="col-12 mb-2">
                 <div class="card" >
                     <div class="card-body py-4 px-4" style="min-height:69.2px">
-                        <h5 style="">Struktur Laporan</h5>
+                        <h6 style="">Struktur Laporan</h6>
                             <div class="form-group row mb-0">
                                 <div class="col-md-3 col-sm-12">
                                     <select name='kode_fs' id='kode_fs' class='form-control selectize'>
@@ -58,7 +58,7 @@
                 <form id="sai-treegrid-modal-form">
                     <div class='modal-header py-0'>
                         <h6 class='modal-title py-2'>Input Format Laporan</h6>
-                        <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                        <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5;padding: 0;margin-top: 10px;margin-right: 0;">
                         <span aria-hidden="true">×</span>
                         </button>
                     </div>
