@@ -178,7 +178,7 @@ $.ajax({
             yoy.push(resultYoy);
 
         }
-        console.log(yoy)
+
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
@@ -243,8 +243,8 @@ $.ajax({
         chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
         chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
         chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
-        chart.push({type:'spline', name:'ACH', data:ach, color:'#008000'})
-        chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500'})
+        chart.push({type:'spline', name:'ACH', data:ach, color:'#008000', marker: {lineWidth: 2 }})
+        chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500', marker: {lineWidth: 2 }})
 
         Highcharts.chart('cc', {
             legend:{ enabled:false },
@@ -347,7 +347,7 @@ $.ajax({
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-        html += "REA YTD OKT 2019";
+        html += "&nbsp;REA YTD OKT 2019";
         html += "</td>";
         for(var x=0;x<rea_bef.length;x++) {
             html += "<td style='text-align: right;'>";
@@ -359,7 +359,7 @@ $.ajax({
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-        html += "RKA YTD OKT 2020";
+        html += "&nbsp;RKA YTD OKT 2020";
         html += "</td>";
         for(var x=0;x<rka_now.length;x++) {
             html += "<td style='text-align: right;'>";
@@ -371,7 +371,7 @@ $.ajax({
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-        html += "REA YTD OKT 2020";
+        html += "&nbsp;REA YTD OKT 2020";
         html += "</td>";
         for(var x=0;x<rea_now.length;x++) {
             html += "<td style='text-align: right;'>";
@@ -383,7 +383,7 @@ $.ajax({
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-        html += "ACH";
+        html += "&nbsp;ACH";
         html += "</td>";
         for(var x=0;x<ach.length;x++) {
             html += "<td style='text-align: right;'>";
@@ -395,7 +395,7 @@ $.ajax({
         html += "<tr>";
         html += "<td style='position: relative;'>";
         html += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-        html += "YoY";
+        html += "&nbsp;YoY";
         html += "</td>";
         for(var x=0;x<yoy.length;x++) {
             html += "<td style='text-align: right;'>";
