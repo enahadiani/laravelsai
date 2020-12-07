@@ -153,11 +153,11 @@ $.ajax({
         var html = "";
         for(var i=0;i<data.length;i++) { 
             resultReaNow = parseFloat(data[i].rea_now)/pembagi;
-            ReaNow = parseFloat(resultReaNow.toFixed(3));
+            ReaNow = parseFloat(resultReaNow.toFixed(0));
             resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
-            RkaNow = parseFloat(resultRkaNow.toFixed(3));
+            RkaNow = parseFloat(resultRkaNow.toFixed(0));
             resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
-            ReaBefore = parseFloat(resultReaBefore.toFixed(3));
+            ReaBefore = parseFloat(resultReaBefore.toFixed(0));
 
             if(RkaNow == 0) {
                 resultAch = 0;
@@ -318,11 +318,11 @@ $.ajax({
         var html = "";
         for(var i=0;i<data.length;i++) { 
             resultReaNow = parseFloat(data[i].rea_now)/pembagi;
-            ReaNow = parseFloat(resultReaNow.toFixed(3));
+            ReaNow = parseFloat(resultReaNow.toFixed(0));
             resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
-            RkaNow = parseFloat(resultRkaNow.toFixed(3));
+            RkaNow = parseFloat(resultRkaNow.toFixed(0));
             resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
-            ReaBefore = parseFloat(resultReaBefore.toFixed(3));
+            ReaBefore = parseFloat(resultReaBefore.toFixed(0));
 
             if(RkaNow == 0) {
                 resultAch = 0;
