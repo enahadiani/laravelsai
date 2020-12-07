@@ -291,7 +291,7 @@ class AuthController extends Controller
                 $success['sub_menu'] = $submenu;
                 $success['subdata'] = $sub;
                 $success['kode_menu'] = $kode;
-            
+                $success['data'] = $data;
             }else{
                 $success['status'] = true;
                 $success['main_menu'] = "" ;
