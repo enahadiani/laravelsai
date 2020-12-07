@@ -85,57 +85,8 @@
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2019
-                                </td>
-                                <td style="text-align: right;">75.731</td>
-                                <td style="text-align: right;">86.017</td>
-                                <td style="text-align: right;">146.733</td>
-                                <td style="text-align: right;">17.360</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    RKA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">100.851</td>
-                                <td style="text-align: right;">87.429</td>
-                                <td style="text-align: right;">171.467</td>
-                                <td style="text-align: right;">19.073</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">84.305</td>
-                                <td style="text-align: right;">81.812</td>
-                                <td style="text-align: right;">123.235</td>
-                                <td style="text-align: right;">16.623</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    ACH
-                                </td>
-                                <td style="text-align: right;">83,6</td>
-                                <td style="text-align: right;">99,6</td>
-                                <td style="text-align: right;">71,9</td>
-                                <td style="text-align: right;">117,2</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    YOY
-                                </td>
-                                <td style="text-align: right;">11,3</td>
-                                <td style="text-align: right;">(4,9)</td>
-                                <td style="text-align: right;">(16,0)</td>
-                                <td style="text-align: right;">(4,2)</td>
-                            </tr>
+                        <tbody id="real-cc">
+                           
                         </tbody>
                     </table>
                 </div>
@@ -165,57 +116,8 @@
                                 <th style="width:10%;">RESTITUSI</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2019
-                                </td>
-                                <td style="text-align: right;">15.699</td>
-                                <td style="text-align: right;">24.508</td>
-                                <td style="text-align: right;">49.899</td>
-                                <td style="text-align: right;">15.204</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    RKA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">18.955</td>
-                                <td style="text-align: right;">22.610</td>
-                                <td style="text-align: right;">49.962</td>
-                                <td style="text-align: right;">14.304</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    REA YTD OKT 2020
-                                </td>
-                                <td style="text-align: right;">12.555</td>
-                                <td style="text-align: right;">19.740</td>
-                                <td style="text-align: right;">37.473</td>
-                                <td style="text-align: right;">12.533</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    ACH
-                                </td>
-                                <td style="text-align: right;">66,2</td>
-                                <td style="text-align: right;">87,3</td>
-                                <td style="text-align: right;">75,0</td>
-                                <td style="text-align: right;">87,5</td>
-                            </tr>
-                            <tr>
-                                <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
-                                    YOY
-                                </td>
-                                <td style="text-align: right;">(20,0)</td>
-                                <td style="text-align: right;">(19,5)</td>
-                                <td style="text-align: right;">(24,9)</td>
-                                <td style="text-align: right;">(17,6)</td>
-                            </tr>
+                        <tbody id="real-bp">
+                            
                         </tbody>
                     </table>
                 </div>
@@ -224,164 +126,334 @@
     </div>
 </div>
 <script type="text/javascript">
-Highcharts.chart('cc', {
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['RJTP', 'RJTL', 'RI', 'RESTITUSI'],
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: true,
-        title: {
-            enabled: false
-        }
-    },
-    tooltip: {
-        enabled: false
-        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        // footerFormat: '</table>',
-        // shared: true,
-        // useHTML: true
-    },
-    plotOptions: {
-        series:{
-            pointPadding: 0,
-            shadow: false,
-            dataLabels: {
-                enabled: true
+var periode = "{{Session::get('periode')}}";
+var pembagi = 1000000;
+$.ajax({
+    type:'GET',
+    url: "{{ url('yakes-dash/data-cc') }}/"+periode,
+    dataType: 'JSON',
+    success: function(result) {
+        $('#real-cc').empty();
+        var data = result.daftar;
+        var rea_now = [];
+        var rea_bef = [];
+        var rka_now = [];
+        var ach = [];
+        var yoy = [];
+        var chart = [];
+        var resultReaNow = 0
+        var resultRkaNow = 0;
+        var resultReaBefore = 0;
+        var ReaNow = 0
+        var RkaNow = 0;
+        var ReaBefore = 0;
+        var resultAch = 0;
+        var resultYoy = 0;
+
+        var html = "";
+        for(var i=0;i<data.length;i++) { 
+            resultReaNow = parseFloat(data[i].rea_now)/pembagi;
+            ReaNow = parseFloat(resultReaNow.toFixed(3));
+            resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
+            RkaNow = parseFloat(resultRkaNow.toFixed(3));
+            resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
+            ReaBefore = parseFloat(resultReaBefore.toFixed(3));
+
+            if(RkaNow == 0) {
+                resultAch = 0;
+            } else {
+                resultAch = (ReaNow/RkaNow)*100;
             }
+
+            if(ReaBefore == 0) {
+                resultYoy = 0;
+            } else {
+                resultYoy = ((ReaNow/ReaBefore)-1)*100;
+            }
+            
+            rea_now.push(ReaNow);
+            rea_bef.push(ReaBefore);
+            rka_now.push(RkaNow);
+            ach.push(resultAch)
+            yoy.push(resultYoy);
+
         }
-    },
-    series: [
-        {
-            type: 'column',
-            name: 'REA YTD OKT 2019',
-            data: [75.731, 86.017, 146.733, 17.360],
-            color: '#ebebff'
-        },
-        {
-            type: 'column',
-            name: 'RKA YTD OKT 2020',
-            data: [100.851, 87.429, 171.467, 19.073],
-            color: '#8989ff'
-        },
-        {  
-            type: 'column',
-            name: 'REA YTD OKT 2020',
-            data: [84.305, 81.812, 123.235, 16.623],
-            color: '#2727ff'
-        },
-        {  
-            type: 'spline',
-            name: 'ACH',
-            data: [83.6, 99.6, 71.9, 117.2],
-            color: '#008000',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-        {  
-            type: 'spline',
-            name: 'YOY',
-            data: [11.3, -4.9, -16.0, -4.2],
-            color: '#ffa500',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-    ]
+        console.log(yoy)
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "REA YTD OKT 2019";
+        html += "</td>";
+        for(var x=0;x<rea_bef.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rea_bef[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "RKA YTD OKT 2020";
+        html += "</td>";
+        for(var x=0;x<rka_now.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rka_now[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "REA YTD OKT 2020";
+        html += "</td>";
+        for(var x=0;x<rea_now.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rea_now[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "ACH";
+        html += "</td>";
+        for(var x=0;x<ach.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(ach[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "YoY";
+        html += "</td>";
+        for(var x=0;x<yoy.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(yoy[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        $('#real-cc').append(html);
+        chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
+        chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
+        chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
+        chart.push({type:'spline', name:'ACH', data:ach, color:'#008000'})
+        chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500'})
+
+        Highcharts.chart('cc', {
+            legend:{ enabled:false },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['RJTP', 'RJTL', 'RI', 'RESTITUSI'],
+                labels: {
+                    enabled: true
+                }
+            },
+            yAxis: {
+                visible: true,
+                title: {
+                    enabled: false
+                }
+            },
+            tooltip: {
+                enabled: false
+                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                // footerFormat: '</table>',
+                // shared: true,
+                // useHTML: true
+            },
+            plotOptions: {
+                series:{
+                    pointPadding: 0,
+                    shadow: false,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: chart
+        });
+
+    }
 });
-Highcharts.chart('bp', {
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: ['RJTP', 'RJTL', 'RI', 'RESTITUSI'],
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: true,
-        title: {
-            enabled: false
-        }
-    },
-    tooltip: {
-        enabled: false
-        // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        // footerFormat: '</table>',
-        // shared: true,
-        // useHTML: true
-    },
-    plotOptions: {
-        series:{
-            pointPadding: 0,
-            shadow: false,
-            dataLabels: {
-                enabled: true
+
+$.ajax({
+    type:'GET',
+    url: "{{ url('yakes-dash/data-bp') }}/"+periode,
+    dataType: 'JSON',
+    success: function(result) {
+        $('#real-bp').empty();
+        var data = result.daftar;
+        var rea_now = [];
+        var rea_bef = [];
+        var rka_now = [];
+        var ach = [];
+        var yoy = [];
+        var chart = [];
+        var resultReaNow = 0
+        var resultRkaNow = 0;
+        var resultReaBefore = 0;
+        var ReaNow = 0
+        var RkaNow = 0;
+        var ReaBefore = 0;
+        var resultAch = 0;
+        var resultYoy = 0;
+
+        var html = "";
+        for(var i=0;i<data.length;i++) { 
+            resultReaNow = parseFloat(data[i].rea_now)/pembagi;
+            ReaNow = parseFloat(resultReaNow.toFixed(3));
+            resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
+            RkaNow = parseFloat(resultRkaNow.toFixed(3));
+            resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
+            ReaBefore = parseFloat(resultReaBefore.toFixed(3));
+
+            if(RkaNow == 0) {
+                resultAch = 0;
+            } else {
+                resultAch = (ReaNow/RkaNow)*100;
             }
+
+            if(ReaBefore == 0) {
+                resultYoy = 0;
+            } else {
+                resultYoy = ((ReaNow/ReaBefore)-1)*100;
+            }
+            
+            rea_now.push(ReaNow);
+            rea_bef.push(ReaBefore);
+            rka_now.push(RkaNow);
+            ach.push(resultAch)
+            yoy.push(resultYoy);
+
         }
-    },
-    series: [
-        {
-            type: 'column',
-            name: 'REA YTD OKT 2019',
-            data: [15.699, 24.508, 49.899, 15.204],
-            color: '#ebebff'
-        },
-        {
-            type: 'column',
-            name: 'RKA YTD OKT 2020',
-            data: [18.955, 22.610, 49.962, 14.304],
-            color: '#8989ff'
-        },
-        {  
-            type: 'column',
-            name: 'REA YTD OKT 2020',
-            data: [12.555, 19.740, 37.473, 12.533],
-            color: '#2727ff'
-        },
-        {  
-            type: 'spline',
-            name: 'ACH',
-            data: [66.2, 87.3, 75.0, 87.5],
-            color: '#008000',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-        {  
-            type: 'spline',
-            name: 'YOY',
-            data: [-20.0, -19.5, -24.9, -17.6],
-            color: '#ffa500',
-            marker: {
-                lineWidth: 2,
-            }
-        },
-    ]
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "REA YTD OKT 2019";
+        html += "</td>";
+        for(var x=0;x<rea_bef.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rea_bef[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "RKA YTD OKT 2020";
+        html += "</td>";
+        for(var x=0;x<rka_now.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rka_now[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "REA YTD OKT 2020";
+        html += "</td>";
+        for(var x=0;x<rea_now.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(rea_now[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "ACH";
+        html += "</td>";
+        for(var x=0;x<ach.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(ach[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        html += "<tr>";
+        html += "<td style='position: relative;'>";
+        html += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+        html += "YoY";
+        html += "</td>";
+        for(var x=0;x<yoy.length;x++) {
+            html += "<td style='text-align: right;'>";
+            html += sepNum(yoy[x]);
+            html += "</td>";
+        }
+        html += "</tr>";
+
+        $('#real-bp').append(html);
+        chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
+        chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
+        chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
+        chart.push({type:'spline', name:'ACH', data:ach, color:'#008000'})
+        chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500'})
+
+        Highcharts.chart('bp', {
+            legend:{ enabled:false },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: ['RJTP', 'RJTL', 'RI', 'RESTITUSI'],
+                labels: {
+                    enabled: true
+                }
+            },
+            yAxis: {
+                visible: true,
+                title: {
+                    enabled: false
+                }
+            },
+            tooltip: {
+                enabled: false
+                // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                //     '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                // footerFormat: '</table>',
+                // shared: true,
+                // useHTML: true
+            },
+            plotOptions: {
+                series:{
+                    pointPadding: 0,
+                    shadow: false,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: chart
+        });
+    }
 });
 </script>
