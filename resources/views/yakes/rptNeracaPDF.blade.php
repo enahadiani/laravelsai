@@ -77,22 +77,26 @@
             <tr>
                 <td width='75%' height='25'  class='header_laporan'><div align='center'>Deskripsi</div></td>
                 <td width='25%' class='header_laporan'><div align='center'>Jumlah</div></td>
+                <td width='25%' class='header_laporan'><div align='center'>Jumlah</div></td>
             </tr>
         </thead>
         <tbody>
             @php $no=1; @endphp
             @for ($i=0;$i < count($data);$i++)
                 @php
-                    $nilai="";
+                    $n1="";
+                    $n2="";
                     $line = $data[$i];
                     if ($line["tipe"] !="Header")
                     {
-                        $nilai=number_format(floatval($line["n4"]),0,",",".");
+                        $n1=number_format(floatval($line["n1"]),0,",",".");
+                        $n2=number_format(floatval($line["n2"]),0,",",".");
                     }
                 @endphp
 
                 <tr><td height='20' class='isi_laporan'>{!! fnSpasi($line["level_spasi"]) !!} {{ $line["nama"] }}</td>
-                <td class='isi_laporan'><div align='right'>{{ $nilai}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n1}}</div></td>
+                <td class='isi_laporan'><div align='right'>{{ $n2}}</div></td>
                 </tr>
                 $no++;
             @endfor
