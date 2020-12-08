@@ -55,8 +55,8 @@
         }
         var $kode_fs = {
             type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
+            from : "FS4",
+            fromname : "FS4",
             to : "",
             toname : "",
         }
@@ -98,7 +98,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
+        $('#kode_fs-from').val("FS4");
         $('#level-from').val("1");
         $('#format-from').val("Saldo Akhir");
 
