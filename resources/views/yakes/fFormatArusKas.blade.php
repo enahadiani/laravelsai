@@ -13,10 +13,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3 col-sm-12">
-                                    <select name='modul' id='modul' class='form-control selectize'>
+                                    <!-- <select name='modul' id='modul' class='form-control selectize'>
                                     <option value=''>Pilih Tipe Arus Kas</option>
-                                    </select>
+                                    </select> -->
                                 </div>
+                                <input type="hidden" id="modul" name="modul" class="form-control" value="CF">
                                 <div class="col-md-6 col-sm-12 text-right">
                                     <button type='button' class='sai-treegrid-btn-load btn btn-sm btn-outline-primary ' >Tampilkan</button>
                                 </div>
@@ -336,7 +337,7 @@
         var select = $('#jns-set').selectize();
         select = select[0];
         var control = select.selectize;
-        var modul = $('#modul')[0].selectize.getValue();
+        var modul = $('#modul').val();
 
         var daftar = [];
         switch(modul){
@@ -366,11 +367,11 @@
             handle: ".modal-header"
         });
         getVersi();
-        getTipe();
+        // getTipe();
         $('.selectize').selectize();
         $('.sai-treegrid-btn-load').click(function(){
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             $('#saku-data').show();
             init(kode_fs,modul);
         });
@@ -708,7 +709,7 @@
                 if(sts){
                     var selected_id = $(".ui-selected").closest('tr').find('.set_kode').text();
                     var kode_fs=$('#kode_fs')[0].selectize.getValue();
-                    var modul=$('#modul')[0].selectize.getValue();
+                    var modul=$('#modul').val();
                     $.ajax({
                         type: 'DELETE',
                         url: "{{ url('yakes-master/format-aruskas') }}",
@@ -810,7 +811,7 @@
         $("#sai-treegrid-modal-form").on("submit", function(event){
             event.preventDefault();
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             var formData = new FormData(this);
             formData.append('kode_fs', kode_fs);
             formData.append('modul', modul);
@@ -868,7 +869,7 @@
             
             var formData = new FormData(this);
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -1017,7 +1018,7 @@
             }else{
                 var tipe = $('.ui-selected').closest('tr').find('.set_tipe').val();
                 var kode_neraca = $('.ui-selected').closest('tr').find('.set_kode').text();
-                var modul = $('#modul')[0].selectize.getValue();
+                var modul = $('#modul').val();
                 if(tipe == "Posting"){
                     $('#kd_nrc').val(kode_neraca);
                     getDataAkun(kode_neraca,modul);
