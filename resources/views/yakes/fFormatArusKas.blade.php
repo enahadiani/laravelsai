@@ -1,22 +1,23 @@
-    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+<link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <form id="menu-form">
         <div class="row" id="saku-filter">
             <div class="col-12 mb-2">
                 <div class="card" >
                     <div class="card-body py-4 px-4" style="min-height:69.2px">
-                        <h6 style="">Struktur Laporan</h6>
+                        <h6 style="">Struktur Arus Kas</h6>
                             <div class="form-group row mb-0">
                                 <div class="col-md-3 col-sm-12">
                                     <select name='kode_fs' id='kode_fs' class='form-control selectize'>
-                                    <option value=''>Pilih Versi Neraca</option>
+                                    <option value=''>Pilih Versi Arus Kas</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3 col-sm-12">
-                                    <select name='modul' id='modul' class='form-control selectize'>
-                                    <option value=''>Pilih Tipe Neraca</option>
-                                    </select>
+                                    <!-- <select name='modul' id='modul' class='form-control selectize'>
+                                    <option value=''>Pilih Tipe Arus Kas</option>
+                                    </select> -->
                                 </div>
+                                <input type="hidden" id="modul" name="modul" class="form-control" value="CF">
                                 <div class="col-md-6 col-sm-12 text-right">
                                     <button type='button' class='sai-treegrid-btn-load btn btn-sm btn-outline-primary ' >Tampilkan</button>
                                 </div>
@@ -57,7 +58,7 @@
             <div class="modal-content" style="border-radius:0.75em">
                 <form id="sai-treegrid-modal-form">
                     <div class='modal-header py-0'>
-                        <h6 class='modal-title py-2'>Input Format Laporan</h6>
+                        <h6 class='modal-title py-2'>Input Format Arus Kas</h6>
                         <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5;padding: 0;margin-top: 10px;margin-right: 0;">
                         <span aria-hidden="true">×</span>
                         </button>
@@ -236,7 +237,7 @@
     function init(kode_fs,modul){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/format-laporan') }}",
+            url: "{{ url('yakes-master/format-aruskas') }}",
             dataType: 'json',
             data: {'kode_fs':kode_fs,'modul':modul},
             success:function(result){    
@@ -275,7 +276,7 @@
     function getVersi(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/format-laporan-versi') }}",
+            url: "{{ url('yakes-master/format-aruskas-versi') }}",
             dataType: 'json',
             success:function(result){    
                 if(result.data.status){
@@ -304,7 +305,7 @@
     function getTipe(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('yakes-master/format-laporan-tipe') }}",
+            url: "{{ url('yakes-master/format-aruskas-tipe') }}",
             dataType: 'json',
             data: {'kode_menu':$kode_klp},
             success:function(result){    
@@ -336,11 +337,12 @@
         var select = $('#jns-set').selectize();
         select = select[0];
         var control = select.selectize;
-        var modul = $('#modul')[0].selectize.getValue();
+        var modul = $('#modul').val();
 
         var daftar = [];
         switch(modul){
             case 'A':
+            case 'CF':
             daftar = ['Neraca'];
             break;
             case 'P':
@@ -361,16 +363,15 @@
     
         // init();
         // getLink();
-        
         $('.modal-dialog').draggable({
             handle: ".modal-header"
         });
         getVersi();
-        getTipe();
+        // getTipe();
         $('.selectize').selectize();
         $('.sai-treegrid-btn-load').click(function(){
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             $('#saku-data').show();
             init(kode_fs,modul);
         });
@@ -708,10 +709,10 @@
                 if(sts){
                     var selected_id = $(".ui-selected").closest('tr').find('.set_kode').text();
                     var kode_fs=$('#kode_fs')[0].selectize.getValue();
-                    var modul=$('#modul')[0].selectize.getValue();
+                    var modul=$('#modul').val();
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('yakes-master/format-laporan') }}",
+                        url: "{{ url('yakes-master/format-aruskas') }}",
                         dataType: 'json',
                         data: {'kode_fs':kode_fs,'modul':modul,'kode_neraca':selected_id},
                         success:function(result){
@@ -810,7 +811,7 @@
         $("#sai-treegrid-modal-form").on("submit", function(event){
             event.preventDefault();
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             var formData = new FormData(this);
             formData.append('kode_fs', kode_fs);
             formData.append('modul', modul);
@@ -820,7 +821,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url:"{{ url('yakes-master/format-laporan') }}",
+                url:"{{ url('yakes-master/format-aruskas') }}",
                 dataType: 'json',
                 data: formData,
                 contentType: false,
@@ -868,14 +869,14 @@
             
             var formData = new FormData(this);
             var kode_fs = $('#kode_fs')[0].selectize.getValue();
-            var modul = $('#modul')[0].selectize.getValue();
+            var modul = $('#modul').val();
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             
             $.ajax({
                 type: 'POST',
-                url: "{{ url('yakes-master/format-laporan-move') }}",
+                url: "{{ url('yakes-master/format-aruskas-move') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -979,7 +980,7 @@
         function getDataAkun(kode_neraca,modul){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('yakes-master/format-laporan-relakun') }}",
+                url: "{{ url('yakes-master/format-aruskas-relakun') }}",
                 dataType: 'json',
                 data: {'kode_neraca':kode_neraca,'modul':modul},
                 success:function(result){    
@@ -1017,7 +1018,7 @@
             }else{
                 var tipe = $('.ui-selected').closest('tr').find('.set_tipe').val();
                 var kode_neraca = $('.ui-selected').closest('tr').find('.set_kode').text();
-                var modul = $('#modul')[0].selectize.getValue();
+                var modul = $('#modul').val();
                 if(tipe == "Posting"){
                     $('#kd_nrc').val(kode_neraca);
                     getDataAkun(kode_neraca,modul);
@@ -1112,7 +1113,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ url('yakes-master/format-laporan-relasi') }}",
+                url: "{{ url('yakes-master/format-aruskas-relasi') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,

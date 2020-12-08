@@ -124,7 +124,7 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                    <label for="akun_hutang">Akun Hutang</label>
+                                        <label for="akun_hutang">Akun Hutang</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_akun_hutang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>

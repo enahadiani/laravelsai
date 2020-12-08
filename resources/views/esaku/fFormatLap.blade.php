@@ -284,6 +284,8 @@
     </div>
 
 <!-- JS Tree -->
+
+<script src="{{ asset('asset_web/plugins/fullcalendar/lib/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
 <script type="text/javascript">
     var $kode_klp = "{{ Session::get('kodeMenu') }}";
@@ -424,6 +426,9 @@
     
         // init();
         // getLink();
+        $('.modal-dialog').draggable({
+            handle: ".modal-header"
+        });
         getVersi();
         getTipe();
         $('.selectize').selectize();
@@ -949,7 +954,7 @@
                             type: 'sukses',
                             text: 'Perubahan '+result.data.message
                         });
-                        init(kode_klp);
+                        init(kode_fs,modul);
                     } else if(!result.data.status && result.data.message == 'Unauthorized'){
                         // Swal.fire({
                         //     title: 'Session telah habis',

@@ -82,7 +82,7 @@ class SettingMenuController extends Controller
             'kode_klp' => 'required',
             'kode_menu' => 'required|array',
             'level_menu' => 'required|array',
-            'nama_menu' => 'required|array',
+            'nama' => 'required|array',
             'jenis_menu' => 'required|array',
             'link' => 'required|array',
             'icon' => 'required|array',
@@ -105,28 +105,28 @@ class SettingMenuController extends Controller
                 'icon' => $request->icon
             );
 
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'yakes-master/menu-move',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Content-Type'     => 'application/json'
-                    ],
-                    'body' => json_encode($fields)
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'yakes-master/menu-move',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json'
+                ],
+                'body' => json_encode($fields)
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function show(Request $request) {
@@ -197,7 +197,7 @@ class SettingMenuController extends Controller
         }
     }
 
-    public function update(Request $request, $kd_menu,$kd_klp) {
+    public function update(Request $request) {
         $this->validate($request, [
             'kode_menu' => 'required',
             'nama' => 'required',
@@ -210,45 +210,45 @@ class SettingMenuController extends Controller
         ]);
 
         try {
-                $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'kode_menu' => $request->kode_menu,
-                        'kode_klp' => $request->kode_klp,
-                        'level_menu' => $request->level_menu,
-                        'link' => $request->link,
-                        'kode_form' => $request->link,
-                        'nama' => $request->nama,
-                        'rowindex'=>$request->rowindex,
-                        'nu' => $request->nu,
-                        'jenis_menu' => '-',
-                        'icon' => $request->icon,
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'yakes-master/menu',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'kode_menu' => $request->kode_menu,
+                    'kode_klp' => $request->kode_klp,
+                    'level_menu' => $request->level_menu,
+                    'link' => $request->link,
+                    'kode_form' => $request->link,
+                    'nama' => $request->nama,
+                    'rowindex'=>$request->rowindex,
+                    'nu' => $request->nu,
+                    'jenis_menu' => '-',
+                    'icon' => $request->icon,
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function delete(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('DELETE',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,
+            $response = $client->request('DELETE',  config('api.url').'yakes-master/menu',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),

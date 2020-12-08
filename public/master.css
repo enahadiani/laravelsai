@@ -296,3 +296,7 @@ h6{
     background: unset !important;
     color:unset !important;
 }
+
+.ui-draggable-handle{
+    cursor:move;
+}

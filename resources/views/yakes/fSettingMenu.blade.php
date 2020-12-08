@@ -1,32 +1,5 @@
 <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-    <style>
-        .ui-selected{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        .selected{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        .selected2{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        td,th{
-            padding:8px !important;
-        }
-        .form-group{
-            margin-bottom: 5px !important;
-        }
-        .px-0{
-            padding-left: 2px !important;
-            padding-right: 2px !important;
-        }
-
-        .hidden{
-            display:none;
-        }
-    </style>
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
     <form id="menu-form">
         <div class="row" id="saku-filter">
             <div class="col-12 mb-2">
@@ -194,8 +167,7 @@
                         });
                     }
                 } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error')
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -218,8 +190,7 @@
                         }
                     }
                 } else if(!result.status && result.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error');
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -242,8 +213,7 @@
                         }
                     }
                 } else if(!result.status && result.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error')
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -421,7 +391,6 @@
             }else{
                 
                 var this_index = $(".ui-selected").closest('tr').index();
-                console.log('this_index:'+this_index);
                 var this_id = $(".treegrid-"+this_index).treegrid('getId');
                 var this_depth = $(".treegrid-"+this_index).treegrid('getDepth');
 
@@ -615,8 +584,7 @@
                                 init(kode_klp);
                                 
                             } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                                // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                                console.log('error');
+                                window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                             }else{
                                 msgDialog({
                                     id: '',
@@ -707,8 +675,7 @@
                         $('#sai-treegrid-modal').modal('hide');
                         $('#validation-box').text('');
                     }else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                        console.log('error')
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     }else{
                         msgDialog({
                             id: '',
@@ -748,8 +715,7 @@
                         });
                         init(kode_klp);
                     } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                        console.log('error')
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     }else{
                         msgDialog({
                             id: '',

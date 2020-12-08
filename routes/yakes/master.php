@@ -52,6 +52,16 @@ Route::get('format-laporan-relakun','Yakes\FormatLaporanController@getRelakun');
 Route::post('format-laporan-relasi','Yakes\FormatLaporanController@simpanRelasi');
 Route::post('format-laporan-move','Yakes\FormatLaporanController@simpanMove');
 
+Route::get('format-aruskas','Yakes\FormatArusKasController@show');
+Route::post('format-aruskas','Yakes\FormatArusKasController@store');
+Route::put('format-aruskas','Yakes\FormatArusKasController@update');
+Route::delete('format-aruskas','Yakes\FormatArusKasController@destroy');
+Route::get('format-aruskas-versi','Yakes\FormatArusKasController@getVersi');
+Route::get('format-aruskas-tipe','Yakes\FormatArusKasController@getTipe');
+Route::get('format-aruskas-relakun','Yakes\FormatArusKasController@getRelakun');
+Route::post('format-aruskas-relasi','Yakes\FormatArusKasController@simpanRelasi');
+Route::post('format-aruskas-move','Yakes\FormatArusKasController@simpanMove');
+
 // Setting Menu Form //
 Route::get('setting-menu', 'Yakes\SettingMenuController@show');
 Route::post('setting-menu', 'Yakes\SettingMenuController@store');
@@ -72,4 +82,11 @@ Route::get('menu-klp/{id}', 'Yakes\KelompokMenuController@getData');
 Route::post('menu-klp', 'Yakes\KelompokMenuController@store');
 Route::put('menu-klp/{id}', 'Yakes\KelompokMenuController@update');
 Route::delete('menu-klp/{id}', 'Yakes\KelompokMenuController@delete');
+
+// Data Akses //
+Route::get('akses-user', 'Yakes\AksesUserController@index');
+Route::get('akses-user/{id}', 'Yakes\AksesUserController@getData');
+Route::post('akses-user', 'Yakes\AksesUserController@store');
+Route::put('akses-user/{id}', 'Yakes\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Yakes\AksesUserController@delete');
 
