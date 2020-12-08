@@ -77,36 +77,33 @@ class SettingMenuController extends Controller
             }
     }
 
-        public function storeMenu(Request $request) {
+    public function storeMove(Request $request) {
         $this->validate($request, [
             'kode_klp' => 'required',
             'kode_menu' => 'required|array',
             'level_menu' => 'required|array',
             'nama_menu' => 'required|array',
             'jenis_menu' => 'required|array',
-            'kode_form' => 'required|array',
+            'link' => 'required|array',
             'icon' => 'required|array',
         ]);
 
-        $icon = array();
-        for($i=0;$i<count($request->kode_menu);$i++){
-            $icon[] = '-';
-        }
-        $jenis_menu = array();
-        for($i=0;$i<count($request->kode_menu);$i++){
-            $jenis_menu[] = '-';
-        }
-
         try {
-                $fields = array(
-                    'kode_menu' => $request->kode_menu,
-                    'kode_klp' => $request->kode_klp,
-                    'level_menu' => $request->level_menu,
-                    'kode_form' => $request->kode_form,
-                    'nama_menu' => $request->nama_menu,
-                    'jenis_menu' => $jenis_menu,
-                    'icon' => $icon
-                 );
+
+            $jenis_menu = array();
+            for($i=0;$i<count($request->kode_menu);$i++){
+                $jenis_menu[] = '-';
+            }
+
+            $fields = array(
+                'kode_menu' => $request->kode_menu,
+                'kode_klp' => $request->kode_klp,
+                'level_menu' => $request->level_menu,
+                'kode_form' => $request->link,
+                'nama_menu' => $request->nama,
+                'jenis_menu' => $jenis_menu,
+                'icon' => $request->icon
+            );
 
                 $client = new Client();
                 $response = $client->request('POST',  config('api.url').'yakes-master/menu-move',[
@@ -132,14 +129,17 @@ class SettingMenuController extends Controller
             }
     }
 
-    public function getData($id) {
+    public function show(Request $request) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/menu?kode_klp='.$id,
+            $response = $client->request('GET',  config('api.url').'yakes-master/menu',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' =>[
+                    'kode_klp' => $request->kode_klp
                 ]
             ]);
     
@@ -147,8 +147,47 @@ class SettingMenuController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                $daftar = $data["data"];
+                $data = $data;
+                $html = "";
+                if(count($daftar) > 0){
+                    $pre_prt = 0;
+                    $parent_array = array();
+                    // node == i
+                    for($i=0; $i<count($daftar); $i++){
+                        if(!ISSET($daftar[$i-1]['level_menu'])){
+                            $prev_lv = 0;
+                        }else{
+                            $prev_lv = $daftar[$i-1]['level_menu'];
+                        }
+
+                        if($daftar[$i]['level_menu'] == 0){
+                            $parent_to_prt = "";
+                            $prev_prt = $i;
+                            $parent_array[$daftar[$i]['level_menu']] = $i;
+                        }else if($daftar[$i]['level_menu'] > $prev_lv){
+                            $parent_to_prt = "treegrid-parent-".($i-1);
+                            $prev_prt = $i-1;
+                            $parent_array[$daftar[$i]['level_menu']] = $i - 1;
+                        }else if($daftar[$i]['level_menu'] == $prev_lv){
+                            $parent_to_prt = "treegrid-parent-".($prev_prt);
+                        }else if($daftar[$i]['level_menu'] < $prev_lv){
+                            $parent_to_prt = "treegrid-parent-".$parent_array[$daftar[$i]['level_menu']];
+                        }
+                        
+                        $html .= "
+                        <tr class='treegrid-".$i." $parent_to_prt'>
+                        <td class='set_kd_menu'>".$daftar[$i]['kode_menu']."<input type='hidden' name='kode_menu[]' value='".$daftar[$i]['kode_menu']."'><input type='hidden' class='set_lvl' name='level_menu[]' value='".$daftar[$i]['level_menu']."'></td>
+                        <td class='set_nama'>".$daftar[$i]['nama']."<input type='hidden' name='nama[]' value='".$daftar[$i]['nama']."'><input type='hidden' class='set_icon' name='icon[]' value='".$daftar[$i]['icon']."'><input type='hidden' class='set_jenis_menu' name='jenis_menu[]' value='".$daftar[$i]['jenis_menu']."'></td>
+                        <td >".$daftar[$i]['kode_form']."<input type='hidden' name='link[]' class='set_link' value='".$daftar[$i]['kode_form']."'></td>
+                        <td class='set_nu' style='display:none'>".$daftar[$i]['nu']."</td>
+                        <td class='set_index' style='display:none'>".$daftar[$i]['rowindex']."</td>
+                        </tr>
+                        ";
+                    }
+                }
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['data' => $data,'html'=>$html], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -206,7 +245,7 @@ class SettingMenuController extends Controller
             }
     }
 
-    public function delete($kd_menu,$kd_klp) {
+    public function delete(Request $request) {
         try{
             $client = new Client();
             $response = $client->request('DELETE',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,
@@ -214,6 +253,10 @@ class SettingMenuController extends Controller
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_klp' => $request->kode_klp,
+                    'kode_menu' => $request->kode_menu
                 ]
             ]);
     
