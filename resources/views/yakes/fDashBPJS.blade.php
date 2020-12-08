@@ -57,13 +57,35 @@
         margin-left: 10px;
         top: 30%;
     }
+    .fixed-filter {
+        background-color: #f8f8f8;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        padding: 10px 0;
+        padding-bottom: 10px;
+        width: 100%;
+        z-index: 1;
+    }
+    .select-dash {
+        border-radius: 10px;
+    }
 </style>
-<div class="row">
-    <div class="col-12">
-        <h6 style="position:absolute">BPJS</h6>
+<div id="filter-header">
+    <div class="row">
+        <div class="col-12">
+            <h6>BPJS</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <select id="periode" class="form-control select-dash">
+
+            </select>
+        </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Claim BPJS - Karyawan/Pensiunan/Total</h6>
@@ -263,6 +285,37 @@
     </div>
 </div>
 <script type="text/javascript">
+    var periode = "{{Session::get('periode')}}";
+    var header = document.getElementById('filter-header');
+    var sticky = header.offsetTop;
+    window.onscroll = function() {
+        if(window.pageYOffset > sticky) {
+            header.classList.add('fixed-filter')
+        } else {
+            header.classList.remove('fixed-filter')
+        }
+    }
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-periode') }}",
+        dataType: 'JSON',
+        success: function(result) {
+            var date = new Date();
+            $.each(result.daftar, function(key, value){
+                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+            })
+            $('#periode').val(periode);
+            // getDataBeban(tahun);
+        }
+    });
+
+    $('#periode').change(function(){
+        // $('#detail-beban').empty();
+        var val = $(this).val();
+        periode = val;
+        // getDataBeban(tahun);
+    })
 Highcharts.chart('claim', {
     legend:{ enabled:false },
     credits: {
