@@ -885,7 +885,7 @@
                             type: 'sukses',
                             text: 'Perubahan '+result.data.message
                         });
-                        init(kode_klp);
+                        init(kode_fs,modul);
                     } else if(!result.data.status && result.data.message == 'Unauthorized'){
                         // Swal.fire({
                         //     title: 'Session telah habis',

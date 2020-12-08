@@ -194,8 +194,7 @@
                         });
                     }
                 } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error')
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -218,8 +217,7 @@
                         }
                     }
                 } else if(!result.status && result.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error');
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -242,8 +240,7 @@
                         }
                     }
                 } else if(!result.status && result.message == 'Unauthorized'){
-                    // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                    console.log('error')
+                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                 }
             }
         });
@@ -421,7 +418,6 @@
             }else{
                 
                 var this_index = $(".ui-selected").closest('tr').index();
-                console.log('this_index:'+this_index);
                 var this_id = $(".treegrid-"+this_index).treegrid('getId');
                 var this_depth = $(".treegrid-"+this_index).treegrid('getDepth');
 
@@ -615,8 +611,7 @@
                                 init(kode_klp);
                                 
                             } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                                // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                                console.log('error');
+                                window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                             }else{
                                 msgDialog({
                                     id: '',
@@ -707,8 +702,7 @@
                         $('#sai-treegrid-modal').modal('hide');
                         $('#validation-box').text('');
                     }else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                        console.log('error')
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     }else{
                         msgDialog({
                             id: '',
@@ -748,8 +742,7 @@
                         });
                         init(kode_klp);
                     } else if(!result.data.status && result.data.message == 'Unauthorized'){
-                        // window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
-                        console.log('error')
+                        window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     }else{
                         msgDialog({
                             id: '',

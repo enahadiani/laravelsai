@@ -1,84 +1,20 @@
-    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-    <style>
-    .ui-selected{
-        background: #e8e8e8 !important;
-        color: unset !important;
-    }
-    .selected{
-        background: #e8e8e8 !important;
-        color: unset !important;
-    }
-    .selected2{
-        background: #e8e8e8 !important;
-        color: unset !important;
-    }
-    td,th{
-        padding:8px !important;
-    }
-    .form-group{
-        margin-bottom: 5px !important;
-    }
-    #table-belum,#table-sudah
-    {
-        border-collapse:collapse !important;
-    }
-
-    #table-belum_filter label, #table-belum_filter input,#table-sudah_filter label, #table-sudah_filter input
-    {
-        width:100%;
-    }
-
-    .dataTables_wrapper .paginate_button.previous {
-        margin-right: 0px; 
-    }
-
-    .dataTables_wrapper .paginate_button.next {
-        margin-left: 0px; 
-    }
-
-    div.dataTables_wrapper div.dataTables_paginate {
-        margin-top: 0; 
-    }
-
-    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-        justify-content: center; 
-    }
-
-    .dataTables_wrapper .paginate_button.page-item {
-        padding-left: 2px;
-        padding-right: 2px; 
-    }
-    .px-0{
-        padding-left: 2px !important;
-        padding-right: 2px !important;
-    }
-    #table-sudah tbody tr:hover, 
-    #table-belum tbody tr:hover, #sai-treegrid tbody tr:hover
-    {
-    background:#f8f8f8 !important;
-    border-color:#f8f8f8 !important;
-    cursor:pointer;
-    }
-
-    .hidden{
-        display:none;
-    }
-    </style>
+<link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <form id="menu-form">
         <div class="row" id="saku-filter">
             <div class="col-12 mb-2">
                 <div class="card" >
                     <div class="card-body py-4 px-4" style="min-height:69.2px">
-                        <h5 style="">Struktur Laporan</h5>
+                        <h6 style="">Struktur Arus Kas</h6>
                             <div class="form-group row mb-0">
                                 <div class="col-md-3 col-sm-12">
                                     <select name='kode_fs' id='kode_fs' class='form-control selectize'>
-                                    <option value=''>Pilih Versi Neraca</option>
+                                    <option value=''>Pilih Versi Arus Kas</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3 col-sm-12">
                                     <select name='modul' id='modul' class='form-control selectize'>
-                                    <option value=''>Pilih Tipe Neraca</option>
+                                    <option value=''>Pilih Tipe Arus Kas</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 col-sm-12 text-right">
@@ -121,8 +57,8 @@
             <div class="modal-content" style="border-radius:0.75em">
                 <form id="sai-treegrid-modal-form">
                     <div class='modal-header py-0'>
-                        <h6 class='modal-title py-2'>Input Format Laporan</h6>
-                        <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5">
+                        <h6 class='modal-title py-2'>Input Format Arus Kas</h6>
+                        <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" style="line-height:1.5;padding: 0;margin-top: 10px;margin-right: 0;">
                         <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -299,7 +235,7 @@
     function init(kode_fs,modul){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/format-laporan') }}",
+            url: "{{ url('yakes-master/format-aruskas') }}",
             dataType: 'json',
             data: {'kode_fs':kode_fs,'modul':modul},
             success:function(result){    
@@ -328,7 +264,7 @@
                     //     text: 'harap login terlebih dahulu!',
                     //     icon: 'error'
                     // }).then(function() {
-                    //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    //     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     // })
                 }
             }
@@ -338,7 +274,7 @@
     function getVersi(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/format-laporan-versi') }}",
+            url: "{{ url('yakes-master/format-aruskas-versi') }}",
             dataType: 'json',
             success:function(result){    
                 if(result.data.status){
@@ -357,7 +293,7 @@
                     //     text: 'harap login terlebih dahulu!',
                     //     icon: 'error'
                     // }).then(function() {
-                    //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    //     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     // })
                 }
             }
@@ -367,7 +303,7 @@
     function getTipe(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/format-laporan-tipe') }}",
+            url: "{{ url('yakes-master/format-aruskas-tipe') }}",
             dataType: 'json',
             data: {'kode_menu':$kode_klp},
             success:function(result){    
@@ -387,7 +323,7 @@
                     //     text: 'harap login terlebih dahulu!',
                     //     icon: 'error'
                     // }).then(function() {
-                    //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    //     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                     // })
                 }
             }
@@ -404,6 +340,7 @@
         var daftar = [];
         switch(modul){
             case 'A':
+            case 'CF':
             daftar = ['Neraca'];
             break;
             case 'P':
@@ -770,7 +707,7 @@
                     var modul=$('#modul')[0].selectize.getValue();
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('esaku-master/format-laporan') }}",
+                        url: "{{ url('yakes-master/format-aruskas') }}",
                         dataType: 'json',
                         data: {'kode_fs':kode_fs,'modul':modul,'kode_neraca':selected_id},
                         success:function(result){
@@ -790,7 +727,7 @@
                                 //     text: 'harap login terlebih dahulu!',
                                 //     icon: 'error'
                                 // }).then(function() {
-                                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                                    window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                                 // })
                             }else{
                                 msgDialog({
@@ -879,7 +816,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url:"{{ url('esaku-master/format-laporan') }}",
+                url:"{{ url('yakes-master/format-aruskas') }}",
                 dataType: 'json',
                 data: formData,
                 contentType: false,
@@ -905,7 +842,7 @@
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                         // })
                     }else{
                         msgDialog({
@@ -934,7 +871,7 @@
             
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-master/format-laporan-move') }}",
+                url: "{{ url('yakes-master/format-aruskas-move') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -956,7 +893,7 @@
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                         // })
                     }else{
                         msgDialog({
@@ -1038,7 +975,7 @@
         function getDataAkun(kode_neraca,modul){
             $.ajax({
                 type: 'GET',
-                url: "{{ url('esaku-master/format-laporan-relakun') }}",
+                url: "{{ url('yakes-master/format-aruskas-relakun') }}",
                 dataType: 'json',
                 data: {'kode_neraca':kode_neraca,'modul':modul},
                 success:function(result){    
@@ -1057,7 +994,7 @@
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                        //     window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                        //     window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                         // })
                     }
                 }
@@ -1171,7 +1108,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ url('esaku-master/format-laporan-relasi') }}",
+                url: "{{ url('yakes-master/format-aruskas-relasi') }}",
                 dataType: 'json',
                 data: formData,
                 async:false,
@@ -1195,7 +1132,7 @@
                         //     text: 'harap login terlebih dahulu!',
                         //     icon: 'error'
                         // }).then(function() {
-                            window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                            window.location.href = "{{ url('yakes-auth/sesi-habis') }}";
                         // })
                     }else{
                         msgDialog({

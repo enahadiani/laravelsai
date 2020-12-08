@@ -52,6 +52,16 @@ Route::get('format-laporan-relakun','Yakes\FormatLaporanController@getRelakun');
 Route::post('format-laporan-relasi','Yakes\FormatLaporanController@simpanRelasi');
 Route::post('format-laporan-move','Yakes\FormatLaporanController@simpanMove');
 
+Route::get('format-aruskas','Yakes\FormatArusKasController@show');
+Route::post('format-aruskas','Yakes\FormatArusKasController@store');
+Route::put('format-aruskas','Yakes\FormatArusKasController@update');
+Route::delete('format-aruskas','Yakes\FormatArusKasController@destroy');
+Route::get('format-aruskas-versi','Yakes\FormatArusKasController@getVersi');
+Route::get('format-aruskas-tipe','Yakes\FormatArusKasController@getTipe');
+Route::get('format-aruskas-relakun','Yakes\FormatArusKasController@getRelakun');
+Route::post('format-aruskas-relasi','Yakes\FormatArusKasController@simpanRelasi');
+Route::post('format-aruskas-move','Yakes\FormatArusKasController@simpanMove');
+
 // Setting Menu Form //
 Route::get('setting-menu', 'Yakes\SettingMenuController@show');
 Route::post('setting-menu', 'Yakes\SettingMenuController@store');
