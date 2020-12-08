@@ -61,7 +61,7 @@ class FormatArusKasController extends Controller
                 ],
                 'form_params' => [
                     'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul,
+                    'modul' => substr($request->modul,0,1),
                     'nama' => $request->nama,
                     'kode_neraca' => $request->kode_neraca,
                     'level_spasi' => $request->level_spasi,
@@ -105,14 +105,14 @@ class FormatArusKasController extends Controller
         try{
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'yakes-master/format-aruskas?kode_fs='.$request->kode_fs.'&modul='.$request->modul,[
+            $response = $client->request('GET',  config('api.url').'yakes-master/format-aruskas?kode_fs='.$request->kode_fs.'&modul='.substr($request->modul,0,1),[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
                     'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul
+                    'modul' => substr($request->modul,0,1)
                 ]
             ]);
     
@@ -231,7 +231,7 @@ class FormatArusKasController extends Controller
                 ],
                 'form_params' => [
                     'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul,
+                    'modul' => substr($request->modul,0,1),
                     'nama' => $request->nama,
                     'kode_neraca' => $request->kode_neraca,
                     'level_spasi' => $request->level_spasi,
@@ -279,14 +279,14 @@ class FormatArusKasController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('DELETE',  config('api.url').'yakes-master/format-aruskas?kode_fs='.$request->kode_fs.'&modul='.$request->modul.'&kode_neraca='.$request->kode_neraca,[
+            $response = $client->request('DELETE',  config('api.url').'yakes-master/format-aruskas?kode_fs='.$request->kode_fs.'&modul='.substr($request->modul,0,1).'&kode_neraca='.$request->kode_neraca,[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
                     'kode_fs' => $request->kode_fs,
-                    'modul' => $request->modul,
+                    'modul' => substr($request->modul,0,1),
                     'kode_neraca' => $request->kode_neraca
                 ]
             ]);
@@ -388,13 +388,13 @@ class FormatArusKasController extends Controller
 
             $client = new Client();
             
-            $response = $client->request('GET',  config('api.url').'yakes-master/format-aruskas-relakun?kode_neraca='.$request->kode_neraca.'&modul='.$request->modul,[
+            $response = $client->request('GET',  config('api.url').'yakes-master/format-aruskas-relakun?kode_neraca='.$request->kode_neraca.'&modul='.substr($request->modul,0,1),[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
-                    'modul' => $request->modul,
+                    'modul' => substr($request->modul,0,1),
                     'kode_neraca' => $request->kode_neraca
                 ]
             ]);
@@ -483,7 +483,7 @@ class FormatArusKasController extends Controller
         try{
             $fields = [
                 'kode_fs' => $request->kode_fs,
-                'modul' => $request->modul,
+                'modul' => substr($request->modul,0,1),
                 'kode_neraca' => $request->kode_neraca,
                 'nama' =>$request->nama,
                 'level_spasi' =>$request->level_spasi,

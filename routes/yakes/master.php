@@ -83,3 +83,10 @@ Route::post('menu-klp', 'Yakes\KelompokMenuController@store');
 Route::put('menu-klp/{id}', 'Yakes\KelompokMenuController@update');
 Route::delete('menu-klp/{id}', 'Yakes\KelompokMenuController@delete');
 
+// Data Akses //
+Route::get('akses-user', 'Yakes\AksesUserController@index');
+Route::get('akses-user-detail/{id}', 'Yakes\AksesUserController@getData');
+Route::post('akses-user', 'Yakes\AksesUserController@store');
+Route::put('akses-user/{id}', 'Yakes\AksesUserController@update');
+Route::delete('akses-user/{id}', 'Yakes\AksesUserController@delete');
+
