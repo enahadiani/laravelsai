@@ -83,14 +83,36 @@
     .circle-content {
         margin-top: 20px;
     }
+    .select-dash {
+        border-radius: 10px;
+    }
+    .fixed-filter {
+        background-color: #f8f8f8;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        padding: 10px 0;
+        padding-bottom: 10px;
+        width: 100%;
+        z-index: 1;
+    }
 </style>
 </style>
-<div class="row">
-    <div class="col-12">
-        <h6 style="position:absolute">SDM</h6>
+<div id="filter-header">
+    <div class="row">
+        <div class="col-12">
+            <h6>SDM</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <select id="periode" class="form-control select-dash">
+
+            </select>
+        </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;padding-bottom:10px;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;">Workforce Profil</h6>
@@ -99,9 +121,9 @@
                     <div class="circle-2">
                         <div class="circle-3">
                             <div class="circle-content">
-                                <h3 style="font-weight:bold;" id="jml-org">
+                                <h6 style="font-weight:bold;margin-top:-5px;" id="jml-org">
                                 {{-- Jumlah organik --}}
-                                </h3>
+                                </h6>
                                 <p style="font-weight:bold;margin-top:-10px;">Org</p>
                             </div>
                         </div>
@@ -180,9 +202,56 @@
 </div>
 
 <script type="text/javascript">
-    var periode = "{{Session::get('periode')}}";
-    
+var periode = "{{Session::get('periode')}}";
+var header = document.getElementById('filter-header');
+var sticky = header.offsetTop;
+window.onscroll = function() {
+    if(window.pageYOffset > sticky) {
+        header.classList.add('fixed-filter')
+    } else {
+        header.classList.remove('fixed-filter')
+    }
+}
+
     $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-periode') }}/",
+        dataType: 'JSON',
+        success: function(result) {
+            $.each(result.daftar, function(key, value){
+                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+            })
+            $('#periode').val(periode);
+        }
+    });
+
+    $('#periode').change(function(){
+        $('.container-org-detail').empty();
+        $('#dokter').empty();
+        $('#non-dokter').empty();
+        $('#medis').empty();
+        $('#non-medis').empty();
+        $('#laki').empty();
+        $('#perempuan').empty();
+        var val = $(this).val();
+        periode = val;
+        getDataOrganik();
+        getDataDemography();
+        getDataMedis();
+        getDataDokter();
+        getDataGender();
+        getDataEducation();
+    })
+
+    getDataOrganik();
+    getDataDemography();
+    getDataMedis();
+    getDataDokter();
+    getDataGender();
+    getDataEducation();
+
+    function getDataOrganik() {
+        $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-organik') }}/"+periode,
             dataType: 'JSON',
@@ -211,7 +280,9 @@
 
             }
         });
+    }
 
+    function getDataDemography() {
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-demography') }}/"+periode,
@@ -295,7 +366,9 @@
 
             }
         });
+    }
 
+    function getDataMedis() {
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-medis') }}/"+periode,
@@ -356,7 +429,9 @@
                 });
             }
         });
+    }
 
+    function getDataDokter() {
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-dokter') }}/"+periode,
@@ -369,7 +444,9 @@
 
             }
         });
+    }
 
+    function getDataGender() {
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-gender') }}/"+periode,
@@ -424,7 +501,9 @@
                 });
             }
         });
+    }
 
+    function getDataEducation() {
         $.ajax({
             type:'GET',
             url: "{{ url('yakes-dash/data-education') }}/"+periode,
@@ -492,4 +571,5 @@
 
             }
         });
+    }
 </script>

@@ -40,10 +40,6 @@
         padding: 0px 10px 0px 0px;
     }
     .select-dash {
-        width: 50%;
-        position: absolute;
-        margin: 0;
-        right: 0;
         border-radius: 10px;
     }
     .box-container {
@@ -76,20 +72,39 @@
         align-items: center;
         justify-content: center;
     }
+    .fixed-filter {
+        background-color: #f8f8f8;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        padding: 10px 0;
+        padding-bottom: 10px;
+        width: 100%;
+        z-index: 1;
+    }
 </style>
-<div class="row">
-    <div class="col-6">
-        <h6 style="position:absolute;">Biaya Kunjungan</h6>
-    </div>
-    <div class="col-6">
-        <select id="jenis" class="form-control select-dash">
-            <option value="CC" selected>Pensiunan dan Keluarga</option>
-            <option value="BP">Pegawai dan Keluarga</option>
-        </select>
-    </div>
-</div>
+    <div id="filter-header">
+        <div class="row">
+            <div class="col-12">
+                <h6>Biaya Kunjungan</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <select id="jenis" class="form-control select-dash">
+                    <option value="CC" selected>Jenis : Pensiunan dan Keluarga</option>
+                    <option value="BP">Jenis : Pegawai dan Keluarga</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <select id="periode" class="form-control select-dash">
 
-    <div class="row" style="position: relative;margin-top:50px;">
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="position: relative;margin-top:30px;">
     <div class="col-4">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="claim-ket"></h6>
@@ -325,6 +340,15 @@
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000000;
 var jenis = $('#jenis').val();
+var header = document.getElementById('filter-header');
+var sticky = header.offsetTop;
+window.onscroll = function() {
+    if(window.pageYOffset > sticky) {
+        header.classList.add('fixed-filter')
+    } else {
+        header.classList.remove('fixed-filter')
+    }
+}
 
 if(jenis == 'CC') {
     $('#claim-ket').text('Claim Cost (CC)')
@@ -333,6 +357,18 @@ if(jenis == 'CC') {
     $('#claim-ket').text('Biaya Pengobatan (BP)')
     $('#ket-layanan').text('BP per Jenis Layanan')
 }
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-periode') }}/",
+        dataType: 'JSON',
+        success: function(result) {
+            $.each(result.daftar, function(key, value){
+                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+            })
+            $('#periode').val(periode);
+        }
+    });
 
 $('#jenis').change(function(){
     $('#yoy-claim').empty();
@@ -349,6 +385,18 @@ $('#jenis').change(function(){
         $('#claim-ket').text('Biaya Pengobatan (BP)')
             $('#ket-layanan').text('BP per Jenis Layanan')
     }
+    getDataKunjungan();
+    getDataLayanan();
+})
+
+$('#periode').change(function(){
+    $('#yoy-claim').empty();
+    $('#yoy-rjtp').empty();
+    $('#yoy-rjtl').empty();
+    $('#yoy-ri').empty();
+    $('#yoy-restitusi').empty();
+    var val = $(this).val();
+    periode = val;
     getDataKunjungan();
     getDataLayanan();
 })
