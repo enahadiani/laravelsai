@@ -51,3 +51,25 @@ Route::get('format-laporan-tipe','Yakes\FormatLaporanController@getTipe');
 Route::get('format-laporan-relakun','Yakes\FormatLaporanController@getRelakun');
 Route::post('format-laporan-relasi','Yakes\FormatLaporanController@simpanRelasi');
 Route::post('format-laporan-move','Yakes\FormatLaporanController@simpanMove');
+
+// Setting Menu Form //
+Route::get('setting-menu', 'Yakes\SettingMenuController@show');
+Route::post('setting-menu', 'Yakes\SettingMenuController@store');
+Route::post('setting-menu-move', 'Yakes\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Yakes\SettingMenuController@update');
+Route::delete('setting-menu', 'Yakes\SettingMenuController@delete');
+
+// Data Form //
+Route::get('form', 'Yakes\FormController@index');
+Route::get('form/{id}', 'Yakes\FormController@getData');
+Route::post('form', 'Yakes\FormController@store');
+Route::put('form/{id}', 'Yakes\FormController@update');
+Route::delete('form/{id}', 'Yakes\FormController@delete');
+
+// Data Klp Menu //
+Route::get('menu-klp', 'Yakes\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Yakes\KelompokMenuController@getData');
+Route::post('menu-klp', 'Yakes\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Yakes\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Yakes\KelompokMenuController@delete');
+
