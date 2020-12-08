@@ -49,7 +49,9 @@
         padding: 5px;
         text-align: center;
     }
-
+    .select-dash {
+        border-radius: 10px;
+    }
     .keterangan {
         writing-mode: vertical-lr;
         margin: 0;
@@ -57,13 +59,32 @@
         margin-left: 10px;
         top: 30%;
     }
+    .fixed-filter {
+        background-color: #f8f8f8;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        padding: 10px 0;
+        padding-bottom: 10px;
+        width: 100%;
+        z-index: 1;
+    }
 </style>
-<div class="row">
-    <div class="col-12">
-        <h6 style="position:absolute">Realisasi Beban</h6>
+<div id="filter-header">
+    <div class="row">
+        <div class="col-12">
+            <h6>Realisasi Beban</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <select id="periode" class="form-control select-dash">
+
+            </select>
+        </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi Beban</h6>
@@ -106,62 +127,96 @@ var rka_now = [];
 var ach = [];
 var yoy = [];
 
-$.ajax({
-    type:'GET',
-    url: "{{ url('yakes-dash/data-cc') }}/"+periode,
-    dataType: 'JSON',
-    success: function(result) {
-        var data = result.daftar;
-        var resultReaNow = 0
-        var resultRkaNow = 0;
-        var resultReaBefore = 0;
-        var ReaNow = 0
-        var RkaNow = 0;
-        var ReaBefore = 0;
-        var resultAch = 0;
-        var resultYoy = 0;
-        var totalReaNow = 0;
-        var totalReaBefore = 0;
-        var totalRkaNow = 0;
-        var totalAch = 0;
-        var totalYoy = 0;
-
-        for(var i=0;i<data.length;i++) { 
-            resultReaNow = parseFloat(data[i].rea_now)/pembagi;
-            ReaNow = parseFloat(resultReaNow.toFixed(0));
-            resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
-            RkaNow = parseFloat(resultRkaNow.toFixed(0));
-            resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
-            ReaBefore = parseFloat(resultReaBefore.toFixed(0));
-
-            if(RkaNow == 0) {
-                resultAch = 0;
-            } else {
-                resultAch = (ReaNow/RkaNow)*100;
-            }
-
-            if(ReaBefore == 0) {
-                resultYoy = 0;
-            } else {
-                resultYoy = ((ReaNow/ReaBefore)-1)*100;
-            }
-            
-            totalReaNow = totalReaNow + ReaNow;
-            totalReaBefore = totalReaBefore + ReaBefore;
-            totalRkaNow = totalRkaNow + RkaNow;
-            totalAch = totalAch + resultAch;
-            totalYoy = totalYoy + resultYoy;
-        }
-        
-        rea_now.push(parseFloat(totalReaNow.toFixed(0)));
-        rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
-        rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
-        ach.push(parseFloat(totalAch.toFixed(0)))
-        yoy.push(parseFloat(totalYoy.toFixed(0)));
-
-        RealBeban();
+var header = document.getElementById('filter-header');
+var sticky = header.offsetTop;
+window.onscroll = function() {
+    if(window.pageYOffset > sticky) {
+        header.classList.add('fixed-filter')
+    } else {
+        header.classList.remove('fixed-filter')
     }
-});
+}
+
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-periode') }}/",
+        dataType: 'JSON',
+        success: function(result) {
+            $.each(result.daftar, function(key, value){
+                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+            })
+            $('#periode').val(periode);
+        }
+    });
+
+    $('#periode').change(function(){
+        $('#header-beban').empty();
+        $('#content-beban').empty();
+        var val = $(this).val();
+        periode = val;
+        getDataCC();
+    })
+
+    getDataCC();
+
+    function getDataCC() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('yakes-dash/data-cc') }}/"+periode,
+            dataType: 'JSON',
+            success: function(result) {
+                var data = result.daftar;
+                var resultReaNow = 0
+                var resultRkaNow = 0;
+                var resultReaBefore = 0;
+                var ReaNow = 0
+                var RkaNow = 0;
+                var ReaBefore = 0;
+                var resultAch = 0;
+                var resultYoy = 0;
+                var totalReaNow = 0;
+                var totalReaBefore = 0;
+                var totalRkaNow = 0;
+                var totalAch = 0;
+                var totalYoy = 0;
+
+                for(var i=0;i<data.length;i++) { 
+                    resultReaNow = parseFloat(data[i].rea_now)/pembagi;
+                    ReaNow = parseFloat(resultReaNow.toFixed(0));
+                    resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
+                    RkaNow = parseFloat(resultRkaNow.toFixed(0));
+                    resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
+                    ReaBefore = parseFloat(resultReaBefore.toFixed(0));
+
+                    if(RkaNow == 0) {
+                        resultAch = 0;
+                    } else {
+                        resultAch = (ReaNow/RkaNow)*100;
+                    }
+
+                    if(ReaBefore == 0) {
+                        resultYoy = 0;
+                    } else {
+                        resultYoy = ((ReaNow/ReaBefore)-1)*100;
+                    }
+            
+                    totalReaNow = totalReaNow + ReaNow;
+                    totalReaBefore = totalReaBefore + ReaBefore;
+                    totalRkaNow = totalRkaNow + RkaNow;
+                    totalAch = totalAch + resultAch;
+                    totalYoy = totalYoy + resultYoy;
+                }
+                
+                rea_now.push(parseFloat(totalReaNow.toFixed(0)));
+                rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
+                rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
+                ach.push(parseFloat(totalAch.toFixed(0)))
+                yoy.push(parseFloat(totalYoy.toFixed(0)));
+
+                RealBeban();
+            }
+        });
+    }
 
 function RealBeban() {
     $.ajax({

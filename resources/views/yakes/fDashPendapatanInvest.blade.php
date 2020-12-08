@@ -58,16 +58,35 @@
         margin-left: 10px;
         top: 30%;
     }
+    .fixed-filter {
+        background-color: #f8f8f8;
+        position: fixed;
+        top: 9%;
+        margin: 0;
+        padding: 10px 0;
+        padding-bottom: 10px;
+        width: 100%;
+        z-index: 1;
+    }
+    .select-dash {
+        border-radius: 10px;
+    }
 </style>
-<div class="row">
-    <div class="col-6">
-        <h6 style="position:absolute">Pendapatan Investasi</h6>
+<div id="filter-header">
+    <div class="row">
+        <div class="col-12">
+            <h6>Pendapatan Investasi</h6>
+        </div>
     </div>
-    <div class="col-6">
-        <button id="filter-btn" class="btn btn-light" style="position: absolute;margin: 0;right: 0;">Filter</button>
+    <div class="row">
+        <div class="col-2">
+            <select id="periode" class="form-control select-dash">
+
+            </select>
+        </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px;">
+<div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Pendapatan Investasi</h6>
@@ -106,53 +125,19 @@
         </div>
     </div>
 </div>
-{{-- FILTER --}}
- <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
-    aria-labelledby="modalFilter" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="form-filter">
-                    <div class="modal-header pb-0" style="border:none">
-                        <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="border:none">
-                        <div class="form-group row">
-                            <label>Tahun</label>
-                            <select class="form-control" data-width="100%" name="inp-filter_tahun" id="inp-filter_tahun">
-                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="border:none">
-                        {{-- <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button> --}}
-                        <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- END FILTER --}}
 <script type="text/javascript">
     var tahun = "";
     var pembagi = 1000000;
-    $('#filter-btn').click(function(){
-        $('#modalFilter').modal('show');
-    });
 
-    var select = $('#inp-filter_tahun').selectize({
-        onChange: function(value){
-            tahun = value
-        }
-    })
-
-    $('#btn-tampil').click(function(){
-        var tahun = select[0].selectize.getValue()
-        getDataPendapatan(tahun);
-        $('#modalFilter').modal('hide');
-    })
+    // var header = document.getElementById('filter-header');
+    // var sticky = header.offsetTop;
+    // window.onscroll = function() {
+    //     if(window.pageYOffset > sticky) {
+    //         header.classList.add('fixed-filter')
+    //     } else {
+    //         header.classList.remove('fixed-filter')
+    //     }
+    // }
 
     $.ajax({
         type:'GET',
@@ -160,19 +145,21 @@
         dataType: 'JSON',
         success: function(result) {
             var date = new Date();
-            var select = $('#inp-filter_tahun').selectize();
-            select = select[0];
-            var control = select.selectize;
-            control.clearOptions();
-
-            for(i=0;i<result.daftar.length;i++){ 
-                control.addOption([{text:result.daftar[i].tahun, value:result.daftar[i].tahun}]);   
-            }
-            control.setValue(date.getFullYear());
+            $.each(result.daftar, function(key, value){
+                $('#periode').append("<option value="+value.tahun+">Tahun : "+value.tahun+"</option>")
+            })
+            $('#periode').val(date.getFullYear());
             tahun = date.getFullYear();
             getDataPendapatan(tahun);
         }
     });
+
+    $('#periode').change(function(){
+        $('#detail-invest').empty();
+        var val = $(this).val();
+        tahun = val;
+        getDataPendapatan(tahun);
+    })
 
     function getDataPendapatan(value) {
         if(value != null || value != '') {
