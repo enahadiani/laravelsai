@@ -55,8 +55,8 @@
         }
         var $kode_fs = {
             type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
+            from : "FS3",
+            fromname : "FS3",
             to : "",
             toname : "",
         }
@@ -98,7 +98,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
+        $('#kode_fs-from').val("FS3");
         $('#level-from').val("1");
         $('#format-from').val("Saldo Akhir");
 
@@ -152,7 +152,7 @@
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","{{ url('yakes-report/filter-fs') }}","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
             parameter:[],
             orderby:[[[0,"desc"]],[],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
