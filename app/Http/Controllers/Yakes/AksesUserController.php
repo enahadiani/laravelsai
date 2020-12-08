@@ -62,7 +62,7 @@ class AksesUserController extends Controller
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab' => 'required',
+            'path_view' => 'required',
         ]);
 
         try { 
@@ -79,7 +79,7 @@ class AksesUserController extends Controller
                     'pass' => $request->pass,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
-                    'kode_menu_lab' => $request->kode_menu_lab,
+                    'path_view' => $request->path_view,
                     ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -132,7 +132,7 @@ class AksesUserController extends Controller
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab' => 'required',
+            'path_view' => 'required',
         ]);
 
         try { 
@@ -149,7 +149,7 @@ class AksesUserController extends Controller
                     'pass' => $request->pass,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
-                    'kode_menu_lab' => $request->kode_menu_lab,
+                    'path_view' => $request->path_view,
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
