@@ -92,7 +92,7 @@
     <div class="row" style="position: relative;margin-top:50px;">
     <div class="col-4">
         <div class="card">
-            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Claim Cost</h6>
+            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="claim-ket"></h6>
             <p class="ml-4 mt-1">Satuan Milyar</p>
             <div id="claim" class="mt-3"></div>
             <div class="box">
@@ -107,8 +107,8 @@
     </div>
     <div class="col-4">
         <div class="card" style="height: 405px;">
-            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Komposisi CC</h6>
-            <div id="pkk-komposisi" class="mt-3"></div>
+            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Komposisi</h6>
+            <div id="komposisi" class="mt-3"></div>
         </div>
     </div>
     <div class="col-4">
@@ -132,65 +132,61 @@
 <div class="row" style="position: relative;margin-top:20px;">
     <div class="col-12">
         <div class="card">    
-            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">CC per Jenis Layanan</h6>
+            <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;" id="ket-layanan"></h6>
             <p class="ml-4 mt-1">Satuan Milyar</p>
             <div class="row">
                 <div class="col-3">
-                    <div id="pkk-rjtp" class="mt-3"></div>
+                    <div id="rjtp" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTP</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 81.8%</span>
+                                <span style="font-weight: bold;" id="ach-rjtp"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color: #228B22;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">7.7%</span>
+                            <div style="padding-right: 30px;" id="yoy-rjtp">
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="pkk-rjtl" class="mt-3"></div>
+                     <div id="rjtl" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RJTL</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 92.4%</span>
+                                <span style="font-weight: bold;" id="ach-rjtl"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-up-circle" style="font-size: 18px;color: #228B22;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">5.45%</span>
+                            <div style="padding-right: 30px;" id="yoy-rjtl">
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="pkk-ri" class="mt-3"></div>
+                     <div id="ri" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">RI</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 72.7%</span>
+                                <span style="font-weight: bold;" id="ach-ri"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">13.5%</span>
+                            <div style="padding-right: 30px;" id="yoy-ri">
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-3">
-                     <div id="pkk-restitusi" class="mt-3"></div>
+                     <div id="restitusi" class="mt-3"></div>
                     <div class="box-container">
                         <p style="text-align: center;font-weight:bold;">Restitusi</p>
                         <div class="subbox-container">
                             <div style="padding-left: 20px;">
-                                <span style="font-weight: bold;">Ach. 84.0%</span>
+                                <span style="font-weight: bold;" id="ach-restitusi"></span>
                             </div>
-                            <div style="padding-right: 30px;">
-                                <div class="glyph-icon simple-icon-arrow-down-circle" style="font-size: 18px;color: #ff0000;display:inline-block;"></div>
-                                <span style="padding-left: 10px;font-weight: bold;position: relative;top:-2px;">8.5%</span>
+                            <div style="padding-right: 30px;" id="yoy-restitusi">
+
                             </div>
                         </div>
                     </div>
@@ -330,13 +326,31 @@ var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000000;
 var jenis = $('#jenis').val();
 
-$('#PKK').show();
-$('#PKG').hide();
+if(jenis == 'CC') {
+    $('#claim-ket').text('Claim Cost (CC)')
+    $('#ket-layanan').text('CC per Jenis Layanan')
+} else {
+    $('#claim-ket').text('Biaya Pengobatan (BP)')
+    $('#ket-layanan').text('BP per Jenis Layanan')
+}
 
 $('#jenis').change(function(){
+    $('#yoy-claim').empty();
+    $('#yoy-rjtp').empty();
+    $('#yoy-rjtl').empty();
+    $('#yoy-ri').empty();
+    $('#yoy-restitusi').empty();
     var val = $(this).val();
     jenis = val;
+    if(val == 'CC') {
+        $('#claim-ket').text('Claim Cost (CC)')
+        $('#ket-layanan').text('CC per Jenis Layanan')
+    } else {
+        $('#claim-ket').text('Biaya Pengobatan (BP)')
+            $('#ket-layanan').text('BP per Jenis Layanan')
+    }
     getDataKunjungan();
+    getDataLayanan();
 })
 
 function getDataKunjungan() {
@@ -348,7 +362,7 @@ function getDataKunjungan() {
             var data = result.daftar;
             var chart = [];
             var rka_now = parseFloat((parseFloat(data[0].rka_now)/pembagi).toFixed(3));
-            var rea_bef = parseFloat((parseFloat(data[0].rka_bef)/pembagi).toFixed(3));
+            var rea_bef = parseFloat((parseFloat(data[0].rea_bef)/pembagi).toFixed(3));
             var rea_now = parseFloat((parseFloat(data[0].rea_now)/pembagi).toFixed(3));
             var ach = 0;
             var yoy = 0;
@@ -426,62 +440,405 @@ function getDataKunjungan() {
         }
     });
 }
+
+function getDataLayanan() {
+    $.ajax({
+        type:'GET',
+        url: "{{ url('yakes-dash/data-layanan-bpcc') }}/"+periode+"/"+jenis,
+        dataType: 'JSON',
+        success: function(result) {
+            var data = result.daftar;
+            var chart = [];
+            var columnRjtp = [];
+            var columnRjtl = [];
+            var columnRi = [];
+            var columnRestitusi = [];
+            var totalRea = 0;
+            var reaRjtpNow = parseFloat((parseFloat(data[0].rea_now)/pembagi).toFixed(3))
+            var reaRjtpBef = parseFloat((parseFloat(data[0].rea_bef)/pembagi).toFixed(3))
+            var rkaRjtpNow = parseFloat((parseFloat(data[0].rka_now)/pembagi).toFixed(3))
+            var rjtpAch = 0;
+            var rjtpYoy = 0;
+            var reaRjtlNow = parseFloat((parseFloat(data[1].rea_now)/pembagi).toFixed(3))
+            var reaRjtlBef = parseFloat((parseFloat(data[1].rea_bef)/pembagi).toFixed(3))
+            var rkaRjtlNow = parseFloat((parseFloat(data[1].rka_now)/pembagi).toFixed(3))
+            var rjtlAch = 0;
+            var rjtlYoy = 0;
+            var reaRiNow = parseFloat((parseFloat(data[2].rea_now)/pembagi).toFixed(3))
+            var reaRiBef = parseFloat((parseFloat(data[2].rea_bef)/pembagi).toFixed(3))
+            var rkaRiNow = parseFloat((parseFloat(data[2].rka_now)/pembagi).toFixed(3))
+            var riAch = 0;
+            var riYoy = 0;
+            var reaRestitusiNow = parseFloat((parseFloat(data[3].rea_now)/pembagi).toFixed(3))
+            var reaRestitusiBef = parseFloat((parseFloat(data[3].rea_bef)/pembagi).toFixed(3))
+            var rkaRestitusiNow = parseFloat((parseFloat(data[3].rka_now)/pembagi).toFixed(3))
+            var restitusiAch = 0;
+            var restitusiYoy = 0;
+
+            if(rkaRjtpNow == 0) {
+                rjtpAch = 0;
+            } else {
+                rjtpAch = ((reaRjtpNow/rkaRjtpNow)*100).toFixed(2);
+            }
+
+            if(reaRjtpBef == 0) {
+                rjtpYoy = 0;
+            } else {
+                rjtpYoy = (((reaRjtpNow/reaRjtpBef)-1)*100).toFixed(2);
+            }
+            
+            if(rkaRjtlNow == 0) {
+                rjtlAch = 0;
+            } else {
+                rjtlAch = ((reaRjtlNow/rkaRjtlNow)*100).toFixed(2);
+            }
+
+            if(reaRjtlBef == 0) {
+                rjtlYoy = 0;
+            } else {
+                rjtlYoy = (((reaRjtlNow/reaRjtlBef)-1)*100).toFixed(2);
+            }
+
+            if(rkaRiNow == 0) {
+                riAch = 0;
+            } else {
+                riAch = ((reaRiNow/rkaRiNow)*100).toFixed(2);
+            }
+
+            if(reaRiBef == 0) {
+                riYoy = 0;
+            } else {
+                riYoy = (((reaRiNow/reaRiBef)-1)*100).toFixed(2);
+            }
+
+            if(rkaRestitusiNow == 0) {
+                restitusiAch = 0;
+            } else {
+                restitusiAch = ((reaRestitusiNow/rkaRestitusiNow)*100).toFixed(2);
+            }
+
+            if(reaRestitusiBef == 0) {
+                restitusiYoy = 0;
+            } else {
+                restitusiYoy = (((reaRestitusiNow/reaRestitusiBef)-1)*100).toFixed(2);
+            }
+            
+            $('#ach-rjtp').text("Ach. "+rjtpAch+"%")
+            $('#ach-rjtl').text("Ach. "+rjtlAch+"%")
+            $('#ach-ri').text("Ach. "+riAch+"%")
+            $('#ach-restitusi').text("Ach. "+restitusiAch+"%")
+
+            var ketYoyRjtp = "";
+            if(rjtpYoy < 0 ) {
+                ketYoyRjtp += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRjtp += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtpYoy+"%</span>";
+            } else {
+                ketYoyRjtp += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRjtp += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtpYoy+"%</span>";
+            }
+            $('#yoy-rjtp').append(ketYoyRjtp);
+
+            var ketYoyRjtl = "";
+            if(rjtlYoy < 0 ) {
+                ketYoyRjtl += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRjtl += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtlYoy+"%</span>";
+            } else {
+                ketYoyRjtl += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRjtl += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+rjtlYoy+"%</span>";
+            }
+            $('#yoy-rjtl').append(ketYoyRjtl);
+
+            var ketYoyRi = "";
+            if(riYoy < 0 ) {
+                ketYoyRi += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+riYoy+"%</span>";
+            } else {
+                ketYoyRi += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+riYoy+"%</span>";
+            }
+            $('#yoy-ri').append(ketYoyRi);
+
+            var ketYoyRestitusi = "";
+            if(restitusiYoy < 0 ) {
+                ketYoyRestitusi += "<div class='glyph-icon simple-icon-arrow-down-circle' style='font-size: 18px;color: #ff0000;display:inline-block;'></div>"
+                ketYoyRestitusi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+restitusiYoy+"%</span>";
+            } else {
+                ketYoyRestitusi += "<div class='glyph-icon simple-icon-arrow-up-circle' style='font-size: 18px;color: #228B22;display:inline-block;'></div>"
+                ketYoyRestitusi += "<span style='padding-left: 10px;font-weight: bold;position: relative;top:-2px;'>"+restitusiYoy+"%</span>";
+            }
+            $('#yoy-restitusi').append(ketYoyRestitusi);
+            
+            columnRjtp.push({name:"YTD Q3 '19",y:reaRjtpBef,color: '#add8e6'})
+            columnRjtp.push({name:"RKA Q3 '20",y:rkaRjtpNow,color: '#457b9d'})
+            columnRjtp.push({name:"YTD Q3 '20",y:reaRjtpNow,color: '#1d3557'})
+
+            columnRjtl.push({name:"YTD Q3 '19",y:reaRjtlBef,color: '#add8e6'})
+            columnRjtl.push({name:"RKA Q3 '20",y:rkaRjtlNow,color: '#457b9d'})
+            columnRjtl.push({name:"YTD Q3 '20",y:reaRjtlNow,color: '#1d3557'})
+
+            columnRi.push({name:"YTD Q3 '19",y:reaRiBef,color: '#add8e6'})
+            columnRi.push({name:"RKA Q3 '20",y:rkaRiNow,color: '#457b9d'})
+            columnRi.push({name:"YTD Q3 '20",y:reaRiNow,color: '#1d3557'})
+
+            columnRestitusi.push({name:"YTD Q3 '19",y:reaRestitusiBef,color: '#add8e6'})
+            columnRestitusi.push({name:"RKA Q3 '20",y:rkaRestitusiNow,color: '#457b9d'})
+            columnRestitusi.push({name:"YTD Q3 '20",y:reaRestitusiNow,color: '#1d3557'})
+            
+            for(var i=0;i<data.length;i++) {
+                totalRea = totalRea + parseFloat(data[i].rea_now)
+            }
+            var reaRJTP = parseFloat(((parseFloat(data[0].rea_now)/totalRea)*100).toFixed(2))
+            var reaRJTL = parseFloat(((parseFloat(data[1].rea_now)/totalRea)*100).toFixed(2))
+            var reaRI = parseFloat(((parseFloat(data[2].rea_now)/totalRea)*100).toFixed(2))
+            var reaRestitusi = parseFloat(((parseFloat(data[3].rea_now)/totalRea)*100).toFixed(2))
+            
+            chart.push({name:'RJTP', y:reaRJTP})
+            chart.push({name:'RJTL', y:reaRJTL})
+            chart.push({name:'RI', y:reaRI})
+            chart.push({name:'Restistusi', y:reaRestitusi})
+
+            Highcharts.chart('komposisi', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 250
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        size: 200,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            padding: 0,
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        },
+                    }
+                },
+                series: [{
+                    name: 'Komposisi',
+                    colorByPoint: true,
+                    data: chart
+                }]
+            });
+
+            Highcharts.chart('rjtp', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTP",
+                        data: columnRjtp,
+                    }
+                ]
+            });
+
+             Highcharts.chart('rjtl', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTP",
+                        data: columnRjtl,
+                    }
+                ]
+            });
+
+             Highcharts.chart('ri', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTP",
+                        data: columnRi,
+                    }
+                ]
+            });
+
+             Highcharts.chart('restitusi', {
+                chart: {
+                    type: 'column',
+                    height: 250,
+                },
+                legend:{ enabled:false },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    labels: {
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    visible: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    series:{
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    column: {
+                        color: '#2727ff'
+                    },
+                },
+                series: [
+                    {
+                        name: "RJTP",
+                        data: columnRestitusi,
+                    }
+                ]
+            });
+        }
+    });
+}
 getDataKunjungan();
-
-Highcharts.chart('pkk-komposisi', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-        height: 250
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%<b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            size: 200,
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                padding: 0,
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            },
-        }
-    },
-    series: [{
-        name: 'Komposisi CC',
-        colorByPoint: true,
-        data: [{
-            name: 'RJTP',
-            y: 27,
-        }, {
-            name: 'RI',
-            y: 41
-        }, {
-            name: 'RJTL',
-            y: 27
-        }, {
-            name: 'Restitusi',
-            y: 5
-        }]
-    }]
-});
-
+getDataLayanan();
 Highcharts.chart('pkk-cc', {
     chart: {
         type: 'column',
@@ -540,278 +897,6 @@ Highcharts.chart('pkk-cc', {
                 {
                     name: "YTD Q3 '20",
                     y: 4.76,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-rjtp', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RJTP",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 68.4,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 90.6,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 75.0,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-rjtl', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RJTL",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 74.7,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 78.5,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 73.6,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-ri', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RI",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 130.5,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 153.9,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 110.2,
-                    color:'#1d3557',
-                    drilldown: "YTD Q3 '20"
-                },
-            ],
-        }
-    ]
-});
-
-Highcharts.chart('pkk-restitusi', {
-    chart: {
-        type: 'column',
-        height: 250,
-    },
-    legend:{ enabled:false },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: '',
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        visible: false
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        series:{
-            dataLabels: {
-                enabled: true
-            }
-        },
-        column: {
-            color: '#2727ff'
-        },
-    },
-    series: [
-        {
-            name: "RESTITUSI",
-            data: [
-                {
-                    name: "YTD Q3 '19",
-                    y: 15.7,
-                    color: '#add8e6',
-                    drilldown: "YTD Q3 '19"
-                },
-                {
-                    name: "RKA Q3 '20",
-                    y: 17.1,
-                    color:'#457b9d',
-                    drilldown: "RKA Q3 '20"
-                },
-                {
-                    name: "YTD Q3 '20",
-                    y: 14.7,
                     color:'#1d3557',
                     drilldown: "YTD Q3 '20"
                 },

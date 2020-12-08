@@ -128,11 +128,11 @@ $.ajax({
 
         for(var i=0;i<data.length;i++) { 
             resultReaNow = parseFloat(data[i].rea_now)/pembagi;
-            ReaNow = parseFloat(resultReaNow.toFixed(3));
+            ReaNow = parseFloat(resultReaNow.toFixed(0));
             resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
-            RkaNow = parseFloat(resultRkaNow.toFixed(3));
+            RkaNow = parseFloat(resultRkaNow.toFixed(0));
             resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
-            ReaBefore = parseFloat(resultReaBefore.toFixed(3));
+            ReaBefore = parseFloat(resultReaBefore.toFixed(0));
 
             if(RkaNow == 0) {
                 resultAch = 0;
@@ -153,11 +153,11 @@ $.ajax({
             totalYoy = totalYoy + resultYoy;
         }
         
-        rea_now.push(parseFloat(totalReaNow.toFixed(3)));
-        rea_bef.push(parseFloat(totalReaBefore.toFixed(3)));
-        rka_now.push(parseFloat(totalRkaNow.toFixed(3)));
-        ach.push(parseFloat(totalAch.toFixed(3)))
-        yoy.push(parseFloat(totalYoy.toFixed(3)));
+        rea_now.push(parseFloat(totalReaNow.toFixed(0)));
+        rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
+        rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
+        ach.push(parseFloat(totalAch.toFixed(0)))
+        yoy.push(parseFloat(totalYoy.toFixed(0)));
 
         RealBeban();
     }
@@ -197,11 +197,11 @@ function RealBeban() {
                 categories.push(data[i].nama)
 
                 resultReaBebanNow = parseFloat(data[i].rea_now)/pembagi;
-                ReaBebanNow = parseFloat(resultReaBebanNow.toFixed(3));
+                ReaBebanNow = parseFloat(resultReaBebanNow.toFixed(0));
                 resultRkaBebanNow = parseFloat(data[i].rka_now)/pembagi;
-                RkaBebanNow = parseFloat(resultRkaBebanNow.toFixed(3));
+                RkaBebanNow = parseFloat(resultRkaBebanNow.toFixed(0));
                 resultReaBebanBefore = parseFloat(data[i].rea_bef)/pembagi;
-                ReaBebanBefore = parseFloat(resultReaBebanBefore.toFixed(3));
+                ReaBebanBefore = parseFloat(resultReaBebanBefore.toFixed(0));
 
                 if(RkaBebanNow == 0) {
                     resultBebanAch = 0;
