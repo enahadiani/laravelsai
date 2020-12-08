@@ -104,7 +104,7 @@
                 </div>
             </div>
         </div> 
-    </akses-user>
+    </form>
     <!-- END FORM INPUT -->
     @include('modal_search')
     <!-- JAVASCRIPT  -->
