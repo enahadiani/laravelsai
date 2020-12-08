@@ -82,7 +82,7 @@ class SettingMenuController extends Controller
             'kode_klp' => 'required',
             'kode_menu' => 'required|array',
             'level_menu' => 'required|array',
-            'nama_menu' => 'required|array',
+            'nama' => 'required|array',
             'jenis_menu' => 'required|array',
             'link' => 'required|array',
             'icon' => 'required|array',
@@ -197,7 +197,7 @@ class SettingMenuController extends Controller
         }
     }
 
-    public function update(Request $request, $kd_menu,$kd_klp) {
+    public function update(Request $request) {
         $this->validate($request, [
             'kode_menu' => 'required',
             'nama' => 'required',
@@ -211,7 +211,7 @@ class SettingMenuController extends Controller
 
         try {
                 $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'yakes-master/menu?kode_menu='.$kd_menu."&kode_klp=".$kd_klp,[
+                $response = $client->request('PUT',  config('api.url').'yakes-master/menu',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
