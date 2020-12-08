@@ -1,32 +1,5 @@
 <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-    <style>
-        .ui-selected{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        .selected{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        .selected2{
-            background: #e8e8e8 !important;
-            color: unset !important;
-        }
-        td,th{
-            padding:8px !important;
-        }
-        .form-group{
-            margin-bottom: 5px !important;
-        }
-        .px-0{
-            padding-left: 2px !important;
-            padding-right: 2px !important;
-        }
-
-        .hidden{
-            display:none;
-        }
-    </style>
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
     <form id="menu-form">
         <div class="row" id="saku-filter">
             <div class="col-12 mb-2">
