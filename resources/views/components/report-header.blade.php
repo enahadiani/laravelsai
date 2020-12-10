@@ -1,4 +1,4 @@
-<div class="card-body pt-4 pb-2 px-4" style="min-height:69.2px">
+<div class="card-body pt-4 pb-2 px-4 header-report" style="min-height:69.2px">
     <h6 style="position:absolute;top: 25px;">{{ $judul }}</h6>
     <button id="btn-filter" style="float:right;width:110px" class="btn btn-light ml-2 hidden" type="button"><i class="simple-icon-equalizer mr-2" style="transform-style: ;" ></i>Filter</button>
     <div class="dropdown float-right">

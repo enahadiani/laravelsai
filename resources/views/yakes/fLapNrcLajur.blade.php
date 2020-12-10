@@ -1,5 +1,43 @@
     <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <style>
+        #scroll-top
+        {
+            position:fixed;
+            bottom:60px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-top:hover 
+        {
+            opacity: 1;
+        }
+        #scroll-bottom
+        {
+            position:fixed;
+            bottom:10px;
+            right:25px;
+            z-index:2000;
+            cursor:pointer;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#d7d7d7;
+            padding:8px;
+            opacity: 0.5;
+        }
+        #scroll-bottom:hover 
+        {
+            opacity: 1;
+        }
+    </style>
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
@@ -38,8 +76,12 @@
     @php
         date_default_timezone_set("Asia/Bangkok");
     @endphp
+    <div class="control-scroll">
+    <a id="scroll-bottom" class="text-center" style='display:none'><i class="simple-icon-arrow-down" style="font-size:20px"></i></a><a id="scroll-top"  style='display:none' class="text-center"><i class="simple-icon-arrow-up" style="font-size:20px"></i></a>
+    </div>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('reportFilter.js') }}"></script>
+    <script src="{{ asset('asset_web/plugins/fullcalendar/lib/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
         $.ajaxSetup({
@@ -138,6 +180,7 @@
         var $formData = "";
         $('#form-filter').submit(function(e){
             e.preventDefault();
+            
             $formData = new FormData();
             $formData.append("periode[]",$periode.type);
             $formData.append("periode[]",$periode.from);
@@ -156,7 +199,10 @@
             }else if($output.from == "Laporan Scroll"){
                 xurl = "{{ url('yakes-auth/form/rptNrcLajurScroll') }}";
             }
+
             $('#saku-report #canvasPreview').load(xurl);
+            $('#scroll-bottom').show();
+
         });
 
         $('#show').change(function(e){
@@ -178,6 +224,7 @@
                 xurl = "{{ url('yakes-auth/form/rptNrcLajurScroll') }}";
             }
             $('#saku-report #canvasPreview').load(xurl);
+            $('#scroll-bottom').show();
         });
 
         $('#saku-report #canvasPreview').on('click', '.bukubesar', function(e){
@@ -382,4 +429,31 @@
             
         });
 
+        
+        $('#scroll-bottom').click(function(){
+            $('html, body').animate({
+                scrollTop: $("#saku-report tbody tr:last").offset().top
+            }, 700);
+        });
+
+        $('#scroll-top').click(function(){
+            $('html, body').animate({
+                scrollTop: 0
+            }, 700);
+        });
+
+        $(window).scroll(function() {
+            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //     alert("bottom!");
+            // }else if($(window).scrollTop() == 0){
+            //     alert("top!");
+            // }
+            if($(window).scrollTop() == 0){
+                $('#scroll-top').hide();
+                $('#scroll-bottom').show();
+            }else if($(window).scrollTop() + $(window).height() == $(document).height()){
+                $('#scroll-top').show();
+                $('#scroll-bottom').hide();
+            }
+        });
     </script>

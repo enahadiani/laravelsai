@@ -6,8 +6,10 @@
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
-              
-           }else{
+            
+        
+           }
+           else{
                 $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
            }
        });
