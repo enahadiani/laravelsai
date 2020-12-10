@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
 <style>
     body {
         overflow: auto; /* Hide scrollbars */
@@ -84,7 +85,6 @@
     }
     .footer-dashboard {
         width: 100%;
-        margin-left: 15px;
         margin-bottom: 100px;
         height: 50px;
     }
@@ -101,6 +101,23 @@
     .dropdown-menu > li:hover {
         background-color: #F5F5F5;
     }
+    .dropdown-menu-jenis {
+        max-height: 130px;
+        overflow: hidden;
+        overflow-x: hidden;
+        margin-top: 0px;
+        padding-left: 5px;
+    }
+    .dropdown-menu-jenis > li {
+        cursor: pointer;
+    }
+    .dropdown-menu-jenis > li:hover {
+        background-color: #F5F5F5;
+    }
+    #table-preview > tbody > tr:hover {
+        background-color: #F5F5F5;
+        cursor: pointer;
+    }
 </style>
     <div id="filter-header">
         <div class="row">
@@ -110,18 +127,34 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <select id="jenis" class="form-control select-dash">
+                <div class="dropdown-jenis dropdown">
+                    <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                        Pensiunan dan Keluarga
+                        <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                    </button>
+                    <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                        <li>
+                            <span style="display: none;">CC</span>
+                            <span>Pensiunan dan Keluarga</span>
+                        </li>
+                        <li>
+                            <span style="display: none;">BP</span>
+                            <span>Pegawai dan Keluarga</span>
+                        </li>
+                    </ul>
+                </div>
+                {{-- <select id="jenis" class="form-control select-dash">
                     <option value="CC" selected>Pensiunan dan Keluarga</option>
                     <option value="BP">Pegawai dan Keluarga</option>
-                </select>
+                </select> --}}
             </div>
             <div class="col-2">
-                <div class="dropdown">
+                <div class="dropdown-periode dropdown">
                     <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 160px;text-align:left;" type="button" data-toggle="dropdown">
                         {{Session::get('periode')}}
                         <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                     </ul>
                 </div>
@@ -367,15 +400,70 @@
 <div class="footer-dashboard">
     <div class="row">
         <div class="col-12">
-            <button class="btn btn-light" style="position: absolute;left: 0;">Dashboard Selanjutnya</button>
+            <button class="btn btn-light btn-block" id="dash-btn" style="">Dashboard Selanjutnya</button>
         </div>
     </div>
 </div>
 
+<!-- MODAL PREVIEW -->
+<div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius:0.75em">
+            <div class="modal-header py-0" style="display:block;height:49px" >
+                <h6 class="py-2" style="position: absolute;" id="modal-preview-judul">Dashboard Selanjutnya</h6>
+                <span id="modal-preview-nama" style="display:none"></span><span id="modal-preview-id" style="display:none"></span> 
+                <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
+                <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="content-preview" style="">
+                <table id="table-preview" class="table no-border">
+                    <tbody id="dash-list">
+                        <tr>
+                            <td style="display: none;">fDashKunjungan</td>
+                            <td>Biaya dan Kunjungan</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBPJS</td>
+                            <td>BPJS</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashRealisasiBeban</td>
+                            <td>Realisasi Beban</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBPCC</td>
+                            <td>Realisasi BPCC</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashPendapatanInvest</td>
+                            <td>Pendapatan Investasi</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBeban</td>
+                            <td>Beban</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashKPKU</td>
+                            <td>KPKU Kategori 7</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashSDM</td>
+                            <td>SDM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL PREVIEW -->
+
 <script type="text/javascript">
+var dashboard = "";
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000000;
-var jenis = $('#jenis').val();
+var jenis = "CC";
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
 window.onscroll = function() {
@@ -400,15 +488,15 @@ if(jenis == 'CC') {
         dataType: 'JSON',
         success: function(result) {
             $.each(result.daftar, function(key, value){
-                $('.dropdown-menu').append("<li>"+value.periode+"</li>")
+                $('.periode').append("<li>"+value.periode+"</li>")
             })
         }
     });
 
-    $('.dropdown-menu').on( 'click', 'li', function() {
+    $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
         var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
-        $(this).closest('.dropdown').find('.select-dash').html(htmlText);
+        $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
         $('#yoy-claim').empty();
         $('#yoy-rjtp').empty();
@@ -419,24 +507,50 @@ if(jenis == 'CC') {
         getDataLayanan();
     });
 
-$('#jenis').change(function(){
-    $('#yoy-claim').empty();
-    $('#yoy-rjtp').empty();
-    $('#yoy-rjtl').empty();
-    $('#yoy-ri').empty();
-    $('#yoy-restitusi').empty();
-    var val = $(this).val();
-    jenis = val;
-    if(val == 'CC') {
-        $('#claim-ket').text('Claim Cost (CC)')
-        $('#ket-layanan').text('CC per Jenis Layanan')
-    } else {
-        $('#claim-ket').text('Biaya Pengobatan (BP)')
-            $('#ket-layanan').text('BP per Jenis Layanan')
-    }
-    getDataKunjungan();
-    getDataLayanan();
-})
+    $('.jenis').on( 'click', 'li', function() {
+        var value = $(this).find('span').first().text();
+        var text = $(this).find('span').last().text();
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
+        jenis = value;
+        $('#yoy-claim').empty();
+        $('#yoy-rjtp').empty();
+        $('#yoy-rjtl').empty();
+        $('#yoy-ri').empty();
+        $('#yoy-restitusi').empty();
+        getDataKunjungan();
+        getDataLayanan();
+    });
+
+// $('#jenis').change(function(){
+//     $('#yoy-claim').empty();
+//     $('#yoy-rjtp').empty();
+//     $('#yoy-rjtl').empty();
+//     $('#yoy-ri').empty();
+//     $('#yoy-restitusi').empty();
+//     var val = $(this).val();
+//     jenis = val;
+//     if(val == 'CC') {
+//         $('#claim-ket').text('Claim Cost (CC)')
+//         $('#ket-layanan').text('CC per Jenis Layanan')
+//     } else {
+//         $('#claim-ket').text('Biaya Pengobatan (BP)')
+//             $('#ket-layanan').text('BP per Jenis Layanan')
+//     }
+//     getDataKunjungan();
+//     getDataLayanan();
+// })
+
+    $('#dash-btn').click(function(){
+        $('#modal-preview').modal('show');
+    });
+
+    $('#dash-list').on( 'click', 'tr', function() {
+        var form = $(this).find('td').first().text();
+        dashboard = "{{ url('yakes-auth/form')}}/"+form;
+        $('#modal-preview').modal('hide');
+        loadForm(dashboard);
+    });
 
 // $('#periode').change(function(){
 //     $('#yoy-claim').empty();
