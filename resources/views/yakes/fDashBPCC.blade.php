@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
 <style>
     table.table-akun > thead > tr > th {
         color: #f0f0f0;
