@@ -108,6 +108,10 @@
                                         <option value='0'>NON-AKTIF</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="no_hp">No HP</label>
+                                        <input class="form-control" type="text" id="no_hp" name="no_hp" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>                                
@@ -372,7 +376,7 @@
             var parameter = $('#id_edit').val();
             var id = $('#nik').val();
             if(parameter == "edit"){
-                var url = "{{ url('yakes-master/karyawan-ubah') }}";
+                var url = "{{ url('yakes-master/karyawan-ubah') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
@@ -504,8 +508,12 @@
                     $('#alamat').val(result.data[0].alamat);
                     $('#jabatan').val(result.data[0].jabatan);
                     $('#no_telp').val(result.data[0].no_telp);
+                    $('#no_hp').val(result.data[0].no_hp);
                     $('#email').val(result.data[0].email);
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
+
+                    var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
+                    $('.preview').html(html);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -532,9 +540,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#nik,#nama_form,#form').keydown(function(e){
+    $('#nik,#nama,#alamat,#jabatan,#no_telp,#email,#kode_pp,#flag_aktif,#no_hp,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama_form','form'];
+        var nxt = ['nik','nama','alamat','jabatan','no_telp','email','kode_pp','flag_aktif','no_hp','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -552,7 +560,7 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 7){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -565,16 +573,28 @@
                 <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Kode Lokasi</td>
-                <td>`+data.kode_lokasi+`</td>
+                <td>Alamat</td>
+                <td>`+data.alamat+`</td>
             </tr>
             <tr>
-                <td>Kode Menu</td>
-                <td>`+data.kode_klp_menu+`</td>
+                <td>Jabatan</td>
+                <td>`+data.jabatan+`</td>
             </tr>
             <tr>
-                <td>Status Admin</td>
-                <td>`+data.status_admin+`</td>
+                <td>No Telp</td>
+                <td>`+data.no_telp+`</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>`+data.email+`</td>
+            </tr>
+            <tr>
+                <td>Kode PP</td>
+                <td>`+data.kode_pp+`</td>
+            </tr>
+            <tr>
+                <td>Status Aktif</td>
+                <td>`+data.flag_aktif+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);

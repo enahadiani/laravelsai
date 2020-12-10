@@ -92,9 +92,9 @@ Route::delete('akses-user/{id}', 'Yakes\AksesUserController@delete');
 
 // Data Karyawan //
 Route::get('karyawan', 'Yakes\KaryawanController@index');
-Route::get('karyawan-detail/{id}', 'Yakes\KaryawanController@getData');
+Route::get('karyawan/{id}', 'Yakes\KaryawanController@getData');
 Route::post('karyawan', 'Yakes\KaryawanController@store');
-Route::put('karyawan-ubah/{id}', 'Yakes\KaryawanController@update');
+Route::post('karyawan-ubah/{id}', 'Yakes\KaryawanController@update');
 Route::delete('karyawan/{id}', 'Yakes\KaryawanController@delete');
 
 // Data Unit //

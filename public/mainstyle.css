@@ -39,7 +39,8 @@ h6{
 }
 
 button{
-    font-size: 0.75rem !important;
+    /* font-size: 0.75rem !important; */
+    font-size: 14px !important;
 }
 
 p,li,ul,a,input,select,textarea,label,span[class*="info-code"],span[class*="info-name"],.selectize-input,.selectize-dropdown,span{
