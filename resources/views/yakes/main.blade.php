@@ -27,11 +27,22 @@
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
     <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
     <style>
-       
+        .logo{
+            background:url("{{ asset('img/yakes-logo.jpeg') }}") no-repeat;
+            background-size: 100px;
+            background-position-x: center;
+            background-position-y: center;
+            width:100px;
+            height:35px;
+        }
+        .logo-mobile{
+            background:url("{{ asset('img/yakeslogo.jpg') }}") no-repeat;
+            background-size:30px;
+            width:30px;
+        }
+
         a > span.d-inline-block {
             max-width: 160px !important;
             height: auto !important;
