@@ -217,13 +217,13 @@ window.onscroll = function() {
                     if(RkaNow == 0) {
                         resultAch = 0;
                     } else {
-                        resultAch = (ReaNow/RkaNow)*100;
+                        resultAch = parseFloat(((ReaNow/RkaNow)*100).toFixed(2));
                     }
 
                     if(ReaBefore == 0) {
                         resultYoy = 0;
                     } else {
-                        resultYoy = ((ReaNow/ReaBefore)-1)*100;
+                        resultYoy = parseFloat((((ReaNow/ReaBefore)-1)*100).toFixed(2));
                     }
                     
                     rea_now.push(ReaNow);
@@ -289,7 +289,7 @@ window.onscroll = function() {
                 html += "</td>";
                 for(var x=0;x<yoy.length;x++) {
                     html += "<td style='text-align: right;'>";
-                    html += sepNum(yoy[x]);
+                    html += yoy[x];
                     html += "</td>";
                 }
                 html += "</tr>";
@@ -298,10 +298,13 @@ window.onscroll = function() {
                 chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
                 chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
                 chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
-                chart.push({type:'spline', name:'ACH', data:ach, color:'#008000', marker: {lineWidth: 2 }})
-                chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500', marker: {lineWidth: 2 }})
+                chart.push({type:'spline', name:'ACH', data:ach, color:'#008000', yAxis:1, marker: {lineWidth: 2 }})
+                chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500', yAxis:1, marker: {lineWidth: 2 }})
 
                 Highcharts.chart('cc', {
+                    chart:{
+                        width:1050
+                    },
                     legend:{ enabled:false },
                     credits: {
                         enabled: false
@@ -318,12 +321,21 @@ window.onscroll = function() {
                             enabled: true
                         }
                     },
-                    yAxis: {
-                        visible: true,
-                        title: {
-                            enabled: false
-                        }
-                    },
+                    yAxis: [
+                        {
+                            linewidth: 1,
+                            title:{
+                                text: ''
+                            }
+                        },
+                        {
+                            linewidth: 1,
+                            opposite: true,
+                            title:{
+                                text: ''
+                            }
+                        },
+                    ],
                     tooltip: {
                         enabled: false
                         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -370,7 +382,7 @@ window.onscroll = function() {
                 var ReaBefore = 0;
                 var resultAch = 0;
                 var resultYoy = 0;
-
+                
                 var html = "";
                 for(var i=0;i<data.length;i++) { 
                     resultReaNow = parseFloat(data[i].rea_now)/pembagi;
@@ -383,13 +395,13 @@ window.onscroll = function() {
                     if(RkaNow == 0) {
                         resultAch = 0;
                     } else {
-                        resultAch = (ReaNow/RkaNow)*100;
+                        resultAch = parseFloat(((ReaNow/RkaNow)*100).toFixed(2));
                     }
 
                     if(ReaBefore == 0) {
                         resultYoy = 0;
                     } else {
-                        resultYoy = ((ReaNow/ReaBefore)-1)*100;
+                        resultYoy = parseFloat((((ReaNow/ReaBefore)-1)*100).toFixed(2));
                     }
                     
                     rea_now.push(ReaNow);
@@ -455,7 +467,7 @@ window.onscroll = function() {
                 html += "</td>";
                 for(var x=0;x<yoy.length;x++) {
                     html += "<td style='text-align: right;'>";
-                    html += sepNum(yoy[x]);
+                    html += yoy[x];
                     html += "</td>";
                 }
                 html += "</tr>";
@@ -464,10 +476,13 @@ window.onscroll = function() {
                 chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_bef, color:'#ebebff'})
                 chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_now, color:'#8989ff'})
                 chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_now, color:'#2727ff'})
-                chart.push({type:'spline', name:'ACH', data:ach, color:'#008000'})
-                chart.push({type:'spline', name:'YoY', data:yoy, color:'#ffa500'})
+                chart.push({type:'spline', name:'ACH', data:ach, yAxis:1, color:'#008000'})
+                chart.push({type:'spline', name:'YoY', data:yoy, yAxis:1, color:'#ffa500'})
 
                 Highcharts.chart('bp', {
+                    chart:{
+                        width:1050
+                    },
                     legend:{ enabled:false },
                     credits: {
                         enabled: false
@@ -484,12 +499,21 @@ window.onscroll = function() {
                             enabled: true
                         }
                     },
-                    yAxis: {
-                        visible: true,
-                        title: {
-                            enabled: false
-                        }
-                    },
+                    yAxis: [
+                        {
+                            linewidth: 1,
+                            title:{
+                                text: ''
+                            }
+                        },
+                        {
+                            linewidth: 1,
+                            opposite: true,
+                            title:{
+                                text: ''
+                            }
+                        },
+                    ],
                     tooltip: {
                         enabled: false
                         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',

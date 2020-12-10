@@ -211,7 +211,7 @@ window.onscroll = function() {
                 rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
                 rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
                 ach.push(parseFloat(totalAch.toFixed(0)))
-                yoy.push(parseFloat(totalYoy.toFixed(0)));
+                yoy.push(parseFloat(totalYoy.toFixed(2)));
 
                 RealBeban();
             }
@@ -245,12 +245,12 @@ function RealBeban() {
             var rka_cc_now = rka_now[0];
             var ach_cc = ach[0];
             var yoy_cc = yoy[0];
-
+            var test = [];
+            var test2 = 0;
             var htmlHeader = "";
             var htmlContent = "";
             for(var i=0;i<data.length;i++) {
                 categories.push(data[i].nama)
-
                 resultReaBebanNow = parseFloat(data[i].rea_now)/pembagi;
                 ReaBebanNow = parseFloat(resultReaBebanNow.toFixed(0));
                 resultRkaBebanNow = parseFloat(data[i].rka_now)/pembagi;
@@ -261,13 +261,13 @@ function RealBeban() {
                 if(RkaBebanNow == 0) {
                     resultBebanAch = 0;
                 } else {
-                    resultBebanAch = (ReaBebanNow/RkaBebanNow)*100;
+                    resultBebanAch = parseFloat(((ReaBebanNow/RkaBebanNow)*100).toFixed(0));
                 }
 
                 if(ReaBebanBefore == 0) {
                     resultBebanYoy = 0;
                 } else {
-                    resultBebanYoy = ((ReaBebanNow/ReaBebanBefore)-1)*100;
+                    resultBebanYoy = parseFloat((((ReaBebanNow/ReaBebanBefore)-1)*100).toFixed(2));
                 }
                 rea_beban_now.push(ReaBebanNow);
                 rea_beban_bef.push(ReaBebanBefore);
@@ -280,7 +280,7 @@ function RealBeban() {
             rea_beban_bef.push(rea_cc_before);
             rka_beban_now.push(rka_cc_now);
             ach_beban.push(ach_cc);
-            yoy_beban.push(yoy_cc);
+            yoy_beban.push(yoy_cc)
 
             htmlHeader += "<tr>";
             htmlHeader += "<th style='width:15%;'></th>";
@@ -345,7 +345,7 @@ function RealBeban() {
             htmlContent += "</td>";
             for(var x=0;x<yoy_beban.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
-                htmlContent += sepNum(yoy_beban[x]);
+                htmlContent += yoy_beban[x];
                 htmlContent += "</td>";
             }
             htmlContent += "</tr>";
@@ -355,10 +355,13 @@ function RealBeban() {
             chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_beban_bef, color:'#ebebff'})
             chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_beban_now, color:'#8989ff'})
             chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_beban_now, color:'#2727ff'})
-            chart.push({type:'spline', name:'ACH', data:ach_beban, color:'#008000', marker: {lineWidth: 2 }})
-            chart.push({type:'spline', name:'YoY', data:yoy_beban, color:'#ffa500', marker: {lineWidth: 2 }})
+            chart.push({type:'spline', name:'ACH', data:ach_beban, color:'#008000', yAxis:1, marker: {lineWidth: 2 }})
+            chart.push({type:'spline', name:'YoY', data:yoy_beban, color:'#ffa500', yAxis:1, marker: {lineWidth: 2 }})
 
             Highcharts.chart('chart', {
+                chart:{
+                    width:1050
+                },
                 legend:{ enabled:false },
                 credits: {
                     enabled: false
@@ -375,9 +378,21 @@ function RealBeban() {
                         enabled: true
                     }
                 },
-                yAxis: {
-                    visible: false
-                },
+                yAxis: [
+                    {
+                        linewidth: 1,
+                        title:{
+                            text: ''
+                        }
+                    },
+                    {
+                        linewidth: 1,
+                        opposite: true,
+                        title:{
+                            text: ''
+                        }
+                    },
+                ],
                 tooltip: {
                     enabled: false
                     // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
