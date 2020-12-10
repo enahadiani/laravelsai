@@ -91,7 +91,7 @@
                     n2=sepNum(parseFloat(line.n2));
                 }
 			
-                if (line.tipe=="Posting" && line.n4 != 0)
+                if (line.tipe=="Posting" && (line.n1 != 0 || line.n2 != 0))
                 {
                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
                     <td width='5%'></td>
@@ -154,7 +154,7 @@
             </tr>
             <tr>
                 <td width='5%'>&nbsp;</td>
-                <td width='50%' class='text-center'></u>Teuku Hercules</u></td>
+                <td width='50%' class='text-center'><u>Teuku Hercules</u></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
                 <td width='16%' class='text-center'><u>Lina Herlina</u></td>

@@ -103,7 +103,7 @@
                     n2=sepNum(parseFloat(line.n2));
                 }
 			
-                if (line.tipe=="Posting" && line.n4 != 0)
+                if (line.tipe=="Posting" && (line.n1 != 0 || line.n1 != 0))
                 {
                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
                     <td width='50%' height='20' class='isi_laporan link-report px-2' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
@@ -117,7 +117,7 @@
                 else
                 {
                     html+=`<tr>
-                    <td width='50%' height='20' class='isi_laporan link-report px-2' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td width='50%' height='20' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
                     <td width='5%'></td>
                     <td width='2%'></td>
                     <td width='20%' class='isi_laporan px-2 text-right'>`+n1+`</td>

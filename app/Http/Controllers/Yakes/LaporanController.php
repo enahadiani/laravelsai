@@ -18,6 +18,26 @@
             }
         }
 
+        function getNamaBulan($no_bulan){
+            switch ($no_bulan){
+                case 1 : case '1' : case '01': $bulan = "Januari"; break;
+                case 2 : case '2' : case '02': $bulan = "Februari"; break;
+                case 3 : case '3' : case '03': $bulan = "Maret"; break;
+                case 4 : case '4' : case '04': $bulan = "April"; break;
+                case 5 : case '5' : case '05': $bulan = "Mei"; break;
+                case 6 : case '6' : case '06': $bulan = "Juni"; break;
+                case 7 : case '7' : case '07': $bulan = "Juli"; break;
+                case 8 : case '8' : case '08': $bulan = "Agustus"; break;
+                case 9 : case '9' : case '09': $bulan = "September"; break;
+                case 10 : case '10' : case '10': $bulan = "Oktober"; break;
+                case 11 : case '11' : case '11': $bulan = "November"; break;
+                case 12 : case '12' : case '12': $bulan = "Desember"; break;
+                default: $bulan = null;
+            }
+    
+            return $bulan;
+        }
+
         public function getKartu(Request $request) {
            try{
                 $client = new Client();
@@ -523,9 +543,32 @@
             $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNeraca($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            
-            $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $bln = substr($periode,4,2);
+            $tahunseb = intval($tahun) - 1;
+            $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
+            $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
+            $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
+            $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
     	    return $pdf->download('laporan-neraca-pdf');   
+        }
+
+        function getNeracaJamkespenPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getNeracaJamkespen($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $bln = substr($periode,4,2);
+            $tahunseb = intval($tahun) - 1;
+            $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
+            $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
+            $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
+            $pdf = PDF::loadview('yakes.rptNeracaJamkespenPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
+    	    return $pdf->download('laporan-neraca-jamkespen-pdf');   
         }
 
         function getLabaRugiPPPDF(Request $request)
