@@ -55,8 +55,8 @@
         }
         var $kode_fs = {
             type : "=",
-            from : "{{ Session::get('kode_fs') }}",
-            fromname : "{{ Session::get('kode_fs') }}",
+            from : "FS4",
+            fromname : "FS4",
             to : "",
             toname : "",
         }
@@ -98,7 +98,7 @@
         // $('#show').selectize();
 
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
-        $('#kode_fs-from').val("{{ Session::get('kode_fs') }}");
+        $('#kode_fs-from').val("FS4");
         $('#level-from').val("1");
         $('#format-from').val("Saldo Akhir");
 
@@ -431,7 +431,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-neraca-jamkespen-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
             window.open(link, '_blank'); 
         });
         
