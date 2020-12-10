@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('mainstyle.css') }}" />
+    <link rel="stylesheet" href="{{ asset('mainstyle-yakes.css') }}" />
     <style>
         .logo{
             background:url("{{ asset('img/yakes-logo.jpeg') }}") no-repeat;

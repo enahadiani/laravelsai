@@ -99,7 +99,7 @@
         }
 
         p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input,span{
-            font-size: 0.875rem !important;
+            font-size: 0.8rem !important;
         }
         .bootstrap-tagsinput{
             font-size: 0.8rem !important;
