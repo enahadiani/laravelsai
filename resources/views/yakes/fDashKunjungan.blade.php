@@ -82,6 +82,25 @@
         width: 100%;
         z-index: 1;
     }
+    .footer-dashboard {
+        width: 100%;
+        margin-left: 15px;
+        margin-bottom: 100px;
+        height: 50px;
+    }
+    .dropdown-menu {
+        max-height: 130px;
+        overflow: scroll;
+        overflow-x: hidden;
+        margin-top: 0px;
+        padding-left: 5px;
+    }
+    .dropdown-menu > li {
+        cursor: pointer;
+    }
+    .dropdown-menu > li:hover {
+        background-color: #F5F5F5;
+    }
 </style>
     <div id="filter-header">
         <div class="row">
@@ -92,14 +111,23 @@
         <div class="row">
             <div class="col-3">
                 <select id="jenis" class="form-control select-dash">
-                    <option value="CC" selected>Jenis : Pensiunan dan Keluarga</option>
-                    <option value="BP">Jenis : Pegawai dan Keluarga</option>
+                    <option value="CC" selected>Pensiunan dan Keluarga</option>
+                    <option value="BP">Pegawai dan Keluarga</option>
                 </select>
             </div>
             <div class="col-2">
-                <select id="periode" class="form-control select-dash">
+                <div class="dropdown">
+                    <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 160px;text-align:left;" type="button" data-toggle="dropdown">
+                        {{Session::get('periode')}}
+                        <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        
+                    </ul>
+                </div>
+                {{-- <select id="periode" class="form-control select-dash">
 
-                </select>
+                </select> --}}
             </div>
         </div>
     </div>
@@ -227,7 +255,7 @@
     </div>
 </div>
 
-<div class="row" style="position: relative;margin-top:20px;">
+<div class="row" style="position: relative;margin-top:20px;margin-bottom:5px !important;">
     <div class="col-6">
         <div class="card">
             <h6 class="ml-4 mt-3 mb-0" style="font-weight: bold;">Kunjungan</h6>
@@ -336,6 +364,14 @@
     </div>
 </div>
 
+<div class="footer-dashboard">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-light" style="position: absolute;left: 0;">Dashboard Selanjutnya</button>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000000;
@@ -364,10 +400,23 @@ if(jenis == 'CC') {
         dataType: 'JSON',
         success: function(result) {
             $.each(result.daftar, function(key, value){
-                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+                $('.dropdown-menu').append("<li>"+value.periode+"</li>")
             })
-            $('#periode').val(periode);
         }
+    });
+
+    $('.dropdown-menu').on( 'click', 'li', function() {
+        var text = $(this).html();
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $(this).closest('.dropdown').find('.select-dash').html(htmlText);
+        periode = text;
+        $('#yoy-claim').empty();
+        $('#yoy-rjtp').empty();
+        $('#yoy-rjtl').empty();
+        $('#yoy-ri').empty();
+        $('#yoy-restitusi').empty();
+        getDataKunjungan();
+        getDataLayanan();
     });
 
 $('#jenis').change(function(){
@@ -389,17 +438,17 @@ $('#jenis').change(function(){
     getDataLayanan();
 })
 
-$('#periode').change(function(){
-    $('#yoy-claim').empty();
-    $('#yoy-rjtp').empty();
-    $('#yoy-rjtl').empty();
-    $('#yoy-ri').empty();
-    $('#yoy-restitusi').empty();
-    var val = $(this).val();
-    periode = val;
-    getDataKunjungan();
-    getDataLayanan();
-})
+// $('#periode').change(function(){
+//     $('#yoy-claim').empty();
+//     $('#yoy-rjtp').empty();
+//     $('#yoy-rjtl').empty();
+//     $('#yoy-ri').empty();
+//     $('#yoy-restitusi').empty();
+//     var val = $(this).val();
+//     periode = val;
+//     getDataKunjungan();
+//     getDataLayanan();
+// })
 
 function getDataKunjungan() {
     $.ajax({
