@@ -74,6 +74,7 @@
     .footer-dashboard {
         width: 100%;
         margin-bottom: 100px;
+        padding-bottom: 55px;
         height: 50px;
     }
     .dropdown-menu {
@@ -106,7 +107,29 @@
         background-color: #F5F5F5;
         cursor: pointer;
     }
+    .button-top {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 10;
+        border: none;
+        outline: none;
+        background-color: #d3d3d3;
+        cursor: pointer;
+        padding: 15px;
+        width: 50px;
+        border-radius: 50%;
+    }
+    .button-top:hover {
+        background-color: #c6c6c6;
+    }
 </style>
+
+<button id="button-top" class="button-top" onclick="topFunction()">
+        <span class="simple-icon-arrow-up"></span>
+</button>
+
 <div id="filter-header">
     <div class="row">
         <div class="col-12">
@@ -117,7 +140,7 @@
         <div class="col-3">
             <div class="dropdown-jenis dropdown">
                     <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                        Ebitda Margin
+                        Jenis : Ebitda Margin
                         <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
                     </button>
                     <ul class="dropdown-menu jenis" style="width:99%;" role="menu" aria-labelledby="menu2">
@@ -193,8 +216,8 @@
         </div>
         <div class="col-2">
              <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 160px;text-align:left;" type="button" data-toggle="dropdown">
-                    {{ substr(Session::get('periode'), 0, 4) }}
+                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
+                    Tahun : {{ substr(Session::get('periode'), 0, 4) }}
                     <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
                 </button>
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
@@ -335,7 +358,7 @@
 
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
-        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlText = "Tahun : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         tahun = text;
         // $('#detail-invest').empty();
@@ -345,7 +368,7 @@
     $('.jenis').on( 'click', 'li', function() {
         var value = $(this).find('span').first().text();
         var text = $(this).find('span').last().text();
-        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        var htmlText = "Jenis : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
         jenis = value;
         column = [];
@@ -696,13 +719,21 @@
     $('#detail-kpku').append(html);
 
     var header = document.getElementById('filter-header');
+    var buttonTop = document.getElementById('button-top');
     var sticky = header.offsetTop;
     window.onscroll = function() {
         if(window.pageYOffset > sticky) {
             header.classList.add('fixed-filter')
+            buttonTop.style.display = 'block';
         } else {
             header.classList.remove('fixed-filter')
+            buttonTop.style.display = 'none';
         }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 
     
