@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
 <style>
     table.table-akun > thead > tr > th {
         color: #f0f0f0;
@@ -96,8 +97,52 @@
         width: 100%;
         z-index: 1;
     }
+    .footer-dashboard {
+        width: 100%;
+        margin-bottom: 100px;
+        padding-bottom: 55px;
+        height: 50px;
+    }
+    .dropdown-menu {
+        max-height: 130px;
+        overflow: scroll;
+        overflow-x: hidden;
+        margin-top: 0px;
+        padding-left: 5px;
+    }
+    .dropdown-menu > li {
+        cursor: pointer;
+    }
+    .dropdown-menu > li:hover {
+        background-color: #F5F5F5;
+    }
+    #table-preview > tbody > tr:hover {
+        background-color: #F5F5F5;
+        cursor: pointer;
+    }
+    .button-top {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 10;
+        border: none;
+        outline: none;
+        background-color: #d3d3d3;
+        cursor: pointer;
+        padding: 15px;
+        width: 50px;
+        border-radius: 50%;
+    }
+    .button-top:hover {
+        background-color: #c6c6c6;
+    }
 </style>
-</style>
+
+<button id="button-top" class="button-top" onclick="topFunction()">
+        <span class="simple-icon-arrow-up"></span>
+</button>
+
 <div id="filter-header">
     <div class="row">
         <div class="col-12">
@@ -106,9 +151,18 @@
     </div>
     <div class="row">
         <div class="col-2">
-            <select id="periode" class="form-control select-dash">
+            <div class="dropdown-periode dropdown">
+                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
+                    Periode : {{Session::get('periode')}}
+                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                </button>
+                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                        
+                </ul>
+            </div>
+            {{-- <select id="periode" class="form-control select-dash">
 
-            </select>
+            </select> --}}
         </div>
     </div>
 </div>
@@ -201,17 +255,87 @@
     </div>
 </div>
 
+<div class="footer-dashboard">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-light btn-block" id="dash-btn" style="">Dashboard Selanjutnya</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PREVIEW -->
+<div class="modal" tabindex="-1" role="dialog" id="modal-preview">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius:0.75em">
+            <div class="modal-header py-0" style="display:block;height:49px" >
+                <h6 class="py-2" style="position: absolute;" id="modal-preview-judul">Dashboard Selanjutnya</h6>
+                <span id="modal-preview-nama" style="display:none"></span><span id="modal-preview-id" style="display:none"></span> 
+                <button type="button" class="close float-right ml-2" data-dismiss="modal" aria-label="Close" id="preview-close">
+                <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="content-preview" style="">
+                <table id="table-preview" class="table no-border">
+                    <tbody id="dash-list">
+                        <tr>
+                            <td style="display: none;">fDashKunjungan</td>
+                            <td>Biaya dan Kunjungan</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBPJS</td>
+                            <td>BPJS</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashRealisasiBeban</td>
+                            <td>Realisasi Beban</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBPCC</td>
+                            <td>Realisasi BPCC</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashPendapatanInvest</td>
+                            <td>Pendapatan Investasi</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashBeban</td>
+                            <td>Beban</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashKPKU</td>
+                            <td>KPKU Kategori 7</td>
+                        </tr>
+                        <tr>
+                            <td style="display: none;">fDashSDM</td>
+                            <td>SDM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL PREVIEW -->
+
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
+var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
+        buttonTop.style.display = 'block';
     } else {
         header.classList.remove('fixed-filter')
+        buttonTop.style.display = 'none';
     }
 }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 
     $.ajax({
         type:'GET',
@@ -219,13 +343,16 @@ window.onscroll = function() {
         dataType: 'JSON',
         success: function(result) {
             $.each(result.daftar, function(key, value){
-                $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+                $('.periode').append("<li>"+value.periode+"</li>")
             })
-            $('#periode').val(periode);
         }
     });
 
-    $('#periode').change(function(){
+    $('.periode').on( 'click', 'li', function() {
+        var text = $(this).html();
+        var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
+        periode = text;
         $('.container-org-detail').empty();
         $('#dokter').empty();
         $('#non-dokter').empty();
@@ -233,15 +360,53 @@ window.onscroll = function() {
         $('#non-medis').empty();
         $('#laki').empty();
         $('#perempuan').empty();
-        var val = $(this).val();
-        periode = val;
         getDataOrganik();
         getDataDemography();
         getDataMedis();
         getDataDokter();
         getDataGender();
         getDataEducation();
-    })
+    });
+
+    $('#dash-btn').click(function(){
+        $('#modal-preview').modal('show');
+    });
+
+    $('#dash-list').on( 'click', 'tr', function() {
+        var form = $(this).find('td').first().text();
+        dashboard = "{{ url('yakes-auth/form')}}/"+form;
+        $('#modal-preview').modal('hide');
+        loadForm(dashboard);
+    });
+    // $.ajax({
+    //     type:'GET',
+    //     url: "{{ url('yakes-dash/data-periode') }}/",
+    //     dataType: 'JSON',
+    //     success: function(result) {
+    //         $.each(result.daftar, function(key, value){
+    //             $('#periode').append("<option value="+value.periode+">Periode : "+value.periode+"</option>")
+    //         })
+    //         $('#periode').val(periode);
+    //     }
+    // });
+
+    // $('#periode').change(function(){
+    //     $('.container-org-detail').empty();
+    //     $('#dokter').empty();
+    //     $('#non-dokter').empty();
+    //     $('#medis').empty();
+    //     $('#non-medis').empty();
+    //     $('#laki').empty();
+    //     $('#perempuan').empty();
+    //     var val = $(this).val();
+    //     periode = val;
+    //     getDataOrganik();
+    //     getDataDemography();
+    //     getDataMedis();
+    //     getDataDokter();
+    //     getDataGender();
+    //     getDataEducation();
+    // })
 
     getDataOrganik();
     getDataDemography();
