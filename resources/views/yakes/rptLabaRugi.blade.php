@@ -47,8 +47,12 @@
             var lokasi = res.lokasi;
             res.data_detail = [];
             periode = $periode;
+            var tahun = periode.from.substr(0,4);
+            var bln = periode.from.substr(4,2);
+            var tahunseb = parseInt(tahun)-1;
+            var periode_pilih = namaPeriode(tahun+''+bln);
+            var periode_seb = namaPeriode(tahunseb+''+bln);
             var html = `
-            <style>
             <style>
             .info-table thead{
                 background:#4286f5;
@@ -83,7 +87,7 @@
                 <td width='90%' colspan='4' class='text-center border-bottom2'>
                     <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
                     <span class='bold fs1-1rem'>LAPORAN AKTIVITAS </span><br>
-                    <span class='bold fs1rem'>Per 31 JANUARI 2020, 2019</span><br>
+                    <span class='bold fs1rem'>Per `+res.res.tgl_awal+` `+periode_pilih+`, `+tahunseb+`</span><br>
                     <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span>
                 </td>
                 <td width='5%'></td>
@@ -94,29 +98,31 @@
             <tr>
                 <td width='5%'></td>
                 <td width='50%' height='25'  class='header_laporan'></td>
-                <td width='8%' class='header_laporan fs-1rem bold'><u>Catatan</u></td>
-                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>31 JANUARI 2020</u></td>
-                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>31 JANUARI 2019</u></td>
+                <td width='8%' class='header_laporan fs-1rem bold'></td>
+                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>`+res.res.tgl_awal+` `+periode_pilih+`</u></td>
+                <td width='16%' class='header_laporan text-right fs-1rem bold'><u>`+res.res.tgl_akhir+` `+periode_seb+`</u></td>
                 <td width='5%'></td>
             </tr>`;
             var no=1;
             for (var i=0;i < data.length;i++)
             {
-                var nilai="";
+                var n1="";
+                var n2="";
                 var line = data[i];
                 if (line.tipe!="Header")
                 {
-                    nilai=sepNum(parseFloat(line.n4));
+                    n1=sepNum(parseFloat(line.n1));
+                    n2=sepNum(parseFloat(line.n2));
                 }
 			
-                if (line.tipe=="Posting" && line.n4 != 0)
+                if (line.tipe=="Posting" && (line.n1 != 0 || line.n2 != 0))
                 {
                     html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
                     <td width='5%'></td>
                     <td width='50%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
                     <td width='8%'></td>
-                    <td width='16%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                    <td width='16%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
                     <td width='5%'></td>
                     </tr>`;
                 }
@@ -126,20 +132,25 @@
                     <td width='5%'></td>
                     <td width='50%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
                     <td width='8%'></td>
-                    <td width='16%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                    <td width='16%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                    <td width='16%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
                     <td width='5%'></td>
                     </tr>`;
                 }
                 no++;
             }
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            var nama_periode = namaPeriode(yyyy+''+mm);
             html+=`
             <tr>
                 <td colspan='6'>&nbsp;</td>
             </tr>
             <tr>
                 <td width='5%'>&nbsp;</td>
-                <td colspan='4' class='text-right'>Bandung, 03 Desember 2020</td>
+                <td colspan='4' class='text-right'>Bandung, `+dd+` `+nama_periode+`</td>
                 <td width='5%'>&nbsp;</td>
             </tr>
             <tr>
