@@ -91,7 +91,10 @@
         h6{
             font-size: 1.25rem !important;
         }
-        button,label{
+        button{
+            font-size: 14px !important;
+        }
+        label{
             font-size: 0.75rem !important;
         }
 
