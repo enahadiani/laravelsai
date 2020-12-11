@@ -50,7 +50,7 @@
             var html = `
             <style>
                 .box-aqua {
-                    background:#009999;
+                    background:#25937E;
                     color:white;
                     height:60px;
                     border-radius:0 !important;
@@ -58,16 +58,18 @@
                 }
                 .report-table th{
                     color: white !important;
-                    background-color: #009999 !important;
+                    background-color: #25937E !important;
                     border-color: white !important;
                     text-align: center;
                     padding-top: 0 !important;
                     padding-bottom: 0 !important;
                 }
-                .box-aqua h3, .box-aqua p{
+                .box-aqua h3{
                     margin-bottom:0 !important;
+                    color:white;
                 }
                 .box-aqua p{
+                    margin-bottom:0 !important;
                     font-size: 10px !important;
                 }
                 .bold{

@@ -15,7 +15,7 @@
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="level" nama="Level" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="format" nama="Format" selected="3" :option="array('3')"/>
+                                        <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
                                     </div>
@@ -40,6 +40,8 @@
     @endphp
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('reportFilter.js') }}"></script>
+    <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
+    <script src="{{ asset('asset_elite/js/jquery.treegrid.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -69,10 +71,10 @@
             toname : "",
         }
 
-        var $format = {
+        var $output = {
             type : "=",
-            from : "Saldo Akhir",
-            fromname : "Saldo Akhir",
+            from : "Laporan",
+            fromname : "Laporan",
             to : "",
             toname : "",
         }
@@ -100,7 +102,7 @@
         $('#periode-from').val(namaPeriode("{{ date('Ym') }}"));
         $('#kode_fs-from').val("FS3");
         $('#level-from').val("1");
-        $('#format-from').val("Saldo Akhir");
+        $('#output-from').val("Laporan");
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -135,8 +137,8 @@
         $('.selectize').selectize();
 
         $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','level','format'],
-            nama : ['Periode','Kode FS','Level','Format'],
+            kode : ['periode','kode_fs','level','output'],
+            nama : ['Periode','Kode FS','Level','Output'],
             header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode'],['Kode']],
             headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action'],['Kode','Action']],
             columns: [
@@ -152,7 +154,7 @@
                     { data: 'kode' }
                 ]
             ],
-            url :["{{ url('yakes-report/filter-periode-keu') }}","","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-format') }}"],
+            url :["{{ url('yakes-report/filter-periode-keu') }}","","{{ url('yakes-report/filter-level') }}","{{ url('yakes-report/filter-output') }}"],
             parameter:[],
             orderby:[[[0,"desc"]],[],[],[]],
             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -173,14 +175,15 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('yakes-auth/form/rptNeraca') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptNeraca') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptNeracaGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -195,13 +198,14 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            xurl = "{{ url('yakes-auth/form/rptNeraca') }}";
+            if($output.from == "Laporan"){
+                xurl = "{{ url('yakes-auth/form/rptNeraca') }}";
+            }else if($output.from == "Grid"){
+                xurl = "{{ url('yakes-auth/form/rptNeracaGrid') }}";
+            }
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -431,7 +435,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to;
             window.open(link, '_blank'); 
         });
         
@@ -453,9 +457,6 @@
             $formData.append("level[]",$level.type);
             $formData.append("level[]",$level.from);
             $formData.append("level[]",$level.to);
-            $formData.append("format[]",$format.type);
-            $formData.append("format[]",$format.from);
-            $formData.append("format[]",$format.to);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
