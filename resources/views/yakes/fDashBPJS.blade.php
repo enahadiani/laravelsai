@@ -401,7 +401,6 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
-
 <script type="text/javascript">
     var periode = "{{Session::get('periode')}}";
     var buttonTop = document.getElementById('button-top');
@@ -452,6 +451,9 @@
     });
 
 Highcharts.chart('claim', {
+    chart: {
+        marginTop: 50
+    },
     legend:{ enabled:false },
     credits: {
         enabled: false
@@ -532,6 +534,9 @@ Highcharts.chart('claim', {
     ]
 });
 Highcharts.chart('utility', {
+    chart: {
+        marginTop: 50
+    },
     legend:{ enabled:false },
     credits: {
         enabled: false
@@ -602,4 +607,5 @@ Highcharts.chart('utility', {
         },
     ]
 });
+
 </script>
