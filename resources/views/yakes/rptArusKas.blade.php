@@ -1,16 +1,16 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-        saiPostLoad("{{ url('yakes-report/lap-perubahan-aset-neto') }}", null, formData, null, function(res){
-        //    if(res.result.length > 0){
+        saiPostLoad("{{ url('yakes-report/lap-arus-kas') }}", null, formData, null, function(res){
+           if(res.result.length > 0){
 
                 $('#pagination').html('');
                 var show = $('#show').val();
                 generatePaginationDore('pagination',show,res);
               
-        //    }else{
-        //         $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
-        //    }
+           }else{
+                $('#saku-report #canvasPreview').load("{{ url('yakes-auth/form/blank') }}");
+           }
        });
    }
 
@@ -42,11 +42,16 @@
 
    function drawRptPage(data,res,from,to){
         var data = data;
-        // if(data.length > 0){
+        if(data.length > 0){
             res.bentuk = '';
             var lokasi = res.lokasi;
             res.data_detail = [];
             periode = $periode;
+            var tahun = periode.from.substr(0,4);
+            var bln = periode.from.substr(4,2);
+            var tahunseb = parseInt(tahun)-1;
+            var periode_pilih = namaPeriode(tahun+''+bln);
+            var periode_seb = namaPeriode(tahunseb+''+bln);
             var html = `
             <style>
             <style>
@@ -83,7 +88,7 @@
                 <td width='90%' colspan='3' class='text-center'>
                     <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
                     <span class='bold fs1-1rem'>LAPORAN ARUS KAS </span><br>
-                    <span class='bold fs1rem'>UNTUK PERIODE YANG BERAKHIR PADA 31 JANUARI 2020, 2019</span><br>
+                    <span class='bold fs1rem'>UNTUK PERIODE YANG BERAKHIR PADA <uppercase> `+res.res.tgl_awal+` `+periode_pilih+`, `+tahunseb+` </uppercase></span><br>
                     <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span><br>
                 </td>
                 <td width='5%'></td>
@@ -94,42 +99,49 @@
             <tr>
                 <td width='5%'></td>
                 <td width='54%' height='25'  class='header_laporan border-right border-bottom border-top'></td>
-                <td width='18%' class='header_laporan text-center fs-1rem bold border-right border-bottom border-top'>31 JANUARI 2020</td>
-                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top'>31 JANUARI 2019</td>
+                <td width='18%' class='header_laporan text-center fs-1rem bold border-right border-bottom border-top'>`+res.res.tgl_awal+` `+periode_pilih+`</td>
+                <td width='18%' class='header_laporan text-center fs-1rem bold border-bottom border-top'>`+res.res.tgl_akhir+` `+periode_seb+`</td>
                 <td width='5%'></td>
             </tr>`;
-            // var no=1;
-            // for (var i=0;i < data.length;i++)
-            // {
-            //     var nilai="";
-            //     var line = data[i];
-            //     if (line.tipe!="Header")
-            //     {
-            //         nilai=sepNum(parseFloat(line.n4));
-            //     }
+            var no=1;
+            for (var i=0;i < data.length;i++)
+            {
+                var n1="";
+                var n2="";
+                var line = data[i];
+                if (line.tipe!="Header")
+                {
+                    n1=sepNum(parseFloat(line.n1));
+                    n2=sepNum(parseFloat(line.n2));
+                }
 			
-            //     if (line.tipe=="Posting" && line.n4 != 0)
-            //     {
-            //         html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
-            //         <td width='5%'></td>
-            //         <td width='54%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='5%'></td>
-            //         </tr>`;
-            //     }
-            //     else
-            //     {
-            //         html+=`<tr>
-            //         <td width='5%'></td>
-            //         <td width='54%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-            //         <td width='18%' class='isi_laporan'><div align='right'>&nbsp;</div></td>
-            //         <td width='5%'></td>
-            //         </tr>`;
-            //     }
-            //     no++;
-            // }
+                if (line.tipe=="Posting" && (line.n1 != 0 || line.n2 != 0))
+                {
+                    html+=`<tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca='`+line.kode_neraca+`' >
+                    <td width='5%'></td>
+                    <td width='54%' height='20' class='isi_laporan link-report' >`+fnSpasi(line.level_spasi)+``+line.nama+`</td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                    <td width='5%'></td>
+                    </tr>`;
+                }
+                else
+                {
+                    html+=`<tr>
+                    <td width='5%'></td>
+                    <td width='54%' height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+line.nama+`</td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
+                    <td width='18%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
+                    <td width='5%'></td>
+                    </tr>`;
+                }
+                no++;
+            }
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            var nama_periode = namaPeriode(yyyy+''+mm);
             html+=`
             <tr>
                 <td colspan='5'>&nbsp;</td>
@@ -137,7 +149,7 @@
             <tr>
                 <td width='5%'>&nbsp;</td>
                 <td width='54%' class='text-center'></td>
-                <td width='36%' colspan='2' class='text-center'>Bandung, 03 Desember 2020</td>
+                <td width='36%' colspan='2' class='text-center'>Bandung, `+dd+` `+nama_periode+`</td>
                 <td width='5%'>&nbsp;</td>
             </tr>
             <tr>
@@ -175,7 +187,7 @@
                 <td colspan=6>&nbsp;</td>
             </tr>
             </table>`;
-        // }
+        }
         $('#canvasPreview').html(html);
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
