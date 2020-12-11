@@ -415,7 +415,7 @@
 
         $('#sai-rpt-print-prev').click(function(){
             var newWindow = window.open();
-            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+            var html = `<head>`+$('head').html()+`</head><link rel="stylesheet" href="{{ asset('report.css') }}" /><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
             newWindow.document.write(html);
         });
 
@@ -423,15 +423,15 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "Neraca_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "AsetNeto_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "AsetNeto_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-neraca-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-aset-neto-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
             window.open(link, '_blank'); 
         });
         

@@ -208,7 +208,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('yakes-report/lap-labarugi-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
+            var link = "{{ url('yakes-report/lap-arus-kas-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&level[]="+$level.type+"&level[]="+$level.from+"&level[]="+$level.to+"&format[]="+$format.type+"&format[]="+$format.from+"&format[]="+$format.to;
             window.open(link, '_blank'); 
         });
 
@@ -420,7 +420,7 @@
 
         $('#sai-rpt-print-prev').click(function(){
             var newWindow = window.open();
-            var html = `<head>`+$('head').html()+`</head><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
+            var html = `<head>`+$('head').html()+`</head><link rel="stylesheet" href="{{ asset('report.css') }}" /><style>`+$('style').html()+`</style><body style='background:white;'><div align="center">`+$('#canvasPreview').html()+`</div></body>`;
             newWindow.document.write(html);
         });
 

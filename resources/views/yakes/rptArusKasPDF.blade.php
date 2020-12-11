@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Aktivitas</title>
+    <title>Jurnal</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
-       body{
+       
+        body{
             text-align:left;
             font-size:10px;
             margin:0;
@@ -79,6 +80,15 @@
         .text-right{
             text-align:right;
         }
+        .border-bottom{
+            border-bottom: 1px solid black !important;
+        }
+        .border-top{
+            border-top: 1px solid black !important;
+        }
+        .border-right{
+            border-right: 1px solid black !important;
+        }
     </style>
 </head>
 <body>
@@ -99,10 +109,10 @@
         </tr>
         <tr>
             <td width='5%'></td>
-            <td width='90%' colspan='4' class='text-center border-bottom2'>
+            <td width='90%' colspan='4' class='text-center'>
             <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
-            <span class='bold fs1-1rem'>LAPORAN AKTIVITAS </span><br>
-            <span class='bold fs1rem'>Per {{ $tgl_awal }} , {{ $tahun_seb }}</span><br>
+            <span class='bold fs1-1rem'>LAPORAN ARUS KAS </span><br>
+            <span class='bold fs1rem'>UNTUK PERIODE YANG BERAKHIR PADA <uppercase>{{ $tgl_awal }} , {{ $tahun_seb }} </uppercase></span><br>
             <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span>
             </td>
             <td width='5%'></td>
@@ -112,16 +122,14 @@
         </tr>
         <tr>
             <td width='5%'></td>
-            <td width='50%' height='25'  class='header_laporan'></td>
-            <td width='8%' class='header_laporan fs-1rem bold'></td>
-            <td width='16%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_awal }}</u></td>
-            <td width='16%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_akhir }}</u></td>
+            <td width='58%' colspan='2' class='header_laporan' style='border:1px solid black !important;border-left:0px !important'></td>
+            <td width='16%' class='header_laporan text-center fs-1rem bold' style='border:1px solid black !important;border-left:0px !important'>{{ $tgl_awal }}</td>
+            <td width='16%' class='header_laporan text-center fs-1rem bold' style='border:1px solid black !important;border-left:0px !important;border-right:0px !important'>{{ $tgl_akhir }}</td>
             <td width='5%'></td>
         </tr>
-    
-            @php $no=1; @endphp
-            @for ($i=0;$i < count($data);$i++)
-            @php 
+            @for ($i=0; $i < count($data);$i++)
+            
+                @php 
                 $n1="";
                 $n2="";
                 $line = $data[$i];
@@ -134,7 +142,8 @@
                 @endif
 			
                 @if ($line['tipe'] == "Posting" && ($line['n1'] != 0 || $line['n2'] != 0 ))
-                <tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca="{{ $line['kode_neraca'] }}" >
+                
+                    <tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca="{{ $line['kode_neraca'] }}" >
                     <td width='5%' style='padding:0!important'></td>
                     <td width='50%' class='isi_laporan link-report' style='padding:0!important'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
                     <td width='8%' style='padding:0!important'></td>

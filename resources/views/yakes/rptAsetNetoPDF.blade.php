@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Aktivitas</title>
+    <title>Jurnal</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
-       body{
+       
+        body{
             text-align:left;
             font-size:10px;
             margin:0;
@@ -98,30 +99,30 @@
             <td colspan=6>&nbsp;</td>
         </tr>
         <tr>
-            <td width='5%'></td>
-            <td width='90%' colspan='4' class='text-center border-bottom2'>
+            <td width='2%'></td>
+            <td width='90%' colspan='4' class='text-center'>
             <span class='bold fs1-1rem'>YAYASAN KESEHATAN PEGAWAI TELKOM</span><br>
-            <span class='bold fs1-1rem'>LAPORAN AKTIVITAS </span><br>
-            <span class='bold fs1rem'>Per {{ $tgl_awal }} , {{ $tahun_seb }}</span><br>
+            <span class='bold fs1-1rem'>PROGRAM JAMKESPEN MANFAAT PASTI</span><br>
+            <span class='bold fs1-1rem'>LAPORAN ASET NETO </span><br>
+            <span class='bold fs1rem'>Per {{ $tgl_awal }} , {{ $tgl_akhir }}</span><br>
             <span class='bold fs1rem'>(Disajikan dalam Rupiah)</span>
             </td>
-            <td width='5%'></td>
+            <td width='2%'></td>
         </tr>
         <tr>
             <td colspan=6>&nbsp;</td>
         </tr>
         <tr>
-            <td width='5%'></td>
-            <td width='50%' height='25'  class='header_laporan'></td>
-            <td width='8%' class='header_laporan fs-1rem bold'></td>
-            <td width='16%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_awal }}</u></td>
-            <td width='16%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_akhir }}</u></td>
-            <td width='5%'></td>
+            <td width='2%'></td>
+            <td width='50%' class='header_laporan'></td>
+            <td width='8%' class='header_laporan fs-1rem bold'><u></u></td>
+            <td width='18%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_awal }}</u></td>
+            <td width='18%' class='header_laporan text-right fs-1rem bold'><u>{{ $tgl_akhir }}</u></td>
+            <td width='2%'></td>
         </tr>
-    
-            @php $no=1; @endphp
-            @for ($i=0;$i < count($data);$i++)
-            @php 
+            @for ($i=0; $i < count($data);$i++)
+            
+                @php 
                 $n1="";
                 $n2="";
                 $line = $data[$i];
@@ -134,23 +135,24 @@
                 @endif
 			
                 @if ($line['tipe'] == "Posting" && ($line['n1'] != 0 || $line['n2'] != 0 ))
-                <tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca="{{ $line['kode_neraca'] }}" >
-                    <td width='5%' style='padding:0!important'></td>
+                
+                    <tr class='report-link neraca-lajur' style='cursor:pointer;' data-kode_neraca="{{ $line['kode_neraca'] }}" >
+                    <td width='2%' style='padding:0!important'></td>
                     <td width='50%' class='isi_laporan link-report' style='padding:0!important'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
                     <td width='8%' style='padding:0!important'></td>
-                    <td width='16%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n1 }}</td>
-                    <td width='16%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n2 }}</td>
-                    <td width='5%'></td>
+                    <td width='18%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n1 }}</td>
+                    <td width='18%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n2 }}</td>
+                    <td width='2%'></td>
                     </tr>
                 @else
                 
                     <tr>
-                    <td width='5%' style='padding:0!important'></td>
+                    <td width='2%' style='padding:0!important'></td>
                     <td width='50%' class='isi_laporan' style='padding:0!important'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
                     <td width='8%' style='padding:0!important'></td>
-                    <td width='16%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n1 }}</td>
-                    <td width='16%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n2 }}</td>
-                    <td width='5%'></td>
+                    <td width='18%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n1 }}</td>
+                    <td width='18%' class='isi_laporan' style='padding:0!important;text-align:right'>{{ $n2 }}</td>
+                    <td width='2%'></td>
                     </tr>`;
                 @endif
             @endfor
@@ -158,72 +160,72 @@
                 <td colspan='6'>&nbsp;</td>
             </tr>
             <tr>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td colspan='4' style='text-align:right'>Bandung, {{ $tgl_sekarang }}</td>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td class='text-center'>Mengetahui/menyetujui</td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'>PJ Keuangan dan Investasi</td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%' class='text-center'>PJ SM Keuangan</td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%' class='text-center'>PJ SM Keuangan</td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='80'>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%'></td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%'></td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='80'>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%'></td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%'></td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='80'>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%'></td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%'></td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='80'>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%'></td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%'></td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'><u>Teuku Hercules</u></td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%' class='text-center'><u>Lina Herlina</u></td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%' class='text-center'><u>Lina Herlina</u></td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr>
-                <td width='5%'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
                 <td width='50%' class='text-center'>NIK. 670255</td>
                 <td >&nbsp;</td>
                 <td >&nbsp;</td>
-                <td width='16%' class='text-center'>NIK. 660259</td>
-                <td width='5%'>&nbsp;</td>
+                <td width='18%' class='text-center'>NIK. 660259</td>
+                <td width='2%'>&nbsp;</td>
             </tr>
             <tr height='20px'>
                 <td colspan=6>&nbsp;</td>

@@ -532,8 +532,15 @@
             $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getLabaRugi($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $bln = substr($periode,4,2);
+            $tahunseb = intval($tahun) - 1;
+            $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
+            $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
+            $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
             
-            $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'periode'=>$request->periode[1],'lokasi'=>$data["lokasi"]]);
+            $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb]);
     	    return $pdf->download('laporan-labarugi-pdf');   
         }
 
@@ -552,6 +559,40 @@
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
             $pdf = PDF::loadview('yakes.rptNeracaPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
     	    return $pdf->download('laporan-neraca-pdf');   
+        }
+
+        function getAsetNetoPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getAsetNeto($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $bln = substr($periode,4,2);
+            $tahunseb = intval($tahun) - 1;
+            $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
+            $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
+            $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
+            $pdf = PDF::loadview('yakes.rptAsetNetoPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang]);
+    	    return $pdf->download('laporan-aset-neto-pdf');   
+        }
+
+        function getArusKasPDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\Yakes\LaporanController')->getArusKas($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $request->periode[1];
+            $tahun = substr($periode,0,4);
+            $bln = substr($periode,4,2);
+            $tahunseb = intval($tahun) - 1;
+            $tgl_awal = $data['res']['tgl_awal'].' '.$this->getNamaBulan($bln).' '.$tahun;
+            $tgl_akhir = $data['res']['tgl_akhir'].' '.$this->getNamaBulan($bln).' '.$tahunseb;
+            $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
+            $pdf = PDF::loadview('yakes.rptArusKasPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb]);
+    	    return $pdf->download('laporan-arus-kas-pdf');   
         }
 
         function getNeracaJamkespenPDF(Request $request)

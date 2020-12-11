@@ -40,6 +40,8 @@ Route::get('lap-labarugi-jejer-pdf','Yakes\LaporanController@getLabaRugiJejerPDF
 Route::get('lap-neraca-area-pdf','Yakes\LaporanController@getNeracaPPPDF');
 Route::get('lap-neraca-jejer-pdf','Yakes\LaporanController@getNeracaJejerPDF');
 Route::get('lap-nrclajur-jejer-pdf','Yakes\LaporanController@getNrcLajurJejerPDF');
+Route::get('lap-aset-neto-pdf','Yakes\LaporanController@getAsetNetoPDF');
+Route::get('lap-arus-kas-pdf','Yakes\LaporanController@getArusKasPDF');
 
 Route::get('lap-neraca-jamkespen-pdf', 'Yakes\LaporanController@getNeracaJamkespenPDF');
 

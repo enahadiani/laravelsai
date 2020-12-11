@@ -3,7 +3,7 @@
             <div class="modal-content">
                 <form id='formEmail'>
                     <div class='modal-header'>
-                        <h5 class='modal-title'>Kirim Email</h5>
+                        <h6 class='modal-title'>Kirim Email</h6>
                         <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                         </button>
                     </div>
