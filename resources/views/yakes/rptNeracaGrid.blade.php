@@ -121,7 +121,7 @@
                 }
                 html+=`<tr class='treegrid-`+i+` `+parent_to_prt+` `+bold+`' >
                 <td width='5%'></td>
-                <td width='50%' height='20' class='isi_laporan' >`+line.nama+`</td>
+                <td width='50%' height='20' class='isi_laporan' >`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>
                 <td width='8%'></td>
                 <td width='16%' class='isi_laporan'><div align='right'>`+n1+`</div></td>
                 <td width='16%' class='isi_laporan'><div align='right'>`+n2+`</div></td>
