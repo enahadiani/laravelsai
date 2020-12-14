@@ -90,7 +90,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-12 col-12 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <div id="laba-rugi" style='height:350px'></div>
+                    <div id="laba-rugi" style='height:400px'></div>
                 </div>
             </div>
         </div>
@@ -248,6 +248,14 @@ function drawVisualization() {
         ]);
         
         var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
             seriesType: 'bars',
             series: {
                 0: {
@@ -268,22 +276,28 @@ function drawVisualization() {
             vAxes: {
                 // Adds titles to each axis.
                 0: {
-                    format: 'decimal',  gridlines: {
-                        count: 100,min:0
-                    }
+                    format: 'decimal',
+                    title: 'DALAM MILYAR RUPIAH',  
+                    gridlines: {
+                        count: 10,
+                    },
+                    min: 0
                 },
                 1: {
-                    format: 'percent', gridlines: {
-                        count: 5,min:60
-                    }
+                    format: 'percent', 
+                    title: 'PROSENTASE CAPAIAN',
+                    gridlines: {
+                        count: 1,
+                    },
+                    min: 65
                 }
-            },
-            chartArea:{
-                width: '90%',
-                height: '80%'
             },
             legend: {
                 position: 'top'
+            },
+            chartArea:{
+                width: '70%',
+                height: '90%'
             },
             colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
             height:'100%',
