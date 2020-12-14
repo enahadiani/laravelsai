@@ -142,6 +142,9 @@
     </div>
 </div>
 <script>
+ 
+ $('body').addClass('dash-contents');
+ $('html').addClass('dash-contents');
 
 $('.recent-work-inner').on('click','a',function(e){
     e.preventDefault();

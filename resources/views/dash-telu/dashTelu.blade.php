@@ -219,8 +219,9 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div> -->
 </div>
-<script>
-
+<script> 
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 

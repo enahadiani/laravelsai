@@ -121,6 +121,9 @@ $thnLalu = substr($tahunLalu,2,2);
     </div>
 </div>
 <script>
+ 
+ $('body').addClass('dash-contents');
+ $('html').addClass('dash-contents');
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
     var parts = num.toString().split('.');

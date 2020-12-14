@@ -178,6 +178,8 @@ $nik     = Session::get('userLog');
     </div> -->
 </div>
 <script>
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
 var $kd = "";
 function sepNum(x){
     if(!isNaN(x)){
