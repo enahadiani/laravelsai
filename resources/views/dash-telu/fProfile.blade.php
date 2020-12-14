@@ -264,7 +264,7 @@ function loadService(index,method,url,param={}){
                             <i class="simple-icon-camera"></i>
                             </button>
                         </div>
-                        <img alt="Profile" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" style="border-radius: 50%;width:120px;height:120px;">
+                        <img alt="Profile" src="https://api.simkug.com/api/telu-auth/storage/`+result.data[0].foto+`" class="img-thumbnail card-img social-profile-img" style="border-radius: 50%;width:120px;height:120px;">
                         `;
                     }
 
@@ -273,7 +273,7 @@ function loadService(index,method,url,param={}){
                         var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="{{ asset('/img/gambar2.jpg') }}" />`;
                     }else{
                         
-                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="https://api.simkug.com/api/ypt/storage/`+result.data[0].background+`" />`;
+                        var background = `<img class="social-header card-img" style="height:200px;object-position:bottom" src="https://api.simkug.com/api/telu-auth/storage/`+result.data[0].background+`" />`;
                     }
 
                     $('#foto').html(img);
@@ -424,7 +424,7 @@ $('.crop_image').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'ypt/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'telu-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
                         loadForm("{{url('dash-telu/form/fProfile')}}");
                         
@@ -496,7 +496,7 @@ $('.crop_image_bg').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'ypt/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'telu-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
                         loadForm("{{url('dash-telu/form/fProfile')}}");
                         

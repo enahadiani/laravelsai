@@ -191,7 +191,7 @@ function singkatNilai(num){
 function getDetailPendapatan(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getDetailPendapatan') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success:function(result){
             var html='';
@@ -227,7 +227,7 @@ function getDetailPendapatan(periode=null,kodeNeraca=null){
 function getPendapatanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptFak', {
@@ -304,7 +304,7 @@ function getPendapatanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanPendapatanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getPendapatanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('pertumbuhan', {

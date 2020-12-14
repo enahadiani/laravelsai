@@ -98,7 +98,7 @@
                     <div class="recent-work-inner">
                         <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
                         <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('dash-telu/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
+                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
                     </div> 
                 </div>
             </div>
@@ -110,7 +110,7 @@
                     <div class="recent-work-inner">
                         <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
                         <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('dash-telu/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
+                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
                     </div> 
                 </div>
             </div>
@@ -122,7 +122,7 @@
                     <div class="recent-work-inner">
                         <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
                         <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('dash-telu/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
+                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
                     </div> 
                 </div>
             </div>
@@ -134,7 +134,7 @@
                     <div class="recent-work-inner">
                         <p>Proses Bisnis Penetapan Biaya Pendidikan di Telkom University</p>
                         <p class="mb-0">22 Agustus 2020</p>
-                        <a href="#" data-href="{{ url('dash-telu/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
+                        <a href="#" data-href="{{ url('telu-dash/watch/1') }}" style="color:white;"><i class="simple-icon-eye"></i> Watch</a>
                     </div> 
                 </div>
             </div>

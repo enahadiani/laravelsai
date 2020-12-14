@@ -336,7 +336,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/periode') }}",
+        url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             var select = $('#periode').selectize();
@@ -371,7 +371,7 @@ getPeriode();
 function getRKARealInvestasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/rka-real-investasi') }}",
+        url:"{{ url('/telu-dash/rka-real-investasi') }}",
         data:{periode:periode},
         dataType:"JSON",
         success:function(result){
@@ -434,7 +434,7 @@ function getRKARealInvestasi(periode=null){
 function getKomponenInvestasi(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/dash-telu/komponen-investasi') }}",
+    url:"{{ url('/telu-dash/komponen-investasi') }}",
     data:{periode:periode},
     dataType:"JSON",
     success: function(result){
@@ -510,7 +510,7 @@ $.ajax({
 function getSerapInvestasi(periode=null) {
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/penyerapan-investasi') }}",
+        url:"{{ url('/telu-dash/penyerapan-investasi') }}",
         dataType:"JSON",
         data:{periode:periode},
         success:function(result){

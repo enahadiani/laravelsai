@@ -135,7 +135,24 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('dash-telu')
             ->middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/dash_telu.php'));
+            ->group(base_path('routes/telu/auth.php'));
+        Route::prefix('telu-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/telu/master.php'));
+        Route::prefix('telu-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/telu/trans.php'));
+        Route::prefix('telu-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/telu/report.php'));
+        Route::prefix('telu-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/telu/dash.php'));
+        
     }
 
     protected function mapTarbakRoutes()

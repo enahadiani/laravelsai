@@ -252,7 +252,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/periode') }}",
+        url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             var select = $('#periode').selectize();
@@ -287,7 +287,7 @@ getPeriode();
 function getPresentaseRkaRealisasi(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getPresentaseRkaRealisasiBeban') }}/"+periode,
+        url:"{{ url('/telu-dash/getPresentaseRkaRealisasiBeban') }}/"+periode,
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('rkaVSreal', {
@@ -332,7 +332,7 @@ function getPresentaseRkaRealisasi(periode=null){
                             events: {
                                 click: function() {  
                                     $kd= this.options.key;
-                                    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+                                    var url = "{{ url('/telu-dash/form/dashTeluBebanDet') }}";
                                     loadForm(url)
                                 }
                             }
@@ -371,7 +371,7 @@ function getPresentaseRkaRealisasi(periode=null){
 function getOprNonOpr(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getOprNonOprBeban') }}/"+periode,
+        url:"{{ url('/telu-dash/getOprNonOprBeban') }}/"+periode,
         dataType:"JSON",
         success:function(result){
             $('#opr').text(sepNum(result.data.opr)+'%');
@@ -396,7 +396,7 @@ function getOprNonOpr(periode=null){
 function getKomposisiBeban(periode=null){
 $.ajax({
     type:"GET",
-    url:"{{ url('/dash-telu/getKomposisiBeban') }}/"+periode,
+    url:"{{ url('/telu-dash/getKomposisiBeban') }}/"+periode,
     dataType:"JSON",
     success: function(result){
         Highcharts.chart('komposisi', {

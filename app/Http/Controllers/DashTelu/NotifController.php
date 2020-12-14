@@ -27,7 +27,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'ypt/notif-pusher',[
+            $response = $client->request('GET',  config('api.url').'ypt-auth/notif-pusher',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -54,7 +54,7 @@ class NotifController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('PUT',  config('api.url').'ypt/notif-update-status',[
+            $response = $client->request('PUT',  config('api.url').'ypt-auth/notif-update-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

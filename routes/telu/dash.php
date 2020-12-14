@@ -3,26 +3,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
-Route::get('/form/{id}', function ($id) {
-    if(!Session::has('isLoggedIn')){
-        // return redirect('dash-telu/login');
-        return view('dash-telu.sesi');
-    }else{
-        return view('dash-telu.'.$id);
-    }
-});
-
-Route::get('/sesi-habis', function () {
-    return view('dash-telu.sesi');
-});
-
-Route::get('/cek_session', 'DashTelu\AuthController@cek_session');
-Route::get('/', 'DashTelu\AuthController@index');
-Route::get('/login', 'DashTelu\AuthController@login');
-Route::post('/login', 'DashTelu\AuthController@cek_auth');
-Route::get('/logout', 'DashTelu\AuthController@logout');
-Route::get('/menu', 'DashTelu\AuthController@getMenu');
-
 //Dashboard
 //Home
 Route::get('/getPencapaianYoY/{periode}','DashTelu\DashboardController@getPencapaianYoY');
@@ -81,4 +61,5 @@ Route::get('watch/{id}', function ($id) {
     $data['id'] = $id;
     return view('dash-telu.watch',$data);
 });
+
 ?>
