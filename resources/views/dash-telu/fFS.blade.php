@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Form" tambah="true" :thead="array('Kode','Nama','Program','Aksi')" :thwidth="array(20,25,45,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data FS" tambah="true" :thead="array('Kode','Nama','Status','Action')" :thwidth="array(30,40,15,15)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -9,9 +9,15 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
-                        <h6 id="judul-form" style="position:absolute;top:25px"></h6>
-                        <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                        <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 id="judul-form" style='margin-bottom:0;margin-top:5px'>Form Data Akun</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="separator mb-2"></div>
                     <!-- FORM BODY -->
@@ -27,8 +33,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_form">Kode</label>
-                                        <input class="form-control" type="text" id="kode_form" name="kode_form" required>
+                                        <label for="kode_fs" >Kode</label>
+                                        <input class="form-control" type="text" placeholder="Kode FS" id="kode_fs" name="kode_fs" required>                         
                                     </div>
                                 </div>
                             </div>
@@ -37,8 +43,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="nama_form">Nama</label>
-                                        <input class="form-control" type="text" id="nama_form" name="nama_form" required>
+                                        <label for="nama" >Nama</label>
+                                        <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" required>                         
                                     </div>
                                 </div>
                             </div>
@@ -46,9 +52,12 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="form">Program</label>
-                                        <input class="form-control" type="form" id="form" name="form" required>
+                                    <div class="col-md-6 col-sm-12">                        
+                                        <label for="status" >Flag Aktif</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                        <option value="1">AKTIF</option>
+                                        <option value="0">NON-AKTIF</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +71,6 @@
 
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-    <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
     setHeightForm();
@@ -90,7 +98,7 @@
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
     }
-
+    
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
     var psscroll = new PerfectScrollbar(scroll);
@@ -102,21 +110,68 @@
 
     //LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    var dataTable = generateTable(
-        "table-data",
-        "{{ url('telu-master/form') }}", 
-        [
+    
+    var dataTable = $("#table-data").DataTable({
+        destroy: true,
+        bLengthChange: false,
+        sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
+        'ajax': {
+            'url': "{{ url('telu-master/fs') }}",
+            'async':false,
+            'type': 'GET',
+            'dataSrc' : function(json) {
+                if(json.status){
+                    return json.daftar;   
+                }else{
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    return [];
+                }
+            }
+        },
+        'columnDefs': [
             {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
-        [
-            { data: 'kode_form' },
-            { data: 'nama_form' },
-            { data: 'form' },
+        'columns': [
+            { data: 'kode_fs' },
+            { data: 'nama' },
+            { data: 'flag_status', render: function(data,type,row) {
+                if(data == "1") {
+                    return "Aktif"
+                }else {
+                    return "Non Aktif"
+                }
+            } },
         ],
-        "{{ url('dash-telu/sesi-habis') }}",
-        []
-    );
+        drawCallback: function () {
+            $($(".dataTables_wrapper .pagination li:first-of-type"))
+                .find("a")
+                .addClass("prev");
+            $($(".dataTables_wrapper .pagination li:last-of-type"))
+                .find("a")
+                .addClass("next");
 
+            $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        },
+        language: {
+            paginate: {
+                previous: "<i class='simple-icon-arrow-left'></i>",
+                next: "<i class='simple-icon-arrow-right'></i>"
+            },
+            search: "_INPUT_",
+            searchPlaceholder: "Search...",
+            // lengthMenu: "Items Per Page _MENU_"
+            "lengthMenu": 'Menampilkan <select>'+
+            '<option value="10">10 per halaman</option>'+
+            '<option value="25">25 per halaman</option>'+
+            '<option value="50">50 per halaman</option>'+
+            '<option value="100">100 per halaman</option>'+
+            '</select>',
+            
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            infoFiltered: "(terfilter dari _MAX_ total entri)"
+        }
+    });
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
     $("#searchData").on("keyup", function (event) {
@@ -134,19 +189,15 @@
     $('#saku-datatable').on('click', '#btn-tambah', function(){
         $('#row-id').hide();
         $('#id_edit').val('');
-        $('#judul-form').html('Tambah Data Form');
+        $('#judul-form').html('Tambah Data FS');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_form').attr('readonly', false);
+        $('#kode_fs').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
-        $('.input-group-prepend').addClass('hidden');
-        $('span[class^=info-name]').addClass('hidden');
-        $('.info-icon-hapus').addClass('hidden');
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
     });
     // END BUTTON TAMBAH
     
@@ -160,7 +211,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_form').val();
+        var kode = $('#kode_fs').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -174,26 +225,25 @@
         ignore: [],
         rules: 
         {
-            kode_form:{
-                required: true 
+            kode_fs:{
+                required: true,
+                maxlength:10   
             },
-            nama_form:{
-                required: true 
+            nama:{
+                required: true,
+                maxlength:50   
             },
-            form:{
-                required: true
-            }
         },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_form').val();
+            var id = $('#kode_fs').val();
             if(parameter == "edit"){
-                var url = "{{ url('telu-master/form') }}/"+id;
+                var url = "{{ url('telu-master/fs') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('telu-master/form') }}";
+                var url = "{{ url('telu-master/fs') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -215,19 +265,20 @@
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
+                        var kode = $('#kode_fs').val();
                         $('#row-id').hide();
                         $('#form-tambah')[0].reset();
                         $('#form-tambah').validate().resetForm();
                         $('[id^=label]').html('');
                         $('#id_edit').val('');
-                        $('#judul-form').html('Tambah Data Form');
+                        $('#judul-form').html('Tambah Data FS');
                         $('#method').val('post');
-                        $('#kode_form').attr('readonly', false);
+                        $('#kode_fs').attr('readonly', false);
                         msgDialog({
-                            id:result.data.kode,
+                            id:kode,
                             type:'simpan'
                         });
-                        last_add("kode_form",result.data.kode);
+                        last_add("kode_fs",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/dash-telu/sesi-habis') }}";
@@ -237,7 +288,7 @@
                             msgDialog({
                                 id: id,
                                 type: result.data.jenis,
-                                text:'Kode Form sudah digunakan'
+                                text:'Kode FS sudah digunakan'
                             });
                         }else{
 
@@ -268,13 +319,13 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('telu-master/form') }}/"+id,
+            url: "{{ url('telu-master/fs') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Form ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data FS ('+id+') berhasil dihapus ');
                     $('#modal-pesan-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
@@ -303,33 +354,6 @@
     // END BUTTON HAPUS
     
     // BUTTON EDIT
-    function editData(id){
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('telu-master/form') }}/" + id,
-            dataType: 'json',
-            async:false,
-            success:function(res){
-                var result= res.data;
-                if(result.status){
-                    $('#id_edit').val('edit');
-                    $('#method').val('put');
-                    $('#kode_form').attr('readonly', true);
-                    $('#kode_form').val(id);
-                    $('#id').val(id);
-                    $('#nama_form').val(result.data[0].nama_form);
-                    $('#form').val(result.data[0].form);
-                    $('#saku-datatable').hide();
-                    $('#modal-preview').modal('hide');
-                    $('#saku-form').show();
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
-                }
-                // $iconLoad.hide();
-            }
-        });
-    }
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
@@ -338,20 +362,50 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
 
-        $('#judul-form').html('Edit Data Form');
-        editData(id);
+        $('#judul-form').html('Edit Data FS');
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-master/fs') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_fs').attr('readonly', true);
+                    $('#kode_fs').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#status').val(result.data[0].flag_status);
+                    $('#kode_fs').val(result.data[0].kode_fs);                  
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_form,#nama_form,#form').keydown(function(e){
+    $('#kode_fs,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_form','nama_form','form'];
+        var nxt = ['kode_fs','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx++;
-            $('#'+nxt[idx]).focus();
+            if(idx == 15){
+                console.log('No event')
+                // var akun = $('#akun_hutang').val();
+                // getAkun(akun);
+            }else{
+                $('#'+nxt[idx]).focus();
+            }
         }else if(code == 38){
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -362,28 +416,35 @@
         }
     });
 
+
     // PREVIEW saat klik di list data
+
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 3){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
+             var status = data.flag_status;
+            if(status == "1") {
+                status = "Aktif"
+            }else{
+                status = "Non Aktif"
+            }
             var html = `<tr>
-                <td style='border:none'>Kode Form</td>
+                <td style='border:none'>Kode FS</td>
                 <td style='border:none'>`+id+`</td>
             </tr>
             <tr>
-                <td>Nama Form</td>
-                <td>`+data.nama_form+`</td>
+                <td>Nama FS</td>
+                <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Path Program</td>
-                <td>`+data.form+`</td>
+                <td>Status FS</td>
+                <td>`+status+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
             
-            $('#modal-preview-judul').css({'margin-top':'10px','padding':'0px !important'}).html('Preview Data Form').removeClass('py-2');
             $('#modal-preview-id').text(id);
             $('#modal-preview').modal('show');
         }
@@ -402,17 +463,43 @@
         var id= $('#modal-preview-id').text();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        $('#judul-form').html('Edit Data Form');
+        $('#judul-form').html('Edit Data FS');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        editData(id)
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-master/fs') }}/" + id,
+            dataType: 'json',
+            async:false,
+            success:function(res){
+                var result= res.data;
+                if(result.status){
+                    $('#id_edit').val('edit');
+                    $('#method').val('put');
+                    $('#kode_fs').attr('readonly', true);
+                    $('#kode_fs').val(id);
+                    $('#id').val(id);
+                    $('#nama').val(result.data[0].nama);
+                    $('#kode_fs').val(result.data[0].kode_fs);  
+                    $('#status').val(result.data[0].flag_status);                  
+                    $('#saku-datatable').hide();
+                    $('#saku-form').show();
+                    $('#modal-preview').modal('hide');
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                }
+                // $iconLoad.hide();
+            }
+        });
     });
 
     $('.modal-header').on('click','#btn-cetak',function(e){
         e.stopPropagation();
         $('.dropdown-ke1').addClass('hidden');
         $('.dropdown-ke2').removeClass('hidden');
+        console.log('ok');
     });
 
     $('.modal-header').on('click','#btn-cetak2',function(e){

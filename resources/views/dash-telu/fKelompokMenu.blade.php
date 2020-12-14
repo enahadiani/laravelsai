@@ -1,6 +1,6 @@
-    <link rel="stylesheet" href="{{ asset('master.css') }}" />
+<link rel="stylesheet" href="{{ asset('master.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Form" tambah="true" :thead="array('Kode','Nama','Program','Aksi')" :thwidth="array(20,25,45,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Kelompok Menu" tambah="true" :thead="array('Kode','Nama','Aksi')" :thwidth="array(20,70,10)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -27,8 +27,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_form">Kode</label>
-                                        <input class="form-control" type="text" id="kode_form" name="kode_form" required>
+                                        <label for="kode_klp">Kode</label>
+                                        <input class="form-control" type="text" id="kode_klp" name="kode_klp" required>
                                     </div>
                                 </div>
                             </div>
@@ -37,18 +37,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="nama_form">Nama</label>
-                                        <input class="form-control" type="text" id="nama_form" name="nama_form" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="form">Program</label>
-                                        <input class="form-control" type="form" id="form" name="form" required>
+                                        <label for="nama">Nama</label>
+                                        <input class="form-control" type="text" id="nama" name="nama" required>
                                     </div>
                                 </div>
                             </div>
@@ -104,14 +94,13 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('telu-master/form') }}", 
+        "{{ url('telu-master/menu-klp') }}", 
         [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
-            { data: 'kode_form' },
-            { data: 'nama_form' },
-            { data: 'form' },
+            { data: 'kode_klp' },
+            { data: 'nama' }
         ],
         "{{ url('dash-telu/sesi-habis') }}",
         []
@@ -140,7 +129,7 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#kode_form').attr('readonly', false);
+        $('#kode_klp').attr('readonly', false);
         $('#saku-datatable').hide();
         $('#saku-form').show();
         $('.input-group-prepend').addClass('hidden');
@@ -160,7 +149,7 @@
     });
 
     $('#saku-form').on('click', '#btn-update', function(){
-        var kode = $('#kode_form').val();
+        var kode = $('#kode_klp').val();
         msgDialog({
             id:kode,
             type:'edit'
@@ -174,26 +163,23 @@
         ignore: [],
         rules: 
         {
-            kode_form:{
+            kode_klp:{
                 required: true 
             },
-            nama_form:{
+            nama:{
                 required: true 
-            },
-            form:{
-                required: true
             }
         },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
-            var id = $('#kode_form').val();
+            var id = $('#kode_klp').val();
             if(parameter == "edit"){
-                var url = "{{ url('telu-master/form') }}/"+id;
+                var url = "{{ url('telu-master/menu-klp') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('telu-master/form') }}";
+                var url = "{{ url('telu-master/menu-klp') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -222,12 +208,12 @@
                         $('#id_edit').val('');
                         $('#judul-form').html('Tambah Data Form');
                         $('#method').val('post');
-                        $('#kode_form').attr('readonly', false);
+                        $('#kode_klp').attr('readonly', false);
                         msgDialog({
                             id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add("kode_form",result.data.kode);
+                        last_add("kode_klp",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/dash-telu/sesi-habis') }}";
@@ -268,7 +254,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('telu-master/form') }}/"+id,
+            url: "{{ url('telu-master/menu-klp') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -306,7 +292,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('telu-master/form') }}/" + id,
+            url: "{{ url('telu-master/menu-klp') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -314,11 +300,10 @@
                 if(result.status){
                     $('#id_edit').val('edit');
                     $('#method').val('put');
-                    $('#kode_form').attr('readonly', true);
-                    $('#kode_form').val(id);
+                    $('#kode_klp').attr('readonly', true);
+                    $('#kode_klp').val(id);
                     $('#id').val(id);
-                    $('#nama_form').val(result.data[0].nama_form);
-                    $('#form').val(result.data[0].form);
+                    $('#nama').val(result.data[0].nama);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -344,9 +329,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_form,#nama_form,#form').keydown(function(e){
+    $('#kode_klp,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_form','nama_form','form'];
+        var nxt = ['kode_klp','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -364,7 +349,7 @@
 
     // PREVIEW saat klik di list data
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
@@ -374,11 +359,7 @@
             </tr>
             <tr>
                 <td>Nama Form</td>
-                <td>`+data.nama_form+`</td>
-            </tr>
-            <tr>
-                <td>Path Program</td>
-                <td>`+data.form+`</td>
+                <td>`+data.nama+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);

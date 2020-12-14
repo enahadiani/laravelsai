@@ -110,7 +110,7 @@
         // 'serverSide': true,
         // "scrollX": true,
         'ajax': {
-            'url': "{{ url('toko-master/menu-klp') }}",
+            'url': "{{ url('telu-master/menu-klp') }}",
             'async':false,
             'type': 'GET',
             'dataSrc' : function(json) {
@@ -122,7 +122,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('toko-auth/login') }}";
+                        window.location.href = "{{ url('dash-telu/login') }}";
                     })
                     return [];
                 }
@@ -168,10 +168,10 @@
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "edit"){
-            var url = "{{ url('toko-master/menu-klp') }}/"+id;
+            var url = "{{ url('telu-master/menu-klp') }}/"+id;
             var pesan = "updated";
         }else{
-            var url = "{{ url('toko-master/menu-klp') }}";
+            var url = "{{ url('telu-master/menu-klp') }}";
             var pesan = "saved";
         }
 
@@ -208,7 +208,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('/toko-auth/login') }}";
+                        window.location.href = "{{ url('/dash-telu/login') }}";
                     }) 
                 }else{
                         Swal.fire({
@@ -239,7 +239,7 @@
                 var id = $(this).closest('tr').find('td').eq(0).html();
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('toko-master/menu-klp') }}/"+id,
+                    url: "{{ url('telu-master/menu-klp') }}/"+id,
                     dataType: 'json',
                     async:false,
                     success:function(result){
@@ -256,7 +256,7 @@
                                 text: 'harap login terlebih dahulu!',
                                 icon: 'error'
                             }).then(function() {
-                                window.location.href = "{{ url('toko-auth/login') }}";
+                                window.location.href = "{{ url('dash-telu/login') }}";
                             })
                         }else{
                             Swal.fire({
@@ -280,7 +280,7 @@
         $iconLoad.show();
         $.ajax({
             type: 'GET',
-            url: "{{ url('toko-master/menu-klp') }}/" + id,
+            url: "{{ url('telu-master/menu-klp') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -302,7 +302,7 @@
                         text: 'harap login terlebih dahulu!',
                         icon: 'error'
                     }).then(function() {
-                        window.location.href = "{{ url('toko-auth/login') }}";
+                        window.location.href = "{{ url('dash-telu/login') }}";
                     })
                 }
                 $iconLoad.hide();
