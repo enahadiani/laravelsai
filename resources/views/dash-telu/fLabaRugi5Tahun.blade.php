@@ -6,7 +6,6 @@ $nik     = Session::get('userLog');
 
 $tahun= substr($periode,0,4);
 $tahunLalu = intval($tahun)-1;
-$tahunDepan = intval($tahun)+1;
 $thnIni = substr($tahun,2,2);
 $thnLalu = substr($tahunLalu,2,2)
 @endphp
@@ -82,37 +81,16 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-0 bold">Pengembangan</h1>
-            <button class='btn btn-outline-light' id='btnBack' style="position: absolute;right: 135px;font-size:1rem"><i class="simple-icon-arrow-left mr-2"></i> Back</button>
+            <h1 class="mb-0 bold">Laba Rugi 5 Tahun</h1>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-7 col-12 mb-4">
-            <div class="card dash-card">
-                <div class="card-header">
-                    <h6 class="card-title mb-0">RKA Pengembangan {{ $tahunDepan }}</h6>
-                </div>
+        <div class="col-lg-12 col-12 mb-4">
+            <div class="card">
                 <div class="card-body">
-                    <div id="rka" style="height:300px"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-5 col-12 mb-4">
-            <div class="card dash-card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6 col-12">
-                            <h6 class="card-title mb-0">Komposisi RKA</h6>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <h6 class="card-title mb-0 text-right">1.000.000</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div id="komposisi"  style="height:300px"></div>
+                    <div id="laba-rugi" style='height:350px'></div>
                 </div>
             </div>
         </div>
@@ -253,68 +231,81 @@ function getPeriode(){
 
 getPeriode();
 
-function drawChart() {
+function drawVisualization() {
+    // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
-            ["", "", { role: "style" } ],
-            ["Fak", 99.45, "#ad1d3e"],
-            ["Fak", 99.45, "#511dad"],
-            ["Fak", 99.45, "#30ad1d"],
-            ["Fak", 99.45, "#a31dad"],
-            ["Fak", 99.45, "#1dada8"],
-            ["Fak", 99.45, "#611dad"],
-            ["Fak", 99.45, "#1d78ad"],
-            ["Fak", 99.45, "#ad9b1d"],
-            ["Fak", 99.45, "#1dad6e"],
-            ["Fak", 99.45, "#ad571d"]
+        ['', 'Pendapatan',{ role: 'annotation'} ,'Beban',{ role: 'annotation'}, 'SHU',{ role: 'annotation'}, 'OR',{ role: 'annotation'}],
+        ['RKA 2016', 340.6,340.6, 304.4, 304.4, 36.2,36.2, 88.7, 88.7],
+        ['Real 2016', 355.2,355.2, 290.8, 290.8, 64.4, 64.4, 81.8, 81.8],
+        ['RKA 2017', 378.2,378.2, 307.4,307.4, 70.8, 70.8, 80.8, 80.8],
+        ['Real 2017', 415.5,415.5, 329.5, 329.5, 86.0, 86.0, 78.1, 78.1],
+        ['RKA 2018', 448.5, 448.5, 352.5, 352.5, 96.0, 96.0, 72.9, 72.9],
+        ['Real 2018', 475.4,475.4, 379.2, 379.2, 96.3, 96.3, 78.5, 78.5],
+        ['RKA 2019', 500.9, 500.9, 391.9, 391.9, 108.9, 108.9, 76.8, 76.8],
+        ['Real 2019', 525.5, 525.5, 420.6, 420.6, 104.9, 104.9, 78.8, 78.8],
+        ['RKA 2020', 543.3, 543.3, 435.6, 435.6, 101.9, 101.9, 80.2, 80.2],
+        ['Real 2020', 503.0, 503.0, 417.2, 417.2, 85.8, 85.8, 82.9, 82.9],
         ]);
-        
-        var view = new google.visualization.DataView(data);
         
         var options = {
-            chartArea: {
-            // leave room for y-axis labels
-            width: '85%'
+            seriesType: 'bars',
+            series: {
+                0: {
+                    targetAxisIndex: 0
+                },
+                1: {
+                    targetAxisIndex: 0
+                },
+                2: {
+                    type: 'line',
+                    targetAxisIndex: 0
+                },
+                3: {
+                    type: 'line',
+                    targetAxisIndex: 1
+                }
             },
+            vAxes: {
+                // Adds titles to each axis.
+                0: {
+                    format: 'decimal',  gridlines: {
+                        count: 100,min:0
+                    }
+                },
+                1: {
+                    format: 'percent', gridlines: {
+                        count: 5,min:60
+                    }
+                }
+            },
+            chartArea:{
+                width: '90%',
+                height: '80%'
+            },
+            legend: {
+                position: 'top'
+            },
+            colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
             height:'100%',
-            width: '100%',
-            legend: {position: 'none'},
-            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+            width:'100%'
+            
         };
-        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
-        chart.draw(view, options);
-}
-
-function drawChart2() {
-    var data = $google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Work',     11],
-        ['Eat',      2],
-        ['Commute',  2],
-        ['Watch TV', 2],
-        ['Sleep',    7]
-        ]);
         
-    var options = {
-        // pieSliceText: 'none',
-        legend: {position: 'none'},
-        width: '100%',
-        height: '100%'
-    };
-        
-    var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
-    chart.draw(data, options);
-}
-
-function getMsBebanRKA(periode=null){
+        var chart = new google.visualization.ComboChart(document.getElementById('laba-rugi'));
+        chart.draw(data, options);
+    }
+function getLabaRugi(periode=null){
     // $.ajax({
     //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
+    //     url:"{{ url('/telu-dash/getLabaRugi5Tahun') }}/"+periode,
     //     dataType:"JSON",
     //     success:function(result){
-        $google.charts.load("current", {packages:['corechart']});
-        $google.charts.setOnLoadCallback(drawChart);
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualization);
 
-    
     //     },
     //     error: function(jqXHR, textStatus, errorThrown) {       
     //         if(jqXHR.status == 422){
@@ -332,34 +323,11 @@ function getMsBebanRKA(periode=null){
     // })
 }
 
-function getMsBebanKlp(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
-        $google.charts.load('current', {'packages':['corechart']});
-        $google.charts.setOnLoadCallback(drawChart2);
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-            
-    //     }
-    // })
-}
+getLabaRugi("{{$periode}}");
+// getRkaVsReal("{{$periode}}");
+// getGrowthRKA("{{$periode}}");
+// getGrowthReal("{{$periode}}");
 
-getMsBebanRKA("{{$periode}}");
-getMsBebanKlp("{{$periode}}");
-    
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
@@ -398,10 +366,16 @@ $("#btn-close").on("click", function (event) {
     
     $('#modalFilter').modal('hide');
 });
-
-$('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
+$('.table').on('click','.ms-pend',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
     loadForm(url);
-})
-
+});
+$('.table').on('click','.ms-beban',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
+    loadForm(url);
+});
+$('.table').on('click','.ms-pengembangan',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    loadForm(url);
+});
 </script>
