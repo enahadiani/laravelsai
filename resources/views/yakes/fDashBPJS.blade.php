@@ -470,12 +470,21 @@ Highcharts.chart('claim', {
             enabled: false
         }
     },
-    yAxis: {
-        visible: true,
-        title: {
-            enabled: false
-        }
-    },
+    yAxis:[
+        {
+            linewidth: 1,
+            title:{
+                    text: ''
+                }
+        },
+        {
+            linewidth: 1,
+            opposite: true,
+            title:{
+                    text: ''
+                }
+        },
+    ],
     tooltip: {
         enabled: false
         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -516,20 +525,22 @@ Highcharts.chart('claim', {
         {  
             type: 'spline',
             name: 'Claim vs Tag. Awal (%)',
-            data: [306, 578, 581, 556, 352, 568, 421, 511],
+            data: [30.6, 57.8, 58.1, 55.6, 35.2, 56.8, 42.1, 51.1],
             color: '#008000',
             marker: {
                 lineWidth: 2,
-            }
+            },
+            yAxis:1
         },
         {  
             type: 'spline',
             name: 'Bayar Yakes vs Tag. Awal (%)',
-            data: [693, 422, 415, 450, 648, 432, 579, 489],
+            data: [69.3, 42.2, 41.5, 45.0, 64.8, 43.2, 57.9, 48.9],
             color: '#ffa500',
             marker: {
                 lineWidth: 2,
-            }
+            },
+            yAxis:1
         },
     ]
 });
@@ -553,12 +564,21 @@ Highcharts.chart('utility', {
             enabled: false
         }
     },
-    yAxis: {
-        visible: true,
-        title: {
-            enabled: false
-        }
-    },
+    yAxis: [
+        {
+            linewidth: 1,
+            title:{
+                    text: ''
+                }
+        },
+        {
+            linewidth: 1,
+            opposite: true,
+            title:{
+                    text: ''
+                }
+        },
+    ],
     tooltip: {
         enabled: false
         // headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -599,11 +619,12 @@ Highcharts.chart('utility', {
         {  
             type: 'spline',
             name: 'Utilisasi/Iuran',
-            data: [0, 549, 1407, 2380, 2326, 1612, 1112, 65, 1493],
+            data: [0, 5.49, 14.07, 23.80, 23.26, 16.12, 11.12, 6.5, 14.93],
             color: '#008000',
             marker: {
                 lineWidth: 2,
-            }
+            },
+            yAxis:1
         },
     ]
 });
