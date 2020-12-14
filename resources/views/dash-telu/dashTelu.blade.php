@@ -294,7 +294,7 @@ function singkatNilai(num){
 function getPeriode(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/periode') }}",
+        url:"{{ url('/telu-dash/periode') }}",
         dataType: "JSON",
         success: function(result){
             var select = $('#periode').selectize();
@@ -329,7 +329,7 @@ function getPencapaianYoY(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getPencapaianYoY') }}/"+periode,
+        url:"{{ url('/telu-dash/getPencapaianYoY') }}/"+periode,
         dataType: "JSON",
         success: function(result){
             var html='';
@@ -379,7 +379,7 @@ function getPencapaianYoY(periode=null)
 function getGrowthReal(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getGrowthReal') }}/"+periode,
+        url:"{{ url('/telu-dash/getGrowthReal') }}/"+periode,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('growthReal', {
@@ -452,7 +452,7 @@ function getGrowthReal(periode=null){
 function getGrowthRKA(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getGrowthRka') }}/"+periode,
+        url:"{{ url('/telu-dash/getGrowthRka') }}/"+periode,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('growthRKA', { 
@@ -518,7 +518,7 @@ function getGrowthRKA(periode=null){
 function getRkaVsReal(periode=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getRkaVsReal') }}/"+periode,
+        url:"{{ url('/telu-dash/getRkaVsReal') }}/"+periode,
         dataType: "JSON",
         success: function(result){
 

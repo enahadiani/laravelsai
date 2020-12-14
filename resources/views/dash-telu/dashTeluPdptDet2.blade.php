@@ -181,7 +181,7 @@ function singkatNilai(num){
 function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
+        url:"{{ url('/telu-dash/getDataPendJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
         dataType:"JSON",
         success:function(result){
                 var html='';
@@ -216,7 +216,7 @@ function getDataPendJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=n
 function getPendapatanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getPendapatanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
+        url:"{{ url('/telu-dash/getPendapatanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptJur', {

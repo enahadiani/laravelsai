@@ -181,7 +181,7 @@ function singkatNilai(num){
 function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getDataBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
+        url:"{{ url('/telu-dash/getDataBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang+"/"+tahun,
         dataType:"JSON",
         success:function(result){
                 var html='';
@@ -216,7 +216,7 @@ function getDataBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null,tahun=
 function getBebanJurusan(periode=null,kodeNeraca=null,kodeBidang=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
+        url:"{{ url('/telu-dash/getBebanJurusan') }}/"+periode+"/"+kodeNeraca+"/"+kodeBidang,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('bebanJur', {
@@ -295,7 +295,7 @@ $('.tahunPilih').text('20'+$kd2);
 $('.thnPilih').text($kd2);
 
 $('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/dash-telu/form/dashTeluBebanDet') }}";
+    var url = "{{ url('/telu-dash/form/dashTeluBebanDet') }}";
     loadForm(url);
 })
 </script>

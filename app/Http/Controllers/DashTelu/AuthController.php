@@ -74,7 +74,7 @@
         {
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'ypt/login',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/login',[
                     'form_params' => [
                         'nik' => $request->input('nik'),
                         'password' => $request->input('password')
@@ -88,7 +88,7 @@
                         Session::forget('pesan');
                         Session::put('token',$data["token"]);
                         Session::put('login',TRUE);
-                        $response2 = $client->request('GET',  config('api.url').'ypt/profile',[
+                        $response2 = $client->request('GET',  config('api.url').'ypt-auth/profile',[
                             'headers' => [
                                 'Authorization' => 'Bearer '.$data["token"],
                                 'Accept'     => 'application/json',
@@ -165,7 +165,7 @@
 
                 $client = new Client();
                 $kodemenu = Session::get('kodeMenu');
-                $response = $client->request('GET',  config('api.url').'ypt/menu/'.$kodemenu,[
+                $response = $client->request('GET',  config('api.url').'ypt-auth/menu/'.$kodemenu,[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -348,7 +348,7 @@
          public function getProfile(){
             try {
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'ypt/profile',[
+                $response = $client->request('GET',  config('api.url').'ypt-auth/profile',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -377,7 +377,7 @@
             ]);
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'ypt/update-password',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/update-password',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -425,7 +425,7 @@
                     
                 }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'ypt/update-foto',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/update-foto',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -473,7 +473,7 @@
                     
                 }
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'ypt/update-background',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/update-background',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -502,7 +502,7 @@
             ]);
             try {
                 $client = new Client();
-                $response = $client->request('POST',  config('api.url').'ypt/search-form',[
+                $response = $client->request('POST',  config('api.url').'ypt-auth/search-form',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -530,7 +530,7 @@
         public function searchFormList(Request $request){
             try {
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'ypt/search-form-list',[
+                $response = $client->request('GET',  config('api.url').'ypt-auth/search-form-list',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',
@@ -558,7 +558,7 @@
         public function searchFormList2(Request $request){
             try {
                 $client = new Client();
-                $response = $client->request('GET',  config('api.url').'ypt/search-form-list',[
+                $response = $client->request('GET',  config('api.url').'ypt-auth/search-form-list',[
                     'headers' => [
                         'Authorization' => 'Bearer '.Session::get('token'),
                         'Accept'     => 'application/json',

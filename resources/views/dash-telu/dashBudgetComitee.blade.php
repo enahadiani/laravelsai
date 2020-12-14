@@ -289,7 +289,7 @@ function singkatNilai(num){
 function getBCRKA(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/rka') }}",
+        url:"{{ url('/telu-dash/rka') }}",
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('trend1', {
@@ -417,7 +417,7 @@ function getBCRKAPersen(){
 function getBCGrowthRKA(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/growth-rka') }}",
+        url:"{{ url('/telu-dash/growth-rka') }}",
         dataType:"JSON",
         success: function(result){
             console.log(result)
@@ -486,7 +486,7 @@ function getBCGrowthRKA(){
 function getBCTuition(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/tuition') }}",
+        url:"{{ url('/telu-dash/tuition') }}",
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('trend3', { 
@@ -548,7 +548,7 @@ function getBCTuition(){
 function getBCTuitionPersen(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/tuition-persen') }}",
+        url:"{{ url('/telu-dash/tuition-persen') }}",
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('trend3-persen', { 
@@ -611,7 +611,7 @@ function getBCTuitionPersen(){
 function getBCGrowthTuition(){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/growth-tuition') }}",
+        url:"{{ url('/telu-dash/growth-tuition') }}",
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('trend4', {
@@ -760,7 +760,7 @@ $("#btn-close").on("click", function (event) {
 
 // function drawChart() {
 //     var jsonData = $.ajax({
-//         url: "{{ url('/dash-telu/rka') }}",
+//         url: "{{ url('/telu-dash/rka') }}",
 //         dataType: "json",
 //         async: false
 //     }).responseText;

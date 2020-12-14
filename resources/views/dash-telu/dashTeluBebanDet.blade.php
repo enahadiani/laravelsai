@@ -191,7 +191,7 @@ function singkatNilai(num){
 function getDetailBeban(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getDetailBeban') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success:function(result){
             var html='';
@@ -227,7 +227,7 @@ function getDetailBeban(periode=null,kodeNeraca=null){
 function getBebanFak(periode=null, kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success:function(result){
             Highcharts.chart('pdptFak', {
@@ -275,7 +275,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
                                             click: function() {  
                                                 $kd2 = this.options.tahun;
                                                 $kd3 = this.options.kode_bidang;
-                                                var url = "{{ url('/dash-telu/form/dashTeluBebanDet2') }}";
+                                                var url = "{{ url('/telu-dash/form/dashTeluBebanDet2') }}";
                                                 loadForm(url)
                                             }
                                         }
@@ -304,7 +304,7 @@ function getBebanFak(periode=null, kodeNeraca=null){
 function getPertumbuhanBebanFak(periode=null,kodeNeraca=null){
     $.ajax({
         type:"GET",
-        url:"{{ url('/dash-telu/getBebanFak') }}/"+periode+"/"+kodeNeraca,
+        url:"{{ url('/telu-dash/getBebanFak') }}/"+periode+"/"+kodeNeraca,
         dataType:"JSON",
         success: function(result){
             Highcharts.chart('pertumbuhan', {
@@ -368,7 +368,7 @@ $('.tahunIni').text("{{ $thnIni }}");
 $('.thnIni').text("{{ $thnIni }}");
 
 $('.container-fluid').on('click','#btnBack',function(e){
-    var url = "{{ url('/dash-telu/form/dashTeluBeban') }}";
+    var url = "{{ url('/telu-dash/form/dashTeluBeban') }}";
     loadForm(url);
 })
 
