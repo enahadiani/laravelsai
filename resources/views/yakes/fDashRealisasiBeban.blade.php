@@ -332,15 +332,20 @@ var ach = [];
 var yoy = [];
 
 var buttonTop = document.getElementById('button-top');
+var buttonFilter = document.getElementById('button-filter');
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
         buttonTop.style.display = 'block';
+        buttonFilter.classList.add('btn-filter-scroll')
+        buttonFilter.classList.remove('btn-filter-no-scroll')
     } else {
         header.classList.remove('fixed-filter')
         buttonTop.style.display = 'none';
+        buttonFilter.classList.remove('btn-filter-scroll')
+        buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
 
