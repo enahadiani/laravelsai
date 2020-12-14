@@ -73,6 +73,9 @@ $thnLalu = substr($tahunLalu,2,2)
     .table td{
         padding:4px !important;
     }
+    .trace {
+        cursor:pointer;
+    }
     </style>
 
 <div class="container-fluid mt-3">
@@ -81,7 +84,6 @@ $thnLalu = substr($tahunLalu,2,2)
             <h1 class="mb-0 bold">Telkom University Management System</h1>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
-            <div class="separator mb-5"></div>
         </div>
     </div>
     <div class="row" >
@@ -92,12 +94,12 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-profit">
-                        <tr>
+                        <tr class="trace ms-pend">
                             <td>Pendapatan</td>
                             <td>1.000.000.000</td>
                             <td class='text-right text-success'>120%</td>
                         </tr>
-                        <tr>
+                        <tr class="trace ms-beban">
                             <td>Beban</td>
                             <td>1.000.000.000</td>
                             <td class='text-right text-success'>120%</td>
@@ -144,8 +146,8 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-penyerapan">
-                        <tr>
-                            <td>Pengembangan</td>
+                        <tr class="trace ms-pengembangan">
+                            <td >Pengembangan</td>
                             <td>1.000.000.000</td>
                             <td class='text-right text-success'>120%</td>
                         </tr>
@@ -250,7 +252,8 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
 </div>
 <script>
-
+$('body').addClass('dash-contents');
+$('html').addClass('dash-contents');
 function sepNum(x){
     if(!isNaN(x)){
         if (typeof x === undefined || !x || x == 0) { 
@@ -620,13 +623,10 @@ function getRkaVsReal(periode=null){
     });
 }
 
-getPencapaianYoY("{{$periode}}");
-getRkaVsReal("{{$periode}}");
-getGrowthRKA("{{$periode}}");
-getGrowthReal("{{$periode}}");
-$('.periode-label').html(namaPeriode("{{$periode}}"));
-$('.bulan-label').html(namaPeriodeBulan("{{$periode}}"));
-$('.tahun-label').html("{{$periode}}".substr(0,4));
+// getPencapaianYoY("{{$periode}}");
+// getRkaVsReal("{{$periode}}");
+// getGrowthRKA("{{$periode}}");
+// getGrowthReal("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -658,12 +658,6 @@ $('#btn-reset').click(function(e){
 });
    
 $('#btn-filter').click(function(){
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    // } else {
-    //     $(".app-menu").addClass("shown");
-    // }
-    
     $('#modalFilter').modal('show');
 });
 
@@ -671,10 +665,17 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
-    // if ($(".app-menu").hasClass("shown")) {
-    //     $(".app-menu").removeClass("shown");
-    //   } else {
-    //     $(".app-menu").addClass("shown");
-    //   }
+});
+$('.table').on('click','.ms-pend',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
+    loadForm(url);
+});
+$('.table').on('click','.ms-beban',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
+    loadForm(url);
+});
+$('.table').on('click','.ms-pengembangan',function(e){
+    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
+    loadForm(url);
 });
 </script>

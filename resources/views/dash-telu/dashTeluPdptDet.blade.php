@@ -130,6 +130,9 @@ $thnLalu = substr($tahunLalu,2,2);
     </div>
 </div>
 <script>
+ 
+ $('body').addClass('dash-contents');
+ $('html').addClass('dash-contents');
 var $k2 = "";
 function sepNum(x){
     var num = parseFloat(x).toFixed(2);
