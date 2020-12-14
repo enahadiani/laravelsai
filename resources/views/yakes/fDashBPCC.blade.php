@@ -53,12 +53,29 @@
     .select-dash {
         border-radius: 10px;
     }
-    .keterangan {
-        writing-mode: vertical-lr;
-        margin: 0;
+    .container-keterangan-nilai {
+        z-index: 1;
         position: absolute;
-        margin-left: 10px;
         top: 30%;
+        margin: 0;
+        margin-left: 126px;
+    }
+    .container-keterangan-persen {
+        z-index: 1;
+        position: absolute;
+        top: 30%;
+        margin: 0;
+        right: 0;
+        margin-right: -60px;
+    }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
+    }
+    .keterangan {
+        display: inline-block;
+        -webkit-transform: rotate(270deg);
+        -webkit-transform-origin: 0 0;
     }
     .fixed-filter {
         background-color: #f8f8f8;
@@ -68,7 +85,8 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
-        z-index: 1;
+        padding-bottom: 18px;
+        z-index: 2;
     }
     .footer-dashboard {
         width: 100%;
@@ -77,6 +95,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -110,6 +129,28 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -118,13 +159,21 @@
 
 <div id="filter-header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <h6>Realisasi BPCC</h6>
         </div>
+        <div class="col-6">
+            <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                <span>Filter</span>
+                <div class="filter-count">
+                    1
+                </div>
+            </button>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-2">
-            <div class="dropdown-periode dropdown">
+    {{-- <div class="row">
+        <div class="col-2"> --}}
+            {{-- <div class="dropdown-periode dropdown">
                 <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                     Periode : {{Session::get('periode')}}
                     <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
@@ -132,29 +181,36 @@
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                 </ul>
-            </div>
+            </div> --}}
             {{-- <select id="periode" class="form-control select-dash">
 
             </select> --}}
-        </div>
-    </div>
+        {{-- </div> --}}
+    {{-- </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi CC YTD OKT 2020</h6>
-            <div class="row">
-                <div class="col-1">
-                    <p class="keterangan">Dalam Rp. Juta</p>
+            <div class="row container-keterangan-nilai">
+                <div class="col-12">
+                    <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
-                <div class="col-11">
+            </div>
+            <div class="row container-keterangan-persen">
+                <div class="col-12">
+                    <p class="keterangan">Dalam Persen</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div id="cc"></div>
                 </div>
                 <div class="col-12 ml-4">
                     <table style="width: 95%;">
                         <thead>
                             <tr>
-                                <th style="width:15%;"></th>
+                                <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
                                 <th style="width:10%;">RJTKL</th>
                                 <th style="width:10%;">RI</th>
@@ -174,18 +230,25 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi BP YTD OKT 2020</h6>
-            <div class="row">
-                <div class="col-1">
-                    <p class="keterangan">Dalam Rp. Juta</p>
+            <div class="row container-keterangan-nilai">
+                <div class="col-12">
+                    <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
-                <div class="col-11">
+            </div>
+            <div class="row container-keterangan-persen">
+                <div class="col-12">
+                    <p class="keterangan">Dalam Persen</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div id="bp"></div>
                 </div>
                 <div class="col-12 ml-4">
                     <table style="width: 95%;">
                         <thead>
                             <tr>
-                                <th style="width:15%;"></th>
+                                <th style="width:10%;"></th>
                                 <th style="width:10%;">RJTP</th>
                                 <th style="width:10%;">RJTKL</th>
                                 <th style="width:10%;">RI</th>
@@ -263,20 +326,56 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Periode : {{Session::get('periode')}}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000;
 
 var header = document.getElementById('filter-header');
 var buttonTop = document.getElementById('button-top');
+var buttonFilter = document.getElementById('button-filter');
 var sticky = header.offsetTop;
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
         buttonTop.style.display = 'block';
+        buttonFilter.classList.add('btn-filter-scroll')
+        buttonFilter.classList.remove('btn-filter-no-scroll')
     } else {
         header.classList.remove('fixed-filter')
         buttonTop.style.display = 'none';
+        buttonFilter.classList.remove('btn-filter-scroll')
+        buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
 
@@ -301,11 +400,26 @@ window.onscroll = function() {
         var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
+    });
+
+    $('#button-filter').click(function(){
+        $('#modalFilter').modal('show');
+    })
+
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text2 = "{{Session::get('periode')}}";
+        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        periode = "{{Session::get('periode')}}";
+    })
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
         $('#real-bp').empty();
         $('#real-cc').empty();
         getDataCC();
         getDataBP();
-    });
+        $('#modalFilter').modal('hide');
+    })
 
     $('#dash-btn').click(function(){
         $('#modal-preview').modal('show');
@@ -449,8 +563,12 @@ window.onscroll = function() {
 
                 Highcharts.chart('cc', {
                     chart:{
-                        width:1050,
-                        marginTop: 50
+                        // width:1050,
+                        marginLeft: 230,
+                        marginRight: 90
+                    },
+                    exporting:{
+                        enabled: false
                     },
                     legend:{ enabled:false },
                     credits: {
@@ -628,8 +746,12 @@ window.onscroll = function() {
 
                 Highcharts.chart('bp', {
                     chart:{
-                        width:1050,
-                        marginTop: 50
+                        // width:1050,
+                        marginLeft: 230,
+                        marginRight: 90
+                    },
+                    exporting:{
+                        enabled: false
                     },
                     legend:{ enabled:false },
                     credits: {
