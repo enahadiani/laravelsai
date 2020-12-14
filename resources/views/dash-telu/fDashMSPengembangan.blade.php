@@ -145,7 +145,6 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
 </div>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
@@ -254,13 +253,46 @@ function getPeriode(){
 
 getPeriode();
 
+function drawChart() {
+    var data = $google.visualization.arrayToDataTable([
+            ["", "", { role: "style" } ],
+            ["Fak", 99.45, "#ad1d3e"],
+            ["Fak", 99.45, "#511dad"],
+            ["Fak", 99.45, "#30ad1d"],
+            ["Fak", 99.45, "#a31dad"],
+            ["Fak", 99.45, "#1dada8"],
+            ["Fak", 99.45, "#611dad"],
+            ["Fak", 99.45, "#1d78ad"],
+            ["Fak", 99.45, "#ad9b1d"],
+            ["Fak", 99.45, "#1dad6e"],
+            ["Fak", 99.45, "#ad571d"]
+        ]);
+        
+        var view = new google.visualization.DataView(data);
+        
+        var options = {
+            chartArea: {
+            // leave room for y-axis labels
+            width: '85%'
+            },
+            height:'100%',
+            width: '100%',
+            legend: {position: 'none'},
+            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
+        chart.draw(view, options);
+}
+
 function getMsBebanRKA(periode=null){
     // $.ajax({
     //     type:"GET",
     //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
     //     dataType:"JSON",
     //     success:function(result){
-        
+        $google.charts.load("current", {packages:['corechart']});
+        $google.charts.setOnLoadCallback(drawChart);
+
     
     //     },
     //     error: function(jqXHR, textStatus, errorThrown) {       
@@ -354,48 +386,17 @@ function getMsBebanKlp(periode=null){
     // })
 }
 
-// getMsBebanRKA("{{$periode}}");
+getMsBebanRKA("{{$periode}}");
 // getMsBebanKlp("{{$periode}}");
 
-google.charts.load("current", {packages:['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-            ["", "", { role: "style" } ],
-            ["Fak", 99.45, "#ad1d3e"],
-            ["Fak", 99.45, "#511dad"],
-            ["Fak", 99.45, "#30ad1d"],
-            ["Fak", 99.45, "#a31dad"],
-            ["Fak", 99.45, "#1dada8"],
-            ["Fak", 99.45, "#611dad"],
-            ["Fak", 99.45, "#1d78ad"],
-            ["Fak", 99.45, "#ad9b1d"],
-            ["Fak", 99.45, "#1dad6e"],
-            ["Fak", 99.45, "#ad571d"]
-        ]);
-        
-        var view = new google.visualization.DataView(data);
-        
-        var options = {
-            chartArea: {
-            // leave room for y-axis labels
-            width: '85%'
-            },
-            height:'100%',
-            width: '100%',
-            legend: {position: 'none'},
-            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
-        chart.draw(view, options);
-}
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart2);
+
+$google.charts.load('current', {'packages':['corechart']});
+$google.charts.setOnLoadCallback(drawChart2);
 
 function drawChart2() {
     
-    var data = google.visualization.arrayToDataTable([
+    var data = $google.visualization.arrayToDataTable([
         ['Task', 'Hours per Day'],
         ['Work',     11],
         ['Eat',      2],
