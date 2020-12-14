@@ -145,6 +145,7 @@ $thnLalu = substr($tahunLalu,2,2)
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 $('body').addClass('dash-contents');
 $('html').addClass('dash-contents');
@@ -259,53 +260,8 @@ function getMsBebanRKA(periode=null){
     //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
     //     dataType:"JSON",
     //     success:function(result){
-            Highcharts.chart('capai-rka', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: [
-                        'RKA YTD',
-                        'Actual YTD'
-                    ]
-                },
-                yAxis: [{
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                }],
-                credits: {
-                    enabled: false
-                },
-                tooltip: {
-                    shared: true
-                },
-                plotOptions: {
-                    column: {
-                        grouping: false,
-                        shadow: false,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: 'RKA YTD',
-                    color: '#4c4c4c',
-                    data: [100, 73],
-                    pointPadding: 0.3,
-                    /* pointPlacement: -0.2 */
-                }, {
-                    name: 'Actual YTD',
-                    color: '#900604',
-                    data: [140, 90],
-                    pointPadding: 0.4,
-                    /* pointPlacement: -0.2 */
-                }]
-            });
-
+        
+    
     //     },
     //     error: function(jqXHR, textStatus, errorThrown) {       
     //         if(jqXHR.status == 422){
@@ -398,9 +354,66 @@ function getMsBebanKlp(periode=null){
     // })
 }
 
-getMsBebanRKA("{{$periode}}");
-getMsBebanKlp("{{$periode}}");
+// getMsBebanRKA("{{$periode}}");
+// getMsBebanKlp("{{$periode}}");
 
+google.charts.load("current", {packages:['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+            ["", "", { role: "style" } ],
+            ["Fak", 99.45, "#ad1d3e"],
+            ["Fak", 99.45, "#511dad"],
+            ["Fak", 99.45, "#30ad1d"],
+            ["Fak", 99.45, "#a31dad"],
+            ["Fak", 99.45, "#1dada8"],
+            ["Fak", 99.45, "#611dad"],
+            ["Fak", 99.45, "#1d78ad"],
+            ["Fak", 99.45, "#ad9b1d"],
+            ["Fak", 99.45, "#1dad6e"],
+            ["Fak", 99.45, "#ad571d"]
+        ]);
+        
+        var view = new google.visualization.DataView(data);
+        
+        var options = {
+            chartArea: {
+            // leave room for y-axis labels
+            width: '85%'
+            },
+            height:'100%',
+            width: '100%',
+            legend: {position: 'none'},
+            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
+        chart.draw(view, options);
+}
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart2);
+
+function drawChart2() {
+    
+    var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Work',     11],
+        ['Eat',      2],
+        ['Commute',  2],
+        ['Watch TV', 2],
+        ['Sleep',    7]
+        ]);
+        
+        var options = {
+            legend: {position: 'none'},
+            width: '100%',
+            height: '100%'
+        };
+        
+        var chart = new google.visualization.PieChart(document.getElementById('komposisi'));
+        
+        chart.draw(data, options);
+    }
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
