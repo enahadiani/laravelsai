@@ -349,6 +349,9 @@
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
+    
     
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
@@ -541,6 +544,13 @@
                 var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     hapusData(data.id);
+                // }
+                
+                // function callBackCancel(){
+                //     // 
+                // }
                 
             break;
             case 'edit':
@@ -550,14 +560,31 @@
                 var text = (data.text != undefined ? data.text : 'Data akan diubah dan semua informasi sebelumnya akan diganti.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Ubah');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     $('#form-tambah').submit();
+                // }
+                
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
             case 'simpan':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-outline-primary');
                 var title = (data.title != undefined ? data.title : 'Tersimpan');
-                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br>'+data.id);
+                var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
+                
+                // function callBackMsg(){
+                //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                // }
+                
+                // function callBackCancel(){
+                //     $('#saku-datatable').show();
+                //     $('#saku-form').hide();
+                //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                // }
             break;
             case 'keluar':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -566,6 +593,14 @@
                 var text = (data.text != undefined ? data.text : 'Semua perubahan tidak akan disimpan.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     $('#saku-datatable').show();
+                //     $('#saku-form').hide();
+                // }
+                
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
             case 'logout':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -574,6 +609,14 @@
                 var text = (data.text != undefined ? data.text : 'Semua halaman akses yang sama akan keluar.');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Keluar');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     window.localStorage.setItem('logged_in', false);
+                //     window.location.href = "{{ url('yakes-auth/logout') }}";
+                // }
+                
+                // function callBackCancel(){
+                //     // 
+                // }
             break;
             case 'duplicate':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
@@ -581,6 +624,24 @@
                 var title = (data.title != undefined ? data.title : 'Duplikat Data');
                 var text = (data.text != undefined ? data.text : 'Kode sudah digunakan');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Mengerti');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+            case 'sukses':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Sukses');
+                var text = (data.text != undefined ? data.text : 'Data berhasil disimpan');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
+                var cancel = (data.cancel != undefined ? data.cancel : null);
+                var showCancel = (data.cancel != undefined ? true : false);
+            break;
+            case 'warning':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary btn-200');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : '');
+                var title = (data.title != undefined ? data.title : 'Peringatan');
+                var text = (data.text != undefined ? data.text : '');
+                var confirm = (data.confirm != undefined ? data.confirm : 'OK');
                 var cancel = (data.cancel != undefined ? data.cancel : null);
                 var showCancel = (data.cancel != undefined ? true : false);
             break;
@@ -638,12 +699,18 @@
                 case 'logout':
                     if (result.value) {
                         window.localStorage.setItem('logged_in', false);
-                        window.location.href = "{{ url('dash-telu/logout') }}";
+                        window.location.href = "{{ url('yakes-auth/logout') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }                    
                 break;
                 case 'duplicate':
+                    //  
+                break;
+                case 'sukses':
+                    //  
+                break;
+                case 'warning':
                     //  
                 break;
             }
