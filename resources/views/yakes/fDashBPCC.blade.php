@@ -192,7 +192,7 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi CC YTD OKT 2020</h6>
-            <div class="row container-keterangan-nilai">
+            {{-- <div class="row container-keterangan-nilai">
                 <div class="col-12">
                     <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
@@ -201,7 +201,7 @@
                 <div class="col-12">
                     <p class="keterangan">Dalam Persen</p>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div id="cc"></div>
@@ -230,7 +230,7 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi BP YTD OKT 2020</h6>
-            <div class="row container-keterangan-nilai">
+            {{-- <div class="row container-keterangan-nilai">
                 <div class="col-12">
                     <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
@@ -239,7 +239,7 @@
                 <div class="col-12">
                     <p class="keterangan">Dalam Persen</p>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div id="bp"></div>
@@ -590,14 +590,14 @@ window.onscroll = function() {
                         {
                             linewidth: 1,
                             title:{
-                                text: ''
+                                text: 'Rp. Dalam Juta'
                             }
                         },
                         {
                             linewidth: 1,
                             opposite: true,
                             title:{
-                                text: ''
+                                text: 'Dalam Persen'
                             }
                         },
                     ],
@@ -773,14 +773,14 @@ window.onscroll = function() {
                         {
                             linewidth: 1,
                             title:{
-                                text: ''
+                                text: 'Rp. Dalam Juta'
                             }
                         },
                         {
                             linewidth: 1,
                             opposite: true,
                             title:{
-                                text: ''
+                                text: 'Dalam Persen'
                             }
                         },
                     ],
