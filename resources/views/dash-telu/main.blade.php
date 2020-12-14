@@ -49,7 +49,7 @@
             background-size: 150px;
             background-position-x: center;
             background-position-y: center;
-            width:160px;
+            width:150px;
             height:45px;
         }
         .logo-mobile{
