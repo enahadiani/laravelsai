@@ -53,12 +53,24 @@
     .select-dash {
         border-radius: 10px;
     }
-    .container-keterangan {
+    .container-keterangan-nilai {
         z-index: 1;
         position: absolute;
         top: 30%;
         margin: 0;
-        margin-left: 10px;
+        margin-left: 9px;
+    }
+    .container-keterangan-persen {
+        z-index: 1;
+        position: absolute;
+        top: 30%;
+        margin: 0;
+        right: 0;
+        margin-right: -65px;
+    }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
     }
     .keterangan {
         display: inline-block;
@@ -73,6 +85,7 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
+        padding-bottom: 18px;
         z-index: 2;
     }
     .footer-dashboard {
@@ -82,6 +95,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -115,6 +129,28 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -123,12 +159,20 @@
 
 <div id="filter-header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <h6>Realisasi Beban</h6>
         </div>
+        <div class="col-6">
+            <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                <span>Filter</span>
+                <div class="filter-count">
+                    1
+                </div>
+            </button>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-2">
+    {{-- <div class="row"> --}}
+        {{-- <div class="col-2">
             <div class="dropdown-periode dropdown">
                 <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                     Periode : {{Session::get('periode')}}
@@ -137,20 +181,25 @@
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                 </ul>
-            </div>
+            </div> --}}
             {{-- <select id="periode" class="form-control select-dash">
 
             </select> --}}
-        </div>
-    </div>
+        {{-- </div> --}}
+    {{-- </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi Beban</h6>
-            <div class="row container-keterangan">
+            <div class="row container-keterangan-nilai">
                 <div class="col-12">
-                    <p class="keterangan">Dalam Rp. Juta</p>
+                    <p class="keterangan">Rp. Dalam Juta</p>
+                </div>
+            </div>
+            <div class="row container-keterangan-persen">
+                <div class="col-12">
+                    <p class="keterangan">Dalam Persen</p>
                 </div>
             </div>
             <div class="row">
@@ -242,6 +291,37 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Periode : {{Session::get('periode')}}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000;
@@ -252,15 +332,20 @@ var ach = [];
 var yoy = [];
 
 var buttonTop = document.getElementById('button-top');
+var buttonFilter = document.getElementById('button-filter');
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
         buttonTop.style.display = 'block';
+        buttonFilter.classList.add('btn-filter-scroll')
+        buttonFilter.classList.remove('btn-filter-no-scroll')
     } else {
         header.classList.remove('fixed-filter')
         buttonTop.style.display = 'none';
+        buttonFilter.classList.remove('btn-filter-scroll')
+        buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
 
@@ -280,14 +365,29 @@ window.onscroll = function() {
         }
     });
 
+    $('#button-filter').click(function(){
+        $('#modalFilter').modal('show');
+    })
+
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text2 = "{{Session::get('periode')}}";
+        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        periode = "{{Session::get('periode')}}";
+    })
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
+        $('#header-beban').empty();
+        $('#content-beban').empty();
+        RealBeban();
+        $('#modalFilter').modal('hide');
+    })
+
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
         var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
-        $('#header-beban').empty();
-        $('#content-beban').empty();
-        getDataCC();
     });
 
     $('#dash-btn').click(function(){
@@ -436,9 +536,9 @@ function RealBeban() {
             // yoy_beban.push(yoy_cc)
 
             htmlHeader += "<tr>";
-            htmlHeader += "<th style='width:15%;'></th>";
+            htmlHeader += "<th style='width:10%;'></th>";
             for(var i=0;i<categories.length;i++) {
-                htmlHeader += "<th style='width:10%;'>"+categories[i]+"</th>"
+                htmlHeader += "<th>"+categories[i]+"</th>"
             }
             htmlHeader += "</tr>";
             $('#header-beban').append(htmlHeader);
@@ -513,9 +613,12 @@ function RealBeban() {
 
             Highcharts.chart('chart', {
                 chart:{
-                    width:1050,
-                    marginTop: 50,
-                    marginLeft: 150
+                    // width:1050,
+                    marginLeft: 90,
+                    marginRight: 90
+                },
+                exporting:{
+                    enabled: false
                 },
                 legend:{ enabled:false },
                 credits: {
