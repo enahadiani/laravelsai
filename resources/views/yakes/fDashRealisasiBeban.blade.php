@@ -301,67 +301,68 @@ window.onscroll = function() {
     //     periode = val;
     //     getDataCC();
     // })
+    
+    RealBeban();
+    // getDataCC();
 
-    getDataCC();
+    // function getDataCC() {
+    //     $.ajax({
+    //         type:'GET',
+    //         url: "{{ url('yakes-dash/data-cc') }}/"+periode,
+    //         dataType: 'JSON',
+    //         success: function(result) {
+    //             var data = result.daftar;
+    //             var resultReaNow = 0
+    //             var resultRkaNow = 0;
+    //             var resultReaBefore = 0;
+    //             var ReaNow = 0
+    //             var RkaNow = 0;
+    //             var ReaBefore = 0;
+    //             var resultAch = 0;
+    //             var resultYoy = 0;
+    //             var totalReaNow = 0;
+    //             var totalReaBefore = 0;
+    //             var totalRkaNow = 0;
+    //             var totalAch = 0;
+    //             var totalYoy = 0;
 
-    function getDataCC() {
-        $.ajax({
-            type:'GET',
-            url: "{{ url('yakes-dash/data-cc') }}/"+periode,
-            dataType: 'JSON',
-            success: function(result) {
-                var data = result.daftar;
-                var resultReaNow = 0
-                var resultRkaNow = 0;
-                var resultReaBefore = 0;
-                var ReaNow = 0
-                var RkaNow = 0;
-                var ReaBefore = 0;
-                var resultAch = 0;
-                var resultYoy = 0;
-                var totalReaNow = 0;
-                var totalReaBefore = 0;
-                var totalRkaNow = 0;
-                var totalAch = 0;
-                var totalYoy = 0;
+    //             for(var i=0;i<data.length;i++) { 
+    //                 resultReaNow = parseFloat(data[i].rea_now)/pembagi;
+    //                 ReaNow = parseFloat(resultReaNow.toFixed(0));
+    //                 resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
+    //                 RkaNow = parseFloat(resultRkaNow.toFixed(0));
+    //                 resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
+    //                 ReaBefore = parseFloat(resultReaBefore.toFixed(0));
 
-                for(var i=0;i<data.length;i++) { 
-                    resultReaNow = parseFloat(data[i].rea_now)/pembagi;
-                    ReaNow = parseFloat(resultReaNow.toFixed(0));
-                    resultRkaNow = parseFloat(data[i].rka_now)/pembagi;
-                    RkaNow = parseFloat(resultRkaNow.toFixed(0));
-                    resultReaBefore = parseFloat(data[i].rea_bef)/pembagi;
-                    ReaBefore = parseFloat(resultReaBefore.toFixed(0));
+    //                 if(RkaNow == 0) {
+    //                     resultAch = 0;
+    //                 } else {
+    //                     resultAch = (ReaNow/RkaNow)*100;
+    //                 }
 
-                    if(RkaNow == 0) {
-                        resultAch = 0;
-                    } else {
-                        resultAch = (ReaNow/RkaNow)*100;
-                    }
-
-                    if(ReaBefore == 0) {
-                        resultYoy = 0;
-                    } else {
-                        resultYoy = ((ReaNow/ReaBefore)-1)*100;
-                    }
+    //                 if(ReaBefore == 0) {
+    //                     resultYoy = 0;
+    //                 } else {
+    //                     resultYoy = ((ReaNow/ReaBefore)-1)*100;
+    //                 }
             
-                    totalReaNow = totalReaNow + ReaNow;
-                    totalReaBefore = totalReaBefore + ReaBefore;
-                    totalRkaNow = totalRkaNow + RkaNow;
-                    totalAch = totalAch + resultAch;
-                    totalYoy = totalYoy + resultYoy;
-                }
+    //                 totalReaNow = totalReaNow + ReaNow;
+    //                 totalReaBefore = totalReaBefore + ReaBefore;
+    //                 totalRkaNow = totalRkaNow + RkaNow;
+    //                 totalAch = totalAch + resultAch;
+    //                 totalYoy = totalYoy + resultYoy;
+    //             }
                 
-                rea_now.push(parseFloat(totalReaNow.toFixed(0)));
-                rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
-                rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
-                ach.push(parseFloat(totalAch.toFixed(0)))
-                yoy.push(parseFloat(totalYoy.toFixed(2)));
+    //             rea_now.push(parseFloat(totalReaNow.toFixed(0)));
+    //             rea_bef.push(parseFloat(totalReaBefore.toFixed(0)));
+    //             rka_now.push(parseFloat(totalRkaNow.toFixed(0)));
+    //             ach.push(parseFloat(totalAch.toFixed(0)))
+    //             yoy.push(parseFloat(totalYoy.toFixed(2)));
 
-                RealBeban();
-            }
-        });
-    }
+    //             RealBeban();
+    //         }
+    //     });
+    // }
 
 function RealBeban() {
     $.ajax({
@@ -420,12 +421,12 @@ function RealBeban() {
                 ach_beban.push(resultBebanAch)
                 yoy_beban.push(resultBebanYoy);
             }
-            categories.push("CC");
-            rea_beban_now.push(rea_cc_now);
-            rea_beban_bef.push(rea_cc_before);
-            rka_beban_now.push(rka_cc_now);
-            ach_beban.push(ach_cc);
-            yoy_beban.push(yoy_cc)
+            // categories.push("CC");
+            // rea_beban_now.push(rea_cc_now);
+            // rea_beban_bef.push(rea_cc_before);
+            // rka_beban_now.push(rka_cc_now);
+            // ach_beban.push(ach_cc);
+            // yoy_beban.push(yoy_cc)
 
             htmlHeader += "<tr>";
             htmlHeader += "<th style='width:15%;'></th>";
