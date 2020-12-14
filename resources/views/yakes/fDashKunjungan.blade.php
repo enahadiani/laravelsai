@@ -68,6 +68,10 @@
         align-items: center;
         justify-content: space-between;
     }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
+    }
     .keterangan {
         display: flex;
         align-items: center;
@@ -81,6 +85,7 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
+        padding-bottom: 18px;
         z-index: 1;
     }
     .footer-dashboard {
@@ -90,6 +95,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -136,6 +142,28 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
     
     <button id="button-top" class="button-top" onclick="topFunction()">
@@ -144,13 +172,21 @@
     
     <div id="filter-header">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <h6>Biaya Kunjungan</h6>
             </div>
+            <div class="col-6">
+                <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                    <span>Filter</span>
+                    <div class="filter-count">
+                        2
+                    </div>
+                </button>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-3">
-                <div class="dropdown-jenis dropdown">
+        {{-- <div class="row"> --}}
+            {{-- <div class="col-3"> --}}
+                {{-- <div class="dropdown-jenis dropdown">
                     <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                         Jenis : Pensiunan dan Keluarga
                         <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
@@ -165,14 +201,14 @@
                             <span>Pegawai dan Keluarga</span>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
                 {{-- <select id="jenis" class="form-control select-dash">
                     <option value="CC" selected>Pensiunan dan Keluarga</option>
                     <option value="BP">Pegawai dan Keluarga</option>
                 </select> --}}
-            </div>
-            <div class="col-2">
-                <div class="dropdown-periode dropdown">
+            {{-- </div> --}}
+            {{-- <div class="col-2"> --}}
+                {{-- <div class="dropdown-periode dropdown">
                     <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                         Periode : {{Session::get('periode')}}
                         <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
@@ -180,12 +216,12 @@
                     <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                     </ul>
-                </div>
+                </div> --}}
                 {{-- <select id="periode" class="form-control select-dash">
 
                 </select> --}}
-            </div>
-        </div>
+            {{-- </div> --}}
+        {{-- </div> --}}
     </div>
 
     <div class="row" style="position: relative;margin-top:30px;">
@@ -482,11 +518,62 @@
 </div>
 <!-- END MODAL PREVIEW -->
 
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-jenis dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Jenis : Pensiunan dan Keluarga
+                            <span style="display: none;" id="value-jenis"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                        </button>
+                        <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                            <li>
+                                <span style="display: none;">CC</span>
+                                <span>Pensiunan dan Keluarga</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">BP</span>
+                                <span>Pegawai dan Keluarga</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Periode : {{Session::get('periode')}}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script type="text/javascript">
 var dashboard = "";
 var periode = "{{Session::get('periode')}}";
 var pembagi = 1000000000;
 var jenis = "CC";
+var buttonFilter = document.getElementById('button-filter');
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
 var sticky = header.offsetTop;
@@ -494,8 +581,12 @@ window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
         buttonTop.style.display = 'block';
+        buttonFilter.classList.add('btn-filter-scroll')
+        buttonFilter.classList.remove('btn-filter-no-scroll')
     } else {
         header.classList.remove('fixed-filter')
+        buttonFilter.classList.remove('btn-filter-scroll')
+        buttonFilter.classList.add('btn-filter-no-scroll')
         buttonTop.style.display = 'none';
     }
 }
@@ -504,6 +595,10 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+$('#button-filter').click(function(){
+    $('#modalFilter').modal('show');
+})
 
 if(jenis == 'CC') {
     $('#claim-ket').text('Claim Cost (CC)')
@@ -529,13 +624,6 @@ if(jenis == 'CC') {
         var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
-        $('#yoy-claim').empty();
-        $('#yoy-rjtp').empty();
-        $('#yoy-rjtl').empty();
-        $('#yoy-ri').empty();
-        $('#yoy-restitusi').empty();
-        getDataKunjungan();
-        getDataLayanan();
     });
 
     $('.jenis').on( 'click', 'li', function() {
@@ -544,6 +632,9 @@ if(jenis == 'CC') {
         var htmlText = "Jenis : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
         jenis = value;
+    });
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
         $('#yoy-claim').empty();
         $('#yoy-rjtp').empty();
         $('#yoy-rjtl').empty();
@@ -551,8 +642,19 @@ if(jenis == 'CC') {
         $('#yoy-restitusi').empty();
         getDataKunjungan();
         getDataLayanan();
-    });
+        $('#modalFilter').modal('hide');
+    })
 
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text1 = "Pensiunan dan Keluarga";
+        var text2 = "{{Session::get('periode')}}";
+        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        var htmlTextJenis = "Jenis : "+text1+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-jenis').find('.select-dash').html(htmlTextJenis);
+        jenis = "CC";
+        periode = "{{Session::get('periode')}}";
+    })
 // $('#jenis').change(function(){
 //     $('#yoy-claim').empty();
 //     $('#yoy-rjtp').empty();
@@ -637,6 +739,9 @@ function getDataKunjungan() {
                 chart: {
                     type: 'column',
                     height: 250,
+                },
+                exporting:{
+                    enabled: false
                 },
                 legend:{ enabled:false },
                 credits: {
@@ -847,6 +952,9 @@ function getDataLayanan() {
                     type: 'pie',
                     height: 250
                 },
+                exporting:{
+                    enabled: false
+                },
                 legend:{ enabled:false },
                 credits: {
                     enabled: false
@@ -888,6 +996,9 @@ function getDataLayanan() {
                 },
                 legend:{ enabled:false },
                 credits: {
+                    enabled: false
+                },
+                exporting:{
                     enabled: false
                 },
                 title: {
@@ -934,6 +1045,9 @@ function getDataLayanan() {
                 chart: {
                     type: 'column',
                     height: 250,
+                },
+                exporting:{
+                    enabled: false
                 },
                 legend:{ enabled:false },
                 credits: {
@@ -988,6 +1102,9 @@ function getDataLayanan() {
                 credits: {
                     enabled: false
                 },
+                exporting:{
+                    enabled: false
+                },
                 title: {
                     text: '',
                 },
@@ -1035,6 +1152,9 @@ function getDataLayanan() {
                 },
                 legend:{ enabled:false },
                 credits: {
+                    enabled: false
+                },
+                exporting:{
                     enabled: false
                 },
                 title: {
@@ -1087,6 +1207,9 @@ Highcharts.chart('pkk-cc', {
         height: 250
     },
     legend:{ enabled:false },
+    exporting:{
+        enabled: false
+    },
     credits: {
         enabled: false
     },
@@ -1151,6 +1274,9 @@ Highcharts.chart('pkk-kunjungan', {
     chart: {
         type: 'column',
         height: 250,
+    },
+    exporting:{
+        enabled: false
     },
     legend:{ enabled:false },
     credits: {
@@ -1221,6 +1347,9 @@ Highcharts.chart('pkk-komposisi-kunj', {
         type: 'pie',
         height: 250
     },
+    exporting:{
+        enabled: false
+    },
     legend:{ enabled:false },
     credits: {
         enabled: false
@@ -1271,6 +1400,9 @@ Highcharts.chart('pkk-rjtp-kunj', {
     chart: {
         type: 'column',
         height: 250,
+    },
+    exporting:{
+        enabled: false
     },
     legend:{ enabled:false },
     credits: {
@@ -1339,6 +1471,9 @@ Highcharts.chart('pkk-rjtl-kunj', {
     chart: {
         type: 'column',
         height: 250,
+    },
+    exporting:{
+        enabled: false
     },
     legend:{ enabled:false },
     credits: {
@@ -1412,6 +1547,9 @@ Highcharts.chart('pkk-ri-kunj', {
     credits: {
         enabled: false
     },
+    exporting:{
+        enabled: false
+    },
     title: {
         text: '',
     },
@@ -1482,6 +1620,9 @@ Highcharts.chart('pkk-restitusi-kunj', {
     },
     title: {
         text: '',
+    },
+    exporting:{
+        enabled: false
     },
     subtitle: {
         text: ''
