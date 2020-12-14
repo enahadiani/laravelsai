@@ -505,7 +505,8 @@ function RealBeban() {
 
             Highcharts.chart('chart', {
                 chart:{
-                    width:1050
+                    width:1050,
+                    marginTop: 50
                 },
                 legend:{ enabled:false },
                 credits: {
