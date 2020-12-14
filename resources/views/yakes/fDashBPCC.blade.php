@@ -449,7 +449,8 @@ window.onscroll = function() {
 
                 Highcharts.chart('cc', {
                     chart:{
-                        width:1050
+                        width:1050,
+                        marginTop: 50
                     },
                     legend:{ enabled:false },
                     credits: {
@@ -627,7 +628,8 @@ window.onscroll = function() {
 
                 Highcharts.chart('bp', {
                     chart:{
-                        width:1050
+                        width:1050,
+                        marginTop: 50
                     },
                     legend:{ enabled:false },
                     credits: {
