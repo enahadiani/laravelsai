@@ -50,13 +50,17 @@
         padding: 5px;
         text-align: center;
     }
-
-    .keterangan {
-        writing-mode: vertical-lr;
-        margin: 0;
+    .container-keterangan {
+        z-index: 1;
         position: absolute;
-        margin-left: 10px;
         top: 30%;
+        margin: 0;
+        margin-left: 10px;
+    }
+    .keterangan {
+        display: inline-block;
+        -webkit-transform: rotate(270deg);
+        -webkit-transform-origin: 0 0;
     }
     .fixed-filter {
         background-color: #f8f8f8;
@@ -66,7 +70,7 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
-        z-index: 1;
+        z-index: 2;
     }
     .select-dash {
         border-radius: 10px;
@@ -144,18 +148,20 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Claim BPJS - Karyawan/Pensiunan/Total</h6>
-            <div class="row">
-                <div class="col-1">
+            <div class="row container-keterangan">
+                <div class="col-12">
                     <p class="keterangan">Dalam Rp. Juta</p>
                 </div>
-                <div class="col-11">
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div id="claim"></div>
                 </div>
                 <div class="col-12 ml-4">
                     <table style="width: 95%;">
                         <thead>
                             <tr>
-                                <th style="width:18%;"></th>
+                                <th style="width:10%;"></th>
                                 <th style="width:10%;">REG 1</th>
                                 <th style="width:10%;">REG 2</th>
                                 <th style="width:10%;">REG 3</th>
@@ -248,11 +254,13 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
-            <div class="row">
-                <div class="col-1">
+            <div class="row container-keterangan">
+                <div class="col-12">
                     <p class="keterangan">Dalam Rp. Juta</p>
                 </div>
-                <div class="col-11">
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <div id="utility"></div>
                 </div>
                 <div class="col-12 ml-4">
@@ -452,7 +460,8 @@
 
 Highcharts.chart('claim', {
     chart: {
-        marginTop: 50
+        marginTop: 50,
+        marginLeft: 150
     },
     legend:{ enabled:false },
     credits: {
@@ -546,7 +555,8 @@ Highcharts.chart('claim', {
 });
 Highcharts.chart('utility', {
     chart: {
-        marginTop: 50
+        marginTop: 50,
+        marginLeft: 150
     },
     legend:{ enabled:false },
     credits: {
