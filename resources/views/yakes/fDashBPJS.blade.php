@@ -150,7 +150,7 @@
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Claim BPJS - Karyawan/Pensiunan/Total</h6>
             <div class="row container-keterangan">
                 <div class="col-12">
-                    <p class="keterangan">Dalam Rp. Juta</p>
+                    <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
             </div>
             <div class="row">
@@ -256,7 +256,7 @@
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
             <div class="row container-keterangan">
                 <div class="col-12">
-                    <p class="keterangan">Dalam Rp. Juta</p>
+                    <p class="keterangan">Rp. Dalam Juta</p>
                 </div>
             </div>
             <div class="row">
@@ -460,8 +460,10 @@
 
 Highcharts.chart('claim', {
     chart: {
-        marginTop: 50,
         marginLeft: 150
+    },
+    exporting:{
+        enabled: false
     },
     legend:{ enabled:false },
     credits: {
@@ -555,8 +557,10 @@ Highcharts.chart('claim', {
 });
 Highcharts.chart('utility', {
     chart: {
-        marginTop: 50,
         marginLeft: 150
+    },
+    exporting:{
+        enabled: false
     },
     legend:{ enabled:false },
     credits: {
