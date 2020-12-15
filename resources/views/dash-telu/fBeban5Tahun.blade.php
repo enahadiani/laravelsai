@@ -81,7 +81,7 @@ $thnLalu = substr($tahunLalu,2,2)
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-0 bold">Laba Rugi 5 Tahun</h1>
+            <h1 class="mb-0 bold">Beban 5 Tahun</h1>
             <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
             <p>Komparasi Anggaran dan Realisasi {{ $tahun }}</p>
         </div>
@@ -90,7 +90,23 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-12 col-12 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <div id="laba-rugi" style='height:450px'></div>
+                    <div id="agg" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div id="tf" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div id="ntf" style='height:400px'></div>
                 </div>
             </div>
         </div>
@@ -234,19 +250,13 @@ getPeriode();
 function drawVisualization() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
-        ['', 'Pendapatan',{ role: 'annotation'} ,'Beban',{ role: 'annotation'}, 'SHU',{ role: 'annotation'}, 'OR',{ role: 'annotation'}],
-        ['RKA 2015', 273.0,273.0, 248.6, 248.6, 24.4,24.4, 90.5, 90.5],
-        ['Real 2015', 292.1,292.1, 239.8, 239.8, 52.3, 52.3, 84.6, 84.6],
-        ['RKA 2016', 340.6,340.6, 304.4, 304.4, 36.2,36.2, 88.7, 88.7],
-        ['Real 2016', 355.2,355.2, 290.8, 290.8, 64.4, 64.4, 81.8, 81.8],
-        ['RKA 2017', 378.2,378.2, 307.4,307.4, 70.8, 70.8, 80.8, 80.8],
-        ['Real 2017', 415.5,415.5, 329.5, 329.5, 86.0, 86.0, 78.1, 78.1],
-        ['RKA 2018', 448.5, 448.5, 352.5, 352.5, 96.0, 96.0, 72.9, 72.9],
-        ['Real 2018', 475.4,475.4, 379.2, 379.2, 96.3, 96.3, 78.5, 78.5],
-        ['RKA 2019', 500.9, 500.9, 391.9, 391.9, 108.9, 108.9, 76.8, 76.8],
-        ['Real 2019', 525.5, 525.5, 420.6, 420.6, 104.9, 104.9, 78.8, 78.8],
-        ['RKA 2020', 543.3, 543.3, 435.6, 435.6, 101.9, 101.9, 80.2, 80.2],
-        ['Real 2020', 503.0, 503.0, 417.2, 417.2, 85.8, 85.8, 82.9, 82.9],
+        ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
+        ['2015', 273.0,273.0, 291.1, 291.1, 104.0, '104,0%'],
+        ['2016', 302.2,302.2, 307.1, 307.1, 101.6, '101,6%'],
+        ['2017', 331.6,331.6, 365.3, 365.3, 110.2, '110,2%'],
+        ['2018', 381.9,381.9, 413.8, 413.8, 106.0, '106,0%'],
+        ['2019', 500.9,500.9, 525.5, 525.5, 104.9, '104,9%'],
+        ['2020', 543.3,543.3, 503.0, 503.0, 92.6, '92,6%'],
         ]);
         
         var options = {
@@ -267,13 +277,7 @@ function drawVisualization() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line', 
-                    curveType: 'function',
-                    targetAxisIndex: 0
-                },
-                3: {
-                    type: 'line', 
-                    curveType: 'function',
+                    type: 'line',
                     targetAxisIndex: 1
                 }
             },
@@ -283,7 +287,7 @@ function drawVisualization() {
                     textStyle : {
                         fontSize: 10 // or the number you want
                     },
-                    title: 'DALAM MILYAR RUPIAH',  
+                    title: 'Milyar Rupiah',  
                     gridlines: {
                         count: 10,
                     },
@@ -294,34 +298,35 @@ function drawVisualization() {
                         fontSize: 10 // or the number you want
                     },
                     format: 'percent', 
-                    title: 'PROSENTASE CAPAIAN',
+                    title: '% Capaian',
                     gridlines: {
                         count: 1,
                     },
-                    min: 65
+                    min: 80
                 }
             },
             legend: {
-                position: 'top', 
+                position: 'bottom', 
                 alignment: 'center'
             },
             chartArea:{
                 width: '90%',
                 height: '85%'
             },
-            colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
             height:'100%',
             width:'100%'
             
         };
         
-        var chart = new google.visualization.ComboChart(document.getElementById('laba-rugi'));
+        var chart = new google.visualization.ComboChart(document.getElementById('agg'));
         chart.draw(data, options);
-    }
-function getLabaRugi(periode=null){
+}
+
+function getBeban(periode=null){
     // $.ajax({
     //     type:"GET",
-    //     url:"{{ url('/telu-dash/getLabaRugi5Tahun') }}/"+periode,
+    //     url:"{{ url('/telu-dash/getBeban5Tahun') }}/"+periode,
     //     dataType:"JSON",
     //     success:function(result){
             
@@ -347,9 +352,219 @@ function getLabaRugi(periode=null){
     // })
 }
 
-getLabaRugi("{{$periode}}");
-// getRkaVsReal("{{$periode}}");
-// getGrowthRKA("{{$periode}}");
+function drawVisualizationTF() {
+    // Some raw data (not necessarily accurate)
+    var data = $google.visualization.arrayToDataTable([
+        ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
+        ['2015', 250.1,250.1, 260.2, 260.2, 104.0, '104,0%'],
+        ['2016', 302.2,302.2, 307.1, 307.1, 101.6, '101,6%'],
+        ['2017', 331.6,331.6, 365.3, 365.3, 110.2, '110,2%'],
+        ['2018', 381.9,381.9, 413.8, 413.8, 108.4, '108,4%'],
+        ['2019', 436.9,436.9, 453.1, 453.1, 103.7, '103,7%'],
+        ['2020', 451.1,451.1, 445.7, 445.7, 98.8, '98,8%'],
+        ]);
+        
+        var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
+            seriesType: 'bars',
+            series: {
+                0: {
+                    targetAxisIndex: 0
+                },
+                1: {
+                    targetAxisIndex: 0
+                },
+                2: {
+                    type: 'line',
+                    targetAxisIndex: 1
+                }
+            },
+            vAxes: {
+                // Adds titles to each axis.
+                0: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                    title: 'Milyar Rupiah',  
+                    gridlines: {
+                        count: 10,
+                    },
+                    min: 0
+                },
+                1: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                    format: 'percent', 
+                    title: '% Capaian',
+                    gridlines: {
+                        count: 2,
+                    },
+                    min: 65
+                }
+            },
+            legend: {
+                position: 'bottom', 
+                alignment: 'center'
+            },
+            chartArea:{
+                width: '80%',
+                height: '85%'
+            },
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
+            height:'100%',
+            width:'100%'
+            
+        };
+        
+        var chart = new google.visualization.ComboChart(document.getElementById('tf'));
+        chart.draw(data, options);
+}
+
+function getBebanTF(periode=null){
+    // $.ajax({
+    //     type:"GET",
+    //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
+    //     dataType:"JSON",
+    //     success:function(result){
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualizationTF);
+
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {       
+    //         if(jqXHR.status == 422){
+    //             var msg = jqXHR.responseText;
+    //         }else if(jqXHR.status == 500) {
+    //             var msg = "Internal server error";
+    //         }else if(jqXHR.status == 401){
+    //             var msg = "Unauthorized";
+    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
+    //         }else if(jqXHR.status == 405){
+    //             var msg = "Route not valid. Page not found";
+    //         }
+            
+    //     }
+    // })
+}
+
+function drawVisualizationNTF() {
+    // Some raw data (not necessarily accurate)
+    var data = $google.visualization.arrayToDataTable([
+        ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
+        ['2015', 22.9,22.9, 31.9, 31.9, 139.7, '139,7%'],
+        ['2016', 38.4,38.4, 48.1, 48.1, 125.2, '125,2%'],
+        ['2017', 46.6,46.6, 50.2, 50.2, 107.8, '107,8%'],
+        ['2018', 66.6,66.6, 61.6, 413.8, 92.5, '92,5%'],
+        ['2019', 63.9,63.9, 72.4, 72.4, 113.3, '113,3%'],
+        ['2020', 92.2,92.2, 57.3, 57.3, 62.2, '62,2%'],
+        ]);
+        
+        var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
+            seriesType: 'bars',
+            series: {
+                0: {
+                    targetAxisIndex: 0
+                },
+                1: {
+                    targetAxisIndex: 0
+                },
+                2: {
+                    type: 'line',
+                    targetAxisIndex: 1
+                }
+            },
+            vAxes: {
+                // Adds titles to each axis.
+                0: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                    title: 'Milyar Rupiah',  
+                    gridlines: {
+                        count: 10,
+                    },
+                    min: 0
+                },
+                1: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                    format: 'percent', 
+                    title: '% Capaian',
+                    gridlines: {
+                        count: 2,
+                    },
+                    min: 65
+                }
+            },
+            legend: {
+                position: 'bottom', 
+                alignment: 'center'
+            },
+            chartArea:{
+                width: '80%',
+                height: '85%'
+            },
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
+            height:'100%',
+            width:'100%'
+            
+        };
+        
+        var chart = new google.visualization.ComboChart(document.getElementById('ntf'));
+        chart.draw(data, options);
+}
+
+function getBebanNTF(periode=null){
+    // $.ajax({
+    //     type:"GET",
+    //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
+    //     dataType:"JSON",
+    //     success:function(result){
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualizationNTF);
+
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {       
+    //         if(jqXHR.status == 422){
+    //             var msg = jqXHR.responseText;
+    //         }else if(jqXHR.status == 500) {
+    //             var msg = "Internal server error";
+    //         }else if(jqXHR.status == 401){
+    //             var msg = "Unauthorized";
+    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
+    //         }else if(jqXHR.status == 405){
+    //             var msg = "Route not valid. Page not found";
+    //         }
+            
+    //     }
+    // })
+}
+
+getBeban("{{$periode}}");
+getBebanTF("{{$periode}}");
+getBebanNTF("{{$periode}}");
 // getGrowthReal("{{$periode}}");
 
 $('#form-filter').submit(function(e){
@@ -389,17 +604,5 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
-});
-$('.table').on('click','.ms-pend',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-beban',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-pengembangan',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
-    loadForm(url);
 });
 </script>

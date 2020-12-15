@@ -7,7 +7,8 @@ $nik     = Session::get('userLog');
 $tahun= substr($periode,0,4);
 $tahunLalu = intval($tahun)-1;
 $thnIni = substr($tahun,2,2);
-$thnLalu = substr($tahunLalu,2,2)
+$thnLalu = substr($tahunLalu,2,2);
+$tahun5 = intval($tahun-5);
 @endphp
 
 <style>
@@ -88,7 +89,10 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-lg-12 col-12 mb-4">
-            <div class="card">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Perbandingan Anggaran dan Realisasi {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="agg" style='height:400px'></div>
                 </div>
@@ -97,16 +101,44 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-lg-6 col-12 mb-4">
-            <div class="card">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Pendapatan TF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="tf" style='height:400px'></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-12 mb-4">
-            <div class="card">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Pendapatan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="ntf" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
+                <div class="card-body">
+                    <div id="komposisi" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
+                <div class="card-body">
+                    <div id="komposisi2" style='height:400px'></div>
                 </div>
             </div>
         </div>
@@ -277,7 +309,8 @@ function drawVisualization() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line', 
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -382,7 +415,8 @@ function drawVisualizationTF() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line', 
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -487,7 +521,8 @@ function drawVisualizationNTF() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line',          
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -562,10 +597,96 @@ function getPendapatanNTF(periode=null){
     // })
 }
 
+
+function drawVisualizationKomposisi() {
+    // Some raw data (not necessarily accurate)
+    var data = $google.visualization.arrayToDataTable([
+        ['', 'TF',{ role: 'annotation'} , 'NTF',{ role: 'annotation'}],
+        ['2015', 260,'89%',31.9, '11%'],
+        ['2016', 307,'86%',48.1, '14%'],
+        ['2017', 365,'88%',50.2, '12%'],
+        ['2018', 414,'87%',61.6, '13%'],
+        ['2019', 453,'86%',72.4, '14%'],
+        ['2020', 446,'89%',57.3, '11%'],
+        ]);
+        
+        var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
+            seriesType: 'bars',
+            series: {
+                0: {
+                    targetAxisIndex: 0
+                },
+                1: {
+                    targetAxisIndex: 0
+                }
+            },
+            vAxes: {
+                // Adds titles to each axis.
+                0: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                },
+            },
+            legend: {
+                position: 'bottom', 
+                alignment: 'center'
+            },
+            chartArea:{
+                width: '80%',
+                height: '85%'
+            },
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
+            height:'100%',
+            width:'100%',
+            isStacked: 'percent'
+        };
+        
+        var chart = new google.visualization.ComboChart(document.getElementById('komposisi'));
+        chart.draw(data, options);
+}
+
+function getKomposisi(periode=null){
+    // $.ajax({
+    //     type:"GET",
+    //     url:"{{ url('/telu-dash/getPendapatanTF') }}/"+periode,
+    //     dataType:"JSON",
+    //     success:function(result){
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualizationKomposisi);
+
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {       
+    //         if(jqXHR.status == 422){
+    //             var msg = jqXHR.responseText;
+    //         }else if(jqXHR.status == 500) {
+    //             var msg = "Internal server error";
+    //         }else if(jqXHR.status == 401){
+    //             var msg = "Unauthorized";
+    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
+    //         }else if(jqXHR.status == 405){
+    //             var msg = "Route not valid. Page not found";
+    //         }
+            
+    //     }
+    // })
+}
+
 getPendapatan("{{$periode}}");
 getPendapatanTF("{{$periode}}");
 getPendapatanNTF("{{$periode}}");
-// getGrowthReal("{{$periode}}");
+getKomposisi("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
@@ -604,17 +725,5 @@ $("#btn-close").on("click", function (event) {
     event.preventDefault();
     
     $('#modalFilter').modal('hide');
-});
-$('.table').on('click','.ms-pend',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-beban',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
-    loadForm(url);
-});
-$('.table').on('click','.ms-pengembangan',function(e){
-    var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
-    loadForm(url);
 });
 </script>
