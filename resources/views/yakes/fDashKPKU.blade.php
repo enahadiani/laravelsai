@@ -168,7 +168,7 @@
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
                 <span>Filter</span>
                 <div class="filter-count">
-                    2
+                    3
                 </div>
             </button>
         </div>
@@ -380,6 +380,23 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <div class="dropdown-regional dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Regional : -
+                            <span style="display: none;" id="value-jenis"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                        </button>
+                        <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                            {{-- <li>
+                                <span style="display: none;">CC</span>
+                                <span>Pensiunan dan Keluarga</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">BP</span>
+                                <span>Pegawai dan Keluarga</span>
+                            </li> --}}
+                        </ul>
+                    </div>
                     <div class="dropdown-periode dropdown dropdown-filter">
                         <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
                             Tahun : {{ substr(Session::get('periode'), 0, 4) }}
