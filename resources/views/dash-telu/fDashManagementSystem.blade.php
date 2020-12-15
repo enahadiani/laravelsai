@@ -149,7 +149,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-4 col-12 mb-4">
             <div class="card dash-card">
                 <div class="card-header">
-                    <h6 class="card-title mb-0">Penjualan PIN</h6>
+                    <h6 class="card-title mb-0">Pendapatan PIN</h6>
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-pin">
@@ -435,7 +435,6 @@ function getDebt(periode=null)
                     html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   
                 }
             }
@@ -476,7 +475,6 @@ function getKelola(periode=null)
                     html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
-                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   
                 }
             }
@@ -514,7 +512,6 @@ function getPin(periode=null)
                 {
                     var line = result.data.data[i];
                     html+=`<tr>
-                    <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
                     </tr>`;   

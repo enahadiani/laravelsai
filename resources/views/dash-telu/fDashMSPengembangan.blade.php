@@ -253,37 +253,6 @@ function getPeriode(){
 
 getPeriode();
 
-function drawChart() {
-    var data = $google.visualization.arrayToDataTable([
-            ["", "", { role: "style" } ],
-            ["Fak", 99.45, "#ad1d3e"],
-            ["Fak", 99.45, "#511dad"],
-            ["Fak", 99.45, "#30ad1d"],
-            ["Fak", 99.45, "#a31dad"],
-            ["Fak", 99.45, "#1dada8"],
-            ["Fak", 99.45, "#611dad"],
-            ["Fak", 99.45, "#1d78ad"],
-            ["Fak", 99.45, "#ad9b1d"],
-            ["Fak", 99.45, "#1dad6e"],
-            ["Fak", 99.45, "#ad571d"]
-        ]);
-        
-        var view = new google.visualization.DataView(data);
-        
-        var options = {
-            chartArea:{
-                width: '80%',
-                height: '85%'
-            },
-            height:'100%',
-            width: '100%',
-            legend: {position: 'none'},
-            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
-        chart.draw(view, options);
-}
-
 function drawChart2() {
     var data = $google.visualization.arrayToDataTable([
         ['Task', 'Hours per Day'],
@@ -309,31 +278,49 @@ function drawChart2() {
     chart.draw(data, options);
 }
 
-function getMsBebanRKA(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-beban-rka') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
-        $google.charts.load("current", {packages:['corechart']});
-        $google.charts.setOnLoadCallback(drawChart);
-
-    
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+function getMsPengembangan(periode=null){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-pengembangan-rka') }}",
+        data:{periode : periode},
+        dataType:"JSON",
+        success:function(result){
+            if(result.data.length > 0){
+                $google.charts.load("current", {packages:['corechart']});
+                $google.charts.setOnLoadCallback(function(){
+                    var data = $google.visualization.arrayToDataTable(result.data);
+                        
+                        var view = new google.visualization.DataView(data);
+                        
+                        var options = {
+                            chartArea:{
+                                width: '80%',
+                                height: '85%'
+                            },
+                            height:'100%',
+                            width: '100%',
+                            legend: {position: 'none'},
+                            vAxis: {format: 'decimal', title: 'Milyar Rupiah'},
+                        };
+                        var chart = new google.visualization.ColumnChart(document.getElementById("rka"));
+                        chart.draw(view, options);
+                });
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 function getMsBebanKlp(periode=null){
@@ -361,7 +348,7 @@ function getMsBebanKlp(periode=null){
     // })
 }
 
-getMsBebanRKA("{{$periode}}");
+getMsPengembangan("{{$periode}}");
 getMsBebanKlp("{{$periode}}");
     
 $('#form-filter').submit(function(e){

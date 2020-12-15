@@ -77,5 +77,7 @@ Route::get('/ms-pendapatan-klp','DashTelu\DashboardController@msPendapatanKlp');
 Route::get('/ms-beban','DashTelu\DashboardController@msBeban');
 Route::get('/ms-beban-klp','DashTelu\DashboardController@msBebanKlp');
 
+Route::get('/ms-pengembangan-rka','DashTelu\DashboardController@msPengembanganRKA');
+
 
 ?>
