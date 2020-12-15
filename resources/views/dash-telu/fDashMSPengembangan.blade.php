@@ -403,9 +403,10 @@ $("#btn-close").on("click", function (event) {
     $('#modalFilter').modal('hide');
 });
 
-$('.container-fluid').on('click','#btnBack',function(e){
+$('#btnBack').click(function(e){
+    e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);
-})
+});
 
 </script>
