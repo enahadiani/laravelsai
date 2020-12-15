@@ -90,7 +90,7 @@ $thnLalu = substr($tahunLalu,2,2)
         <div class="col-lg-12 col-12 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <div id="laba-rugi" style='height:400px'></div>
+                    <div id="laba-rugi" style='height:450px'></div>
                 </div>
             </div>
         </div>
@@ -235,6 +235,8 @@ function drawVisualization() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
         ['', 'Pendapatan',{ role: 'annotation'} ,'Beban',{ role: 'annotation'}, 'SHU',{ role: 'annotation'}, 'OR',{ role: 'annotation'}],
+        ['RKA 2015', 273.0,273.0, 248.6, 248.6, 24.4,24.4, 90.5, 90.5],
+        ['Real 2015', 292.1,292.1, 239.8, 239.8, 52.3, 52.3, 84.6, 84.6],
         ['RKA 2016', 340.6,340.6, 304.4, 304.4, 36.2,36.2, 88.7, 88.7],
         ['Real 2016', 355.2,355.2, 290.8, 290.8, 64.4, 64.4, 81.8, 81.8],
         ['RKA 2017', 378.2,378.2, 307.4,307.4, 70.8, 70.8, 80.8, 80.8],
@@ -276,7 +278,9 @@ function drawVisualization() {
             vAxes: {
                 // Adds titles to each axis.
                 0: {
-                    format: 'decimal',
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
                     title: 'DALAM MILYAR RUPIAH',  
                     gridlines: {
                         count: 10,
@@ -284,6 +288,9 @@ function drawVisualization() {
                     min: 0
                 },
                 1: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
                     format: 'percent', 
                     title: 'PROSENTASE CAPAIAN',
                     gridlines: {
@@ -296,8 +303,8 @@ function drawVisualization() {
                 position: 'top'
             },
             chartArea:{
-                width: '70%',
-                height: '90%'
+                width: '90%',
+                height: '85%'
             },
             colors: ['#4c4c4c', '#900604', '#ffc114', '#16ff14'],
             height:'100%',
