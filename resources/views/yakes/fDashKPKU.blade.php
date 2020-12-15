@@ -59,6 +59,10 @@
         margin-left: 10px;
         top: 30%;
     }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
+    }
     .fixed-filter {
         background-color: #f8f8f8;
         position: fixed;
@@ -67,7 +71,8 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
-        z-index: 1;
+        padding-bottom: 18px;
+        z-index: 2;
     }
     .select-dash {
         border-radius: 10px;
@@ -79,6 +84,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -125,6 +131,28 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -133,11 +161,19 @@
 
 <div id="filter-header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <h6>Laporan KPKU Kategori 7</h6>
         </div>
+        <div class="col-6">
+            <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                <span>Filter</span>
+                <div class="filter-count">
+                    2
+                </div>
+            </button>
+        </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-3">
             <div class="dropdown-jenis dropdown">
                     <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
@@ -198,7 +234,7 @@
                             <span>Long Term Debt to Equity</span>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             {{-- <select id="jenis" class="form-control select-dash">
                 <option value="EBM" selected>Jenis : Ebitda Margin</option>
                 <option value="EB">Jenis : Ebit</option>
@@ -214,8 +250,8 @@
                 <option value="DAR">Jenis : Debt to Asset Ratio</option>
                 <option value="LTE">Jenis : Long Term Debt to Equity</option>
             </select> --}}
-        </div>
-        <div class="col-2">
+        {{-- </div> --}}
+        {{-- <div class="col-2">
              <div class="dropdown-periode dropdown">
                 <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                     Tahun : {{ substr(Session::get('periode'), 0, 4) }}
@@ -224,29 +260,29 @@
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                 </ul>
-            </div>
+            </div> --}}
             {{-- <select id="periode" class="form-control select-dash">
 
             </select> --}}
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;" id="judul-chart"></h6>
             <div class="row">
-                <div class="col-1">
+                {{-- <div class="col-1">
                     <p class="keterangan">Dalam Rp. Juta</p>
-                </div>
-                <div class="col-11">
+                </div> --}}
+                <div class="col-12">
                     <div id="kpku"></div>
                 </div>
-                <div class="col-12 ml-2 mr-4">
-                    <table style="width: 99%; margin-right: 10px;">
+                <div class="col-12" style="padding-left: 20px; padding-right: 50px;">
+                    <table style="width: 99%;">
                         <thead>
                             <tr>
-                                <th style="width:15%;"></th>
+                                <th style="width:12%;"></th>
                                 <th style="width:7%;">Jan</th>
                                 <th style="width:7%;">Feb</th>
                                 <th style="width:7%;">Mar</th>
@@ -332,6 +368,97 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Tahun : {{ substr(Session::get('periode'), 0, 4) }}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                    <div class="dropdown-jenis dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Jenis : Ebitda Margin
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                        </button>
+                        <ul class="dropdown-menu jenis" style="width:99%;" role="menu" aria-labelledby="menu2">
+                            <li>
+                                <span style="display: none;">EBM</span>
+                                <span>Ebitda Margin</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">EB</span>
+                                <span>Ebit</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">NPM</span>
+                                <span>Net Profit Margin</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">OPR</span>
+                                <span>Operation Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">ROA</span>
+                                <span>ROA</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">ROI</span>
+                                <span>ROI</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">ROE</span>
+                                <span>ROE</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">CRR</span>
+                                <span>Current Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">QRR</span>
+                                <span>Quick Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">CSR</span>
+                                <span>Cash Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">DER</span>
+                                <span>Debt to Equity Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">DAR</span>
+                                <span>Debt to Asset Ratio</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">LTE</span>
+                                <span>Long Term Debt to Equity</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     var tahun = "";
     var jenis = "Ebitda Margin";
@@ -357,6 +484,10 @@
         }
     });
 
+    $('#button-filter').click(function(){
+        $('#modalFilter').modal('show');
+    })
+
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
         var htmlText = "Tahun : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
@@ -365,6 +496,25 @@
         // $('#detail-invest').empty();
         // getDataPendapatan(tahun);
     });
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
+        $('#detail-kpku').empty();
+        $('#judul-chart').text(judul);
+        getDataKPKU();
+        $('#modalFilter').modal('hide');
+    })
+
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text1 = "Ebitda Margin";
+        var text2 = "{{ substr(Session::get('periode'), 0, 4) }}";
+        var htmlTextPeriode = "Tahun : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        var htmlTextJenis = "Jenis : "+text1+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-jenis').find('.select-dash').html(htmlTextJenis);
+        jenis = "EBM";
+        judul = "EBITDA MARGIN = EBITDA/Revenue";
+        periode = "{{ substr(Session::get('periode'), 0, 4) }}";
+    })
 
     $('.jenis').on( 'click', 'li', function() {
         var value = $(this).find('span').first().text();
@@ -377,7 +527,6 @@
         data1 = [];
         data2 = [];
         data3 = [];
-        $('#detail-kpku').empty();
         var val = value;
         jenis = val;
         if(val == 'EBM') {
@@ -563,8 +712,6 @@
             chart.push({type:'column', name:column[1], data:data2, color:'#4674c5'})
             chart.push({type:'spline', name:column[2], data:data3, color:'#008000', yAxis:1})
         }
-        $('#judul-chart').text(text);
-        getDataKPKU();
     });
 
     $('#dash-btn').click(function(){
@@ -594,10 +741,15 @@
 
     Highcharts.chart('kpku', {
         chart:{
-            width:1050
+            // width:1050,
+            marginLeft: 140,
+            marginRight: 60
         },
         legend:{ enabled:false },
         credits: {
+            enabled: false
+        },
+        exporting:{
             enabled: false
         },
         title: {
@@ -616,14 +768,14 @@
             {
                 linewidth: 1,
                 title:{
-                    text: ''
+                    text: 'Rp. Dalam Juta'
                 }
             },
             {
                 linewidth: 1,
                 opposite: true,
                 title:{
-                    text: ''
+                    text: 'Dalam Persen'
                 }
             },
         ],
@@ -721,14 +873,19 @@
 
     var header = document.getElementById('filter-header');
     var buttonTop = document.getElementById('button-top');
+    var buttonFilter = document.getElementById('button-filter');
     var sticky = header.offsetTop;
     window.onscroll = function() {
         if(window.pageYOffset > sticky) {
             header.classList.add('fixed-filter')
             buttonTop.style.display = 'block';
+            buttonFilter.classList.add('btn-filter-scroll')
+            buttonFilter.classList.remove('btn-filter-no-scroll')
         } else {
             header.classList.remove('fixed-filter')
             buttonTop.style.display = 'none';
+            buttonFilter.classList.remove('btn-filter-scroll')
+            buttonFilter.classList.add('btn-filter-no-scroll')
         }
     }
 
@@ -937,10 +1094,15 @@
     function getDataKPKU(jenis, periode) {
         Highcharts.chart('kpku', {
         chart:{
-            width:1050
+            // width:1050
+            marginLeft: 140,
+            marginRight: 60
         },
         legend:{ enabled:false },
         credits: {
+            enabled: false
+        },
+        exporting:{
             enabled: false
         },
         title: {
@@ -959,14 +1121,14 @@
             {
                 linewidth: 1,
                 title:{
-                    text: ''
+                    text: 'Rp. Dalam Juta'
                 }
             },
             {
                 linewidth: 1,
                 opposite: true,
                 title:{
-                    text: ''
+                    text: 'Dalam Persen'
                 }
             },
         ],
