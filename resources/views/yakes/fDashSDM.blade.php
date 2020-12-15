@@ -95,7 +95,12 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
-        z-index: 1;
+        padding-bottom: 18px;
+        z-index: 2;
+    }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
     }
     .footer-dashboard {
         width: 100%;
@@ -104,6 +109,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -137,6 +143,28 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
 
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -145,12 +173,20 @@
 
 <div id="filter-header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <h6>SDM</h6>
         </div>
+        <div class="col-6">
+            <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                <span>Filter</span>
+                <div class="filter-count">
+                    1
+                </div>
+            </button>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-2">
+    {{-- <div class="row"> --}}
+        {{-- <div class="col-2">
             <div class="dropdown-periode dropdown">
                 <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                     Periode : {{Session::get('periode')}}
@@ -159,12 +195,12 @@
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                 </ul>
-            </div>
+            </div> --}}
             {{-- <select id="periode" class="form-control select-dash">
 
             </select> --}}
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
@@ -316,19 +352,54 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
-
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Periode : {{Session::get('periode')}}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 var periode = "{{Session::get('periode')}}";
 var buttonTop = document.getElementById('button-top');
 var header = document.getElementById('filter-header');
+var buttonFilter = document.getElementById('button-filter');
 var sticky = header.offsetTop;
 window.onscroll = function() {
     if(window.pageYOffset > sticky) {
         header.classList.add('fixed-filter')
         buttonTop.style.display = 'block';
+        buttonFilter.classList.add('btn-filter-scroll')
+        buttonFilter.classList.remove('btn-filter-no-scroll')
     } else {
         header.classList.remove('fixed-filter')
         buttonTop.style.display = 'none';
+        buttonFilter.classList.remove('btn-filter-scroll')
+        buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
 
@@ -336,6 +407,34 @@ window.onscroll = function() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    $('#button-filter').click(function(){
+        $('#modalFilter').modal('show');
+    })
+
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text2 = "{{Session::get('periode')}}";
+        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        periode = "{{Session::get('periode')}}";
+    })
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
+        $('.container-org-detail').empty();
+        $('#dokter').empty();
+        $('#non-dokter').empty();
+        $('#medis').empty();
+        $('#non-medis').empty();
+        $('#laki').empty();
+        $('#perempuan').empty();
+        getDataOrganik();
+        getDataDemography();
+        getDataMedis();
+        getDataDokter();
+        getDataGender();
+        getDataEducation();
+        $('#modalFilter').modal('hide');
+    })
 
     $.ajax({
         type:'GET',
@@ -353,19 +452,6 @@ window.onscroll = function() {
         var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
-        $('.container-org-detail').empty();
-        $('#dokter').empty();
-        $('#non-dokter').empty();
-        $('#medis').empty();
-        $('#non-medis').empty();
-        $('#laki').empty();
-        $('#perempuan').empty();
-        getDataOrganik();
-        getDataDemography();
-        getDataMedis();
-        getDataDokter();
-        getDataGender();
-        getDataEducation();
     });
 
     $('#dash-btn').click(function(){
@@ -477,6 +563,9 @@ window.onscroll = function() {
                         height: 350
                     },
                     legend:{ enabled:false },
+                    exporting:{
+                        enabled: false
+                    },
                     credits: {
                         enabled: false
                     },
@@ -562,6 +651,9 @@ window.onscroll = function() {
                         type: 'pie',
                         height: 300
                     },
+                    exporting:{
+                        enabled: false
+                    },
                     credits: {
                         enabled: false
                     },
@@ -634,6 +726,9 @@ window.onscroll = function() {
                         type: 'pie',
                         height: 300
                     },
+                    exporting:{
+                        enabled: false
+                    },
                     credits: {
                         enabled: false
                     },
@@ -689,6 +784,9 @@ window.onscroll = function() {
                     chart: {
                         type: 'column',
                         height: 350
+                    },
+                    exporting:{
+                        enabled: false
                     },
                     legend:{ enabled:false },
                     credits: {
