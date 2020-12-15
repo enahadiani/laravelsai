@@ -94,21 +94,6 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-profit">
-                        <tr class="trace ms-pend">
-                            <td>Pendapatan</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr class="trace ms-beban">
-                            <td>Beban</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>SHU</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
                     </table>
                 </div>
             </div>
@@ -120,21 +105,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-fx">
-                        <tr>
-                            <td>Asset</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>Liability</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>Net Asset Position</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -146,21 +117,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-penyerapan">
-                        <tr class="trace ms-pengembangan">
-                            <td >Pengembangan</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>Operasional</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>Non Operasional</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -172,16 +129,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-debt">
-                        <tr>
-                            <td>Mahasiswa</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>NTF</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -193,16 +141,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-kelola">
-                        <tr>
-                            <td>Kas di Bank</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
-                        <tr>
-                            <td>Kas Unit</td>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -214,10 +153,7 @@ $thnLalu = substr($tahunLalu,2,2)
                 </div>
                 <div class="card-body">
                     <table class="table table-borderless table-pin">
-                        <tr>
-                            <td>1.000.000.000</td>
-                            <td class='text-right text-success'>120%</td>
-                        </tr>
+                        
                     </table>
                 </div>
             </div>
@@ -358,40 +294,29 @@ function getPeriode(){
 }
 
 getPeriode();
-function getPencapaianYoY(periode=null)
+function getProfitLoss(periode=null)
 {
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getPencapaianYoY') }}/"+periode,
+        url:"{{ url('/telu-dash/profit-loss') }}",
+        data: {periode : periode},
         dataType: "JSON",
         success: function(result){
             var html='';
-            var nama = ['Pendapatan','Beban','SHU','OR'];
-            for(var i=0;i<result.data.data.length;i++)
-            {
-            var line = result.data.data[i];
-                if(line.kode_neraca == 'OR')
+            if(result.data.data.length > 0){
+
+                for(var i=0;i<result.data.data.length;i++)
                 {
-                    html+=`<tr>
-                    <td style='font-weight:bold'>`+nama[i]+`%</td>
-                    <td class='text-right'>`+sepNum(line.n1)+`%</td>
-                    <td class='text-right'>`+sepNum(line.n2)+`%</td>
-                    <td class='text-right'>`+sepNum(line.n3)+`%</td>
-                    <td class='text-right' style='color: #4CD964;font-weight:bold'></td>
-                    </tr>`;    
-                }
-                else{
-                    html+=`<tr>
-                    <td style='font-weight:bold'>`+nama[i]+`</td>
-                    <td class='text-right'>`+toMilyar(line.n1)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n2)+`</td>
-                    <td class='text-right'>`+toMilyar(line.n3)+`</td>
-                    <td class='text-right' style='color: #4CD964;font-weight:bold'>`+sepNum(line.capai)+`%</td>
-                    </tr>`;
-                                
+                   var line = result.data.data[i];
+                   html+=`<tr class='trace ms-`+i+`'>
+                        <td>`+line.nama+`</td>
+                        <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                        <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
                 }
             }
-            $('#pencapaian tbody').html(html);
+            $('.table-profit').html(html);
+
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -409,203 +334,30 @@ function getPencapaianYoY(periode=null)
     });
 }
 
-function getGrowthReal(periode=null){
+function getFxPosition(periode=null)
+{
     $.ajax({
         type:"GET",
-        url:"{{ url('/telu-dash/getGrowthReal') }}/"+periode,
-        dataType:"JSON",
-        success:function(result){
-            Highcharts.chart('growthReal', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: null
-                },
-                credits:{
-                    enabled:false
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                xAxis: {
-                    categories:result.data.ctg
-                },
-                plotOptions: {
-                    spline: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
-                            }
-                        },
-                        enableMouseTracking: false
-                    },
-                    column: {
-                        dataLabels: {
-                            padding:0,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'none',
-                            formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
-                            }
-                        },
-                        enableMouseTracking: false
-                    }
-                },
-                series: result.data.series
-            });
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {       
-            if(jqXHR.status == 422){
-                var msg = jqXHR.responseText;
-            }else if(jqXHR.status == 500) {
-                var msg = "Internal server error";
-            }else if(jqXHR.status == 401){
-                var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
-            }else if(jqXHR.status == 405){
-                var msg = "Route not valid. Page not found";
-            }
-            
-        }
-    })
-}
-
-function getGrowthRKA(periode=null){
-    $.ajax({
-        type:"GET",
-        url:"{{ url('/telu-dash/getGrowthRka') }}/"+periode,
-        dataType:"JSON",
-        success:function(result){
-            Highcharts.chart('growthRKA', { 
-                title: {
-                    text: null
-                },
-                credits:{
-                    enabled:false
-                },
-                tooltip: {
-                    formatter: function () {
-                        return this.series.name+':<b>'+sepNumPas(this.y)+' %</b>';
-                        }
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                        },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                xAxis: {
-                    categories:result.data.ctg
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            padding:0,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'none',
-                            formatter: function () {
-                                return '<b>'+sepNumPas(this.y)+' %</b>';
-                            }
-                        }
-                    }
-                },
-                series: result.data.series
-
-            });
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {       
-            if(jqXHR.status == 422){
-                var msg = jqXHR.responseText;
-            }else if(jqXHR.status == 500) {
-                var msg = "Internal server error";
-            }else if(jqXHR.status == 401){
-                var msg = "Unauthorized";
-                window.location="{{ url('/dash-telu/sesi-habis') }}";
-            }else if(jqXHR.status == 405){
-                var msg = "Route not valid. Page not found";
-            }
-            
-        }
-    })
-}
-
-function getRkaVsReal(periode=null){
-    $.ajax({
-        type:"GET",
-        url:"{{ url('/telu-dash/getRkaVsReal') }}/"+periode,
+        url:"{{ url('/telu-dash/fx-position') }}",
+        data: {periode : periode},
         dataType: "JSON",
         success: function(result){
 
-            Highcharts.chart('rkaVSreal', {
-                chart: {
-                    type: 'column',
-                    renderTo: 'rkaVSreal'
-                },
-                title: {
-                    text: null
-                },
-                credits:{
-                    enabled:false
-                },
-                legend:{
-                    enabled:true
-                },
-                xAxis: {
-                    categories: result.data.ctg,
-                    crosshair: true
-                },
-                yAxis: {
-                    title: {
-                        text: ''
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    }
-                },
-                tooltip: {
-                    formatter: function () {
-                        return this.series.name+':<b>'+toMilyar(this.y)+'</b>';
-                    }
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0,
-                        dataLabels: {
-                            padding:0,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'none',
-                            formatter: function () {
-                                return '<b>'+toMilyar(this.y)+'</b>';
-                            }
-                        }
-                    }
-                },
-                series : result.data.series
-            });
+            var html='';
+            if(result.data.data.length > 0){
+
+                for(var i=0;i<result.data.data.length;i++)
+                {
+                    var line = result.data.data[i];
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
+                }
+            }
+            $('.table-fx').html(html);
+            
         },
         error: function(jqXHR, textStatus, errorThrown) {       
             if(jqXHR.status == 422){
@@ -623,18 +375,186 @@ function getRkaVsReal(periode=null){
     });
 }
 
-// getPencapaianYoY("{{$periode}}");
-// getRkaVsReal("{{$periode}}");
-// getGrowthRKA("{{$periode}}");
-// getGrowthReal("{{$periode}}");
+function getPenyerapan(periode=null)
+{
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/penyerapan-beban') }}",
+        data: {periode : periode},
+        dataType: "JSON",
+        success: function(result){
+
+            var html='';
+            if(result.data.data.length > 0){
+
+                for(var i=0;i<result.data.data.length;i++)
+                {
+                    var line = result.data.data[i];
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
+                }
+            }
+            $('.table-penyerapan').html(html);
+            
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function getDebt(periode=null)
+{
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/debt') }}",
+        data: {periode : periode},
+        dataType: "JSON",
+        success: function(result){
+            
+
+            var html='';
+            if(result.data.data.length > 0){
+                
+                for(var i=0;i<result.data.data.length;i++)
+                {
+                    var line = result.data.data[i];
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
+                }
+            }
+            $('.table-debt').html(html);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function getKelola(periode=null)
+{
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/kelola-keuangan') }}",
+        data: {periode : periode},
+        dataType: "JSON",
+        success: function(result){
+            
+            var html='';
+            if(result.data.data.length > 0){
+                
+                for(var i=0;i<result.data.data.length;i++)
+                {
+                    var line = result.data.data[i];
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
+                }
+            }
+            $('.table-kelola').html(html);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+function getPin(periode=null)
+{
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/penjualan-pin') }}",
+        data: {periode : periode},
+        dataType: "JSON",
+        success: function(result){
+            var html='';
+            if(result.data.data.length > 0){
+                
+                for(var i=0;i<result.data.data.length;i++)
+                {
+                    var line = result.data.data[i];
+                    html+=`<tr class='trace ms-`+i+`'>
+                    <td>`+line.nama+`</td>
+                    <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
+                    <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
+                    </tr>`;   
+                }
+            }
+            $('.table-pin').html(html);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
+            
+        }
+    });
+}
+
+getProfitLoss("{{$periode}}");
+getFxPosition("{{$periode}}");
+getPenyerapan("{{$periode}}");
+getDebt("{{$periode}}");
+getKelola("{{$periode}}");
+getPin("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getPencapaianYoY(periode);
-    getRkaVsReal(periode);
-    getGrowthRKA(periode);
-    getGrowthReal(periode);
+    getProfitLoss("{{$periode}}");
+    getFxPosition("{{$periode}}");
+    getPenyerapan("{{$periode}}");
+    getDebt("{{$periode}}");
+    getKelola("{{$periode}}");
+    getPin("{{$periode}}");
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
@@ -666,15 +586,16 @@ $("#btn-close").on("click", function (event) {
     
     $('#modalFilter').modal('hide');
 });
-$('.table').on('click','.ms-pend',function(e){
+
+$('.table').on('click','.ms-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPendapatan') }}";
     loadForm(url);
 });
-$('.table').on('click','.ms-beban',function(e){
+$('.table').on('click','.ms-1',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSBeban') }}";
     loadForm(url);
 });
-$('.table').on('click','.ms-pengembangan',function(e){
+$('.table').on('click','.serap-0',function(e){
     var url = "{{ url('/dash-telu/form/fDashMSPengembangan') }}";
     loadForm(url);
 });

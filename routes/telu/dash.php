@@ -62,4 +62,13 @@ Route::get('watch/{id}', function ($id) {
     return view('dash-telu.watch',$data);
 });
 
+
+//Management System
+Route::get('/profit-loss','DashTelu\DashboardController@profitLoss');
+Route::get('/fx-position','DashTelu\DashboardController@fxPosition');
+Route::get('/penyerapan-beban','DashTelu\DashboardController@penyerapanBeban');
+Route::get('/debt','DashTelu\DashboardController@debt');
+Route::get('/kelola-keuangan','DashTelu\DashboardController@kelolaKeuangan');
+Route::get('/penjualan-pin','DashTelu\DashboardController@penjualanPin');
+
 ?>

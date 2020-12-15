@@ -396,10 +396,8 @@ getMsPendKlp("{{$periode}}");
 $('#form-filter').submit(function(e){
     e.preventDefault();
     var periode = $('#periode')[0].selectize.getValue();
-    getPencapaianYoY(periode);
-    getRkaVsReal(periode);
-    getGrowthRKA(periode);
-    getGrowthReal(periode);
+    getMsPendRKA("{{$periode}}");
+    getMsPendKlp("{{$periode}}");
     var tahun = parseInt(periode.substr(0,4));
     var tahunLalu = tahun-1;
     $('.thnLalu').text(tahunLalu);
@@ -433,6 +431,7 @@ $("#btn-close").on("click", function (event) {
 });
 
 $('.container-fluid').on('click','#btnBack',function(e){
+    e.preventDefault();
     var url = "{{ url('/dash-telu/form/fDashManagementSystem') }}";
     loadForm(url);
 })
