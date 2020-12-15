@@ -361,7 +361,7 @@
 
     $('#form-filter').on('click', '#btn-reset', function(){
         var text2 = "{{ substr(Session::get('periode'), 0, 4) }}";
-        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextPeriode = "Tahun : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
         tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     })
