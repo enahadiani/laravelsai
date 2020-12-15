@@ -293,7 +293,7 @@ function drawVisualization() {
                     textStyle : {
                         fontSize: 10 // or the number you want
                     },
-                    format: 'percent', 
+                    format: '##,##%', 
                     title: 'PROSENTASE CAPAIAN',
                     gridlines: {
                         count: 1,
@@ -302,7 +302,7 @@ function drawVisualization() {
                 }
             },
             legend: {
-                position: 'top', 
+                position: 'top',
                 alignment: 'center'
             },
             chartArea:{

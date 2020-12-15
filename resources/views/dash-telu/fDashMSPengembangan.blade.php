@@ -271,9 +271,9 @@ function drawChart() {
         var view = new google.visualization.DataView(data);
         
         var options = {
-            chartArea: {
-            // leave room for y-axis labels
-            width: '85%'
+            chartArea:{
+                width: '85%',
+                height: '90%'
             },
             height:'100%',
             width: '100%',
@@ -296,6 +296,10 @@ function drawChart2() {
         
     var options = {
         // pieSliceText: 'none',
+        chartArea:{
+            width: '100%',
+            height: '100%'
+        },
         legend: {position: 'none'},
         width: '100%',
         height: '100%'

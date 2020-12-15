@@ -330,7 +330,7 @@ function drawVisualization() {
                     textStyle : {
                         fontSize: 10 // or the number you want
                     },
-                    format: 'percent', 
+                    format: '##,##%', 
                     title: '% Capaian',
                     gridlines: {
                         count: 1,
@@ -436,7 +436,7 @@ function drawVisualizationTF() {
                     textStyle : {
                         fontSize: 10 // or the number you want
                     },
-                    format: 'percent', 
+                    format: '##,##%', 
                     title: '% Capaian',
                     gridlines: {
                         count: 2,
@@ -542,7 +542,7 @@ function drawVisualizationNTF() {
                     textStyle : {
                         fontSize: 10 // or the number you want
                     },
-                    format: 'percent', 
+                    format: '##,##%', 
                     title: '% Capaian',
                     gridlines: {
                         count: 2,
