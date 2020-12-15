@@ -59,6 +59,10 @@
         margin-left: 10px;
         top: 30%;
     }
+    .dropdown-filter {
+        width: 100%;
+        margin: 10px;
+    }
     .fixed-filter {
         background-color: #f8f8f8;
         position: fixed;
@@ -67,7 +71,8 @@
         padding: 10px 0;
         padding-bottom: 10px;
         width: 100%;
-        z-index: 1;
+        padding-bottom: 18px;
+        z-index: 2;
     }
     .select-dash {
         border-radius: 10px;
@@ -79,6 +84,7 @@
         height: 50px;
     }
     .dropdown-menu {
+        width: 100%;
         max-height: 130px;
         overflow: scroll;
         overflow-x: hidden;
@@ -112,15 +118,49 @@
     .button-top:hover {
         background-color: #c6c6c6;
     }
+    .btn-filter {
+        background-color: #ffffff !important;
+        position: absolute;
+        right: 0;
+        border-radius: 25px !important;
+        width: 120px;
+    }
+    .btn-filter-no-scroll {
+        margin-right: 20px;
+    }
+    .btn-filter-scroll {
+        margin-right: 182px;
+    }
+    .filter-count {
+        display: inline;
+        border-radius: 50%;
+        padding: 1px 5px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        background-color: #93ccce;
+    }
 </style>
+<button id="button-top" class="button-top" onclick="topFunction()">
+        <span class="simple-icon-arrow-up"></span>
+</button>
+
 <div id="filter-header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <h6>Pendapatan Investasi</h6>
         </div>
+        <div class="col-6">
+            <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
+                <span>Filter</span>
+                <div class="filter-count">
+                    2
+                </div>
+            </button>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-2">
+    {{-- <div class="row"> --}}
+        {{-- <div class="col-2">
             <div class="dropdown-periode dropdown">
                 <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
                     Tahun : {{ substr(Session::get('periode'), 0, 4) }}
@@ -129,22 +169,22 @@
                 <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
                         
                 </ul>
-            </div>
+            </div> --}}
             {{-- <select id="periode" class="form-control select-dash">
 
             </select> --}}
-        </div>
-    </div>
+        {{-- </div> --}}
+    {{-- </div> --}}
 </div>
 <div class="row" style="margin-top: 30px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Pendapatan Investasi</h6>
             <div class="row">
-                <div class="col-1">
+                {{-- <div class="col-1">
                     <p class="keterangan">Dalam Rp. Juta</p>
-                </div>
-                <div class="col-11">
+                </div> --}}
+                <div class="col-12">
                     <div id="invest"></div>
                 </div>
                 <div class="col-12 ml-2 mr-4">
@@ -237,21 +277,74 @@
     </div>
 </div>
 <!-- END MODAL PREVIEW -->
+<!-- MODAL FILTER -->
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="dropdown-regional dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Regional : -
+                            <span style="display: none;" id="value-jenis"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                        </button>
+                        <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                            {{-- <li>
+                                <span style="display: none;">CC</span>
+                                <span>Pensiunan dan Keluarga</span>
+                            </li>
+                            <li>
+                                <span style="display: none;">BP</span>
+                                <span>Pegawai dan Keluarga</span>
+                            </li> --}}
+                        </ul>
+                    </div>
+                    <div class="dropdown-periode dropdown dropdown-filter">
+                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                            Tahun : {{ substr(Session::get('periode'), 0, 4) }}
+                            <span id="value-periode" style="display: none;"></span>
+                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                        </button>
+                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="button" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     var tahun = "";
     var pembagi = 1000000;
     var buttonTop = document.getElementById('button-top');
-    // var header = document.getElementById('filter-header');
-    // var sticky = header.offsetTop;
-    // window.onscroll = function() {
-    //     if(window.pageYOffset > sticky) {
-    //         header.classList.add('fixed-filter')
-    //         buttonTop.style.display = 'block';
-    //     } else {
-    //         header.classList.remove('fixed-filter')
-    //         buttonTop.style.display = 'none';
-    //     }
-    // }
+    var buttonFilter = document.getElementById('button-filter');
+    var header = document.getElementById('filter-header');
+    var sticky = header.offsetTop;
+    window.onscroll = function() {
+        if(window.pageYOffset > sticky) {
+            header.classList.add('fixed-filter')
+            buttonTop.style.display = 'block';
+            buttonFilter.classList.add('btn-filter-scroll')
+            buttonFilter.classList.remove('btn-filter-no-scroll')
+        } else {
+            header.classList.remove('fixed-filter')
+            buttonTop.style.display = 'none';
+            buttonFilter.classList.remove('btn-filter-scroll')
+            buttonFilter.classList.add('btn-filter-no-scroll')
+        }
+    }
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -277,9 +370,24 @@
         var htmlText = "Tahun : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         tahun = text;
+    });
+
+    $('#button-filter').click(function(){
+        $('#modalFilter').modal('show');
+    })
+
+    $('#form-filter').on('click', '#btn-reset', function(){
+        var text2 = "{{ substr(Session::get('periode'), 0, 4) }}";
+        var htmlTextPeriode = "Tahun : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
+        tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
+    })
+
+    $('#form-filter').on('click', '#btn-tampil', function(){
         $('#detail-invest').empty();
         getDataPendapatan(tahun);
-    });
+        $('#modalFilter').modal('hide');
+    })
 
     $('#dash-btn').click(function(){
         $('#modal-preview').modal('show');
@@ -425,9 +533,14 @@
                 Highcharts.chart('invest', {
                     chart: {
                         type: 'column',
-                        height: 300
+                        height: 300,
+                        marginLeft: 180,
+                        marginRight: 30
                     },
                     legend:{ enabled:false },
+                    exporting:{
+                        enabled: false
+                    },
                     credits: {
                         enabled: false
                     },
@@ -442,8 +555,8 @@
                     },
                     yAxis: {
                         visible: true,
-                        title: {
-                            enabled: false
+                        title:{
+                            text: 'Rp. Dalam Juta'
                         }
                     },
 
