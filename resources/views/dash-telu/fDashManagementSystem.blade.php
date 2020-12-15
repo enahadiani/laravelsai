@@ -349,7 +349,7 @@ function getFxPosition(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
@@ -390,7 +390,7 @@ function getPenyerapan(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr class='trace serap-`+i+`'>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
@@ -432,7 +432,7 @@ function getDebt(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
@@ -473,7 +473,7 @@ function getKelola(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>
@@ -513,7 +513,7 @@ function getPin(periode=null)
                 for(var i=0;i<result.data.data.length;i++)
                 {
                     var line = result.data.data[i];
-                    html+=`<tr class='trace ms-`+i+`'>
+                    html+=`<tr>
                     <td>`+line.nama+`</td>
                     <td>`+sepNumPas(parseFloat(line.nilai))+`</td>
                     <td class='text-right text-success' >`+sepNumPas(parseFloat(line.persen))+`%</td>

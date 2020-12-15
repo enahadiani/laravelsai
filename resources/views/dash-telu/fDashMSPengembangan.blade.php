@@ -272,8 +272,8 @@ function drawChart() {
         
         var options = {
             chartArea:{
-                width: '85%',
-                height: '90%'
+                width: '80%',
+                height: '85%'
             },
             height:'100%',
             width: '100%',
@@ -298,7 +298,7 @@ function drawChart2() {
         // pieSliceText: 'none',
         chartArea:{
             width: '100%',
-            height: '100%'
+            height: '85%'
         },
         legend: {position: 'none'},
         width: '100%',
