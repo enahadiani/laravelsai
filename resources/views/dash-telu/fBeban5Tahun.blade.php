@@ -7,7 +7,8 @@ $nik     = Session::get('userLog');
 $tahun= substr($periode,0,4);
 $tahunLalu = intval($tahun)-1;
 $thnIni = substr($tahun,2,2);
-$thnLalu = substr($tahunLalu,2,2)
+$thnLalu = substr($tahunLalu,2,2);
+$tahun5 = intval($tahun-5);
 @endphp
 
 <style>
@@ -88,7 +89,10 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-lg-12 col-12 mb-4">
-            <div class="card">
+            <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Perbandingan Anggaran dan Realisasi {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="agg" style='height:400px'></div>
                 </div>
@@ -97,16 +101,44 @@ $thnLalu = substr($tahunLalu,2,2)
     </div>
     <div class="row" >
         <div class="col-lg-6 col-12 mb-4">
-            <div class="card">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Beban TF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="tf" style='height:400px'></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-12 mb-4">
-            <div class="card">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Beban NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
                 <div class="card-body">
                     <div id="ntf" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
+                <div class="card-body">
+                    <div id="komposisi" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
+                <div class="card-body">
+                    <div id="komposisi2" style='height:400px'></div>
                 </div>
             </div>
         </div>
@@ -251,9 +283,9 @@ function drawVisualization() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
         ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
-        ['2015', 273.0,273.0, 291.1, 291.1, 104.0, '104,0%'],
-        ['2016', 302.2,302.2, 307.1, 307.1, 101.6, '101,6%'],
-        ['2017', 331.6,331.6, 365.3, 365.3, 110.2, '110,2%'],
+        ['2015', 273.0,273.0, 291.1, 291.1, 107.0, '107,0%'],
+        ['2016', 302.2,302.2, 307.1, 307.1, 104.3, '104,3%'],
+        ['2017', 331.6,331.6, 365.3, 365.3, 109.9, '109,9%'],
         ['2018', 381.9,381.9, 413.8, 413.8, 106.0, '106,0%'],
         ['2019', 500.9,500.9, 525.5, 525.5, 104.9, '104,9%'],
         ['2020', 543.3,543.3, 503.0, 503.0, 92.6, '92,6%'],
@@ -277,7 +309,8 @@ function drawVisualization() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line', 
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -382,7 +415,8 @@ function drawVisualizationTF() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line', 
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -464,7 +498,7 @@ function drawVisualizationNTF() {
         ['2015', 22.9,22.9, 31.9, 31.9, 139.7, '139,7%'],
         ['2016', 38.4,38.4, 48.1, 48.1, 125.2, '125,2%'],
         ['2017', 46.6,46.6, 50.2, 50.2, 107.8, '107,8%'],
-        ['2018', 66.6,66.6, 61.6, 413.8, 92.5, '92,5%'],
+        ['2018', 66.6,66.6, 61.6, 61.6, 92.5, '92,5%'],
         ['2019', 63.9,63.9, 72.4, 72.4, 113.3, '113,3%'],
         ['2020', 92.2,92.2, 57.3, 57.3, 62.2, '62,2%'],
         ]);
@@ -487,7 +521,8 @@ function drawVisualizationNTF() {
                     targetAxisIndex: 0
                 },
                 2: {
-                    type: 'line',
+                    type: 'line',          
+                    curveType: 'function',
                     targetAxisIndex: 1
                 }
             },
@@ -562,10 +597,195 @@ function getBebanNTF(periode=null){
     // })
 }
 
+
+function drawVisualizationKomposisi() {
+    // Some raw data (not necessarily accurate)
+    var data = $google.visualization.arrayToDataTable([
+        ['', 'TF',{ role: 'annotation'} , 'NTF',{ role: 'annotation'}],
+        ['2015', 260,'89%',31.9, '11%'],
+        ['2016', 307,'86%',48.1, '14%'],
+        ['2017', 365,'88%',50.2, '12%'],
+        ['2018', 414,'87%',61.6, '13%'],
+        ['2019', 453,'86%',72.4, '14%'],
+        ['2020', 446,'89%',57.3, '11%'],
+        ]);
+        
+        var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
+            seriesType: 'bars',
+            series: {
+                0: {
+                    targetAxisIndex: 0
+                },
+                1: {
+                    targetAxisIndex: 0
+                }
+            },
+            vAxes: {
+                // Adds titles to each axis.
+                0: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                },
+            },
+            legend: {
+                position: 'bottom', 
+                alignment: 'center'
+            },
+            chartArea:{
+                width: '80%',
+                height: '85%'
+            },
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
+            height:'100%',
+            width:'100%',
+            isStacked: 'percent'
+        };
+        
+        var chart = new google.visualization.ComboChart(document.getElementById('komposisi'));
+        chart.draw(data, options);
+}
+
+function getKomposisi(periode=null){
+    // $.ajax({
+    //     type:"GET",
+    //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
+    //     dataType:"JSON",
+    //     success:function(result){
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualizationKomposisi);
+
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {       
+    //         if(jqXHR.status == 422){
+    //             var msg = jqXHR.responseText;
+    //         }else if(jqXHR.status == 500) {
+    //             var msg = "Internal server error";
+    //         }else if(jqXHR.status == 401){
+    //             var msg = "Unauthorized";
+    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
+    //         }else if(jqXHR.status == 405){
+    //             var msg = "Route not valid. Page not found";
+    //         }
+            
+    //     }
+    // })
+}
+
+
+function drawVisualizationGrowth() {
+    // Some raw data (not necessarily accurate)
+    var data = $google.visualization.arrayToDataTable([
+        ['', 'Total Beban',{ role: 'annotation'} ,'TF',{ role: 'annotation'}, 'NTF',{ role: 'annotation'}],
+        ['2015', 107.0, '107,0%', 104.0, '104,0%', 139.7, '139,7%'],
+        ['2016', 104.3, '104,3%', 101.6, '101,6%', 125.2, '125,2%'],
+        ['2017', 109.9, '109,9%', 110.2, '110,2%', 107.8, '107,8%'],
+        ['2018', 106.0, '106,0%', 108.4, '108,4%', 92.5, '92,5%'],
+        ['2019', 104.9, '104,9%', 103.7, '103,7%', 113.3, '113,3%'],
+        ['2020', 92.6, '92,6%', 98.8, '98,8%', 62.2, '62,2%'],
+        ]);
+        var options = {
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    opacity: 0.8,
+                }
+                
+            },
+            seriesType: 'bars',
+            series: {
+                0: {
+                    type: 'line',          
+                    curveType: 'function',
+                    targetAxisIndex: 0
+                },
+                1: {
+                    type: 'line',          
+                    curveType: 'function',
+                    targetAxisIndex: 0
+                },
+                2: {
+                    type: 'line',          
+                    curveType: 'function',
+                    targetAxisIndex: 0
+                }
+            },
+            vAxes: {
+                0: {
+                    textStyle : {
+                        fontSize: 10 // or the number you want
+                    },
+                    title: '% Capaian',
+                    gridlines: {
+                        count: 2,
+                    },
+                    scaleType: 'log'
+                }
+            },
+            legend: {
+                position: 'bottom', 
+                alignment: 'center'
+            },
+            chartArea:{
+                width: '80%',
+                height: '85%'
+            },
+            colors: ['#4c4c4c', '#900604', '#16ff14'],
+            height:'100%',
+            width:'100%'
+            
+        };
+        
+        var chart = new google.visualization.ComboChart(document.getElementById('komposisi2'));
+        chart.draw(data, options);
+}
+
+function getBebanGrowth(periode=null){
+    // $.ajax({
+    //     type:"GET",
+    //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
+    //     dataType:"JSON",
+    //     success:function(result){
+            
+        $google.charts.load('current', {
+        'packages': ['corechart']
+      });
+      $google.charts.setOnLoadCallback(drawVisualizationGrowth);
+
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) {       
+    //         if(jqXHR.status == 422){
+    //             var msg = jqXHR.responseText;
+    //         }else if(jqXHR.status == 500) {
+    //             var msg = "Internal server error";
+    //         }else if(jqXHR.status == 401){
+    //             var msg = "Unauthorized";
+    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
+    //         }else if(jqXHR.status == 405){
+    //             var msg = "Route not valid. Page not found";
+    //         }
+            
+    //     }
+    // })
+}
+
 getBeban("{{$periode}}");
 getBebanTF("{{$periode}}");
 getBebanNTF("{{$periode}}");
-// getGrowthReal("{{$periode}}");
+getKomposisi("{{$periode}}");
+getBebanGrowth("{{$periode}}");
 
 $('#form-filter').submit(function(e){
     e.preventDefault();
