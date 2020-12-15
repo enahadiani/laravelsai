@@ -88,13 +88,23 @@ $tahun5 = intval($tahun-5);
         </div>
     </div>
     <div class="row" >
-        <div class="col-lg-12 col-12 mb-4">
-            <div class="card dash-card">
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Perbandingan Anggaran dan Realisasi {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6>Beban {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
-                    <div id="agg" style='height:400px'></div>
+                    <div id="beban" style='height:400px'></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 mb-4">
+             <div class="card dash-card">
+                <div class="card-header">
+                    <h6>Beban SDM {{ $tahun5 }} - {{ $tahun }}</h6>
+                </div>
+                <div class="card-body">
+                    <div id="sdm" style='height:400px'></div>
                 </div>
             </div>
         </div>
@@ -103,29 +113,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Beban TF {{ $tahun5 }} - {{ $tahun }}</h6>
-                </div>
-                <div class="card-body">
-                    <div id="tf" style='height:400px'></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-12 mb-4">
-             <div class="card dash-card">
-                <div class="card-header">
-                    <h6>Beban NTF {{ $tahun5 }} - {{ $tahun }}</h6>
-                </div>
-                <div class="card-body">
-                    <div id="ntf" style='height:400px'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" >
-        <div class="col-lg-6 col-12 mb-4">
-             <div class="card dash-card">
-                <div class="card-header">
-                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6>Komposisi SDM dan Beban Lain {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi" style='height:400px'></div>
@@ -135,7 +123,7 @@ $tahun5 = intval($tahun-5);
         <div class="col-lg-6 col-12 mb-4">
              <div class="card dash-card">
                 <div class="card-header">
-                    <h6>Komposisi TF dan NTF {{ $tahun5 }} - {{ $tahun }}</h6>
+                    <h6>Realisasi Growth PDPT, Beban, SDM dan SHU {{ $tahun5 }} - {{ $tahun }}</h6>
                 </div>
                 <div class="card-body">
                     <div id="komposisi2" style='height:400px'></div>
@@ -279,122 +267,16 @@ function getPeriode(){
 
 getPeriode();
 
-function drawVisualization() {
+function drawVisualizationBeban() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
         ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
-        ['2015', 273.0,273.0, 291.1, 291.1, 107.0, '107,0%'],
-        ['2016', 302.2,302.2, 307.1, 307.1, 104.3, '104,3%'],
-        ['2017', 331.6,331.6, 365.3, 365.3, 109.9, '109,9%'],
-        ['2018', 381.9,381.9, 413.8, 413.8, 106.0, '106,0%'],
-        ['2019', 500.9,500.9, 525.5, 525.5, 104.9, '104,9%'],
-        ['2020', 543.3,543.3, 503.0, 503.0, 92.6, '92,6%'],
-        ]);
-        
-        var options = {
-            annotations: {
-                textStyle: {
-                    fontSize: 12,
-                    bold: true,
-                    opacity: 0.8,
-                }
-                
-            },
-            seriesType: 'bars',
-            series: {
-                0: {
-                    targetAxisIndex: 0
-                },
-                1: {
-                    targetAxisIndex: 0
-                },
-                2: {
-                    type: 'line', 
-                    curveType: 'function',
-                    targetAxisIndex: 1
-                }
-            },
-            vAxes: {
-                // Adds titles to each axis.
-                0: {
-                    textStyle : {
-                        fontSize: 10 // or the number you want
-                    },
-                    title: 'Milyar Rupiah',  
-                    gridlines: {
-                        count: 10,
-                    },
-                    min: 0
-                },
-                1: {
-                    textStyle : {
-                        fontSize: 10 // or the number you want
-                    },
-                    format: 'percent', 
-                    title: '% Capaian',
-                    gridlines: {
-                        count: 1,
-                    },
-                    min: 80
-                }
-            },
-            legend: {
-                position: 'bottom', 
-                alignment: 'center'
-            },
-            chartArea:{
-                width: '90%',
-                height: '85%'
-            },
-            colors: ['#4c4c4c', '#900604', '#16ff14'],
-            height:'100%',
-            width:'100%'
-            
-        };
-        
-        var chart = new google.visualization.ComboChart(document.getElementById('agg'));
-        chart.draw(data, options);
-}
-
-function getBeban(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/getBeban5Tahun') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
-            
-        $google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      $google.charts.setOnLoadCallback(drawVisualization);
-
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
-            
-    //     }
-    // })
-}
-
-function drawVisualizationTF() {
-    // Some raw data (not necessarily accurate)
-    var data = $google.visualization.arrayToDataTable([
-        ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
-        ['2015', 250.1,250.1, 260.2, 260.2, 104.0, '104,0%'],
-        ['2016', 302.2,302.2, 307.1, 307.1, 101.6, '101,6%'],
-        ['2017', 331.6,331.6, 365.3, 365.3, 110.2, '110,2%'],
-        ['2018', 381.9,381.9, 413.8, 413.8, 108.4, '108,4%'],
-        ['2019', 436.9,436.9, 453.1, 453.1, 103.7, '103,7%'],
-        ['2020', 451.1,451.1, 445.7, 445.7, 98.8, '98,8%'],
+        ['2015', 248.6,248.6, 239.8, 239.8, 96.5, '96,5%'],
+        ['2016', 304.4,304.4, 290.8, 290.8, 95.5, '95,5%'],
+        ['2017', 307.4,307.4, 329.5, 329.5, 107.2, '107,2%'],
+        ['2018', 352.5,352.5, 379.2, 379.2, 107.6, '107,6%'],
+        ['2019', 391.9,391.9, 420.6, 420.6, 103.7, '103,7%'],
+        ['2020', 435.6,435.6, 417.2, 417.2, 95.8, '95,8%'],
         ]);
         
         var options = {
@@ -458,11 +340,11 @@ function drawVisualizationTF() {
             
         };
         
-        var chart = new google.visualization.ComboChart(document.getElementById('tf'));
+        var chart = new google.visualization.ComboChart(document.getElementById('beban'));
         chart.draw(data, options);
 }
 
-function getBebanTF(periode=null){
+function getBeban(periode=null){
     // $.ajax({
     //     type:"GET",
     //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
@@ -472,7 +354,7 @@ function getBebanTF(periode=null){
         $google.charts.load('current', {
         'packages': ['corechart']
       });
-      $google.charts.setOnLoadCallback(drawVisualizationTF);
+      $google.charts.setOnLoadCallback(drawVisualizationBeban);
 
     //     },
     //     error: function(jqXHR, textStatus, errorThrown) {       
@@ -491,16 +373,16 @@ function getBebanTF(periode=null){
     // })
 }
 
-function drawVisualizationNTF() {
+function drawVisualizationSDM() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
         ['', 'RKA',{ role: 'annotation'} ,'Actual',{ role: 'annotation'}, 'Capaian',{ role: 'annotation'}],
-        ['2015', 22.9,22.9, 31.9, 31.9, 139.7, '139,7%'],
-        ['2016', 38.4,38.4, 48.1, 48.1, 125.2, '125,2%'],
-        ['2017', 46.6,46.6, 50.2, 50.2, 107.8, '107,8%'],
-        ['2018', 66.6,66.6, 61.6, 61.6, 92.5, '92,5%'],
-        ['2019', 63.9,63.9, 72.4, 72.4, 113.3, '113,3%'],
-        ['2020', 92.2,92.2, 57.3, 57.3, 62.2, '62,2%'],
+        ['2015', 130.0,130.0, 126.8, 126.8, 52, '52%'],
+        ['2016', 156.3,156.3, 151.0, 151.0, 51, '51%'],
+        ['2017', 158.5,158.5, 168.9, 168.9, 52, '52%'],
+        ['2018', 190.7,190.7, 203.4, 203.4, 54, '54%'],
+        ['2019', 218.2,218.2, 222.5, 222.5, 56, '56%'],
+        ['2020', 240.7,240.7, 241.2, 241.2, 55, '55%'],
         ]);
         
         var options = {
@@ -564,11 +446,11 @@ function drawVisualizationNTF() {
             
         };
         
-        var chart = new google.visualization.ComboChart(document.getElementById('ntf'));
+        var chart = new google.visualization.ComboChart(document.getElementById('sdm'));
         chart.draw(data, options);
 }
 
-function getBebanNTF(periode=null){
+function getBebanSDM(periode=null){
     // $.ajax({
     //     type:"GET",
     //     url:"{{ url('/telu-dash/getBebanTF') }}/"+periode,
@@ -578,7 +460,7 @@ function getBebanNTF(periode=null){
         $google.charts.load('current', {
         'packages': ['corechart']
       });
-      $google.charts.setOnLoadCallback(drawVisualizationNTF);
+      $google.charts.setOnLoadCallback(drawVisualizationSDM);
 
     //     },
     //     error: function(jqXHR, textStatus, errorThrown) {       
@@ -601,13 +483,13 @@ function getBebanNTF(periode=null){
 function drawVisualizationKomposisi() {
     // Some raw data (not necessarily accurate)
     var data = $google.visualization.arrayToDataTable([
-        ['', 'TF',{ role: 'annotation'} , 'NTF',{ role: 'annotation'}],
-        ['2015', 260,'89%',31.9, '11%'],
-        ['2016', 307,'86%',48.1, '14%'],
-        ['2017', 365,'88%',50.2, '12%'],
-        ['2018', 414,'87%',61.6, '13%'],
-        ['2019', 453,'86%',72.4, '14%'],
-        ['2020', 446,'89%',57.3, '11%'],
+        ['', 'Beban',{ role: 'annotation'} , 'SDM',{ role: 'annotation'}],
+        ['2015', 239,'65%',126.8, '35%'],
+        ['2016', 290.8,'66%',151, '34%'],
+        ['2017', 329.5,'66%',168.9, '34%'],
+        ['2018', 379.2,'65%',203.4, '35%'],
+        ['2019', 420.6,'65%',222.5, '35%'],
+        ['2020', 417.2,'63%',241.2, '37%'],
         ]);
         
         var options = {
@@ -731,7 +613,7 @@ function drawVisualizationGrowth() {
                     gridlines: {
                         count: 2,
                     },
-                    scaleType: 'log'
+                    // scaleType: 'log'
                 }
             },
             legend: {
@@ -782,8 +664,7 @@ function getBebanGrowth(periode=null){
 }
 
 getBeban("{{$periode}}");
-getBebanTF("{{$periode}}");
-getBebanNTF("{{$periode}}");
+getBebanSDM("{{$periode}}");
 getKomposisi("{{$periode}}");
 getBebanGrowth("{{$periode}}");
 

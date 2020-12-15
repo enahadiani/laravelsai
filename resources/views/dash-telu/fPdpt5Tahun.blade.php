@@ -731,7 +731,7 @@ function drawVisualizationGrowth() {
                     gridlines: {
                         count: 2,
                     },
-                    scaleType: 'log'
+                    // scaleType: 'log'
                 }
             },
             legend: {
