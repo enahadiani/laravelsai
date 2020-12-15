@@ -246,11 +246,12 @@ function getPeriode(){
 getPeriode();
 
 function getMsPendRKA(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-pend-rka') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-pendapatan') }}",
+        data:{periode: periode},
+        dataType:"JSON",
+        success:function(result){
             Highcharts.chart('capai-rka', {
                 chart: {
                     type: 'column'
@@ -259,10 +260,7 @@ function getMsPendRKA(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        'RKA YTD',
-                        'Actual YTD'
-                    ]
+                    categories: result.data.ctg
                 },
                 yAxis: [{
                     min: 0,
@@ -283,44 +281,33 @@ function getMsPendRKA(periode=null){
                         borderWidth: 0
                     }
                 },
-                series: [{
-                    name: 'RKA YTD',
-                    color: '#4c4c4c',
-                    data: [100, 73],
-                    pointPadding: 0.3,
-                    /* pointPlacement: -0.2 */
-                }, {
-                    name: 'Actual YTD',
-                    color: '#900604',
-                    data: [140, 90],
-                    pointPadding: 0.4,
-                    /* pointPlacement: -0.2 */
-                }]
+                series: result.data.series
             });
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 function getMsPendKlp(periode=null){
-    // $.ajax({
-    //     type:"GET",
-    //     url:"{{ url('/telu-dash/ms-pend-rka') }}/"+periode,
-    //     dataType:"JSON",
-    //     success:function(result){
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/telu-dash/ms-pendapatan-klp') }}",
+        data:{periode: periode},
+        dataType:"JSON",
+        success:function(result){
             Highcharts.chart('capai-klp', {
                 chart: {
                     type: 'column'
@@ -329,14 +316,7 @@ function getMsPendKlp(periode=null){
                     text: ''
                 },
                 xAxis: {
-                    categories: [
-                        'Pendaftaran',
-                        'Pelatihan',
-                        'Proyek Kerjasama',
-                        'Pengabdian Masyarakat',
-                        'OP Lainnya',
-                        'Pengelolaan',
-                    ]
+                    categories: result.data.ctg
                 },
                 yAxis: [{
                     min: 0,
@@ -357,37 +337,24 @@ function getMsPendKlp(periode=null){
                         borderWidth: 0
                     }
                 },
-                series: [{
-                    
-                    name: 'RKA YTD',
-                    color: '#4c4c4c',
-                    data: [100, 73,100, 73,100, 73],
-                    pointPadding: 0.3,
-                    /* pointPlacement: -0.2 */
-                }, {
-                    name: 'Actual YTD',
-                    color: '#900604',
-                    data: [140, 90,140, 90,140, 90],
-                    pointPadding: 0.4,
-                    /* pointPlacement: -0.2 */
-                }]
+                series: result.data.series
             });
 
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {       
-    //         if(jqXHR.status == 422){
-    //             var msg = jqXHR.responseText;
-    //         }else if(jqXHR.status == 500) {
-    //             var msg = "Internal server error";
-    //         }else if(jqXHR.status == 401){
-    //             var msg = "Unauthorized";
-    //             window.location="{{ url('/dash-telu/sesi-habis') }}";
-    //         }else if(jqXHR.status == 405){
-    //             var msg = "Route not valid. Page not found";
-    //         }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {       
+            if(jqXHR.status == 422){
+                var msg = jqXHR.responseText;
+            }else if(jqXHR.status == 500) {
+                var msg = "Internal server error";
+            }else if(jqXHR.status == 401){
+                var msg = "Unauthorized";
+                window.location="{{ url('/dash-telu/sesi-habis') }}";
+            }else if(jqXHR.status == 405){
+                var msg = "Route not valid. Page not found";
+            }
             
-    //     }
-    // })
+        }
+    })
 }
 
 getMsPendRKA("{{$periode}}");

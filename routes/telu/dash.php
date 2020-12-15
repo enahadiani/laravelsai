@@ -71,4 +71,8 @@ Route::get('/debt','DashTelu\DashboardController@debt');
 Route::get('/kelola-keuangan','DashTelu\DashboardController@kelolaKeuangan');
 Route::get('/penjualan-pin','DashTelu\DashboardController@penjualanPin');
 
+
+Route::get('/ms-pendapatan','DashTelu\DashboardController@msPendapatan');
+Route::get('/ms-pendapatan-klp','DashTelu\DashboardController@msPendapatanKlp');
+
 ?>
