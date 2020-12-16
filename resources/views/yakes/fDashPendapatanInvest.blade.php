@@ -61,7 +61,7 @@
     }
     .dropdown-filter {
         width: 100%;
-        margin: 10px;
+        margin: 0 10px;
     }
     .fixed-filter {
         background-color: #f8f8f8;
@@ -138,6 +138,14 @@
         width: 20px;
         text-align: center;
         background-color: #93ccce;
+    }
+    .label-filter {
+        font-size: 0.87rem;
+        padding-left: 5px;
+        margin-left: 10px;
+    }
+    .group-filter {
+        padding: 8px 0;
     }
 </style>
 <button id="button-top" class="button-top" onclick="topFunction()">
@@ -270,32 +278,38 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
-                    <div class="dropdown-regional dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Regional : -
-                            <span style="display: none;" id="value-jenis"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
-                        </button>
-                        <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
-                            {{-- <li>
-                                <span style="display: none;">CC</span>
-                                <span>Pensiunan dan Keluarga</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">BP</span>
-                                <span>Pegawai dan Keluarga</span>
-                            </li> --}}
-                        </ul>
+                    <div class="group-filter">
+                        <label for="regional" class="label-filter">Regional</label>
+                        <div class="dropdown-regional dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                -
+                                <span style="display: none;" id="value-jenis"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:2%;"></span>
+                            </button>
+                            <ul class="dropdown-menu jenis" style="overflow: hidden; width:99%;" role="menu" aria-labelledby="menu2">
+                                {{-- <li>
+                                    <span style="display: none;">CC</span>
+                                    <span>Pensiunan dan Keluarga</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">BP</span>
+                                    <span>Pegawai dan Keluarga</span>
+                                </li> --}}
+                            </ul>
+                        </div>
                     </div>
-                    <div class="dropdown-periode dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Tahun : {{ substr(Session::get('periode'), 0, 4) }}
-                            <span id="value-periode" style="display: none;"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                        </button>
-                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                            
-                        </ul>
+                    <div class="group-filter">
+                        <label for="tahun" class="label-filter">Tahun</label>
+                        <div class="dropdown-periode dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                {{ substr(Session::get('periode'), 0, 4) }}
+                                <span id="value-periode" style="display: none;"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                            </button>
+                            <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                                
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="border:none">
@@ -351,7 +365,7 @@
 
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
-        var htmlText = "Tahun : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         tahun = text;
     });
@@ -362,7 +376,7 @@
 
     $('#form-filter').on('click', '#btn-reset', function(){
         var text2 = "{{ substr(Session::get('periode'), 0, 4) }}";
-        var htmlTextPeriode = "Tahun : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextPeriode = text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
         tahun = "{{ substr(Session::get('periode'), 0, 4) }}";
     })
