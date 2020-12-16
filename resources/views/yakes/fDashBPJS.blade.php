@@ -68,7 +68,7 @@
     }
     .dropdown-filter {
         width: 100%;
-        margin: 10px;
+        margin: 0 10px;
     }
     .keterangan {
         display: inline-block;
@@ -151,8 +151,13 @@
         text-align: center;
         background-color: #93ccce;
     }
-    #keterangan-filter {
-        margin: 10px;
+    .label-filter {
+        font-size: 0.87rem;
+        padding-left: 5px;
+        margin-left: 10px;
+    }
+    .group-filter {
+        padding: 8px 0;
     }
 </style>
 
@@ -164,6 +169,7 @@
     <div class="row">
         <div class="col-6">
             <h6>BPJS</h6>
+            <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -442,58 +448,66 @@
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
-                    <p id="keterangan-filter"></p>
-                    <div class="dropdown-dash dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Dashboard : Utilisasi BPJS
-                            <span id="value-dash" style="display: none;"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                        </button>
-                        <ul class="dropdown-menu dash-bpjs" role="menu" aria-labelledby="menu1">
-                            <li>
-                                <span style="display: none;">UTL</span>
-                                <span>Utilisasi BPJS</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">CLM</span>
-                                <span>Claim BPJS</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">KPT</span>
-                                <span>Kapitasi BPJS</span>
-                            </li>
-                        </ul>
+                    <div class="group-filter">
+                         <label for="dashboard" class="label-filter">Dashboard</label>
+                        <div class="dropdown-dash dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                Utilisasi BPJS
+                                <span id="value-dash" style="display: none;"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                            </button>
+                            <ul class="dropdown-menu dash-bpjs" role="menu" aria-labelledby="menu1">
+                                <li>
+                                    <span style="display: none;">UTL</span>
+                                    <span>Utilisasi BPJS</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">CLM</span>
+                                    <span>Claim BPJS</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">KPT</span>
+                                    <span>Kapitasi BPJS</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="dropdown-periode dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Periode : {{Session::get('periode')}}
-                            <span id="value-periode" style="display: none;"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                        </button>
-                        <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                            
-                        </ul>
+                    <div class="group-filter">
+                        <label for="periode" class="label-filter">Periode</label>
+                        <div class="dropdown-periode dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                {{Session::get('periode')}}
+                                <span id="value-periode" style="display: none;"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                            </button>
+                            <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
+                                
+                            </ul>
+                        </div>
                     </div>
-                    <div class="dropdown-jenis dropdown dropdown-filter">
-                        <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
-                            Jenis : Total
-                            <span id="value-jenis" style="display: none;"></span>
-                            <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                        </button>
-                        <ul class="dropdown-menu jenis" role="menu" aria-labelledby="menu1">
-                            <li>
-                                <span style="display: none;">PGW</span>
-                                <span>Pegawai</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">PNS</span>
-                                <span>Pensiun</span>
-                            </li>
-                            <li>
-                                <span style="display: none;">TTL</span>
-                                <span>Total</span>
-                            </li>
-                        </ul>
+                    <div class="group-filter">
+                        <label for="jenis" class="label-filter">Jenis</label>
+                        <div class="dropdown-jenis dropdown dropdown-filter">
+                            <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 100%;text-align:left;" type="button" data-toggle="dropdown">
+                                Total
+                                <span id="value-jenis" style="display: none;"></span>
+                                <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
+                            </button>
+                            <ul class="dropdown-menu jenis" role="menu" aria-labelledby="menu1">
+                                <li>
+                                    <span style="display: none;">PGW</span>
+                                    <span>Pegawai</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">PNS</span>
+                                    <span>Pensiun</span>
+                                </li>
+                                <li>
+                                    <span style="display: none;">TTL</span>
+                                    <span>Total</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="border:none">
@@ -548,11 +562,11 @@
         var text1 = "Utilisasi BPJS";
         var text2 = "{{Session::get('periode')}}";
         var text3 = "Total";
-        var htmlTextDash = "Dashboard : "+text1+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextDash = text1+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-dash').find('.select-dash').html(htmlTextDash);
-        var htmlTextPeriode = "Periode : "+text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextPeriode = text2+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-periode').find('.select-dash').html(htmlTextPeriode);
-        var htmlTextJenis = "Jenis : "+text3+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlTextJenis = text3+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $('.dropdown-jenis').find('.select-dash').html(htmlTextJenis);
         dashBPJS = "UTL";
         periode = "{{Session::get('periode')}}";
@@ -582,7 +596,7 @@
 
     $('.periode').on( 'click', 'li', function() {
         var text = $(this).html();
-        var htmlText = "Periode : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:3%;'></span>";
         $(this).closest('.dropdown-periode').find('.select-dash').html(htmlText);
         periode = text;
     });
@@ -590,7 +604,7 @@
     $('.jenis').on( 'click', 'li', function() {
         var value = $(this).find('span').first().text();
         var text = $(this).find('span').last().text();
-        var htmlText = "Jenis : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-jenis').find('.select-dash').html(htmlText);
         jenis = value;
     });
@@ -598,7 +612,7 @@
     $('.dash-bpjs').on( 'click', 'li', function() {
         var value = $(this).find('span').first().text();
         var text = $(this).find('span').last().text();
-        var htmlText = "Dashboard : "+text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
+        var htmlText = text+"<span class='glyph-icon simple-icon-arrow-down' style='float: right; margin-top:2%;'></span>";
         $(this).closest('.dropdown-dash').find('.select-dash').html(htmlText);
         dashBPJS = value;
     });
