@@ -489,6 +489,10 @@
                                 <span style="display: none;">PNS</span>
                                 <span>Pensiun</span>
                             </li>
+                            <li>
+                                <span style="display: none;">TTL</span>
+                                <span>Total</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
