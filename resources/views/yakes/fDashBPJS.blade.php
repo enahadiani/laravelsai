@@ -81,9 +81,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
-        width: 100%;
-        padding-bottom: 18px;
+        padding-bottom: 0;
+        width: 100%;;
         z-index: 2;
     }
     .select-dash {
@@ -162,6 +161,7 @@
     <div class="row">
         <div class="col-6">
             <h6>BPJS</h6>
+            <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -172,37 +172,11 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row"> --}}
-        {{-- <div class="col-2"> --}}
-            {{-- <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Periode : {{Session::get('periode')}}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div> --}}
-    {{-- </div> --}}
 </div>
-<div class="row" style="margin-top: 30px;">
+<div class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Claim BPJS - Karyawan/Pensiunan/Total</h6>
-            {{-- <div class="row container-keterangan-nilai">
-                <div class="col-12">
-                    <p class="keterangan">Rp. Dalam Juta</p>
-                </div>
-            </div>
-            <div class="row container-keterangan-persen">
-                <div class="col-12">
-                    <p class="keterangan">Dalam Persen</p>
-                </div>
-            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div id="claim"></div>
@@ -225,7 +199,7 @@
                         <tbody>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Tagihan Awal
                                 </td>
                                 <td style="text-align: right;">453</td>
@@ -239,7 +213,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Claim BPJS
                                 </td>
                                 <td style="text-align: right;">139</td>
@@ -253,7 +227,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Bayar Yakes
                                 </td>
                                 <td style="text-align: right;">314</td>
@@ -267,7 +241,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#14213d;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Claim vs Tag. Awal (%)
                                 </td>
                                 <td style="text-align: right;">30,6</td>
@@ -281,7 +255,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Bayar Yakes vs Tag. Awal (%)
                                 </td>
                                 <td style="text-align: right;">69,3</td>
@@ -304,16 +278,6 @@
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Utilisasi BPJS - Karyawan/Pensiunan/Total</h6>
-            {{-- <div class="row container-keterangan-nilai" style="margin-left: 144px;">
-                <div class="col-12">
-                    <p class="keterangan">Rp. Dalam Juta</p>
-                </div>
-            </div>
-            <div class="row container-keterangan-persen">
-                <div class="col-12">
-                    <p class="keterangan">Dalam Persen</p>
-                </div>
-            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div id="utility"></div>
@@ -337,7 +301,7 @@
                         <tbody>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Iuran BPJS
                                 </td>
                                 <td>-</td>
@@ -352,7 +316,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Kapitasi
                                 </td>
                                 <td>-</td>
@@ -367,7 +331,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Claim BPJS
                                 </td>
                                 <td>-</td>
@@ -382,7 +346,7 @@
                             </tr>
                             <tr>
                                 <td style="position: relative;">
-                                    <div style="height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;"></div>
+                                    <div style="height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;"></div>
                                     Utilisasi/Iuran (%)
                                 </td>
                                 <td style="text-align: right;">0,00</td>
@@ -496,7 +460,13 @@
     </div>
 </div>
 <script type="text/javascript">
+    var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     var periode = "{{Session::get('periode')}}";
+    var split = periode.match(/.{1,4}/g);
+    var tahun = split[0];
+    var numMonth = parseInt(split[1]) - 1;
+    var namaMonth = bulan[numMonth];
+    var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
     var buttonFilter = document.getElementById('button-filter');
     var buttonTop = document.getElementById('button-top');
     var header = document.getElementById('filter-header');
@@ -515,6 +485,8 @@
         }
     }
 
+    $('#keterangan-filter').text(keterangan);
+
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
@@ -532,6 +504,12 @@
     })
 
     $('#form-filter').on('click', '#btn-tampil', function(){
+        split = periode.match(/.{1,4}/g);
+        tahun = split[0];
+        numMonth = parseInt(split[1]) - 1;
+        namaMonth = bulan[numMonth];
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 
@@ -622,25 +600,25 @@ Highcharts.chart('claim', {
             type: 'column',
             name: 'Tagihan Awal',
             data: [453, 3317, 2172, 1052, 2025, 324, 258, 9601],
-            color: '#ebebff'
+            color: '#BFBFBF'
         },
         {
             type: 'column',
             name: 'Claim BPJS',
             data: [139, 1917, 1262, 585, 713, 184, 109, 4909],
-            color: '#8989ff'
+            color: '#9EEADC'
         },
         {  
             type: 'column',
             name: 'Bayar Yakes',
             data: [314, 1401, 902, 474, 1312, 140, 149, 4692],
-            color: '#2727ff'
+            color: '#288372'
         },
         {  
             type: 'spline',
             name: 'Claim vs Tag. Awal (%)',
             data: [30.6, 57.8, 58.1, 55.6, 35.2, 56.8, 42.1, 51.1],
-            color: '#008000',
+            color: '#14213d',
             marker: {
                 lineWidth: 2,
             },
@@ -650,7 +628,7 @@ Highcharts.chart('claim', {
             type: 'spline',
             name: 'Bayar Yakes vs Tag. Awal (%)',
             data: [69.3, 42.2, 41.5, 45.0, 64.8, 43.2, 57.9, 48.9],
-            color: '#ffa500',
+            color: '#FCA311',
             marker: {
                 lineWidth: 2,
             },
@@ -720,25 +698,25 @@ Highcharts.chart('utility', {
             type: 'column',
             name: 'Iuran BPJS',
             data: [0, 4311, 19244, 6596, 2797, 5078, 2027, 2746, 42799],
-            color: '#ebebff'
+            color: '#9EEADC'
         },
         {
             type: 'column',
             name: 'Kapitasi',
             data: [0, 98, 792, 307, 66, 105, 42, 70, 1479],
-            color: '#8989ff'
+            color: '#9EEADC'
         },
         {  
             type: 'column',
             name: 'Claim BPJS',
             data: [0, 139, 1917, 1262, 585, 713, 184, 109, 4909],
-            color: '#2727ff'
+            color: '#288372'
         },
         {  
             type: 'spline',
             name: 'Utilisasi/Iuran',
             data: [0, 5.49, 14.07, 23.80, 23.26, 16.12, 11.12, 6.5, 14.93],
-            color: '#008000',
+            color: '#FCA311',
             marker: {
                 lineWidth: 2,
             },

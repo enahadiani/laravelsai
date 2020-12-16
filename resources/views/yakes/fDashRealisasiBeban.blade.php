@@ -84,9 +84,8 @@
         top: 9%;
         margin: 0;
         padding: 10px 0;
-        padding-bottom: 10px;
+        padding-bottom: 0;
         width: 100%;
-        padding-bottom: 18px;
         z-index: 2;
     }
     .footer-dashboard {
@@ -162,6 +161,7 @@
     <div class="row">
         <div class="col-6">
             <h6>Realisasi Beban</h6>
+            <p id="keterangan-filter"></p>
         </div>
         <div class="col-6">
             <button id="button-filter" class="btn btn-light btn-filter btn-filter-no-scroll">
@@ -172,37 +172,11 @@
             </button>
         </div>
     </div>
-    {{-- <div class="row"> --}}
-        {{-- <div class="col-2">
-            <div class="dropdown-periode dropdown">
-                <button class="btn btn-light select-dash" style="background-color: #ffffff;width: 180px;text-align:left;" type="button" data-toggle="dropdown">
-                    Periode : {{Session::get('periode')}}
-                    <span class="glyph-icon simple-icon-arrow-down" style="float: right; margin-top:3%;"></span>
-                </button>
-                <ul class="dropdown-menu periode" role="menu" aria-labelledby="menu1">
-                        
-                </ul>
-            </div> --}}
-            {{-- <select id="periode" class="form-control select-dash">
-
-            </select> --}}
-        {{-- </div> --}}
-    {{-- </div> --}}
 </div>
-<div class="row" style="margin-top: 30px;">
+<div class="row" style="margin-top: 20px;">
     <div class="col-12 mb-4">
         <div class="card" style="height: 100%; border-radius:10px !important;">
             <h6 class="ml-4 mt-3" style="font-weight: bold;text-align:center;">Realisasi Beban</h6>
-            {{-- <div class="row container-keterangan-nilai">
-                <div class="col-12">
-                    <p class="keterangan">Rp. Dalam Juta</p>
-                </div>
-            </div>
-            <div class="row container-keterangan-persen">
-                <div class="col-12">
-                    <p class="keterangan">Dalam Persen</p>
-                </div>
-            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div id="chart"></div>
@@ -210,16 +184,7 @@
                 <div class="col-12 ml-4">
                     <table style="width: 95%;">
                         <thead id="header-beban">
-                            {{-- <tr>
-                                <th style="width:15%;"></th>
-                                <th style="width:10%;">B. SDM</th>
-                                <th style="width:10%;">B. ADUM</th>
-                                <th style="width:10%;">B. INVESTASI</th>
-                                <th style="width:10%;">B. PEL. KESEHATAN</th>
-                                <th style="width:10%;">BPP</th>
-                                <th style="width:10%;">BPA</th>
-                                <th style="width:10%;">CC</th>
-                            </tr> --}}
+                            
                         </thead>
                         <tbody id="content-beban">
                             
@@ -348,6 +313,14 @@ var rea_bef = [];
 var rka_now = [];
 var ach = [];
 var yoy = [];
+var warna = ['#BFBFBF', '#9EEADC', '#288372', '#14213d', '#FCA311'];
+var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+var bulanSingkat = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGT', 'SEP', 'OKT', 'NOV', 'DES'];
+var split = periode.match(/.{1,4}/g);
+var tahun = split[0];
+var numMonth = parseInt(split[1]) - 1;
+var namaMonth = bulan[numMonth];
+var keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
 
 var buttonTop = document.getElementById('button-top');
 var buttonFilter = document.getElementById('button-filter');
@@ -366,6 +339,8 @@ window.onscroll = function() {
         buttonFilter.classList.add('btn-filter-no-scroll')
     }
 }
+
+    $('#keterangan-filter').text(keterangan);
 
     function topFunction() {
         document.body.scrollTop = 0;
@@ -398,6 +373,12 @@ window.onscroll = function() {
         $('#header-beban').empty();
         $('#content-beban').empty();
         RealBeban();
+        split = periode.match(/.{1,4}/g);
+        tahun = split[0];
+        numMonth = parseInt(split[1]) - 1;
+        namaMonth = bulan[numMonth];
+        keterangan = "Periode sampai dengan "+namaMonth+" "+tahun;
+        $('#keterangan-filter').text(keterangan);
         $('#modalFilter').modal('hide');
     })
 
@@ -418,14 +399,6 @@ window.onscroll = function() {
         $('#modal-preview').modal('hide');
         loadForm(dashboard);
     });
-
-    // $('#periode').change(function(){
-    //     $('#header-beban').empty();
-    //     $('#content-beban').empty();
-    //     var val = $(this).val();
-    //     periode = val;
-    //     getDataCC();
-    // })
     
     RealBeban();
     // getDataCC();
@@ -563,8 +536,8 @@ function RealBeban() {
 
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
-            htmlContent += "<div style='height: 15px; width:25px; background-color:#ebebff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD OKT 2019";
+            htmlContent += "<div style='height: 15px; width:25px; background-color:#BFBFBF;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" 2019";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_bef.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -575,8 +548,8 @@ function RealBeban() {
 
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
-            htmlContent += "<div style='height: 15px; width:25px; background-color:#8989ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;RKA YTD OKT 2020";
+            htmlContent += "<div style='height: 15px; width:25px; background-color:#9EEADC;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+            htmlContent += "&nbsp;RKA YTD "+bulanSingkat[numMonth]+" 2020";
             htmlContent += "</td>";
             for(var x=0;x<rka_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -587,8 +560,8 @@ function RealBeban() {
 
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
-            htmlContent += "<div style='height: 15px; width:25px; background-color:#2727ff;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
-            htmlContent += "&nbsp;REA YTD OKT 2020";
+            htmlContent += "<div style='height: 15px; width:25px; background-color:#288372;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+            htmlContent += "&nbsp;REA YTD "+bulanSingkat[numMonth]+" 2020";
             htmlContent += "</td>";
             for(var x=0;x<rea_beban_now.length;x++) {
                 htmlContent += "<td style='text-align: right;'>";
@@ -599,7 +572,7 @@ function RealBeban() {
 
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
-            htmlContent += "<div style='height: 15px; width:25px; background-color:#008000;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+            htmlContent += "<div style='height: 15px; width:25px; background-color:#14213d;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
             htmlContent += "&nbsp;ACH";
             htmlContent += "</td>";
             for(var x=0;x<ach_beban.length;x++) {
@@ -611,7 +584,7 @@ function RealBeban() {
 
             htmlContent += "<tr>";
             htmlContent += "<td style='position: relative;'>";
-            htmlContent += "<div style='height: 15px; width:25px; background-color:#ffa500;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
+            htmlContent += "<div style='height: 15px; width:25px; background-color:#FCA311;display:inline-block;margin-left:3px;margin-top:1px;'></div>";
             htmlContent += "&nbsp;YoY";
             htmlContent += "</td>";
             for(var x=0;x<yoy_beban.length;x++) {
@@ -623,11 +596,11 @@ function RealBeban() {
 
             $('#content-beban').append(htmlContent);
 
-            chart.push({type:'column', name:'REA YTD OKT 2019', data:rea_beban_bef, color:'#ebebff'})
-            chart.push({type:'column', name:'RKA YTD OKT 2020', data:rka_beban_now, color:'#8989ff'})
-            chart.push({type:'column', name:'REA YTD OKT 2020', data:rea_beban_now, color:'#2727ff'})
-            chart.push({type:'spline', name:'ACH', data:ach_beban, color:'#008000', yAxis:1, marker: {lineWidth: 2 }})
-            chart.push({type:'spline', name:'YoY', data:yoy_beban, color:'#ffa500', yAxis:1, marker: {lineWidth: 2 }})
+            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" 2019", data:rea_beban_bef, color:'#BFBFBF'})
+            chart.push({type:'column', name:"RKA YTD "+bulanSingkat[numMonth]+" 2020", data:rka_beban_now, color:'#9EEADC'})
+            chart.push({type:'column', name:"REA YTD "+bulanSingkat[numMonth]+" 2020", data:rea_beban_now, color:'#288372'})
+            chart.push({type:'spline', name:'ACH', data:ach_beban, color:'#14213d', yAxis:1, marker: {lineWidth: 2 }})
+            chart.push({type:'spline', name:'YoY', data:yoy_beban, color:'#FCA311', yAxis:1, marker: {lineWidth: 2 }})
 
             Highcharts.chart('chart', {
                 chart:{
